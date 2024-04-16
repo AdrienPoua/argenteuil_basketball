@@ -6,11 +6,16 @@ export class Match {
     this._teamB = data["Equipe 2"];
     this._date = data["Date de rencontre"];
     this._gym = data.Salle;
+    this._time = data.Heure;
   }
 
   get date() {
     return this._date;
   }
+  get time() {
+    return this._time;
+  }
+
   get number() {
     return this._number;
   }
