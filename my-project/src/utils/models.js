@@ -11,20 +11,37 @@ export class Match {
   get date() {
     return this._date;
   }
+  get number() {
+    return this._number;
+  }
+  get division() {
+    return this._division.split("-")[0]
+  }
+  get teamA() {
+    return this._teamA;
+  }
+  get teamB() {
+    return this._teamB;
+  }
+  get gym() {
+    return this._gym;
+  }
+
 
   USA_DATE() {
     const [day, month, year] = this._date.split("/");
     return `${year}/${month}/${day}`;
   }
 
-  get stringDate() {
+  stringDate() {
     const options = {
       weekday: "short",
       day: "numeric",
       month: "short",
       year: "2-digit",
     };
-    return new Date(this.USA_DATE()).toLocaleDateString("fr-FR", options);
+    const date =  new Date(this.USA_DATE()).toLocaleDateString("fr-FR", options);
+    return date.charAt(0).toUpperCase() + date.slice(1)
   }
 
   isMatchToday() {
