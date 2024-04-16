@@ -40,8 +40,7 @@ export class Match {
       month: "short",
       year: "2-digit",
     };
-    const date =  new Date(this.USA_DATE()).toLocaleDateString("fr-FR", options);
-    return date.charAt(0).toUpperCase() + date.slice(1)
+    return new Date(this.USA_DATE()).toLocaleDateString("fr-FR", options);
   }
 
   isMatchToday() {
