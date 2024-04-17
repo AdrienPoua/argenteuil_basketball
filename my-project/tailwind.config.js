@@ -5,6 +5,9 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    aspectRatio: {
+      '4/3': '4 / 10',
+    },
     fontFamily: {
       sans: ['evogria', 'sans-serif'],
     },

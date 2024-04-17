@@ -20,9 +20,10 @@ export default function Band({ match }: Readonly<bandProps>) {
           <div className="flex flex-col">
           <div className=''>{match.teamB}</div>
           <div className="m-auto absolute bottom-5 text-red-500"> {match.time.replace(":", "H")} </div>
+          { match.cancel && <div className="m-auto absolute top-5 text-red-500"> CANCELLED </div> }
           </div>
       </div>
-      <div className='flex justify-center items-center'> {match.gym}</div>
+      <div className='flex justify-center items-center text-xl'> {match.gym}</div>
     </div>
   );
 }

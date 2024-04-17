@@ -7,6 +7,7 @@ export class Match {
     this._date = data["Date de rencontre"];
     this._gym = data.Salle;
     this._time = data.Heure;
+    this._cancel = data.cancel || false;
   }
 
   get date() {
@@ -14,6 +15,10 @@ export class Match {
   }
   get time() {
     return this._time;
+  }
+
+  get cancel(){
+    return this._cancel
   }
 
   get number() {
