@@ -1,50 +1,28 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import { News } from "./../utils/models";
 import { NewsProps } from "./../utils/types";
+import useHoverHooks from "./../utils/hooks/useCardHover";
 
+type BigCardProps = { data: NewsProps };
 
-export const BigCard = ({ data }) => {
-  const news = new News(data)
-  const { img, title, url, dateString } = news ;
-  const card = useRef<HTMLAnchorElement>(null);
-  const image = useRef<HTMLImageElement>(null);
-  useEffect(() => {
-    
-    const effect = "transition duration-500 ease-in-out scale-110".split(" ");
-
-    const handleMouseEnter = () => {
-      if (image.current) {
-        image.current.classList.add(...effect);
-      }
-    };
-
-    const handleMouseLeave = () => {
-      if (image.current) {
-        image.current.classList.remove(...effect);
-      }
-    };
-    if (card.current) {
-      card.current.addEventListener("mouseenter", handleMouseEnter);
-      card.current.addEventListener("mouseleave", handleMouseLeave);
-    }
-
-    return () => {
-      if (card.current) {
-        card.current.removeEventListener("mouseenter", handleMouseEnter);
-        card.current.removeEventListener("mouseleave", handleMouseLeave);
-      }
-    };
-  }, [card]);
+export default function BigCard({ data }: Readonly<BigCardProps>) {
+  const news = new News(data);
+  const { img, title, url, dateString } = news;
+  const cardRef = useRef<HTMLAnchorElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
+  useHoverHooks(cardRef, imageRef); // Hover effect
   return (
     <a
-      ref={card}
+      ref={cardRef}
       href={url}
-      className={`flex flex-col bg-black rounded-3xl overflow-hidden ${news.main ? 'sticky top-0' : ''}`}
+      className={`flex flex-col bg-black rounded-3xl overflow-hidden ${
+        news.main ? "sticky top-0" : ""
+      }`}
       style={{ aspectRatio: "1/1" }}
     >
       <div className='relative h-full w-full'>
         <img
-          ref={image}
+          ref={imageRef}
           src={img}
           alt={title}
           className='rounded-t-3xl w-full max-h-full object-cover'
@@ -57,4 +35,4 @@ export const BigCard = ({ data }) => {
       </div>
     </a>
   );
-};
+}

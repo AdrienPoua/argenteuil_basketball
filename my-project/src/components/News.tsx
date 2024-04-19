@@ -1,19 +1,18 @@
-import React from 'react';
-import { NewsProps } from '../utils/types';
-import { BigCard } from './BigCard';
-import { SmallCard } from './SmallCard';
-import { News } from '../utils/models';
+import React from "react";
+import { NewsProps } from "../utils/types";
+import  BigCard from "./BigCard";
+import { SmallCard } from "./SmallCard";
+import { News } from "../utils/models";
 
 type ContainerProps = {
   data: NewsProps[];
 };
-
-const Container: React.FC<ContainerProps> = ({ data }) => {
+export default function Container({ data }: Readonly<ContainerProps>) {
   // Ensuring there is a fallback if the main or secondary news isn't explicitly marked
-  const mainNews = data.find(item => item.main) ?? data[0];
-  const secondaryNews = data.find(item => item.secondary) ?? data[1];
+  const mainNews = data.find((item) => item.main) ?? data[0];
+  const secondaryNews = data.find((item) => item.secondary) ?? data[1];
   const othersNews = data.filter(
-    item => item !== mainNews && item !== secondaryNews
+    (item) => item !== mainNews && item !== secondaryNews
   );
 
   // Log for debugging, could be removed in production
@@ -37,7 +36,7 @@ const Container: React.FC<ContainerProps> = ({ data }) => {
         <div className='flex flex-col w-1/2'>
           <BigCard data={secondaryNews} />
           <div className='flex flex-wrap mt-5 justify-between'>
-            {newsToDisplay.map(news => (
+            {newsToDisplay.map((news) => (
               <SmallCard key={news.id} data={news} />
             ))}
           </div>
@@ -45,6 +44,4 @@ const Container: React.FC<ContainerProps> = ({ data }) => {
       </div>
     </div>
   );
-};
-
-export default Container;
+}
