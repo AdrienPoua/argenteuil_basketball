@@ -1,11 +1,11 @@
 import React, { useRef, useEffect } from "react";
-import { CardProps } from "../utils/types";
 import { News } from "./../utils/models";
+import { NewsProps } from "./../utils/types";
 
 
-export const BigCard = (props : Readonly<CardProps>) => {
-  const news = new News(props)
-  const { img, title, url, dateString } = news;
+export const BigCard = ({ data }) => {
+  const news = new News(data)
+  const { img, title, url, dateString } = news ;
   const card = useRef<HTMLAnchorElement>(null);
   const image = useRef<HTMLImageElement>(null);
   useEffect(() => {
@@ -39,7 +39,7 @@ export const BigCard = (props : Readonly<CardProps>) => {
     <a
       ref={card}
       href={url}
-      className='flex flex-col bg-black rounded-3xl overflow-hidden sticky'
+      className={`flex flex-col bg-black rounded-3xl overflow-hidden ${news.main ? 'sticky top-0' : ''}`}
       style={{ aspectRatio: "1/1" }}
     >
       <div className='relative h-full w-full'>

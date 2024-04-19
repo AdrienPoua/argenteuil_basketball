@@ -1,11 +1,12 @@
 import React from "react";
-import { CardProps } from "../utils/types";
+import { NewsProps } from "../utils/types";
 import { News } from "./../utils/models";
 
+type SmallCardProps = { data: NewsProps };
 
-export const SmallCard = (props : Readonly<CardProps>) => {
-  const news = new News(props)
-  const { img, title, url, dateString } = news;
+export const SmallCard = ({ data } : Readonly<SmallCardProps> ) => {
+  console.log(data)
+  const { img, title, url, dateString } = new News(data) ;
   return (
     <a href={url}
       className='flex flex-col relative rounded-3xl overflow-hidden basis-[48%] mb-5

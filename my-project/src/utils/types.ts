@@ -7,29 +7,17 @@ type MatchDataProps = {
   Salle: string;
 };
 
-type MainNews = {
+type NewsProps = {
   id: number;
   title: string;
-  url: string;
-  description: string;
+  date: string;
   img: string;
-  main: true;
-  date:"string";
+  url: string;
+  main?: boolean;
+  secondary?: boolean;
 };
 
-type SecondaryNews = Omit<MainNews, "main"> & {
-  secondary: true;
-};
-
-type OthersNews = Omit<MainNews, "main">[];
-
-type NewsProps = {
-  mainNews: MainNews;
-  secondaryNews: SecondaryNews;
-  othersNews: OthersNews;
-};
-
-type CardProps = { url: string; img: string; title: string; date: string };
 
 
-export type { MatchDataProps, NewsProps, MainNews, SecondaryNews, OthersNews, CardProps };
+
+export type { MatchDataProps, NewsProps };

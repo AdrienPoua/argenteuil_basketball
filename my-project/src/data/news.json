@@ -4,7 +4,7 @@
     "title": "The Shawshank Redemption",
     "date": "01/12/2024",
     "img": "https://picsum.photos/500/800",
-    "url": "https://www.imdb.com/title/tt0111161/",
+    "url": "/",
     "main": true
   },
   {
@@ -12,7 +12,7 @@
     "title": "The Shawshank Redemption",
     "date": "03/12/2024",
     "img": "https://picsum.photos/500/800",
-    "url": "https://www.imdb.com/title/tt0111161/",
+    "url": "/",
     "secondary": true
   },
   {
@@ -20,48 +20,48 @@
     "title": "The Shawshank Redemption",
     "date": "01/12/2025",
     "img": "https://picsum.photos/500/800",
-    "url": "https://www.imdb.com/title/tt0111161/"
+    "url": "/"
   },
   {
     "id": 4,
     "title": "The Shawshank Redemption",
     "date": "01/02/2024",
     "img": "https://picsum.photos/500/800",
-    "url": "https://www.imdb.com/title/tt0111161/"
+    "url": "/"
   },
   {
     "id": 6,
     "title": "The Shawshank Redemption",
     "date": "01/12/2020",
     "img": "https://picsum.photos/500/800",
-    "url": "https://www.imdb.com/title/tt0111161/"
+    "url": "/"
   },
   {
     "id": 7,
     "title": "The Shawshank Redemption",
     "date": "01/12/2024",
     "img": "https://picsum.photos/500/800",
-    "url": "https://www.imdb.com/title/tt0111161/"
+    "url": "/"
   },
   {
     "id": 8,
     "title": "The Shawshank Redemption",
     "date": "03/01/2018",
     "img": "https://picsum.photos/500/800",
-    "url": "https://www.imdb.com/title/tt0111161/"
+    "url": "/"
   },
   {
     "id": 10,
     "title": "The Shawshank Redemption",
     "date": "05/01/2018",
     "img": "https://picsum.photos/500/800",
-    "url": "https://www.imdb.com/title/tt0111161/"
+    "url": "/"
   },
   {
     "id": 9,
     "title": "The Shawshank Redemption",
     "date": "02/01/2018",
     "img": "https://picsum.photos/500/800",
-    "url": "https://www.imdb.com/title/tt0111161/"
+    "url": "/"
   }
 ]
