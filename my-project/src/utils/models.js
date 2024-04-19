@@ -11,7 +11,7 @@ export class Match {
   }
 
   get date() {
-    return this._date;
+    return Utils.USA_DATE(this._date);
   }
   get time() {
     return this._time;
@@ -38,15 +38,18 @@ export class Match {
   }
 
 
-  stringDate() {
+  get dateString() {
     const options = {
       weekday: "short",
       day: "numeric",
       month: "short",
       year: "2-digit",
     };
-    return new Date(Utils.USA_DATE()).toLocaleDateString("fr-FR", options);
+    return new Date(this.date)
+      .toLocaleDateString("fr-FR", options )
+      .toUpperCase();
   }
+
 
   isMatchToday() {
     const today = new Date();
@@ -96,13 +99,14 @@ export class News {
   }
 
   get dateString() {
+    const options = {
+      weekday: "short",
+      day: "numeric",
+      month: "short",
+      year: "2-digit",
+    };
     return new Date(this.date)
-      .toLocaleDateString("fr-FR", {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      })
+      .toLocaleDateString("fr-FR", options )
       .toUpperCase();
   }
 
@@ -120,4 +124,5 @@ export class Utils {
     const [day, month, year] = frenchDate.split("/");
     return `${year}/${month}/${day}`;
   }
+  
 }

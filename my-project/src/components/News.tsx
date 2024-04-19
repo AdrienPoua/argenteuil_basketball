@@ -1,6 +1,6 @@
 import React from "react";
 import { NewsProps } from "../utils/types";
-import  BigCard from "./BigCard";
+import BigCard from "./BigCard";
 import { SmallCard } from "./SmallCard";
 import { News } from "../utils/models";
 
@@ -14,9 +14,6 @@ export default function Container({ data }: Readonly<ContainerProps>) {
   const othersNews = data.filter(
     (item) => item !== mainNews && item !== secondaryNews
   );
-
-  // Log for debugging, could be removed in production
-  console.log(data);
 
   // Sorting by date and taking the top 4
   const newsToDisplay = News.sortByDate(othersNews).slice(0, 4);
