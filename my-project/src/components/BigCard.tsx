@@ -1,11 +1,13 @@
 import React, { useRef, useEffect } from "react";
 import { CardProps } from "../utils/types";
+import { News } from "./../utils/models";
 
 
-export const BigCard = ({ url, img, title, date }: Readonly<CardProps>) => {
+export const BigCard = (props : Readonly<CardProps>) => {
+  const news = new News(props)
+  const { img, title, url, dateString } = news;
   const card = useRef<HTMLAnchorElement>(null);
   const image = useRef<HTMLImageElement>(null);
-  const dateString = new Date(date).toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).toUpperCase();
   useEffect(() => {
     
     const effect = "transition duration-500 ease-in-out scale-110".split(" ");

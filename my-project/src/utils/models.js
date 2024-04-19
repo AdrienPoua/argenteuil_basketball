@@ -17,15 +17,15 @@ export class Match {
     return this._time;
   }
 
-  get cancel(){
-    return this._cancel
+  get cancel() {
+    return this._cancel;
   }
 
   get number() {
     return this._number;
   }
   get division() {
-    return this._division.split("-")[0]
+    return this._division.split("-")[0];
   }
   get teamA() {
     return this._teamA;
@@ -38,11 +38,6 @@ export class Match {
   }
 
 
-  USA_DATE() {
-    const [day, month, year] = this._date.split("/");
-    return `${year}/${month}/${day}`;
-  }
-
   stringDate() {
     const options = {
       weekday: "short",
@@ -50,12 +45,79 @@ export class Match {
       month: "short",
       year: "2-digit",
     };
-    return new Date(this.USA_DATE()).toLocaleDateString("fr-FR", options);
+    return new Date(Utils.USA_DATE()).toLocaleDateString("fr-FR", options);
   }
 
   isMatchToday() {
     const today = new Date();
     const matchDate = new Date(this.USA_DATE());
     return matchDate.toDateString() === today.toDateString();
+  }
+}
+
+export class News {
+  constructor(data) {
+    this._id = data.id;
+    this._title = data.title;
+    this._date = data.date;
+    this._img = data.img;
+    this._url = data.url;
+    this._main = data.main;
+    this._secondary = data.secondary;
+  }
+
+  // Getters
+  get id() {
+    return this._id;
+  }
+
+  get title() {
+    return this._title;
+  }
+
+  get date() {
+    return Utils.USA_DATE(this._date);
+  }
+
+  get img() {
+    return this._img;
+  }
+
+  get url() {
+    return this._url;
+  }
+
+  get main() {
+    return this._main;
+  }
+
+  get secondary() {
+    return this._secondary;
+  }
+
+  get dateString() {
+    return new Date(this.date)
+      .toLocaleDateString("fr-FR", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+      .toUpperCase();
+  }
+
+  static sortByDate(array) {
+    return array.sort((a, b) => {
+      const dateA = new Date(Utils.USA_DATE(a.date));
+      const dateB = new Date(Utils.USA_DATE(b.date));
+      return dateB - dateA;
+    });
+  }
+}
+
+export class Utils {
+  static USA_DATE(frenchDate) {
+    const [day, month, year] = frenchDate.split("/");
+    return `${year}/${month}/${day}`;
   }
 }
