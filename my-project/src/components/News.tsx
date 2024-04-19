@@ -1,12 +1,12 @@
 import { NewsProps } from "../utils/types.ts";
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { BigCard } from "./BigCard";
+import SmallCard from "./SmallCard.tsx";
 
 
 
 export default function News({ mainNews, secondaryNews, othersNews }: Readonly<NewsProps>) {
-console.log("🚀 ~ News ~ secondaryNews:", secondaryNews)
-
+  const newsToDisplay = othersNews.slice(0, 4);
   return (
     <div className='flex flex-col w-100 ' >
       <div className='flex justify-between mb-5 uppercase items-center py-5 ' >
@@ -21,8 +21,13 @@ console.log("🚀 ~ News ~ secondaryNews:", secondaryNews)
           <div className="w-100">
           <BigCard url={secondaryNews.url} img={secondaryNews.img} title={secondaryNews.title} date={secondaryNews.date} />
           </div>
+          <div className="flex flex-wrap mt-5 justify-between ">
+            { newsToDisplay.map((news, index) => (
+              <SmallCard key={news.id} img={news.img} title={news.title} date={news.date} url={news.url} />
+            ))}
+          </div>
         </div>
-      </div>
+      </div>,
     </div>
   );
 }

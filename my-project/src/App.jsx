@@ -14,8 +14,9 @@ export default function App() {
 
   const mainNews = news.find((item) => item.main) || news[0];
   const secondaryNews = news.find((item) => item.secondary) || news[1];
-  const othersNews = news.filter((item) => item.main === false && item.secondary === false && item.main !== news[0] && item.sec !== news[1]) 
-
+  const othersNews = news.filter((item) => !item.main && !item.secondary && item.main !== news[0] && item.secondary !== news[1]) 
+  console.log("🚀 ~ App ~ othersNews:", othersNews)
+  
 
   return (
     

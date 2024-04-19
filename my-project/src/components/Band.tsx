@@ -1,7 +1,6 @@
 import React from "react";
 import { Match } from "../utils/models";
-import { matchProps } from "../utils/types";
-import logo from "../../public/logo.png";
+import { logo } from "../../public/logo.png";
 
 type bandProps = { match: Match };
 export default function Band({ match }: Readonly<bandProps>) {

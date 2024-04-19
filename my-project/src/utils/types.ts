@@ -21,7 +21,7 @@ type SecondaryNews = Omit<MainNews, "main"> & {
   secondary: true;
 };
 
-type OthersNews = Omit<MainNews, "main">;
+type OthersNews = Omit<MainNews, "main">[];
 
 type NewsProps = {
   mainNews: MainNews;
@@ -29,4 +29,7 @@ type NewsProps = {
   othersNews: OthersNews;
 };
 
-export type { MatchDataProps, NewsProps, MainNews, SecondaryNews, OthersNews };
+type CardProps = { url: string; img: string; title: string; date: string };
+
+
+export type { MatchDataProps, NewsProps, MainNews, SecondaryNews, OthersNews, CardProps };
