@@ -1,8 +1,8 @@
 const HeaderNav = [
     {
         title: "Club",
-        subitems: [
-            { title: "Organigrame", url: "#" },
+        subItems: [
+            { title: "Dirigeants", url: "#" },
             { title: "Les entraineurs", url: "/entraineurs" },
             { title: "Les équipes", url: "/equipes" },
         ],
@@ -13,7 +13,7 @@ const HeaderNav = [
     },
     {
         title: "Infos pratiques",
-        subitems: [
+        subItems: [
             { title: "Entrainements 2025", url: "/entrainements" },
             { title: "Gymnases", url: "/gymnases" },
             { title: "Liens utiles", url: "/liens" },
@@ -22,7 +22,7 @@ const HeaderNav = [
     },
     {
         title: "Inscriptions",
-        subitems: [
+        subItems: [
             { title: "Informations", url: "/inscriptions/informations" },
             { title: "Tarifs", url: "/inscriptions/tarifs" },
         ],

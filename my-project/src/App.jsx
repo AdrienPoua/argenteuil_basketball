@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext } from "react";
+import { createContext } from "react";
 import Header from "./components/Header/Header";
 import NewsContainer from "./components/News";
 import Band from "./components/Band";
@@ -6,23 +6,20 @@ import { Match } from "./utils/models";
 import matchsData from "./data/matchs.json";
 import data from "./data/news.json";
 import { useIsScrolling } from "./utils/hooks/useIsScrolling";
+import useMenu from "./utils/hooks/useMenu";
 
 // Création du contexte ScrollingContext
 export const ScrollingContext = createContext();
-export const MenuOpenContext = createContext(false);
+export const MenuContext = createContext();
 
 export default function App() {
+  const isScrolling = useIsScrolling();
+  const handleMenu = useMenu();
 
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const isScrolling = useIsScrolling()
-
- 
-
-  return (  
-    <MenuOpenContext.Provider value={[isMenuOpen, setIsMenuOpen]}>
+  return (
+    <MenuContext.Provider value={handleMenu}>
       <ScrollingContext.Provider value={isScrolling}>
-        <div className="m-auto relative bg-primary">
+        <div className='m-auto bg-primary'>
           <Header />
           <NewsContainer data={data} />
           {matchsData.map((match) => {
@@ -31,6 +28,6 @@ export default function App() {
           })}
         </div>
       </ScrollingContext.Provider>
-    </MenuOpenContext.Provider>
+    </MenuContext.Provider>
   );
 }

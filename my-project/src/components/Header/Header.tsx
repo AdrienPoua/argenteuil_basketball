@@ -7,17 +7,22 @@ import { ScrollingContext } from "../../App";
 import NavItemComponent from "./NavItem";
 import NavItemMenuComponent from "./NavItemMenu";
 import Contact from "./Contact";
+import SubBar from "./SubBar";
 
 export default function Header() {
   const navItems = data.map((item) => NavFactory.create(item));
   const scrollingToTop: boolean = useContext(ScrollingContext);
 
   return (
-    <div className="flex flex-col">
+    <div       className={`flex flex-col  ${
+      scrollingToTop
+        ? "sticky top-0 z-10 "
+        : ""
+    }`}>
     <div
       className={`flex w-full px-10 py-5 ${
         scrollingToTop
-          ? "sticky top-0 z-10 bg-primary  border-b-4 border-b-secondary"
+          ? "bg-primary  border-b-4 border-b-secondary"
           : ""
       }`}
     >
@@ -35,6 +40,7 @@ export default function Header() {
       </nav>
         <Contact />
     </div>
+    <SubBar />
     </div>
   );
 }
