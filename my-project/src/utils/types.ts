@@ -13,8 +13,7 @@ type NewsProps = {
   date: string;
   img: string;
   url: string;
-  main?: boolean;
-  secondary?: boolean;
+  type? : "main" | "secondary" ;
 };
 
 

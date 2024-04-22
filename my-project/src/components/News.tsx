@@ -9,8 +9,8 @@ type ContainerProps = {
 };
 export default function Container({ data }: Readonly<ContainerProps>) {
   // Ensuring there is a fallback if the main or secondary news isn't explicitly marked
-  const mainNews = data.find((item) => item.main) ?? data[0];
-  const secondaryNews = data.find((item) => item.secondary) ?? data[1];
+  const mainNews = data.find((item) => item.type === "main") ?? data[0];
+  const secondaryNews = data.find((item) => item.type === "secondary") ?? data[1];
   const othersNews = data.filter(
     (item) => item !== mainNews && item !== secondaryNews
   );

@@ -8,8 +8,14 @@ export default {
     aspectRatio: {
       '4/3': '4 / 10',
     },
+    container: {
+    },
     fontFamily: {
       sans: ['evogria', 'sans-serif'],
+    },
+    colors: {
+      primary: 'blue',
+      secondary: "#FF0000 " // Exemple de couleur primaire personnalisée (vert)
     },
   plugins: [],
 }}

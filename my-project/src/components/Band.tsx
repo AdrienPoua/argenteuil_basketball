@@ -1,11 +1,9 @@
 import React from "react";
 import { Match } from "../utils/models";
-import logo from "../../public/logo.png";
+import logo from "../assets/logo.png";
 
 type bandProps = { match: Match };
 export default function Band({ match }: Readonly<bandProps>) {
-  console.log("🚀 ~ Band ~ match:", match);
-
   return (
     <div className='px-12 py-5 flex w-100 bg-black  text-zinc-50 font-bold text-3xl'>
       <div className='flex flex-col justify-center'>

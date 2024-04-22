@@ -37,7 +37,6 @@ export class Match {
     return this._gym;
   }
 
-
   get dateString() {
     const options = {
       weekday: "short",
@@ -46,10 +45,9 @@ export class Match {
       year: "2-digit",
     };
     return new Date(this.date)
-      .toLocaleDateString("fr-FR", options )
+      .toLocaleDateString("fr-FR", options)
       .toUpperCase();
   }
-
 
   isMatchToday() {
     const today = new Date();
@@ -106,7 +104,7 @@ export class News {
       year: "2-digit",
     };
     return new Date(this.date)
-      .toLocaleDateString("fr-FR", options )
+      .toLocaleDateString("fr-FR", options)
       .toUpperCase();
   }
 
@@ -124,5 +122,48 @@ export class Utils {
     const [day, month, year] = frenchDate.split("/");
     return `${year}/${month}/${day}`;
   }
+}
+
+export class NavItem {
+  constructor(data) {
+    this._title = data.title;
+    this._url = data.url;
+  }
+  get title() {
+    return this._title;
+  }
+  get url() {
+    return this._url;
+  }
+}
+
+export class NavItemMenu {
+  constructor(data) {
+    this._title = data.title;
+    this._subItems = data.subItems;
+  }
+  static create(subitems){
+    return subitems.map(subitem => new SubNavItem(subitem));
+  }
+  get title() {
+    return this._title;
+  }
+  get subItems() {
+    return this._subItems;
+  }
+
   
+}
+
+export class SubNavItem {
+  constructor(data) {
+    this._title = data.title;
+    this._url = data.url;
+  }
+  get title() {
+    return this._title;
+  }
+  get url() {
+    return this._url;
+  }
 }
