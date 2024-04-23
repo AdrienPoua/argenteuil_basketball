@@ -11,11 +11,14 @@ export default {
     container: {
     },
     fontFamily: {
-      sans: ['evogria', 'sans-serif'],
+      sans: ['Fira Code', 'monospace'],
     },
     colors: {
       primary: 'blue',
-      secondary: "#FF0000 " // Exemple de couleur primaire personnalisée (vert)
+      secondary: "#FF0000 ",
+      white: "#FFFFFF",
+      
+      
     },
   plugins: [],
 }}

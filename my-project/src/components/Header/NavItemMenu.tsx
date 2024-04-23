@@ -1,39 +1,44 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { MenuContext } from "../../App";
 
 export default function NavItemMenu({ item }) {
-  const { dataMenu, setDataMenu, setIsMenuOpen } = useContext(MenuContext);
+  const { dataMenu, setDataMenu, setIsMenuOpen, isMenuOpen } =
+    useContext(MenuContext);
+  const navItemRef = useRef(null);
 
+  const handleClick = () => {
+    const prevTitle = dataMenu?.title;
+    setDataMenu(item);
+    setIsMenuOpen(!isMenuOpen || !navItemRef?.current?.innerText.includes(prevTitle));
+  };
   return (
-    <li key={item.title} className='grow flex justify-center items-center'>
+    <li
+      ref={navItemRef}
+      key={item.title}
+      className='grow flex justify-center items-center'
+    >
       <button
-        onClick={() => {
-          setDataMenu(item);
-          setIsMenuOpen((prevState) => !prevState);
+        onClick={(e) => {
+          handleClick(e);
         }}
-        className='flex grow p-5 border'
+        className='flex grow p-5 border relative' // Ajout de la position relative
       >
         <div className='flex justify-center items-center gap-3 '>
-          <h3 className='flex  '>{item.title}</h3>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            fill='none'
-            viewBox='0 0 14 14'
-            height={14}
-            width={14}
-            id='Tailless-Line-Arrow-Right-1--Streamline-Core'
-          >
-            <g id='tailless-line-arrow-right-1--arrow-right-keyboard'>
-              <path
-                id='Vector 4370'
-                stroke='#000000'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                d='m4 0.5 6.1464 6.14645c0.1953 0.19526 0.1953 0.51184 0 0.7071L4 13.5'
-                strokeWidth={1}
-              />
-            </g>
-          </svg>
+          <h3 className='flex '>{item.title}</h3>
+          {/* Élément simulant un pseudo-élément ::after */}
+          <div
+            style={{
+              display: "inline-block",
+              verticalAlign: "middle",
+              marginLeft: "6px",
+              content: "''", // Définition de contenu vide pour simuler un pseudo-élément
+              width: 0,
+              height: 0,
+              borderStyle: "solid",
+              borderWidth: "5px 5px 0",
+              borderColor: "#000 transparent transparent transparent",
+            }}
+          />
         </div>
       </button>
     </li>
