@@ -17,16 +17,17 @@ export const SmallCard = ({ data }: Readonly<SmallCardProps>) => {
       className='flex flex-col relative rounded-3xl overflow-hidden basis-[48%] mb-5
     '
     >
-      <div className='overflow-hidden'>
+      <div className='overflow-hidden relative'>
         <img
           ref={imageRef}
           src={img}
           alt=''
           className='max-w-full w-full object-cover'
         />
+                <div className='absolute inset-0 bg-black opacity-40'></div>
+
       </div>
-      <div className='flex flex-col bg-black text-cyan-500 p-5  '>
-        <div className='absolute inset-0 bg-black opacity-40'></div>
+      <div className='flex flex-col bg-white text-cyan-500 p-5  '>
         <div className='text-lg'>{title}</div>
         <div className='text-sm'>{dateString}</div>
       </div>

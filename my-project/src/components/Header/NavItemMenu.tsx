@@ -21,10 +21,10 @@ export default function NavItemMenu({ item }) {
         onClick={(e) => {
           handleClick(e);
         }}
-        className='flex grow p-5 border relative' // Ajout de la position relative
+        className='flex grow relative px-5 py-6' // Ajout de la position relative
       >
         <div className='flex justify-center items-center gap-3 '>
-          <h3 className='flex '>{item.title}</h3>
+          <h3 className='flex'>{item.title}</h3>
           {/* Élément simulant un pseudo-élément ::after */}
           <div
             style={{
@@ -35,7 +35,7 @@ export default function NavItemMenu({ item }) {
               width: 0,
               height: 0,
               borderStyle: "solid",
-              borderWidth: "5px 5px 0",
+              borderWidth: "8px 8px 0",
               borderColor: "#000 transparent transparent transparent",
             }}
           />

@@ -11,12 +11,13 @@ export default {
     container: {
     },
     fontFamily: {
-      sans: ['Fira Code', 'monospace'],
+      sans: ['Evogria', 'sans-serif'],
     },
     colors: {
       primary: 'blue',
       secondary: "#FF0000 ",
       white: "#FFFFFF",
+      black: "#000000",
       
       
     },

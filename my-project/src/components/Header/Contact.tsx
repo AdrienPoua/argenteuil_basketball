@@ -2,9 +2,9 @@ import React from 'react'
 
 export default function Contact() {
   return (
-    <button >
+    <button className='' >
     {" "}
-    <a href='/contact'>
+    <a href='/contact'  className=''>
       {" "}
       <svg
         xmlns='http://www.w3.org/2000/svg'

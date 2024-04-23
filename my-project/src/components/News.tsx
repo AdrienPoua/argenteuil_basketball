@@ -10,7 +10,8 @@ type ContainerProps = {
 export default function Container({ data }: Readonly<ContainerProps>) {
   // Ensuring there is a fallback if the main or secondary news isn't explicitly marked
   const mainNews = data.find((item) => item.type === "main") ?? data[0];
-  const secondaryNews = data.find((item) => item.type === "secondary") ?? data[1];
+  const secondaryNews =
+    data.find((item) => item.type === "secondary") ?? data[1];
   const othersNews = data.filter(
     (item) => item !== mainNews && item !== secondaryNews
   );
@@ -19,11 +20,25 @@ export default function Container({ data }: Readonly<ContainerProps>) {
   const newsToDisplay = News.sortByDate(othersNews).slice(0, 4);
 
   return (
-    <div className='flex flex-col w-full'>
-      <div className='flex justify-between mb-5 uppercase items-center py-5'>
-        <div className='font-black text-5xl'>Latest News</div>
-        <a href='/' className='underline font-black text-right basis-3/12'>
-          All news
+    <div className='flex flex-col w-full bg-black py-5 px-32 '>
+      <div className='flex justify-between mb-5 uppercase items-center mb-16'>
+        <div className='text-white text-5xl'>Latest News</div>
+        <a  href="/" className="relative">
+          <div className='underline text-2xl me-5 text-white'>
+            All news
+          </div>
+          <div
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "100%",
+              transform: 'translate(-50%, -50%) rotate(-90deg)', // Ajout de la rotation
+              content: '""',
+              borderLeft: "10px solid transparent",
+              borderRight: "10px solid transparent",
+              borderTop: "10px solid #fff",
+            }}
+          ></div>
         </a>
       </div>
       <div className='flex gap-5'>

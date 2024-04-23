@@ -2,34 +2,33 @@ const HeaderNav = [
     {
         title: "Club",
         subItems: [
-            { title: "Dirigeants", url: "#" },
+            { title: "Dirigeants", url: "#", image: "https://i.ibb.co/Kjgv1Fh/image-entraineurs.webp" },
             { title: "Les entraineurs", url: "/entraineurs" },
-            { title: "Les équipes", url: "/equipes" },
+            { title: "Equipes", url: "/equipes" },
         ],
     },
     {
         title : "Entrainements",
-        url : "/entrainements"
+        subItems: [
+            { title: "Horaires", url: "/horaires" },
+            { title: "Gymnases", url: "/gymnases" },
+        ],
     },
     {
-        title: "Infos pratiques",
+        title : "Compétitions",
         subItems: [
-            { title: "Entrainements 2025", url: "/entrainements" },
-            { title: "Gymnases", url: "/gymnases" },
-            { title: "Liens utiles", url: "/liens" },
-            { title: "FAQ", url: "/faq" },
+            { title: "Calendrier", url: "/calendrier" },
+            { title: "Résultats", url: "/resultats" },
+            { title: "Classements", url: "/classements" },
         ],
     },
     {
         title: "Inscriptions",
         subItems: [
-            { title: "Informations", url: "/inscriptions/informations" },
-            { title: "Tarifs", url: "/inscriptions/tarifs" },
-        ],
-    },
-    {
-        title: "Contact",
-        url: "/contact",
+            { title: "Inscriptions en ligne", url: "/inscriptions-en-ligne"},
+            { title: "Inscriptions sur place", url: "/inscriptions-sur-place" },
+            { title: "Tarifs", url: "/tarifs" },
+        ]
     },
 ];
 

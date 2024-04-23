@@ -7,20 +7,22 @@ import matchsData from "./data/matchs.json";
 import data from "./data/news.json";
 import { useIsScrolling } from "./utils/hooks/useIsScrolling";
 import useMenu from "./utils/hooks/useMenu";
+import LandingPage from "./components/LandingPage";
 
 // Création du contexte ScrollingContext
 export const ScrollingContext = createContext();
 export const MenuContext = createContext();
 
 export default function App() {
-  const isScrolling = useIsScrolling();
   const handleMenu = useMenu();
+  const isScrolling = useIsScrolling();
 
   return (
     <MenuContext.Provider value={handleMenu}>
       <ScrollingContext.Provider value={isScrolling}>
-        <div className='m-auto bg-primary'>
+        <div className='m-auto'>
           <Header />
+          <LandingPage />
           <NewsContainer data={data} />
           {matchsData.map((match) => {
             const bandData = new Match(match);
