@@ -16,7 +16,18 @@ type NewsProps = {
   type? : "main" | "secondary" ;
 };
 
+type NavItem = {
+  title: string;
+  url?: string;
+  subItems?: subNavItem[];
+};
+
+type subNavItem = {
+  title: string;
+  url: string;
+  image?: string;
+};
 
 
 
-export type { MatchDataProps, NewsProps };
+export type { MatchDataProps, NewsProps, NavItem, subNavItem};

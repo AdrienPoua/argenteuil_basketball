@@ -1,8 +1,6 @@
 import React from 'react';
 
 export default function subItem({ data }) {
-  console.log(data.image)
-
   return (
     <a href={data.url} className='flex justify-center items-center relative aspect-video rounded-xl overflow-hidden p-12'>
       <img

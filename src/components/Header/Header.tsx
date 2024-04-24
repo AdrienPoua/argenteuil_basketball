@@ -1,42 +1,32 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useRef } from "react";
 import logo from "../../assets/logo.png";
 import data from "../../data/navbar";
 import { NavFactory } from "../../utils/factories";
 import { NavItem, NavItemMenu } from "../../utils/models";
 import { MenuContext, ScrollingContext } from "../../App";
-import NavItemComponent from "./NavItem";
-import NavItemMenuComponent from "./NavItemMenu";
-import Contact from "./Contact";
-import SubBar from "./SubBar";
+import NavItemComponent from "./components/NavItem";
+import NavItemMenuComponent from "./components/NavItemMenu";
+import Contact from "./components/Contact";
+import SubBar from "./components/SubBar";
+import useTopPage from "../../utils/hooks/useTopPage";
+import { useClickOutside } from "../../utils/hooks/useClickOutsideHeader";
 
 
 export default function Header() {
   const navItems = data.map((item) => NavFactory.create(item));
   const scrollingToTop: boolean = useContext(ScrollingContext);
-  const { isMenuOpen } = useContext(MenuContext);
+  const { isMenuOpen, setIsMenuOpen } = useContext(MenuContext);
   const [isTopPage, setIsTopPage] = useState(true);
+  const headerRef = useRef(null)
 
-  
-  useEffect(() => {
-    const handleScroll = () => {
-        setIsTopPage(window.scrollY === 0);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    console.log(isTopPage)
-
-    return () => {
-        window.removeEventListener('scroll', handleScroll);
-    };
-}, [window.scrollY]);
-  
-
+  useTopPage(setIsTopPage);
+  useClickOutside(isMenuOpen, setIsMenuOpen, headerRef);
 
   return (
     <div
-      className={`flex flex-col shadow-xl w-full z-10 bg-white ${
-        scrollingToTop && !isTopPage && "sticky top-0 z-10 "}
-      `}
+      ref={headerRef}
+      className={`flex flex-col shadow-xl w-full z-10 bg-white sticky top-0`}
+      
     >
       <div className='flex w-full px-10 py-5'>
         <a href='/' className='shrink-0'>
@@ -56,7 +46,7 @@ export default function Header() {
         </nav>
         <Contact />
       </div>
-      {isMenuOpen && <SubBar />}{" "}
+      {isMenuOpen && <SubBar />}
     </div>
   );
 }

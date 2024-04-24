@@ -21,7 +21,7 @@ export default function Container({ data }: Readonly<ContainerProps>) {
 
   return (
     <div className='flex flex-col w-full bg-black py-5 px-32 '>
-      <div className='flex justify-between mb-5 uppercase items-center mb-16'>
+      <div className='flex justify-between uppercase items-center mb-16'>
         <div className='text-white text-5xl'>Latest News</div>
         <a  href="/" className="relative">
           <div className='underline text-2xl me-5 text-white'>

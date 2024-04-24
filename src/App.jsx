@@ -5,7 +5,7 @@ import Band from "./components/Band";
 import { Match } from "./utils/models";
 import matchsData from "./data/matchs.json";
 import data from "./data/news.json";
-import { useIsScrolling } from "./utils/hooks/useIsScrolling";
+import { useIsScrollingUp } from "./utils/hooks/useIsScrolling";
 import useMenu from "./utils/hooks/useMenu";
 import LandingPage from "./components/LandingPage";
 
@@ -15,12 +15,12 @@ export const MenuContext = createContext();
 
 export default function App() {
   const handleMenu = useMenu();
-  const isScrolling = useIsScrolling();
+  const isScrolling = useIsScrollingUp();
 
   return (
     <MenuContext.Provider value={handleMenu}>
       <ScrollingContext.Provider value={isScrolling}>
-        <div className='m-auto'>
+        <div className='m-auto '>
           <Header />
           <LandingPage />
           <NewsContainer data={data} />
