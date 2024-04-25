@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   frontend:
     # uncomment the following line if you want to run a local instance of MongoDB

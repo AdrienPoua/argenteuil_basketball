@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useEffect } from 'react';
 
 export default function useTopPage(setIsTopPage: React.Dispatch<React.SetStateAction<boolean>>) {

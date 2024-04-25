@@ -1,5 +1,5 @@
 import React from "react";
-import { NewsProps } from "../utils/types";
+import { NewsProps } from "../types";
 import BigCard from "./BigCard";
 import { SmallCard } from "./SmallCard";
 import { News } from "../utils/models";
@@ -48,7 +48,7 @@ export default function Container({ data }: Readonly<ContainerProps>) {
         <div className='flex flex-col w-1/2'>
           <BigCard data={secondaryNews} />
           <div className='flex flex-wrap mt-5 justify-between'>
-            {newsToDisplay.map((news) => (
+            {newsToDisplay.map((news : NewsProps ) => (
               <SmallCard key={news.id} data={news} />
             ))}
           </div>

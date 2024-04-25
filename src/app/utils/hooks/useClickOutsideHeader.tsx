@@ -1,3 +1,4 @@
+"use client"
 import { useEffect, MutableRefObject } from "react";
 
 export function useClickOutside(

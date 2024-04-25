@@ -33,7 +33,7 @@ type MenuState = {
   setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
   dataMenu: NavItem | null;
   setDataMenu: React.Dispatch<React.SetStateAction<NavItem | null>>;
-} | null ;
+} ;
 
 
 

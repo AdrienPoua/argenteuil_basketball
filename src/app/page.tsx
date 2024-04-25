@@ -1,7 +1,14 @@
 import React from 'react'
+import LandingPage from './components/LandingPage';
+import News from './components/News';
+import dataNews from './utils/data/news.json';
 
-export default function Pages() {
+
+export default function Home() {
   return (
-    <div>pages</div>
+    <>
+        <LandingPage />
+        <News data={dataNews} />
+    </>
   )
 }

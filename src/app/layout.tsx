@@ -7,6 +7,10 @@ import Footer from "./components/Footer/Footer";
 import { useMenu } from "./utils/hooks/useMenu";
 import { useIsScrollingUp } from "./utils/hooks/useIsScrollingUp";
 import { MenuContext, ScrollingContext } from "./utils/contexts";
+import LandingPage from "./components/LandingPage";
+import  News  from "./components/News";
+import dataNews from "./utils/data/news.json";
+
 
 const inter = Inter({ subsets: ["latin"] });
 

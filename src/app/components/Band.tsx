@@ -1,6 +1,7 @@
 import React from "react";
 import { Match } from "../utils/models";
 import logo from "../assets/logo.png";
+import Image from "next/image";
 
 type bandProps = { match: Match };
 export default function Band({ match }: Readonly<bandProps>) {
@@ -14,7 +15,7 @@ export default function Band({ match }: Readonly<bandProps>) {
         <div className='mx-auto'> </div>
       </div>
       <div className='flex grow justify-center  items-center relative mx-14'>
-        <img src={logo} alt='logo' className='w-40 h-40' />
+        <Image src={logo} alt='logo' className='w-40 h-40' width={40} height={80} />
         <div className='text-sky-500	'> &nbsp; VS &nbsp; </div>
         <div className='flex flex-col'>
           <div className=''>{match.teamB}</div>

@@ -1,5 +1,4 @@
-import {NavItem} from "./models";
-import {NavItemMenu} from "./models";
+import {NavItem, NavItemMenu} from "./models";
 
 export class NavFactory {
   static create(data) {
