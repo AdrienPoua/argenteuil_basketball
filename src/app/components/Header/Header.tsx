@@ -23,7 +23,7 @@ export default function Header() {
   return (
     <header
       ref={headerRef}
-      className={`flex flex-col w-full z-10 bg-transparent absolute top-0`}
+      className={`flex flex-col w-full z-10 bg-transparent`}
     >
       <div className='flex w-full px-6 py-2 bg-white '>
         <Link href='/' className='shrink-0'>
@@ -48,7 +48,6 @@ export default function Header() {
         </nav>
         <Contact />
       </div>
-      <div className="bg-transparent blur-0 py-1 w-full"> </div>
       {isMenuOpen && <SubBar />}
     </header>
   );

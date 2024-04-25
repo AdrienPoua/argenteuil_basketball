@@ -19,6 +19,7 @@
 
 body {
   color: black;
+  min-height: 100svh;
   font-family: Evogria, sans-serif; /* Utilisation de la police personnalisée Evogria */
   background: linear-gradient(
     to bottom,

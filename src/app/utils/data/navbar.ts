@@ -2,24 +2,24 @@ const HeaderNav = [
     {
         title: "Club",
         subItems: [
-            { title: "Dirigeants", url: "#", image: "entraineurs.webp" },
-            { title: "Les entraineurs", url: "/entraineurs" },
-            { title: "Equipes", url: "/equipes" },
+            { title: "Dirigeants", url: "/club/dirigeants", image: "entraineurs.webp" },
+            { title: "Les entraineurs", url: "/club/entraineurs" },
+            { title: "Equipes", url: "/club/equipes" },
         ],
     },
     {
         title : "Entrainements",
         subItems: [
-            { title: "Horaires", url: "/horaires" },
-            { title: "Gymnases", url: "/gymnases" },
+            { title: "Horaires", url: "/entrainements/horaires" },
+            { title: "Gymnases", url: "/entrainements/gymnases" },
         ],
     },
     {
         title : "Compétitions",
         subItems: [
-            { title: "Calendrier", url: "/calendrier" },
-            { title: "Résultats", url: "/resultats" },
-            { title: "Classements", url: "/classements" },
+            { title: "Calendrier", url: "/competitions/calendrier" },
+            { title: "Résultats", url: "/competitions/resultats" },
+            { title: "Classements", url: "/competition/classements" },
         ],
     },
     {
@@ -27,7 +27,7 @@ const HeaderNav = [
         subItems: [
             { title: "Inscriptions en ligne", url: "/inscriptions-en-ligne"},
             { title: "Inscriptions sur place", url: "/inscriptions-sur-place" },
-            { title: "Tarifs", url: "/tarifs" },
+            { title: "Tarifs", url: "/inscriptions/tarifs" },
         ]
     },
 ];

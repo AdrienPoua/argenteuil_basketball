@@ -28,7 +28,7 @@ export default function Footer() {
   return (
     <footer
       ref={signatureRef}
-      className='border-t-2 border-indigo-500 flex flex-col pt-2 px-12'
+      className='border-t-2 border-indigo-500 flex flex-col pt-2 px-12 '
     >
       <div className='flex justify-between'>
         <Link href='/' className='shrink-0'>
@@ -49,15 +49,13 @@ export default function Footer() {
           </p>
         </div>
       </div>
-      <div className='text-gray-500 py- text-center'>
+      <a
+        href='https://www.linkedin.com/in/adrien-poua'
+        className='text-gray-500 py-2 text-center'
+      >
         Made with ❤ by{" "}
-        <a
-          href='https://www.linkedin.com/in/adrien-poua'
-          className={isHover ? "text-indigo-500" : ""}
-        >
-          Adrien POUA
-        </a>
-      </div>
+        <span className={isHover ? "text-indigo-500" : ""}>Adrien POUA</span>
+      </a>
     </footer>
   );
 }

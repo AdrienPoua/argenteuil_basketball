@@ -7,9 +7,6 @@ import Footer from "./components/Footer/Footer";
 import { useMenu } from "./utils/hooks/useMenu";
 import { useIsScrollingUp } from "./utils/hooks/useIsScrollingUp";
 import { MenuContext, ScrollingContext } from "./utils/contexts";
-import LandingPage from "./components/LandingPage";
-import  News  from "./components/News";
-import dataNews from "./utils/data/news.json";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -30,9 +27,11 @@ export default function RootLayout({
     <MenuContext.Provider value={handleMenu}>
     <ScrollingContext.Provider value={isScrolling}>
     <html lang='fr'>
-      <body>
+      <body className="flex flex-col">
         <Header />
+        <main className="grow">
         {children}
+        </main>
         <Footer />
       </body>
     </html>

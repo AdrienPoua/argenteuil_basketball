@@ -32,7 +32,7 @@ export const SmallCard = ({ data }: Readonly<SmallCardProps>) => {
         />
         <div className='absolute inset-0 bg-black opacity-40'></div>
       </div>
-      <div className='flex flex-col bg-white text-cyan-500 p-5  '>
+      <div className='flex flex-col bg-white p-5  '>
         <div className='text-lg'>{title}</div>
         <div className='text-sm'>{dateString}</div>
       </div>

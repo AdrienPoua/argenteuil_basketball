@@ -20,7 +20,7 @@ export default function NavItemMenu({ item }: { readonly item: NavItem }) {
     <li
       ref={navItemRef}
       key={item.title}
-      className='grow flex justify-center items-center hover:text-indigo-500'
+      className='grow flex justify-center  text-black items-center hover:text-indigo-500'
     >
       <button
         onClick={(e) => {
