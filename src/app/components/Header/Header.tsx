@@ -25,7 +25,7 @@ export default function Header() {
       ref={headerRef}
       className={`flex flex-col w-full z-10 bg-transparent absolute top-0`}
     >
-      <div className='flex w-full px-8 py-2 bg-white '>
+      <div className='flex w-full px-6 py-2 bg-white '>
         <Link href='/' className='shrink-0'>
           <Image
             src={logo}
