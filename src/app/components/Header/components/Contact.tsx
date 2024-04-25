@@ -10,8 +10,8 @@ export default function Contact() {
         xmlns='http://www.w3.org/2000/svg'
         fill='none'
         viewBox='0 0 14 14'
-        height={52}
-        width={52}
+        height={30}
+        width={30}
         id='Mail-Send-Envelope--Streamline-Core'
       >
         <g id='mail-send-envelope--envelope-email-message-unopened-sealed-close'>

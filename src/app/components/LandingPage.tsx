@@ -5,7 +5,7 @@ import background from "../../../public/background.jpg";
 export default function LandingPage() {
   return (
     <>
-    <div className="h-svh relative shadow-2xl ">
+    <div className="h-svh relative">
       <div className='absolute h-96 inset-x-0 bottom-0 w-full bg-gradient-to-t from-black'></div>
       <Image
         src={background}

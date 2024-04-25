@@ -20,16 +20,16 @@ export default function NavItemMenu({ item }: { readonly item: NavItem }) {
     <li
       ref={navItemRef}
       key={item.title}
-      className='grow flex justify-center items-center'
+      className='grow flex justify-center items-center hover:text-indigo-500'
     >
       <button
         onClick={(e) => {
           handleClick();
         }}
-        className='flex grow relative px-5 py-6'
+        className='flex grow relative px-5 py-3'
       >
-        <div className='flex justify-center items-center gap-3 '>
-          <h3 className='flex'>{item.title}</h3>
+        <div className='flex justify-center items-center '>
+          <h3 className='flex text-xs'>{item.title}</h3>
           {/* Élément simulant un pseudo-élément ::after */}
           <div
             style={{
@@ -40,7 +40,7 @@ export default function NavItemMenu({ item }: { readonly item: NavItem }) {
               width: 0,
               height: 0,
               borderStyle: "solid",
-              borderWidth: "8px 8px 0",
+              borderWidth: "5px 5px 0",
               borderColor: "#000 transparent transparent transparent",
             }}
           />
