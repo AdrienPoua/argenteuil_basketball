@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { subNavItem } from '@/app/types';
+import { subNavItem } from '../../../types';
 
 export default function subItem({ data } : { data : subNavItem}) {
   return (

@@ -9,11 +9,12 @@ export default function NavItemMenu({ item }: { readonly item: NavItem }) {
 
   const handleClick = () => {
     const prevTitle = dataMenu?.title;
-    const shouldToggleMenu = !isMenuOpen || (navItemRef.current && !navItemRef.current.innerText.includes(prevTitle));
+    const shouldToggleMenu: boolean = !isMenuOpen || (!prevTitle || (navItemRef.current && !navItemRef.current.innerText.includes(prevTitle)));
     setDataMenu(item);
-    setIsMenuOpen(shouldToggleMenu);
-    console.log(isMenuOpen)
+    setIsMenuOpen( shouldToggleMenu );
+    console.log(isMenuOpen);
   };
+  
 
   return (
     <li

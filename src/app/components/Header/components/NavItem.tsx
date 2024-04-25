@@ -1,14 +1,17 @@
+import Link from 'next/link'
 import React from 'react'
+import { NavItem } from '../../../types'
 
-export default function NavItem({ item }) {
+type ItemProps = {item : NavItem} 
+export default function Index({ item } : Readonly<ItemProps> ) {
   return (
     <li
     className='grow flex items-center justify-center  '
     key={item.title}
   >
-    <a className='text-center px-7 py-6 font-bold' href={item.url}>
+    <Link className='text-center px-7 py-6 font-bold' href={item.url ? item.url : "/"}>
       {item.title}
-    </a>
+    </Link>
   </li>
   )
 }

@@ -21,7 +21,7 @@ export default function Header() {
   useClickOutside(isMenuOpen, setIsMenuOpen, headerRef);
 
   return (
-    <div
+    <header
       ref={headerRef}
       className={`flex flex-col shadow-xl w-full z-10 bg-white`}
     >
@@ -49,6 +49,6 @@ export default function Header() {
         <Contact />
       </div>
       {isMenuOpen && <SubBar />}
-    </div>
+    </header>
   );
 }
