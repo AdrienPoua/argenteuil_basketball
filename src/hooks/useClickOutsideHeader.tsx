@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, MutableRefObject } from "react";
 
-export function useClickOutside(
+export default function useClickOutside(
   isMenuOpen: boolean,
   setIsMenuOpen: (open: boolean) => void,
   headerRef: MutableRefObject<HTMLElement | null>

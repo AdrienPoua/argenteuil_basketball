@@ -1,8 +1,8 @@
 import React from "react";
-import { NewsProps } from "../types";
-import BigCard from "./BigCard";
-import { SmallCard } from "./SmallCard";
-import { News } from "../utils/models";
+import { NewsProps } from "@/types";
+import BigCard from "@/components/BigCard";
+import { SmallCard } from "@/components/SmallCard";
+import { News } from "@/models";
 
 type ContainerProps = {
   data: NewsProps[];

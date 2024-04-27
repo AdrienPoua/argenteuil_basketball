@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { useRef, useEffect } from "react";
-import logo from "../../../../public/logo.png";
+import logo from "@/public/logo.png";
 import Link from "next/link";
 
 export default function Footer() {

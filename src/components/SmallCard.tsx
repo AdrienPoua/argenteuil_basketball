@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { NewsProps } from "../types";
-import { News } from "./../utils/models";
-import useCardHoverEffect from "../utils/hooks/useCardHover";
+import { NewsProps } from "@/types";
+import { News } from "@/models";
+import useCardHoverEffect from "@/hooks/useCardHover";
 import Image from "next/image";
 import Link from "next/link";
 

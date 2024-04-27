@@ -1,8 +1,21 @@
 import React, { useContext, useRef } from "react";
-import { MenuContext } from "../../../utils/contexts";
-import { NavItem } from "../../../types";
+import { MenuContext } from "@/hooks/useContext";
+import { NavLinkType, NavDropdownType } from "@/types";
+import Link from "next/link";
 
-export default function NavItemMenu({ item }: { readonly item: NavItem }) {
+const NavLink = ({ item } : { item : Readonly<NavLinkType> } ) => {
+  return (
+    <li
+    className='grow flex items-center justify-center  '
+    key={item.title}
+  >
+    <Link className='text-center px-7 py-6 font-bold' href={item.url ? item.url : "/"}>
+      {item.title}
+    </Link>
+  </li>
+  )
+}
+const NavDropdown = ({ item }: { item : Readonly<NavDropdownType> }) => {
   const { dataMenu, setDataMenu, setIsMenuOpen, isMenuOpen } =
     useContext(MenuContext);
   const navItemRef = useRef<HTMLLIElement>(null);
@@ -15,7 +28,6 @@ export default function NavItemMenu({ item }: { readonly item: NavItem }) {
     console.log(isMenuOpen);
   };
   
-
   return (
     <li
       ref={navItemRef}
@@ -49,3 +61,5 @@ export default function NavItemMenu({ item }: { readonly item: NavItem }) {
     </li>
   );
 }
+
+export { NavLink, NavDropdown };

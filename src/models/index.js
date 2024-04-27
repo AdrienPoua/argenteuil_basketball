@@ -124,7 +124,7 @@ export class Utils {
   }
 }
 
-export class NavItem {
+export class NavLinkModel {
   constructor(data) {
     this._title = data.title;
     this._url = data.url;
@@ -137,7 +137,7 @@ export class NavItem {
   }
 }
 
-export class NavItemMenu {
+export class NavDropdownModel {
   constructor(data) {
     this._title = data.title;
     this._subItems = data.subItems;

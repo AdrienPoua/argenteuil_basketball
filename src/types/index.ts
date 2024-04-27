@@ -16,13 +16,13 @@ type NewsProps = {
   type? : "main" | "secondary" ;
 };
 
-type NavItem = {
+type NavLinkType = {
   title: string;
   url?: string;
-  subItems?: subNavItem[];
+  subItems?: NavDropdownType[];
 };
 
-type subNavItem = {
+type NavDropdownType = {
   title: string;
   url: string;
   image?: string;
@@ -31,11 +31,9 @@ type subNavItem = {
 type MenuState = {
   isMenuOpen: boolean;
   setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  dataMenu: NavItem | null;
-  setDataMenu: React.Dispatch<React.SetStateAction<NavItem | null>>;
+  dataMenu: NavLinkType | null;
+  setDataMenu: React.Dispatch<React.SetStateAction<NavLinkType | null>>;
 };
 
 
-
-
-export type { MatchDataProps, NewsProps, NavItem, subNavItem, MenuState};
+export type { MatchDataProps, NewsProps, NavLinkType, NavDropdownType, MenuState };

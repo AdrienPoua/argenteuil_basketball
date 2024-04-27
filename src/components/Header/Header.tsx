@@ -1,17 +1,16 @@
 import { useContext, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import logo from "../../../../public/logo.png";
+import logo from "@public/logo.png";
 
-import data from "../../utils/data/navbar";
-import { NavFactory } from "../../utils/factories";
-import { NavItem, NavItemMenu } from "../../utils/models";
-import { MenuContext } from "../../utils/contexts";
-import NavItemComponent from "./components/NavItem";
-import NavItemMenuComponent from "./components/NavItemMenu";
-import Contact from "./components/Contact";
-import SubBar from "./components/SubBar";
-import { useClickOutside } from "../../utils/hooks/useClickOutsideHeader";
+import  data  from "@/data/navbar";
+import { NavFactory } from "@/factories";
+import { NavLinkModel, NavDropdownModel } from "@/models";
+import { MenuContext } from "@/hooks/useContext";
+import { NavLink, NavDropdown } from "@/components/Header/NavItem"
+import Contact from "@/components/Header/Contact";
+import SubBar from "@/components/Header/SubBar";
+import  useClickOutside from "@/hooks/useClickOutsideHeader"
 
 export default function Header() {
   const navItems = data.map((item) => NavFactory.create(item));
@@ -38,10 +37,10 @@ export default function Header() {
         <nav className='flex grow '>
           <ul className='flex'>
             {navItems.map((item) => {
-              if (item instanceof NavItem) {
-                return <NavItemComponent key={item.title} item={item} />;
-              } else if (item instanceof NavItemMenu) {
-                return <NavItemMenuComponent key={item.title} item={item} />;
+              if (item instanceof NavLinkModel) {
+                return <NavLink key={item.title} item={item} />;
+              } else if (item instanceof NavDropdownModel) {
+                return <NavDropdown key={item.title} item={item} />;
               }
             })}
           </ul>

@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { MenuState } from '../types';
+import { MenuState } from '@/types';
 
 const ScrollingContext = createContext(false);
 const defaultValue: MenuState = {

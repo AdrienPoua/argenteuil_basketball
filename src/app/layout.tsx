@@ -2,11 +2,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from "./components/Header/Header";
-import Footer from "./components/Footer/Footer";
-import { useMenu } from "./utils/hooks/useMenu";
-import { useIsScrollingUp } from "./utils/hooks/useIsScrollingUp";
-import { MenuContext, ScrollingContext } from "./utils/contexts";
+import Header from "@/components/Header/Header";
+import Footer from "@/components/Footer/Footer";
+import { useMenu } from "@/hooks/useMenu";
+import { useIsScrollingUp } from "@/hooks/useIsScrollingUp";
+import { MenuContext, ScrollingContext } from "@/hooks/useContext";
 
 
 const inter = Inter({ subsets: ["latin"] });

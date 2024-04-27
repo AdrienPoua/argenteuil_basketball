@@ -1,8 +1,8 @@
 "use client"
 import React, { useRef } from "react";
-import { News } from "./../utils/models";
-import { NewsProps } from "../types";
-import useHoverHooks from "./../utils/hooks/useCardHover";
+import { News } from "@/models";
+import { NewsProps } from "@/types";
+import useHoverHooks from "@/hooks/useCardHover";
 import Image from "next/image";
 import Link from "next/link";
 

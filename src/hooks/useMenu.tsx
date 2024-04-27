@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from "react";
-import { NavItem, MenuState } from "../../types"
+import { NavItem, MenuState } from "@/types"
 
 
 
