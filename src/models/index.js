@@ -37,17 +37,6 @@ export class Match {
     return this._gym;
   }
 
-  get dateString() {
-    const options = {
-      weekday: "short",
-      day: "numeric",
-      month: "short",
-      year: "2-digit",
-    };
-    return new Date(this.date)
-      .toLocaleDateString("fr-FR", options)
-      .toUpperCase();
-  }
 
   isMatchToday() {
     const today = new Date();
@@ -56,7 +45,7 @@ export class Match {
   }
 }
 
-export class News {
+export class NewsModel {
   constructor(data) {
     this._id = data.id;
     this._title = data.title;
@@ -96,17 +85,6 @@ export class News {
     return this._secondary;
   }
 
-  get dateString() {
-    const options = {
-      weekday: "short",
-      day: "numeric",
-      month: "short",
-      year: "2-digit",
-    };
-    return new Date(this.date)
-      .toLocaleDateString("fr-FR", options)
-      .toUpperCase();
-  }
 
   static sortByDate(array) {
     return array.sort((a, b) => {
@@ -121,6 +99,17 @@ export class Utils {
   static USA_DATE(frenchDate) {
     const [day, month, year] = frenchDate.split("/");
     return `${year}/${month}/${day}`;
+  }
+  static dateString(data) {
+    const options = {
+      weekday: "short",
+      day: "numeric",
+      month: "short",
+      year: "2-digit",
+    };
+    return new Date(data)
+      .toLocaleDateString("fr-FR", options)
+      .toUpperCase();
   }
 }
 
@@ -165,5 +154,47 @@ export class SubNavItem {
   }
   get url() {
     return this._url;
+  }
+}
+
+export class Member {
+  constructor(data) {
+    this._name = data.name;
+    this._role = data.role;
+    this._img = data.img;
+    this._email = data.email;
+    this._number = data.number;
+  }
+  get name() {
+    return this._name;
+  }
+  get img() {
+    return this._img;
+  }
+  get email() {
+    return this._email;
+  }
+  get number() {
+    return this._number;
+  }
+  get role() {
+    return this._role;
+  }
+}
+export class Coach extends Member {
+  constructor(data) {
+    super(data);
+    this._role = "Coach";
+    this._team = data.team;
+  }
+  get team() {
+    return this._team;
+  }
+}
+
+export class Leader extends Member {
+  constructor(data) {
+    super(data);
+    this.leader = true
   }
 }

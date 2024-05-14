@@ -16,7 +16,6 @@ export function useIsScrollingUp() {
         // Scrolling down or no movement
         setScrolling(false);
       }
-      console.log(currentScrollY)
       prevScrollY.current = currentScrollY; // Update the ref value
     };
 

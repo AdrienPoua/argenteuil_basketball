@@ -7,7 +7,7 @@ type MatchDataProps = {
   Salle: string;
 };
 
-type NewsProps = {
+type NewsType = {
   id: number;
   title: string;
   date: string;
@@ -35,5 +35,22 @@ type MenuState = {
   setDataMenu: React.Dispatch<React.SetStateAction<NavLinkType | null>>;
 };
 
+interface MemberType {
+  name: string;
+  role: string ;
+  img: string;
+  email: string;
+  number: string;
+}
 
-export type { MatchDataProps, NewsProps, NavLinkType, NavDropdownType, MenuState };
+interface CoachType extends MemberType {
+  role: "Coach";
+  team: string | string[]; // Équipe(s) du coach, peut être une chaîne ou un tableau de chaînes
+}
+
+interface LeaderType extends MemberType {
+  role : "Président" | "Vice-Président" | "Trésorier" | "Secrétaire"
+}
+
+
+export type { MatchDataProps, NewsType, NavLinkType, NavDropdownType, MenuState, MemberType, CoachType, LeaderType};

@@ -1,0 +1,101 @@
+[
+  {
+    "name": "Steve Kerr",
+    "role": "Coach",
+    "img": "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "email": "steve.kerr@example.com",
+    "number": "123-456-7890",
+    "team": "Golden State Warriors"
+  },
+  {
+    "name": "Alice Johnson",
+    "role": "Vice-président",
+    "img": "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "email": "alice.johnson@example.com",
+    "number": "234-567-8901",
+    "team": ["Team A", "Team B"]
+  },
+  {
+    "name": "Alice Johnson",
+    "role": "Coach",
+    "img": "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "email": "alice.johnson@example.com",
+    "number": "234-567-8901",
+    "team": ["Team A", "Team B"]
+  },
+  {
+    "name": "Alice Johnson",
+    "role": "Coach",
+    "img": "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "email": "alice.johnson@example.com",
+    "number": "234-567-8901",
+    "team": ["Team A", "Team B"]
+  },
+  {
+    "name": "Alice Johnson",
+    "role": "Coach",
+    "img": "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "email": "alice.johnson@example.com",
+    "number": "234-567-8901",
+    "team": ["Team A", "Team B"]
+  },
+  {
+    "name": "Michael Brown",
+    "role": "Coach",
+    "img": "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "email": "michael.brown@example.com",
+    "number": "345-678-9012",
+    "team": "Team C"
+  },
+  {
+    "name": "Jane Smith",
+    "role": "Vice-président",
+    "img": "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "email": "jane.smith@example.com",
+    "number": "098-765-4321"
+  },
+  {
+    "name": "Robert Wilson",
+    "role": "Président",
+    "img": "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "email": "robert.wilson@example.com",
+    "number": "987-654-3210"
+  },
+  {
+    "name": "Emily Davis",
+    "role": "Correspondante",
+    "img": "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "email": "emily.davis@example.com",
+    "number": "876-543-2109"
+  },
+  {
+    "name": "Bob Brown",
+    "role": "Vice-Président",
+    "img": "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "email": "bob.brown@example.com",
+    "number": "555-555-5555"
+  },
+  {
+    "name": "Sarah Miller",
+    "role": "Leader",
+    "speciality" : "President",
+    "img": "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "email": "sarah.miller@example.com",
+    "number": "444-444-4444"
+  },
+  {
+    "name": "David Clark",
+    "role": "Leader",
+    "speciality" : "Vice-President",
+    "img": "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "email": "david.clark@example.com",
+    "number": "333-333-3333"
+  },
+  {
+    "name": "Laura White",
+    "role": "Trésorier",
+    "img": "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "email": "laura.white@example.com",
+    "number": "222-222-2222"
+  }
+]

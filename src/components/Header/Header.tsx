@@ -1,8 +1,7 @@
 import { useContext, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import logo from "@public/logo.png";
-
+import logo from "@/public/logo.png";
 import  data  from "@/data/navbar";
 import { NavFactory } from "@/factories";
 import { NavLinkModel, NavDropdownModel } from "@/models";

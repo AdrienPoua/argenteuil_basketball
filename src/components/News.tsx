@@ -1,13 +1,11 @@
+"use client" ;
 import React from "react";
-import { NewsProps } from "@/types";
-import BigCard from "@/components/BigCard";
-import { SmallCard } from "@/components/SmallCard";
-import { News } from "@/models";
+import { NewsType } from "@/types";
+import Card from "@/components/Card";
+import { NewsModel } from "@/models";
 
-type ContainerProps = {
-  data: NewsProps[];
-};
-export default function Container({ data }: Readonly<ContainerProps>) {
+
+export default function Container({ data } : Readonly<{ data: NewsType[] }>) {
   // Ensuring there is a fallback if the main or secondary news isn't explicitly marked
   const mainNews = data.find((item) => item.type === "main") ?? data[0];
   const secondaryNews =
@@ -17,7 +15,7 @@ export default function Container({ data }: Readonly<ContainerProps>) {
   );
 
   // Sorting by date and taking the top 4
-  const newsToDisplay = News.sortByDate(othersNews).slice(0, 4);
+  const newsToDisplay = NewsModel.sortByDate(othersNews).slice(0, 4);
 
   return (
     <div className='flex flex-col w-full bg-black py-5 px-32 '>
@@ -43,13 +41,13 @@ export default function Container({ data }: Readonly<ContainerProps>) {
       </div>
       <div className='flex gap-5'>
         <div className='flex flex-col w-1/2'>
-          <BigCard data={mainNews} />
+          <Card data={mainNews} />
         </div>
         <div className='flex flex-col w-1/2'>
-          <BigCard data={secondaryNews} />
+          <Card data={secondaryNews} />
           <div className='flex flex-wrap mt-5 justify-between'>
-            {newsToDisplay.map((news : NewsProps ) => (
-              <SmallCard key={news.id} data={news} />
+            {newsToDisplay.map((news) => (
+              <Card key={news.id} data={news} />
             ))}
           </div>
         </div>
