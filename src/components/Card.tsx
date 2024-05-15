@@ -72,7 +72,7 @@ const BigNews = ({ data } : { data : NewsType }) => {
   );
 };
 
-const CoachCard = ({ data } : { data : CoachType }) => {
+export const CoachCard = ({ data } : { data : CoachType }) => {
     return (
       <div className='flex mb-5 flex-col min-w-44 items-center flex-wrap text-black rounded-md overflow-hidden'>
         <Image src={data.img} alt={data.name} height={500} width={500} />
@@ -88,7 +88,7 @@ const CoachCard = ({ data } : { data : CoachType }) => {
     );
   };
 
-const LeaderCard = ({ data }: { data: LeaderType }) => {
+export const LeaderCard = ({ data }: { data: LeaderType }) => {
     return (
       <div className='flex mb-5 flex-col w-72 aspect-square items-center flex-wrap bg-white text-black rounded-md overflow-hidden'>
         <Image src={data.img} alt={data.name} height={500} width={500} />
