@@ -1,3 +1,11 @@
+import {
+  MemberType,
+  CoachType,
+  LeaderType,
+  PlayerType
+} from "../types";
+
+
 export class Match {
   constructor(data) {
     this._division = data.Division;
@@ -36,7 +44,6 @@ export class Match {
   get gym() {
     return this._gym;
   }
-
 
   isMatchToday() {
     const today = new Date();
@@ -90,7 +97,6 @@ export class NewsModel {
     return this._secondary;
   }
 
-
   static sortByDate(array) {
     return array.sort((a, b) => {
       const dateA = new Date(Utils.USA_DATE(a.date));
@@ -112,9 +118,7 @@ export class Utils {
       month: "short",
       year: "2-digit",
     };
-    return new Date(data)
-      .toLocaleDateString("fr-FR", options)
-      .toUpperCase();
+    return new Date(data).toLocaleDateString("fr-FR", options).toUpperCase();
   }
 }
 
@@ -136,8 +140,8 @@ export class NavDropdownModel {
     this._title = data.title;
     this._subItems = data.subItems;
   }
-  static create(subitems){
-    return subitems.map(subitem => new SubNavItem(subitem));
+  static create(subitems) {
+    return subitems.map((subitem) => new SubNavItem(subitem));
   }
   get title() {
     return this._title;
@@ -145,8 +149,6 @@ export class NavDropdownModel {
   get subItems() {
     return this._subItems;
   }
-
-  
 }
 
 export class SubNavItem {
@@ -162,44 +164,132 @@ export class SubNavItem {
   }
 }
 
-export class Member {
-  constructor(data) {
+export class Member implements MemberType {
+  private _name: string;
+  private _email: string;
+  role: string;
+
+  constructor(data: MemberType) {
     this._name = data.name;
-    this._role = data.role;
-    this._img = data.img;
     this._email = data.email;
-    this._number = data.number;
   }
-  get name() {
+
+  get name(): string {
     return this._name;
   }
-  get img() {
-    return this._img;
-  }
-  get email() {
+
+  get email(): string {
     return this._email;
   }
-  get number() {
+}
+
+export class Coach extends Member implements CoachType {
+  private _number: string;
+  private _img?: string;
+  private _team: string[];
+
+  constructor(data: CoachType) {
+    super(data);
+    
+    // Validation des données
+    if (typeof data.number !== "string") {
+      throw new Error("Invalid data: number must be a string");
+    }
+    
+    if (data.img !== undefined && typeof data.img !== "string") {
+      throw new Error("Invalid data: img must be a string");
+    }
+    if (!Array.isArray(data.team)) {
+      throw new Error("Invalid data: team must be an array of strings");
+    }
+
+    // Initialisation des propriétés
+    this._number = data.number;
+    this._img = data.img;
+    this._team = data.team;
+
+    if (!data.team) {
+      throw new Error("Le coach n'a pas d'équipe assignée");
+    }
+  }
+
+  get number(): string {
     return this._number;
   }
-  get role() {
-    return this._role;
+
+  get img(): string | undefined {
+    return this._img;
+  }
+
+  get team(): string[] {
+    return this._team;
+  }
+
+  get isCoach(): true {
+    return true;
   }
 }
-export class Coach extends Member {
+
+export class Leader extends Member implements LeaderType {
+  private _role: string[];
+  private _number: string;
+  private _img?: string;
+  private _isLeader: true;
+
+  constructor(data: LeaderType) {
+    super(data);
+
+    if (typeof data.number !== "string") {
+      throw new Error("Invalid data: number must be a string");
+    }
+
+    if (data.img !== undefined && typeof data.img !== "string") {
+      throw new Error("Invalid data: img must be a string");
+    }
+
+    if (!Array.isArray(data.role)) {
+      throw new Error("Invalid data: role must be an array of strings");
+    }
+
+    this._role = data.role;
+    this._number = data.number;
+    this._img = data.img;
+    this._isLeader = true;
+  }
+
+  get role(): string[] {
+    return this._role;
+  }
+
+  get number(): string {
+    return this._number;
+  }
+
+  get img(): string | undefined {
+    return this._img;
+  }
+
+  get isLeader(): true {
+    return true
+  }
+}
+
+
+export class Player extends Member implements PlayerType {
+  private _team: string[];
+  private _isPlayer: true;
+  private _number?: string;
+  private _img?: string;
+
   constructor(data) {
     super(data);
-    this._role = "Coach";
+    if (!data.hasOwnProperty("team")) {
+      throw new Error("Le joueur n'a pas d'équipe assignée");
+    }
+    this._player = true;
     this._team = data.team;
   }
   get team() {
     return this._team;
-  }
-}
-
-export class Leader extends Member {
-  constructor(data) {
-    super(data);
-    this.leader = true
   }
 }

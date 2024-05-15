@@ -2,7 +2,7 @@ import React from "react";
 import data from "@/data/staff.json";
 import { MemberFactory } from "@/factories";
 import Image from "next/image";
-import { LeaderType } from "@/types";
+import { AdherentType, LeaderType, MemberType } from "@/types";
 import { Leader } from "@/models";
 
 const LeaderCard = ({ data }: { data: LeaderType }) => {
@@ -18,15 +18,19 @@ const LeaderCard = ({ data }: { data: LeaderType }) => {
 };
 
 export default function Index() {
-  const leaders: LeaderType[] = data
-    .map((member) => MemberFactory.create(member))
-    .filter((member) => member instanceof Leader);
 
-  const president = leaders.find((x) => x.role === "Président");
-  const vicePresident = leaders.find((x) => x.role === "Vice-président" || x.role === "Vice-Présidente");
-  const tresorier = leaders.find((x) => x.role === "Trésorier" || x.role === "Trésorière");
-  const secretaire = leaders.find((x) => x.role === "Secrétaire");
-  const correspondant = leaders.find((x) => x.role === "Correspondant" || x.role === "Correspondante");
+  const isLeader = (member : AdherentType): member is Leader => {
+    return member instanceof Leader;
+  }
+  const leaders : LeaderType[]  = data.staff
+    .map((member) => MemberFactory.create(member, "leader"))
+    .filter(isLeader) ;
+
+  const president = leaders.find((leader) => leader.role.includes("Président"));
+  const vicePresident = leaders.find((leader) => leader.role.includes("Vice-président") || leader.role.includes("Vice-Présidente"));
+  const tresorier = leaders.find((leader) => leader.role.includes("Trésorier") || leader.role.includes("Trésorière"));
+  const secretaire = leaders.find((leader) => leader.role.includes("Secrétaire"));
+  const correspondant = leaders.find((leader) => leader.role.includes("Correspondant") || leader.role.includes("Correspondante"));
 
   return (
     <div className='mt-8 '>

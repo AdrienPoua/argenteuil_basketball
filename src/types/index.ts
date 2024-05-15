@@ -1,6 +1,8 @@
+import { bureau } from "@/data/club.json";
+
 type MatchDataProps = {
   Division: string;
-  "N° de match ": string;
+  "N° de match": string;
   "Equipe 1": string;
   "Equipe 2": string;
   "Date de rencontre": string; // Format MM/DD/YYYY
@@ -13,7 +15,7 @@ type NewsType = {
   date: string;
   img: string;
   url: string;
-  type? : "main" | "secondary" ;
+  type?: "main" | "secondary";
 };
 
 type NavLinkType = {
@@ -35,22 +37,37 @@ type MenuState = {
   setDataMenu: React.Dispatch<React.SetStateAction<NavLinkType | null>>;
 };
 
-interface MemberType {
+type MemberType = {
   name: string;
-  role: string ;
-  img: string;
   email: string;
+};
+
+type CoachType = MemberType & {
+  isCoach : true;
   number: string;
-}
-
-interface CoachType extends MemberType {
-  role: "Coach";
-  team: string | string[]; // Équipe(s) du coach, peut être une chaîne ou un tableau de chaînes
-}
-
-interface LeaderType extends MemberType {
-  role : "Président" | "Vice-Président" | "Trésorier" | "Secrétaire"
-}
+  img?: string;
+  team: string[];
+};
 
 
-export type { MatchDataProps, NewsType, NavLinkType, NavDropdownType, MenuState, MemberType, CoachType, LeaderType};
+
+type LeaderType = MemberType & {
+  role: string[];
+  number: string;
+  isLeader: true ;
+  img?: string;
+};
+
+type PlayerType = MemberType & {
+  isPlayer: boolean;
+  team: string[];
+  number?: string;
+  img?: string;
+};
+
+
+
+type AdherentType = MemberType | CoachType | LeaderType | PlayerType;
+
+export type { MatchDataProps, NewsType, NavLinkType, NavDropdownType, MenuState, MemberType, CoachType, LeaderType, PlayerType, AdherentType };
+

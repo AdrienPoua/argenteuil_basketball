@@ -1,0 +1,23 @@
+{
+    "nom": "Club de Basket de Villeville",
+    "ville": "Villeville",
+    "code_postal": "12345",
+    "couleurs": ["bleu", "blanc"],
+    "gymnases": [
+      {
+        "nom": "Le Dôme",
+        "adresse": "Rue du Basket, Villeville",
+        "code_postal": "12345",
+        "image": "/chemin/vers/image_dome.jpg"
+      },
+      {
+        "nom": "Gymnase des Sports",
+        "adresse": "Avenue des Victoires, Villeville",
+        "code_postal": "54321",
+        "image": "/chemin/vers/image_sports.jpg"
+      }
+    ],
+    "sponsors": ["Nike", "Adidas", "Orange"],
+    "bureau": ["Président", "Vice-Président", "Trésorier", "Secrétaire", "Présidente", "Vice-Présidente", "Trésorière", "Correspondant", "Correspondante"]
+  }
+  

@@ -1,0 +1,85 @@
+{
+    "teams": [
+      {
+        "team": {
+          "name": "U17",
+          "coach": "John Doe",
+          "helpers": [
+            {
+              "name": "Jane Smith",
+              "role": "Assistant Coach"
+            },
+            {
+              "name": "Mark Johnson",
+              "role": "Ramasseur de ballon"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "name": "U18",
+          "coach": "Emily Brown",
+          "helpers": [
+            {
+              "name": "Tom Wilson",
+              "role": "Assistant Coach"
+            },
+            {
+              "name": "Lucy Gray",
+              "role": "Ramasseur de ballon"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "name": "U19",
+          "coach": "Michael Scott",
+          "helpers": [
+            {
+              "name": "Pam Beesly",
+              "role": "Assistant Coach"
+            },
+            {
+              "name": "Jim Halpert",
+              "role": "Ramasseur de ballon"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "name": "U20",
+          "coach": "Sarah Connor",
+          "helpers": [
+            {
+              "name": "Kyle Reese",
+              "role": "Assistant Coach"
+            },
+            {
+              "name": "John Connor",
+              "role": "Ramasseur de ballon"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "name": "U21",
+          "coach": "Rick Grimes",
+          "helpers": [
+            {
+              "name": "Daryl Dixon",
+              "role": "Assistant Coach"
+            },
+            {
+              "name": "Maggie Greene",
+              "role": "Ramasseur de ballon"
+            }
+          ]
+        }
+      }
+    ]
+  }
+  
