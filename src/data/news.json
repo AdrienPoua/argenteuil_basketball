@@ -5,7 +5,7 @@
     "date": "01/12/2024",
     "img": "https://picsum.photos/500/800",
     "url": "/",
-    "main": true
+    "type": "main"
   },
   {
     "id": 2,
@@ -13,7 +13,7 @@
     "date": "03/12/2024",
     "img": "https://picsum.photos/500/800",
     "url": "/",
-    "secondary": true
+    "type": "secondary"
   },
   {
     "id": 3,

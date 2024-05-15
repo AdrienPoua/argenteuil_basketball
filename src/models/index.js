@@ -54,11 +54,16 @@ export class NewsModel {
     this._url = data.url;
     this._main = data.main;
     this._secondary = data.secondary;
+    this._type = data.type;
   }
 
   // Getters
   get id() {
     return this._id;
+  }
+
+  get type() {
+    return this._type;
   }
 
   get title() {
