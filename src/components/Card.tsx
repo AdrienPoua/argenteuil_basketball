@@ -1,4 +1,5 @@
 "use client";
+import { MailIcon } from "@/components/icons";
 
 import React, { useRef } from "react";
 import Link from "next/link";
@@ -91,12 +92,16 @@ export const CoachCard = ({ data }: { data: CoachType }) => {
 };
 
 export const LeaderCard = ({ data }: { data: LeaderType }) => {
-  return (
+  console.log(data.isEmailDisplayed)
+  return ( 
     <div className='flex mb-5 flex-col w-72 aspect-square items-center flex-wrap bg-white text-black rounded-md overflow-hidden'>
       <Image src={data.img} alt={data.name} height={500} width={500} />
-      <div className=' flex flex-col border-t-2 border-primary w-full text-center grow justify-center '>
-        <h2 className='text-lg font-bold '>{data.name}</h2>
-        <h3 className='text-sm'> {data.role} </h3>
+      <div className='flex flex-col border-t-2 border-primary w-full text-center grow justify-center'>
+        <div>
+          <h2 className='text-lg font-bold'>{data.name}</h2>
+          {data.isEmailDisplayed && <MailIcon email={data.email || "argenteuilbasketball@hotmail.fr"}/>}
+        </div>
+        <h3 className='text-sm'>{data.role}</h3>
       </div>
     </div>
   );
@@ -114,13 +119,43 @@ export const TeamCard = ({ data }: { data: TeamType }) => {
           className='object-cover'
         />
       </div>
-      <h2 className='absolute inset-0 flex justify-center items-center text-6xl text-white'>{data.name}</h2>
+      <h2 className='absolute inset-0 flex justify-center items-center text-6xl text-white'>
+        {data.name}
+      </h2>
       <div className='absolute inset-0 flex px-4 py-2 bg-black bg-opacity-50 text-white transition-opacity duration-300 opacity-0 hover:opacity-100'>
-        <div className="flex flex-col basis-1/2 p-10">
-          <h3 className="text-4xl font-bold mb-14 text-center">Coach <span className="text-primary"> {data.coach}  </span> </h3>
-          { }
+        <div className='flex flex-col basis-1/2 pt-5 '>
+          <h3 className='text-4xl font-bold mb-8 text-center'>
+            Coach <span className='text-primary'> {data.coach} </span>{" "}
+          </h3>
+          <div className='flex p-10 flex-wrap justify-center items-center'>
+            {data.players.map((player: PlayerType, index) => (
+              <h4
+                key={player.email}
+                className='basis-1/3 text-2xl mb-8 text-center'
+              >
+                {" "}
+                {player.name}{" "}
+              </h4>
+            ))}
           </div>
-        <div className="flex flex-col basis-1/2">1</div>
+        </div>
+        <div className='flex flex-col basis-1/2 pt-5 '>
+          <h3 className='text-4xl font-bold mb-8 text-center text-primary'>
+            Entrainements
+          </h3>
+          <div className='flex flex-col gap-15 mb-8 justify-center items-center grow'>
+            {data.trainings ? (
+              data.trainings.map((training, index) => (
+                <h4 key={index} className=' text-3xl text-center mb-5'>
+                  {" "}
+                  {training?.day} {training?.time} {training?.gym}{" "}
+                </h4>
+              ))
+            ) : (
+              <h4 className="text-3xl text-center mb-5"> Pas d'entrainements prévus </h4>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -11,25 +11,22 @@ export default function Index() {
   const isPlayer = (member: AdherentType): member is PlayerType => {
     return member instanceof Player;
   };
-  const players: PlayerType = playersData?.players
+  const players: PlayerType[] = playersData?.players
     .map((player) => MemberFactory.create(player, "player"))
     .filter(isPlayer);
 
     const teams = teamsData.teams
-    ? teamsData.teams
         .map((team) => MemberFactory.create(team, "team"))
         .filter((team): team is Team => team instanceof Team)
-        .map((team) => {
-          team.players = players; // Assignez les joueurs à chaque équipe
-          return team; // Retournez l'équipe mise à jour
-        })
-    : [];
-  
+        .map((team) => { team.players = players; return team; })
+
   return (
     <CardLayout pageTitle='Nos équipes '>
+      <div className="flex flex-col gap-5">
       {teams.map((team) => (
         <TeamCard key={team.name} data={team} />
       ))}
+      </div>
     </CardLayout>
   );
 }

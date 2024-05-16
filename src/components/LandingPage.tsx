@@ -4,7 +4,7 @@ import background from "@/public/background.jpg";
 
 export default function LandingPage() {
   return (
-    <>
+    <main className="flex flex-col grow">
     <div className="h-svh relative">
       <div className='absolute h-96 inset-x-0 bottom-0 w-full bg-gradient-to-t from-black'></div>
       <Image
@@ -16,6 +16,6 @@ export default function LandingPage() {
       />
     </div>
       <div className='h-16 w-full bg-black'> </div>
-      </>
+      </main>
   );
 }

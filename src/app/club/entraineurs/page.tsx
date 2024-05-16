@@ -15,9 +15,10 @@ export default function Entraineurs() {
     .filter(isCoach);
   return (
     <CardLayout pageTitle='Nos entraineurs'>
-      {coachs.map((coach) => (
+      <div className="flex flex-wrap gap-5"> {coachs.map((coach) => (
         <CoachCard data={coach} key={coach.name} />
       ))}
+      </div>
     </CardLayout>
   );
 }

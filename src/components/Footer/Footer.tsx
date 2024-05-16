@@ -28,7 +28,7 @@ export default function Footer() {
   return (
     <footer
       ref={signatureRef}
-      className='border-t-2 mt-12 border-indigo-500 flex flex-col pt-2 px-12 '
+      className='border-t-2 border-indigo-500 flex flex-col pt-2 px-12 '
     >
       <div className='flex justify-between'>
         <Link href='/' className='shrink-0'>

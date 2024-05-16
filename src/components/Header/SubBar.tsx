@@ -4,11 +4,16 @@ import Link from "next/link";
 import Image from "next/image";
 import { subNavItem } from "@/types";
 
+
+
+
 const Item = ({ data }: { data: subNavItem }) => {
+  const { isMenuOpen, setIsMenuOpen } = useContext(MenuContext);
   return (
     <Link
       href={data.url}
       className='flex relative rounded-xl overflow-hidden p-8 hover:border-indigo-500 border-2 border-transparent'
+      onClick={() => setIsMenuOpen(false)}
     >
       <Image
         src={data.image ? `/${data.image}` : "https://picsum.photos/200/200"}

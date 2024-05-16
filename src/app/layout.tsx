@@ -29,9 +29,7 @@ export default function RootLayout({
     <html lang='fr'>
       <body className="flex flex-col">
         <Header />
-        <main className="grow">
         {children}
-        </main>
         <Footer />
       </body>
     </html>

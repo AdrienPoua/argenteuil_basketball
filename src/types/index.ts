@@ -53,6 +53,8 @@ type LeaderType = MemberType & {
   number: string;
   isLeader: true;
   img?: string;
+  isEmailDisplayed : boolean;
+  isNumberDisplayed : boolean;
 };
 
 type PlayerType = MemberType & {
@@ -67,12 +69,19 @@ type AssistantType = MemberType & {
   number : string;
 };
 
+type trainingType = {
+  day : string;
+  time : string;
+  gym : string;
+} | undefined
+
 type TeamType = {
   name: string;
   coach: string;
   assistant: AssistantType[];
   img: string;
   players: PlayerType[];
+  trainings : trainingType[];
 };
 
 type AdherentType = MemberType | CoachType | LeaderType | PlayerType | AssistantType;

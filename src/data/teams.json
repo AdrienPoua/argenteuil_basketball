@@ -12,6 +12,23 @@
           "name": "Mark Johnson",
           "role": "Ramasseur de ballon"
         }
+      ], 
+      "trainings": [
+        {
+          "day": "Monday",
+          "time": "10:00",
+          "gym" : "Gym 1"
+        },
+        {
+          "day": "Wednesday",
+          "time": "10:00",
+          "gym" : "Gym 1"
+        },
+        {
+          "day": "Friday",
+          "time": "10:00",
+          "gym" : "Gym 1"
+        }
       ]
     },
     {
