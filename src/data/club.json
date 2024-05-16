@@ -3,6 +3,8 @@
     "ville": "Villeville",
     "code_postal": "12345",
     "couleurs": ["bleu", "blanc"],
+    "email" : "argenteuilbasketball@gotmail.fr",
+    "number": "06 12 34 56 78",
     "gymnases": [
       {
         "nom": "Le Dôme",

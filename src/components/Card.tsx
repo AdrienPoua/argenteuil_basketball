@@ -1,5 +1,6 @@
 "use client";
-import { MailIcon } from "@/components/icons";
+import { MailIcon, PhoneIcon } from "@/components/icons";
+import club from "@/data/club.json";
 
 import React, { useRef } from "react";
 import Link from "next/link";
@@ -92,16 +93,23 @@ export const CoachCard = ({ data }: { data: CoachType }) => {
 };
 
 export const LeaderCard = ({ data }: { data: LeaderType }) => {
-  console.log(data.isEmailDisplayed)
-  return ( 
+  console.log(data.isNumberDisplayed);
+  return (
     <div className='flex mb-5 flex-col w-72 aspect-square items-center flex-wrap bg-white text-black rounded-md overflow-hidden'>
       <Image src={data.img} alt={data.name} height={500} width={500} />
       <div className='flex flex-col border-t-2 border-primary w-full text-center grow justify-center'>
-        <div>
-          <h2 className='text-lg font-bold'>{data.name}</h2>
-          {data.isEmailDisplayed && <MailIcon email={data.email || "argenteuilbasketball@hotmail.fr"}/>}
+        <div className='flex items-center relative '>
+          <h2 className='text-lg font-bold grow '>{data.name}</h2>
+          {data.isEmailDisplayed && (
+            <MailIcon email={data.email || club.email} />
+          )}
         </div>
-        <h3 className='text-sm'>{data.role}</h3>
+        <div className='flex items-center relative '>
+          <h3 className='text-sm font-bold grow '>{data.role}</h3>
+          {data.isNumberDisplayed && (
+            <PhoneIcon number={data.number || club.number} />
+          )}
+        </div>
       </div>
     </div>
   );
@@ -152,7 +160,10 @@ export const TeamCard = ({ data }: { data: TeamType }) => {
                 </h4>
               ))
             ) : (
-              <h4 className="text-3xl text-center mb-5"> Pas d'entrainements prévus </h4>
+              <h4 className='text-3xl text-center mb-5'>
+                {" "}
+                Pas d'entrainements prévus{" "}
+              </h4>
             )}
           </div>
         </div>
