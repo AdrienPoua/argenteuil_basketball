@@ -2,9 +2,10 @@ import {
   MemberType,
   CoachType,
   LeaderType,
-  PlayerType
+  PlayerType,
+  AssistantType,
+  TeamType,
 } from "../types";
-
 
 export class Match {
   constructor(data) {
@@ -107,11 +108,11 @@ export class NewsModel {
 }
 
 export class Utils {
-  static USA_DATE(frenchDate) {
+  static USA_DATE(frenchDate: string) {
     const [day, month, year] = frenchDate.split("/");
     return `${year}/${month}/${day}`;
   }
-  static dateString(data) {
+  static dateString(data: string) {
     const options = {
       weekday: "short",
       day: "numeric",
@@ -123,7 +124,9 @@ export class Utils {
 }
 
 export class NavLinkModel {
-  constructor(data) {
+  private _title: string;
+  private _url: string;
+  constructor(data: { title: string; url: string }) {
     this._title = data.title;
     this._url = data.url;
   }
@@ -136,7 +139,9 @@ export class NavLinkModel {
 }
 
 export class NavDropdownModel {
-  constructor(data) {
+  private _title: string;
+  private _subItems: SubNavItem[];
+  constructor(data: { title: string; subItems: SubNavItem[] }) {
     this._title = data.title;
     this._subItems = data.subItems;
   }
@@ -190,12 +195,12 @@ export class Coach extends Member implements CoachType {
 
   constructor(data: CoachType) {
     super(data);
-    
+
     // Validation des données
     if (typeof data.number !== "string") {
       throw new Error("Invalid data: number must be a string");
     }
-    
+
     if (data.img !== undefined && typeof data.img !== "string") {
       throw new Error("Invalid data: img must be a string");
     }
@@ -270,10 +275,9 @@ export class Leader extends Member implements LeaderType {
   }
 
   get isLeader(): true {
-    return true
+    return true;
   }
 }
-
 
 export class Player extends Member implements PlayerType {
   private _team: string[];
@@ -281,15 +285,52 @@ export class Player extends Member implements PlayerType {
   private _number?: string;
   private _img?: string;
 
-  constructor(data) {
+  constructor(data: PlayerType) {
     super(data);
     if (!data.hasOwnProperty("team")) {
       throw new Error("Le joueur n'a pas d'équipe assignée");
     }
-    this._player = true;
+    this._isPlayer = true;
     this._team = data.team;
   }
   get team() {
     return this._team;
+  }
+  get isPlayer() {
+    return this._isPlayer;
+  }
+}
+
+export class Team {
+  private _name: string;
+  private _coach: string;
+  private _assistant: AssistantType[];
+  private _img: string;
+
+  constructor(data: TeamType) {
+    this._name = data.name;
+    this._coach = data.coach;
+    this._assistant = data.assistant;
+    this._img = data.img;
+  }
+
+  get name() {
+    return this._name;
+  }
+
+  get coach() {
+    return this._coach;
+  }
+
+  get assistant() {
+    return this._assistant;
+  }
+
+  get img() {
+    return this._img;
+  }
+
+  players(data: PlayerType[]) {
+    return data.filter((player) => player.team.includes(this._name));
   }
 }

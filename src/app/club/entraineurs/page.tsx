@@ -1,23 +1,23 @@
-"use client"
+"use client";
 import data from "@/data/staff.json";
 import { MemberFactory } from "@/factories";
 import { Coach } from "@/models";
 import { CoachCard } from "@/components/Card";
-
+import { AdherentType } from "@/types";
+import CardLayout from "@/components/layouts/CardLayout";
 
 export default function Entraineurs() {
-  console.log(data.staff)
+  const isCoach = (member: AdherentType): member is Coach => {
+    return member instanceof Coach;
+  };
   const coachs = data.staff
-    .map((member) => MemberFactory.create(member, "coach")).filter((member) => member instanceof Coach);
+    .map((member) => MemberFactory.create(member, "coach"))
+    .filter(isCoach);
   return (
-    <div className='mt-8 '>
-      <h1 className='text-white text-center text-4xl'> Nos entraineurs </h1>
-      <div className='flex flex-wrap gap-6 p-14 '>
-        {" "}
-        {coachs.map((coach) => (
-          <CoachCard data={coach} key={coach.name} />
-        ))}
-      </div>
-    </div>
+    <CardLayout pageTitle='Nos entraineurs'>
+      {coachs.map((coach) => (
+        <CoachCard data={coach} key={coach.name} />
+      ))}
+    </CardLayout>
   );
 }

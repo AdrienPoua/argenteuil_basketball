@@ -1,10 +1,9 @@
 import {
   NavLinkModel,
-  NavDropdownModel,
-  Member,
+  NavDropdownModel, Team,
   Coach,
   Leader,
-  Player,
+  Player
 } from "@/models";
 
 export class NavFactory {
@@ -24,8 +23,8 @@ export class MemberFactory {
       return new Leader(data);
     } else if (type === "player" && data.player) {
       return new Player(data);
-    } else {
-      return new Member(data);
+    } else if (type === "team" && data.coach) {
+      return new Team(data);
     }
   }
 }

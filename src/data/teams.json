@@ -1,0 +1,79 @@
+{
+  "teams": [
+    {
+      "name": "U17",
+      "coach": "John Doe",
+      "assistant": [
+        {
+          "name": "Jane Smith",
+          "role": "Assistant Coach"
+        },
+        {
+          "name": "Mark Johnson",
+          "role": "Ramasseur de ballon"
+        }
+      ],
+      "img": "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      "name": "U18",
+      "coach": "Emily Brown",
+      "assistant": [
+        {
+          "name": "Tom Wilson",
+          "role": "Assistant Coach"
+        },
+        {
+          "name": "Lucy Gray",
+          "role": "Ramasseur de ballon"
+        }
+      ],
+      "img": "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      "name": "U19",
+      "coach": "Michael Scott",
+      "assistant": [
+        {
+          "name": "Pam Beesly",
+          "role": "Assistant Coach"
+        },
+        {
+          "name": "Jim Halpert",
+          "role": "Ramasseur de ballon"
+        }
+      ],
+      "img": "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      "name": "U20",
+      "coach": "Sarah Connor",
+      "assistant": [
+        {
+          "name": "Kyle Reese",
+          "role": "Assistant Coach"
+        },
+        {
+          "name": "John Connor",
+          "role": "Ramasseur de ballon"
+        }
+      ],
+      "img": "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      "name": "U21",
+      "coach": "Rick Grimes",
+      "assistant": [
+        {
+          "name": "Daryl Dixon",
+          "role": "Assistant Coach"
+        },
+        {
+          "name": "Maggie Greene",
+          "role": "Ramasseur de ballon"
+        }
+      ],
+      "img": "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    }
+  ]
+}

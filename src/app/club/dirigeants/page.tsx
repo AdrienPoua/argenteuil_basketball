@@ -1,14 +1,13 @@
-import React from "react";
 import data from "@/data/staff.json";
 import { MemberFactory } from "@/factories";
 import Image from "next/image";
-import { AdherentType, LeaderType, MemberType } from "@/types";
+import { AdherentType, LeaderType } from "@/types";
 import { Leader } from "@/models";
 
 const LeaderCard = ({ data }: { data: LeaderType }) => {
   return (
     <div className='flex mb-5 flex-col w-72 aspect-square items-center flex-wrap bg-white text-black rounded-md overflow-hidden'>
-      <Image src={data.img} alt={data.name} height={500} width={500} />
+      <Image src={data.img ?? "https://placehold.co/600x400/EEE/31343C" } alt={data.name} height={500} width={500} />
       <div className=' flex flex-col border-t-2 border-primary w-full text-center grow justify-center '>
         <h2 className='text-lg font-bold '>{data.name}</h2>
         <h3 className='text-sm'> {data.role} </h3>

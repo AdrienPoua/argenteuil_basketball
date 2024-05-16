@@ -1,5 +1,4 @@
-import { bureau } from "@/data/club.json";
-
+import { MemberType } from "@/types";
 type MatchDataProps = {
   Division: string;
   "N° de match": string;
@@ -43,31 +42,51 @@ type MemberType = {
 };
 
 type CoachType = MemberType & {
-  isCoach : true;
+  isCoach: true;
   number: string;
   img?: string;
   team: string[];
 };
 
-
-
 type LeaderType = MemberType & {
   role: string[];
   number: string;
-  isLeader: true ;
+  isLeader: true;
   img?: string;
 };
 
 type PlayerType = MemberType & {
-  isPlayer: boolean;
+  isPlayer: true ;
   team: string[];
   number?: string;
   img?: string;
 };
 
+type AssistantType = MemberType & {
+  role: string;
+  number : string;
+};
 
+type TeamType = {
+  name: string;
+  coach: string;
+  assistant: AssistantType[];
+  img: string;
+};
 
-type AdherentType = MemberType | CoachType | LeaderType | PlayerType;
+type AdherentType = MemberType | CoachType | LeaderType | PlayerType | AssistantType;
 
-export type { MatchDataProps, NewsType, NavLinkType, NavDropdownType, MenuState, MemberType, CoachType, LeaderType, PlayerType, AdherentType };
-
+export type {
+  MatchDataProps,
+  NewsType,
+  NavLinkType,
+  NavDropdownType,
+  MenuState,
+  MemberType,
+  CoachType,
+  LeaderType,
+  PlayerType,
+  AdherentType,
+  AssistantType,
+  TeamType,
+};

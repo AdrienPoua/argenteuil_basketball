@@ -4,8 +4,8 @@ import React, { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import useCardHover from "@/hooks/useCardHover"; // Assurez-vous d'importer correctement vos hooks
-import { Coach, NewsModel, Leader, Utils } from "@/models";
-import { CoachType, LeaderType, NewsType } from "@/types";
+import { Coach, NewsModel, Leader, Utils, Team } from "@/models";
+import { CoachType, LeaderType, NewsType, PlayerType, TeamType } from "@/types";
 // Assurez-vous d'importer correctement vos modèles
 
 const SmallNews = ({ data } : { data : NewsType }) => {
@@ -99,10 +99,20 @@ export const LeaderCard = ({ data }: { data: LeaderType }) => {
       </div>
     );
   };
-export default function Card({ data } : Readonly<{ data : NewsType | CoachType | LeaderType }>) {
-  if ( (data instanceof NewsModel) && data.type ) {
-    console.log("ok")
 
+export const TeamCard = ({ data }: { data : TeamType }) => {
+  console.log(data.img)
+    return (  
+      <div className='flex mb-5 flex-col w-72 aspect-square items-center flex-wrap bg-white text-black rounded-md overflow-hidden'>
+        <Image src={data.img || "https://placehold.co/400"} alt={data.name} height={500} width={500} />
+        <div className=' flex flex-col border-t-2 border-primary w-full text-center grow justify-center '>
+          <h2 className='text-lg font-bold '>{data.name}</h2>
+        </div>
+      </div>
+    );
+  }
+export default function Card({ data } : Readonly<{ data : NewsType | CoachType | LeaderType | TeamType }>) {
+  if ( (data instanceof NewsModel) && data.type ) {
     return <BigNews data={data} />;
   } else if (data instanceof NewsModel) {
     return <SmallNews data={data} />;
@@ -110,6 +120,8 @@ export default function Card({ data } : Readonly<{ data : NewsType | CoachType |
     return <CoachCard data={data} />;
   } else if (data instanceof Leader) {
     return <LeaderCard data={data} />;
+  } else if (data instanceof Team ) {
+    return <TeamCard data={data} />;
   }
 
 };
