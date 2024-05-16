@@ -305,13 +305,15 @@ export class Team {
   private _name: string;
   private _coach: string;
   private _assistant: AssistantType[];
-  private _img: string;
+  private _img: string = "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" ;
+  private _players: PlayerType[] = [] ;
 
   constructor(data: TeamType) {
     this._name = data.name;
     this._coach = data.coach;
     this._assistant = data.assistant;
-    this._img = data.img;
+    this._img = data.img || "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+    this._players = data.players;
   }
 
   get name() {
@@ -330,7 +332,12 @@ export class Team {
     return this._img;
   }
 
-  players(data: PlayerType[]) {
-    return data.filter((player) => player.team.includes(this._name));
+  get players() {
+    return this._players;
   }
+
+  set players(data: PlayerType[]) {
+     data.filter((player) => player.team.includes(this._name));
+  }
+
 }

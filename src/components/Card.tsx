@@ -8,8 +8,8 @@ import { Coach, NewsModel, Leader, Utils, Team } from "@/models";
 import { CoachType, LeaderType, NewsType, PlayerType, TeamType } from "@/types";
 // Assurez-vous d'importer correctement vos modèles
 
-const SmallNews = ({ data } : { data : NewsType }) => {
-  const { img, title, url  } = data;
+const SmallNews = ({ data }: { data: NewsType }) => {
+  const { img, title, url } = data;
   const cardRef = React.useRef<HTMLAnchorElement | null>(null);
   const imageRef = React.useRef<HTMLImageElement | null>(null);
   useCardHover(cardRef, imageRef);
@@ -39,8 +39,8 @@ const SmallNews = ({ data } : { data : NewsType }) => {
   );
 };
 
-const BigNews = ({ data } : { data : NewsType }) => {
-  const { img, title, url, type, date } = data ;
+const BigNews = ({ data }: { data: NewsType }) => {
+  const { img, title, url, type, date } = data;
   const cardRef = useRef<HTMLAnchorElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
   useCardHover(cardRef, imageRef); // Hover effect
@@ -65,63 +65,78 @@ const BigNews = ({ data } : { data : NewsType }) => {
         <div className='absolute inset-0 bg-black opacity-40'></div>
         <div className='absolute inset-x-0 bottom-5 text-white gap-4'>
           <div className='text-lg font-black ps-5 mb-3'>{title}</div>
-          <div className='text-sm ps-5 pb-5 font-bold'>{Utils.dateString(date)}</div>
+          <div className='text-sm ps-5 pb-5 font-bold'>
+            {Utils.dateString(date)}
+          </div>
         </div>
       </div>
     </Link>
   );
 };
 
-export const CoachCard = ({ data } : { data : CoachType }) => {
-    return (
-      <div className='flex mb-5 flex-col min-w-44 items-center flex-wrap text-black rounded-md overflow-hidden'>
-        <Image src={data.img} alt={data.name} height={500} width={500} />
-        <div className=' flex flex-col border-t-2 border-primary py-3 w-full text-center bg-white '>
-          <h2 className='text-lg font-bold '>{data.name}</h2>
-          <h3 className='text-sm '>
-            {Array.isArray(data.team) && data.team.length > 1
-              ? `Equipes ${data.team.join(" & ")}`
-              : `Equipe ${data.team}`}
-          </h3>
-        </div>
+export const CoachCard = ({ data }: { data: CoachType }) => {
+  return (
+    <div className='flex mb-5 flex-col min-w-44 items-center flex-wrap text-black rounded-md overflow-hidden'>
+      <Image src={data.img} alt={data.name} height={500} width={500} />
+      <div className=' flex flex-col border-t-2 border-primary py-3 w-full text-center bg-white '>
+        <h2 className='text-lg font-bold '>{data.name}</h2>
+        <h3 className='text-sm '>
+          {Array.isArray(data.team) && data.team.length > 1
+            ? `Equipes ${data.team.join(" & ")}`
+            : `Equipe ${data.team}`}
+        </h3>
       </div>
-    );
-  };
+    </div>
+  );
+};
 
 export const LeaderCard = ({ data }: { data: LeaderType }) => {
-    return (
-      <div className='flex mb-5 flex-col w-72 aspect-square items-center flex-wrap bg-white text-black rounded-md overflow-hidden'>
-        <Image src={data.img} alt={data.name} height={500} width={500} />
-        <div className=' flex flex-col border-t-2 border-primary w-full text-center grow justify-center '>
-          <h2 className='text-lg font-bold '>{data.name}</h2>
-          <h3 className='text-sm'> {data.role} </h3>
-        </div>
+  return (
+    <div className='flex mb-5 flex-col w-72 aspect-square items-center flex-wrap bg-white text-black rounded-md overflow-hidden'>
+      <Image src={data.img} alt={data.name} height={500} width={500} />
+      <div className=' flex flex-col border-t-2 border-primary w-full text-center grow justify-center '>
+        <h2 className='text-lg font-bold '>{data.name}</h2>
+        <h3 className='text-sm'> {data.role} </h3>
       </div>
-    );
-  };
+    </div>
+  );
+};
 
-export const TeamCard = ({ data }: { data : TeamType }) => {
-  console.log(data.img)
-    return (  
-      <div className='flex mb-5 flex-col w-72 aspect-square items-center flex-wrap bg-white text-black rounded-md overflow-hidden'>
-        <Image src={data.img || "https://placehold.co/400"} alt={data.name} height={500} width={500} />
-        <div className=' flex flex-col border-t-2 border-primary w-full text-center grow justify-center '>
-          <h2 className='text-lg font-bold '>{data.name}</h2>
-        </div>
+export const TeamCard = ({ data }: { data: TeamType }) => {
+  return (
+    <div className='relative overflow-hidden w-full h-[700px] rounded-md shadow-lg hover:shadow-xl transition duration-300'>
+      <div className='absolute inset-0 overflow-hidden rounded-md'>
+        <Image
+          src={data.img}
+          alt={data.name}
+          layout='fill'
+          objectFit='cover'
+          className='object-cover'
+        />
       </div>
-    );
-  }
-export default function Card({ data } : Readonly<{ data : NewsType | CoachType | LeaderType | TeamType }>) {
-  if ( (data instanceof NewsModel) && data.type ) {
+      <h2 className='absolute inset-0 flex justify-center items-center text-6xl text-white'>{data.name}</h2>
+      <div className='absolute inset-0 flex px-4 py-2 bg-black bg-opacity-50 text-white transition-opacity duration-300 opacity-0 hover:opacity-100'>
+        <div className="flex flex-col basis-1/2 p-10">
+          <h3 className="text-4xl font-bold mb-14 text-center">Coach <span className="text-primary"> {data.coach}  </span> </h3>
+          { }
+          </div>
+        <div className="flex flex-col basis-1/2">1</div>
+      </div>
+    </div>
+  );
+};
+export default function Card({
+  data,
+}: Readonly<{ data: NewsType | CoachType | LeaderType | TeamType }>) {
+  if (data instanceof NewsModel && data.type) {
     return <BigNews data={data} />;
   } else if (data instanceof NewsModel) {
     return <SmallNews data={data} />;
-  } else if (data instanceof Coach ) {
+  } else if (data instanceof Coach) {
     return <CoachCard data={data} />;
   } else if (data instanceof Leader) {
     return <LeaderCard data={data} />;
-  } else if (data instanceof Team ) {
+  } else if (data instanceof Team) {
     return <TeamCard data={data} />;
   }
-
-};
+}

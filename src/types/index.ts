@@ -72,6 +72,7 @@ type TeamType = {
   coach: string;
   assistant: AssistantType[];
   img: string;
+  players: PlayerType[];
 };
 
 type AdherentType = MemberType | CoachType | LeaderType | PlayerType | AssistantType;
