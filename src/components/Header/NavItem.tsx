@@ -1,21 +1,19 @@
-import { NavItemType } from "@/types";
+import { NavItemType, SubItemsType } from "@/types";
 
-export const NavItem = ({ data, setActiveNav }: { data: Readonly<NavItemType>, setActiveNav: (x : string) => void }) => {
+type NavItemProps = {
+  data: NavItemType;
+  setActiveNav: (data : NavItemType) => void;
+}
 
-  const handleClick = () => {
-    setActiveNav(data.title)
-  }
+
+export const NavItem: React.FC<NavItemProps> = ({ data, setActiveNav }) => {
   return (
     <li
       key={data.title}
       className='grow flex justify-center  text-black items-center hover:text-indigo-500'
     >
-      <button
-        onClick={() => {
-          handleClick();
-        }}
-        className='flex grow relative px-5 py-3'
-      >
+      <button className='flex grow relative px-5 py-3' onClick={() => setActiveNav(data)}>
+
         <div className='flex justify-center items-center '>
           <h3 className='flex text-xs'>{data.title}</h3>
           {/* Élément simulant un pseudo-élément ::after */}
@@ -37,4 +35,3 @@ export const NavItem = ({ data, setActiveNav }: { data: Readonly<NavItemType>, s
     </li>
   );
 };
-

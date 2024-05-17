@@ -9,23 +9,26 @@ import { v4 as uuiv4 } from "uuid";
 import { NavItemType } from "@/types";
 
 export default function Header({ data }: Readonly<{ data: NavItemType[] }>) {
-  const [activeNav, setActiveNav] = useState<string>("");
+  const [activeNav, setActiveNav] = useState<NavItemType>({
+    title: "",
+    subItems: [],
+  });
   const headerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      // if (!headerRef.current?.contains(e.target as Node)) {
-      //   setActiveNav("");
-      //   console.log("click outside");
-      // }
-      console.log(headerRef.current?.contains(e.target as Node))
-
+      console.log("🚀 ~ handleClickOutside ~ e.target:", e.target);
+      if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
+        setActiveNav({ title: "", subItems: [] });
+        console.log(e.target);
+      }
     };
     document.addEventListener("click", handleClickOutside);
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
   }, [headerRef]);
+
   return (
     <header
       ref={headerRef}
@@ -43,20 +46,14 @@ export default function Header({ data }: Readonly<{ data: NavItemType[] }>) {
         </Link>
         <nav className='flex grow'>
           <ul className='flex'>
-            {data.map((item) => {
-              return (
-                <NavItem
-                  key={uuiv4()}
-                  data={item}
-                  setActiveNav={setActiveNav}
-                />
-              );
-            })}
+            {data.map((item) => (
+              <NavItem key={uuiv4()} data={item} setActiveNav={setActiveNav} />
+            ))}
           </ul>
         </nav>
         <Contact />
       </div>
-      {activeNav && <SubBar data={data} activeNav={activeNav} />}
+      <SubBar data={activeNav} />
     </header>
   );
 }

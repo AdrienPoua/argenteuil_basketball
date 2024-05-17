@@ -20,9 +20,10 @@ type NewsType = {
 
 type NavItemType = {
   title: string;
-  subItems : { title: string; url: string; img?: string }[];
+  subItems : SubItemType[];
 };
 
+type SubItemType = { title: string; url: string; img?: string };
 type MenuState = {
   isMenuOpen: boolean;
   setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -83,7 +84,6 @@ type AdherentType = MemberType | CoachType | LeaderType | PlayerType | Assistant
 export type {
   MatchDataProps,
   NewsType,
-  NavLinkType,
   NavItemType,
   MenuState,
   MemberType,
@@ -93,4 +93,6 @@ export type {
   AdherentType,
   AssistantType,
   TeamType,
+  trainingType,
+  SubItemType as SubItemsType
 };

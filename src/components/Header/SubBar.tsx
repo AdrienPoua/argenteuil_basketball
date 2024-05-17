@@ -1,17 +1,19 @@
-import { useContext } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { NavItemType } from "@/types";
+import { NavItemType, SubItemsType } from "@/types";
 import { v4 as uuiv4 } from "uuid";
 
-const Item = ({ data } : { data: { title : string, url : string, img: string} }) => {  
+const Item = ({ data }: { data: SubItemsType }) => {
   return (
     <Link
-      href={data.url || "/ok"}
+      href={data.url}
       className='flex relative rounded-xl overflow-hidden p-8 hover:border-indigo-500 border-2 border-transparent'
     >
       <Image
-        src={data.img}
+        src={
+          data.img ??
+          "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        }
         className='absolute inset-0 h-full w-full '
         alt='test'
         width={200}
@@ -23,12 +25,11 @@ const Item = ({ data } : { data: { title : string, url : string, img: string} })
   );
 };
 
-export default function SubBar({ data, activeNav }: Readonly<{ data: NavItemType[], activeNav : string }>) {
-  const { subItems : items } = data.find((item) => item.title === activeNav);
+export default function SubBar({ data }: Readonly<{ data: NavItemType }>) {
   return (
     <div className=' flex gap-24 bg-white border-none py-1 justify-center items-center'>
-      {items.map((item) => (
-        <Item data={item}  key={uuiv4()} />
+      {data.subItems?.map((item: SubItemsType) => (
+        <Item data={item} key={uuiv4()} />
       ))}
     </div>
   );
