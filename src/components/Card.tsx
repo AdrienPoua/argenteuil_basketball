@@ -1,6 +1,7 @@
 "use client";
 import { MailIcon, PhoneIcon } from "@/components/icons";
 import club from "@/data/club.json";
+import {v4 as uuidv4} from 'uuid';
 
 import React, { useRef } from "react";
 import Link from "next/link";
@@ -93,19 +94,19 @@ export const CoachCard = ({ data }: { data: CoachType }) => {
 };
 
 export const LeaderCard = ({ data }: { data: LeaderType }) => {
-  console.log(data.isNumberDisplayed);
+  console.log(data);
   return (
-    <div className='flex mb-5 flex-col w-72 aspect-square items-center flex-wrap bg-white text-black rounded-md overflow-hidden'>
+    <div className='flex mb-5 flex-col w-92 aspect-square items-center flex-wrap bg-white text-black rounded-md overflow-hidden'>
       <Image src={data.img} alt={data.name} height={500} width={500} />
       <div className='flex flex-col border-t-2 border-primary w-full text-center grow justify-center'>
         <div className='flex items-center relative '>
-          <h2 className='text-lg font-bold grow '>{data.name}</h2>
+          <h2 className='text-3xl font-bold grow '>{data.name}</h2>
           {data.isEmailDisplayed && (
             <MailIcon email={data.email || club.email} />
           )}
         </div>
         <div className='flex items-center relative '>
-          <h3 className='text-sm font-bold grow '>{data.role}</h3>
+          <h3 className='text-lg font-bold grow '>{data.role}</h3>
           {data.isNumberDisplayed && (
             <PhoneIcon number={data.number || club.number} />
           )}
@@ -116,6 +117,9 @@ export const LeaderCard = ({ data }: { data: LeaderType }) => {
 };
 
 export const TeamCard = ({ data }: { data: TeamType }) => {
+  console.log("🚀 ~ TeamCard ~ data:", data);
+
+
   return (
     <div className='relative overflow-hidden w-full h-[700px] rounded-md shadow-lg hover:shadow-xl transition duration-300'>
       <div className='absolute inset-0 overflow-hidden rounded-md'>
@@ -138,7 +142,7 @@ export const TeamCard = ({ data }: { data: TeamType }) => {
           <div className='flex p-10 flex-wrap justify-center items-center'>
             {data.players.map((player: PlayerType, index) => (
               <h4
-                key={player.email}
+                key={uuidv4()}
                 className='basis-1/3 text-2xl mb-8 text-center'
               >
                 {" "}
@@ -153,8 +157,11 @@ export const TeamCard = ({ data }: { data: TeamType }) => {
           </h3>
           <div className='flex flex-col gap-15 mb-8 justify-center items-center grow'>
             {data.trainings ? (
-              data.trainings.map((training, index) => (
-                <h4 key={index} className=' text-3xl text-center mb-5'>
+              data.trainings.map((training) => (
+                <h4
+                  key={uuidv4()}
+                  className='text-3xl text-center mb-5'
+                >
                   {" "}
                   {training?.day} {training?.time} {training?.gym}{" "}
                 </h4>
@@ -162,7 +169,7 @@ export const TeamCard = ({ data }: { data: TeamType }) => {
             ) : (
               <h4 className='text-3xl text-center mb-5'>
                 {" "}
-                Pas d'entrainements prévus{" "}
+                Pas d&apos;entrainements prévus{" "}
               </h4>
             )}
           </div>

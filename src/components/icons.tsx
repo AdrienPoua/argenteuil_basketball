@@ -19,7 +19,7 @@ export function MailIcon({ email }: Readonly<{ email: string }>) {
   };
 
   return (
-    <button onClick={handleClick} className="align-self-end m-5 cursor-pointer absolute right-2 ">
+<button onClick={handleClick} className="align-self-end m-5 text-3xl cursor-pointer absolute right-2">
       <CiMail />
       <Toaster />
     </button>
@@ -42,7 +42,7 @@ export function PhoneIcon({ number }: Readonly<{ number: string }>) {
   };
 
   return (
-    <button onClick={handleClick} className="align-self-end m-5 cursor-pointer absolute right-2 ">
+    <button onClick={handleClick} className="align-self-end m-5 text-3xl cursor-pointer absolute right-2 ">
       <CiPhone />
       <Toaster />
     </button>

@@ -19,12 +19,12 @@ export default function Index() {
         .map((team) => MemberFactory.create(team, "team"))
         .filter((team): team is Team => team instanceof Team)
         .map((team) => { team.players = players; return team; })
-
+console.log(teams)  
   return (
     <CardLayout pageTitle='Nos équipes '>
       <div className="flex flex-col gap-5">
-      {teams.map((team) => (
-        <TeamCard key={team.name} data={team} />
+      {teams.map((team, index) => (
+        <TeamCard key={index} data={team} />
       ))}
       </div>
     </CardLayout>

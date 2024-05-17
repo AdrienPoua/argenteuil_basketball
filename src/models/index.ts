@@ -239,7 +239,7 @@ export class Coach extends Member implements CoachType {
 export class Leader extends Member implements LeaderType {
   private _role: string[];
   private _number: string;
-  private _img?: string;
+  private _img: string;
   private _isLeader: true;
   private _isEmailDisplayed: boolean
   private _isNumberDisplayed: boolean 
@@ -275,8 +275,8 @@ export class Leader extends Member implements LeaderType {
     return this._number;
   }
 
-  get img(): string | undefined {
-    return this._img;
+  get img(): string  {
+    return this._img ?? "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   }
 
   get isLeader(): true {

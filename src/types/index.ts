@@ -52,7 +52,7 @@ type LeaderType = MemberType & {
   role: string[];
   number: string;
   isLeader: true;
-  img?: string;
+  img: string ;
   isEmailDisplayed : boolean;
   isNumberDisplayed : boolean;
 };
