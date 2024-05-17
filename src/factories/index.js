@@ -1,18 +1,14 @@
 import {
-  NavLinkModel,
-  NavDropdownModel, Team,
+  Team,
   Coach,
   Leader,
-  Player
+  Player,
+  NavItemModel,
 } from "@/models";
 
 export class NavFactory {
   static create(data) {
-    if (data.url) {
-      return new NavLinkModel(data);
-    } else {
-      return new NavDropdownModel(data);
-    }
+    return new NavItemModel(data);
   }
 }
 export class MemberFactory {

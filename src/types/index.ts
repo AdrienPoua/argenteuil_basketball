@@ -17,23 +17,17 @@ type NewsType = {
   type?: "main" | "secondary";
 };
 
-type NavLinkType = {
-  title: string;
-  url?: string;
-  subItems?: NavDropdownType[];
-};
 
-type NavDropdownType = {
+type NavItemType = {
   title: string;
-  url: string;
-  image?: string;
+  subItems : { title: string; url: string; img?: string }[];
 };
 
 type MenuState = {
   isMenuOpen: boolean;
   setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  dataMenu: NavLinkType | null;
-  setDataMenu: React.Dispatch<React.SetStateAction<NavLinkType | null>>;
+  subBar: NavItemType | null;
+  setSubBar: React.Dispatch<React.SetStateAction<NavItemType | null>>;
 };
 
 type MemberType = {
@@ -90,7 +84,7 @@ export type {
   MatchDataProps,
   NewsType,
   NavLinkType,
-  NavDropdownType,
+  NavItemType,
   MenuState,
   MemberType,
   CoachType,

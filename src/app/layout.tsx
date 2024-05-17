@@ -1,13 +1,12 @@
-"use client"
+"use client";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
-import { useMenu } from "@/hooks/useMenu";
 import { useIsScrollingUp } from "@/hooks/useIsScrollingUp";
-import { MenuContext, ScrollingContext } from "@/hooks/useContext";
-
+import headerData from "@/data/header.json";
+import { createContext, useRef, useEffect } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,19 +20,18 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const handleMenu = useMenu();
   const isScrolling = useIsScrollingUp();
+  const ScrollingContext = createContext(false);
+
   return (
-    <MenuContext.Provider value={handleMenu}>
     <ScrollingContext.Provider value={isScrolling}>
-    <html lang='fr'>
-      <body className="flex flex-col">
-        <Header />
-        {children}
-        <Footer />
-      </body>
-    </html>
+      <html lang='fr'>
+        <body className='flex flex-col'>
+          <Header data={headerData} />
+          {children}
+          <Footer />
+        </body>
+      </html>
     </ScrollingContext.Provider>
-    </MenuContext.Provider>
   );
 }

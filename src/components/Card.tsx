@@ -94,7 +94,6 @@ export const CoachCard = ({ data }: { data: CoachType }) => {
 };
 
 export const LeaderCard = ({ data }: { data: LeaderType }) => {
-  console.log(data);
   return (
     <div className='flex mb-5 flex-col w-92 aspect-square items-center flex-wrap bg-white text-black rounded-md overflow-hidden'>
       <Image src={data.img} alt={data.name} height={500} width={500} />
@@ -117,8 +116,6 @@ export const LeaderCard = ({ data }: { data: LeaderType }) => {
 };
 
 export const TeamCard = ({ data }: { data: TeamType }) => {
-  console.log("🚀 ~ TeamCard ~ data:", data);
-
 
   return (
     <div className='relative overflow-hidden w-full h-[700px] rounded-md shadow-lg hover:shadow-xl transition duration-300'>

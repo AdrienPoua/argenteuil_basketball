@@ -32,7 +32,6 @@ export default function Index() {
       leader.role.includes("Correspondant") ||
       leader.role.includes("Correspondante")
   );
-  console.log(president, vicePresident, tresorier, secretaire, correspondant)
   return (
     <CardLayout pageTitle='Les membres du bureau'>
       <div className='flex flex-col items-center'>

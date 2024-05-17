@@ -124,30 +124,12 @@ export class Utils {
   }
 }
 
-export class NavLinkModel {
+export class NavItemModel {
   private _title: string;
-  private _url: string;
-  constructor(data: { title: string; url: string }) {
-    this._title = data.title;
-    this._url = data.url;
-  }
-  get title() {
-    return this._title;
-  }
-  get url() {
-    return this._url;
-  }
-}
-
-export class NavDropdownModel {
-  private _title: string;
-  private _subItems: SubNavItem[];
-  constructor(data: { title: string; subItems: SubNavItem[] }) {
+  private _subItems: {title: string, url: string}[];
+  constructor(data: { title: string; subItems: {title: string, url: string, img: string }[] }) {
     this._title = data.title;
     this._subItems = data.subItems;
-  }
-  static create(subitems) {
-    return subitems.map((subitem) => new SubNavItem(subitem));
   }
   get title() {
     return this._title;
@@ -157,18 +139,6 @@ export class NavDropdownModel {
   }
 }
 
-export class SubNavItem {
-  constructor(data) {
-    this._title = data.title;
-    this._url = data.url;
-  }
-  get title() {
-    return this._title;
-  }
-  get url() {
-    return this._url;
-  }
-}
 
 export class Member implements MemberType {
   private _name: string;
