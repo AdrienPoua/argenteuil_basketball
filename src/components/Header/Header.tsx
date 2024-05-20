@@ -7,6 +7,7 @@ import Contact from "@/components/Header/Contact";
 import SubBar from "@/components/Header/SubBar";
 import { v4 as uuiv4 } from "uuid";
 import { NavItemType } from "@/types";
+import { useRouter } from 'next/router';
 
 export default function Header({ data }: Readonly<{ data: NavItemType[] }>) {
   const [activeNav, setActiveNav] = useState<NavItemType>({
@@ -16,18 +17,25 @@ export default function Header({ data }: Readonly<{ data: NavItemType[] }>) {
   const headerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      console.log("🚀 ~ handleClickOutside ~ e.target:", e.target);
-      if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
+    const handleMouseDown = (e: MouseEvent) => {
+      if (!headerRef.current) return;
+
+      const clickedElement = e.target as Node;
+      const isClickedInside = headerRef.current.contains(clickedElement);
+
+      console.log(clickedElement);
+
+      if (!isClickedInside || clickedElement.textContent === activeNav.title) {
         setActiveNav({ title: "", subItems: [] });
-        console.log(e.target);
       }
     };
-    document.addEventListener("click", handleClickOutside);
+
+    document.addEventListener("mouseup", handleMouseDown);
+
     return () => {
-      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("mouseup", handleMouseDown);
     };
-  }, [headerRef]);
+  }, [activeNav]);
 
   return (
     <header
