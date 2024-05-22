@@ -7,16 +7,14 @@
     "number": "06 12 34 56 78",
     "gymnases": [
       {
-        "nom": "Le Dôme",
-        "adresse": "Rue du Basket, Villeville",
-        "code_postal": "12345",
-        "image": "/chemin/vers/image_dome.jpg"
+        "name": "Jean Guimier",
+        "address": "Rue du Basket, Villeville",
+        "img": "/chemin/vers/img_dome.jpg"
       },
       {
-        "nom": "Gymnase des Sports",
-        "adresse": "Avenue des Victoires, Villeville",
-        "code_postal": "54321",
-        "image": "/chemin/vers/image_sports.jpg"
+        "name": "Jsse Owens",
+        "address": "Avenue des Victoires, Villeville",
+        "img": "/chemin/vers/img_sports.jpg"
       }
     ],
     "sponsors": ["Nike", "Adidas", "Orange"],

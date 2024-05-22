@@ -1,154 +1,124 @@
-{
-  "teams": [
-    {
-      "name": "U17",
-      "coach": "John Doe",
-      "assistant": [
-        {
-          "name": "Jane Smith",
-          "role": "Assistant Coach"
-        },
-        {
-          "name": "Mark Johnson",
-          "role": "Ramasseur de ballon"
-        }
-      ],
-      "trainings": [
-        {
-          "day": "Lundi",
-          "start": "10:00",
-          "end": "12:00",
-          "gym": "Gym 1"
-        },
-        {
-          "day": "Mardi",
-          "start": "10:00",
-          "end": "12:00",
-          "gym": "Gym 1"
-        },
-        {
-          "day": "Mercredi",
-          "start": "10:00",
-          "end": "12:00",
-          "gym": "Gym 1"
-        }
-      ]
-    },
-    {
-      "name": "U18",
-      "coach": "Emily Brown",
-      "assistant": [
-        {
-          "name": "Tom Wilson",
-          "role": "Assistant Coach"
-        },
-        {
-          "name": "Lucy Gray",
-          "role": "Ramasseur de ballon"
-        }
-      ],
-      "img": "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      "trainings": [
-        {
-          "day": "Jeudi",
-          "start": "14:00",
-          "end": "16:00",
-          "gym": "Gym 2"
-        },
-        {
-          "day": "Vendredi",
-          "start": "14:00",
-          "end": "16:00",
-          "gym": "Gym 2"
-        }
-      ]
-    },
-    {
-      "name": "U19",
-      "coach": "Michael Scott",
-      "assistant": [
-        {
-          "name": "Pam Beesly",
-          "role": "Assistant Coach"
-        },
-        {
-          "name": "Jim Halpert",
-          "role": "Ramasseur de ballon"
-        }
-      ],
-      "img": "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      "trainings": [
-        {
-          "day": "Lundi",
-          "start": "16:00",
-          "end": "18:00",
-          "gym": "Gym 3"
-        },
-        {
-          "day": "Mercredi",
-          "start": "16:00",
-          "end": "18:00",
-          "gym": "Gym 3"
-        }
-      ]
-    },
-    {
-      "name": "U20",
-      "coach": "Sarah Connor",
-      "assistant": [
-        {
-          "name": "Kyle Reese",
-          "role": "Assistant Coach"
-        },
-        {
-          "name": "John Connor",
-          "role": "Ramasseur de ballon"
-        }
-      ],
-      "img": "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      "trainings": [
-        {
-          "day": "Mardi",
-          "start": "18:00",
-          "end": "20:00",
-          "gym": "Gym 4"
-        },
-        {
-          "day": "Jeudi",
-          "start": "18:00",
-          "end": "20:00",
-          "gym": "Gym 4"
-        }
-      ]
-    },
-    {
-      "name": "U21",
-      "coach": "Rick Grimes",
-      "assistant": [
-        {
-          "name": "Daryl Dixon",
-          "role": "Assistant Coach"
-        },
-        {
-          "name": "Maggie Greene",
-          "role": "Ramasseur de ballon"
-        }
-      ],
-      "img": "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      "trainings": [
-        {
-          "day": "Vendredi",
-          "start": "20:00",
-          "end": "22:00",
-          "gym": "Gym 5"
-        },
-        {
-          "day": "Dimanche",
-          "start": "20:00",
-          "end": "22:00",
-          "gym": "Gym 5"
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "name": "U17",
+    "coach": "John Doe",
+    "assistant": [
+      {
+        "name": "Jane Smith",
+        "role": "Assistant Coach"
+      },
+      {
+        "name": "Mark Johnson",
+        "role": "Ramasseur de ballon"
+      }
+    ],
+    "trainings": [
+      {
+        "day": "Lundi",
+        "start": "10:00",
+        "end": "12:00",
+        "gym": "Jesse Owens"
+      },
+      {
+        "day": "Mardi",
+        "start": "10:00",
+        "end": "12:00",
+        "gym": "Jesse Owens"
+      },
+      {
+        "day": "Mercredi",
+        "start": "10:00",
+        "end": "12:00",
+        "gym": "Jesse Owens"
+      }
+    ]
+  },
+  {
+    "name": "U18",
+    "coach": "Emily Brown",
+    "assistant": [
+      {
+        "name": "Tom Wilson",
+        "role": "Assistant Coach"
+      },
+      {
+        "name": "Lucy Gray",
+        "role": "Ramasseur de ballon"
+      }
+    ],
+    "img": "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "trainings": [
+      {
+        "day": "Jeudi",
+        "start": "14:00",
+        "end": "16:00",
+        "gym": "Gym 2"
+      },
+      {
+        "day": "Vendredi",
+        "start": "14:00",
+        "end": "16:00",
+        "gym": "Gym 2"
+      }
+    ]
+  },
+  {
+    "name": "U19",
+    "coach": "Michael Scott",
+    "assistant": [
+      {
+        "name": "Pam Beesly",
+        "role": "Assistant Coach"
+      },
+      {
+        "name": "Jim Halpert",
+        "role": "Ramasseur de ballon"
+      }
+    ],
+    "img": "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "trainings": [
+      {
+        "day": "Lundi",
+        "start": "16:00",
+        "end": "18:00",
+        "gym": "Jean Guimier"
+      },
+      {
+        "day": "Mercredi",
+        "start": "16:00",
+        "end": "18:00",
+        "gym": "Jean Guimier"
+      }
+    ]
+  },
+  {
+    "name": "U20",
+    "coach": "Sarah Connor",
+    "assistant": [
+      {
+        "name": "Kyle Reese",
+        "role": "Assistant Coach"
+      },
+      {
+        "name": "John Connor",
+        "role": "Ramasseur de ballon"
+      }
+    ],
+    "img": "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "trainings": [
+      {
+        "day": "Mardi",
+        "start": "18:00",
+        "end": "20:00",
+        "gym": "Gym 4"
+      },
+      {
+        "day": "Jeudi",
+        "start": "18:00",
+        "end": "20:00",
+        "gym": "Gym 4"
+      }
+    ]
+  }
+]
+   

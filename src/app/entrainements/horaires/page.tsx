@@ -2,20 +2,17 @@
 import React, { useMemo } from "react";
 import { useEpg, Epg, Layout } from "planby";
 import CardLayout from "@/components/layouts/CardLayout";
-import data from "@/data/teams.json"
-import { channel } from "diagnostics_channel";
+import teamsData from "@/data/teams.json";
+import { Gym, Team } from "@/models";
+import club from "@/data/club.json";
+import { GymType, trainingType } from "@/types";
 
 export default function PlanningPage() {
-  // Définir les jours de la semaine comme chaînes
-  const daysOfWeek = [
-    "Lundi",
-    "Mardi",
-    "Mercredi",
-    "Jeudi",
-    "Vendredi",
-    "Samedi",
-    "Dimanche",
-  ];
+  const gymnases = useMemo(() => club.gymnases.map((gym) => new Gym(gym)), [club.gymnases]);
+  const teams = useMemo(() => teamsData.map((team) => new Team(team)), [teamsData]);
+  const TrainingsByGym = useMemo(() => gymnases.map((gym) => gym.planning(teams)), [gymnases, teams]);
+
+  const daysOfWeek = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
 
   const channels = useMemo(
     () =>
@@ -27,43 +24,55 @@ export default function PlanningPage() {
     []
   );
 
-  // Définir les programmes d'entraînement
-  const epg = useMemo(
-    () => data.teams.flatMap(team => 
-      team.trainings.map(training => ({
-        channelUuid: training.day,
-        description: `Entrainement pour les ${team.name}`,
-        id: `${team.name}-${training.day}-${training.start}`,
-        since: `2000-01-01T${training.start}:00`,
+  const epgMaker = (data: trainingType[]) => {
+    return data.map((training: trainingType) => {
+      return {
+        id: training.team ?? "ok",
+        since:  `2000-01-01T${training.start}:00`,
         till: `2000-01-01T${training.end}:00`,
-        title: `Entrainement ${team.name}`,
-      }))
-    ),
-    []
-  );
+        image: "test",
+        title: training.team ?? "ok",
+        channelUuid: training.day,
+        description: training.gym,
+      };
+    });
+  };
 
+  const epgs = useMemo(() => TrainingsByGym.map((gym) => epgMaker(gym)), [TrainingsByGym]);
 
-  // Utiliser le hook useEpg pour obtenir les props nécessaires
-  const {
-    getEpgProps,
-    getLayoutProps,
-    onScrollToNow,
-    onScrollLeft,
-    onScrollRight,
-  } = useEpg({
-    epg,
-    channels,
+  const epgConfig = {
     startDate: "2000-01-01T18:00:00",
     endDate: "2000-01-01T23:00:00",
     dayWidth: 2000,
-  });
+  };
+
+  // Utiliser le hook useEpg pour obtenir les props nécessaires pour chaque epg non vide
+  const epgProps = useMemo(
+    () =>
+      epgs.map((epg) => {
+        if (epg.length === 0) return null;
+
+        const { getEpgProps, getLayoutProps } = useEpg({
+          epg,
+          channels,
+          ...epgConfig,
+        });
+
+        return { getEpgProps, getLayoutProps };
+      }),
+    [epgs, channels, epgConfig]
+  );
+
   return (
-    <CardLayout pageTitle='Planning'>
-      <div>
-        <Epg {...getEpgProps()}>
-          <Layout {...getLayoutProps()} />
-        </Epg>
-      </div>
+    <CardLayout pageTitle="Planning">
+      {epgProps.map((props, index) => {
+        if (!props) return null; // Skip if props is null
+        return (
+          <Epg key={index} {...props.getEpgProps()}>
+            <Layout {...props.getLayoutProps()} />
+          </Epg>
+        );
+      })}
     </CardLayout>
   );
 }

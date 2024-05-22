@@ -17,7 +17,7 @@ export default function Index() {
     .map((player) => MemberFactory.create(player, "player"))
     .filter(isPlayer);
 
-    const teams = teamsData.teams
+    const teams = teamsData
         .map((team) => MemberFactory.create(team, "team"))
         .filter((team): team is Team => team instanceof Team)
         .map((team) => { team.players = players; return team; })

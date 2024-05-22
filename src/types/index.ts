@@ -59,23 +59,32 @@ type PlayerType = MemberType & {
   img?: string;
 };
 
-type AssistantType = MemberType & {
+type AssistantType = {
+  name : string;
   role: string;
-  number : string;
-};
+
 
 type trainingType = {
+  team? : string;
   day : string;
-  time : string;
+  start : string;
+  end : string;
   gym : string;
-} | undefined
+}
+
+type GymType = {
+  name: string;
+  address: string;
+  img: string;
+};
+
 
 type TeamType = {
   name: string;
   coach: string;
   assistant: AssistantType[];
-  img: string;
-  players: PlayerType[];
+  img?: string;
+  players?: PlayerType[];
   trainings : trainingType[];
 };
 
@@ -94,5 +103,6 @@ export type {
   AssistantType,
   TeamType,
   trainingType,
+  GymType,
   SubItemType as SubItemsType
 };

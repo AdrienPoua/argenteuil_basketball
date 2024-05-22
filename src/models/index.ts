@@ -1,3 +1,4 @@
+import { teams } from "@/data/teams.json";
 import {
   MemberType,
   CoachType,
@@ -6,6 +7,7 @@ import {
   AssistantType,
   TeamType,
   trainingType,
+  GymType,
 } from "../types";
 
 export class Match {
@@ -126,8 +128,11 @@ export class Utils {
 
 export class NavItemModel {
   private _title: string;
-  private _subItems: {title: string, url: string}[];
-  constructor(data: { title: string; subItems: {title: string, url: string, img: string }[] }) {
+  private _subItems: { title: string; url: string }[];
+  constructor(data: {
+    title: string;
+    subItems: { title: string; url: string; img: string }[];
+  }) {
     this._title = data.title;
     this._subItems = data.subItems;
   }
@@ -138,7 +143,6 @@ export class NavItemModel {
     return this._subItems;
   }
 }
-
 
 export class Member implements MemberType {
   private _name: string;
@@ -211,8 +215,8 @@ export class Leader extends Member implements LeaderType {
   private _number: string;
   private _img: string;
   private _isLeader: true;
-  private _isEmailDisplayed: boolean
-  private _isNumberDisplayed: boolean 
+  private _isEmailDisplayed: boolean;
+  private _isNumberDisplayed: boolean;
 
   constructor(data: LeaderType) {
     super(data);
@@ -245,8 +249,11 @@ export class Leader extends Member implements LeaderType {
     return this._number;
   }
 
-  get img(): string  {
-    return this._img ?? "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  get img(): string {
+    return (
+      this._img ??
+      "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    );
   }
 
   get isLeader(): true {
@@ -254,11 +261,11 @@ export class Leader extends Member implements LeaderType {
   }
 
   get isEmailDisplayed(): boolean {
-    return this._isEmailDisplayed || false
+    return this._isEmailDisplayed || false;
   }
 
   get isNumberDisplayed(): boolean {
-    return this._isNumberDisplayed || false
+    return this._isNumberDisplayed || false;
   }
 }
 
@@ -288,15 +295,18 @@ export class Team {
   private _name: string;
   private _coach: string;
   private _assistant: AssistantType[];
-  private _img: string = "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" ;
-  private _players: PlayerType[] = [] ;
-  private _trainings: trainingType[] ;
+  private _img: string =
+    "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+  private _players: PlayerType[] = [];
+  private _trainings: trainingType[];
 
   constructor(data: TeamType) {
     this._name = data.name;
     this._coach = data.coach;
     this._assistant = data.assistant;
-    this._img = data.img || "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+    this._img =
+      data.img ||
+      "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
     this._players = data.players;
     this._trainings = data.trainings;
   }
@@ -305,7 +315,7 @@ export class Team {
     return this._name;
   }
   get trainings() {
-    return this._trainings
+    return this._trainings;
   }
 
   get coach() {
@@ -327,5 +337,42 @@ export class Team {
   set players(data: PlayerType[]) {
     this._players = data.filter((player) => player.team.includes(this._name));
   }
+}
 
+export class Gym {
+  private _name: string;
+  private _address: string;
+  private _img: string;
+
+  constructor(gym: GymType) {
+    this._name = gym.name;
+    this._address = gym.address;
+    this._img = gym.img;
+  }
+
+  get name() {
+    return this._name;
+  }
+
+  planning(teams: TeamType[]) {
+    const planning: trainingType[] = [];
+
+    teams.forEach((team) => {
+      const creneaux = team.trainings;
+      creneaux.forEach((creneau) => {
+        if(creneau.gym === this._name){
+          planning.push({...creneau, team : team.name});
+        }
+      });
+    });
+    return planning ;
+  }
+
+  get address() {
+    return this._address;
+  }
+
+  get img() {
+    return this._img;
+  }
 }
