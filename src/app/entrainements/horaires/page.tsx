@@ -6,14 +6,38 @@ import teamsData from "@/data/teams.json";
 import { Gym, Team } from "@/models";
 import club from "@/data/club.json";
 import { GymType, trainingType } from "@/types";
+import { v4 as uuidv4 } from "uuid";
 
-export default function PlanningPage() {
-  const gymnases = useMemo(() => club.gymnases.map((gym) => new Gym(gym)), [club.gymnases]);
-  const teams = useMemo(() => teamsData.map((team) => new Team(team)), [teamsData]);
-  const TrainingsByGym = useMemo(() => gymnases.map((gym) => gym.planning(teams)), [gymnases, teams]);
+const gymnases = club.gymnases.map((gym) => new Gym(gym));
+const teams = teamsData.map((team) => new Team(team));
+const slotsByGym = gymnases.map((gym) => gym.planning(teams));
+const daysOfWeek = [
+  "Lundi",
+  "Mardi",
+  "Mercredi",
+  "Jeudi",
+  "Vendredi",
+  "Samedi",
+  "Dimanche",
+];
+const epgMaker = (data: trainingType[]) => {
+  return data.map((training: trainingType) => {
+    const start = `2000-01-01T${training.start}`;
+    const end = `2000-01-01T${training.end}`;
+    return {
+      id: uuidv4(),
+      since: start,
+      till: end,
+      image: "test",
+      title: ` Entrainement ${training.team} `,
+      channelUuid: training.day,
+      description: training.gym,
+    };
+  });
+};
+type PlanningProps = { slots: trainingType[]; config: any };
 
-  const daysOfWeek = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
-
+function Planning({ slots, config }: Readonly<PlanningProps>) {
   const channels = useMemo(
     () =>
       daysOfWeek.map((day) => ({
@@ -23,56 +47,37 @@ export default function PlanningPage() {
       })),
     []
   );
+  const epg = epgMaker(slots);
+  console.log(epg);
 
-  const epgMaker = (data: trainingType[]) => {
-    return data.map((training: trainingType) => {
-      return {
-        id: training.team ?? "ok",
-        since:  `2000-01-01T${training.start}:00`,
-        till: `2000-01-01T${training.end}:00`,
-        image: "test",
-        title: training.team ?? "ok",
-        channelUuid: training.day,
-        description: training.gym,
-      };
-    });
-  };
-
-  const epgs = useMemo(() => TrainingsByGym.map((gym) => epgMaker(gym)), [TrainingsByGym]);
-
-  const epgConfig = {
-    startDate: "2000-01-01T18:00:00",
-    endDate: "2000-01-01T23:00:00",
-    dayWidth: 2000,
-  };
-
-  // Utiliser le hook useEpg pour obtenir les props nécessaires pour chaque epg non vide
-  const epgProps = useMemo(
-    () =>
-      epgs.map((epg) => {
-        if (epg.length === 0) return null;
-
-        const { getEpgProps, getLayoutProps } = useEpg({
-          epg,
-          channels,
-          ...epgConfig,
-        });
-
-        return { getEpgProps, getLayoutProps };
-      }),
-    [epgs, channels, epgConfig]
-  );
+  const { getEpgProps, getLayoutProps } = useEpg({
+    epg,
+    channels,
+    ...config, // or 2022-02-02T00:00:00
+  });
 
   return (
-    <CardLayout pageTitle="Planning">
-      {epgProps.map((props, index) => {
-        if (!props) return null; // Skip if props is null
-        return (
-          <Epg key={index} {...props.getEpgProps()}>
-            <Layout {...props.getLayoutProps()} />
-          </Epg>
-        );
-      })}
+    <Epg {...getEpgProps()}>
+      <Layout {...getLayoutProps()} />
+    </Epg>
+  );
+}
+
+export default function PlanningPage() {
+  const config = {
+    startDate: "2000-01-01T18:00:00",
+    endDate: "2000-01-01T23:00:00",
+    dayWidth: 1500,
+  };
+
+  console.log(slotsByGym)
+
+  return (
+    <CardLayout pageTitle='Planning'>
+      <div className='flex flex-col mx-20 overflow-hidden'>
+        <Planning slots={slotsByGym[0]} config={config} />
+        <Planning slots={slotsByGym[1]} config={config} />
+      </div>
     </CardLayout>
   );
 }

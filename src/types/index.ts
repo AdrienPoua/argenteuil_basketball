@@ -75,7 +75,7 @@ type trainingType = {
 type GymType = {
   name: string;
   address: string;
-  img: string;
+  img?: string;
 };
 
 
