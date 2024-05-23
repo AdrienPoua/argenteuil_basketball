@@ -5,7 +5,7 @@ import teamsData from '@/data/teams.json';
 import { Gym, Team } from '@/models';
 import club from '@/data/club.json';
 import { PlanbyConfigType, PlanbyChannelType, TeamType } from '@/types';
-import Planning from '@/components/planby/planning';
+import Planning from '@/components/planby/Planning';
 
 const initializeData = () => {
   const gymnases  = club.gymnases.map((gym) => new Gym(gym));
@@ -21,6 +21,7 @@ export default function Page() {
       logo: `https://via.placeholder.com/150?text=${day}`,
       uuid: day,
       name: day,
+      test : "ok"
     })); 
   };
 

@@ -19,6 +19,7 @@ type NewsType = {
 type PlanbyConfigType = { startDate: string; endDate: string; dayWidth: number; isTimeline: boolean; };
 type PlanbyChannelType = { logo: string; uuid: string; name: string; };
 type PlanbyArrayProps = { slots: TrainingType[]; config: PlanbyConfigType, channels: PlanbyChannelType[] };
+type PlanByEPGType = { id: string; since: string; till: string; image: string; title: string; channelUuid: string; description: string; };
 
 type NavItemType = {
   title: string;
@@ -74,6 +75,14 @@ type TrainingType = {
   gym: string;
 };
 
+type PlanbyPositionType = {
+  top: string;
+  left: string;
+  width: string;
+  height: string;
+}
+
+
 type GymType = {
   name: string;
   address: string;
@@ -106,8 +115,10 @@ export type {
   TeamType,
   TrainingType,
   GymType,
+  PlanbyPositionType,
   SubItemType as SubItemsType,
   PlanbyConfigType,
   PlanbyChannelType,
   PlanbyArrayProps,
+  PlanByEPGType,
 };
