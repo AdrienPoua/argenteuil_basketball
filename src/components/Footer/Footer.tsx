@@ -26,36 +26,19 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer
-      ref={signatureRef}
-      className='border-t-2 border-indigo-500 flex flex-col pt-2 px-12 '
-    >
+    <footer ref={signatureRef} className='border-t-2 border-indigo-500 flex flex-col px-12 '>
       <div className='flex justify-between'>
         <Link href='/' className='shrink-0'>
-          <Image
-            src={logo}
-            alt='logo'
-            className='me-5'
-            width={80}
-            height={80}
-          />
+          <Image src={logo} alt='logo' className='me-5' width={80} height={80} />
         </Link>
-        <div className='flex flex-col text-xs text-white'>
-          <h3>Siège social</h3>
-          <p>
-            Argenteuil Basketballl <br />
-            82 boulevard du général leclerc <br />
-            95100 Argenteuil
-          </p>
-        </div>
+        <a href='https://www.linkedin.com/in/adrien-poua' className='text-gray-500 flex justify-center items-center'>
+          Made with ❤ by &nbsp; <span className={isHover ? "text-indigo-500" : ""}> Adrien POUA</span>
+        </a>
+        <p className='flex justify-center items-center text-white'>
+          82 boulevard du général leclerc <br />
+          95100 Argenteuil
+        </p>
       </div>
-      <a
-        href='https://www.linkedin.com/in/adrien-poua'
-        className='text-gray-500 py-2 text-center'
-      >
-        Made with ❤ by{" "}
-        <span className={isHover ? "text-indigo-500" : ""}>Adrien POUA</span>
-      </a>
     </footer>
   );
 }
