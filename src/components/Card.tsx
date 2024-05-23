@@ -116,9 +116,10 @@ export const LeaderCard = ({ data }: { data: LeaderType }) => {
 };
 
 export const TeamCard = ({ data }: { data: TeamType }) => {
-
+  const [ isClicked, setIsClicked ] = React.useState(false)
+  const handleClick = () => { setIsClicked(!isClicked) }
   return (
-    <div className='relative overflow-hidden w-full h-[700px] rounded-md shadow-lg hover:shadow-xl transition duration-300'>
+    <div onClick={handleClick} className='relative overflow-hidden w-full h-[700px] rounded-md shadow-lg hover:scale-105 transition duration-150'>
       <div className='absolute inset-0 overflow-hidden rounded-md'>
         <Image
           src={data.img}
@@ -131,7 +132,8 @@ export const TeamCard = ({ data }: { data: TeamType }) => {
       <h2 className='absolute inset-0 flex justify-center items-center text-6xl text-white'>
         {data.name}
       </h2>
-      <div className='absolute inset-0 flex px-4 py-2 bg-black bg-opacity-50 text-white transition-opacity duration-300 opacity-0 hover:opacity-100'>
+      { isClicked && 
+      ( <div className='absolute inset-0 flex px-4 py-2 bg-black bg-opacity-50 text-white transition-opacity duration-300 opacity-0 hover:opacity-100'>
         <div className='flex flex-col basis-1/2 pt-5 '>
           <h3 className='text-4xl font-bold mb-8 text-center'>
             Coach <span className='text-primary'> {data.coach} </span>{" "}
@@ -160,7 +162,7 @@ export const TeamCard = ({ data }: { data: TeamType }) => {
                   className='text-3xl text-center mb-5'
                 >
                   {" "}
-                  {training?.day} {training?.time} {training?.gym}{" "}
+                  {training.day} {training.start} - {training.end} {training.gym}{" "}
                 </h4>
               ))
             ) : (
@@ -171,10 +173,12 @@ export const TeamCard = ({ data }: { data: TeamType }) => {
             )}
           </div>
         </div>
-      </div>
+      </div> ) }
     </div>
   );
 };
+
+
 export default function Card({
   data,
 }: Readonly<{ data: NewsType | CoachType | LeaderType | TeamType }>) {

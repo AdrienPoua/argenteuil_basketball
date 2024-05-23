@@ -3,7 +3,7 @@ import data from "@/data/staff.json";
 import { MemberFactory } from "@/factories";
 import { AdherentType, LeaderType } from "@/types";
 import { Leader } from "@/models";
-import CardLayout from "@/components/layouts/CardLayout";
+import CardLayout from "@/components/layouts/main";
 import LeaderCard from "@/components/Card";
 
 export default function Index() {

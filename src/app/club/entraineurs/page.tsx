@@ -4,7 +4,7 @@ import { MemberFactory } from "@/factories";
 import { Coach } from "@/models";
 import { CoachCard } from "@/components/Card";
 import { AdherentType } from "@/types";
-import CardLayout from "@/components/layouts/CardLayout";
+import CardLayout from "@/components/layouts/main";
 
 export default function Entraineurs() {
   const isCoach = (member: AdherentType): member is Coach => {

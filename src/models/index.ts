@@ -1,14 +1,5 @@
 import { teams } from "@/data/teams.json";
-import {
-  MemberType,
-  CoachType,
-  LeaderType,
-  PlayerType,
-  AssistantType,
-  TeamType,
-  TrainingType,
-  GymType,
-} from "../types";
+import { MemberType, CoachType, LeaderType, PlayerType, AssistantType, TeamType, TrainingType, GymType } from "../types";
 
 export class Match {
   constructor(data) {
@@ -129,10 +120,7 @@ export class Utils {
 export class NavItemModel {
   private _title: string;
   private _subItems: { title: string; url: string }[];
-  constructor(data: {
-    title: string;
-    subItems: { title: string; url: string; img: string }[];
-  }) {
+  constructor(data: { title: string; subItems: { title: string; url: string; img: string }[] }) {
     this._title = data.title;
     this._subItems = data.subItems;
   }
@@ -342,16 +330,22 @@ export class Team {
 export class Gym {
   private _name: string;
   private _address: string;
-  private _img: string;
+  private _img?: string;
+  private _maps?: string;
 
   constructor(gym: GymType) {
     this._name = gym.name;
     this._address = gym.address;
     this._img = gym.img;
+    this._maps = gym.maps;
   }
 
   get name() {
     return this._name;
+  }
+
+  get maps() {
+    return this._maps;
   }
 
   planning(teams: TeamType[]) {
@@ -360,12 +354,12 @@ export class Gym {
     teams.forEach((team) => {
       const creneaux = team.trainings;
       creneaux.forEach((creneau) => {
-        if(creneau.gym === this._name){
-          planning.push({...creneau, team : team.name});
+        if (creneau.gym === this._name) {
+          planning.push({ ...creneau, team: team.name });
         }
       });
     });
-    return planning ;
+    return planning;
   }
 
   get address() {

@@ -8,13 +8,15 @@
     "gymnases": [
       {
         "name": "Jean Guimier",
-        "address": "Rue du Basket, Villeville",
-        "img": "/chemin/vers/img_dome.jpg"
+        "address": "2 rue jean de la fontaine, 95100 Argenteuil",
+        "maps" : "https://maps.app.goo.gl/P5Td8sxbzzVk9L1X9",
+        "img": "https://www.argenteuil.fr/sites/default/files/styles/img__1920x1080__image_scale__crop_main/public/media/images/180816-01_08JH.jpg?itok=jPK7HteK"
       },
       {
         "name": "Jesse Owens",
-        "address": "Avenue des Victoires, Villeville",
-        "img": "/chemin/vers/img_sports.jpg"
+        "address": "120 rue de rochefort, 95100 Argenteuil",
+        "maps" : "https://maps.app.goo.gl/MnXPm14gu3hb3xvu9",
+        "img": "https://www.argenteuil.fr/sites/default/files/styles/img__1920x1080__image_scale__crop_main/public/media/images/180816-01_08JH.jpg?itok=jPK7HteK"
       }
     ],
     "sponsors": ["Nike", "Adidas", "Orange"],

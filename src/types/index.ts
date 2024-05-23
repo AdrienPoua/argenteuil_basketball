@@ -87,6 +87,7 @@ type GymType = {
   name: string;
   address: string;
   img?: string;
+  maps? : string;
 };
 
 

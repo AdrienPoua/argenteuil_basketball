@@ -1,11 +1,13 @@
 // PlanningPage.tsx
 "use client";
-import CardLayout from '@/components/layouts/CardLayout';
+import CardLayout from '@/components/layouts/main';
 import teamsData from '@/data/teams.json';
 import { Gym, Team } from '@/models';
 import club from '@/data/club.json';
 import { PlanbyConfigType, PlanbyChannelType, TeamType } from '@/types';
 import Planning from '@/components/planby/Planning';
+import { Theme } from 'planby'
+import { theme } from '@/components/planby/theme';
 
 const initializeData = () => {
   const gymnases  = club.gymnases.map((gym) => new Gym(gym));
@@ -38,7 +40,7 @@ export default function Page() {
     dayWidth: 1000,
     isTimeline: false,
   };
-
+console.log(theme)
   return (
     <CardLayout pageTitle='Jean Guimier'>
       <div className='flex flex-col grow max-w-7xl mb-10'>

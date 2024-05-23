@@ -5,7 +5,7 @@ import { MemberFactory } from "@/factories";
 import { AdherentType, PlayerType } from "@/types";
 import { Team, Player } from "@/models";
 import TeamCard from "@/components/Card";
-import CardLayout from "@/components/layouts/CardLayout";
+import CardLayout from "@/components/layouts/main";
 import { v4 as uuidv4 } from "uuid";
 
 
