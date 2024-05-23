@@ -6,7 +6,7 @@ import {
   PlayerType,
   AssistantType,
   TeamType,
-  trainingType,
+  TrainingType,
   GymType,
 } from "../types";
 
@@ -298,7 +298,7 @@ export class Team {
   private _img: string =
     "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
   private _players: PlayerType[] = [];
-  private _trainings: trainingType[];
+  private _trainings: TrainingType[];
 
   constructor(data: TeamType) {
     this._name = data.name;
@@ -355,7 +355,7 @@ export class Gym {
   }
 
   planning(teams: TeamType[]) {
-    const planning: trainingType[] = [];
+    const planning: TrainingType[] = [];
 
     teams.forEach((team) => {
       const creneaux = team.trainings;

@@ -1,4 +1,3 @@
-import { MemberType } from "@/types";
 type MatchDataProps = {
   Division: string;
   "N° de match": string;
@@ -17,6 +16,9 @@ type NewsType = {
   type?: "main" | "secondary";
 };
 
+type PlanbyConfigType = { startDate: string; endDate: string; dayWidth: number; isTimeline: boolean; };
+type PlanbyChannelType = { logo: string; uuid: string; name: string; };
+type PlanbyArrayProps = { slots: TrainingType[]; config: PlanbyConfigType, channels: PlanbyChannelType[] };
 
 type NavItemType = {
   title: string;
@@ -60,17 +62,17 @@ type PlayerType = MemberType & {
 };
 
 type AssistantType = {
-  name : string;
+  name: string;
   role: string;
+};
 
-
-type trainingType = {
-  team? : string;
-  day : string;
-  start : string;
-  end : string;
-  gym : string;
-}
+type TrainingType = {
+  team?: string;
+  day: string;
+  start: string;
+  end: string;
+  gym: string;
+};
 
 type GymType = {
   name: string;
@@ -85,7 +87,7 @@ type TeamType = {
   assistant: AssistantType[];
   img?: string;
   players?: PlayerType[];
-  trainings : trainingType[];
+  trainings : TrainingType[];
 };
 
 type AdherentType = MemberType | CoachType | LeaderType | PlayerType | AssistantType;
@@ -102,7 +104,10 @@ export type {
   AdherentType,
   AssistantType,
   TeamType,
-  trainingType,
+  TrainingType,
   GymType,
-  SubItemType as SubItemsType
+  SubItemType as SubItemsType,
+  PlanbyConfigType,
+  PlanbyChannelType,
+  PlanbyArrayProps,
 };

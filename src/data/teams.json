@@ -1,40 +1,30 @@
 [
   {
-    "name": "U17",
-    "coach": "John Doe",
+    "name": "U09F/U11F",
+    "coach": "Benoit",
     "assistant": [
       {
-        "name": "Jane Smith",
+        "name": "Tawfik",
         "role": "Assistant Coach"
-      },
-      {
-        "name": "Mark Johnson",
-        "role": "Ramasseur de ballon"
       }
     ],
     "trainings": [
       {
         "day": "Lundi",
-        "start": "19:43",
-        "end": "21:13",
-        "gym": "Jesse Owens"
-      },
-      {
-        "day": "Mardi",
-        "start": "19:17",
-        "end": "20:47",
+        "start": "17:30",
+        "end": "19:00",
         "gym": "Jean Guimier"
       },
       {
-        "day": "Mercredi",
-        "start": "18:34",
-        "end": "20:04",
-        "gym": "Jesse Owens"
+        "day": "Samedi",
+        "start": "13:30",
+        "end": "15:00",
+        "gym": "Jean Guimier"
       }
     ]
   },
   {
-    "name": "U18",
+    "name": "U13F/U15F",
     "coach": "Emily Brown",
     "assistant": [
       {
@@ -49,21 +39,21 @@
     "img": "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "trainings": [
       {
-        "day": "Jeudi",
-        "start": "19:39",
-        "end": "21:09",
+        "day": "Lundi",
+        "start": "19:00",
+        "end": "20:15",
         "gym": "Jean Guimier"
       },
       {
-        "day": "Vendredi",
-        "start": "19:06",
-        "end": "20:36",
+        "day": "Mercredi",
+        "start": "18:30",
+        "end": "20:00",
         "gym": "Jean Guimier"
       }
     ]
   },
   {
-    "name": "U19",
+    "name": "Séniors filles",
     "coach": "Michael Scott",
     "assistant": [
       {
@@ -79,20 +69,14 @@
     "trainings": [
       {
         "day": "Lundi",
-        "start": "18:46",
-        "end": "20:16",
+        "start": "20:15",
+        "end": "22:00",
         "gym": "Jean Guimier"
-      },
-      {
-        "day": "Mercredi",
-        "start": "19:15",
-        "end": "20:45",
-        "gym": "Jesse Owens"
       }
     ]
   },
   {
-    "name": "U20",
+    "name": "U13M-1",
     "coach": "Sarah Connor",
     "assistant": [
       {
@@ -108,14 +92,263 @@
     "trainings": [
       {
         "day": "Mardi",
-        "start": "20:00",
-        "end": "21:30",
+        "start": "17:30",
+        "end": "19:00",
         "gym": "Jean Guimier"
       },
       {
         "day": "Jeudi",
-        "start": "18:41",
-        "end": "20:11",
+        "start": "17:30",
+        "end": "19:00",
+        "gym": "Jean Guimier"
+      }
+    ]
+  },
+  {
+    "name": "U15M-1",
+    "coach": "Rick Grimes",
+    "assistant": [
+      {
+        "name": "Daryl Dixon",
+        "role": "Assistant Coach"
+      },
+      {
+        "name": "Maggie Greene",
+        "role": "Ramasseur de ballon"
+      }
+    ],
+    "img": "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "trainings": [
+      {
+        "day": "Mardi",
+        "start": "19:00",
+        "end": "20:15",
+        "gym": "Jean Guimier"
+      },
+      {
+        "day": "Jeudi",
+        "start": "19:00",
+        "end": "20:15",
+        "gym": "Jean Guimier"
+      }
+    ]
+  },
+  {
+    "name": "Séniors-1",
+    "coach": "John Doe",
+    "assistant": [
+      {
+        "name": "Jane Smith",
+        "role": "Assistant Coach"
+      },
+      {
+        "name": "Mark Johnson",
+        "role": "Ramasseur de ballon"
+      }
+    ],
+    "trainings": [
+      {
+        "day": "Mardi",
+        "start": "20:15",
+        "end": "22:00",
+        "gym": "Jean Guimier"
+      },
+      {
+        "day": "Jeudi",
+        "start": "20:15",
+        "end": "22:00",
+        "gym": "Jean Guimier"
+      }
+    ]
+  },
+  {
+    "name": "U11M-1",
+    "coach": "John Smith",
+    "assistant": [
+      {
+        "name": "Will Brown",
+        "role": "Assistant Coach"
+      }
+    ],
+    "trainings": [
+      {
+        "day": "Mercredi",
+        "start": "17:00",
+        "end": "18:30",
+        "gym": "Jean Guimier"
+      }
+    ]
+  },
+  {
+    "name": "U11M-2",
+    "coach": "Emily Clarke",
+    "assistant": [
+      {
+        "name": "Robert Green",
+        "role": "Assistant Coach"
+      }
+    ],
+    "trainings": [
+      {
+        "day": "Vendredi",
+        "start": "17:30",
+        "end": "18:45",
+        "gym": "Jean Guimier"
+      }
+    ]
+  },
+  {
+    "name": "U7",
+    "coach": "Sarah Doe",
+    "assistant": [
+      {
+        "name": "Tim Black",
+        "role": "Assistant Coach"
+      }
+    ],
+    "trainings": [
+      {
+        "day": "Samedi",
+        "start": "10:00",
+        "end": "11:30",
+        "gym": "Jean Guimier"
+      }
+    ]
+  },
+  {
+    "name": "U9",
+    "coach": "Michael White",
+    "assistant": [
+      {
+        "name": "Laura Blue",
+        "role": "Assistant Coach"
+      }
+    ],
+    "trainings": [
+      {
+        "day": "Samedi",
+        "start": "13:30",
+        "end": "15:00",
+        "gym": "Jean Guimier"
+      }
+    ]
+  },
+  {
+    "name": "U17M-2",
+    "coach": "Jack Black",
+    "assistant": [
+      {
+        "name": "Angela Red",
+        "role": "Assistant Coach"
+      }
+    ],
+    "trainings": [
+      {
+        "day": "Lundi",
+        "start": "17:30",
+        "end": "19:00",
+        "gym": "Jesse Owens"
+      },
+      {
+        "day": "Mercredi",
+        "start": "17:00",
+        "end": "18:30",
+        "gym": "Jesse Owens"
+      },
+      {
+        "day": "Jeudi",
+        "start": "17:30",
+        "end": "19:00",
+        "gym": "Jesse Owens"
+      }
+    ]
+  },
+  {
+    "name": "U17-2",
+    "coach": "Mark Grey",
+    "assistant": [
+      {
+        "name": "Sophia Pink",
+        "role": "Assistant Coach"
+      }
+    ],
+    "trainings": [
+      {
+        "day": "Lundi",
+        "start": "19:00",
+        "end": "20:15",
+        "gym": "Jesse Owens"
+      },
+      {
+        "day": "Jeudi",
+        "start": "19:00",
+        "end": "20:15",
+        "gym": "Jesse Owens"
+      }
+    ]
+  },
+  {
+    "name": "Séniors-2",
+    "coach": "John Green",
+    "assistant": [
+      {
+        "name": "Linda Yellow",
+        "role": "Assistant Coach"
+      }
+    ],
+    "trainings": [
+      {
+        "day": "Lundi",
+        "start": "20:15",
+        "end": "22:00",
+        "gym": "Jesse Owens"
+      },
+      {
+        "day": "Jeudi",
+        "start": "20:15",
+        "end": "22:00",
+        "gym": "Jesse Owens"
+      }
+    ]
+  },
+  {
+    "name": "U18F",
+    "coach": "Emma Violet",
+    "assistant": [
+      {
+        "name": "Olivia Orange",
+        "role": "Assistant Coach"
+      }
+    ],
+    "trainings": [
+      {
+        "day": "Mercredi",
+        "start": "18:30",
+        "end": "20:00",
+        "gym": "Jesse Owens"
+      },
+      {
+        "day": "Vendredi",
+        "start": "18:00",
+        "end": "20:00",
+        "gym": "Jesse Owens"
+      }
+    ]
+  },
+  {
+    "name": "Séniors loisir mixte",
+    "coach": "Henry White",
+    "assistant": [
+      {
+        "name": "Alice Brown",
+        "role": "Assistant Coach"
+      }
+    ],
+    "trainings": [
+      {
+        "day": "Mercredi",
+        "start": "20:00",
+        "end": "22:00",
         "gym": "Jesse Owens"
       }
     ]
