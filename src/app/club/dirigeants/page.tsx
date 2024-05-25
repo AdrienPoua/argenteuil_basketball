@@ -1,15 +1,17 @@
-"use client"
+"use client";
 import data from "@/data/staff.json";
 import { MemberFactory } from "@/factories";
 import { AdherentType, LeaderType } from "@/types";
 import { Leader } from "@/models";
 import CardLayout from "@/components/layouts/main";
 import LeaderCard from "@/components/Card";
+import { Box } from "@mui/material";
 
 export default function Index() {
   const isLeader = (member: AdherentType): member is Leader => {
     return member instanceof Leader;
   };
+
   const leaders: LeaderType[] = data.staff
     .map((member) => MemberFactory.create(member, "leader"))
     .filter(isLeader);
@@ -32,17 +34,18 @@ export default function Index() {
       leader.role.includes("Correspondant") ||
       leader.role.includes("Correspondante")
   );
+
   return (
-    <CardLayout pageTitle='Les membres du bureau'>
-      <div className='flex flex-col items-center'>
+    <CardLayout pageTitle="Les membres du bureau">
+      <Box className="flex flex-col items-center">
         {president && <LeaderCard data={president} />}
-        <div className='flex gap-5'>
+        <Box className="flex gap-5">
           {vicePresident && <LeaderCard data={vicePresident} />}
           {tresorier && <LeaderCard data={tresorier} />}
           {secretaire && <LeaderCard data={secretaire} />}
           {correspondant && <LeaderCard data={correspondant} />}
-        </div>
-      </div>
+        </Box>
+      </Box>
     </CardLayout>
   );
 }

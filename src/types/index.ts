@@ -26,7 +26,7 @@ type NavItemType = {
   subItems : SubItemType[];
 };
 
-type SubItemType = { title: string; url: string; img?: string };
+type SubItemType = { title: string; url: string; img: string };
 type MenuState = {
   isMenuOpen: boolean;
   setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -42,7 +42,7 @@ type MemberType = {
 type CoachType = MemberType & {
   isCoach: true;
   number: string;
-  img?: string;
+  img: string;
   team: string[];
 };
 
@@ -95,7 +95,7 @@ type TeamType = {
   name: string;
   coach: string;
   assistant: AssistantType[];
-  img?: string;
+  img : string;
   players?: PlayerType[];
   trainings : TrainingType[];
 };

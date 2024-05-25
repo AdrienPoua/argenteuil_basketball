@@ -153,7 +153,7 @@ export class Member implements MemberType {
 
 export class Coach extends Member implements CoachType {
   private _number: string;
-  private _img?: string;
+  private _img: string;
   private _team: string[];
 
   constructor(data: CoachType) {
@@ -185,8 +185,8 @@ export class Coach extends Member implements CoachType {
     return this._number;
   }
 
-  get img(): string | undefined {
-    return this._img;
+  get img(): string {
+    return this._img ?? "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   }
 
   get team(): string[] {
@@ -283,8 +283,7 @@ export class Team {
   private _name: string;
   private _coach: string;
   private _assistant: AssistantType[];
-  private _img: string =
-    "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+  private _img: string;
   private _players: PlayerType[] = [];
   private _trainings: TrainingType[];
 
@@ -315,7 +314,7 @@ export class Team {
   }
 
   get img() {
-    return this._img;
+    return this._img ?? "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   }
 
   get players() {

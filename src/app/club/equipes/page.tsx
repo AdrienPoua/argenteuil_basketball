@@ -7,6 +7,7 @@ import { Team, Player } from "@/models";
 import TeamCard from "@/components/Card";
 import CardLayout from "@/components/layouts/main";
 import { v4 as uuidv4 } from "uuid";
+import { Box } from "@mui/material";
 
 
 export default function Index() {
@@ -24,11 +25,11 @@ export default function Index() {
 console.log(teams)  
   return (
     <CardLayout pageTitle='Nos équipes '>
-      <div className="flex flex-col grow gap-5 mx-20">
+      <Box className="flex flex-col grow gap-5 mx-20">
       {teams.map((team, index) => (
         <TeamCard key={uuidv4()} data={team} />
       ))}
-      </div>
+      </Box>
     </CardLayout>
   );
 }

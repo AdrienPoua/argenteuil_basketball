@@ -8,6 +8,7 @@ import { PlanbyConfigType, PlanbyChannelType, TeamType } from "@/types";
 import Planning from "@/components/planby/Planning";
 import { Theme } from "planby";
 import { theme } from "@/components/planby/theme";
+import { Box, Typography } from "@mui/material";
 
 const initializeData = () => {
   const gymnases = club.gymnases.map((gym) => new Gym(gym));
@@ -43,12 +44,12 @@ export default function Page() {
   console.log(theme);
   return (
     <CardLayout pageTitle='Jean Guimier'>
-      <div className='flex flex-col grow max-w-7xl mb-10 overflow-hidden'>
+      <Box className='flex flex-col grow max-w-7xl mb-10 overflow-hidden'>
         <Planning slots={slotsByGym[0]} config={config} channels={channelsBuild(["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"])} />
         <Planning slots={slotsByGym[0]} config={config2} channels={channelsBuild(["Samedi"])} />
-        <h2 className='text-white text-5xl text-center my-10'>{slotsByGym[1][0].gym}</h2>
+        <Typography variant="h2" className='text-white text-5xl text-center my-10'>{slotsByGym[1][0].gym}</Typography>
         <Planning slots={slotsByGym[1]} config={config} channels={channelsBuild(["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"])} />
-      </div>
+      </Box>
     </CardLayout>
   );
 }
