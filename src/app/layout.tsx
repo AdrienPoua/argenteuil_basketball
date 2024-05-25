@@ -1,14 +1,9 @@
 "use client";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header/Header";
-import Footer from "@/components/Footer/Footer";
-import { useIsScrollingUp } from "@/hooks/useIsScrollingUp";
-import headerData from "@/data/header.json";
-import { createContext, useRef, useEffect } from "react";
-
-const inter = Inter({ subsets: ["latin"] });
+import App from "./App";
+import { StyledEngineProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 
 const metadata: Metadata = {
   title: "Paris Basketball",
@@ -20,18 +15,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const isScrolling = useIsScrollingUp();
-  const ScrollingContext = createContext(false);
-
   return (
-    <ScrollingContext.Provider value={isScrolling}>
-      <html lang='fr'>
-        <body className='flex flex-col'>
-          <Header data={headerData} />
-          {children}
-          <Footer />
-        </body>
-      </html>
-    </ScrollingContext.Provider>
+    <StyledEngineProvider injectFirst>
+      <CssBaseline />
+      <App> {children} </App>
+    </StyledEngineProvider>
   );
 }
