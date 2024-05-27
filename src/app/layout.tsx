@@ -2,8 +2,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import App from "./App";
-import { StyledEngineProvider } from "@mui/material/styles";
+import { StyledEngineProvider, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import theme from "@/app/theme";
 
 const metadata: Metadata = {
   title: "Paris Basketball",
@@ -17,8 +18,10 @@ export default function RootLayout({
 }>) {
   return (
     <StyledEngineProvider injectFirst>
-      <CssBaseline />
-      <App> {children} </App>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <App> {children} </App>
+      </ThemeProvider>
     </StyledEngineProvider>
   );
 }

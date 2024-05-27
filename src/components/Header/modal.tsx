@@ -51,23 +51,24 @@ export default function BasicModal() {
       <Button onClick={handleOpen} variant='contained' color='primary'>
         Contact
       </Button>
+      <Toaster />
       <Modal open={open} onClose={handleClose} aria-labelledby='modal-modal-title' aria-describedby='modal-modal-description'>
         <Box
           className='  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
   w-[800px] bg-white border-2 border-black shadow-lg px-36 py-20'
         >
-          <Typography id='modal-modal-title' color='primary' className="mb-16 text-center text-6xl" component='h2'>
+          <Typography id='modal-modal-title' className='mb-16 text-center text-6xl' component='h2' color='primary'>
             Contactez nous
           </Typography>
           <Box className='flex mb-10 cursor-pointer' onClick={() => handleClick(club.email)}>
             <EmailIcon fontSize='large' color='primary' />
-            <Typography id='modal-modal-description' className='flex items-center ms-10 text-3xl'>
+            <Typography id='modal-modal-description' className='flex items-center ms-10 text-3xl' variant='body2'>
               {club.email}
             </Typography>
           </Box>
           <Box className='flex cursor-pointer' onClick={() => handleClick(club.number)}>
             <PhoneIphoneIcon fontSize='large' color='primary' />
-            <Typography id='modal-modal-description' className='flex items-center ms-10 text-3xl'>
+            <Typography id='modal-modal-description' className='flex items-center ms-10 text-3xl' variant='body2'>
               {club.number}
             </Typography>
           </Box>

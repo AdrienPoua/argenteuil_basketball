@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import logo from "@/public/logo.png";
 import { NavItem } from "@/components/Header/NavItem";
-import Contact from "@/components/Header/Contact";
+import Contact from "@/components/Header/modal";
 import SubBar from "@/components/Header/SubBar";
 import { v4 as uuiv4 } from "uuid";
 import { NavItemType } from "@/types";

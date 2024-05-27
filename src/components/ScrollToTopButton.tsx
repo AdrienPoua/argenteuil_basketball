@@ -5,14 +5,13 @@ import Box from '@mui/material/Box';
 
 function ScrollTop({children} : Readonly<{ children: React.ReactNode }>) {
   const trigger = useScrollTrigger({
-    target: window,
+    target: window ?? undefined,
     disableHysteresis: true,
     threshold: 100,
   });
 
   const handleClick = (event : React.MouseEvent<HTMLElement> ) => {
     const anchor = document.querySelector('#back-to-top-anchor');
-    console.log(anchor);
     if (anchor) {
       anchor.scrollIntoView({
         behavior: 'smooth',
