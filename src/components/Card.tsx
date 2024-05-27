@@ -2,6 +2,8 @@
 import { MailIcon, PhoneIcon } from "@/components/icons";
 import club from "@/data/club.json";
 import { v4 as uuidv4 } from "uuid";
+import toast, { Toaster } from "react-hot-toast";
+import { useCallback, useEffect } from "react";
 
 import { useRef, useState } from "react";
 import Link from "next/link";
@@ -10,6 +12,8 @@ import useCardHover from "@/hooks/useCardHover"; // Assurez-vous d'importer corr
 import { Coach, NewsModel, Leader, Utils, Team } from "@/models";
 import { CoachType, LeaderType, NewsType, PlayerType, TeamType } from "@/types";
 import { Card, CardActionArea, CardContent, Typography, Box, CardMedia } from "@mui/material";
+import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
+import EmailIcon from "@mui/icons-material/Email";
 
 const SmallNews = ({ data }: { data: NewsType }) => {
   const { img, title, url } = data;
@@ -83,9 +87,38 @@ export const CoachCard = ({ data }: { data: CoachType }) => {
   );
 };
 
-export const LeaderCard = ({ data }: { data: LeaderType }) => {
+export const LeaderCard = ({ data }) => {
+  const [clicked, setClicked] = useState(false);
+
+  const EMAIL_NOTIFICATION = "Email copié dans le press-papier";
+  const NUMBER_NOTIFICATION = "Numéro copié dans le press-papier";
+
+  const notify = useCallback((data) => {
+    const message = data.includes("@") ? EMAIL_NOTIFICATION : NUMBER_NOTIFICATION;
+    toast.success(message, {
+      position: "bottom-center",
+      duration: 5000,
+    });
+  }, []);
+
+  const handleClick = useCallback((data) => {
+    if (!clicked) {
+      navigator.clipboard.writeText(data);
+      notify(data);
+      setClicked(true);
+    }
+  }, [clicked, notify]);
+
+  useEffect(() => {
+    if (clicked) {
+      const timer = setTimeout(() => setClicked(false), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [clicked]);
+
   return (
     <Card className='flex flex-col mb-5 w-92 aspect-square items-center flex-wrap bg-white text-black rounded-md overflow-hidden'>
+      <Toaster />
       <CardMedia>
         <Image src={data.img} alt={data.name} height={500} width={500} />
       </CardMedia>
@@ -94,13 +127,17 @@ export const LeaderCard = ({ data }: { data: LeaderType }) => {
           <Typography variant='h4' component='div' className='grow'>
             {data.name}
           </Typography>
-          {data.isEmailDisplayed && <MailIcon email={data.email || club.email} />}
+          {data.isEmailDisplayed && (
+            <EmailIcon fontSize='large' onClick={() => handleClick(data.email)} className='cursor-pointer' />
+          )}
         </Box>
         <Box className='flex items-center relative'>
           <Typography variant='h6' component='div' className='grow'>
             {data.role}
           </Typography>
-          {data.isNumberDisplayed && <PhoneIcon number={data.number || club.number} />}
+          {data.isNumberDisplayed && (
+            <PhoneIphoneIcon fontSize='large' onClick={() => handleClick(data.number)} className='cursor-pointer' />
+          )}
         </Box>
       </CardContent>
     </Card>
@@ -117,38 +154,32 @@ export const TeamCard = ({ data }: { data: TeamType }) => {
     <Card
       onClick={handleClick}
       sx={{
-        position: 'relative',
-        overflow: 'hidden',
-        width: '100%',
-        height: '700px',
-        borderRadius: '8px',
-        boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1)',
-        transition: 'transform 0.15s ease-in-out',
-        '&:hover': {
-          transform: 'scale(1.05)',
+        position: "relative",
+        overflow: "hidden",
+        width: "100%",
+        height: "700px",
+        borderRadius: "8px",
+        boxShadow: "0 10px 15px rgba(0, 0, 0, 0.1)",
+        transition: "transform 0.15s ease-in-out",
+        "&:hover": {
+          transform: "scale(1.05)",
         },
       }}
     >
-      <CardActionArea sx={{ height: '100%' }}>
-        <Box sx={{ position: 'absolute', inset: 0, overflow: 'hidden', borderRadius: '8px', zIndex: 0 }}>
-          <Image
-            src={data.img}
-            alt={data.name}
-            layout="fill"
-            objectFit="cover"
-            className="object-cover"
-          />
+      <CardActionArea sx={{ height: "100%" }}>
+        <Box sx={{ position: "absolute", inset: 0, overflow: "hidden", borderRadius: "8px", zIndex: 0 }}>
+          <Image src={data.img} alt={data.name} layout='fill' objectFit='cover' className='object-cover' />
         </Box>
         <Typography
-          variant="h2"
+          variant='h2'
           sx={{
-            position: 'absolute',
+            position: "absolute",
             inset: 0,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            color: 'white',
-            fontSize: '3rem',
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            color: "white",
+            fontSize: "3rem",
             zIndex: 1,
           }}
         >
@@ -157,42 +188,52 @@ export const TeamCard = ({ data }: { data: TeamType }) => {
         {isClicked && (
           <CardContent
             sx={{
-              position: 'absolute',
+              position: "absolute",
               inset: 0,
-              display: 'flex',
-              padding: '1rem 0.5rem',
-              backgroundColor: 'rgba(0, 0, 0, 0.5)',
-              color: 'white',
-              transition: 'opacity 0.3s ease-in-out',
+              display: "flex",
+              padding: "1rem 0.5rem",
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              color: "white",
+              transition: "opacity 0.3s ease-in-out",
               opacity: isClicked ? 1 : 0,
               zIndex: 2,
             }}
           >
-            <Box sx={{ flex: '1', paddingTop: '1.25rem' }}>
-              <Typography variant="h4" sx={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '2rem', textAlign: 'center' }}>
-                Coach <span style={{ color: '#3f51b5' }}>{data.coach}</span>
+            <Box sx={{ flex: "1", paddingTop: "1.25rem" }}>
+              <Typography variant='h4' sx={{ fontSize: "2rem", fontWeight: "bold", marginBottom: "2rem", textAlign: "center" }}>
+                Coach <span style={{ color: "#3f51b5" }}>{data.coach}</span>
               </Typography>
-              <Box sx={{ display: 'flex', padding: '2.5rem', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
+              <Box sx={{ display: "flex", padding: "2.5rem", flexWrap: "wrap", justifyContent: "center", alignItems: "center" }}>
                 {data.players?.map((player: PlayerType) => (
-                  <Typography key={uuidv4()} variant="h5" sx={{ flexBasis: '33%', fontSize: '1.5rem', marginBottom: '2rem', textAlign: 'center' }}>
+                  <Typography key={uuidv4()} variant='h5' sx={{ flexBasis: "33%", fontSize: "1.5rem", marginBottom: "2rem", textAlign: "center" }}>
                     {player.name}
                   </Typography>
                 ))}
               </Box>
             </Box>
-            <Box sx={{ flex: '1', paddingTop: '1.25rem' }}>
-              <Typography variant="h4" sx={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '2rem', textAlign: 'center', color: '#3f51b5' }}>
+            <Box sx={{ flex: "1", paddingTop: "1.25rem" }}>
+              <Typography variant='h4' sx={{ fontSize: "2rem", fontWeight: "bold", marginBottom: "2rem", textAlign: "center", color: "#3f51b5" }}>
                 Entrainements
               </Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: '3.75rem', marginBottom: '2rem', justifyContent: 'center', alignItems: 'center', flexGrow: 1 }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "3.75rem",
+                  marginBottom: "2rem",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flexGrow: 1,
+                }}
+              >
                 {data.trainings ? (
                   data.trainings.map((training) => (
-                    <Typography key={uuidv4()} variant="h6" sx={{ fontSize: '1.875rem', textAlign: 'center', marginBottom: '1.25rem' }}>
+                    <Typography key={uuidv4()} variant='h6' sx={{ fontSize: "1.875rem", textAlign: "center", marginBottom: "1.25rem" }}>
                       {training.day} {training.start} - {training.end} {training.gym}
                     </Typography>
                   ))
                 ) : (
-                  <Typography variant="h6" sx={{ fontSize: '1.875rem', textAlign: 'center', marginBottom: '1.25rem' }}>
+                  <Typography variant='h6' sx={{ fontSize: "1.875rem", textAlign: "center", marginBottom: "1.25rem" }}>
                     Pas d&apos;entrainements prévus
                   </Typography>
                 )}
@@ -204,7 +245,6 @@ export const TeamCard = ({ data }: { data: TeamType }) => {
     </Card>
   );
 };
-
 
 export default function Index({ data }: Readonly<{ data: NewsType | CoachType | LeaderType | TeamType }>) {
   if (data instanceof NewsModel && data.type) {

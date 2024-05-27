@@ -10,6 +10,7 @@ import { NavItemType } from "@/types";
 import { Box } from "@mui/material";
 
 export default function Header({ data }: Readonly<{ data: NavItemType[] }>) {
+
   const [activeNav, setActiveNav] = useState<NavItemType>({
     title: "",
     subItems: [],
