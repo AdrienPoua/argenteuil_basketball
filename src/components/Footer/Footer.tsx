@@ -30,7 +30,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <Box ref={signatureRef} className='border-t-2 bg-black border-indigo-500 flex flex-col px-12' component='footer'>
+    <Box ref={signatureRef} className='border-t-2 bg-black border-indigo-500 flex flex-col px-12 ' component='footer'>
       <Box className='flex justify-between'>
         <Link href='/' className='shrink-0'>
           <Image src={logo} alt='logo' className='me-5' width={80} height={80} />

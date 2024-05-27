@@ -10,7 +10,6 @@ import { NavItemType } from "@/types";
 import { Box } from "@mui/material";
 
 export default function Header({ data }: Readonly<{ data: NavItemType[] }>) {
-
   const [activeNav, setActiveNav] = useState<NavItemType>({
     title: "",
     subItems: [],
@@ -23,9 +22,6 @@ export default function Header({ data }: Readonly<{ data: NavItemType[] }>) {
 
       const clickedElement = e.target as Node;
       const isClickedInside = headerRef.current.contains(clickedElement);
-
-      console.log(clickedElement);
-
       if (!isClickedInside || clickedElement.textContent === activeNav.title) {
         setActiveNav({ title: "", subItems: [] });
       }
@@ -39,7 +35,7 @@ export default function Header({ data }: Readonly<{ data: NavItemType[] }>) {
   }, [activeNav]);
 
   return (
-    <Box component={"header"} ref={headerRef} className={`flex flex-col w-full z-10 bg-transparent`}>
+    <Box component={"header"} ref={headerRef} className={`flex flex-col w-full z-10 bg-transparent`} id='back-to-top-anchor'>
       <Box className='flex w-full px-6 py-2 bg-white'>
         <Link href='/' className='shrink-0'>
           <Image src={logo} alt='logo' className='me-5' width='50' height='50' />

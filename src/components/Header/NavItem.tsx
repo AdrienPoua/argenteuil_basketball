@@ -12,7 +12,7 @@ export const NavItem: React.FC<NavItemProps> = ({ data, setActiveNav }) => {
     <Box
       component="li"
       key={data.title}
-      className="grow flex justify-center text-black items-center hover:text-indigo-500"
+      className="grow flex justify-center items-center"
     >
       <Button
         className="flex grow relative px-5 py-3"
@@ -20,7 +20,7 @@ export const NavItem: React.FC<NavItemProps> = ({ data, setActiveNav }) => {
         style={{ textTransform: 'none' }} // Keeps the text in its original case
       >
         <Box className="flex justify-center items-center">
-          <Typography className="flex text-xs">{data.title}</Typography>
+          <Typography className="flex text-black">{data.title}</Typography>
           {/* Élément simulant un pseudo-élément ::after */}
           <Box
             component="span"
