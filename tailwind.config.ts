@@ -13,7 +13,7 @@ const config: Config = {
         sans: ["Evogria", "sans-serif"],
       },
       colors: {
-        primary: "blue",
+        primary: "#1976d2",
         secondary: "#FF0000",
         white: "#FFFFFF",
         black: "#000000",

@@ -8,7 +8,6 @@ import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import EmailIcon from "@mui/icons-material/Email";
 import toast, { Toaster } from "react-hot-toast";
 import { useCallback, useEffect, useState } from "react";
-import { LeaderType } from "@/types";
 
 export default function BasicModal() {
   const [open, setOpen] = React.useState(false);

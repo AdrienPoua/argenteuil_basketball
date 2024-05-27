@@ -102,6 +102,10 @@ type TeamType = {
 
 type AdherentType = MemberType | CoachType | LeaderType | PlayerType | AssistantType;
 
+type API = {
+  
+}
+
 export type {
   MatchDataProps,
   NewsType,

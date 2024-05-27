@@ -1,6 +1,25 @@
 import { teams } from "@/data/teams.json";
 import { MemberType, CoachType, LeaderType, PlayerType, AssistantType, TeamType, TrainingType, GymType } from "../types";
 
+export class API {
+  private _data: any;
+  constructor(data : {}) {
+    this._data = data;
+  }
+
+
+  get teams() {
+    const teamShortNames: string[] = [];
+    this._data.teams.forEach((level) => {
+      level.teams.forEach((team) => {
+        teamShortNames.push(team.shortName);
+      });
+    });
+    return teamShortNames;
+  }
+}
+
+
 export class Match {
   constructor(data) {
     this._division = data.Division;
