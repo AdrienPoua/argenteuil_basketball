@@ -71,7 +71,7 @@ const BigNews = ({ data }: { data: NewsType }) => {
 
 export const CoachCard = ({ data }: { data: CoachType }) => {
   return (
-    <Card className='flex flex-col mb-5 min-w-44 items-center flex-wrap text-black rounded-md overflow-hidden'>
+    <Card className='flex flex-col mb-5 min-w-44 items-center flex-wrap text-black rounded-md overflow-hidden h-fit'>
       <CardMedia>
         <Image src={data.img} alt={data.name} height={500} width={500} />
       </CardMedia>
@@ -87,13 +87,13 @@ export const CoachCard = ({ data }: { data: CoachType }) => {
   );
 };
 
-export const LeaderCard = ({ data }) => {
+export const LeaderCard = ({ data }: { data: LeaderType }) => {
   const [clicked, setClicked] = useState(false);
 
   const EMAIL_NOTIFICATION = "Email copié dans le press-papier";
   const NUMBER_NOTIFICATION = "Numéro copié dans le press-papier";
 
-  const notify = useCallback((data) => {
+  const notify = useCallback((data: string) => {
     const message = data.includes("@") ? EMAIL_NOTIFICATION : NUMBER_NOTIFICATION;
     toast.success(message, {
       position: "bottom-center",
@@ -101,13 +101,16 @@ export const LeaderCard = ({ data }) => {
     });
   }, []);
 
-  const handleClick = useCallback((data) => {
-    if (!clicked) {
-      navigator.clipboard.writeText(data);
-      notify(data);
-      setClicked(true);
-    }
-  }, [clicked, notify]);
+  const handleClick = useCallback(
+    (data: string) => {
+      if (!clicked) {
+        navigator.clipboard.writeText(data);
+        notify(data);
+        setClicked(true);
+      }
+    },
+    [clicked, notify]
+  );
 
   useEffect(() => {
     if (clicked) {
@@ -127,17 +130,13 @@ export const LeaderCard = ({ data }) => {
           <Typography variant='h4' component='div' className='grow'>
             {data.name}
           </Typography>
-          {data.isEmailDisplayed && (
-            <EmailIcon fontSize='large' onClick={() => handleClick(data.email)} className='cursor-pointer' />
-          )}
+          {data.isEmailDisplayed && <EmailIcon fontSize='large' onClick={() => handleClick(data.email)} className='cursor-pointer' />}
         </Box>
         <Box className='flex items-center relative'>
           <Typography variant='h6' component='div' className='grow'>
             {data.role}
           </Typography>
-          {data.isNumberDisplayed && (
-            <PhoneIphoneIcon fontSize='large' onClick={() => handleClick(data.number)} className='cursor-pointer' />
-          )}
+          {data.isNumberDisplayed && <PhoneIphoneIcon fontSize='large' onClick={() => handleClick(data.number)} className='cursor-pointer' />}
         </Box>
       </CardContent>
     </Card>

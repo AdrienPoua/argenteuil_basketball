@@ -44,7 +44,7 @@ export default function Header({ data }: Readonly<{ data: NavItemType[] }>) {
         <Link href='/' className='shrink-0'>
           <Image src={logo} alt='logo' className='me-5' width='50' height='50' />
         </Link>
-        <Box component={"nav"} className='flex grow'>
+        <Box component={"nav"} className='flex grow items-center'>
           <Box component={"ul"} className='flex'>
             {data.map((item) => (
               <NavItem key={uuiv4()} data={item} setActiveNav={setActiveNav} />

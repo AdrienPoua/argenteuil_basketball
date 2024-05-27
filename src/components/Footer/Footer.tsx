@@ -35,7 +35,7 @@ export default function Footer() {
         <Link href='/' className='shrink-0'>
           <Image src={logo} alt='logo' className='me-5' width={80} height={80} />
         </Link>
-        <Link href='https://www.linkedin.com/in/adrien-poua' className='text-gray-500 flex justify-center items-center'>
+        <Link href='https://www.linkedin.com/in/adrien-poua' target="blank" className='text-gray-500 flex justify-center items-center'>
           <Typography variant='body1'>
             Made with ❤ by&nbsp;
             <span className={isHover ? "text-indigo-500" : ""}>Adrien POUA</span>

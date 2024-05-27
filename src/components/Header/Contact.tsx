@@ -1,39 +1,78 @@
-import React from 'react'
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import club from "@/data/club.json";
+import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
+import EmailIcon from "@mui/icons-material/Email";
+import toast, { Toaster } from "react-hot-toast";
+import { useCallback, useEffect, useState } from "react";
+import { LeaderType } from "@/types";
 
-export default function Contact() {
+export default function BasicModal() {
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = React.useCallback(() => setOpen(true), []);
+  const handleClose = React.useCallback(() => setOpen(false), []);
+  const [clicked, setClicked] = useState(false);
+
+  const EMAIL_NOTIFICATION = "Email copié dans le press-papier";
+  const NUMBER_NOTIFICATION = "Numéro copié dans le press-papier";
+
+  const notify = useCallback((data: string) => {
+    const message = data.includes("@") ? EMAIL_NOTIFICATION : NUMBER_NOTIFICATION;
+    toast.success(message, {
+      position: "bottom-center",
+      duration: 5000,
+    });
+  }, []);
+
+  const handleClick = useCallback(
+    (data: string) => {
+      if (!clicked) {
+        navigator.clipboard.writeText(data);
+        notify(data);
+        setClicked(true);
+      }
+    },
+    [clicked, notify]
+  );
+
+  useEffect(() => {
+    if (clicked) {
+      const timer = setTimeout(() => setClicked(false), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [clicked]);
+
   return (
-    <button className='' >
-    {" "}
-    <a href='/contact'  className=''>
-      {" "}
-      <svg
-        xmlns='http://www.w3.org/2000/svg'
-        fill='none'
-        viewBox='0 0 14 14'
-        height={30}
-        width={30}
-        id='Mail-Send-Envelope--Streamline-Core'
-      >
-        <g id='mail-send-envelope--envelope-email-message-unopened-sealed-close'>
-          <path
-            id='Vector 3960'
-            stroke='#000000'
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            d='M0.5 11.5v-9c0 -0.55228 0.447715 -1 1 -1h11c0.5523 0 1 0.44771 1 1v9c0 0.5523 -0.4477 1 -1 1h-11c-0.552285 0 -1 -0.4477 -1 -1Z'
-            strokeWidth={1}
-          />
-          <path
-            id='Vector 3961'
-            stroke='#000000'
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            d='m0.5 4 5.93079 4.10593c0.34245 0.23708 0.79598 0.23708 1.13842 0L13.5 4'
-            strokeWidth={1}
-          />
-        </g>
-      </svg>{" "}
-    </a>{" "}
-  </button>
-  )
+    <div className='flex justify-center items-center '>
+      <Button onClick={handleOpen} variant='contained' color='primary'>
+        Contact
+      </Button>
+      <Modal open={open} onClose={handleClose} aria-labelledby='modal-modal-title' aria-describedby='modal-modal-description'>
+        <Box
+          className='  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
+  w-[800px] bg-white border-2 border-black shadow-lg px-36 py-20'
+        >
+          <Typography id='modal-modal-title' color='primary' className="mb-16 text-center text-6xl" component='h2'>
+            Contactez nous
+          </Typography>
+          <Box className='flex mb-10 cursor-pointer' onClick={() => handleClick(club.email)}>
+            <EmailIcon fontSize='large' color='primary' />
+            <Typography id='modal-modal-description' className='flex items-center ms-10 text-3xl'>
+              {club.email}
+            </Typography>
+          </Box>
+          <Box className='flex cursor-pointer' onClick={() => handleClick(club.number)}>
+            <PhoneIphoneIcon fontSize='large' color='primary' />
+            <Typography id='modal-modal-description' className='flex items-center ms-10 text-3xl'>
+              {club.number}
+            </Typography>
+          </Box>
+        </Box>
+      </Modal>
+    </div>
+  );
 }
