@@ -8,14 +8,13 @@ import { set } from "mongoose";
 type AsideProps = { data: API | undefined, setSelectedTeam: (team: string) => void};
 
 function Aside({ data, setSelectedTeam }: Readonly<AsideProps>) {
-  const teams = data?.data;
-
+  console.log(data);
   return (
     <Box component='aside' className='bg-primary min-h-screen min-w-44'>
       <List>
-        {teams?.map((team) => (
+        {data?.data.map((team) => (
           <ListItem button key={uuidv4()} className="p-10" onClick={() => setSelectedTeam(team.name)}>
-            <ListItemText className='tracking-widest text-center' primary={team.name} />
+            <ListItemText className='tracking-widest text-center' primary={team.shortName} />
           </ListItem>
         ))}
       </List>
@@ -26,8 +25,7 @@ function Aside({ data, setSelectedTeam }: Readonly<AsideProps>) {
 export default function Index() {
   const [data, setData] = useState<undefined | API>(undefined);
   const [selectedTeam, setSelectedTeam] = useState<undefined | string>(undefined);
-  console.log(selectedTeam);
-
+  console.log(data);
   useEffect(() => {
     const fetchData = async () => {
       try {

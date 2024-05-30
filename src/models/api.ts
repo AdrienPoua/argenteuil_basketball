@@ -1,3 +1,4 @@
+import { teams } from "@/data/teams.json";
 interface Competition {
   id: string;
   name: string;
@@ -32,11 +33,6 @@ interface Team {
   sportId: string;
   logo: string;
   shareEventBackgroundUrl: string | null;
-}
-
-interface TeamGroup {
-  level: string;
-  teams: Team[];
 }
 
 interface Location {
@@ -77,31 +73,13 @@ interface UsableDataType {
 }
 
 class API {
-  private _data: UsableDataType[];
-
+  private _data: Team[];
   constructor(data: Club) {
-    this._data = this.initializeData(data);
+    this._data = data.teams
   }
-
-  // Fonction pour extraire et transformer les données
-  private initializeData(data: Club): UsableDataType[] {
-    // Extraire toutes les équipes imbriquées dans les équipes des équipes
-    const teams = data.teams.reduce<Team[]>((acc, val) => acc.concat(val.teams), []);
-    
-    // Transformer les données en un format utile
-    return teams.map((team) => ({
-      name : team.shortName,
-      category: team.category,
-      competitions: team.competitions.map((competition) => competition.name),
-      level : team.level,
-    }));
-  }
-
-  // Getter pour accéder aux données transformées
-  get data(): UsableDataType[] {
+  get data() : Team[] {
     return this._data;
   }
 }
-
 
 export { API, Club, Location, Team, Competition, UsableDataType };

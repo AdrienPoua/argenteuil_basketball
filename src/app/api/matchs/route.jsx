@@ -2,7 +2,7 @@
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  const apiUrl = 'https://v1.scorenco.com/backend/v1/clubs/sport/basket/club/argenteuil-bb/?gtbl=1&exclude=sponsors';
+  const apiUrl = 'https://v1.scorenco.com/backend/v1/clubs/sport/basket/club/argenteuil-bb/';
 
   try {
     const response = await fetch(apiUrl);
