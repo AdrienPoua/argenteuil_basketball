@@ -13,7 +13,7 @@ interface Competition {
   seasonSlug: string;
 }
 
-interface Team {
+interface TeamType {
   id: string;
   name: string;
   slug: string;
@@ -43,7 +43,7 @@ interface Location {
 }
 
 interface Club {
-  teams: TeamGroup[];
+  teams: [];
   id: string;
   name: string;
   website: string;
@@ -72,14 +72,14 @@ interface UsableDataType {
   competitions: string[];
 }
 
-class API {
-  private _data: Team[];
+class TEAMS {
+  private _data: TeamType[];
   constructor(data: Club) {
     this._data = data.teams
   }
-  get data() : Team[] {
+  get data() : TeamType[] {
     return this._data;
   }
 }
 
-export { API, Club, Location, Team, Competition, UsableDataType };
+export { TEAMS , Club, Location, TeamType, Competition, UsableDataType };

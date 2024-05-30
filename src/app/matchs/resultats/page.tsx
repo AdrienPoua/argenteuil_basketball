@@ -1,19 +1,18 @@
 "use client";
 import { useState, useEffect } from "react";
 import { Box, List, Typography, ListItem, ListItemText } from "@mui/material";
-import { API } from "@/models/api";
+import { TEAMS, TeamType } from "@/models/api";
 import { v4 as uuidv4 } from "uuid";
-import { set } from "mongoose";
+import Table from "./table";
 
-type AsideProps = { data: API | undefined, setSelectedTeam: (team: string) => void};
+type AsideProps = { data: TEAMS | undefined, setSelectedTeam: (team: string) => void};
 
 function Aside({ data, setSelectedTeam }: Readonly<AsideProps>) {
-  console.log(data);
   return (
     <Box component='aside' className='bg-primary min-h-screen min-w-44'>
       <List>
-        {data?.data.map((team) => (
-          <ListItem button key={uuidv4()} className="p-10" onClick={() => setSelectedTeam(team.name)}>
+        {data?.data.map((team : TeamType ) => (
+          <ListItem button key={uuidv4()} className="p-10" onClick={() => setSelectedTeam(team.competitions[0].id.toString())}>
             <ListItemText className='tracking-widest text-center' primary={team.shortName} />
           </ListItem>
         ))}
@@ -23,15 +22,14 @@ function Aside({ data, setSelectedTeam }: Readonly<AsideProps>) {
 }
 
 export default function Index() {
-  const [data, setData] = useState<undefined | API>(undefined);
+  const [data, setData] = useState<undefined | TEAMS >(undefined);
   const [selectedTeam, setSelectedTeam] = useState<undefined | string>(undefined);
-  console.log(data);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await fetch("/api/matchs");
         const data = await res.json();
-        setData(new API(data));
+        setData(new TEAMS(data));
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -39,6 +37,19 @@ export default function Index() {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch(`/api/ranking/${selectedTeam}`);
+        const data = await res.json();
+        console.log(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+    [selectedTeam]
+  });
 
   return (
     <Box component='main' className='flex grow bg-black'>
@@ -48,8 +59,9 @@ export default function Index() {
           Classements
         </Typography>
         <Box className='flex justify-center'>
-          <Typography className="text-white">{selectedTeam}</Typography>
+         { selectedTeam && <Typography className="text-white">{selectedTeam}</Typography>}
         </Box>
+        {/* <Table/> */}
       </Box>
     </Box>
   );
