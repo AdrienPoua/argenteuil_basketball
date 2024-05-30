@@ -34,7 +34,7 @@ interface Team {
   shareEventBackgroundUrl: string | null;
 }
 
-interface Level {
+interface TeamGroup {
   level: string;
   teams: Team[];
 }
@@ -47,7 +47,7 @@ interface Location {
 }
 
 interface Club {
-  teams: Level[];
+  teams: TeamGroup[];
   id: string;
   name: string;
   website: string;
@@ -55,7 +55,7 @@ interface Club {
   address: string;
   slug: string;
   alreadyManaged: boolean;
-  rssFeeds: any[];
+  rssFeeds: string[];
   code: string;
   facebookPage: string | null;
   facebookPageId: string | null;
@@ -67,34 +67,41 @@ interface Club {
   location: Location;
   urlV2: string;
   url: string;
-  sponsoredContent: any | null;
+  sponsoredContent: string | null;
+}
+
+interface UsableDataType {
+  name: string;
+  category: string;
+  competitions: string[];
 }
 
 class API {
-    private _data: Club;
-  
-    constructor(data: Club) {
-      this._data = data;
-    }
-  
-    getAllTeams() {
-      const teams: { name: string; category: string; competitions: string[] }[] = [];
-  
-      this._data.teams.forEach((level: Level) => {
-        level.teams.forEach((team: Team) => {
-          const teamInfo = {
-            name: team.name,
-            category: team.category,
-            competitions: team.competitions.map((competition) => competition.name),
-          };
-          teams.push(teamInfo);
-        });
-      });
-  
-      return teams;
-    }
+  private _data: UsableDataType[];
+
+  constructor(data: Club) {
+    this._data = this.initializeData(data);
   }
 
-  export type { API, Club, Level, Location, Team, Competition };
+  // Fonction pour extraire et transformer les données
+  private initializeData(data: Club): UsableDataType[] {
+    // Extraire toutes les équipes imbriquées dans les équipes des équipes
+    const teams = data.teams.reduce<Team[]>((acc, val) => acc.concat(val.teams), []);
+    
+    // Transformer les données en un format utile
+    return teams.map((team) => ({
+      name : team.shortName,
+      category: team.category,
+      competitions: team.competitions.map((competition) => competition.name),
+      level : team.level,
+    }));
+  }
 
-  
+  // Getter pour accéder aux données transformées
+  get data(): UsableDataType[] {
+    return this._data;
+  }
+}
+
+
+export { API, Club, Location, Team, Competition, UsableDataType };

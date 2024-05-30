@@ -1,26 +1,21 @@
 "use client";
-import React, { useState } from "react";
-import { Box, List, ListItem, ListItemText, Typography } from "@mui/material";
-import { v4 as uuiv4 } from "uuid";
-import { abbAPI } from "@/data/api";
-import { useEffect } from "react";
-import { API, Club } from "@/models/api";
+import { useState, useEffect } from "react";
+import { Box, List, Typography, ListItem, ListItemText } from "@mui/material";
+import { API } from "@/models/api";
+import { v4 as uuidv4 } from "uuid";
+import { set } from "mongoose";
 
+type AsideProps = { data: API | undefined, setSelectedTeam: (team: string) => void};
 
-type AsideProps = { data : Club[]; activeData: string; setActiveData: (data: string) => void; };
-function Aside({ data, activeData, setActiveData }: AsideProps ) {
-  const handleClick = (category: string) => {
-    setActiveData(category);
-  };
+function Aside({ data, setSelectedTeam }: Readonly<AsideProps>) {
+  const teams = data?.data;
 
-  const usableData = new API(data)
-  console.log(usableData)
   return (
-    <Box component='aside' className='bg-primary min-h-svh min-w-44'>
+    <Box component='aside' className='bg-primary min-h-screen min-w-44'>
       <List>
-        {usableData.teams.map((category) => (
-          <ListItem button key={uuiv4()} className={`px-10 ${activeData === category ? "bg-secondary" : ""}`} onClick={() => handleClick(category)}>
-            <ListItemText className='tracking-widest text-center' primary={category} />
+        {teams?.map((team) => (
+          <ListItem button key={uuidv4()} className="p-10" onClick={() => setSelectedTeam(team.name)}>
+            <ListItemText className='tracking-widest text-center' primary={team.name} />
           </ListItem>
         ))}
       </List>
@@ -29,14 +24,16 @@ function Aside({ data, activeData, setActiveData }: AsideProps ) {
 }
 
 export default function Index() {
-  const [data, setData] = useState<Club>([]);
-  const [activeData, setActiveData] = React.useState("");
+  const [data, setData] = useState<undefined | API>(undefined);
+  const [selectedTeam, setSelectedTeam] = useState<undefined | string>(undefined);
+  console.log(selectedTeam);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await fetch("/api/matchs");
         const data = await res.json();
-        setData(data);
+        setData(new API(data));
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -44,16 +41,16 @@ export default function Index() {
 
     fetchData();
   }, []);
+
   return (
     <Box component='main' className='flex grow bg-black'>
-      <Aside data={data} activeData={activeData} setActiveData={setActiveData} />
+      <Aside data={data} setSelectedTeam={setSelectedTeam}  />
       <Box component='section' className='flex flex-col grow'>
         <Typography component='h1' variant='h1'>
-          {" "}
-          Classements{" "}
+          Classements
         </Typography>
         <Box className='flex justify-center'>
-          <Typography>{activeData}</Typography>
+          <Typography className="text-white">{selectedTeam}</Typography>
         </Box>
       </Box>
     </Box>
