@@ -9,6 +9,9 @@ const theme = createTheme({
     secondary: {
       main: '#dc004e',
     },
+    background: {
+      default: 'black', // Ajoutez la couleur de fond globale ici
+    },
   },
   typography: {
     fontFamily: 'Roboto, sans-serif',

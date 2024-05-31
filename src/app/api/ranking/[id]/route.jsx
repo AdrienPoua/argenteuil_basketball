@@ -1,13 +1,11 @@
-// src/app/api/proxy/route.js
+// src/app/api/ranking/[id].js
 import { NextResponse } from 'next/server';
 
-export async function GET(id) {
+export async function GET(request, { params }) {
+  const { id } = params; // Extraction de l'ID depuis les paramètres de la route
   const apiUrl = `https://v1.scorenco.com/backend/v1/competitions/${id}/rankings/`;
   try {
     const response = await fetch(apiUrl);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
     const data = await response.json();
     return NextResponse.json(data);
   } catch (error) {

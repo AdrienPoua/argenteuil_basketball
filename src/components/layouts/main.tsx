@@ -3,7 +3,7 @@ import { Box, Typography } from '@mui/material';
 
 export default function Layout({ pageTitle, children }: Readonly<{ pageTitle: string, children: React.ReactNode }>) {
   return (
-    <Box component="main" className="flex flex-col align-middle justify-center grow bg-black pb-10">
+    <Box component="main" className="flex flex-col align-middle justify-center grow pb-10">
       <Typography variant="h1">
         {pageTitle}
       </Typography>

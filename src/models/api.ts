@@ -75,11 +75,87 @@ interface UsableDataType {
 class TEAMS {
   private _data: TeamType[];
   constructor(data: Club) {
-    this._data = data.teams
+    this._data = data.teams;
   }
-  get data() : TeamType[] {
+  get data(): TeamType[] {
     return this._data;
   }
 }
 
-export { TEAMS , Club, Location, TeamType, Competition, UsableDataType };
+type RankingType = {
+  competitionId: string;
+  date: string;
+  official: boolean;
+  sportId: string;
+  teams: RankingTeam[];
+};
+type RankingStats = {
+  pts?: number;
+  jo?: number;
+  g?: number;
+  n?: number;
+  p?: number;
+  f?: number;
+  bp?: number;
+  bc?: number;
+  coeff?: string;
+  fix_points?: number;
+};
+type RankingTeam = {
+  clubId: string;
+  teamId: string;
+  name: string;
+  shortName: string;
+  teamSlug: string;
+  clubSlug: string;
+  rank: number;
+  data: RankingStats[];
+  logo: string | null;
+  teamUrlV2: string;
+};
+
+class Ranking {
+  private data: RankingType;
+  constructor(data: RankingType) {
+    this.data = data;
+  }
+  get rankingTeams(): RankingTeam[] {
+    return this.data.teams;
+  }
+  static readonly getValue = (data: RankingTeam, key: keyof RankingStats) => {
+    return data.data.find((item) => item.hasOwnProperty(key))?.[key];
+  };
+  static getPts(data: RankingTeam) {
+    return this.getValue(data, "pts");
+  }
+  static getJo(data: RankingTeam) {
+    return this.getValue(data, "jo");
+  }
+  static getG(data: RankingTeam) {
+    return this.getValue(data, "g");
+  }
+  static getN(data: RankingTeam) {
+    return this.getValue(data, "n");
+  }
+  static getP(data: RankingTeam) {
+    return this.getValue(data, "p");
+  }
+  static getF(data: RankingTeam) {
+    return this.getValue(data, "f");
+  }
+  static getBp(data: RankingTeam) {
+    return this.getValue(data, "bp");
+  }
+  static getBc(data: RankingTeam) {
+    return this.getValue(data, "bc");
+  }
+  static getCoeff(data: RankingTeam) {
+    return this.getValue(data, "coeff");
+  }
+  static getFixPoints(data: RankingTeam) {
+    return this.getValue(data, "fix_points");
+  }
+}
+
+export { TEAMS, Ranking };
+export type { TeamType, RankingTeam };

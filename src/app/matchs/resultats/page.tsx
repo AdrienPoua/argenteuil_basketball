@@ -1,29 +1,15 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Box, List, Typography, ListItem, ListItemText } from "@mui/material";
-import { TEAMS, TeamType } from "@/models/api";
+import { Box, List, Typography, ListItem, ListItemText, Container } from "@mui/material";
+import { TEAMS, TeamType, Ranking } from "@/models/api";
 import { v4 as uuidv4 } from "uuid";
 import Table from "./table";
-
-type AsideProps = { data: TEAMS | undefined, setSelectedTeam: (team: string) => void};
-
-function Aside({ data, setSelectedTeam }: Readonly<AsideProps>) {
-  return (
-    <Box component='aside' className='bg-primary min-h-screen min-w-44'>
-      <List>
-        {data?.data.map((team : TeamType ) => (
-          <ListItem button key={uuidv4()} className="p-10" onClick={() => setSelectedTeam(team.competitions[0].id.toString())}>
-            <ListItemText className='tracking-widest text-center' primary={team.shortName} />
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
-}
+import { Button, ButtonGroup } from "@mui/material";
 
 export default function Index() {
-  const [data, setData] = useState<undefined | TEAMS >(undefined);
+  const [data, setData] = useState<undefined | TEAMS>(undefined);
   const [selectedTeam, setSelectedTeam] = useState<undefined | string>(undefined);
+  const [ranking, setRanking] = useState<undefined | Ranking>(undefined);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -39,30 +25,42 @@ export default function Index() {
   }, []);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(`/api/ranking/${selectedTeam}`);
-        const data = await res.json();
-        console.log(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
+    if (selectedTeam) {
+      const fetchData = async (id: string) => {
+        try {
+          const res = await fetch(`/api/ranking/${id}`);
+          const data = await res.json();
+          setRanking(new Ranking(data));
+          console.log(ranking);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      };
+
+      fetchData(selectedTeam);
     }
-    [selectedTeam]
-  });
+  }, [selectedTeam]);
 
   return (
-    <Box component='main' className='flex grow bg-black'>
-      <Aside data={data} setSelectedTeam={setSelectedTeam}  />
+    <Container component='main' className='flex grow bg-black'>
+      {/* <Aside data={data} setSelectedTeam={setSelectedTeam} /> */}
       <Box component='section' className='flex flex-col grow'>
         <Typography component='h1' variant='h1'>
           Classements
         </Typography>
-        <Box className='flex justify-center'>
-         { selectedTeam && <Typography className="text-white">{selectedTeam}</Typography>}
-        </Box>
-        {/* <Table/> */}
+        <Container className='overflow-hidden'>
+          <Box className='flex flex-col'>
+            <ButtonGroup variant='contained' aria-label='Basic button group' className='max-w-fit'>
+              {data?.data.map((team: TeamType) => (
+                <Button size='small' button key={uuidv4()} className='p-10' onClick={() => setSelectedTeam(team.competitions[0].id.toString())}>
+                  {team.shortName}
+                </Button>
+              ))}
+            </ButtonGroup>
+            {ranking && <Table data={ranking} />}
+          </Box>
+        </Container>
       </Box>
-    </Box>
+    </Container>
   );
 }
