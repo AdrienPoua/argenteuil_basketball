@@ -1,45 +1,60 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Box, List, Typography, ListItem, ListItemText, Container } from "@mui/material";
-import { TEAMS, TeamType, Ranking } from "@/models/api";
+import { Box, Typography, Container } from "@mui/material";
+import { TeamType, Ranking, Club } from "@/models/api";
 import { v4 as uuidv4 } from "uuid";
 import Table from "./table";
 import { Button, ButtonGroup } from "@mui/material";
 
 export default function Index() {
-  const [data, setData] = useState<undefined | TEAMS>(undefined);
+  const [clubData, setClubData] = useState<undefined | Club>(undefined);
   const [selectedTeam, setSelectedTeam] = useState<undefined | string>(undefined);
   const [ranking, setRanking] = useState<undefined | Ranking>(undefined);
+  const fetchData = async <T,>(endpoint: string): Promise<T> => {
+    try {
+      const res = await fetch(endpoint);
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      return res.json();
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      throw error;
+    }
+  };
+
+  // Fetch teams data on component mount
   useEffect(() => {
-    const fetchData = async () => {
+    const endpoint = "/api/club";
+    const clubData = async () => {
       try {
-        const res = await fetch("/api/matchs");
-        const data = await res.json();
-        setData(new TEAMS(data));
+        const data = await fetchData<Club>(endpoint);
+        setClubData(data);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching teams data:", error);
       }
     };
 
-    fetchData();
+    clubData();
   }, []);
 
+  // Fetch ranking data when selectedTeam changes
   useEffect(() => {
     if (selectedTeam) {
-      const fetchData = async (id: string) => {
+      const fetchRanking = async () => {
         try {
-          const res = await fetch(`/api/ranking/${id}`);
-          const data = await res.json();
-          setRanking(new Ranking(data));
-          console.log(ranking);
+          const rankingData = await fetchData<Ranking>(`/api/ranking/${selectedTeam}`);
+          setRanking(new Ranking(rankingData));
         } catch (error) {
-          console.error("Error fetching data:", error);
+          console.error("Error fetching ranking data:", error);
         }
       };
 
-      fetchData(selectedTeam);
+      fetchRanking();
     }
   }, [selectedTeam]);
+
+  const [isActive, setIsActive] = useState<string>("");
 
   return (
     <Container component='main' className='flex grow bg-black'>
@@ -49,16 +64,27 @@ export default function Index() {
           Classements
         </Typography>
         <Container className='overflow-hidden'>
-          <Box className='flex flex-col'>
-            <ButtonGroup variant='contained' aria-label='Basic button group' className='max-w-fit'>
-              {data?.data.map((team: TeamType) => (
-                <Button size='small' button key={uuidv4()} className='p-10' onClick={() => setSelectedTeam(team.competitions[0].id.toString())}>
+          <ButtonGroup variant='contained' aria-label='Basic button group' className='flex'>
+            {clubData?.teams.map((team: TeamType) => {
+              const id = team.competitions[0].id.toString();
+              return (
+                <Button
+                  size='large'
+                  className='grow '
+                  key={uuidv4()}
+                  id={id}
+                  sx={{ backgroundColor: selectedTeam === id ? "primary.dark" : "primary.main" }}
+                  onClick={() => {
+                    setSelectedTeam(id);
+                  }}
+                >
                   {team.shortName}
                 </Button>
-              ))}
-            </ButtonGroup>
-            {ranking && <Table data={ranking} />}
-          </Box>
+              );
+            })}
+          </ButtonGroup>
+
+          {ranking && <Table data={ranking} />}
         </Container>
       </Box>
     </Container>

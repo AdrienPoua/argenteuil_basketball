@@ -72,7 +72,7 @@ interface UsableDataType {
   competitions: string[];
 }
 
-class TEAMS {
+class Teams {
   private _data: TeamType[];
   constructor(data: Club) {
     this._data = data.teams;
@@ -157,5 +157,5 @@ class Ranking {
   }
 }
 
-export { TEAMS, Ranking };
+export { Teams, Ranking };
 export type { TeamType, RankingTeam };
