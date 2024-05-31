@@ -5,6 +5,7 @@
     "couleurs": ["bleu", "blanc"],
     "email" : "argenteuilbasketball@hotmail.fr",
     "number": "06 12 34 56 78",
+    "saison": "2024-2025",
     "gymnases": [
       {
         "name": "Jean Guimier",

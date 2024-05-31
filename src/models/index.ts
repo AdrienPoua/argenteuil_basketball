@@ -156,6 +156,7 @@ export class Coach extends Member implements CoachType {
   private _number: string;
   private _img: string;
   private _team: string[];
+  private _isCoach: true;
 
   constructor(data: CoachType) {
     super(data);
@@ -176,6 +177,7 @@ export class Coach extends Member implements CoachType {
     this._number = data.number;
     this._img = data.img;
     this._team = data.team;
+    this._isCoach = true;
 
     if (!data.team) {
       throw new Error("Le coach n'a pas d'équipe assignée");

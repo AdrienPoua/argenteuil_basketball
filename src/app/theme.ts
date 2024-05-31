@@ -29,7 +29,15 @@ const theme = createTheme({
       marginBottom: '5rem', 
     },
   },
+  components: {
+    MuiContainer: {
+      styleOverrides: {
+        maxWidthXl: {
+          maxWidth: '2800px', // Correction de la propriété maxWidthXl
+        },
+      },
+    },
+  },
 });
 
 export default theme;
-

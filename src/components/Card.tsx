@@ -114,26 +114,26 @@ export const LeaderCard = ({ data }: { data: LeaderType }) => {
 
   useEffect(() => {
     if (clicked) {
-      const timer = setTimeout(() => setClicked(false), 1000);
+      const timer = setTimeout(() => setClicked(false), 500);
       return () => clearTimeout(timer);
     }
   }, [clicked]);
-
+  console.log(data.name);
   return (
-    <Card className='flex flex-col mb-5 w-92 aspect-square items-center flex-wrap bg-white text-black rounded-md overflow-hidden'>
+    <Card className='flex flex-col mb-5 aspect-square items-center flex-wrap bg-white text-black rounded-md overflow-hidden'>
       <Toaster />
       <CardMedia>
         <Image src={data.img} alt={data.name} height={500} width={500} />
       </CardMedia>
       <CardContent className='flex flex-col border-t-2 border-primary w-full text-center grow justify-center'>
         <Box className='flex items-center relative'>
-          <Typography variant='h4' component='div' className='grow'>
+          <Typography  component='h3' className='grow text-black font-bold text-2xl'>
             {data.name}
           </Typography>
           {data.isEmailDisplayed && <EmailIcon fontSize='large' onClick={() => handleClick(data.email)} className='cursor-pointer' />}
         </Box>
         <Box className='flex items-center relative'>
-          <Typography variant='h6' component='div' className='grow'>
+          <Typography  component='h2' className='grow  text-black'>
             {data.role}
           </Typography>
           {data.isNumberDisplayed && <PhoneIphoneIcon fontSize='large' onClick={() => handleClick(data.number)} className='cursor-pointer' />}

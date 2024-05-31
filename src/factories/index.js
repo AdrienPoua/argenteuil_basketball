@@ -21,6 +21,8 @@ export class MemberFactory {
       return new Player(data);
     } else if (type === "team" && data.coach) {
       return new Team(data);
+    } else {
+      return null;
     }
   }
 }
