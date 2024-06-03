@@ -1,10 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Box, Typography, Container } from "@mui/material";
+import { Box, Typography, Container, Button, ButtonGroup  } from "@mui/material";
 import { TeamType, Ranking, Club } from "@/models/api";
 import { v4 as uuidv4 } from "uuid";
 import Table from "./table";
-import { Button, ButtonGroup } from "@mui/material";
 
 export default function Index() {
   const [clubData, setClubData] = useState<undefined | Club>(undefined);
@@ -63,29 +62,24 @@ export default function Index() {
         <Typography component='h1' variant='h1'>
           Classements
         </Typography>
-        <Container className='overflow-hidden'>
-          <ButtonGroup variant='contained' aria-label='Basic button group' className='flex'>
-            {clubData?.teams.map((team: TeamType) => {
-              const id = team.competitions[0].id.toString();
-              return (
-                <Button
-                  size='large'
-                  className='grow '
-                  key={uuidv4()}
-                  id={id}
-                  sx={{ backgroundColor: selectedTeam === id ? "primary.dark" : "primary.main" }}
-                  onClick={() => {
-                    setSelectedTeam(id);
-                  }}
-                >
-                  {team.shortName}
-                </Button>
-              );
-            })}
-          </ButtonGroup>
-
-          {ranking && <Table data={ranking} />}
-        </Container>
+        <ButtonGroup variant='contained' aria-label='Basic button group' className='flex-wrap flex'>
+          {clubData?.teams.map((team: TeamType) => {
+            const id = team.competitions[0].id.toString();
+            return (
+              <Button
+                size='large'
+                key={uuidv4()}
+                id={id}
+                onClick={() => {
+                  setSelectedTeam(id);
+                }}
+              >
+                {team.shortName}
+              </Button>
+            );
+          })}
+        </ButtonGroup>
+        {ranking && <Table data={ranking} />}
       </Box>
     </Container>
   );

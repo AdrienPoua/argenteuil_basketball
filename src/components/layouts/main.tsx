@@ -8,7 +8,7 @@ export default function Layout({ pageTitle, children }: Readonly<{ pageTitle: st
       <Typography variant="h1">
         {pageTitle}
       </Typography>
-      <Container  disableGutters className="flex grow self-center ">
+      <Container  disableGutters className="flex grow self-center overflow-hidden ">
         {children}
       </Container>
     </Container>

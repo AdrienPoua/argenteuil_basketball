@@ -42,7 +42,7 @@ interface Location {
   departmentName: string;
 }
 
-interface Club {
+export interface Club {
   teams: [];
   id: string;
   name: string;

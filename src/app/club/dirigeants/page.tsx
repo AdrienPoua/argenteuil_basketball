@@ -14,6 +14,7 @@ export default function Index() {
 
 
   const leaders: Leader[]  = data?.map((member: MemberType) => MemberFactory.create(member, "leader"))
+    .filter(isLeader);
 
   const president = leaders.find((leader) => leader.role.includes("Président"));
   const tresorier = leaders.find((leader) => leader.role.includes("Trésorier") || leader.role.includes("Trésorière"));

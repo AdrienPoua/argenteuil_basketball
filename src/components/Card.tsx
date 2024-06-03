@@ -1,6 +1,4 @@
 "use client";
-import { MailIcon, PhoneIcon } from "@/components/icons";
-import club from "@/data/club.json";
 import { v4 as uuidv4 } from "uuid";
 import toast, { Toaster } from "react-hot-toast";
 import { useCallback, useEffect } from "react";
@@ -10,7 +8,7 @@ import Link from "next/link";
 import Image from "next/image";
 import useCardHover from "@/hooks/useCardHover"; // Assurez-vous d'importer correctement vos hooks
 import { Coach, NewsModel, Leader, Utils, Team } from "@/models";
-import { CoachType, LeaderType, NewsType, PlayerType, TeamType } from "@/types";
+import { CoachType, LeaderType, NewsType, TeamType } from "@/types";
 import { Card, CardActionArea, CardContent, Typography, Box, CardMedia } from "@mui/material";
 import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import EmailIcon from "@mui/icons-material/Email";
@@ -118,7 +116,6 @@ export const LeaderCard = ({ data }: { data: LeaderType }) => {
       return () => clearTimeout(timer);
     }
   }, [clicked]);
-  console.log(data.name);
   return (
     <Card className='flex flex-col mb-5 aspect-square items-center flex-wrap bg-white text-black rounded-md overflow-hidden'>
       <Toaster />
@@ -152,87 +149,42 @@ export const TeamCard = ({ data }: { data: TeamType }) => {
   return (
     <Card
       onClick={handleClick}
-      sx={{
-        position: "relative",
-        overflow: "hidden",
-        width: "100%",
-        height: "700px",
-        borderRadius: "8px",
-        boxShadow: "0 10px 15px rgba(0, 0, 0, 0.1)",
-        transition: "transform 0.15s ease-in-out",
-        "&:hover": {
-          transform: "scale(1.05)",
-        },
-      }}
+      className="relative overflow-hidden w-full h-[700px] rounded-lg shadow-lg transition-transform duration-150 ease-in-out transform hover:scale-105"
     >
-      <CardActionArea sx={{ height: "100%" }}>
-        <Box sx={{ position: "absolute", inset: 0, overflow: "hidden", borderRadius: "8px", zIndex: 0 }}>
-          <Image src={data.img} alt={data.name} layout='fill' objectFit='cover' className='object-cover' />
+      <CardActionArea className="h-full">
+        <Box className="absolute inset-0 overflow-hidden rounded-lg z-0">
+          <Image src={data.img} alt={data.name} layout="fill" objectFit="cover" className="object-cover" />
         </Box>
-        <Typography
-          variant='h2'
-          sx={{
-            position: "absolute",
-            inset: 0,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            color: "white",
-            fontSize: "3rem",
-            zIndex: 1,
-          }}
+         { !isClicked && <Typography
+          className="absolute inset-0 flex justify-center items-center text-white text-8xl z-10"
         >
           {data.name}
-        </Typography>
+        </Typography> }
         {isClicked && (
           <CardContent
-            sx={{
-              position: "absolute",
-              inset: 0,
-              display: "flex",
-              padding: "1rem 0.5rem",
-              backgroundColor: "rgba(0, 0, 0, 0.5)",
-              color: "white",
-              transition: "opacity 0.3s ease-in-out",
-              opacity: isClicked ? 1 : 0,
-              zIndex: 2,
-            }}
+            className="absolute  flex-col items-center justify-center inset-0 flex bg-black bg-opacity-50 text-white transition-opacity duration-300 z-20 "
           >
-            <Box sx={{ flex: "1", paddingTop: "1.25rem" }}>
-              <Typography variant='h4' sx={{ fontSize: "2rem", fontWeight: "bold", marginBottom: "2rem", textAlign: "center" }}>
-                Coach <span style={{ color: "#3f51b5" }}>{data.coach}</span>
+            <Box className="flex" >
+              <Typography variant="h4" className="text-5xl font-bold mb-8 text-center">
+                {data.name}
               </Typography>
-              <Box sx={{ display: "flex", padding: "2.5rem", flexWrap: "wrap", justifyContent: "center", alignItems: "center" }}>
-                {data.players?.map((player: PlayerType) => (
-                  <Typography key={uuidv4()} variant='h5' sx={{ flexBasis: "33%", fontSize: "1.5rem", marginBottom: "2rem", textAlign: "center" }}>
-                    {player.name}
-                  </Typography>
-                ))}
+              <Typography variant="h4" className="text-5xl  ms-5 font-bold mb-8 text-center">
+                Coach <span className="text-blue-700">{data.coach}</span>
+              </Typography>
               </Box>
-            </Box>
-            <Box sx={{ flex: "1", paddingTop: "1.25rem" }}>
-              <Typography variant='h4' sx={{ fontSize: "2rem", fontWeight: "bold", marginBottom: "2rem", textAlign: "center", color: "#3f51b5" }}>
+            <Box className="">
+              <Typography variant="h4" className="text-4xl font-bold mb-8 text-center text-blue-700">
                 Entrainements
               </Typography>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "3.75rem",
-                  marginBottom: "2rem",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  flexGrow: 1,
-                }}
-              >
+              <Box className="flex flex-col gap-5 justify-center items-center flex-grow">
                 {data.trainings ? (
                   data.trainings.map((training) => (
-                    <Typography key={uuidv4()} variant='h6' sx={{ fontSize: "1.875rem", textAlign: "center", marginBottom: "1.25rem" }}>
+                    <Typography key={uuidv4()} className="text-center  text-xl ">
                       {training.day} {training.start} - {training.end} {training.gym}
                     </Typography>
                   ))
                 ) : (
-                  <Typography variant='h6' sx={{ fontSize: "1.875rem", textAlign: "center", marginBottom: "1.25rem" }}>
+                  <Typography className="text-lg text-center mb-5">
                     Pas d&apos;entrainements prévus
                   </Typography>
                 )}
@@ -244,6 +196,7 @@ export const TeamCard = ({ data }: { data: TeamType }) => {
     </Card>
   );
 };
+
 
 export default function Index({ data }: Readonly<{ data: NewsType | CoachType | LeaderType | TeamType }>) {
   if (data instanceof NewsModel && data.type) {
