@@ -15,12 +15,11 @@ export const NavItem: React.FC<NavItemProps> = ({ data, setActiveNav }) => {
       className="grow flex justify-center items-center"
     >
       <Button
-        className="flex grow relative px-5 py-3"
+        className="flex grow relative px-5 py-3 tracking-wider	"
         onClick={() => setActiveNav(data)}
-        style={{ textTransform: 'none' }} // Keeps the text in its original case
       >
         <Box className="flex justify-center items-center">
-          <Typography className="flex text-black">{data.title}</Typography>
+          <Typography variant="body2" className="flex text-lg">{data.title}</Typography>
           {/* Élément simulant un pseudo-élément ::after */}
           <Box
             component="span"

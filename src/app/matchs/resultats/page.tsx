@@ -53,11 +53,9 @@ export default function Index() {
     }
   }, [selectedTeam]);
 
-  const [isActive, setIsActive] = useState<string>("");
 
   return (
     <Container component='main' className='flex grow bg-black'>
-      {/* <Aside data={data} setSelectedTeam={setSelectedTeam} /> */}
       <Box component='section' className='flex flex-col grow'>
         <Typography component='h1' variant='h1'>
           Classements
@@ -69,6 +67,7 @@ export default function Index() {
               <Button
                 size='large'
                 key={uuidv4()}
+                className="grow"
                 id={id}
                 onClick={() => {
                   setSelectedTeam(id);

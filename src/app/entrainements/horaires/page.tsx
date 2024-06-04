@@ -28,14 +28,20 @@ export default function Page() {
     }));
   };
 
-  const config: PlanbyConfigType = {
+  const config1: PlanbyConfigType = {
     startDate: "2000-01-01T17:00:00",
     endDate: "2000-01-01T22:00:00",
-    dayWidth: 1100,
+    dayWidth: 1090,
+    isTimeline: false,
+  };
+  const config2: PlanbyConfigType = {
+    startDate: "2000-01-01T17:30:00",
+    endDate: "2000-01-01T22:00:00",
+    dayWidth: 970,
     isTimeline: false,
   };
 
-  const config2: PlanbyConfigType = {
+  const config3: PlanbyConfigType = {
     startDate: "2000-01-01T10:00:00",
     endDate: "2000-01-01T15:00:00",
     dayWidth: 1000,
@@ -45,10 +51,10 @@ export default function Page() {
   return (
     <CardLayout pageTitle='Jean Guimier'>
       <Box className='flex flex-col grow max-w-7xl mb-10 overflow-hidden'>
-        <Planning slots={slotsByGym[0]} config={config} channels={channelsBuild(["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"])} />
-        <Planning slots={slotsByGym[0]} config={config2} channels={channelsBuild(["Samedi"])} />
+        <Planning slots={slotsByGym[0]} config={config1} channels={channelsBuild(["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"])} />
+        <Planning slots={slotsByGym[0]} config={config3} channels={channelsBuild(["Samedi"])} />
         <Typography variant="h2" className='text-white text-5xl text-center my-10'>{slotsByGym[1][0].gym}</Typography>
-        <Planning slots={slotsByGym[1]} config={config} channels={channelsBuild(["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"])} />
+        <Planning slots={slotsByGym[1]} config={config2} channels={channelsBuild(["Lundi", "Mercredi", "Jeudi", "Vendredi"])} />
       </Box>
     </CardLayout>
   );

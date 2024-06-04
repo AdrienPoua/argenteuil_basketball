@@ -60,6 +60,9 @@ export default function Index() {
 
   return (
     <Layout pageTitle="Nos équipes">
+      <Box className="flex justify-center items-center mb-8">
+      <Button size="large" className="flex whitespace-nowrap min-w-fit" variant="contained" onClick={() => setSelectedTeam(undefined)}> Toutes les équipes </Button>
+      </Box>
       <Slider>
         {teams.map((team: TeamType) => {
           const id = team.name;

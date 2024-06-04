@@ -1,13 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import logo from "@/public/logo.png";
+import logo from "@/public/logo.jpg";
 import { NavItem } from "@/components/Header/NavItem";
 import Contact from "@/components/Header/modal";
 import SubBar from "@/components/Header/SubBar";
 import { v4 as uuiv4 } from "uuid";
 import { NavItemType } from "@/types";
-import { Box } from "@mui/material";
+import { Box, ClickAwayListener } from "@mui/material";
 
 export default function Header({ data }: Readonly<{ data: NavItemType[] }>) {
   const [activeNav, setActiveNav] = useState<NavItemType>({
@@ -19,10 +19,8 @@ export default function Header({ data }: Readonly<{ data: NavItemType[] }>) {
   useEffect(() => {
     const handleMouseDown = (e: MouseEvent) => {
       if (!headerRef.current) return;
-
       const clickedElement = e.target as Node;
-      const isClickedInside = headerRef.current.contains(clickedElement);
-      if (!isClickedInside || clickedElement.textContent === activeNav.title) {
+      if (clickedElement.textContent === activeNav.title) {
         setActiveNav({ title: "", subItems: [] });
       }
     };
@@ -35,10 +33,11 @@ export default function Header({ data }: Readonly<{ data: NavItemType[] }>) {
   }, [activeNav]);
 
   return (
+    <ClickAwayListener onClickAway={() => setActiveNav({ title: "", subItems: [] })}>
     <Box component={"header"} ref={headerRef} className={`flex flex-col w-full z-10 bg-transparent`} id='back-to-top-anchor'>
       <Box className='flex w-full px-6 py-2 bg-white'>
         <Link href='/' className='shrink-0'>
-          <Image src={logo} alt='logo' className='me-5' width='50' height='50' />
+          <Image src={logo} alt='logo' className='me-5' width='80' height='80' />
         </Link>
         <Box component={"nav"} className='flex grow items-center'>
           <Box component={"ul"} className='flex'>
@@ -51,5 +50,6 @@ export default function Header({ data }: Readonly<{ data: NavItemType[] }>) {
       </Box>
       <SubBar data={activeNav} />
     </Box>
+    </ClickAwayListener>
   );
 }

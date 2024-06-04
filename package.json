@@ -13,6 +13,7 @@
     "@emotion/styled": "^11.11.5",
     "@fontsource/roboto": "^5.0.13",
     "@mui/icons-material": "^5.15.18",
+    "@mui/lab": "^5.0.0-alpha.170",
     "@mui/material": "^5.15.18",
     "autoprefixer": "^10.4.19",
     "moment": "^2.30.1",
