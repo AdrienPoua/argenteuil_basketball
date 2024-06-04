@@ -18,6 +18,24 @@
     ]
   },
   {
+    "name": "U07F - U09F",
+    "coach": "X",
+    "assistant": [
+      {
+        "name": "Y",
+        "role": "Assistant Coach"
+      }
+    ],
+    "trainings": [
+      {
+        "day": "Lundi",
+        "start": "17:30",
+        "end": "19:00",
+        "gym": "Jean Guimier"
+      }
+    ]
+  },
+  {
     "name": "U09M",
     "coach": "X",
     "assistant": [
@@ -96,7 +114,7 @@
     ]
   },
   {
-    "name": "U07F - U09F",
+    "name": "U13 M1",
     "coach": "X",
     "assistant": [
       {
@@ -109,25 +127,13 @@
         "day": "Lundi",
         "start": "17:30",
         "end": "19:00",
-        "gym": "Jean Guimier"
-      }
-    ]
-  },
-  {
-    "name": "U07F - U09F",
-    "coach": "X",
-    "assistant": [
+        "gym": "Jesse Owens"
+      },
       {
-        "name": "Y",
-        "role": "Assistant Coach"
-      }
-    ],
-    "trainings": [
-      {
-        "day": "Lundi",
+        "day": "Jeudi",
         "start": "17:30",
         "end": "19:00",
-        "gym": "Jean Guimier"
+        "gym": "Jesse Owens"
       }
     ]
   },
@@ -156,7 +162,7 @@
     ]
   },
   {
-    "name": "U15 M2",
+    "name": "U15 M1",
     "coach": "X",
     "assistant": [
       {
@@ -166,10 +172,16 @@
     ],
     "trainings": [
       {
-        "day": "Vendredi",
-        "start": "18:45",
-        "end": "20:00",
-        "gym": "Jean Guimier"
+        "day": "Lundi",
+        "start": "19:00",
+        "end": "20:15",
+        "gym": "Jesse Owens"
+      },
+      {
+        "day": "Jeudi",
+        "start": "19:00",
+        "end": "20:15",
+        "gym": "Jesse Owens"
       }
     ]
   },
@@ -188,6 +200,30 @@
         "start": "18:45",
         "end": "20:00",
         "gym": "Jean Guimier"
+      }
+    ]
+  },
+  {
+    "name": "U15 F2 - U18 F2",
+    "coach": "X",
+    "assistant": [
+      {
+        "name": "Y",
+        "role": "Assistant Coach"
+      }
+    ],
+    "trainings": [
+      {
+        "day": "Mercredi",
+        "start": "18:30",
+        "end": "20:00",
+        "gym": "Jesse Owens"
+      },
+      {
+        "day": "Vendredi",
+        "start": "18:45",
+        "end": "20:00",
+        "gym": "Jesse Owens"
       }
     ]
   },
@@ -234,30 +270,6 @@
     ]
   },
   {
-    "name": "Seniors 2",
-    "coach": "X",
-    "assistant": [
-      {
-        "name": "Y",
-        "role": "Assistant Coach"
-      }
-    ],
-    "trainings": [
-      {
-        "day": "Lundi",
-        "start": "20:15",
-        "end": "22:00",
-        "gym": "Jean Guimier"
-      },
-      {
-        "day": "Mercredi",
-        "start": "20:00",
-        "end": "22:00",
-        "gym": "Jesse Owens"
-      }
-    ]
-  },
-  {
     "name": "Seniors 1",
     "coach": "X",
     "assistant": [
@@ -282,7 +294,7 @@
     ]
   },
   {
-    "name": "U13 M1",
+    "name": "Seniors 2",
     "coach": "X",
     "assistant": [
       {
@@ -293,38 +305,20 @@
     "trainings": [
       {
         "day": "Lundi",
-        "start": "17:30",
-        "end": "19:00",
-        "gym": "Jesse Owens"
+        "start": "20:15",
+        "end": "22:00",
+        "gym": "Jean Guimier"
       },
-      {
-        "day": "Jeudi",
-        "start": "17:30",
-        "end": "19:00",
-        "gym": "Jesse Owens"
-      }
-    ]
-  },
-  {
-    "name": "U15 M2",
-    "coach": "X",
-    "assistant": [
-      {
-        "name": "Y",
-        "role": "Assistant Coach"
-      }
-    ],
-    "trainings": [
       {
         "day": "Mercredi",
-        "start": "17:00",
-        "end": "18:30",
+        "start": "20:00",
+        "end": "22:00",
         "gym": "Jesse Owens"
       }
     ]
   },
   {
-    "name": "U15 M1",
+    "name": "Seniors loisirs mixte",
     "coach": "X",
     "assistant": [
       {
@@ -333,40 +327,10 @@
       }
     ],
     "trainings": [
-      {
-        "day": "Lundi",
-        "start": "19:00",
-        "end": "20:15",
-        "gym": "Jesse Owens"
-      },
       {
         "day": "Jeudi",
-        "start": "19:00",
-        "end": "20:15",
-        "gym": "Jesse Owens"
-      }
-    ]
-  },
-  {
-    "name": "U15 F2 - U18 F2",
-    "coach": "X",
-    "assistant": [
-      {
-        "name": "Y",
-        "role": "Assistant Coach"
-      }
-    ],
-    "trainings": [
-      {
-        "day": "Mercredi",
-        "start": "18:30",
-        "end": "20:00",
-        "gym": "Jesse Owens"
-      },
-      {
-        "day": "Vendredi",
-        "start": "18:45",
-        "end": "20:00",
+        "start": "20:15",
+        "end": "22:00",
         "gym": "Jesse Owens"
       }
     ]
@@ -383,25 +347,6 @@
     "trainings": [
       {
         "day": "Lundi",
-        "start": "20:15",
-        "end": "22:00",
-        "gym": "Jesse Owens"
-      }
-    ]
-  },
-
-  {
-    "name": "Seniors loisirs mixte",
-    "coach": "X",
-    "assistant": [
-      {
-        "name": "Y",
-        "role": "Assistant Coach"
-      }
-    ],
-    "trainings": [
-      {
-        "day": "Jeudi",
         "start": "20:15",
         "end": "22:00",
         "gym": "Jesse Owens"
