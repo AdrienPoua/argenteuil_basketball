@@ -1,10 +1,11 @@
 {
-    "nom": "Club de Basket de Villeville",
-    "ville": "Villeville",
-    "code_postal": "12345",
+    "nom": "Argenteuil Basket Ball",
+    "ville": "Argenteuil",
+    "adresse": "82 bd du general leclerc",
+    "code_postal": "95100",
     "couleurs": ["bleu", "blanc"],
     "email" : "argenteuilbasketball@hotmail.fr",
-    "number": "06 12 34 56 78",
+    "number": "0670222238",
     "saison": "2024-2025",
     "gymnases": [
       {

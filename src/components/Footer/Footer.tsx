@@ -2,6 +2,7 @@ import Image from "next/image";
 import React, { useRef, useEffect } from "react";
 import logo from "@/public/logo.jpg";
 import { Box, Link, Typography } from "@mui/material";
+import club from "@/data/club.json";
 
 export default function Footer() {
   const signatureRef = useRef(null);
@@ -41,10 +42,10 @@ export default function Footer() {
             <span className={isHover ? "text-indigo-500" : ""}>Adrien POUA</span>
           </Typography>
         </Link>
-        <Typography className='flex justify-center items-center text-white'>
-          82 boulevard du général leclerc <br />
-          95100 Argenteuil
-        </Typography>
+        <Box className='flex flex-col justify-center items-center text-white'>
+          <Typography> {club.adresse}  </Typography>
+          <Typography> {club.code_postal} {club.ville}  </Typography>
+        </Box>
       </Box>
     </Box>
   );

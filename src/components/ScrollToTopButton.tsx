@@ -36,7 +36,7 @@ export default function BackToTop() {
 
   return (
       <ScrollTop >
-        <Fab color="primary" size="small" aria-label="scroll back to top">
+        <Fab color="primary" size="large" aria-label="scroll back to top">
           <KeyboardArrowUpIcon />
         </Fab>
       </ScrollTop>

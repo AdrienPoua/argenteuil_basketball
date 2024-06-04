@@ -16,7 +16,7 @@ import DoneIcon from '@mui/icons-material/Done';
 import Button from '@mui/material/Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import Link from "next/link";
-import licence from './demande_de_licence_2024-2025.pdf';
+import licence from '/public/demande_de_licence_2024-2025.pdf';
 
 
 
@@ -39,7 +39,7 @@ export default function Index() {
         </TimelineSeparator>
         <TimelineContent >
         <Button component='label' variant='contained' startIcon={<CloudUploadIcon />}>
-            <Link href="./demande_de_licence_2024-2025.pdf" target="_blank" download > Formulaire </Link>
+            <Link href="/public/demande_de_licence_2024-2025.pdf" target="_blank" download > Formulaire </Link>
           </Button>
         </TimelineContent>
       </TimelineItem>

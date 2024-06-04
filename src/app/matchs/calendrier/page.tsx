@@ -1,7 +1,10 @@
-import React from 'react'
+import Layout from "@/components/layouts/main";
+import Info from "@/components/Info/index";
 
 export default function page() {
   return (
-    <div>page</div>
-  )
+    <Layout pageTitle='Calendrier'>
+      <Info content='Rendez vous en septembre pour le début des championnats' />
+    </Layout>
+  );
 }

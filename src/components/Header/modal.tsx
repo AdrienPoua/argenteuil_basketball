@@ -47,8 +47,11 @@ export default function BasicModal() {
 
   return (
     <div className='flex justify-center items-center '>
-      <Button onClick={handleOpen} variant='contained' color='primary' className="tracking-widest	">
-        <Typography variant="body1" className="tracking-widest"> Contact </Typography>
+      <Button onClick={handleOpen} variant='contained' color='primary' className='tracking-widest	'>
+        <Typography variant='body1' className='tracking-widest'>
+          {" "}
+          Contact{" "}
+        </Typography>
       </Button>
       <Toaster />
       <Modal open={open} onClose={handleClose} aria-labelledby='modal-modal-title' aria-describedby='modal-modal-description'>
