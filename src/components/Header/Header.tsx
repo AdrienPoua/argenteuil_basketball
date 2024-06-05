@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import logo from "@/public/logo.jpg";
+import logo from "@/public/images/logo.jpg";
 import { NavItem } from "@/components/Header/NavItem";
 import Contact from "@/components/Header/modal";
 import SubBar from "@/components/Header/SubBar";

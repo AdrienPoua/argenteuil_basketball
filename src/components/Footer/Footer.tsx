@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { useRef, useEffect } from "react";
-import logo from "@/public/logo.jpg";
+import logo from "@/public/images/logo.jpg";
 import { Box, Link, Typography } from "@mui/material";
 import club from "@/data/club.json";
 

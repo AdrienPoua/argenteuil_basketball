@@ -2,30 +2,30 @@
     {
         "title": "Club",
         "subItems": [
-            { "title": "Dirigeants", "url": "/club/dirigeants", "img": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
-            { "title": "Les entraineurs", "url": "/club/entraineurs", "img": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
-            { "title": "Equipes", "url": "/club/equipes", "img": "/public/background.jpg" }
+            { "title": "Dirigeants", "url": "/club/dirigeants", "img": "/images/header/dirigeants.avif" },
+            { "title": "Les entraineurs", "url": "/club/entraineurs", "img": "/images/header/entraineurs.avif" },
+            { "title": "Equipes", "url": "/club/equipes", "img": "/images/header/equipes.avif" }
         ]
     },
     {
         "title": "Entrainements 2024",
         "subItems": [
-            { "title": "Horaires ", "url": "/entrainements/horaires", "img": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
-            { "title": "Gymnases", "url": "/entrainements/gymnases", "img": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" }
+            { "title": "Horaires ", "url": "/entrainements/horaires", "img": "/images/header/horaires.avif" },
+            { "title": "Gymnases", "url": "/entrainements/gymnases", "img": "/images/header/gymnases.avif" }
         ]
     },
     {
         "title": "Matchs",
         "subItems": [
-            { "title": "Calendrier", "url": "/matchs/calendrier", "img": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
-            { "title": "Résultats", "url": "/matchs/resultats", "img": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" }
+            { "title": "Calendrier", "url": "/matchs/calendrier", "img": "/images/header/calendrier.avif" },
+            { "title": "Résultats", "url": "/matchs/resultats", "img": "/images/header/classement.avif" }
         ]
     },
     {
         "title": "Inscriptions 2024",
         "subItems": [
-            { "title": "Guide", "url": "/inscriptions/guide", "img": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
-            { "title": "Tarifs", "url": "/inscriptions/tarifs", "img": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" }
+            { "title": "Guide", "url": "/inscriptions/guide", "img": "/images/header/guide.avif" },
+            { "title": "Tarifs", "url": "/inscriptions/tarifs", "img": "/images/header/tarifs.avif" }
         ]
     }
 ]

@@ -7,7 +7,7 @@ import { Box, Typography } from "@mui/material";
 
 const Item = ({ data }: { data: SubItemsType }) => {
   return (
-    <Link href={data.url}>
+    <Link href={data.url} >
       <Box className='flex relative rounded-xl overflow-hidden p-8 hover:border-indigo-500 border-2 border-transparent'>
         <Image
           src={
