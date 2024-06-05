@@ -53,7 +53,6 @@ export default function BasicModal() {
           Contact{" "}
         </Typography>
       </Button>
-      <Toaster />
       <Modal open={open} onClose={handleClose} aria-labelledby='modal-modal-title' aria-describedby='modal-modal-description'>
         <Box
           className='  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 

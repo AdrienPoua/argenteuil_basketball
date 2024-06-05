@@ -15,8 +15,6 @@ import LaptopMacIcon from "@mui/icons-material/LaptopMac";
 import DoneIcon from "@mui/icons-material/Done";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import Link from "next/link";
-import licence from "/public/demande_de_licence_2024-2025.pdf";
 
 export default function Index() {
   return (
