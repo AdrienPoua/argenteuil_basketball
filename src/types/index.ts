@@ -1,3 +1,5 @@
+import { Coach, Member, Leader, Player, Team } from "@/models";
+
 type MatchDataProps = {
   Division: string;
   "N° de match": string;
@@ -16,14 +18,14 @@ type NewsType = {
   type?: "main" | "secondary";
 };
 
-type PlanbyConfigType = { startDate: string; endDate: string; dayWidth: number; isTimeline: boolean; };
-type PlanbyChannelType = { logo: string; uuid: string; name: string; };
-type PlanbyArrayProps = { slots: TrainingType[]; config: PlanbyConfigType, channels: PlanbyChannelType[] };
-type PlanByEPGType = { id: string; since: string; till: string; image: string; title: string; channelUuid: string; description: string; };
+type PlanbyConfigType = { startDate: string; endDate: string; dayWidth: number; isTimeline: boolean };
+type PlanbyChannelType = { logo: string; uuid: string; name: string };
+type PlanbyArrayProps = { slots: TrainingType[]; config: PlanbyConfigType; channels: PlanbyChannelType[] };
+type PlanByEPGType = { id: string; since: string; till: string; image: string; title: string; channelUuid: string; description: string };
 
 type NavItemType = {
   title: string;
-  subItems : SubItemType[];
+  subItems: SubItemType[];
 };
 
 type SubItemType = { title: string; url: string; img: string };
@@ -44,19 +46,21 @@ type CoachType = MemberType & {
   number: string;
   img: string;
   team: string[];
+  isEmailDisplayed: boolean;
+  isNumberDisplayed: boolean;
 };
 
 type LeaderType = MemberType & {
   role: string[];
   number: string;
   isLeader: true;
-  img: string ;
-  isEmailDisplayed : boolean;
-  isNumberDisplayed : boolean;
+  img: string;
+  isEmailDisplayed: boolean;
+  isNumberDisplayed: boolean;
 };
 
 type PlayerType = MemberType & {
-  isPlayer: true ;
+  isPlayer: true;
   team: string[];
   number?: string;
   img?: string;
@@ -80,31 +84,25 @@ type PlanbyPositionType = {
   left: string;
   width: string;
   height: string;
-}
-
+};
 
 type GymType = {
   name: string;
   address: string;
   img?: string;
-  maps? : string;
+  maps?: string;
 };
-
 
 type TeamType = {
   name: string;
   coach: string;
   assistant: AssistantType[];
-  img : string;
+  img: string;
   players?: PlayerType[];
-  trainings : TrainingType[];
+  trainings: TrainingType[];
 };
 
-type AdherentType = MemberType | CoachType | LeaderType | PlayerType | AssistantType;
-
-type API = {
-  
-}
+type FactoryClass = Member | Coach | Leader | Player | Team;
 
 export type {
   MatchDataProps,
@@ -126,4 +124,5 @@ export type {
   PlanbyChannelType,
   PlanbyArrayProps,
   PlanByEPGType,
+  FactoryClass,
 };

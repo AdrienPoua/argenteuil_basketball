@@ -67,48 +67,27 @@ const BigNews = ({ data }: { data: NewsType }) => {
   );
 };
 
-export const CoachCard = ({ data }: { data: CoachType }) => {
-  return (
-    <Card className='flex flex-col mb-5 min-w-44 items-center flex-wrap text-black rounded-md overflow-hidden h-fit'>
-      <CardMedia>
-        <Image src={data.img} alt={data.name} height={500} width={500} />
-      </CardMedia>
-      <CardContent className='flex flex-col border-t-2 border-primary py-3 w-full text-center bg-white'>
-        <Typography variant='h6' component='div'>
-          {data.name}
-        </Typography>
-        <Typography variant='body2' component='div'>
-          {Array.isArray(data.team) && data.team.length > 1 ? `Equipes ${data.team.join(" & ")}` : `Equipe ${data.team}`}
-        </Typography>
-      </CardContent>
-    </Card>
-  );
-};
-
-export const LeaderCard = ({ data }: { data: LeaderType }) => {
+export const StaffCard = ({ data }: { data: Coach | Leader }) => {
   const [clicked, setClicked] = useState(false);
 
   const EMAIL_NOTIFICATION = "Email copié dans le press-papier";
   const NUMBER_NOTIFICATION = "Numéro copié dans le press-papier";
 
-  const notify = useCallback((data: string) => {
+  const notify = (data: string) => {
     const message = data.includes("@") ? EMAIL_NOTIFICATION : NUMBER_NOTIFICATION;
     toast.success(message, {
       position: "bottom-center",
       duration: 5000,
     });
-  }, []);
+  };
 
-  const handleClick = useCallback(
-    (data: string) => {
-      if (!clicked) {
-        navigator.clipboard.writeText(data);
-        notify(data);
-        setClicked(true);
-      }
-    },
-    [clicked, notify]
-  );
+  const handleClick = (data: string) => {
+    if (!clicked) {
+      navigator.clipboard.writeText(data);
+      notify(data);
+      setClicked(true);
+    }
+  };
 
   useEffect(() => {
     if (clicked) {
@@ -117,12 +96,11 @@ export const LeaderCard = ({ data }: { data: LeaderType }) => {
     }
   }, [clicked]);
   return (
-    <Card className='flex flex-col mb-5 aspect-square items-center flex-wrap bg-white text-black rounded-md overflow-hidden'>
-      <Toaster />
-      <CardMedia>
-        <Image src={data.img} alt={data.name} height={500} width={500} />
+    <Card raised={true} className='flex flex-col  overflow-hidden'>
+      <CardMedia className='h-4/5 overflow-hidden max-h-96'>
+        <Image src={data.img} alt={data.name} objectFit='fill' width={500} height={500} />
       </CardMedia>
-      <CardContent className='flex flex-col border-t-2 border-primary w-full text-center grow justify-center'>
+      <CardContent className='flex flex-col border-t-2 border-primary w-full text-center justify-center grow '>
         <Box className='flex items-center relative'>
           <Typography component='h3' className='grow text-black font-bold text-2xl'>
             {data.name}
@@ -130,8 +108,8 @@ export const LeaderCard = ({ data }: { data: LeaderType }) => {
           {data.isEmailDisplayed && <EmailIcon fontSize='large' onClick={() => handleClick(data.email)} className='cursor-pointer' />}
         </Box>
         <Box className='flex items-center relative'>
-          <Typography component='h2' className='grow  text-black'>
-            {data.role}
+          <Typography component='h2' className='grow text-black'>
+            {data instanceof Leader ? data.role : <Typography color='primary'> {data.team.join(" | ")}</Typography>}
           </Typography>
           {data.isNumberDisplayed && <PhoneIphoneIcon fontSize='large' onClick={() => handleClick(data.number)} className='cursor-pointer' />}
         </Box>
@@ -196,15 +174,13 @@ export const TeamCard = ({ data }: { data: Team }) => {
   );
 };
 
-export default function Index({ data }: Readonly<{ data: NewsType | CoachType | LeaderType | Team }>) {
+export default function Index({ data }: Readonly<{ data: NewsType | Coach | Leader | Team }>) {
   if (data instanceof NewsModel && data.type) {
     return <BigNews data={data} />;
   } else if (data instanceof NewsModel) {
     return <SmallNews data={data} />;
-  } else if (data instanceof Coach) {
-    return <CoachCard data={data} />;
-  } else if (data instanceof Leader) {
-    return <LeaderCard data={data} />;
+  } else if (data instanceof Coach || data instanceof Leader) {
+    return <StaffCard data={data} />;
   } else if (data instanceof Team) {
     return <TeamCard data={data} />;
   }

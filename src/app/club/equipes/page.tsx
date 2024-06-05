@@ -12,6 +12,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import staff from "@/data/staff.json";
 
+
 const Slider = ({ children }: { children: React.ReactNode }): JSX.Element => {
   const slidingRef = useRef<HTMLDivElement | null>(null);
 
@@ -38,9 +39,6 @@ const Slider = ({ children }: { children: React.ReactNode }): JSX.Element => {
 };
 
 export default function Index() {
-  const findCoach = (teamName: string) => {
-    return staff.find((member) => member.team?.includes(teamName));
-  };
 
   const teams = teamsData
     .map((team) => MemberFactory.create(team, "team"))
@@ -69,17 +67,14 @@ export default function Index() {
       </Box>
       <Slider>
         {teams?.map((team: Team) => {
-          const id = team.name;
-          console.log(team);
           return (
             <Button
               size='large'
               className='flex whitespace-nowrap min-w-fit'
               variant='contained'
               key={uuidv4()}
-              id={id}
               onClick={() => {
-                setSelectedTeam(id);
+                setSelectedTeam(team.name);
               }}
             >
               {team.name}

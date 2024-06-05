@@ -158,6 +158,8 @@ export class Coach extends Member implements CoachType {
   private _img: string;
   private _team: string[];
   private _isCoach: true;
+  private _isEmailDisplayed: boolean;
+  private _isNumberDisplayed: boolean;
 
   constructor(data: CoachType) {
     super(data);
@@ -179,6 +181,10 @@ export class Coach extends Member implements CoachType {
     this._img = data.img;
     this._team = data.team;
     this._isCoach = true;
+    this._isEmailDisplayed = data.isEmailDisplayed || false;
+    this._isNumberDisplayed = data.isNumberDisplayed || false;
+
+
 
     if (!data.team) {
       throw new Error("Le coach n'a pas d'équipe assignée");
@@ -189,8 +195,10 @@ export class Coach extends Member implements CoachType {
     return this._number;
   }
 
+
+
   get img(): string {
-    return this._img ?? "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    return this._img ?? "/images/default/entraineurs.avif"
   }
 
   get team(): string[] {
@@ -199,6 +207,14 @@ export class Coach extends Member implements CoachType {
 
   get isCoach(): true {
     return true;
+  }
+
+  get isEmailDisplayed(): boolean {
+    return this._isEmailDisplayed || false;
+  }
+
+  get isNumberDisplayed(): boolean {
+    return this._isNumberDisplayed || false;
   }
 }
 
@@ -244,7 +260,7 @@ export class Leader extends Member implements LeaderType {
   get img(): string {
     return (
       this._img ??
-      "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      "/images/default/dirigeants.avif"
     );
   }
 
@@ -329,7 +345,7 @@ export class Team {
   }
 
   get img() {
-    return this._img ?? "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    return this._img ?? "/images/default/equipes.avif"
   }
 
   get players() {

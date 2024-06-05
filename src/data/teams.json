@@ -1,6 +1,6 @@
 [
   {
-    "name": "U07M",
+    "name": "U07 M1",
     "assistant": [
       {
         "name": "Y",
@@ -17,7 +17,7 @@
     ]
   },
   {
-    "name": "U07F - U09F",
+    "name": "U07 F1 - U09 F1",
     "coach": "X",
     "assistant": [
       {
@@ -35,7 +35,7 @@
     ]
   },
   {
-    "name": "U09M",
+    "name": "U09 M1",
     "coach": "X",
     "assistant": [
       {
