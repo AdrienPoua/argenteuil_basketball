@@ -95,9 +95,9 @@ type GymType = {
 
 type TeamType = {
   name: string;
-  coach: string;
+  coach?: string;
   assistant: AssistantType[];
-  img: string;
+  img?: string;
   players?: PlayerType[];
   trainings: TrainingType[];
 };
