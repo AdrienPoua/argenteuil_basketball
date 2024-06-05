@@ -1,9 +1,13 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
-import { Box, Typography, Container, Button, ButtonGroup } from "@mui/material";
+import { Box, Typography, Button, ButtonGroup, CircularProgress } from "@mui/material";
 import { TeamType, Ranking, Club } from "@/models/api";
 import Table from "./table";
 import { v4 as uuidv4 } from "uuid";
+import Layout from "@/components/layouts/main";
+import Info from "@/components/info";
+
+
 
 export default function Index() {
   const [clubData, setClubData] = useState<Club | undefined>(undefined);
@@ -36,8 +40,8 @@ export default function Index() {
         const data = await fetchData<Club>("/api/club");
         setClubData(data);
         // Set the default team to the first team in the first competition if available
-        if (data.teams.length > 0 && data.teams[0].competitions.length > 0) {
-          setSelectedTeam(data.teams[0].competitions[0].id.toString());
+        if (data.teams.length > 0 && data?.teams[0].competitions.length > 0) {
+          setSelectedTeam(data?.teams[0].competitions[0].id.toString());
         }
       } catch (error) {
         console.error("Error fetching club data:", error);
@@ -61,31 +65,31 @@ export default function Index() {
   }, [selectedTeam, fetchData]);
 
   return (
-    <Container component='main' className='flex grow bg-black'>
+    <Layout pageTitle="classement">
       <Box component='section' className='flex flex-col grow'>
-        <Typography component='h1' variant='h1'>
-          Classements
-        </Typography>
-        {error && <Typography color='error'>{error}</Typography>}
-        {loading && <Typography>Loading...</Typography>}
-        <ButtonGroup variant='contained' aria-label='Basic button group' className='flex-wrap flex'>
-          {clubData?.teams.map((team: TeamType, index: number) => {
-            const id = team.competitions[0].id.toString();
-            return (
-              <Button
-                size='large'
-                key={uuidv4()} 
-                className="grow"
-                id={id}
-                onClick={() => setSelectedTeam(id)}
-              >
-                {team.shortName}
-              </Button>
-            );
-          })}
-        </ButtonGroup>
-        {ranking && <Table data={ranking} />}
+        {error && <Info content="Les données ne sont pas disponibles, revenez plus tard !" />}
+        {!error && (
+          <>
+            <ButtonGroup variant='contained' aria-label='Basic button group' className='flex-wrap flex'>
+              {clubData?.teams.map((team: TeamType, index: number) => {
+                const id = team.competitions[0].id.toString();
+                return (
+                  <Button
+                    size='large'
+                    key={uuidv4()}
+                    className="grow"
+                    id={id}
+                    onClick={() => setSelectedTeam(id)}
+                  >
+                    {team.shortName}
+                  </Button>
+                );
+              })}
+            </ButtonGroup>
+            {ranking && <Table data={ranking} />}
+          </>
+        )}
       </Box>
-    </Container>
+    </Layout>
   );
 }
