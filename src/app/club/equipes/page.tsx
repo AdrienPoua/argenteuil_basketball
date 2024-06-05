@@ -8,8 +8,9 @@ import Layout from "@/components/layouts/main";
 import { v4 as uuidv4 } from "uuid";
 import { Box, Button, Fab } from "@mui/material";
 import { useState, useEffect, useRef } from "react";
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import staff from "@/data/staff.json";
 
 const Slider = ({ children }: { children: React.ReactNode }): JSX.Element => {
   const slidingRef = useRef<HTMLDivElement | null>(null);
@@ -22,55 +23,59 @@ const Slider = ({ children }: { children: React.ReactNode }): JSX.Element => {
     slidingRef.current?.scrollBy({ left: 500, behavior: "smooth" });
   };
   return (
-    <Box className="flex h-fit mb-14 relative gap-2 no-scrollbar  items-center ">
-      <Fab color="primary" aria-label="left" className="absolute -left-20" onClick={handleLeftClick}>
+    <Box className='flex h-fit mb-14 relative gap-2 no-scrollbar  items-center '>
+      <Fab color='primary' aria-label='left' className='absolute -left-20' onClick={handleLeftClick}>
         <ArrowBackIosIcon />
       </Fab>
-      <Box ref={slidingRef} className="flex gap-2 overflow-hidden	">
+      <Box ref={slidingRef} className='flex gap-2 overflow-hidden	'>
         {children}
       </Box>
-      <Fab color="primary" aria-label="right" className="absolute -right-20" onClick={handleRightClick}>
+      <Fab color='primary' aria-label='right' className='absolute -right-20' onClick={handleRightClick}>
         <ArrowForwardIosIcon />
       </Fab>
     </Box>
   );
 };
 
-
 export default function Index() {
-
+  const findCoach = (teamName: string) => {
+    return staff.find((member) => member.team?.includes(teamName));
+  };
 
   const teams = teamsData
     .map((team) => MemberFactory.create(team, "team"))
     .filter((team): team is Team => team instanceof Team)
 
+
   const [selectedTeam, setSelectedTeam] = useState<string | undefined>(undefined);
-  const [displayedTeams, setDisplayedTeams] = useState<TeamType[]>(teams);
+  const [displayedTeams, setDisplayedTeams] = useState<Team[]>(teams);
 
   useEffect(() => {
     if (selectedTeam) {
-      const filteredTeams = teams.filter(team => team.name === selectedTeam);
+      const filteredTeams = teams.filter((team) => team.name === selectedTeam);
       setDisplayedTeams(filteredTeams);
-      console.log(filteredTeams);
     } else {
       setDisplayedTeams(teams);
     }
   }, [selectedTeam]);
 
-
   return (
-    <Layout pageTitle="Nos équipes">
-      <Box className="flex justify-center items-center mb-8">
-      <Button size="large" className="flex whitespace-nowrap min-w-fit" variant="contained" onClick={() => setSelectedTeam(undefined)}> Toutes les équipes </Button>
+    <Layout pageTitle='Nos équipes'>
+      <Box className='flex justify-center items-center mb-8'>
+        <Button size='large' className='flex whitespace-nowrap min-w-fit' variant='contained' onClick={() => setSelectedTeam(undefined)}>
+          {" "}
+          Toutes les équipes{" "}
+        </Button>
       </Box>
       <Slider>
-        {teams.map((team: TeamType) => {
+        {teams?.map((team: Team) => {
           const id = team.name;
+          console.log(team);
           return (
             <Button
-              size="large"
-              className="flex whitespace-nowrap min-w-fit"
-              variant="contained"
+              size='large'
+              className='flex whitespace-nowrap min-w-fit'
+              variant='contained'
               key={uuidv4()}
               id={id}
               onClick={() => {
@@ -82,7 +87,7 @@ export default function Index() {
           );
         })}
       </Slider>
-      <Box className="flex flex-col grow gap-5 mx-20">
+      <Box className='flex flex-col grow gap-5 mx-20'>
         {displayedTeams.map((team) => (
           <TeamCard key={uuidv4()} data={team} />
         ))}

@@ -19,7 +19,7 @@ export class MemberFactory {
       return new Leader(data);
     } else if (type === "player" && data.player) {
       return new Player(data);
-    } else if (type === "team" && data.coach) {
+    } else if (type === "team" && data.trainings) {
       return new Team(data);
     } else {
       return null;

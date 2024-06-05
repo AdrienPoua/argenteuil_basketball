@@ -43,7 +43,7 @@
     "leader": false,
     "coach": true,
     "player": true,
-    "team": ["U13M", "U15M"],
+    "team": ["U07M", "U15M"],
     "email": "j_nze@hotmail.com",
     "number": "0616277614",
     "img": "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=c"

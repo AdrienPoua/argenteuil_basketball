@@ -124,13 +124,13 @@ export const LeaderCard = ({ data }: { data: LeaderType }) => {
       </CardMedia>
       <CardContent className='flex flex-col border-t-2 border-primary w-full text-center grow justify-center'>
         <Box className='flex items-center relative'>
-          <Typography  component='h3' className='grow text-black font-bold text-2xl'>
+          <Typography component='h3' className='grow text-black font-bold text-2xl'>
             {data.name}
           </Typography>
           {data.isEmailDisplayed && <EmailIcon fontSize='large' onClick={() => handleClick(data.email)} className='cursor-pointer' />}
         </Box>
         <Box className='flex items-center relative'>
-          <Typography  component='h2' className='grow  text-black'>
+          <Typography component='h2' className='grow  text-black'>
             {data.role}
           </Typography>
           {data.isNumberDisplayed && <PhoneIphoneIcon fontSize='large' onClick={() => handleClick(data.number)} className='cursor-pointer' />}
@@ -140,7 +140,7 @@ export const LeaderCard = ({ data }: { data: LeaderType }) => {
   );
 };
 
-export const TeamCard = ({ data }: { data: TeamType }) => {
+export const TeamCard = ({ data }: { data: Team }) => {
   const [isClicked, setIsClicked] = useState(false);
   const handleClick = () => {
     setIsClicked(!isClicked);
@@ -149,47 +149,46 @@ export const TeamCard = ({ data }: { data: TeamType }) => {
   return (
     <Card
       onClick={handleClick}
-      className="relative overflow-hidden w-full h-[700px] rounded-lg shadow-lg transition-transform duration-150 ease-in-out transform hover:scale-105"
+      className='relative overflow-hidden w-full h-[700px] rounded-lg shadow-lg transition-transform duration-150 ease-in-out transform hover:scale-105'
     >
-      <CardActionArea className="h-full">
-        <Box className="absolute inset-0 overflow-hidden rounded-lg z-0">
-          <Image src={data.img} alt={data.name} layout="fill" objectFit="cover" className="object-cover" />
+      <CardActionArea className='h-full'>
+        <Box className='absolute inset-0 overflow-hidden rounded-lg z-0'>
+          <Image src={data.img} alt={data.name} layout='fill' objectFit='cover' className='object-cover' />
         </Box>
-         { !isClicked && <Typography
-          className="absolute inset-0 flex justify-center items-center text-white text-8xl z-10"
-        >
-          {data.name}
-        </Typography> }
+        {!isClicked && <Typography className='absolute inset-0 flex justify-center items-center text-white text-8xl z-10'>{data.name}</Typography>}
         {isClicked && (
-          <CardContent
-            className="absolute  flex-col items-center justify-center inset-0 flex bg-black bg-opacity-50 text-white transition-opacity duration-300 z-20 "
-          >
-            <Box className="flex" >
-              <Typography variant="h4" className="text-5xl font-bold mb-8 text-center">
+          <CardContent className='absolute  flex-col items-center justify-center inset-0 flex bg-black bg-opacity-50 text-white transition-opacity duration-300 z-20 '>
+            <Box className='flex'>
+              <Typography variant='h4' className='text-5xl font-bold mb-8 text-center'>
                 {data.name}
               </Typography>
-              <Typography variant="h4" className="text-5xl  ms-5 font-bold mb-8 text-center">
-                Coach <span className="text-blue-700">{data.coach}</span>
-              </Typography>
-              </Box>
-            <Box className="">
-              <Typography variant="h4" className="text-4xl font-bold mb-8 text-center text-blue-700">
+              {data.coach && (
+                <Typography variant='h4' className='text-5xl  ms-5 font-bold mb-8 text-center'>
+                  Coach <span className='text-blue-700'>{data.coach}</span>
+                </Typography>
+              )}
+            </Box>
+            <Box className=''>
+              <Typography variant='h4' className='text-4xl font-bold mb-8 text-center text-blue-700'>
                 Entrainements
               </Typography>
-              <Box className="flex flex-col gap-5 justify-center items-center flex-grow">
+              <Box className='flex flex-col gap-5 justify-center items-center flex-grow'>
                 {data.trainings ? (
                   data.trainings.map((training) => (
-                    <Typography key={uuidv4()} className="text-center  text-xl ">
+                    <Typography key={uuidv4()} className='text-center  text-xl '>
                       {training.day} {training.start} - {training.end} {training.gym}
                     </Typography>
                   ))
                 ) : (
-                  <Typography className="text-lg text-center mb-5">
-                    Pas d&apos;entrainements prévus
-                  </Typography>
+                  <Typography className='text-lg text-center mb-5'>Pas d&apos;entrainements prévus</Typography>
                 )}
               </Box>
             </Box>
+            {data.isTeamImage && (
+              <Typography variant='h4' className='text-4xl font-bold absolute bottom-28'>
+                En attente de la photo de l&apos;équipe
+              </Typography>
+            )}
           </CardContent>
         )}
       </CardActionArea>
@@ -197,8 +196,7 @@ export const TeamCard = ({ data }: { data: TeamType }) => {
   );
 };
 
-
-export default function Index({ data }: Readonly<{ data: NewsType | CoachType | LeaderType | TeamType }>) {
+export default function Index({ data }: Readonly<{ data: NewsType | CoachType | LeaderType | Team }>) {
   if (data instanceof NewsModel && data.type) {
     return <BigNews data={data} />;
   } else if (data instanceof NewsModel) {

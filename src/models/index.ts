@@ -1,5 +1,6 @@
 import { teams } from "@/data/teams.json";
 import { MemberType, CoachType, LeaderType, PlayerType, AssistantType, TeamType, TrainingType, GymType } from "../types";
+import staff from "@/data/staff.json";
 
 
 export class Match {
@@ -284,7 +285,7 @@ export class Player extends Member implements PlayerType {
 
 export class Team {
   private _name: string;
-  private _coach: string;
+  private _coach?: string;
   private _assistant: AssistantType[];
   private _img: string;
   private _players: PlayerType[] = [];
@@ -296,20 +297,31 @@ export class Team {
     this._assistant = data.assistant;
     this._img =
       data.img ||
-      "https://images.unsplash.com/photo-1585757318177-0570a997dc3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
-    this._players = data.players;
+      "/images/default/equipes.avif";
     this._trainings = data.trainings;
   }
 
   get name() {
     return this._name;
   }
+  get isTeamImage (){
+    return this._img === "/images/default/equipes.avif";
+  }
+
   get trainings() {
     return this._trainings;
   }
 
   get coach() {
-    return this._coach;
+    const findCoach = () => {
+      return staff.find((member) => member.team?.includes(this._name));
+    };
+    const coach = findCoach();
+    if(coach){
+      return coach.name;
+    } else {
+      return this._coach;
+    }
   }
 
   get assistant() {
