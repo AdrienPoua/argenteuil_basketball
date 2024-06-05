@@ -1,17 +1,16 @@
 "use client";
 import { v4 as uuidv4 } from "uuid";
-import toast, { Toaster } from "react-hot-toast";
-import { useCallback, useEffect } from "react";
-
-import { useRef, useState } from "react";
+import toast from "react-hot-toast";
+import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import useCardHover from "@/hooks/useCardHover"; // Assurez-vous d'importer correctement vos hooks
 import { Coach, NewsModel, Leader, Utils, Team } from "@/models";
-import { CoachType, LeaderType, NewsType, TeamType } from "@/types";
-import { Card, CardActionArea, CardContent, Typography, Box, CardMedia } from "@mui/material";
-import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
+import { NewsType } from "@/types";
+import { Card, CardActionArea, CardContent, Typography, Box, CardMedia, Button } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
+import { List, ListItem } from "@mui/material";
+import { PhoneIphone } from "@mui/icons-material";
 
 const SmallNews = ({ data }: { data: NewsType }) => {
   const { img, title, url } = data;
@@ -95,25 +94,36 @@ export const StaffCard = ({ data }: { data: Coach | Leader }) => {
       return () => clearTimeout(timer);
     }
   }, [clicked]);
+
+  console.log(data);
   return (
-    <Card raised={true} className='flex flex-col  overflow-hidden'>
-      <CardMedia className='h-4/5 overflow-hidden max-h-96'>
-        <Image src={data.img} alt={data.name} objectFit='fill' width={500} height={500} />
-      </CardMedia>
-      <CardContent className='flex flex-col border-t-2 border-primary w-full text-center justify-center grow '>
-        <Box className='flex items-center relative'>
-          <Typography component='h3' className='grow text-black font-bold text-2xl'>
+    <Card className='relative w-card h-card rounded-lg overflow-hidden m-2 bg-center bg-cover transition-transform duration-300 group'>
+      <CardMedia component='img' image={data.img} className='w-full h-full' />
+      <Box className='absolute left-0 bottom-0 w-52 h-28 bg-white opacity-90 transform -skew-x-12 z-10 '>
+        <Box className='absolute w-56 h-24 bg-primary'>
+          {" "}
+          <Typography variant='h6' className='text-black transform skew-x-12 text-center mt-3'>
             {data.name}
           </Typography>
-          {data.isEmailDisplayed && <EmailIcon fontSize='large' onClick={() => handleClick(data.email)} className='cursor-pointer' />}
-        </Box>
-        <Box className='flex items-center relative'>
-          <Typography component='h2' className='grow text-black'>
-            {data instanceof Leader ? data.role : <Typography color='primary'> {data.team.join(" | ")}</Typography>}
+          <Typography component='h2' className='text-center'>
+            {data instanceof Leader ? data.role :  data.team.join(" | ") }
           </Typography>
-          {data.isNumberDisplayed && <PhoneIphoneIcon fontSize='large' onClick={() => handleClick(data.number)} className='cursor-pointer' />}
         </Box>
-      </CardContent>
+      </Box>
+
+      <Box className='absolute bottom-[15%] left-1/2 w-56 h-56 bg-white rounded-full opacity-90 transform scale-0 transition-all duration-300 ease-in-out group-hover:scale-100'>
+        <Box className='absolute  w-full h-full bg-primary rounded-full transform scale-0 transition-all duration-300 ease-in-out delay-200 group-hover:scale-90'>
+          {" "}
+          <List className='relative w-full h-full transform  transition-all duration-400 ease-in-out group-hover:pt-0'>
+            <Button component="li" variant="contained" disabled={!data.isNumberDisplayed} onClick={() => handleClick(data.number)} color="secondary" className=' absolute flex items-center justify-center bottom-0 left-0 w-16 aspect-square   rounded-full '>
+              <PhoneIphone className='relative' />
+            </Button>
+            <Button component="li" variant="contained" disabled={!data.isEmailDisplayed} onClick={() => handleClick(data.email)}  color="secondary"  className=' absolute flex items-center justify-center -bottom-8 left-16 w-16 aspect-square  rounded-full '>
+              <EmailIcon />
+            </Button>
+          </List>
+        </Box>
+      </Box>
     </Card>
   );
 };

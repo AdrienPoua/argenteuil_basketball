@@ -18,7 +18,13 @@ const config: Config = {
         white: "#FFFFFF",
         black: "#000000",
       },
-    },
+      width: {
+        card: "500px",
+      }, 
+      height: {
+        card: "500px",
+      },
+       },
   },
   plugins: [],
 };

@@ -7,7 +7,7 @@ const theme = createTheme({
       main: '#1976d2',
     },
     secondary: {
-      main: '#dc004e',
+      main: '#FF0000',
     },
     background: {
       default: 'black', // Ajoutez la couleur de fond globale ici
