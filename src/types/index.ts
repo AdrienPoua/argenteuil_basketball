@@ -113,7 +113,6 @@ export type {
   CoachType,
   LeaderType,
   PlayerType,
-  AdherentType,
   AssistantType,
   TeamType,
   TrainingType,
@@ -125,4 +124,5 @@ export type {
   PlanbyArrayProps,
   PlanByEPGType,
   FactoryClass,
+  
 };

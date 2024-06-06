@@ -3,6 +3,8 @@ import React, { useRef, useEffect } from "react";
 import logo from "@/public/images/logo.png";
 import { Box, Link, Typography } from "@mui/material";
 import club from "@/data/club.json";
+import Logo from "@/components/Logo";
+
 
 export default function Footer() {
   const signatureRef = useRef(null);
@@ -33,9 +35,7 @@ export default function Footer() {
   return (
     <Box ref={signatureRef} className='border-t-2 bg-black border-indigo-500 flex flex-col px-12 ' component='footer'>
       <Box className='flex justify-between'>
-        <Link href='/' className='shrink-0'>
-          <Image src={logo} alt='logo' className='me-5' width={80} height={80} />
-        </Link>
+        <Logo />
         <Link href='https://www.linkedin.com/in/adrien-poua' target="blank" className='text-gray-500 flex justify-center items-center no-underline	'>
           <Typography variant="body1">
             Made with ❤ by&nbsp;

@@ -7,7 +7,7 @@ import { Box, Typography } from "@mui/material";
 
 const Item = ({ data }: { data: SubItemsType }) => {
   return (
-    <Link href={data.url} >
+    <Link href={data.url} className="lg:flex hidden" >
       <Box className='flex relative rounded-xl overflow-hidden p-8 hover:border-indigo-500 border-2 border-transparent'>
         <Image
           src={
@@ -28,7 +28,7 @@ const Item = ({ data }: { data: SubItemsType }) => {
 
 export default function SubBar({ data }: Readonly<{ data: NavItemType }>) {
   return (
-    <Box className="flex gap-24 bg-white border-none py-1 justify-center items-center">
+    <Box className="flex gap-24 bg-white border-none py-1 justify-center items-center transition-all duration-300">
       {data.subItems?.map((item: SubItemsType) => (
         <Item data={item} key={uuidv4()} />
       ))}

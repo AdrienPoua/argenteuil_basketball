@@ -1,10 +1,10 @@
 "use client";
 import data from "@/data/staff.json";
 import { MemberFactory } from "@/factories";
-import { AdherentClass as FactoryClass, LeaderType, MemberType } from "@/types";
+import { FactoryClass, MemberType } from "@/types";
 import { Leader } from "@/models";
 import CardLayout from "@/components/layouts/main";
-import StaffCard from "@/components/Card";
+import {StaffCard} from "@/components/Card";
 import { Box } from "@mui/material";
 
 export default function Index() {

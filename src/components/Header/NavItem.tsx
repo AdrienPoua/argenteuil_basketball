@@ -1,6 +1,7 @@
 import React from "react";
 import { NavItemType } from "@/types";
 import { Box, Button, Typography } from "@mui/material";
+import Arrow from "./Arrow";
 
 type NavItemProps = {
   data: NavItemType;
@@ -20,20 +21,7 @@ export const NavItem: React.FC<NavItemProps> = ({ data, setActiveNav }) => {
       >
         <Box className="flex justify-center items-center">
           <Typography variant="body2" className="flex text-lg">{data.title}</Typography>
-          {/* Élément simulant un pseudo-élément ::after */}
-          <Box
-            component="span"
-            sx={{
-              display: "inline-block",
-              verticalAlign: "middle",
-              marginLeft: "6px",
-              width: 0,
-              height: 0,
-              borderStyle: "solid",
-              borderWidth: "5px 5px 0",
-              borderColor: "#000 transparent transparent transparent",
-            }}
-          />
+          <Arrow />
         </Box>
       </Button>
     </Box>
