@@ -4,7 +4,7 @@ import { Box, Typography, Button, ButtonGroup, CircularProgress } from "@mui/mat
 import { TeamType, Ranking, Club } from "@/models/api";
 import Table from "./table";
 import { v4 as uuidv4 } from "uuid";
-import Layout from "@/components/layouts/main";
+import Layout from "@/layout/main";
 import Info from "@/components/info";
 
 

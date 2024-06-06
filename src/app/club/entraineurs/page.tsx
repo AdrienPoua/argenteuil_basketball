@@ -4,7 +4,7 @@ import { MemberFactory } from "@/factories";
 import { Coach } from "@/models";
 import { StaffCard } from "@/components/Card";
 import { AdherentType, CoachType } from "@/types";
-import CardLayout from "@/components/layouts/main";
+import CardLayout from "@/layout/main";
 import { Box } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 

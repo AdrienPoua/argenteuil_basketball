@@ -1,4 +1,4 @@
-import Layout from "@/components/layouts/main";
+import Layout from "@/layout/main";
 import Timeline from "@mui/lab/Timeline";
 import TimelineItem from "@mui/lab/TimelineItem";
 import TimelineSeparator from "@mui/lab/TimelineSeparator";

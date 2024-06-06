@@ -3,7 +3,7 @@ import data from "@/data/staff.json";
 import { MemberFactory } from "@/factories";
 import { FactoryClass, MemberType } from "@/types";
 import { Leader } from "@/models";
-import CardLayout from "@/components/layouts/main";
+import CardLayout from "@/layout/main";
 import {StaffCard} from "@/components/Card";
 import { Box } from "@mui/material";
 

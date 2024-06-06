@@ -4,7 +4,7 @@ import { TeamType } from "@/types";
 import club from "@/data/club.json";
 import { Gym, Team } from "@/models";
 import teamsData from "@/data/teams.json";
-import Layout from "@/components/layouts/main";
+import Layout from "@/layout/main";
 
 const initializeData = () => {
   const gymnases = club.gymnases.map((gym) => new Gym(gym));

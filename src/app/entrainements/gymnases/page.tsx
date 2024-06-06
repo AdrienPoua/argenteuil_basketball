@@ -1,5 +1,5 @@
 import React from "react";
-import Layout from "@/components/layouts/main";
+import Layout from "@/layout/main";
 import { GymType } from "@/types";
 import club from "@/data/club.json";
 import { Gym } from "@/models";

@@ -3,7 +3,7 @@ import teamsData from "@/data/teams.json";
 import { MemberFactory } from "@/factories";
 import { Team } from "@/models";
 import { TeamCard } from "@/components/Card";
-import Layout from "@/components/layouts/main";
+import Layout from "@/layout/main";
 import { v4 as uuidv4 } from "uuid";
 import { Box, Button, Fab } from "@mui/material";
 import { useState, useEffect, useRef } from "react";

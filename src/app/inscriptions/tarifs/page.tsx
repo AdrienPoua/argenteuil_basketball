@@ -9,7 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Container, Typography } from "@mui/material";
 import tarifs from "@/data/tarifs.json";
-import Layout from "@/components/layouts/main";
+import Layout from "@/layout/main";
 import { saison } from "@/data/club.json";
 
 export default function page() {
