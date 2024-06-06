@@ -36,7 +36,7 @@ export default function Index() {
             </TimelineContent>
           </TimelineItem>
           <TimelineItem>
-            <TimelineOppositeContent className='mt-12'>Rendre le formulaire</TimelineOppositeContent>
+            <TimelineOppositeContent className='mt-12'>Rendre le formulaire <br/> et la cotisation </TimelineOppositeContent>
             <TimelineSeparator>
               <TimelineConnector className='min-h-10' />
               <TimelineDot color='primary'>
@@ -45,7 +45,7 @@ export default function Index() {
               <TimelineConnector className='min-h-10' />
             </TimelineSeparator>
             <TimelineContent>
-              <Typography className='mt-12'>
+              <Typography className='mt-14'>
                 {" "}
                 A Jean Guimier{" "}
                 <Typography className='text-primary' component='span'>

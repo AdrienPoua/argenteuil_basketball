@@ -19,19 +19,19 @@ type ScheduleProps = {
 };
 
 const Schedule = ({ data, days }: ScheduleProps) => {
+  console.log(data);
   return (
-    <Box className="flex flex-col border border-primary p-4">
-      <Paper elevation={3} className="p-4 mb-4">
-        <Typography variant="h2" color="primary" className="text-5xl text-center my-10">
+    <Box className="flex flex-col border bg-primary p-4 mb-48">
+        <Typography variant="h2" color="white" className="text-5xl text-center my-10">
           {data[0].gym}
         </Typography>
         <Grid container spacing={2}>
           {days.map((day) => (
             <Grid item xs={12} key={uuidv4()}>
-              <Grid container spacing={2} alignItems="center">
-                <Grid item xs={3}>
-                  <Paper className="h-full flex items-center justify-center bg-gray-100">
-                    <Typography variant="h6" className="text-center p-2">
+              <Grid container spacing={2} >
+                <Grid item xs={3} >
+                  <Paper className="h-full flex justify-center items-center">
+                    <Typography variant="h6" className="p-2">
                       {day}
                     </Typography>
                   </Paper>
@@ -57,8 +57,14 @@ const Schedule = ({ data, days }: ScheduleProps) => {
               </Grid>
             </Grid>
           ))}
+          <Grid item xs={12}>
+            <Paper className="h-full flex justify-center items-center">
+              <Typography variant="h6" className="p-2">
+                {data[0].gym}
+              </Typography>
+            </Paper>
+            </Grid>
         </Grid>
-      </Paper>
     </Box>
   );
 };

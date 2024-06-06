@@ -8,15 +8,17 @@ import CardLayout from "@/layout/main";
 import { Box } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 
-
 export default function Entraineurs() {
   const coachs: Coach[] = data.map((member) => MemberFactory.create(member, "coach")).filter((member): member is Coach => member instanceof Coach);
   return (
-    <CardLayout pageTitle='Nos entraineurs'>
-      <Box className='flex flex-wrap gap-5'>
+    <CardLayout pageTitle="Nos entraineurs">
+      <Box className="flex flex-wrap gap-5 justify-center">
         {" "}
         {coachs.map((coach: Coach) => (
-          <StaffCard data={coach} key={uuidv4()} />
+          <StaffCard
+            data={coach}
+            key={uuidv4()}
+          />
         ))}
       </Box>
     </CardLayout>

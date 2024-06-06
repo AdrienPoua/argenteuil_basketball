@@ -46,5 +46,38 @@
     "number": "0616277614",
     "isEmailDisplayed": true,
     "isNumberDisplayed": true
+  },
+  {
+    "name": "NZE Julien",
+    "leader": false,
+    "coach": true,
+    "player": true,
+    "team": ["U07 M1", "U15 M1"],
+    "email": "j_nze@hotmail.com",
+    "number": "0616277614",
+    "isEmailDisplayed": true,
+    "isNumberDisplayed": true
+  },
+  {
+    "name": "NZE Julien",
+    "leader": false,
+    "coach": true,
+    "player": true,
+    "team": ["U07 M1", "U15 M1"],
+    "email": "j_nze@hotmail.com",
+    "number": "0616277614",
+    "isEmailDisplayed": true,
+    "isNumberDisplayed": true
+  },
+  {
+    "name": "NZE Julien",
+    "leader": false,
+    "coach": true,
+    "player": true,
+    "team": ["U07 M1", "U15 M1"],
+    "email": "j_nze@hotmail.com",
+    "number": "0616277614",
+    "isEmailDisplayed": true,
+    "isNumberDisplayed": true
   }
 ]
