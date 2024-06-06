@@ -11,8 +11,7 @@ export default function Home() {
   return (
     <>
       <LandingPage />
-      <Container maxWidth='xl'>
-        <Box className='flex justify-between uppercase items-center mb-16'>
+      <Container maxWidth='xl' className='flex justify-between uppercase items-center mb-16'>
           <Typography className='text-white text-5xl'>Latest News</Typography>
           <Link href='/' className='relative'>
             <Typography className='underline text-2xl me-5 text-white'>All news</Typography>
@@ -29,9 +28,8 @@ export default function Home() {
               }}
             />
           </Link>
-        </Box>
       </Container>
-      <Container maxWidth='xl'>
+      <Container maxWidth="xl">
         <News data={newsData} />
       </Container>
     </>

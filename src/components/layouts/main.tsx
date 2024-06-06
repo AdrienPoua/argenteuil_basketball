@@ -4,11 +4,11 @@ import Container from '@mui/material/Container';
 
 export default function Layout({ pageTitle, children }: Readonly<{ pageTitle: string, children: React.ReactNode }>) {
   return (
-    <Container  maxWidth="xl" component="main" disableGutters className="grow pb-10">
+    <Container  maxWidth="xl" component="main" className="grow pb-24">
       <Typography variant="h1">
         {pageTitle}
       </Typography>
-      <Container  disableGutters className="flex flex-col grow self-center ">
+      <Container maxWidth={false} className="flex flex-col grow">
         {children}
       </Container>
     </Container>

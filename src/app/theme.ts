@@ -30,13 +30,6 @@ const theme = createTheme({
     },
   },
   components: {
-    MuiContainer: {
-      styleOverrides: {
-        maxWidthXl: {
-          maxWidth: '2800px', // Correction de la propriété maxWidthXl
-        },
-      },
-    },
   },
 });
 

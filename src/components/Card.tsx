@@ -91,12 +91,12 @@ export const StaffCard = ({ data }: { data: Coach | Leader }) => {
   }, [clicked]);
 
   return (
-    <Card className='relative w-card h-card rounded-lg overflow-hidden m-2 bg-center bg-cover transition-transform duration-300 group'>
-      <CardMedia component='img' image={data.img} className='w-full h-full' />
-      <Box className='absolute left-0 bottom-0 w-52 h-28 bg-white opacity-90 transform -skew-x-12 z-10 '>
-        <Box className='absolute w-56 h-24 bg-primary'>
+    <Card className='relative w-card h-card rounded-lg overflow-hidden inline-block '>
+      <CardMedia component='img' image={data.img} className='w-full h-full absolute inset-0' />
+      <Box className='absolute left-0 bottom-0 w-52 h-28 bg-white opacity-90 transform -skew-x-12 '>
+        <Box className='absolute w-56 h-24 bg-primary flex flex-col justify-center items-center'>
           {" "}
-          <Typography variant='h6' className='text-black transform skew-x-12 text-center mt-3'>
+          <Typography variant='h6' className='text-black transform skew-x-12'>
             {data.name}
           </Typography>
           <Typography component='h2' className='text-center'>
@@ -104,18 +104,14 @@ export const StaffCard = ({ data }: { data: Coach | Leader }) => {
           </Typography>
         </Box>
       </Box>
-
-      <Box className='absolute bottom-[15%] left-1/2 w-56 h-56 bg-white rounded-full opacity-90 transform scale-0 transition-all duration-300 ease-in-out group-hover:scale-100'>
-        <Box className='absolute  w-full h-full bg-primary rounded-full transform scale-0 transition-all duration-300 ease-in-out delay-200 group-hover:scale-90'>
-          {" "}
-          <List className='relative w-full h-full transform  transition-all duration-400 ease-in-out group-hover:pt-0'>
+        <List className='absolute flex gap-2 bottom-6 left-60'>
             <Button
               component='li'
               variant='contained'
               disabled={!data.isNumberDisplayed}
               onClick={() => handleClick(data.number)}
               color='secondary'
-              className=' absolute flex items-center justify-center bottom-0 left-0 w-16 aspect-square   rounded-full '
+              className='flex items-center justify-center w-16 aspect-square  rounded-full hover:scale-125 transition duration-200 ease-in-out'
             >
               <PhoneIphone className='relative' />
             </Button>
@@ -125,13 +121,11 @@ export const StaffCard = ({ data }: { data: Coach | Leader }) => {
               disabled={!data.isEmailDisplayed}
               onClick={() => handleClick(data.email)}
               color='secondary'
-              className=' absolute flex items-center justify-center -bottom-8 left-16 w-16 aspect-square  rounded-full '
+              className='flex items-center justify-center w-16 aspect-square  rounded-full hover:scale-125 transition duration-200 ease-in-out'
             >
               <EmailIcon />
             </Button>
           </List>
-        </Box>
-      </Box>
     </Card>
   );
 };

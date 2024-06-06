@@ -21,7 +21,7 @@ export default function Index() {
 
   return (
     <CardLayout pageTitle='Les membres du bureau'>
-      <Box className='flex flex-col gap-24 items-center'>
+      <Box className='flex flex-wrap gap-10 justify-center items-center'>
         {president && <StaffCard data={president} />}
         {secretaire && <StaffCard data={secretaire} />}
         {tresorier && <StaffCard data={tresorier} />}
