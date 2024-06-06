@@ -18,27 +18,7 @@ export default function Container({ data }: Readonly<{ data: NewsType[] }>) {
   const newsToDisplay = NewsModel.sortByDate(othersNews).slice(0, 4);
 
   return (
-    <Box className="flex flex-col w-full bg-black py-5 px-32">
-      <Box className="flex justify-between uppercase items-center mb-16">
-        <Typography className="text-white text-5xl">Latest News</Typography>
-        <a href="/" className="relative">
-          <Typography className="underline text-2xl me-5 text-white">
-            All news
-          </Typography>
-          <Box
-            sx={{
-              position: "absolute",
-              top: "50%",
-              left: "100%",
-              transform: 'translate(-50%, -50%) rotate(-90deg)',
-              content: '""',
-              borderLeft: "10px solid transparent",
-              borderRight: "10px solid transparent",
-              borderTop: "10px solid #fff",
-            }}
-          />
-        </a>
-      </Box>
+    <Box className="flex flex-col mb-24">
       <Box className="flex gap-5">
         <Box className="flex flex-col w-1/2">
           <Card data={mainNews} />

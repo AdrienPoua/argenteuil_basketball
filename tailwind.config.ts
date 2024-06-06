@@ -23,6 +23,7 @@ const config: Config = {
       }, 
       height: {
         card: "500px",
+        bigCard: "1000px",
       },
        },
   },

@@ -7,9 +7,8 @@ import Image from "next/image";
 import useCardHover from "@/hooks/useCardHover"; // Assurez-vous d'importer correctement vos hooks
 import { Coach, NewsModel, Leader, Utils, Team } from "@/models";
 import { NewsType } from "@/types";
-import { Card, CardActionArea, CardContent, Typography, Box, CardMedia, Button } from "@mui/material";
+import { Card, CardActionArea, CardContent, Typography, Box, CardMedia, Button, Paper, cardMedia, List, ListItem } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
-import { List, ListItem } from "@mui/material";
 import { PhoneIphone } from "@mui/icons-material";
 
 const SmallNews = ({ data }: { data: NewsType }) => {
@@ -48,18 +47,14 @@ const BigNews = ({ data }: { data: NewsType }) => {
     <Link href={url} ref={cardRef} className={`flex flex-col ${type === "main" ? "sticky top-0" : ""}`} style={{ aspectRatio: "1/1" }}>
       <Card className='relative rounded-3xl overflow-hidden'>
         <CardActionArea>
-          <Box className='relative h-full w-full'>
-            <Image ref={imageRef} src={img} alt={title} className='rounded-t-3xl w-full max-h-full object-cover' width={200} height={200} />
+          <Box className='overflow-hidden relative h-bigCard'>
+            <CardMedia component='img' image={data.img} alt={title} className='w-full h-full' />
             <Box className='absolute inset-0 bg-black opacity-40' />
-            <Box className='absolute inset-x-0 bottom-5 text-white gap-4'>
-              <Typography variant='h5' component='div' className='ps-5 mb-3'>
-                {title}
-              </Typography>
-              <Typography variant='body2' className='ps-5 pb-5'>
-                {Utils.dateString(date)}
-              </Typography>
-            </Box>
           </Box>
+          <CardContent>
+            <Typography variant='h6'>{title}</Typography>
+            <Typography variant='body2'>{Utils.dateString(data.date)}</Typography>
+          </CardContent>
         </CardActionArea>
       </Card>
     </Link>
@@ -95,7 +90,6 @@ export const StaffCard = ({ data }: { data: Coach | Leader }) => {
     }
   }, [clicked]);
 
-  console.log(data);
   return (
     <Card className='relative w-card h-card rounded-lg overflow-hidden m-2 bg-center bg-cover transition-transform duration-300 group'>
       <CardMedia component='img' image={data.img} className='w-full h-full' />
@@ -106,7 +100,7 @@ export const StaffCard = ({ data }: { data: Coach | Leader }) => {
             {data.name}
           </Typography>
           <Typography component='h2' className='text-center'>
-            {data instanceof Leader ? data.role :  data.team.join(" | ") }
+            {data instanceof Leader ? data.role : data.team.join(" | ")}
           </Typography>
         </Box>
       </Box>
@@ -115,10 +109,24 @@ export const StaffCard = ({ data }: { data: Coach | Leader }) => {
         <Box className='absolute  w-full h-full bg-primary rounded-full transform scale-0 transition-all duration-300 ease-in-out delay-200 group-hover:scale-90'>
           {" "}
           <List className='relative w-full h-full transform  transition-all duration-400 ease-in-out group-hover:pt-0'>
-            <Button component="li" variant="contained" disabled={!data.isNumberDisplayed} onClick={() => handleClick(data.number)} color="secondary" className=' absolute flex items-center justify-center bottom-0 left-0 w-16 aspect-square   rounded-full '>
+            <Button
+              component='li'
+              variant='contained'
+              disabled={!data.isNumberDisplayed}
+              onClick={() => handleClick(data.number)}
+              color='secondary'
+              className=' absolute flex items-center justify-center bottom-0 left-0 w-16 aspect-square   rounded-full '
+            >
               <PhoneIphone className='relative' />
             </Button>
-            <Button component="li" variant="contained" disabled={!data.isEmailDisplayed} onClick={() => handleClick(data.email)}  color="secondary"  className=' absolute flex items-center justify-center -bottom-8 left-16 w-16 aspect-square  rounded-full '>
+            <Button
+              component='li'
+              variant='contained'
+              disabled={!data.isEmailDisplayed}
+              onClick={() => handleClick(data.email)}
+              color='secondary'
+              className=' absolute flex items-center justify-center -bottom-8 left-16 w-16 aspect-square  rounded-full '
+            >
               <EmailIcon />
             </Button>
           </List>
