@@ -29,5 +29,6 @@ body {
   background-color: black;
   min-height: 100svh;
   font-family: Evogria, sans-serif; 
+  min-width: 100%;
 }
 

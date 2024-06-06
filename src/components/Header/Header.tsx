@@ -34,8 +34,7 @@ export default function Header({ data }: Readonly<{ data: NavItemType[] }>) {
 
   return (
     <ClickAwayListener onClickAway={() => setActiveNav({ title: "", subItems: [] })}>
-    <Box component={"header"} ref={headerRef} className={`flex flex-col w-full z-10 bg-transparent`} id='back-to-top-anchor'>
-      <Box className='flex px-6 py-2 bg-white'>
+    <Box component={"header"} ref={headerRef} className="w-full flex flex-wrap px-6 py-2 bg-white" id='back-to-top-anchor'>
         <Link href='/' className='shrink-0'>
           <Image src={logo} alt='logo' className='me-5' width='80' height='80' />
         </Link>
@@ -47,7 +46,6 @@ export default function Header({ data }: Readonly<{ data: NavItemType[] }>) {
           </Box>
         </Box>
         <Contact />
-      </Box>
       <SubBar data={activeNav} />
     </Box>
     </ClickAwayListener>
