@@ -1,0 +1,22 @@
+[
+    {
+      "id": 1,
+      "name": "Jean Guimier",
+      "address": "2 rue jean de la fontaine",
+      "city": "Argenteuil",
+      "postalCode": "95100",
+      "phone": "01 39 82 23 13",
+      "img": "/images/gymnases/guimier.jpg",
+      "available": ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"]
+    },
+    {
+      "id": 2,
+      "name": "Jesse Owens",
+      "address": "120 rue de rochefort",
+      "city": "Argenteuil",
+      "postalCode": "95100",
+      "phone": "01 39 80 78 20",
+      "available": ["Lundi", "Mercredi", "Jeudi", "Vendredi"]
+    }
+  ]
+  

@@ -82,12 +82,21 @@ type PlanbyPositionType = {
   height: string;
 };
 
+// Define the type for days of the week
+
+// Define the type for a gymnasium
 type GymType = {
+  id: number;
   name: string;
   address: string;
-  img?: string;
-  maps?: string;
+  city: string;
+  postalCode: string;
+  phone: string;
+  img?: string; // Optional image property
+  available: string[]; // Array of days the gym is available
 };
+
+
 
 type TeamType = {
   name: string;
@@ -116,5 +125,6 @@ export type {
   PlanbyPositionType,
   SubItemType as SubItemsType,
   FactoryClass,
+  DaysType
 
 };
