@@ -1,26 +1,23 @@
 "use client";
-import data from "@/data/staff.json";
-import { MemberFactory } from "@/factories";
-import { Coach } from "@/models";
-import { StaffCard } from "@/components/Card";
-import { AdherentType, CoachType } from "@/types";
-import CardLayout from "@/layout/main";
+import Layout from "@/layout/main";
+import { LeaderCard } from "@/components/Card";
 import { Box } from "@mui/material";
+import { leadership } from "@/app/class";
 import { v4 as uuidv4 } from "uuid";
+import { Leadership } from "@/models";
 
-export default function Entraineurs() {
-  const coachs: Coach[] = data.map((member) => MemberFactory.create(member, "coach")).filter((member): member is Coach => member instanceof Coach);
+export default function Index() {
+  const coachs = leadership.filter((leader) => leader.isCoach);
   return (
-    <CardLayout pageTitle="Nos entraineurs">
-      <Box className="flex flex-wrap gap-5 justify-center">
-        {" "}
-        {coachs.map((coach: Coach) => (
-          <StaffCard
-            data={coach}
+    <Layout pageTitle="Nos entraineurs">
+      <Box className="flex flex-wrap gap-10 justify-center items-center">
+        {coachs.map((coach : Leadership ) => (
+          <LeaderCard
             key={uuidv4()}
+            data={coach}
           />
         ))}
       </Box>
-    </CardLayout>
+    </Layout>
   );
 }

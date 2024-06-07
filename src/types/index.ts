@@ -1,6 +1,6 @@
 import { Coach, Member, Leader, Player, Team } from "@/models";
 
-type MatchDataProps = {
+export type MatchDataProps = {
   Division: string;
   "N° de match": string;
   "Equipe 1": string;
@@ -9,7 +9,7 @@ type MatchDataProps = {
   Salle: string;
 };
 
-type NewsType = {
+export type NewsType = {
   id: number;
   title: string;
   date: string;
@@ -19,25 +19,25 @@ type NewsType = {
 };
 
 
-type NavItemType = {
+export type NavItemType = {
   title: string;
   subItems: SubItemType[];
 };
 
-type SubItemType = { title: string; url: string; img: string };
-type MenuState = {
+export type SubItemType = { title: string; url: string; img: string };
+type MenuState = {export 
   isMenuOpen: boolean;
   setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
   subBar: NavItemType | null;
   setSubBar: React.Dispatch<React.SetStateAction<NavItemType | null>>;
 };
 
-type MemberType = {
+export type MemberType = {
   name: string;
   email: string;
 };
 
-type CoachType = MemberType & {
+export type CoachType = MemberType & {
   isCoach: true;
   number: string;
   img: string;
@@ -46,7 +46,7 @@ type CoachType = MemberType & {
   isNumberDisplayed: boolean;
 };
 
-type LeaderType = MemberType & {
+export type LeaderType = MemberType & {
   role: string[];
   number: string;
   isLeader: true;
@@ -55,19 +55,19 @@ type LeaderType = MemberType & {
   isNumberDisplayed: boolean;
 };
 
-type PlayerType = MemberType & {
+export type PlayerType = MemberType & {
   isPlayer: true;
   team: string[];
   number?: string;
   img?: string;
 };
 
-type AssistantType = {
+export type AssistantType = {
   name: string;
   role: string;
 };
 
-type TrainingType = {
+export type TrainingType = {
   team?: string;
   day: string;
   start: string;
@@ -75,7 +75,7 @@ type TrainingType = {
   gym: string;
 };
 
-type PlanbyPositionType = {
+export type PlanbyPositionType = {
   top: string;
   left: string;
   width: string;
@@ -84,8 +84,22 @@ type PlanbyPositionType = {
 
 // Define the type for days of the week
 
+export type LeadershipType = {
+  name : string;
+  number: string;
+  email: string;
+  teams?: string[];
+  img?: string;
+  isEmailDisplayed?: boolean;
+  isNumberDisplayed?: boolean;
+  isLeader?: boolean;
+  isCoach?: boolean;
+  job?: string;
+}
+
+
 // Define the type for a gymnasium
-type GymType = {
+export type GymType  = {
   id: number;
   name: string;
   address: string;
@@ -98,7 +112,7 @@ type GymType = {
 
 
 
-type TeamType = {
+export type TeamType = {
   name: string;
   coach?: string;
   assistant: AssistantType[];
@@ -107,24 +121,5 @@ type TeamType = {
   trainings: TrainingType[];
 };
 
-type FactoryClass = Member | Coach | Leader | Player | Team;
+export type FactoryClass = Member | Coach | Leader | Player | Team;
 
-export type {
-  MatchDataProps,
-  NewsType,
-  NavItemType,
-  MenuState,
-  MemberType,
-  CoachType,
-  LeaderType,
-  PlayerType,
-  AssistantType,
-  TeamType,
-  TrainingType,
-  GymType,
-  PlanbyPositionType,
-  SubItemType as SubItemsType,
-  FactoryClass,
-  DaysType
-
-};

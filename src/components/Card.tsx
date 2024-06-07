@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Coach, NewsModel, Leader, Utils, Team } from "@/models";
+import { Coach, NewsModel, Leader, Utils, Team, Leadership } from "@/models";
 import { NewsType } from "@/types";
 import { Card, CardActionArea, CardContent, Typography, Box, CardMedia, Button, List } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
@@ -33,7 +33,7 @@ export const NewsCard = ({ data, small, sticky }: NewsCardProps) => {
   );
 };
 
-export const StaffCard = ({ data }: { data: Coach | Leader }) => {
+export const LeaderCard = ({ data }: { data: Leadership }) => {
   const [clicked, setClicked] = useState(false);
 
   const EMAIL_NOTIFICATION = "Email copié dans le press-papier";
@@ -72,7 +72,7 @@ export const StaffCard = ({ data }: { data: Coach | Leader }) => {
             {data.name}
           </Typography>
           <Typography component='h2' className='text-center'>
-            {data instanceof Leader ? data.role : data.team.join(" | ")}
+            {data.job ? data.job : data.teams ? data.teams.join(" | ") : "" }
           </Typography>
         </Box>
       </Box>

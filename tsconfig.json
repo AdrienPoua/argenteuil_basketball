@@ -6,6 +6,8 @@
       "esnext"
     ],
     "allowJs": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
@@ -14,6 +16,8 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "jsx": "preserve",
+    "target": "ES6",
+
     "incremental": true,
     "plugins": [
       {

@@ -1,8 +1,106 @@
-import { TeamType } from '@/types';
-import { teams } from "@/data/teams.json";
-import { MemberType, CoachType, LeaderType, PlayerType, AssistantType, TeamType, TrainingType, GymType, DaysType } from "../types";
-import staff from "@/data/staff.json";
+import { TeamType, PlayerType, AssistantType, TrainingType, GymType, LeadershipType } from "@/types";
+import staff from "@/data/leadership.json";
+import { IsEmail, IsString, Length, IsOptional, IsBoolean, IsArray } from 'class-validator';
 
+export class Leadership implements LeadershipType {
+  @IsString()
+  @Length(1)
+  private _name: string;
+
+  @IsString()
+  @Length(10, 13)
+  private _number: string;
+
+  @IsEmail()
+  private _email: string;
+
+  @IsOptional({})
+  @IsString()
+  private _img?: string;
+
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  private _teams?: string[];
+
+  @IsOptional()
+  @IsString()
+  private _job?: string;
+
+  @IsBoolean()
+  private _isEmailDisplayed: boolean;
+
+  @IsBoolean()
+  private _isNumberDisplayed: boolean;
+
+  @IsBoolean()
+  private _isLeader: boolean;
+
+  @IsBoolean()
+  private _isCoach: boolean;
+
+  constructor(data: LeadershipType) {
+    this._name = data.name; 
+    this._number = data.number; 
+    this._email = data.email; 
+    this._img = data.img; 
+    this._teams = data.teams; 
+    this._job = data.job;
+    this._isEmailDisplayed = data.isEmailDisplayed === true;
+    this._isNumberDisplayed = data.isNumberDisplayed === true;
+    this._isLeader = data.isLeader === true;
+    this._isCoach = data.isCoach === true;
+  }
+
+  // Getters
+  get name(): string {
+    return this._name;
+  }
+
+  get number(): string {
+    return this._number;
+  }
+
+  get email(): string {
+    return this._email;
+  }
+
+  get img(): string {
+    if (this._img) {
+      return this._img;
+    } else if (this.isLeader) {
+      return "/images/default/leader.avif";
+    } else if (this.isCoach) {
+      return "/images/default/coach.avif";
+    } else {
+      return "/images/default/avatar.webp";
+    }
+  }
+
+  get teams(): string[] | undefined {
+    return this._teams
+  }
+
+  get job(): string | undefined {
+    return this._job;
+  }
+
+  get isEmailDisplayed(): boolean {
+    return this._isEmailDisplayed;
+  }
+
+  get isNumberDisplayed(): boolean {
+    return this._isNumberDisplayed;
+  }
+
+  get isLeader(): boolean {
+    return this._isLeader;
+  }
+
+  get isCoach(): boolean {
+    return this._isCoach;
+  }
+}
 export class Match {
   constructor(data) {
     this._division = data.Division;
@@ -49,7 +147,7 @@ export class Match {
   }
 }
 
-export class NewsModel {
+export class News {
   constructor(data) {
     this._id = data.id;
     this._title = data.title;
@@ -119,180 +217,7 @@ export class Utils {
   }
 }
 
-export class NavItemModel {
-  private _title: string;
-  private _subItems: { title: string; url: string }[];
-  constructor(data: { title: string; subItems: { title: string; url: string; img: string }[] }) {
-    this._title = data.title;
-    this._subItems = data.subItems;
-  }
-  get title() {
-    return this._title;
-  }
-  get subItems() {
-    return this._subItems;
-  }
-}
-
-export class Member implements MemberType {
-  private _name: string;
-  private _email: string;
-  role: string;
-
-  constructor(data: MemberType) {
-    this._name = data.name;
-    this._email = data.email;
-  }
-
-  get name(): string {
-    return this._name;
-  }
-
-  get email(): string {
-    return this._email;
-  }
-}
-
-export class Coach extends Member implements CoachType {
-  private _number: string;
-  private _img: string;
-  private _team: string[];
-  private _isCoach: true;
-  private _isEmailDisplayed: boolean;
-  private _isNumberDisplayed: boolean;
-
-  constructor(data: CoachType) {
-    super(data);
-
-    // Validation des données
-    if (typeof data.number !== "string") {
-      throw new Error("Invalid data: number must be a string");
-    }
-
-    if (data.img !== undefined && typeof data.img !== "string") {
-      throw new Error("Invalid data: img must be a string");
-    }
-    if (!Array.isArray(data.team)) {
-      throw new Error("Invalid data: team must be an array of strings");
-    }
-
-    // Initialisation des propriétés
-    this._number = data.number;
-    this._img = data.img;
-    this._team = data.team;
-    this._isCoach = true;
-    this._isEmailDisplayed = data.isEmailDisplayed || false;
-    this._isNumberDisplayed = data.isNumberDisplayed || false;
-
-    if (!data.team) {
-      throw new Error("Le coach n'a pas d'équipe assignée");
-    }
-  }
-
-  get number(): string {
-    return this._number;
-  }
-
-  get img(): string {
-    return this._img ?? "/images/default/entraineurs.avif";
-  }
-
-  get team(): string[] {
-    return this._team;
-  }
-
-  get isCoach(): true {
-    return true;
-  }
-
-  get isEmailDisplayed(): boolean {
-    return this._isEmailDisplayed || false;
-  }
-
-  get isNumberDisplayed(): boolean {
-    return this._isNumberDisplayed || false;
-  }
-}
-
-export class Leader extends Member implements LeaderType {
-  private _role: string[];
-  private _number: string;
-  private _img: string;
-  private _isLeader: true;
-  private _isEmailDisplayed: boolean;
-  private _isNumberDisplayed: boolean;
-
-  constructor(data: LeaderType) {
-    super(data);
-
-    if (typeof data.number !== "string") {
-      throw new Error("Invalid data: number must be a string");
-    }
-
-    if (data.img !== undefined && typeof data.img !== "string") {
-      throw new Error("Invalid data: img must be a string");
-    }
-
-    if (!Array.isArray(data.role)) {
-      throw new Error("Invalid data: role must be an array of strings");
-    }
-
-    this._role = data.role;
-    this._number = data.number;
-    this._img = data.img;
-    this._isLeader = true;
-    this._isEmailDisplayed = data.isEmailDisplayed || false;
-    this._isNumberDisplayed = data.isNumberDisplayed || false;
-  }
-
-  get role(): string[] {
-    return this._role;
-  }
-
-  get number(): string {
-    return this._number;
-  }
-
-  get img(): string {
-    return this._img ?? "/images/default/dirigeants.avif";
-  }
-
-  get isLeader(): true {
-    return true;
-  }
-
-  get isEmailDisplayed(): boolean {
-    return this._isEmailDisplayed || false;
-  }
-
-  get isNumberDisplayed(): boolean {
-    return this._isNumberDisplayed || false;
-  }
-}
-
-export class Player extends Member implements PlayerType {
-  private _team: string[];
-  private _isPlayer: true;
-  private _number?: string;
-  private _img?: string;
-
-  constructor(data: PlayerType) {
-    super(data);
-    if (!data.hasOwnProperty("team")) {
-      throw new Error("Le joueur n'a pas d'équipe assignée");
-    }
-    this._isPlayer = true;
-    this._team = data.team;
-  }
-  get team() {
-    return this._team;
-  }
-  get isPlayer() {
-    return this._isPlayer;
-  }
-}
-
-export class Team {
+export class Team implements TeamType {
   private _name: string;
   private _coach?: string;
   private _assistant: AssistantType[];
@@ -423,26 +348,18 @@ export class Gym implements GymType {
   planning(teams: TeamType[]): TrainingType[] {
     const isMyGym = (creneau: TrainingType): boolean => creneau.gym === this._name;
     return teams.flatMap((team: TeamType) => {
-      return team.trainings
-        .filter(isMyGym)
-        .map((creneau: TrainingType) => ({
-          ...creneau,
-          team: team.name
-        }));
+      return team.trainings.filter(isMyGym).map((creneau: TrainingType) => ({
+        ...creneau,
+        team: team.name,
+      }));
     });
   }
-  
-  
-  
-      
-
 
   set slots(data: Team[]) {
     this._slots = this.planning(data);
   }
 
-  get slots() : TrainingType[]  {
+  get slots(): TrainingType[] {
     return this._slots;
   }
-
 }
