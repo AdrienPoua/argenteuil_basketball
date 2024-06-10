@@ -117,6 +117,8 @@ export type TeamType = {
   coach?: string;
   img?: string;
   trainings: TrainingType[];
+  isChampionship?: boolean;
+  division?: string;
 };
 
 export type FactoryClass = Member | Coach | Leader | Player | Team;

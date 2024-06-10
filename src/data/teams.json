@@ -1,6 +1,7 @@
 [
   {
     "name": "U07 M1",
+    "isChampionship": true,
     "trainings": [
       {
         "day": "Samedi",

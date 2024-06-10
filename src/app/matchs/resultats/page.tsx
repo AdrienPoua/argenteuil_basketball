@@ -5,7 +5,7 @@ import { TeamType, Ranking, Club } from "@/models/api";
 import Table from "./table";
 import { v4 as uuidv4 } from "uuid";
 import Layout from "@/layout/main";
-import Info from "@/components/info";
+import Info from "@/components/Info";
 
 
 

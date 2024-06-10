@@ -191,11 +191,20 @@ export class Team implements TeamType {
   @IsArray()
   private _trainings: TrainingType[];
 
+  @IsBoolean()
+  private _isChampionship: boolean;
+
+  @IsOptional()
+  @IsString()
+  private _division: string;
+
   constructor(data: TeamType) {
     this._name = data.name;
     this._coach = data.coach;
     this._img = data.img ?? "/images/default/equipes.avif";
-    this._trainings = data.trainings;
+    this._trainings = data.trainings; 
+    this._isChampionship = data.isChampionship ?? false
+    this._division = data.division ?? "Départementale"
   }
   get name(): string {
     return this._name;
@@ -216,6 +225,16 @@ export class Team implements TeamType {
   get coach(): string | undefined {
     return this._coach;
   }
+
+  get isChampionship(): boolean {
+    return this._isChampionship;
+  }
+
+  get division(): string {
+    return this._division;
+  }
+
+
 
   set coach(name: string) {
     this._coach = name;

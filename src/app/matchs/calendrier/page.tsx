@@ -1,5 +1,5 @@
 import Layout from "@/layout/main";
-import Info from "@/components/Info/index";
+import Info from "@/components/Info";
 
 export default function page() {
   return (
