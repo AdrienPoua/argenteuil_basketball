@@ -1,12 +1,10 @@
 "use client";
-import teamsData from "@/data/teams.json";
-import { MemberFactory } from "@/factories";
-import { Team } from "@/models";
+import { useState, useEffect, useRef } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { teams } from "@/class";
 import { TeamCard } from "@/components/Card";
 import Layout from "@/layout/main";
-import { v4 as uuidv4 } from "uuid";
 import { Box, Button, Fab } from "@mui/material";
-import { useState, useEffect, useRef } from "react";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
@@ -37,14 +35,8 @@ const Slider = ({ children }: { children: React.ReactNode }): JSX.Element => {
 };
 
 export default function Index() {
-
-  const teams = teamsData
-    .map((team) => MemberFactory.create(team, "team"))
-    .filter((team): team is Team => team instanceof Team)
-
-
   const [selectedTeam, setSelectedTeam] = useState<string | undefined>(undefined);
-  const [displayedTeams, setDisplayedTeams] = useState<Team[]>(teams);
+  const [displayedTeams, setDisplayedTeams] = useState(teams);
 
   useEffect(() => {
     if (selectedTeam) {
@@ -64,7 +56,7 @@ export default function Index() {
         </Button>
       </Box>
       <Slider>
-        {teams?.map((team: Team) => {
+        {teams?.map((team) => {
           return (
             <Button
               size='large'

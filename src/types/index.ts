@@ -15,7 +15,7 @@ export type NewsType = {
   date: string;
   img: string;
   url: string;
-  type?: "main" | "secondary" 
+  rank?: "primary" | "secondary" 
 };
 
 
@@ -25,7 +25,7 @@ export type NavItemType = {
 };
 
 export type SubItemType = { title: string; url: string; img: string };
-type MenuState = {export 
+type MenuState = {
   isMenuOpen: boolean;
   setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
   subBar: NavItemType | null;
@@ -115,9 +115,7 @@ export type GymType  = {
 export type TeamType = {
   name: string;
   coach?: string;
-  assistant: AssistantType[];
   img?: string;
-  players?: PlayerType[];
   trainings: TrainingType[];
 };
 

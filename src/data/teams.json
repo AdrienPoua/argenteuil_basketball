@@ -1,12 +1,6 @@
 [
   {
     "name": "U07 M1",
-    "assistant": [
-      {
-        "name": "Y",
-        "role": "Assistant Coach"
-      }
-    ],
     "trainings": [
       {
         "day": "Samedi",
@@ -18,13 +12,6 @@
   },
   {
     "name": "U07 F1 - U09 F1",
-    "coach": "X",
-    "assistant": [
-      {
-        "name": "Y",
-        "role": "Assistant Coach"
-      }
-    ],
     "trainings": [
       {
         "day": "Lundi",
@@ -36,13 +23,6 @@
   },
   {
     "name": "U09 M1",
-    "coach": "X",
-    "assistant": [
-      {
-        "name": "Y",
-        "role": "Assistant Coach"
-      }
-    ],
     "trainings": [
       {
         "day": "Samedi",
@@ -54,13 +34,6 @@
   },
   {
     "name": "U11 M1",
-    "coach": "X",
-    "assistant": [
-      {
-        "name": "Y",
-        "role": "Assistant Coach"
-      }
-    ],
     "trainings": [
       {
         "day": "Mercredi",
@@ -72,13 +45,6 @@
   },
   {
     "name": "U11 M2",
-    "coach": "X",
-    "assistant": [
-      {
-        "name": "Y",
-        "role": "Assistant Coach"
-      }
-    ],
     "trainings": [
       {
         "day": "Vendredi",
@@ -90,13 +56,6 @@
   },
   {
     "name": "U11 F1 - U13 F1",
-    "coach": "X",
-    "assistant": [
-      {
-        "name": "Y",
-        "role": "Assistant Coach"
-      }
-    ],
     "trainings": [
       {
         "day": "Mardi",
@@ -114,13 +73,6 @@
   },
   {
     "name": "U13 M1",
-    "coach": "X",
-    "assistant": [
-      {
-        "name": "Y",
-        "role": "Assistant Coach"
-      }
-    ],
     "trainings": [
       {
         "day": "Lundi",
@@ -138,13 +90,6 @@
   },
   {
     "name": "U13 M2",
-    "coach": "X",
-    "assistant": [
-      {
-        "name": "Y",
-        "role": "Assistant Coach"
-      }
-    ],
     "trainings": [
       {
         "day": "Mercredi",
@@ -162,13 +107,6 @@
   },
   {
     "name": "U15 M1",
-    "coach": "X",
-    "assistant": [
-      {
-        "name": "Y",
-        "role": "Assistant Coach"
-      }
-    ],
     "trainings": [
       {
         "day": "Lundi",
@@ -186,13 +124,6 @@
   },
   {
     "name": "U15 M2",
-    "coach": "X",
-    "assistant": [
-      {
-        "name": "Y",
-        "role": "Assistant Coach"
-      }
-    ],
     "trainings": [
       {
         "day": "Vendredi",
@@ -204,13 +135,6 @@
   },
   {
     "name": "U15 F2 - U18 F2",
-    "coach": "X",
-    "assistant": [
-      {
-        "name": "Y",
-        "role": "Assistant Coach"
-      }
-    ],
     "trainings": [
       {
         "day": "Mercredi",
@@ -228,13 +152,6 @@
   },
   {
     "name": "U15 F - U17 F",
-    "coach": "X",
-    "assistant": [
-      {
-        "name": "Y",
-        "role": "Assistant Coach"
-      }
-    ],
     "trainings": [
       {
         "day": "Mardi",
@@ -252,13 +169,6 @@
   },
   {
     "name": "U18 F2",
-    "coach": "X",
-    "assistant": [
-      {
-        "name": "Y",
-        "role": "Assistant Coach"
-      }
-    ],
     "trainings": [
       {
         "day": "Lundi",
@@ -270,13 +180,6 @@
   },
   {
     "name": "Seniors 1",
-    "coach": "X",
-    "assistant": [
-      {
-        "name": "Y",
-        "role": "Assistant Coach"
-      }
-    ],
     "trainings": [
       {
         "day": "Mardi",
@@ -294,13 +197,6 @@
   },
   {
     "name": "Seniors 2",
-    "coach": "X",
-    "assistant": [
-      {
-        "name": "Y",
-        "role": "Assistant Coach"
-      }
-    ],
     "trainings": [
       {
         "day": "Lundi",
@@ -318,13 +214,6 @@
   },
   {
     "name": "Seniors loisirs mixte",
-    "coach": "X",
-    "assistant": [
-      {
-        "name": "Y",
-        "role": "Assistant Coach"
-      }
-    ],
     "trainings": [
       {
         "day": "Jeudi",
@@ -336,13 +225,6 @@
   },
   {
     "name": "Veterans",
-    "coach": "X",
-    "assistant": [
-      {
-        "name": "Y",
-        "role": "Assistant Coach"
-      }
-    ],
     "trainings": [
       {
         "day": "Lundi",

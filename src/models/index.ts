@@ -1,6 +1,6 @@
-import { TeamType, PlayerType, AssistantType, TrainingType, GymType, LeadershipType } from "@/types";
+import { TeamType, TrainingType, GymType, LeadershipType, NewsType } from "@/types";
 import staff from "@/data/leadership.json";
-import { IsEmail, IsString, Length, IsOptional, IsBoolean, IsArray } from 'class-validator';
+import { IsEmail, IsString, Length, IsOptional, IsBoolean, IsArray, IsNumber, IsUrl, IsDate, is } from "class-validator";
 
 export class Leadership implements LeadershipType {
   @IsString()
@@ -40,11 +40,11 @@ export class Leadership implements LeadershipType {
   private _isCoach: boolean;
 
   constructor(data: LeadershipType) {
-    this._name = data.name; 
-    this._number = data.number; 
-    this._email = data.email; 
-    this._img = data.img; 
-    this._teams = data.teams; 
+    this._name = data.name;
+    this._number = data.number;
+    this._email = data.email;
+    this._img = data.img;
+    this._teams = data.teams;
     this._job = data.job;
     this._isEmailDisplayed = data.isEmailDisplayed === true;
     this._isNumberDisplayed = data.isNumberDisplayed === true;
@@ -78,7 +78,7 @@ export class Leadership implements LeadershipType {
   }
 
   get teams(): string[] | undefined {
-    return this._teams
+    return this._teams;
   }
 
   get job(): string | undefined {
@@ -101,175 +101,115 @@ export class Leadership implements LeadershipType {
     return this._isCoach;
   }
 }
-export class Match {
-  constructor(data) {
-    this._division = data.Division;
-    this._number = data["N° de match "];
-    this._teamA = data["Equipe 1"];
-    this._teamB = data["Equipe 2"];
-    this._date = data["Date de rencontre"];
-    this._gym = data.Salle;
-    this._time = data.Heure;
-    this._cancel = data.cancel || false;
-  }
-
-  get date() {
-    return Utils.USA_DATE(this._date);
-  }
-  get time() {
-    return this._time;
-  }
-
-  get cancel() {
-    return this._cancel;
-  }
-
-  get number() {
-    return this._number;
-  }
-  get division() {
-    return this._division.split("-")[0];
-  }
-  get teamA() {
-    return this._teamA;
-  }
-  get teamB() {
-    return this._teamB;
-  }
-  get gym() {
-    return this._gym;
-  }
-
-  isMatchToday() {
-    const today = new Date();
-    const matchDate = new Date(this.USA_DATE());
-    return matchDate.toDateString() === today.toDateString();
-  }
-}
 
 export class News {
-  constructor(data) {
+  @IsNumber()
+  private _id: number;
+
+  @IsString()
+  private _title: string;
+
+  @IsString()
+  private _date: string;
+
+  @IsOptional()
+  @IsString()
+  private _img?: string;
+
+  @IsUrl()
+  private _url: string;
+
+  @IsOptional()
+  @IsString()
+  private _rank?: string;
+
+  constructor(data: NewsType) {
     this._id = data.id;
     this._title = data.title;
     this._date = data.date;
     this._img = data.img;
     this._url = data.url;
-    this._main = data.main;
-    this._secondary = data.secondary;
-    this._type = data.type;
+    this._rank = data.rank;
   }
 
   // Getters
-  get id() {
+  get id(): number {
     return this._id;
   }
 
-  get type() {
-    return this._type;
-  }
-
-  get title() {
+  get title(): string {
     return this._title;
   }
 
-  get date() {
-    return Utils.USA_DATE(this._date);
+  get date(): Date {
+    return new Date(this._date);
   }
 
-  get img() {
-    return this._img;
+  get img(): string {
+    return this._img ?? "/images/default/news.avif";
   }
 
-  get url() {
+  get url(): string {
     return this._url;
   }
 
-  get main() {
-    return this._main;
+  get isMain(): boolean {
+    return this._rank === "primary";
   }
 
-  get secondary() {
-    return this._secondary;
+  get isSecondary(): boolean {
+    return this._rank === "secondary";
   }
 
-  static sortByDate(array) {
-    return array.sort((a, b) => {
-      const dateA = new Date(Utils.USA_DATE(a.date));
-      const dateB = new Date(Utils.USA_DATE(b.date));
-      return dateB - dateA;
-    });
+  static lastFour(array: News[]): News[] {
+    const sortedArray = array.toSorted((a, b) => b.date.getTime() - a.date.getTime());
+    const filteredArray = sortedArray.filter((item) => !item.isMain && !item.isSecondary);
+    return filteredArray.slice(0, 4);
   }
-}
 
-export class Utils {
-  static USA_DATE(frenchDate: string) {
-    const [day, month, year] = frenchDate.split("/");
-    return `${year}/${month}/${day}`;
+  static main(array: News[]): News {
+    return array.find((item) => item.isMain) ?? array[0];
   }
-  static dateString(data: string) {
-    const options = {
-      weekday: "short",
-      day: "numeric",
-      month: "short",
-      year: "2-digit",
-    };
-    return new Date(data).toLocaleDateString("fr-FR", options).toUpperCase();
+
+  static secondary(array: News[]): News {
+    return array.find((item) => item.isSecondary) ?? array[1];
   }
+
 }
 
 export class Team implements TeamType {
   private _name: string;
   private _coach?: string;
-  private _assistant: AssistantType[];
   private _img: string;
-  private _players: PlayerType[] = [];
   private _trainings: TrainingType[];
 
   constructor(data: TeamType) {
     this._name = data.name;
     this._coach = data.coach;
-    this._assistant = data.assistant;
-    this._img = data.img || "/images/default/equipes.avif";
+    this._img = data.img ?? "/images/default/equipes.avif";
     this._trainings = data.trainings;
   }
-
   get name() {
     return this._name;
-  }
-  get isTeamImage() {
-    return this._img === "/images/default/equipes.avif";
   }
 
   get trainings() {
     return this._trainings;
   }
 
-  get coach() {
-    const findCoach = () => {
-      return staff.find((member) => member.team?.includes(this._name));
-    };
-    const coach = findCoach();
-    if (coach) {
-      return coach.name;
-    } else {
-      return this._coach;
-    }
-  }
-
-  get assistant() {
-    return this._assistant;
-  }
-
   get img() {
-    return this._img ?? "/images/default/equipes.avif";
+    return this._img;
+  }
+  get isTeamImage() {
+    return this._img === "/images/default/equipes.avif";
   }
 
-  get players() {
-    return this._players;
+  get coach() {
+    return this._coach;
   }
 
-  set players(data: PlayerType[]) {
-    this._players = data.filter((player) => player.team.includes(this._name));
+  set coach(name: string) {
+    this._coach = name;
   }
 }
 
@@ -281,7 +221,7 @@ export class Gym implements GymType {
   private _postalCode: string;
   private _phone: string;
   private _img?: string;
-  private _available: DaysType[];
+  private _available: string[];
   private _slots: TrainingType[] = [];
 
   constructor(gym: GymType) {
@@ -323,7 +263,7 @@ export class Gym implements GymType {
     return this._img ?? "/images/default/gymnase.avif";
   }
 
-  get available(): DaysType[] {
+  get available(): string[] {
     return this._available;
   }
 
@@ -361,5 +301,21 @@ export class Gym implements GymType {
 
   get slots(): TrainingType[] {
     return this._slots;
+  }
+}
+
+export class Utils {
+  static USA_DATE(frenchDate: string) {
+    const [day, month, year] = frenchDate.split("/");
+    return `${year}/${month}/${day}`;
+  }
+  static dateString(data: string) {
+    const options = {
+      weekday: "short",
+      day: "numeric",
+      month: "short",
+      year: "2-digit",
+    };
+    return new Date(data).toLocaleDateString("fr-FR", options).toUpperCase();
   }
 }

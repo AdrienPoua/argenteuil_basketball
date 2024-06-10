@@ -1,19 +1,17 @@
 "use client";
 import React from "react";
 import LandingPage from "@/components/LandingPage";
-import data from "@/data/news.json";
 import { v4 as uuidv4 } from "uuid";
 import { NewsType } from "@/types";
 import { NewsCard } from "@/components/Card";
-import { NewsModel } from "@/models";
+import { news } from "@/class";
+import { News } from "@/models";
 import { Box, Typography, Link, Container, Grid } from "@mui/material";
 
-const News = ({ data }: Readonly<{ data: NewsType[] }>) => {
-  const newsData = data.map((news) => new NewsModel(news));
-  const mainNews = newsData.find((item) => item.type === "main") ?? newsData[0];
-  const secondaryNews = newsData.find((item) => item.type === "secondary") ?? newsData[1];
-  const othersNews = data.filter((item) => item !== mainNews && item !== secondaryNews);
-  const newsToDisplay = NewsModel.sortByDate(othersNews).slice(0, 4);
+const NewsContainer = () => {
+  const mainNews = News.main(news);
+  const secondaryNews = News.secondary(news);
+  const newsToDisplay = News.lastFour(news)
   return (
     <Container maxWidth="xl">
       <Grid
@@ -86,7 +84,7 @@ export default function Home() {
           />
         </Link>
       </Container>
-      <News data={data} />
+      <NewsContainer />
     </>
   );
 }
