@@ -2,7 +2,7 @@
 import Layout from "@/layout/main";
 import { LeaderCard } from "@/components/Card";
 import { Box } from "@mui/material";
-import { leadership } from "@/class";
+import { leadership } from "@/build";
 import { v4 as uuidv4 } from "uuid";
 import { Leadership } from "@/models";
 

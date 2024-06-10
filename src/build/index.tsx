@@ -14,7 +14,12 @@ export const teams : Team[] = teamsData.map((team) => {
     }
     return teamX;
 });
-export const gyms = gymsData.map((gym) => new Gym(gym));
+
+export const gyms: Gym[] = gymsData.map((gymnase) => {
+    const gym = new Gym(gymnase);
+    gym.slots = teams;
+    return gym;
+  });
 
 export const news : News[] = newsData.map((news) => new News(news));
 

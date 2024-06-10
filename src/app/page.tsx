@@ -4,7 +4,7 @@ import LandingPage from "@/components/LandingPage";
 import { v4 as uuidv4 } from "uuid";
 import { NewsType } from "@/types";
 import { NewsCard } from "@/components/Card";
-import { news } from "@/class";
+import { news } from "@/build";
 import { News } from "@/models";
 import { Box, Typography, Link, Container, Grid } from "@mui/material";
 

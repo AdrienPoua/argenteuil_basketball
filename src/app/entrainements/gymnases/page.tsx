@@ -3,7 +3,7 @@ import Layout from "@/layout/main";
 import { v4 as uuiv4 } from "uuid";
 import { Box } from "@mui/material";
 import { GymCard } from "@/components/Card";
-import { gyms } from "@/class";
+import { gyms } from "@/build";
 import { Gym } from "@/models";
 
 export default function Page() {

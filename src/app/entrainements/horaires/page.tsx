@@ -2,12 +2,12 @@ import { Grid, Paper, Typography, Box } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 import { TrainingType } from "@/types";
 import { Gym } from "@/models";
+import { gyms } from "@/build";
 import Layout from "@/layout/main";
 
 
 
 const Schedule = ({ data }: { data : Gym } ) => {
-  console.log(data)
   return (
     <Box className="flex flex-col border bg-primary p-4 mb-48">
       <Typography
@@ -49,10 +49,7 @@ const Schedule = ({ data }: { data : Gym } ) => {
                     .map((slot: TrainingType) => (
                       <Grid
                         item
-                        xs={12}
-                        sm={6}
-                        md={4}
-                        lg={3}
+                        xs={4}
                         key={uuidv4()}>
                         <Box className="p-4 bg-blue-500 text-white rounded shadow-md">
                           <Typography
@@ -90,7 +87,7 @@ const Schedule = ({ data }: { data : Gym } ) => {
 export default function Page() {
   return (
     <Layout pageTitle="planning">
-      {gymnases.map((gym) => (
+      {gyms.map((gym) => (
         <Schedule
           data={gym}
           key={uuidv4()}

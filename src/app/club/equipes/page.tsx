@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { teams } from "@/class";
+import { teams } from "@/build";
 import { TeamCard } from "@/components/Card";
 import Layout from "@/layout/main";
 import { Box, Button, Fab } from "@mui/material";
