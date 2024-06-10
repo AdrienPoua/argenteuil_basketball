@@ -1,7 +1,8 @@
 import leadershipData from "@/data/leadership.json";
 import teamsData from "@/data/teams.json";
 import newsData from "@/data/news.json";
-import { Leadership, News, Team } from "@/models";
+import gymsData from "@/data/gyms.json";
+import { Leadership, News, Team, Gym } from "@/models";
 import { validate, ValidationError } from "class-validator";
 
 export const leadership: Leadership[] = leadershipData.map((leader) => new Leadership(leader));
@@ -13,6 +14,7 @@ export const teams : Team[] = teamsData.map((team) => {
     }
     return teamX;
 });
+export const gyms = gymsData.map((gym) => new Gym(gym));
 
 export const news : News[] = newsData.map((news) => new News(news));
 

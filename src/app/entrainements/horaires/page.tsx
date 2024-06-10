@@ -1,18 +1,9 @@
 import { Grid, Paper, Typography, Box } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
-import { GymType, TeamType, TrainingType } from "@/types";
-import data from "@/data/gymnases.json";
-import { Gym, Team } from "@/models";
-import teamsData from "@/data/teams.json";
+import { TrainingType } from "@/types";
+import { Gym } from "@/models";
 import Layout from "@/layout/main";
 
-const teams = teamsData.map((team: TeamType) => new Team(team));
-
-const gymnases: Gym[] = data.map((gymData: GymType) => {
-  const gym = new Gym(gymData);
-  gym.slots = teams;
-  return gym;
-});
 
 
 const Schedule = ({ data }: { data : Gym } ) => {

@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Coach, NewsModel, Leader, Utils, Team, Leadership } from "@/models";
+import { Utils, Team, Leadership, Gym } from "@/models";
 import { NewsType } from "@/types";
 import { Card, CardActionArea, CardContent, Typography, Box, CardMedia, Button, List } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
@@ -157,3 +157,44 @@ export const TeamCard = ({ data }: { data: Team }) => {
     </Card>
   );
 };
+
+export const GymCard = ({ data }: { data: Gym }) => {
+  const [isClicked, setIsClicked] = useState(false);
+  const handleClick = () => {
+    setIsClicked(!isClicked);
+  };
+
+  return (
+    <Card
+      onClick={handleClick}
+      className='relative overflow-hidden w-full h-[700px] rounded-lg shadow-lg transition-transform duration-150 ease-in-out transform hover:scale-105'
+    >
+      <CardActionArea className='h-full'>
+        <Box className='absolute inset-0 overflow-hidden rounded-lg z-0'>
+          <Image src={data.img} alt={data.name} layout='fill' objectFit='cover' className='object-cover' />
+        </Box>
+        <Box className={`absolute inset-0 flex bg-black ${isClicked ? 'opacity-50' : 'opacity-0'} transition-opacity duration-300 z-20`}></Box>
+        <CardContent className='absolute flex-col items-center justify-center inset-0 flex text-white transition-opacity duration-1000 z-20'>
+        {!isClicked ? (
+            <Box className='flex'>
+              <Typography variant='h4' className='text-5xl font-bold mb-8 text-center'>
+                {data.name}
+              </Typography>
+            </Box>
+        ) : (
+            <Box className='flex flex-col'>
+              <Typography variant='h4' className='text-5xl font-bold mb-8 text-center'>
+                {data.address}
+              </Typography>
+              <Typography variant='h4' className='text-5xl font-bold mb-8 text-center'>
+                {data.city} 
+              </Typography>
+
+            </Box>
+        )}
+      </CardContent>
+      </CardActionArea>
+    </Card>
+  );
+};
+

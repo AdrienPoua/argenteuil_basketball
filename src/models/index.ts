@@ -178,9 +178,18 @@ export class News {
 }
 
 export class Team implements TeamType {
+  @IsString()
   private _name: string;
+
+  @IsOptional()
+  @IsString()
   private _coach?: string;
+
+  @IsOptional()
+  @IsString()
   private _img: string;
+
+  @IsArray()
   private _trainings: TrainingType[];
 
   constructor(data: TeamType) {
@@ -189,23 +198,24 @@ export class Team implements TeamType {
     this._img = data.img ?? "/images/default/equipes.avif";
     this._trainings = data.trainings;
   }
-  get name() {
+  get name() : string {
     return this._name;
   }
 
-  get trainings() {
+  get trainings() : TrainingType[] {
     return this._trainings;
   }
 
-  get img() {
+  get img() : string {
     return this._img;
   }
+
   get isTeamImage() {
     return this._img === "/images/default/equipes.avif";
   }
 
-  get coach() {
-    return this._coach;
+  get coach() : string | undefined {
+    return this._coach ;
   }
 
   set coach(name: string) {
