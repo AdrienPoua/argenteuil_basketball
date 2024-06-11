@@ -75,7 +75,6 @@ export interface CompetitionType {
   modifiers: any[];
 }
 
-
 export interface ClubType {
   id: string;
   name: string;

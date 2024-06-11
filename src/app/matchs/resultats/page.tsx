@@ -8,8 +8,6 @@ import { v4 as uuidv4 } from "uuid";
 import Layout from "@/layout/main";
 import Info from "@/components/Info";
 
-
-
 export default function Index() {
   const [clubData, setClubData] = useState<ClubType | undefined>(undefined);
   const [selectedTeam, setSelectedTeam] = useState<string | undefined>(undefined);
@@ -64,21 +62,25 @@ export default function Index() {
 
   return (
     <Layout pageTitle="classement">
-      <Box component='section' className='flex flex-col grow'>
+      <Box
+        component="section"
+        className="flex flex-col grow">
         {error && <Info content="Les données ne sont pas disponibles, revenez plus tard !" />}
         {!error && (
           <>
-            <ButtonGroup variant='contained' aria-label='Basic button group' className='flex-wrap flex'>
+            <ButtonGroup
+              aria-label="Basic button group"
+              className="flex-wrap flex">
               {clubData?.teams.map((team: ClubTeam) => {
                 const id = team.competitions[0].id.toString();
                 return (
                   <Button
-                    size='large'
+                    size="large"
                     key={uuidv4()}
                     className="grow"
                     id={id}
-                    onClick={() => setSelectedTeam(id)}
-                  >
+                    variant={selectedTeam === id ? "contained" : "outlined" }
+                    onClick={() => setSelectedTeam(id)}>
                     {team.shortName}
                   </Button>
                 );

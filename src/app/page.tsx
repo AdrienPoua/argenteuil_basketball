@@ -1,17 +1,15 @@
 "use client";
-import React from "react";
-import LandingPage from "@/components/LandingPage";
 import { v4 as uuidv4 } from "uuid";
-import { NewsType } from "@/types";
 import { NewsCard } from "@/components/Card";
 import { news } from "@/build";
 import { News } from "@/models";
 import { Box, Typography, Link, Container, Grid } from "@mui/material";
+import Image from "next/image";
 
 const NewsContainer = () => {
   const mainNews = News.main(news);
   const secondaryNews = News.secondary(news);
-  const newsToDisplay = News.lastFour(news)
+  const newsToDisplay = News.lastFour(news);
   return (
     <Container maxWidth="xl">
       <Grid
@@ -20,7 +18,8 @@ const NewsContainer = () => {
         className="mb-10">
         <Grid
           item
-          xs={6}>
+          xs={12}
+          md={6}>
           <NewsCard
             data={mainNews}
             sticky
@@ -28,7 +27,8 @@ const NewsContainer = () => {
         </Grid>
         <Grid
           item
-          xs={6}>
+          xs={12}
+          md={6}>
           <Grid
             item
             xs={12}
@@ -38,7 +38,7 @@ const NewsContainer = () => {
           <Grid
             container
             spacing={1}>
-            {newsToDisplay.map((news: News ) => (
+            {newsToDisplay.map((news: News) => (
               <Grid
                 key={uuidv4()}
                 item
@@ -57,32 +57,33 @@ const NewsContainer = () => {
   );
 };
 
+const HeroSection = () => {
+  return (
+    <Box
+      component="main"
+      className="flex flex-col grow">
+      <Box className="h-svh relative">
+        <Box className="absolute h-96 inset-x-0 bottom-0 w-full bg-gradient-to-t from-black"></Box>
+        <Image
+          src={"/images/background.jpg"}
+          alt="background"
+          className="w-full h-full object-cover object-bottom"
+          width={1920}
+          height={1080}
+        />
+      </Box>
+      <Box className="h-16 w-full bg-black"></Box>
+    </Box>
+  );
+};
+
 export default function Home() {
   // Sorting by date and taking the top 4
   return (
     <Box className="bg-black">
-      <LandingPage />
-      <Container
-        maxWidth="xl"
-        className="flex justify-between uppercase items-center mb-16">
-        <Typography className="text-white text-5xl">Latest News</Typography>
-        <Link
-          href="/"
-          className="relative">
-          <Typography className="underline text-2xl me-5 text-white">All news</Typography>
-          <Box
-            sx={{
-              position: "absolute",
-              top: "50%",
-              left: "100%",
-              transform: "translate(-50%, -50%) rotate(-90deg)",
-              content: '""',
-              borderLeft: "10px solid transparent",
-              borderRight: "10px solid transparent",
-              borderTop: "10px solid #fff",
-            }}
-          />
-        </Link>
+      <HeroSection />
+      <Container maxWidth="xl">
+        <Typography className="text-white text-5xl mb-8">Actualités </Typography>
       </Container>
       <NewsContainer />
     </Box>

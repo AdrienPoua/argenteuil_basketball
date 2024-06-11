@@ -53,8 +53,7 @@ const Schedule = ({ data }: { data : Gym } ) => {
                         key={uuidv4()}>
                         <Box className="p-4 bg-blue-500 text-white rounded shadow-md">
                           <Typography
-                            variant="body1"
-                            className="font-semibold">
+                            variant="body1">
                             {slot.team}
                           </Typography>
                           <Typography variant="body2">
@@ -75,7 +74,7 @@ const Schedule = ({ data }: { data : Gym } ) => {
             <Typography
               variant="h6"
               className="p-2">
-              {data.address}
+              {data.address + " " + data.postalCode}
             </Typography>
           </Paper>
         </Grid>

@@ -15,8 +15,16 @@ const config: Config = {
         secondary: ['Roboto', 'sans-serif'],
       },
       colors: {
-        primary: "#1976d2",
-        secondary: "#FF0000",
+        primary: {
+          DEFAULT: '#1976d2',
+          dark: '#004ba0',   
+          light: '#63a4ff',  
+        },
+        secondary: {
+          DEFAULT: '#FF0000',
+          dark: '#b20000',   
+          light: '#ff6666',  
+        },
         white: "#FFFFFF",
         black: "#000000",
       },

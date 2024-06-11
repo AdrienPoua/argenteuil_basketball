@@ -35,7 +35,7 @@ export default function Index() {
           return (
             <Button
               className='flex whitespace-nowrap text-xs md:text-base lg:text-lg '
-              variant='outlined'
+              variant={team.name === selectedTeam ? "contained" : "outlined"}
               key={uuidv4()}
               onClick={() => {
                 setSelectedTeam(team.name);

@@ -9,6 +9,7 @@ import { Box, ClickAwayListener, Typography, Button, Drawer, List, ListItem } fr
 import MenuIcon from "@mui/icons-material/Menu";
 import Arrow from "../Arrow";
 import Logo from "@/components/Logo";
+import { isNotEmpty } from "class-validator";
 
 const Title = ({ title }: { title: string }) => {
   return (
@@ -37,7 +38,7 @@ const Dropdown = ({ data }: { data: NavItemType }) => {
       className={` overflow-hidden ${maxHeight} transition-all duration-300  cursor-pointer`}
       onClick={() => setOpen((toggle) => !toggle)}>
       <Title title={data.title} />
-      {data.subItems.map((item) => (
+      {data.subItems?.map((item) => (
         <ListItem
           key={uuiv4()}
           className="flex justify-end h-12 ">
@@ -68,20 +69,24 @@ function MobileNav({ data }: Readonly<{ data: NavItemType[] }>) {
         open={drawerOpen}
         onClose={toggleDrawer(false)}>
         <Box>
-          <List className="flex flex-col justify-end pt-0">
-            {data.map((item) => (
-              <Dropdown
-                key={uuiv4()}
-                data={item}
-              />
-            ))}
+        <List className="flex flex-col justify-end pt-0">
+            {data.map((item) =>
+              !item.url ? (
+                <Dropdown key={uuiv4()} data={item} />
+              ) : (
+                <ListItem key={uuiv4()} className="flex bg-primary me-9">
+                  <Link href={item.url} className="grow flex justify-end">
+                    <Typography variant="body2">{item.title}</Typography>
+                  </Link>
+                </ListItem>
+              )
+            )}
           </List>
         </Box>
       </Drawer>
     </Box>
   );
 }
-
 
 function DesktopNav({ data, setActiveNav, activeNav }: Readonly<HeaderProps>) {
   return (
@@ -106,7 +111,10 @@ function DesktopNav({ data, setActiveNav, activeNav }: Readonly<HeaderProps>) {
         </Box>
         <Contact />
       </Box>
-      <SubBar data={activeNav} setActiveNav={setActiveNav} />
+      <SubBar
+        data={activeNav}
+        setActiveNav={setActiveNav}
+      />
     </>
   );
 }

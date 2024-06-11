@@ -26,22 +26,22 @@
   },
   {
     "naissance": ["2008", "2009"],
-    "categorie": "U17",
+    "categorie": "U17 (garçons uniquement)",
     "tarif": 260
   },
   {
     "naissance": ["2007", "2008", "2009"],
-    "categorie": "U18F (filles)",
+    "categorie": "U18 (filles uniquement)",
     "tarif": 260
   },
   {
     "naissance": ["2005", "2006"],
-    "categorie": "U20",
+    "categorie": "U20 (garçons uniquement)",
     "tarif": 280
   },
   {
     "naissance": ["2004", " avant"],
-    "categorie": "Seniors",
+    "categorie": "Seniors (hommes uniquement)",
     "tarif": 280
   },
   {
