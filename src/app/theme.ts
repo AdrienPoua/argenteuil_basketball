@@ -8,13 +8,10 @@ const theme = createTheme({
     },
     secondary: {
       main: '#FF0000',
-    },
-    background: {
-      default: 'black', // Ajoutez la couleur de fond globale ici
-    },
+    }
   },
   typography: {
-    fontFamily : 'Evogria',
+    fontFamily : 'Evogria, Roboto',
     body1: {
       color: '#fff',
     },

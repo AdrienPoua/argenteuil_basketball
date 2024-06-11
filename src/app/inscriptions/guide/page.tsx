@@ -30,7 +30,7 @@ export default function Index() {
               <TimelineConnector className='min-h-10' />
             </TimelineSeparator>
             <TimelineContent>
-              <Button component='a' href='/demande_de_licence_2024-2025.pdf' download variant='contained' startIcon={<CloudUploadIcon />}>
+              <Button component='a' href='/documents/demande_de_licence_2024-2025.pdf' download variant='contained' startIcon={<CloudUploadIcon />}>
                 Formulaire
               </Button>
             </TimelineContent>

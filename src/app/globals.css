@@ -14,21 +14,11 @@
 
 @font-face {
   font-family: 'Evogria';
-  src: url('/fonts/Evogria.otf') format('opentype'); /* Assurez-vous que le chemin vers la police est correct */
+  src: url('/fonts/Evogria.otf') format('opentype');
 }
 
 @import '@fontsource/roboto/300.css';
 @import '@fontsource/roboto/400.css';
 @import '@fontsource/roboto/500.css';
 @import '@fontsource/roboto/700.css';
-
-
-
-
-body {
-  background-color: black;
-  min-height: 100svh;
-  font-family: Evogria, sans-serif; 
-  min-width: 100%;
-}
 

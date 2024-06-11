@@ -1,3 +1,4 @@
+import { club } from "@/data/club.json";
 import { Coach, Member, Leader, Player, Team } from "@/models";
 
 export type MatchDataProps = {
@@ -15,22 +16,17 @@ export type NewsType = {
   date: string;
   img: string;
   url: string;
-  rank?: "primary" | "secondary" 
+  rank?: "primary" | "secondary";
+  content: string[];
 };
-
 
 export type NavItemType = {
   title: string;
-  subItems: SubItemType[];
+  subItems?: SubItemType[];
+  url?: string;
 };
 
 export type SubItemType = { title: string; url: string; img: string };
-type MenuState = {
-  isMenuOpen: boolean;
-  setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  subBar: NavItemType | null;
-  setSubBar: React.Dispatch<React.SetStateAction<NavItemType | null>>;
-};
 
 export type MemberType = {
   name: string;
@@ -85,7 +81,7 @@ export type PlanbyPositionType = {
 // Define the type for days of the week
 
 export type LeadershipType = {
-  name : string;
+  name: string;
   number: string;
   email: string;
   teams?: string[];
@@ -95,11 +91,10 @@ export type LeadershipType = {
   isLeader?: boolean;
   isCoach?: boolean;
   job?: string;
-}
-
+};
 
 // Define the type for a gymnasium
-export type GymType  = {
+export type GymType = {
   id: number;
   name: string;
   address: string;
@@ -109,8 +104,6 @@ export type GymType  = {
   img?: string; // Optional image property
   available: string[]; // Array of days the gym is available
 };
-
-
 
 export type TeamType = {
   name: string;
@@ -122,4 +115,3 @@ export type TeamType = {
 };
 
 export type FactoryClass = Member | Coach | Leader | Player | Team;
-

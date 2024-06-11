@@ -7,7 +7,7 @@ import { v4 as uuiv4 } from "uuid";
 import { NavItemType } from "@/types";
 import { Box, ClickAwayListener, Typography, Button, Drawer, List, ListItem } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import Arrow from "./Arrow";
+import Arrow from "../Arrow";
 import Logo from "@/components/Logo";
 
 const Title = ({ title }: { title: string }) => {

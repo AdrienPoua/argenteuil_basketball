@@ -10,7 +10,7 @@ import { Card, CardActionArea, CardContent, Typography, Box, CardMedia, Button, 
 import EmailIcon from "@mui/icons-material/Email";
 import { PhoneIphone } from "@mui/icons-material";
 
-type NewsCardProps = { data: News; small?: boolean; sticky: boolean };
+type NewsCardProps = { data: News; small?: boolean; sticky?: boolean };
 export const NewsCard = ({ data, small, sticky }: NewsCardProps) => {
   const { img, title, url, date } = data;
   return (

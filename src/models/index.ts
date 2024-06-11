@@ -123,6 +123,9 @@ export class News {
   @IsString()
   private _rank?: string;
 
+  @IsArray()
+  private _content: string[] = [];
+
   constructor(data: NewsType) {
     this._id = data.id;
     this._title = data.title;
@@ -130,6 +133,7 @@ export class News {
     this._img = data.img;
     this._url = data.url;
     this._rank = data.rank;
+    this._content = data.content;
   }
 
   // Getters
@@ -141,8 +145,12 @@ export class News {
     return this._title;
   }
 
+  get content(): string[] {
+    return this._content;
+  }
+
   get date(): Date {
-    return new Date(this._date);
+    return new Date(Utils.USA_DATE(this._date));
   }
 
   get img(): string {
@@ -164,6 +172,7 @@ export class News {
   static lastFour(array: News[]): News[] {
     const sortedArray = array.toSorted((a, b) => b.date.getTime() - a.date.getTime());
     const filteredArray = sortedArray.filter((item) => !item.isMain && !item.isSecondary);
+    console.log(filteredArray);
     return filteredArray.slice(0, 4);
   }
 

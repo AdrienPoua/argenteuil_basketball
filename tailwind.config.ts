@@ -1,3 +1,4 @@
+
 // Importez le type Config depuis tailwindcss
 import type { Config } from "tailwindcss";
 
@@ -10,7 +11,8 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Evogria", "sans-serif"],
+        main : ["Evogria", "sans-serif"],
+        secondary: ['Roboto', 'sans-serif'],
       },
       colors: {
         primary: "#1976d2",
@@ -25,6 +27,9 @@ const config: Config = {
         card: "500px",
         bigCard: "1000px",
       },
+      transitionProperty: {
+        'max-height': 'max-height'
+      }
        },
   },
   plugins: [],

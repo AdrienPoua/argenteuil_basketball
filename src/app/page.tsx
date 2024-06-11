@@ -38,7 +38,7 @@ const NewsContainer = () => {
           <Grid
             container
             spacing={1}>
-            {newsToDisplay.map((news: NewsType) => (
+            {newsToDisplay?.map((news: NewsType) => (
               <Grid
                 key={uuidv4()}
                 item
@@ -60,7 +60,7 @@ const NewsContainer = () => {
 export default function Home() {
   // Sorting by date and taking the top 4
   return (
-    <>
+    <Box className="bg-black">
       <LandingPage />
       <Container
         maxWidth="xl"
@@ -85,6 +85,6 @@ export default function Home() {
         </Link>
       </Container>
       <NewsContainer />
-    </>
+    </Box>
   );
 }

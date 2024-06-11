@@ -1,67 +1,33 @@
 [
   {
     "id": 1,
-    "title": "The Shawshank Redemption",
+    "title": "Inscriptions 2024-2025",
     "date": "01/12/2024",
-    "img": "https://picsum.photos/500/800",
-    "url": "/",
-    "type": "main"
+    "img": "/images/news/1.avif",
+    "url": "/actualites/1",
+    "rank": "primary",
+    "content": [
+      "Les inscriptions pour la saison 2024-2025 ouvrent à partir du 19 aout sur rendez-vous.",
+      "Pour prendre rendez-vous, veuillez contacter Mr.DIME au 0670222238.",
+      "Les inscriptions classiques reprennent à partir du 2 septembre au gymnase Jean Guimier. Une permanence sera assurée du lundi au vendredi de 17h00 à 20h00, ainsi que le samedi de 10h00 à 11h00 et de 13h30 à 14h30 au gymnase Jean Guimier pour vous permettre de vous inscrire jusqu'a fin novembre.",
+      "A noter, le certificat médical n’est plus obligatoire pour les mineurs. Celui-ci est remplacé par un questionnaire de santé mineur que vous remplirez lors de votre inscription informatique. Pour les majeurs, il est rappelé qu’un certificat médical peut désormais couvrir 3 saisons sportives et est à enregistrer par vos soin lors de votre inscription informatique, nous n'en avons pas besoin.",
+      "Une photo de type selfie vous sera demandée pour la création de votre licence. Elle est à mettre par vos soin lors de votre inscription informatique, nous n'en avons pas besoin. Veillez à ce qu'elle soit d'actualité",
+      "Tout erreur lors de l'inscription informatique entrainera des retards dans la validation de votre licence. Merci de bien vérifier vos informations avant de valider votre inscription. La photo dois être récente, le certificat médical doit mentionner la pratique du basketball en compétition",
+      "Pour connaitre les étapes de l'inscription, veuillez consulter la page dédiée aux inscriptions."
+    ]
   },
   {
     "id": 2,
-    "title": "The Shawshank Redemption",
+    "title": "Nouveau site internet",
     "date": "03/12/2024",
-    "img": "https://picsum.photos/500/800",
-    "url": "/",
-    "type": "secondary"
-  },
-  {
-    "id": 3,
-    "title": "The Shawshank Redemption",
-    "date": "01/12/2025",
-    "img": "https://picsum.photos/500/800",
-    "url": "/"
-  },
-  {
-    "id": 4,
-    "title": "The Shawshank Redemption",
-    "date": "01/02/2024",
-    "img": "https://picsum.photos/500/800",
-    "url": "/"
-  },
-  {
-    "id": 6,
-    "title": "The Shawshank Redemption",
-    "date": "01/12/2020",
-    "img": "https://picsum.photos/500/800",
-    "url": "/"
-  },
-  {
-    "id": 7,
-    "title": "The Shawshank Redemption",
-    "date": "01/12/2024",
-    "img": "https://picsum.photos/500/800",
-    "url": "/"
-  },
-  {
-    "id": 8,
-    "title": "The Shawshank Redemption",
-    "date": "03/01/2018",
-    "img": "https://picsum.photos/500/800",
-    "url": "/"
-  },
-  {
-    "id": 10,
-    "title": "The Shawshank Redemption",
-    "date": "05/01/2018",
-    "img": "https://picsum.photos/500/800",
-    "url": "/"
-  },
-  {
-    "id": 9,
-    "title": "The Shawshank Redemption",
-    "date": "02/01/2018",
-    "img": "https://picsum.photos/500/800",
-    "url": "/"
+    "img": "/images/news/2.avif",
+    "url": "/actualites/1",
+    "rank": "secondary",
+    "content": [
+      "Le club est fier de vous présenter son nouveau site internet. Il a été pensé pour vous faciliter la vie. Il sera mis régulièrement à jour et vous permettra de suivre l'actualité du club en temps réel. Alors n'hésitez pas à le consulter régulièrement pour ne rien rater.",
+      "Vous y retrouverez toutes les informations nécessaires pour vous inscrire, suivre les résultats de vos équipes, consulter les calendriers des rencontres, les classements, les actualités, les événements, etc...",
+      "N'hésitez pas à nous faire part de vos remarques et suggestions pour améliorer ce site. Toute remarque sera étudiée et prise en compte pour améliorer votre expérience utilisateur. Nous vous remercions d'avance pour votre aide.",
+      "Le site étant nouveau, il est possible que des erreurs soient présentes. Merci de nous les signaler pour que nous puissions les corriger au plus vite. Toutes les informations sur la saison suivante ne sont pas encore disponibles, par exemple les entraineurs, les équipes en compétitions ect... Merci de bien vouloir patientier que la saison commence"
+    ]
   }
 ]

@@ -3,10 +3,11 @@ import { Fab, Zoom, useScrollTrigger } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Box from '@mui/material/Box';
 
-function ScrollTop({children} : Readonly<{ children: React.ReactNode }>) {
+const hasWindow = typeof window !== 'undefined';
 
+function ScrollTop({children} : Readonly<{ children: React.ReactNode }>) {
   const trigger = useScrollTrigger({
-    target: window ?? undefined,
+    target: hasWindow ? window : undefined,
     disableHysteresis: true,
     threshold: 100,
   });

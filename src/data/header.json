@@ -1,31 +1,35 @@
 [
-    {
-        "title": "Club",
-        "subItems": [
-            { "title": "Dirigeants", "url": "/club/dirigeants", "img": "/images/header/dirigeants.avif" },
-            { "title": "Les entraineurs", "url": "/club/entraineurs", "img": "/images/header/entraineurs.avif" },
-            { "title": "Equipes", "url": "/club/equipes", "img": "/images/header/equipes.avif" }
-        ]
-    },
-    {
-        "title": "Entrainements 2024",
-        "subItems": [
-            { "title": "Horaires ", "url": "/entrainements/horaires", "img": "/images/header/horaires.avif" },
-            { "title": "Gymnases", "url": "/entrainements/gymnases", "img": "/images/header/gymnases.avif" }
-        ]
-    },
-    {
-        "title": "Matchs",
-        "subItems": [
-            { "title": "Calendrier", "url": "/matchs/calendrier", "img": "/images/header/calendrier.avif" },
-            { "title": "Résultats", "url": "/matchs/resultats", "img": "/images/header/classement.avif" }
-        ]
-    },
-    {
-        "title": "Inscriptions 2024",
-        "subItems": [
-            { "title": "Guide", "url": "/inscriptions/guide", "img": "/images/header/guide.avif" },
-            { "title": "Tarifs", "url": "/inscriptions/tarifs", "img": "/images/header/tarifs.avif" }
-        ]
-    }
+  {
+    "title": "Club",
+    "subItems": [
+      { "title": "Dirigeants", "url": "/club/dirigeants", "img": "/images/header/dirigeants.avif" },
+      { "title": "Les entraineurs", "url": "/club/entraineurs", "img": "/images/header/entraineurs.avif" },
+      { "title": "Equipes", "url": "/club/equipes", "img": "/images/header/equipes.avif" }
+    ]
+  },
+  {
+    "title": "Entrainements 2024",
+    "subItems": [
+      { "title": "Horaires ", "url": "/entrainements/horaires", "img": "/images/header/horaires.avif" },
+      { "title": "Gymnases", "url": "/entrainements/gymnases", "img": "/images/header/gymnases.avif" }
+    ]
+  },
+  {
+    "title": "Matchs",
+    "subItems": [
+      { "title": "Calendrier", "url": "/matchs/calendrier", "img": "/images/header/calendrier.avif" },
+      { "title": "Résultats", "url": "/matchs/resultats", "img": "/images/header/classement.avif" }
+    ]
+  },
+  {
+    "title": "Inscriptions 2024",
+    "subItems": [
+      { "title": "Guide", "url": "/inscriptions/guide", "img": "/images/header/guide.avif" },
+      { "title": "Tarifs", "url": "/inscriptions/tarifs", "img": "/images/header/tarifs.avif" }
+    ]
+  },
+  {
+    "title": "FAQ",
+    "url": "/faq"
+  }
 ]

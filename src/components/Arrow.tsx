@@ -1,7 +1,8 @@
 import React from 'react'
 import { Box } from '@mui/material'
 
-export default function Arrow() {
+export default function Arrow({direction}: {readonly direction: "right" | "down" | undefined }): JSX.Element {
+
   return (
     <Box
     component="span"
@@ -14,7 +15,8 @@ export default function Arrow() {
       borderStyle: "solid",
       borderWidth: "5px 5px 0",
       borderColor: "#000 transparent transparent transparent",
+      transform: direction === "right" ? "rotate(-90deg)" : "rotate(0deg)",
     }}
   />
-  )
+  );
 }
