@@ -1,4 +1,4 @@
-import { Box, Typography, Container, Grid } from "@mui/material";
+import { Box, Typography, Container } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
 import Image from "next/image";
@@ -23,7 +23,7 @@ const Header = () => {
       <ABBLogo />
       <Box className="flex flex-col justify-center items-center grow">
         <Typography className="text-black">Argenteuil Basketball</Typography>
-        <Typography className="text-black">Espace Nelson Mandela - 92 Bd du Général Leclerc 95100 Argenteuil</Typography>
+        <Typography className="text-black">Espace Nelson Mandela - 92 Bd du Général Leclerc 95100 Argenteuil&apos;</Typography>
         <Box className="flex gap-10 mt-2">
           <Typography className="text-black">
             <PhoneIcon /> : 06 70 22 22 38
@@ -77,7 +77,7 @@ const Sign = () => {
   );
 };
 
-const Content = ({ text }) => {
+const Content = ({ text } : { text : string }) => {
   return (
     <Container className="my-4 flex grow flex-col item-center mt-24 leading-10">
       <Typography

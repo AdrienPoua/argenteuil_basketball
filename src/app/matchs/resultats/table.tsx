@@ -1,8 +1,6 @@
-import React from "react";
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Box } from "@mui/material";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
-import { Ranking, Team } from "@/models/api";
-import { Rowing } from "@mui/icons-material";
+import { Ranking } from "@/models/api";
 
 type TableProps = {
   data: Ranking;
@@ -21,7 +19,7 @@ const ClassementTable = ({ data }: TableProps) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.rankingTeams.map((row) => (
+            {data.teams.map((row) => (
               <TableRow key={uuidv4()}>
                 <TableCell component="th" scope="row"  className="w-[1%] whitespace-nowrap font-bold"> 
                   {row.rank}
