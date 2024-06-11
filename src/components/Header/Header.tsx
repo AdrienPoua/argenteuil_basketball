@@ -106,7 +106,7 @@ function DesktopNav({ data, setActiveNav, activeNav }: Readonly<HeaderProps>) {
         </Box>
         <Contact />
       </Box>
-      <SubBar data={activeNav} />
+      <SubBar data={activeNav} setActiveNav={setActiveNav} />
     </>
   );
 }

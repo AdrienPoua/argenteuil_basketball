@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box } from '@mui/material'
 
-export default function Arrow({direction}: {readonly direction: "right" | "down" | undefined }): JSX.Element {
+export default function Arrow({direction}: {readonly direction? : "right" | "down" }): JSX.Element {
 
   return (
     <Box

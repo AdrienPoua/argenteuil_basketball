@@ -38,7 +38,7 @@ const NewsContainer = () => {
           <Grid
             container
             spacing={1}>
-            {newsToDisplay?.map((news: NewsType) => (
+            {newsToDisplay.map((news: News ) => (
               <Grid
                 key={uuidv4()}
                 item
