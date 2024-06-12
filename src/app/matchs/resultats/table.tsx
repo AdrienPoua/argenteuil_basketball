@@ -1,5 +1,4 @@
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
-import { v4 as uuidv4 } from "uuid";
 import { Ranking } from "@/models/api";
 
 type TableProps = {
@@ -27,7 +26,9 @@ export default function ClassementTable({ data }: Readonly<TableProps>): JSX.Ele
                 <TableCell component="th" scope="row" className="w-[1%] whitespace-nowrap font-bold">
                   {row.rank }
                 </TableCell>
-                <TableCell>{row.name} {isABB && row.rank <= 2 && Ranking.getJo(row) <= 3 && "🔥" }</TableCell>
+                <TableCell>
+                  {row.name}{" "}
+                </TableCell>
                 <TableCell>{Ranking.getPts(row)}</TableCell>
                 <TableCell>{Ranking.getJo(row)}</TableCell>
                 <TableCell>{Ranking.getG(row)}</TableCell>
