@@ -364,13 +364,13 @@ export class Utils {
     const [day, month, year] = frenchDate.split("/");
     return `${year}/${month}/${day}`;
   }
-  static dateString(data: string) {
-    const options = {
-      weekday: "short",
-      day: "numeric",
-      month: "short",
-      year: "2-digit",
-    };
-    return new Date(data).toLocaleDateString("fr-FR", options).toUpperCase();
+  static dateString(data: Date ) {
+      const options = {
+        weekday: "short", 
+        day: "numeric",
+        month: "short",
+        year: "2-digit",
+      };
+      return data.toLocaleDateString("fr-FR", options).toUpperCase();
   }
 }
