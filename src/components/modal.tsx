@@ -58,7 +58,8 @@ export default function BasicModal() {
       <Button
         onClick={handleOpen}
         variant="contained"
-        color="primary">
+        color="primary"
+        >
         <Typography
           variant="body1"
           className="tracking-widest font-thin">
@@ -81,7 +82,7 @@ export default function BasicModal() {
           />
           <OpenContact
             icon={<PhoneIphoneIcon color="primary" />}
-            text={Utils.formatPhoneNumber(club.number)}
+            text={isMobile ? club.number : Utils.formatPhoneNumber(club.number)}
             isMobile={isMobile}
           />
         </Box>

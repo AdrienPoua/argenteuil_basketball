@@ -34,7 +34,6 @@ export const NewsCard = ({ data, small, sticky }: NewsCardProps) => {
     </Card>
   );
 };
-
 export const LeaderCard = ({ data }: { data: Leadership }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -84,7 +83,7 @@ export const LeaderCard = ({ data }: { data: Leadership }) => {
           } hover:scale-125 transition duration-200 ease-in-out`}>
           {!clicked && <PhoneIphone className="relative" />}
           <Typography className={`absolute transition-all duration-200 text-center ease-in-out ${clicked ? "w-full" : "max-w-0"} overflow-hidden tracking-wider` }>
-            {Utils.formatPhoneNumber(data.number)}
+          {isMobile ? data.number : Utils.formatPhoneNumber(data.number)}
           </Typography>
         </Button>
         <Button
