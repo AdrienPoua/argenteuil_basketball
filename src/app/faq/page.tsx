@@ -9,11 +9,11 @@ import Arrow from "@/components/Arrow";
 const Question = ({ question, isOpen }: { question: string; isOpen: boolean }) => {
   return (
     <Button
-      className="flex justify-between items-center w-full p-4"
+      className="flex justify-between items-center w-full p-4 "
       variant="contained"
       aria-expanded={isOpen}
     >
-      <Typography variant="body2" className="text-xl ">{question}</Typography>
+      <Typography variant="body2" className="text-xs md:text-base text-center size-full">{question}</Typography>
       <Arrow direction={isOpen ? "down" : "right"} />
     </Button>
   );
@@ -26,7 +26,7 @@ const Answer = ({ answer, isOpen }: { answer: string; isOpen: boolean }) => {
       className={` transition-all duration-300 ${isOpen ? 'max-h-96  py-5  ' : 'max-h-0 '}`}
       style={{ overflow: 'hidden' }}
     >
-      <Typography variant="body2" className="ms-4">{answer}</Typography>
+      <Typography variant="body2" className="ms-4 text-xs md:text-base">{answer}</Typography>
     </Paper>
   );
 };

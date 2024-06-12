@@ -27,6 +27,17 @@ const theme = createTheme({
     },
   },
   components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          '&.Mui-disabled': {
+            backgroundColor: 'gray',
+            color: 'white',
+            borderColor: 'gray',
+          },
+        },
+      },
+    },
   },
 });
 

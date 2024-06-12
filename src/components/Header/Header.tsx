@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { NavItem } from "@/components/Header/NavItem";
-import Contact from "@/components/Header/modal";
+import Contact from "@/components/modal";
 import SubBar from "@/components/Header/SubBar";
 import { v4 as uuiv4 } from "uuid";
 import { NavItemType } from "@/types";
@@ -9,7 +9,6 @@ import { Box, ClickAwayListener, Typography, Button, Drawer, List, ListItem } fr
 import MenuIcon from "@mui/icons-material/Menu";
 import Arrow from "../Arrow";
 import Logo from "@/components/Logo";
-import { isNotEmpty } from "class-validator";
 
 const Title = ({ title }: { title: string }) => {
   return (
@@ -54,7 +53,7 @@ const Dropdown = ({ data }: { data: NavItemType }) => {
 function MobileNav({ data }: Readonly<{ data: NavItemType[] }>) {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const toggleDrawer = (open: boolean) => (event) => {
+  const toggleDrawer = (open: boolean) => () => {
     setDrawerOpen(open);
   };
 
