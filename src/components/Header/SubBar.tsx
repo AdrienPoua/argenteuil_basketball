@@ -1,14 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
-import { NavItemType } from "@/types";
+import { NavItemType, SubItemType } from "@/types";
 import { v4 as uuidv4 } from "uuid";
 import { Box, Typography } from "@mui/material";
 
-type ItemProps = {
-  data: SubItemsType;
-};
-
-const Item = ({ data }: ItemProps) => {
+const Item = ({ data }: { data: SubItemType }) => {
   return (
     <Link
       href={data.url}
@@ -31,16 +27,12 @@ const Item = ({ data }: ItemProps) => {
   );
 };
 
-type SubBarProps = {
-  data: NavItemType;
-};
-
-export default function SubBar({ data }: SubBarProps) {
+export default function SubBar({ data }: Readonly<{ data: NavItemType }>) {
   return (
-    <Box className="flex gap-24 bg-white border-none py-1 justify-center items-center transition-all duration-300">
-      {data.subItems?.map((item: SubItemsType) => (
+    <Box className="flex gap-24 bg-white Readonly<SubBarProps> py-1 justify-center items-center transition-all duration-300">
+      {data.subItems?.map((item: SubItemType) => (
         <Item
-          data={item}
+          data={item }
           key={uuidv4()}
         />
       ))}

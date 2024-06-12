@@ -116,7 +116,6 @@ function DesktopNav({ data, setActiveNav, activeNav }: Readonly<HeaderProps>) {
     <>
       <Box className="lg:flex hidden">
         <Logo />
-
         <Box
           component={"nav"}
           className="flex grow items-center">
