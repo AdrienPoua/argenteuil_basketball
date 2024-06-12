@@ -1,16 +1,10 @@
 "use client";
 import { v4 as uuidv4 } from "uuid";
-import toast from "react-hot-toast";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Utils, Team, Leadership, Gym, News } from "@/models";
-import Snackbar from "@mui/material/Snackbar";
-import SnackbarContent from "@mui/material/SnackbarContent";
-
-
-import { Card, CardActionArea, CardContent, Typography, Box, CardMedia, Button, List } from "@mui/material";
-import { useTheme, useMediaQuery } from "@mui/material";
+import { Card, CardActionArea, CardContent, Typography, Box, CardMedia, Button, List, useTheme, useMediaQuery } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import { PhoneIphone } from "@mui/icons-material";
 
@@ -45,7 +39,6 @@ export const LeaderCard = ({ data }: { data: Leadership }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [clicked, setClicked] = useState(false);
-  const [snackOpen, setSnackOpen] = useState(false);
 
   const handleClick = (text: string) => {
     if (isMobile && text.includes("@")) {
@@ -55,61 +48,44 @@ export const LeaderCard = ({ data }: { data: Leadership }) => {
     } else if (!isMobile && text.includes("@")) {
       window.location.href = `mailto:${text}`;
     } else {
-      navigator.clipboard.writeText(text);
-      setSnackOpen(true);
+      setClicked(!clicked);
     }
   };
 
-  useEffect(() => {
-    if (clicked) {
-      const timer = setTimeout(() => setClicked(false), 500);
-      return () => clearTimeout(timer);
-    }
-  }, [clicked]);
-
   return (
     <Card className="relative w-card h-card rounded-lg overflow-hidden inline-block ">
-      <Snackbar
-        open={snackOpen}
-        autoHideDuration={2000}
-        onClose={() => setSnackOpen(false)}
-        message="Numéro copié dans le presse-papier"
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-        color="primary">
-        <SnackbarContent
-          className="bg-primary"
-          message="Numéro copié dans le press papier"
-        />
-      </Snackbar>
       <CardMedia
         component="img"
         image={data.img}
         className="w-full h-full absolute inset-0"
       />
-      <Box className="absolute left-0 bottom-0 w-52 h-28 bg-white opacity-90 transform -skew-x-12 ">
-        <Box className="absolute w-56 h-24 bg-primary flex flex-col justify-center items-center">
-          {" "}
-          <Typography
-            variant="h6"
-            className="text-black transform skew-x-12">
-            {data.name}
-          </Typography>
-          <Typography
-            component="h2"
-            className="text-center">
-            {data.job ? data.job : data.teams ? data.teams.join(" | ") : ""}
-          </Typography>
-        </Box>
+      <Box className="absolute bottom-8 min-w-52 px-5 py-2 bg-primary flex flex-col justify-center items-center">
+        {" "}
+        <Typography
+          variant="h6"
+          className="text-black  ">
+          {data.name}
+        </Typography>
+        <Typography
+          component="h2"
+          className="text-center">
+          {data.job ? data.job : data.teams ? data.teams.join(" | ") : ""}
+        </Typography>
       </Box>
-      <List className="absolute flex gap-2 bottom-6 left-60">
+      <List className="absolute flex gap-5 bottom-8 left-60">
         <Button
           component="li"
           variant="contained"
           disabled={!data.isNumberDisplayed}
           onClick={() => handleClick(data.number)}
           color="secondary"
-          className="flex items-center justify-center w-16 aspect-square  rounded-full hover:scale-125 transition duration-200 ease-in-out">
-          <PhoneIphone className="relative" />
+          className={`relative flex items-center justify-center ${
+            clicked ? "w-36" : "rounded-full"
+          } hover:scale-125 transition duration-200 ease-in-out`}>
+          {!clicked && <PhoneIphone className="relative" />}
+          <Typography className={`absolute transition-all duration-200 text-center ease-in-out ${clicked ? "w-full" : "max-w-0"} overflow-hidden tracking-wider` }>
+            {Utils.formatPhoneNumber(data.number)}
+          </Typography>
         </Button>
         <Button
           component="li"
@@ -117,7 +93,7 @@ export const LeaderCard = ({ data }: { data: Leadership }) => {
           disabled={!data.isEmailDisplayed}
           onClick={() => handleClick(data.email)}
           color="secondary"
-          className="flex items-center justify-center w-16 aspect-square  rounded-full hover:scale-125 transition duration-200 ease-in-out">
+          className="flex items-center justify-center w-16 aspect-square rounded-full hover:scale-125 transition duration-200 ease-in-out">
           <EmailIcon />
         </Button>
       </List>

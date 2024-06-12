@@ -1,4 +1,3 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -8,19 +7,17 @@ import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import EmailIcon from "@mui/icons-material/Email";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import Snackbar from "@mui/material/Snackbar";
-import { SnackbarContent } from "@mui/material";
+import { Utils } from "@/models";
+import { useCallback, useState } from "react";
 
 const OpenContact = ({
   icon,
   text,
   isMobile,
-  setSnackOpen,
 }: {
   icon: JSX.Element;
   text: string;
   isMobile: boolean;
-  setSnackOpen: (x: boolean) => void;
 }) => {
   const handleClick = () => {
     if (isMobile && text.includes("@")) {
@@ -30,8 +27,7 @@ const OpenContact = ({
     } else if (!isMobile && text.includes("@")) {
       window.location.href = `mailto:${text}`;
     } else {
-      navigator.clipboard.writeText(text);
-      setSnackOpen(true);
+      return
     }
   };
 
@@ -51,25 +47,14 @@ const OpenContact = ({
 };
 
 export default function BasicModal() {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = React.useCallback(() => setOpen(true), []);
-  const handleClose = React.useCallback(() => setOpen(false), []);
+  const [open, setOpen] = useState(false);
+  const handleOpen = useCallback(() => setOpen(true), []);
+  const handleClose = useCallback(() => setOpen(false), []);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const [snackOpen, setSnackOpen] = React.useState(false);
 
   return (
     <Box className="flex justify-center items-center ">
-      <Snackbar
-        open={snackOpen}
-        autoHideDuration={2000}
-        onClose={() => setSnackOpen(false)}
-        message="Numéro copié dans le presse-papier"
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-        color="primary"
-      >
-        <SnackbarContent className="bg-primary" message="Numéro copié dans le press papier" />
-      </Snackbar>
       <Button
         onClick={handleOpen}
         variant="contained"
@@ -93,13 +78,11 @@ export default function BasicModal() {
             icon={<EmailIcon color="primary" />}
             text={club.email}
             isMobile={isMobile}
-            setSnackOpen={setSnackOpen}
           />
           <OpenContact
             icon={<PhoneIphoneIcon color="primary" />}
-            text={club.number}
+            text={Utils.formatPhoneNumber(club.number)}
             isMobile={isMobile}
-            setSnackOpen={setSnackOpen}
           />
         </Box>
       </Modal>

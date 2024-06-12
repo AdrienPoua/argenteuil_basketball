@@ -1,5 +1,5 @@
 import { TeamType, TrainingType, GymType, LeadershipType, NewsType } from "@/types";
-import { IsEmail, IsString, Length, IsOptional, IsBoolean, IsArray, IsNumber, IsUrl } from "class-validator";
+import { IsEmail, IsString, Length, IsOptional, IsBoolean, IsArray, IsNumber } from "class-validator";
 
 export class Leadership implements LeadershipType {
   @IsString()
@@ -364,6 +364,10 @@ export class Utils {
     const [day, month, year] = dateString.split('/').map(Number);
     return new Date(year, month - 1, day); // Les mois sont 0-indexés en JavaScript
   }
+  static formatPhoneNumber(number : string) {
+    return number.replace(/(\d{2})(?=\d)/g, '$1.');
+  }
+  
   static formatDate(data: Date, options?: Intl.DateTimeFormatOptions): string {
     if (!(data instanceof Date) || isNaN(data.getTime())) {
       throw new Error('Invalid Date');
