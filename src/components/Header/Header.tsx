@@ -1,3 +1,4 @@
+"use client";
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { NavItem } from "@/components/Header/NavItem";
@@ -9,6 +10,7 @@ import { Box, ClickAwayListener, Typography, Button, Drawer, List, ListItem } fr
 import MenuIcon from "@mui/icons-material/Menu";
 import Arrow from "../Arrow";
 import Logo from "@/components/Logo";
+import { usePathname } from "next/navigation";
 
 const Title = ({ title }: { title: string }) => {
   return (
@@ -52,6 +54,14 @@ const Dropdown = ({ data }: { data: NavItemType }) => {
 
 function MobileNav({ data }: Readonly<{ data: NavItemType[] }>) {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const pathname = usePathname();
+  useEffect(() => {
+    const handleRouteChange = () => {
+      setDrawerOpen(false);
+    };
+    handleRouteChange();
+    return () => {};
+  }, [pathname]);
 
   const toggleDrawer = (open: boolean) => () => {
     setDrawerOpen(open);
@@ -60,6 +70,7 @@ function MobileNav({ data }: Readonly<{ data: NavItemType[] }>) {
   return (
     <Box className="flex grow lg:hidden justify-between">
       <Logo />
+      <Contact />
       <Button onClick={toggleDrawer(true)}>
         <MenuIcon />
       </Button>
@@ -68,13 +79,20 @@ function MobileNav({ data }: Readonly<{ data: NavItemType[] }>) {
         open={drawerOpen}
         onClose={toggleDrawer(false)}>
         <Box>
-        <List className="flex flex-col justify-end pt-0">
+          <List className="flex flex-col justify-end pt-0">
             {data.map((item) =>
               !item.url ? (
-                <Dropdown key={uuiv4()} data={item} />
+                <Dropdown
+                  key={uuiv4()}
+                  data={item}
+                />
               ) : (
-                <ListItem key={uuiv4()} className="flex bg-primary me-9">
-                  <Link href={item.url} className="grow flex justify-end">
+                <ListItem
+                  key={uuiv4()}
+                  className="flex bg-primary me-9">
+                  <Link
+                    href={item.url}
+                    className="grow flex justify-end me-5">
                     <Typography variant="body2">{item.title}</Typography>
                   </Link>
                 </ListItem>
@@ -86,6 +104,12 @@ function MobileNav({ data }: Readonly<{ data: NavItemType[] }>) {
     </Box>
   );
 }
+
+type HeaderProps = {
+  data: NavItemType[];
+  setActiveNav: (data: NavItemType) => void;
+  activeNav: NavItemType;
+};
 
 function DesktopNav({ data, setActiveNav, activeNav }: Readonly<HeaderProps>) {
   return (
@@ -110,10 +134,7 @@ function DesktopNav({ data, setActiveNav, activeNav }: Readonly<HeaderProps>) {
         </Box>
         <Contact />
       </Box>
-      <SubBar
-        data={activeNav}
-        setActiveNav={setActiveNav}
-      />
+      <SubBar data={activeNav} />
     </>
   );
 }
@@ -121,6 +142,14 @@ function DesktopNav({ data, setActiveNav, activeNav }: Readonly<HeaderProps>) {
 export default function Header({ data }: Readonly<{ data: NavItemType[] }>) {
   const [activeNav, setActiveNav] = useState<NavItemType>({ title: "", subItems: [] });
   const headerRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+  useEffect(() => {
+    const handleRouteChange = () => {
+      setActiveNav({ title: "", subItems: [] });
+    };
+    handleRouteChange();
+    return () => {};
+  }, [pathname]);
 
   useEffect(() => {
     const handleMouseDown = (e: MouseEvent) => {
@@ -150,11 +179,7 @@ export default function Header({ data }: Readonly<{ data: NavItemType[] }>) {
           setActiveNav={setActiveNav}
           activeNav={activeNav}
         />
-        <MobileNav
-          data={data}
-          setActiveNav={setActiveNav}
-          activeNav={activeNav}
-        />
+        <MobileNav data={data} />
       </Box>
     </ClickAwayListener>
   );
