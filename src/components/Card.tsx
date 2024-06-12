@@ -5,14 +5,19 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Utils, Team, Leadership, Gym, News } from "@/models";
+import Snackbar from "@mui/material/Snackbar";
+import SnackbarContent from "@mui/material/SnackbarContent";
+
 
 import { Card, CardActionArea, CardContent, Typography, Box, CardMedia, Button, List } from "@mui/material";
+import { useTheme, useMediaQuery } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import { PhoneIphone } from "@mui/icons-material";
 
 type NewsCardProps = { data: News; small?: boolean; sticky?: boolean };
 export const NewsCard = ({ data, small, sticky }: NewsCardProps) => {
   const { img, title, url, date } = data;
+  const formatedDate = Utils.formatDate(date, { month: "long", day: "numeric", year: "numeric" });
   return (
     <Card className={`${sticky ? "sticky top-0" : ""}  rounded-3xl`}>
       <Link
@@ -29,7 +34,7 @@ export const NewsCard = ({ data, small, sticky }: NewsCardProps) => {
         </Box>
         <CardContent className="t">
           <Typography variant="h6">{title}</Typography>
-          <Typography variant="body2">{Utils.dateString(date)}</Typography>
+          <Typography variant="body2">{formatedDate}</Typography>
         </CardContent>
       </Link>
     </Card>
@@ -37,24 +42,21 @@ export const NewsCard = ({ data, small, sticky }: NewsCardProps) => {
 };
 
 export const LeaderCard = ({ data }: { data: Leadership }) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [clicked, setClicked] = useState(false);
+  const [snackOpen, setSnackOpen] = useState(false);
 
-  const EMAIL_NOTIFICATION = "Email copié dans le press-papier";
-  const NUMBER_NOTIFICATION = "Numéro copié dans le press-papier";
-
-  const notify = (data: string) => {
-    const message = data.includes("@") ? EMAIL_NOTIFICATION : NUMBER_NOTIFICATION;
-    toast.success(message, {
-      position: "bottom-center",
-      duration: 5000,
-    });
-  };
-
-  const handleClick = (data: string) => {
-    if (!clicked) {
-      navigator.clipboard.writeText(data);
-      notify(data);
-      setClicked(true);
+  const handleClick = (text: string) => {
+    if (isMobile && text.includes("@")) {
+      window.location.href = `mailto:${text}`;
+    } else if (isMobile) {
+      window.location.href = `tel:${text}`;
+    } else if (!isMobile && text.includes("@")) {
+      window.location.href = `mailto:${text}`;
+    } else {
+      navigator.clipboard.writeText(text);
+      setSnackOpen(true);
     }
   };
 
@@ -67,6 +69,18 @@ export const LeaderCard = ({ data }: { data: Leadership }) => {
 
   return (
     <Card className="relative w-card h-card rounded-lg overflow-hidden inline-block ">
+      <Snackbar
+        open={snackOpen}
+        autoHideDuration={2000}
+        onClose={() => setSnackOpen(false)}
+        message="Numéro copié dans le presse-papier"
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        color="primary">
+        <SnackbarContent
+          className="bg-primary"
+          message="Numéro copié dans le press papier"
+        />
+      </Snackbar>
       <CardMedia
         component="img"
         image={data.img}

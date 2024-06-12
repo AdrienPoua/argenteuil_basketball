@@ -149,7 +149,7 @@ export class News {
   }
 
   get date(): Date {
-    return new Date(Utils.USA_DATE(this._date));
+    return new Date(Utils.parseDate(this._date));
   }
 
   get img(): string {
@@ -360,17 +360,24 @@ export class Gym implements GymType {
 }
 
 export class Utils {
-  static USA_DATE(frenchDate: string) {
-    const [day, month, year] = frenchDate.split("/");
-    return `${year}/${month}/${day}`;
+  static parseDate(dateString: string): Date {
+    const [day, month, year] = dateString.split('/').map(Number);
+    return new Date(year, month - 1, day); // Les mois sont 0-indexés en JavaScript
   }
-  static dateString(data: string) {
-    const options = {
-      weekday: "short",
-      day: "numeric",
-      month: "short",
-      year: "2-digit",
+  static formatDate(data: Date, options?: Intl.DateTimeFormatOptions): string {
+    if (!(data instanceof Date) || isNaN(data.getTime())) {
+      throw new Error('Invalid Date');
+    }
+
+    const defaultOptions: Intl.DateTimeFormatOptions = {
+      weekday: 'short',
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric',
     };
-    return new Date(data).toLocaleDateString("fr-FR", options).toUpperCase();
+
+    const formatOptions = options ? { ...defaultOptions, ...options } : defaultOptions;
+
+    return data.toLocaleDateString('fr-FR', formatOptions).toUpperCase();
   }
 }
