@@ -6,7 +6,9 @@
       "city": "Argenteuil",
       "postalCode": "95100",
       "phone": "0139822313",
-      "available": ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"]
+      "available": ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
+      "lat" : 48.94724476527668,
+      "lng" : 2.2299227538909374
     },
     {
       "id": 2,
@@ -15,7 +17,8 @@
       "city": "Argenteuil",
       "postalCode": "95100",
       "phone": "0139807820",
-      "available": ["Lundi", "Mercredi", "Jeudi", "Vendredi"]
+      "available": ["Lundi", "Mercredi", "Jeudi", "Vendredi"],
+      "lat" : 48.93969991135115,
+      "lng" : 2.2107695269051986
     }
   ]
-  
