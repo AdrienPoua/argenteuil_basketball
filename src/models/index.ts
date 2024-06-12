@@ -1,6 +1,5 @@
 import { TeamType, TrainingType, GymType, LeadershipType, NewsType } from "@/types";
-import staff from "@/data/leadership.json";
-import { IsEmail, IsString, Length, IsOptional, IsBoolean, IsArray, IsNumber, IsUrl, IsDate, is } from "class-validator";
+import { IsEmail, IsString, Length, IsOptional, IsBoolean, IsArray, IsNumber, IsUrl } from "class-validator";
 
 export class Leadership implements LeadershipType {
   @IsString()
@@ -116,12 +115,12 @@ export class News {
   @IsString()
   private _img?: string;
 
-  @IsUrl()
+  @IsString()
   private _url: string;
 
   @IsOptional()
   @IsString()
-  private _rank?: string;
+  private _rank?: "primary" | "secondary";
 
   @IsArray()
   private _content: string[] = [];

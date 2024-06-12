@@ -26,28 +26,18 @@ export const news : News[] = newsData.map((news) => new News(news));
 
 
 
-
-
-
-
-// validate(leadership).then((errors: ValidationError[]) => {
-//     if (errors.length > 0) {
-//         console.log("Validation failed. Errors: ", errors);
-//     } else {
-//         console.log("Validation succeed");
-//     }
-//     });
-
-
-// validate(teams).then((errors: ValidationError[]) => {
-//     if (errors.length > 0) {
-//         console.log("Validation failed. Errors: ", errors);
-//     } else {
-//         console.log("Validation succeed");
-//     }
-//     });
-
-
-    
-
-
+async function validateData(data: any[], className: string) {
+    for (const item of data) {
+      const errors = await validate(item);
+      if (errors.length > 0) {
+        console.error(`Validation failed for ${className}. Errors: `, errors);
+      } else {
+        console.log(`Validation succeed for ${className}`);
+      }
+    }
+  }
+  
+  validateData(leadership, 'Leadership');
+  validateData(teams, 'Team');
+  validateData(gyms, 'Gym');
+  validateData(news, 'News');

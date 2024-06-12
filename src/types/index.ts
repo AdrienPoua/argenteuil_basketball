@@ -1,6 +1,3 @@
-import { club } from "@/data/club.json";
-import { Coach, Member, Leader, Player, Team } from "@/models";
-
 export type MatchDataProps = {
   Division: string;
   "N° de match": string;
@@ -113,5 +110,3 @@ export type TeamType = {
   isChampionship?: boolean;
   division?: string;
 };
-
-export type FactoryClass = Member | Coach | Leader | Player | Team;
