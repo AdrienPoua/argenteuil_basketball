@@ -14,7 +14,7 @@ export default function App({ children} : Readonly<{ children: React.ReactNode}>
   
   return (
     <html lang='fr'>
-      <body className='flex flex-col font-main min-h-svh'>
+      <body className='flex flex-col font-main min-h-svh '>
          {!noLayout && <Header data={headerData} /> }
         {children}
         {!noLayout && <Footer  /> }
