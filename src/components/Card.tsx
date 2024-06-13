@@ -12,6 +12,9 @@ import { PhoneIphone } from "@mui/icons-material";
 
 type NewsCardProps = { data: News; small?: boolean; sticky?: boolean };
 export const NewsCard = ({ data, small, sticky }: NewsCardProps) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   const { img, title, url, date } = data;
   const formatedDate = Utils.formatDate(date, { month: "long", day: "numeric", year: "numeric" });
   return (
@@ -24,11 +27,11 @@ export const NewsCard = ({ data, small, sticky }: NewsCardProps) => {
             component="img"
             image={img}
             alt={title}
-            className={`${small ? "h-card" : "h-bigCard"}`}
+            className={`${small || isMobile ? "h-card" : "h-bigCard"}`}
           />
           <Box className="absolute inset-0 bg-black bg-opacity-50" />
         </Box>
-        <CardContent className="t">
+        <CardContent>
           <Typography variant="h6">{title}</Typography>
           <Typography variant="body2">{formatedDate}</Typography>
         </CardContent>
@@ -60,47 +63,47 @@ export const LeaderCard = ({ data }: { data: Leadership }) => {
         image={data.img}
         className="w-full h-full absolute inset-0"
       />
-      <Box className="absolute bottom-8 min-w-52 px-5 py-2 bg-primary flex flex-col justify-center items-center">
-        {" "}
-        <Typography
-          variant="h6"
-          className="text-black  ">
-          {data.name}
-        </Typography>
-        <Typography
-          component="h2"
-          className="text-center">
-          {data.job ? data.job : data.teams ? data.teams.join(" | ") : ""}
-        </Typography>
-      </Box>
-      <List className="absolute flex gap-5 bottom-8 left-60">
-        <Button
-          component="li"
-          variant="contained"
-          disabled={!data.isNumberDisplayed}
-          onClick={() => handleClick(data.number)}
-          color="secondary"
-          className={`relative flex items-center justify-center ${
-            clicked ? "w-36" : "rounded-full"
-          } hover:scale-125 transition duration-200 ease-in-out`}>
-          {!clicked && <PhoneIphone className="relative" />}
-          <Typography
-            className={`absolute transition-all duration-200 text-center ease-in-out ${
-              clicked ? "w-full" : "max-w-0"
-            } overflow-hidden tracking-wider`}>
-            {isMobile ? data.number : Utils.formatPhoneNumber(data.number)}
-          </Typography>
-        </Button>
-        <Button
-          component="li"
-          variant="contained"
-          disabled={!data.isEmailDisplayed}
-          onClick={() => handleClick(data.email)}
-          color="secondary"
-          className="flex items-center justify-center w-16 aspect-square rounded-full hover:scale-125 transition duration-200 ease-in-out">
-          <EmailIcon />
-        </Button>
-      </List>
+      <CardContent className="absolute inset-0 flex items-end">
+        <Box className="flex flex-col justify-center items-center gap-2 grow">
+          <Box className=" px-5 py-2 bg-primary flex flex-col justify-center items-center w-full rounded-md ">
+            {" "}
+            <Typography className="text-xs md:text-base text-black">{data.name}</Typography>
+            <Typography
+              component="h2"
+              className="text-center">
+              {data.job ? data.job : data.teams ? data.teams.join(" | ") : ""}
+            </Typography>
+          </Box>
+          <List className=" flex gap-5">
+            <Button
+              component="li"
+              variant="contained"
+              disabled={!data.isNumberDisplayed}
+              onClick={() => handleClick(data.number)}
+              color="secondary"
+              className={`relative flex items-center justify-center ${
+                clicked ? "w-36" : "rounded-full"
+              } hover:scale-125 transition duration-200 ease-in-out`}>
+              {!clicked && <PhoneIphone className="relative" />}
+              <Typography
+                className={`absolute transition-all duration-200 text-center ease-in-out ${
+                  clicked ? "w-full" : "max-w-0"
+                } overflow-hidden tracking-wider`}>
+                {isMobile ? data.number : Utils.formatPhoneNumber(data.number)}
+              </Typography>
+            </Button>
+            <Button
+              component="li"
+              variant="contained"
+              disabled={!data.isEmailDisplayed}
+              onClick={() => handleClick(data.email)}
+              color="secondary"
+              className="flex items-center justify-center w-16 aspect-square rounded-full hover:scale-125 transition duration-200 ease-in-out">
+              <EmailIcon />
+            </Button>
+          </List>
+        </Box>
+      </CardContent>
     </Card>
   );
 };
@@ -198,16 +201,16 @@ export const TeamCard = ({ data }: { data: Team }) => {
 };
 
 // Réglez le problème avec les icônes Leaflet
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png",
-  iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
-  shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
-});
 
 export const GymCard = ({ data }: { data: Gym }) => {
   const [isClicked, setIsClicked] = useState(false);
   const mapRef = useRef<HTMLDivElement>(null);
   const center = [data.lat, data.lng];
+  L.Icon.Default.mergeOptions({
+    iconRetinaUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png",
+    iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
+    shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
+  });
 
   const handleClick = (e: MouseEvent<HTMLDivElement>) => {
     if (mapRef.current?.contains(e.target as Node)) {

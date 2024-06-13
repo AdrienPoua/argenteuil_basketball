@@ -2,31 +2,29 @@
 import Layout from "@/layout/main";
 import { Container, Button, Typography } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import docs from "@/data/documents.json";
-import { v4 as uuidv4 } from "uuid";
+import { documents } from "@/build";
 
-const Download = ({ data }: { data: { title: string; url: string } }) => {
-  return (
-    <Button
-      component="a"
-      href={data.url}
-      download
-      variant="contained"
-      startIcon={<CloudUploadIcon />}>
-      <Typography className="leading-10 tracking-wider text-xs md:text-base "> {data.title} </Typography>
-    </Button>
-  );
-};
-export default function Index() {
+const DownloadButton = ({ document }: { document: { id: string; title: string; url: string } }) => (
+  <Button
+    component="a"
+    href={document.url}
+    download
+    variant="contained"
+    startIcon={<CloudUploadIcon />}>
+    <Typography className="leading-10 tracking-wider text-xs md:text-base">{document.title}</Typography>
+  </Button>
+);
+
+export default function DocumentsPage() {
   return (
     <Layout pageTitle="Les documents utiles">
       <Container
         className="flex flex-col gap-5"
         maxWidth="xs">
-        {docs.map((doc) => (
-          <Download
-            key={uuidv4()}
-            data={doc}
+        {documents.map((document) => (
+          <DownloadButton
+            key={document.id}
+            document={document}
           />
         ))}
       </Container>

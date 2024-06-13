@@ -9,7 +9,7 @@ export default function ClassementTable({ data }: Readonly<TableProps>): JSX.Ele
   const tableHeaders = [" ", "Equipe", "Pts", "Jo", "G", "P", "F", "Bp", "Bc", "Coeff"];
   
   return (
-    <TableContainer className="w-100" component={Paper}>
+    <TableContainer className="w-100 " component={Paper} >
       <Table aria-label="simple table">
         <TableHead>
           <TableRow className="border-black border-b-2 ">

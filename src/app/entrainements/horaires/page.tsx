@@ -5,11 +5,9 @@ import { Gym } from "@/models";
 import { gyms } from "@/build";
 import Layout from "@/layout/main";
 
-
-
-const Schedule = ({ data }: { data : Gym } ) => {
+const Schedule = ({ data }: { data: Gym }) => {
   return (
-    <Box className="flex flex-col border bg-primary p-4 mb-48">
+    <Box className="flex flex-col border bg-primary p-4 mb-48 ">
       <Typography
         variant="h2"
         color="white"
@@ -52,10 +50,7 @@ const Schedule = ({ data }: { data : Gym } ) => {
                         xs={4}
                         key={uuidv4()}>
                         <Box className="p-4 bg-blue-500 text-white rounded shadow-md">
-                          <Typography
-                            variant="body1">
-                            {slot.team}
-                          </Typography>
+                          <Typography variant="body1">{slot.team}</Typography>
                           <Typography variant="body2">
                             {slot.start} - {slot.end}
                           </Typography>

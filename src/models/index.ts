@@ -1,5 +1,6 @@
 import { TeamType, TrainingType, GymType, LeadershipType, NewsType } from "@/types";
 import { IsEmail, IsString, Length, IsOptional, IsBoolean, IsArray, IsNumber } from "class-validator";
+import { v4 as uuidv4 } from "uuid";
 
 export class Leadership implements LeadershipType {
   @IsString()
@@ -188,6 +189,9 @@ export class Team implements TeamType {
   @IsString()
   private _name: string;
 
+  @IsNumber()
+  private _id: string;
+
   @IsOptional()
   @IsString()
   private _coach?: string;
@@ -210,9 +214,10 @@ export class Team implements TeamType {
     this._name = data.name;
     this._coach = data.coach;
     this._img = data.img ?? "/images/default/equipes.avif";
-    this._trainings = data.trainings; 
-    this._isChampionship = data.isChampionship ?? false
-    this._division = data.division ?? "Départementale"
+    this._trainings = data.trainings;
+    this._isChampionship = data.isChampionship ?? false;
+    this._division = data.division ?? "Départementale";
+    this._id = data.id ?? uuidv4(); // Generate UUID if no ID is provided
   }
   get name(): string {
     return this._name;
@@ -230,6 +235,9 @@ export class Team implements TeamType {
     return this._img === "/images/default/equipes.avif";
   }
 
+  get id(): string {
+    return this._id;
+  }
   get coach(): string | undefined {
     return this._coach;
   }
@@ -242,8 +250,6 @@ export class Team implements TeamType {
     return this._division;
   }
 
-
-
   set coach(name: string) {
     this._coach = name;
   }
@@ -251,7 +257,7 @@ export class Team implements TeamType {
 
 export class Gym implements GymType {
   @IsNumber()
-  private _id: number;
+  private _id: string;
 
   @IsString()
   private _name: string;
@@ -284,7 +290,7 @@ export class Gym implements GymType {
   private _lng: number;
 
   constructor(gym: GymType) {
-    this._id = gym.id;
+    this._id = gym.id ?? uuidv4();
     this._name = gym.name;
     this._address = gym.address;
     this._img = gym.img;
@@ -296,7 +302,7 @@ export class Gym implements GymType {
     this._lng = gym.lng;
   }
 
-  get id(): number {
+  get id(): string {
     return this._id;
   }
 
@@ -375,27 +381,55 @@ export class Gym implements GymType {
 
 export class Utils {
   static parseDate(dateString: string): Date {
-    const [day, month, year] = dateString.split('/').map(Number);
+    const [day, month, year] = dateString.split("/").map(Number);
     return new Date(year, month - 1, day); // Les mois sont 0-indexés en JavaScript
   }
-  static formatPhoneNumber(number : string) {
-    return number.replace(/(\d{2})(?=\d)/g, '$1.');
+  static formatPhoneNumber(number: string) {
+    return number.replace(/(\d{2})(?=\d)/g, "$1.");
   }
-  
+
   static formatDate(data: Date, options?: Intl.DateTimeFormatOptions): string {
     if (!(data instanceof Date) || isNaN(data.getTime())) {
-      throw new Error('Invalid Date');
+      throw new Error("Invalid Date");
     }
 
     const defaultOptions: Intl.DateTimeFormatOptions = {
-      weekday: 'short',
-      day: 'numeric',
-      month: 'numeric',
-      year: 'numeric',
+      day: "numeric",
+      month: "numeric",
+      year: "numeric",
     };
 
     const formatOptions = options ? { ...defaultOptions, ...options } : defaultOptions;
 
-    return data.toLocaleDateString('fr-FR', formatOptions).toUpperCase();
+    return data.toLocaleDateString("fr-FR", formatOptions).toUpperCase();
+  }
+}
+
+export class Document {
+  @IsString()
+  private _id: string;
+
+  @IsString()
+  private _title: string;
+
+  @IsString()
+  private _url: string;
+
+  constructor(document: { id?: string; title: string; url: string }) {
+    this._id = document.id ?? uuidv4();
+    this._title = document.title;
+    this._url = document.url;
+  }
+
+  get id(): string {
+    return this._id;
+  }
+
+  get title(): string {
+    return this._title;
+  }
+
+  get url(): string {
+    return this._url;
   }
 }

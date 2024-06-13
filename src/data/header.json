@@ -4,14 +4,15 @@
     "subItems": [
       { "title": "Dirigeants", "url": "/club/dirigeants", "img": "/images/header/dirigeants.avif" },
       { "title": "Les entraineurs", "url": "/club/entraineurs", "img": "/images/header/entraineurs.avif" },
-      { "title": "Equipes", "url": "/club/equipes", "img": "/images/header/equipes.avif" }
+      { "title": "Equipes", "url": "/club/equipes", "img": "/images/header/equipes.avif" },
+      { "title": "Gymnases", "url": "/club/gymnases", "img": "/images/header/gymnases.avif" }
+
     ]
   },
   {
     "title": "Entrainements 2024",
     "subItems": [
-      { "title": "Horaires ", "url": "/entrainements/horaires", "img": "/images/header/horaires.avif" },
-      { "title": "Gymnases", "url": "/entrainements/gymnases", "img": "/images/header/gymnases.avif" }
+      { "title": "Horaires ", "url": "/entrainements/horaires", "img": "/images/header/horaires.avif" }
     ]
   },
   {

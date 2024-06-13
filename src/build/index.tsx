@@ -2,8 +2,10 @@ import leadershipData from "@/data/leadership.json";
 import teamsData from "@/data/teams.json";
 import newsData from "@/data/news.json";
 import gymsData from "@/data/gyms.json";
-import { Leadership, News, Team, Gym } from "@/models";
+import  DocumentsData  from "@/data/documents.json";
+import { Leadership, News, Team, Gym, Document } from "@/models";
 import { validate, ValidationError } from "class-validator";
+
 
 export const leadership: Leadership[] = leadershipData.map((leader) => new Leadership(leader));
 export const teams : Team[] = teamsData.map((team) => {
@@ -23,7 +25,7 @@ export const gyms: Gym[] = gymsData.map((gymnase) => {
 
 export const news : News[] = newsData.map((news) => new News(news));
 
-
+export const documents : Document[] =  DocumentsData.map((document) => new Document(document)); 
 
 
 async function validateData(data: any[], className: string) {
@@ -41,3 +43,4 @@ async function validateData(data: any[], className: string) {
   validateData(teams, 'Team');
   validateData(gyms, 'Gym');
   validateData(news, 'News');
+  validateData(documents, 'Document');

@@ -1,13 +1,5 @@
 [
     {
-        "url": "/documents/2024-2025_certificat_medical.pdf",
-        "title" : "Certificat médical"
-    },
-    {
-        "url": "/documents/2024-2025_surclassement.pdf",
-        "title" : "Surclassement"
-    },
-    {
         "url": "/documents/2024-2025_demande_de_licence.pdf",
         "title" : "Demande de licence"
     },
@@ -16,7 +8,15 @@
         "title" : "Demande de mutation"
     },
     {
-        "url" :"2024-2024_tableau_surclassement.pdf",
+        "url": "/documents/2024-2025_certificat_medical.pdf",
+        "title" : "Certificat médical"
+    },
+    {
+        "url": "/documents/2024-2025_surclassement.pdf",
+        "title" : "Surclassement"
+    },
+    {
+        "url" :"/documents/2024-2025_tableau_surclassement.pdf",
         "title" : "Tableau surclassement"
     }
 ]

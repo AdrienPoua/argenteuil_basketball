@@ -92,7 +92,7 @@ export type LeadershipType = {
 
 // Define the type for a gymnasium
 export type GymType = {
-  id: number;
+  id: string;
   name: string;
   address: string;
   city: string;
@@ -111,4 +111,5 @@ export type TeamType = {
   trainings: TrainingType[];
   isChampionship?: boolean;
   division?: string;
+  id? : string;
 };
