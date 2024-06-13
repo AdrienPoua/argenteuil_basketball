@@ -3,7 +3,8 @@ import teamsData from "@/data/teams.json";
 import newsData from "@/data/news.json";
 import gymsData from "@/data/gyms.json";
 import  DocumentsData  from "@/data/documents.json";
-import { Leadership, News, Team, Gym, Document } from "@/models";
+import { Leadership, News, Team, Gym, Document, FAQ } from "@/models";
+import  FAQdata  from "@/data/faq.json";
 import { validate, ValidationError } from "class-validator";
 
 
@@ -24,8 +25,8 @@ export const gyms: Gym[] = gymsData.map((gymnase) => {
   });
 
 export const news : News[] = newsData.map((news) => new News(news));
-
 export const documents : Document[] =  DocumentsData.map((document) => new Document(document)); 
+export const faq  : FAQ[] = FAQdata.map((faq) => new FAQ(faq));
 
 
 async function validateData(data: any[], className: string) {

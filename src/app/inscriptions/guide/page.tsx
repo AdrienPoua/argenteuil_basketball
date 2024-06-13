@@ -1,4 +1,5 @@
 import Layout from "@/layout/main";
+import { Box, Typography, Button } from "@mui/material";
 import Timeline from "@mui/lab/Timeline";
 import TimelineItem from "@mui/lab/TimelineItem";
 import TimelineSeparator from "@mui/lab/TimelineSeparator";
@@ -6,127 +7,137 @@ import TimelineConnector from "@mui/lab/TimelineConnector";
 import TimelineContent from "@mui/lab/TimelineContent";
 import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent";
 import TimelineDot from "@mui/lab/TimelineDot";
-import Typography from "@mui/material/Typography";
 import ArticleIcon from "@mui/icons-material/Article";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
-import Box from "@mui/material/Box";
 import MarkEmailUnreadIcon from "@mui/icons-material/MarkEmailUnread";
 import LaptopMacIcon from "@mui/icons-material/LaptopMac";
 import DoneIcon from "@mui/icons-material/Done";
-import Button from "@mui/material/Button";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import DownloadButton from "@/components/DownloadButton";
 
-export default function Index() {
+const TimelineStep = ({
+  left,
+  icon,
+  right,
+  buttonText,
+  buttonHref,
+  startConnecter,
+  endConnecter,
+}: {
+  left?: React.ReactNode;
+  icon: React.ReactNode;
+  right?: React.ReactNode;
+  buttonText?: string;
+  buttonHref?: string;
+  startConnecter?: boolean;
+  endConnecter?: boolean;
+}) => (
+  <TimelineItem>
+    <TimelineOppositeContent className="flex justify-end">
+      <Box className="self-center text-white">{left}</Box>
+    </TimelineOppositeContent>
+    <TimelineSeparator>
+      {startConnecter !== false && <TimelineConnector className="min-h-10" />}
+      <TimelineDot color="primary">{icon}</TimelineDot>
+      {endConnecter !== false && <TimelineConnector className="min-h-10" />}
+    </TimelineSeparator>
+    <TimelineContent className="flex">
+      <Box className="self-center text-white">{right}</Box>
+    </TimelineContent>
+  </TimelineItem>
+);
+
+const TimeLineEnd = () => (
+  <TimelineItem className="flex flex-col justify-center items-center">
+    <TimelineConnector className="min-h-10" />
+    <TimelineDot
+      className="self-center "
+      color="primary">
+      <DoneIcon className="self-center" />
+    </TimelineDot>
+    <Typography className="self-center text-white">Vous êtes maintenant licencié</Typography>
+  </TimelineItem>
+);
+
+export default function RegistrationStepsPage() {
   return (
     <Layout pageTitle="Les étapes d'inscription">
-      <Box className='flex justify-center items-center'>
-        <Timeline>
-          <TimelineItem sx={{ "&::before": { display: "none" }, mt: 0 }}>
-            <TimelineOppositeContent>Recuperer le formulaire</TimelineOppositeContent>
-            <TimelineSeparator>
-              <TimelineDot color='primary'>
-                <ArticleIcon />
-              </TimelineDot>
-              <TimelineConnector className='min-h-10' />
-            </TimelineSeparator>
-            <TimelineContent>
-              <Button component='a' href='/documents/demande_de_licence_2024-2025.pdf' download variant='contained' startIcon={<CloudUploadIcon />}>
-                Formulaire
-              </Button>
-            </TimelineContent>
-          </TimelineItem>
-          <TimelineItem>
-            <TimelineOppositeContent className='mt-12'>Rendre le formulaire <br/> et la cotisation </TimelineOppositeContent>
-            <TimelineSeparator>
-              <TimelineConnector className='min-h-10' />
-              <TimelineDot color='primary'>
-                <AssignmentTurnedInIcon />
-              </TimelineDot>
-              <TimelineConnector className='min-h-10' />
-            </TimelineSeparator>
-            <TimelineContent>
-              <Typography className='mt-14'>
+      <Box className="flex justify-center items-center">
+        <Timeline sx={{ mt: 0, "& .MuiTimelineItem-root:before": { display: "none" } }}>
+          <TimelineStep
+            left={<Typography>Remplir le formulaire de demande de licence</Typography>}
+            right={
+              <Box className="flex flex-col justify-center">
                 {" "}
-                A Jean Guimier{" "}
-                <Typography className='text-primary' component='span'>
-                  {" "}
-                  à Mr.DIME{" "}
-                </Typography>
-              </Typography>
-            </TimelineContent>
-          </TimelineItem>
-          <TimelineItem>
-            <TimelineOppositeContent className='mt-12'>Vous reçeverez un mail dans les jours suivants</TimelineOppositeContent>
-            <TimelineSeparator>
-              <TimelineConnector className='min-h-10' />
-              <TimelineDot color='primary'>
-                <MarkEmailUnreadIcon />
-              </TimelineDot>
-              <TimelineConnector className='min-h-10' />
-            </TimelineSeparator>
-            <TimelineContent>
-              <Typography className='mt-12'>
-                {" "}
+                <Typography>Disponible en téléchargement</Typography>{" "}
+                <DownloadButton
+                  title="formulaire"
+                  url="/documents/2024-2024_demande_de_licence.pdf"
+                  className="w-fit self-center"
+                  variant="tracking-wider text-xs md:text-base font-secondary"
+                />{" "}
+              </Box>
+            }
+            icon={<ArticleIcon />}
+            buttonText="Formulaire"
+            buttonHref="/documents/demande_de_licence_2024-2025.pdf"
+          />
+          <TimelineStep
+            left="Rendre le formulaire et la cotisation"
+            icon={<AssignmentTurnedInIcon />}
+            right={
+              <Box className="flex flex-col justify-center r">
+                <Typography>A Jean Guimier lors des</Typography>
+                <Button
+                  variant="contained"
+                  className="w-fit self-center">
+                 <Typography className="tracking-wider text-xs md:text-base font-secondary">permanences</Typography>
+                </Button>
+              </Box>
+            }
+          />
+          <TimelineStep
+            left="Vous recevrez un mail dans les jours suivants"
+            icon={<MarkEmailUnreadIcon />}
+            right={
+              <Typography>
                 Verifiez vos{" "}
-                <Typography className='text-primary' component='span'>
-                  {" "}
-                  courriers indésirables{" "}
+                <Typography
+                  className="text-primary"
+                  component="span">
+                  courriers indésirables
                 </Typography>
               </Typography>
-            </TimelineContent>
-          </TimelineItem>
-          <TimelineItem>
-            <TimelineOppositeContent className='mt-12'>Confirmez votre inscription</TimelineOppositeContent>
-            <TimelineSeparator>
-              <TimelineConnector className='min-h-10' />
-              <TimelineDot color='primary'>
-                <LaptopMacIcon />
-              </TimelineDot>
-              <TimelineConnector className='min-h-10' />
-            </TimelineSeparator>
-            <TimelineContent>
-              <Typography className='mt-12'>
-                {" "}
-                en terminant intégralement
-                <Typography className='text-primary' component='span'>
-                  {" "}
-                  l'inscription informatique{" "}
+            }
+          />
+          <TimelineStep
+            left="Confirmez votre inscription"
+            icon={<LaptopMacIcon />}
+            right={
+              <Typography>
+                en terminant intégralement{" "}
+                <Typography
+                  className="text-primary"
+                  component="span">
+                  l&apos;inscription informatique
                 </Typography>
               </Typography>
-            </TimelineContent>
-          </TimelineItem>
-          <TimelineItem>
-            <TimelineOppositeContent className='mt-12'>Verification de la part du club</TimelineOppositeContent>
-            <TimelineSeparator>
-              <TimelineConnector className='min-h-10' />
-              <TimelineDot color='primary'>
-                <MarkEmailUnreadIcon />
-              </TimelineDot>
-              <TimelineConnector className='min-h-10' />
-            </TimelineSeparator>
-            <TimelineContent>
-              <Typography className='mt-12'>
-                {" "}
-                Si tout est correct, vous reçeverez un{" "}
-                <Typography className='text-primary' component='span'>
-                  {" "}
-                  mail de confirmation{" "}
+            }
+          />
+          <TimelineStep
+            left="Verification de la part du club"
+            icon={<MarkEmailUnreadIcon />}
+            right={
+              <Typography>
+                Si tout est correct, vous recevrez un{" "}
+                <Typography
+                  className="text-primary"
+                  component="span">
+                  mail de confirmation
                 </Typography>
               </Typography>
-            </TimelineContent>
-          </TimelineItem>
-          <TimelineItem>
-            <TimelineOppositeContent className='mt-12'></TimelineOppositeContent>
-            <TimelineSeparator>
-              <TimelineConnector className='min-h-10' />
-              <TimelineDot color='primary'>
-                <DoneIcon />
-              </TimelineDot>
-            </TimelineSeparator>
-            <TimelineContent>
-              <Typography className='mt-12'> Vous êtes maintenant licencié </Typography>
-            </TimelineContent>
-          </TimelineItem>
+            }
+          />
+          <TimeLineEnd />
         </Timeline>
       </Box>
     </Layout>

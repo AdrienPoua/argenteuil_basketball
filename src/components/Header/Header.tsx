@@ -2,15 +2,19 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { NavItem } from "@/components/Header/NavItem";
-import Contact from "@/components/modal";
+import Modal from "@/components/modal";
 import SubBar from "@/components/Header/SubBar";
 import { v4 as uuiv4 } from "uuid";
 import { NavItemType } from "@/types";
-import { Box, ClickAwayListener, Typography, Button, Drawer, List, ListItem } from "@mui/material";
+import { Box, ClickAwayListener, Typography, Button, Drawer, List, ListItem, useTheme, useMediaQuery } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import EmailIcon from "@mui/icons-material/Email";
+import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import Arrow from "../Arrow";
 import Logo from "@/components/Logo";
 import { usePathname } from "next/navigation";
+import club from "@/data/club.json";
+import { Utils } from "@/models";
 
 const Title = ({ title }: { title: string }) => {
   return (
@@ -52,7 +56,11 @@ const Dropdown = ({ data }: { data: NavItemType }) => {
   );
 };
 
-function MobileNav({ data }: Readonly<{ data: NavItemType[] }>) {
+type MobileNavProps = {
+  data: NavItemType[];
+  setOpen: (x: boolean) => void;
+};
+function MobileNav({ data, setOpen }: Readonly<MobileNavProps>) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const pathname = usePathname();
   useEffect(() => {
@@ -70,7 +78,17 @@ function MobileNav({ data }: Readonly<{ data: NavItemType[] }>) {
   return (
     <Box className="flex grow lg:hidden justify-between">
       <Logo />
-      <Contact />
+      <Button
+        variant="contained"
+        onClick={() => setOpen(true)}
+        color="primary">
+        <Typography
+          variant="body1"
+          className="tracking-widest font-thin">
+          {" "}
+          Contact{" "}
+        </Typography>
+      </Button>
       <Button onClick={toggleDrawer(true)}>
         <MenuIcon />
       </Button>
@@ -105,13 +123,41 @@ function MobileNav({ data }: Readonly<{ data: NavItemType[] }>) {
   );
 }
 
+const OpenContact = ({ icon, text, isMobile }: { icon: JSX.Element; text: string; isMobile: boolean }) => {
+  const handleClick = () => {
+    if (isMobile && text.includes("@")) {
+      window.location.href = `mailto:${text}`;
+    } else if (isMobile) {
+      window.location.href = `tel:${text}`;
+    } else if (!isMobile && text.includes("@")) {
+      window.location.href = `mailto:${text}`;
+    } else {
+      return;
+    }
+  };
+  return (
+    <Button
+      className="bg-black py-4"
+      sx={{
+        "&:hover": {
+          backgroundColor: "black", // Ou n'importe quelle couleur pour éviter le changement
+        },
+      }}
+      endIcon={icon}
+      onClick={handleClick}>
+      <Typography className="leading-10 tracking-wider font-secondary text-xs md:text-base "> {text} </Typography>
+    </Button>
+  );
+};
+
 type HeaderProps = {
   data: NavItemType[];
   setActiveNav: (data: NavItemType) => void;
   activeNav: NavItemType;
+  setOpen: (data: boolean) => void;
 };
 
-function DesktopNav({ data, setActiveNav, activeNav }: Readonly<HeaderProps>) {
+function DesktopNav({ data, setActiveNav, activeNav, setOpen }: Readonly<HeaderProps>) {
   return (
     <>
       <Box className="lg:flex hidden">
@@ -131,7 +177,17 @@ function DesktopNav({ data, setActiveNav, activeNav }: Readonly<HeaderProps>) {
             ))}
           </Box>
         </Box>
-        <Contact />
+        <Button
+          onClick={() => setOpen(true)}
+          variant="contained"
+          color="primary">
+          <Typography
+            variant="body1"
+            className="tracking-widest font-thin">
+            {" "}
+            Contact{" "}
+          </Typography>
+        </Button>
       </Box>
       <SubBar data={activeNav} />
     </>
@@ -142,6 +198,9 @@ export default function Header({ data }: Readonly<{ data: NavItemType[] }>) {
   const [activeNav, setActiveNav] = useState<NavItemType>({ title: "", subItems: [] });
   const headerRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   useEffect(() => {
     const handleRouteChange = () => {
       setActiveNav({ title: "", subItems: [] });
@@ -177,8 +236,25 @@ export default function Header({ data }: Readonly<{ data: NavItemType[] }>) {
           data={data}
           setActiveNav={setActiveNav}
           activeNav={activeNav}
+          setOpen={setOpen}
         />
-        <MobileNav data={data} />
+        <MobileNav data={data} setOpen={setOpen} />
+        <Modal
+          open={open}
+          setOpen={setOpen}>
+          <>
+            <OpenContact
+              icon={<EmailIcon color="primary" />}
+              text={club.email}
+              isMobile={isMobile}
+            />
+            <OpenContact
+              icon={<PhoneIphoneIcon color="primary" />}
+              text={isMobile ? club.number : Utils.formatPhoneNumber(club.number)}
+              isMobile={isMobile}
+            />
+          </>
+        </Modal>
       </Box>
     </ClickAwayListener>
   );

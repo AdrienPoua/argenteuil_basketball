@@ -1,19 +1,10 @@
 "use client";
 import Layout from "@/layout/main";
-import { Container, Button, Typography } from "@mui/material";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { Container } from "@mui/material";
 import { documents } from "@/build";
+import DownloadButton from "@/components/DownloadButton";
 
-const DownloadButton = ({ document }: { document: { id: string; title: string; url: string } }) => (
-  <Button
-    component="a"
-    href={document.url}
-    download
-    variant="contained"
-    startIcon={<CloudUploadIcon />}>
-    <Typography className="leading-10 tracking-wider text-xs md:text-base">{document.title}</Typography>
-  </Button>
-);
+
 
 export default function DocumentsPage() {
   return (
@@ -24,7 +15,8 @@ export default function DocumentsPage() {
         {documents.map((document) => (
           <DownloadButton
             key={document.id}
-            document={document}
+            title={document.title}
+            url={document.url}
           />
         ))}
       </Container>

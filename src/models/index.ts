@@ -103,8 +103,8 @@ export class Leadership implements LeadershipType {
 }
 
 export class News {
-  @IsNumber()
-  private _id: number;
+  @IsString()
+  private _id: string;
 
   @IsString()
   private _title: string;
@@ -121,13 +121,13 @@ export class News {
 
   @IsOptional()
   @IsString()
-  private _rank?: "primary" | "secondary";
+  private _rank?: string;
 
   @IsArray()
   private _content: string[] = [];
 
   constructor(data: NewsType) {
-    this._id = data.id;
+    this._id = data.id ? data.id : uuidv4();
     this._title = data.title;
     this._date = data.date;
     this._img = data.img;
@@ -137,7 +137,7 @@ export class News {
   }
 
   // Getters
-  get id(): number {
+  get id(): string {
     return this._id;
   }
 
@@ -189,7 +189,7 @@ export class Team implements TeamType {
   @IsString()
   private _name: string;
 
-  @IsNumber()
+  @IsString()
   private _id: string;
 
   @IsOptional()
@@ -256,7 +256,7 @@ export class Team implements TeamType {
 }
 
 export class Gym implements GymType {
-  @IsNumber()
+  @IsString()
   private _id: string;
 
   @IsString()
@@ -431,5 +431,25 @@ export class Document {
 
   get url(): string {
     return this._url;
+  }
+}
+
+export class FAQ {
+  private _id: string;
+  private _question: string;
+  private _answer: string;
+  constructor(data : {id?: string, question: string, answer: string}) {
+    this._id = data.id ?? uuidv4();
+    this._question = data.question;
+    this._answer = data.answer;
+  }
+  get id(): string {
+    return this._id;
+  }
+  get question(): string {
+    return this._question;
+  }
+  get answer(): string {
+    return this._answer;
   }
 }

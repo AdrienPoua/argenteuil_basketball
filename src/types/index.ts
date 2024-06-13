@@ -8,12 +8,12 @@ export type MatchDataProps = {
 };
 
 export type NewsType = {
-  id: number;
+  id?: string;
   title: string;
   date: string;
   img: string;
   url: string;
-  rank?: "primary" | "secondary";
+  rank?: string;
   content: string[];
 };
 
@@ -92,7 +92,7 @@ export type LeadershipType = {
 
 // Define the type for a gymnasium
 export type GymType = {
-  id: string;
+  id?: string;
   name: string;
   address: string;
   city: string;

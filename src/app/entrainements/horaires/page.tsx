@@ -1,91 +1,79 @@
 import { Grid, Paper, Typography, Box } from "@mui/material";
-import { v4 as uuidv4 } from "uuid";
 import { TrainingType } from "@/types";
 import { Gym } from "@/models";
 import { gyms } from "@/build";
 import Layout from "@/layout/main";
 
-const Schedule = ({ data }: { data: Gym }) => {
-  return (
-    <Box className="flex flex-col border bg-primary p-4 mb-48 ">
-      <Typography
-        variant="h2"
-        color="white"
-        className="text-5xl text-center pb-4">
-        {data.name}
+interface ScheduleProps {
+  data: Gym;
+}
+interface SlotProps {
+  slot: TrainingType;
+}
+
+interface ScheduleDayProps {
+  day: string;
+  slots: TrainingType[];
+}
+
+const ScheduleSlot = ({ slot }: SlotProps) => (
+  <Grid item xs={4}>
+    <Box className="p-4 bg-blue-500 text-white rounded shadow-md">
+      <Typography variant="body1">{slot.team}</Typography>
+      <Typography variant="body2">
+        {slot.start} - {slot.end}
       </Typography>
-      <Grid
-        container
-        spacing={2}>
-        {data.available.map((day) => (
-          <Grid
-            item
-            xs={12}
-            key={uuidv4()}>
-            <Grid
-              container
-              spacing={2}>
-              <Grid
-                item
-                xs={3}>
-                <Paper className="h-full flex justify-center items-center">
-                  <Typography
-                    variant="h6"
-                    className="p-2">
-                    {day}
-                  </Typography>
-                </Paper>
-              </Grid>
-              <Grid
-                item
-                xs={9}>
-                <Grid
-                  container
-                  spacing={2}>
-                  {data.slots
-                    .filter((slot) => slot.day === day)
-                    .map((slot: TrainingType) => (
-                      <Grid
-                        item
-                        xs={4}
-                        key={uuidv4()}>
-                        <Box className="p-4 bg-blue-500 text-white rounded shadow-md">
-                          <Typography variant="body1">{slot.team}</Typography>
-                          <Typography variant="body2">
-                            {slot.start} - {slot.end}
-                          </Typography>
-                        </Box>
-                      </Grid>
-                    ))}
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-        ))}
-        <Grid
-          item
-          xs={12}>
-          <Paper className="h-full flex justify-center items-center">
-            <Typography
-              variant="h6"
-              className="p-2">
-              {data.address + " " + data.postalCode}
-            </Typography>
-          </Paper>
+    </Box>
+  </Grid>
+);
+
+const ScheduleDay = ({ day, slots }: ScheduleDayProps ) => (
+  <Grid item xs={12}>
+    <Grid container spacing={2}>
+      <Grid item xs={3}>
+        <Paper className="h-full flex justify-center items-center">
+          <Typography variant="h6" className="p-2">
+            {day}
+          </Typography>
+        </Paper>
+      </Grid>
+      <Grid item xs={9}>
+        <Grid container spacing={2}>
+          {slots.map((slot) => (
+            <ScheduleSlot key={slot.day + slot.start + slot.end + slot.gym} slot={slot} />
+          ))}
         </Grid>
       </Grid>
-    </Box>
-  );
-};
+    </Grid>
+  </Grid>
+);
 
-export default function Page() {
+const Schedule = ({ data }: ScheduleProps) => (
+  <Box className="flex flex-col border bg-primary p-4 mb-48">
+    <Typography variant="h2" color="white" className="text-5xl text-center pb-4">
+      {data.name}
+    </Typography>
+    <Grid container spacing={2}>
+      {data.available.map((day) => {
+        const slotsForDay = data.slots.filter((slot) => slot.day === day);
+        return <ScheduleDay key={day} day={day} slots={slotsForDay} />;
+      })}
+      <Grid item xs={12}>
+        <Paper className="h-full flex justify-center items-center">
+          <Typography variant="h6" className="p-2">
+            {data.address} {data.postalCode}
+          </Typography>
+        </Paper>
+      </Grid>
+    </Grid>
+  </Box>
+);
+
+export default function SchedulePage() {
   return (
-    <Layout pageTitle="planning">
+    <Layout pageTitle="Planning">
       {gyms.map((gym) => (
-        <Schedule
-          data={gym}
-          key={uuidv4()}
-        />
+        <Schedule key={gym.id} data={gym} />
       ))}
     </Layout>
   );
