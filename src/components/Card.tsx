@@ -31,15 +31,12 @@ export const NewsCard = ({ data, small, sticky }: NewsCardProps) => {
         <CardContent className="t">
           <Typography variant="h6">{title}</Typography>
           <Typography variant="body2">{formatedDate}</Typography>
-          <Typography variant="body2">{formatedDate}</Typography>
         </CardContent>
       </Link>
     </Card>
   );
 };
 export const LeaderCard = ({ data }: { data: Leadership }) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [clicked, setClicked] = useState(false);
@@ -58,18 +55,6 @@ export const LeaderCard = ({ data }: { data: Leadership }) => {
 
   return (
     <Card className="relative w-card h-card rounded-lg overflow-hidden inline-block ">
-      <Snackbar
-        open={snackOpen}
-        autoHideDuration={2000}
-        onClose={() => setSnackOpen(false)}
-        message="Numéro copié dans le presse-papier"
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-        color="primary">
-        <SnackbarContent
-          className="bg-primary"
-          message="Numéro copié dans le press papier"
-        />
-      </Snackbar>
       <CardMedia
         component="img"
         image={data.img}
