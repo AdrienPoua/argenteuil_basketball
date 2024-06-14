@@ -5,7 +5,7 @@ import App from "./App";
 import { StyledEngineProvider, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "@/app/theme";
-import { Toaster } from "react-hot-toast";
+import { ModalProvider } from "@/contexts/modalContext";
 
 const metadata: Metadata = {
   title: "Paris Basketball",
@@ -21,16 +21,9 @@ export default function RootLayout({
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <App>
-          <Toaster
-            toastOptions={{
-              style: {
-                zIndex: 9999, // Un z-index plus élevé que celui de la modal
-              },
-            }}
-          />
-          {children}{" "}
-        </App>
+        <ModalProvider>
+          <App>{children}</App>
+        </ModalProvider>
       </ThemeProvider>
     </StyledEngineProvider>
   );

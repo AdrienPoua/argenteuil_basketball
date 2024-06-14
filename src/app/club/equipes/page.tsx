@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { teams } from "@/build";
+import { teams } from "@/services/dataProcessing";
 import { TeamCard } from "@/components/Card";
 import Layout from "@/layout/main";
 import { Box, Button } from "@mui/material";

@@ -1,22 +1,15 @@
-import React from 'react'
-import { Box } from '@mui/material'
+import React from 'react';
+import { Box } from '@mui/material';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
-export default function Arrow({direction}: {readonly direction? : "right" | "down" }): JSX.Element {
-
+export default function Arrow({open} : Readonly<{ open : boolean}>) {
   return (
-    <Box
-    component="span"
-    sx={{
-      display: "inline-block",
-      verticalAlign: "middle",
-      marginLeft: "6px",
-      width: 0,
-      height: 0,
-      borderStyle: "solid",
-      borderWidth: "5px 5px 0",
-      borderColor: "#000 transparent transparent transparent",
-      transform: direction === "right" ? "rotate(-90deg)" : "rotate(0deg)",
-    }}
-  />
-  );
+    <Box className="bg-transparent">
+      <ArrowDropDownIcon 
+      className={`${open ? 'transform -rotate-90' : ''} transition-transform duration-300 ease-in-out text-black`}
+      fontSize='large'
+      />
+    </Box>
+  )
 }
+

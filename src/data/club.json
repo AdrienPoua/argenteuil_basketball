@@ -1,27 +1,12 @@
 {
-    "nom": "Argenteuil Basket Ball",
-    "ville": "Argenteuil",
-    "adresse": "82 bd du general leclerc",
-    "code_postal": "95100",
-    "couleurs": ["bleu", "blanc"],
+    "name": "Argenteuil BB",
+    "city": "Argenteuil",
+    "address": "82 bd du general leclerc",
+    "postalCode": "95100",
+    "colors": ["bleu", "blanc"],
     "email" : "argenteuilbasketball@hotmail.fr",
-    "number": "0670222238",
-    "saison": "2024-2025",
-    "gymnases": [
-      {
-        "name": "Jean Guimier",
-        "address": "2 rue jean de la fontaine, 95100 Argenteuil",
-        "maps" : "https://maps.app.goo.gl/P5Td8sxbzzVk9L1X9",
-        "img": "https://www.argenteuil.fr/sites/default/files/styles/img__1920x1080__image_scale__crop_main/public/media/images/180816-01_08JH.jpg?itok=jPK7HteK"
-      },
-      {
-        "name": "Jesse Owens",
-        "address": "120 rue de rochefort, 95100 Argenteuil",
-        "maps" : "https://maps.app.goo.gl/MnXPm14gu3hb3xvu9",
-        "img": "https://www.argenteuil.fr/sites/default/files/styles/img__1920x1080__image_scale__crop_main/public/media/images/180816-01_08JH.jpg?itok=jPK7HteK"
-      }
-    ],
-    "sponsors": ["Nike", "Adidas", "Orange"],
-    "bureau": ["Président", "Vice-Président", "Trésorier", "Secrétaire", "Présidente", "Vice-Présidente", "Trésorière", "Correspondant", "Correspondante"]
+    "phone": "0670222238",
+    "logo" : "/images/logo.png",
+    "saison": "2024-2025"
   }
   

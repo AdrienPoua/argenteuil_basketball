@@ -1,7 +1,7 @@
 import { Grid, Paper, Typography, Box } from "@mui/material";
 import { TrainingType } from "@/types";
 import { Gym } from "@/models";
-import { gyms } from "@/build";
+import { gyms } from "@/services/dataProcessing";
 import Layout from "@/layout/main";
 
 interface ScheduleProps {

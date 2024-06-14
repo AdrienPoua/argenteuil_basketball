@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
-import { news } from "@/build";
+import { news } from "@/services/dataProcessing";
 import { usePathname, useRouter } from "next/navigation";
 import { Container, Typography, Box } from "@mui/material";
 import { News, Utils } from "@/models";

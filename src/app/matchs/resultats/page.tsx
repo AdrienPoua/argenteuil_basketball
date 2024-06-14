@@ -35,7 +35,6 @@ export default function Index() {
         const data = await fetchData<ClubType>("/api/club");
         setClubData(data);
         const seniors = data.teams.find((team) => team.shortName === "SENIOR M1");
-        console.log(seniors);
         if (seniors) {
           setSelectedTeam(seniors.competitions[0].id.toString());
         }

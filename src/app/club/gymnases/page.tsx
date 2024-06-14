@@ -2,7 +2,7 @@
 import Layout from "@/layout/main";
 import { Box } from "@mui/material";
 import { GymCard } from "@/components/Card";
-import { gyms } from "@/build";
+import { gyms } from "@/services/dataProcessing";
 import { Gym } from "@/models";
 
 export default function Page() {

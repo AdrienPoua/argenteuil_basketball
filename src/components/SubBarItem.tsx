@@ -1,14 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
-import { NavItemType, SubItemType } from "@/types";
-import { v4 as uuidv4 } from "uuid";
+import { SubItemType } from "@/types";
 import { Box, Typography } from "@mui/material";
 
 const Item = ({ data }: { data: SubItemType }) => {
   return (
-    <Link
-      href={data.url}
-      className="lg:flex hidden">
+    <Link href={data.url} className="lg:flex hidden">
       <Box className="flex relative rounded-xl overflow-hidden p-8 hover:border-indigo-500 border-2 border-transparent">
         <Image
           src={
@@ -16,7 +13,7 @@ const Item = ({ data }: { data: SubItemType }) => {
             "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           }
           className="absolute inset-0 h-full w-full"
-          alt="test"
+          alt={data.title}
           width={200}
           height={200}
         />
@@ -27,15 +24,4 @@ const Item = ({ data }: { data: SubItemType }) => {
   );
 };
 
-export default function SubBar({ data }: Readonly<{ data: NavItemType }>) {
-  return (
-    <Box className="flex gap-24 bg-white Readonly<SubBarProps> py-1 justify-center items-center transition-all duration-300">
-      {data.subItems?.map((item: SubItemType) => (
-        <Item
-          data={item }
-          key={uuidv4()}
-        />
-      ))}
-    </Box>
-  );
-}
+export default Item;

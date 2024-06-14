@@ -13,6 +13,8 @@ import MarkEmailUnreadIcon from "@mui/icons-material/MarkEmailUnread";
 import LaptopMacIcon from "@mui/icons-material/LaptopMac";
 import DoneIcon from "@mui/icons-material/Done";
 import DownloadButton from "@/components/DownloadButton";
+import { documents } from "@/services/dataProcessing";
+
 
 const TimelineStep = ({
   left,
@@ -59,6 +61,7 @@ const TimeLineEnd = () => (
 );
 
 export default function RegistrationStepsPage() {
+  const licence = documents.find((doc) => doc.title === "Demande de licence")?.url ?? ""
   return (
     <Layout pageTitle="Les étapes d'inscription">
       <Box className="flex justify-center items-center">
@@ -71,7 +74,7 @@ export default function RegistrationStepsPage() {
                 <Typography>Disponible en téléchargement</Typography>{" "}
                 <DownloadButton
                   title="formulaire"
-                  url="/documents/2024-2024_demande_de_licence.pdf"
+                  url={licence}
                   className="w-fit self-center"
                   variant="tracking-wider text-xs md:text-base font-secondary"
                 />{" "}

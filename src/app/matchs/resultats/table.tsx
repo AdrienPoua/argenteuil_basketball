@@ -1,5 +1,6 @@
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
 import { Ranking } from "@/models/api";
+import { club } from "@/services/dataProcessing";
 
 type TableProps = {
   data: Ranking;
@@ -20,7 +21,7 @@ export default function ClassementTable({ data }: Readonly<TableProps>): JSX.Ele
         </TableHead>
         <TableBody>
           {data.teams.map((row) => {
-            const isABB = row.name.toLowerCase().includes("argenteuil bb");
+            const isABB = row.name.toLowerCase().includes(club.name.toLowerCase());
             return (
               <TableRow key={row.rank} className={isABB ? "bg-primary" : ""}>
                 <TableCell component="th" scope="row" className="w-[1%] whitespace-nowrap font-bold">
