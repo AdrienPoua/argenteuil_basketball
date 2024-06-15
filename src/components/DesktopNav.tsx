@@ -17,14 +17,14 @@ const DesktopNav: React.FC<DesktopNavProps> = ({ data, setActiveNav, activeNav, 
   <>
     <Box className="lg:flex hidden">
       <Logo />
-      <Box component="nav" className="flex grow items-center">
+      <Box component="nav" className="flex grow items-center justify-center">
         <Box component="ul" className="flex">
           {data.map((item) => (
             <NavItem key={item.title} data={item} activeNav={activeNav} setActiveNav={setActiveNav} />
           ))}
         </Box>
       </Box>
-      <Button onClick={() => setOpen(true)} variant="contained" color="primary">
+      <Button onClick={() => setOpen(true)} variant="contained" color="primary" className="h-fit self-center">
         <Typography variant="body1" className="tracking-widest font-thin">Contact</Typography>
       </Button>
     </Box>

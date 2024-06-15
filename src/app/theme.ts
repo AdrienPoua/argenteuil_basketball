@@ -6,6 +6,7 @@ const theme = createTheme({
   palette: {
     primary: {
       main: "#1976d2",
+      dark: "#004ba0",
     },
     secondary: {
       main: "#ee6730",
@@ -36,6 +37,15 @@ const theme = createTheme({
             color: "white",
             borderColor: "gray",
           },
+        },
+      },
+    },
+    MuiCardContent: {
+      styleOverrides: {
+        root: {
+          '&:last-child': {
+            paddingBottom: 0, 
+          }
         },
       },
     },

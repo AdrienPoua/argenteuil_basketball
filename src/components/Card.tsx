@@ -6,9 +6,10 @@ import L from "leaflet";
 import Link from "next/link";
 import Image from "next/image";
 import { Utils, Team, Leadership, Gym, News } from "@/models";
-import { Card, CardActionArea, CardContent, Typography, Box, CardMedia, Button, List, useTheme, useMediaQuery } from "@mui/material";
+import { Card, CardActionArea, CardContent, Typography, Box, CardMedia, useTheme, useMediaQuery } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import { PhoneIphone } from "@mui/icons-material";
+import { ContactButton } from "@/components/Buttons";
 
 type NewsCardProps = { data: News; small?: boolean; sticky?: boolean };
 export const NewsCard = ({ data, small, sticky }: NewsCardProps) => {
@@ -40,68 +41,38 @@ export const NewsCard = ({ data, small, sticky }: NewsCardProps) => {
   );
 };
 export const LeaderCard = ({ data }: { data: Leadership }) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const [clicked, setClicked] = useState(false);
-
-  const handleClick = (text: string) => {
-    if (isMobile && text.includes("@")) {
-      window.location.href = `mailto:${text}`;
-    } else if (isMobile) {
-      window.location.href = `tel:${text}`;
-    } else if (!isMobile && text.includes("@")) {
-      window.location.href = `mailto:${text}`;
-    } else {
-      setClicked(!clicked);
-    }
-  };
-
   return (
-    <Card className="relative w-card h-card rounded-lg overflow-hidden inline-block ">
+    <Card className="flex flex-col size-card rounded-lg overflow-hidden ">
       <CardMedia
         component="img"
         image={data.img}
-        className="w-full h-full absolute inset-0"
+        className=" object-cover grow overflow-hidden object-top	"
       />
-      <CardContent className="absolute inset-0 flex items-end">
-        <Box className="flex flex-col justify-center items-center gap-2 grow">
-          <Box className=" px-5 py-2 bg-primary flex flex-col justify-center items-center w-full rounded-md ">
+      <CardContent className="flex p-0 pb-0 bg-primary max-h-24 ">
+        <Box className="flex justify-center items-center gap-2 grow relative">
+          <Box className=" px-5 py-2 flex flex-col items-center w-full rounded-md ">
             {" "}
-            <Typography className="text-xs md:text-base text-black">{data.name}</Typography>
+            <Typography className="text-xs md:text-base text-black text-nowrap">{data.name}</Typography>
             <Typography
-              component="h2"
-              className="text-center">
-              {data.job ? data.job : data.teams ? data.teams.join(" | ") : ""}
+              className="text-center text-xs md:text-base">
+              {data.isLeader ? data.job : data.teams?.join(" | ")}
             </Typography>
           </Box>
-          <List className=" flex gap-5">
-            <Button
-              component="li"
-              variant="contained"
-              disabled={!data.isNumberDisplayed}
-              onClick={() => handleClick(data.number)}
-              color="secondary"
-              className={`relative flex items-center justify-center ${
-                clicked ? "w-36" : "rounded-full"
-              } hover:scale-125 transition duration-200 ease-in-out`}>
-              {!clicked && <PhoneIphone className="relative" />}
-              <Typography
-                className={`absolute transition-all duration-200 text-center ease-in-out ${
-                  clicked ? "w-full" : "max-w-0"
-                } overflow-hidden tracking-wider`}>
-                {isMobile ? data.number : Utils.formatPhoneNumber(data.number)}
-              </Typography>
-            </Button>
-            <Button
-              component="li"
-              variant="contained"
-              disabled={!data.isEmailDisplayed}
-              onClick={() => handleClick(data.email)}
-              color="secondary"
-              className="flex items-center justify-center w-16 aspect-square rounded-full hover:scale-125 transition duration-200 ease-in-out">
-              <EmailIcon />
-            </Button>
-          </List>
+          <Box
+            className="flex h-full"
+            >
+            <ContactButton
+              icon={<EmailIcon />}
+              text={data.email}
+              available={data.isEmailDisplayed}
+
+            />
+            <ContactButton
+              icon={<PhoneIphone />}
+              text={data.number}
+              available={data.isNumberDisplayed}
+            />
+          </Box>
         </Box>
       </CardContent>
     </Card>

@@ -14,6 +14,9 @@ const config: Config = {
         main : ["Evogria", "sans-serif"],
         secondary: ['Roboto', 'sans-serif'],
       },
+      spacing: {
+        'card': '32rem',
+      },
       colors: {
         primary: {
           DEFAULT: '#1976d2',
