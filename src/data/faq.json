@@ -16,6 +16,22 @@
       "answer": "Les frais d'inscription peuvent être réglés en espèces ou en chèque."
     },
     {
+      "question": "Je n'ai toujours pas reçu de mail pour confirmer mon inscription, que faire ?",
+      "answer": "Si cela fait plus de deux semaines, contactez nous par email avec les informations suivantes : nom, prénom, date de naissance"
+    },
+    {
+      "question": "Comment puis-je régler les frais d'inscription ?",
+      "answer": "Les frais d'inscription peuvent être réglés en espèces ou en chèque."
+    },
+    {
+      "question": "Quels sont les documents à fournir pour l'inscription ?",
+      "answer": "Le formulaire de demande de licence ainsi que le prix de la cotisation"
+    },
+    {
+      "question": "Acceptez vous le paiement en plusieurs fois ?",
+      "answer": "Oui, les modalités sont à voir sur place avec Mr.DIME lors des permanences"
+    },
+    {
       "question": "Prenez-vous le Pass Sport ?",
       "answer": "Le Pass Sport est une réduction de 50 euros financée par l'État pour une inscription dans une association sportive. Remettez-nous le document lors de votre inscription pour en bénéficier."
     },

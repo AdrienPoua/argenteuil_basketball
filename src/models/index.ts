@@ -1,5 +1,5 @@
 import { TeamType, TrainingType, GymType, LeadershipType, NewsType } from "@/types";
-import { IsEmail, IsString, Length, IsOptional, IsBoolean, IsArray, IsNumber } from "class-validator";
+import { IsEmail, IsString, Length, IsOptional, IsBoolean, IsArray, IsNumber, isArray } from "class-validator";
 import { v4 as uuidv4 } from "uuid";
 
 export class Leadership implements LeadershipType {
@@ -102,6 +102,39 @@ export class Leadership implements LeadershipType {
   }
 }
 
+export class Permanence {
+  @IsString()
+  private _start: string;
+  @IsString()
+  private _end: string;
+  @IsString()
+  private _place: string;
+  @IsArray()
+  private _slots: { day: string; startTime: string; endTime: string }[];
+
+  constructor(data: { start: string; end: string; place: string; slots: { day: string; startTime: string; endTime: string }[] }) {
+    this._start = data.start;
+    this._end = data.end;
+    this._place = data.place;
+    this._slots = data.slots;
+  }
+
+  get start(): string {
+    return this._start;
+  }
+
+  get end(): string {
+    return this._end;
+  }
+
+  get slots(): { day: string; startTime: string; endTime: string }[] {
+    return this._slots;
+  }
+
+  get place(): string {
+    return this._place;
+  }
+}
 export class Club {
   @IsString()
   private _name: string;

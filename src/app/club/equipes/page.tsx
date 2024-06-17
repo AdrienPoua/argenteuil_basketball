@@ -24,7 +24,7 @@ export default function TeamPage() {
   };
 
   return (
-    <Layout pageTitle="Nos équipes">
+    <Layout pageTitle="Nos équipes 2024-2025">
       <Box className="flex justify-center items-center mb-8">
         <Button
           size="large"

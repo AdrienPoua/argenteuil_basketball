@@ -32,7 +32,7 @@ export const NewsCard = ({ data, small, sticky }: NewsCardProps) => {
           />
           <Box className="absolute inset-0 bg-black bg-opacity-50" />
         </Box>
-        <CardContent>
+        <CardContent className="mb-5">
           <Typography variant="h6">{title}</Typography>
           <Typography variant="body2">{formatedDate}</Typography>
         </CardContent>
@@ -40,7 +40,7 @@ export const NewsCard = ({ data, small, sticky }: NewsCardProps) => {
     </Card>
   );
 };
-export const LeaderCard = ({ data }: { data: Leadership }) => {
+export const LeaderCard = ({ data }: { data: Leadership }) => {    
   return (
     <Card className="flex flex-col size-card rounded-lg overflow-hidden ">
       <CardMedia
@@ -125,7 +125,7 @@ export const TeamCard = ({ data }: { data: Team }) => {
                     <Typography
                       variant="h4"
                       className="text-4xl font-bold mb-8 text-center">
-                      Division {data.division}
+                      Division {data.division ? data.division : "départementale"}
                     </Typography>
                   ) : (
                     <Typography

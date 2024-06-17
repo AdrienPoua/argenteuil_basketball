@@ -1,17 +1,14 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useTheme } from "@mui/material/styles";
 import { useMediaQuery } from "@mui/material";
-import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
+import DoNotDisturbIcon from "@mui/icons-material/DoNotDisturb";
+import { useModal } from "@/contexts/modalContext";
 
-export default function DownloadButton({
-  title,
-  url,
-  className,
-  variant,
-}: Readonly<{ title: string; url: string; className?: string; variant?: string }>) {
+export function DownloadButton({ title, url, className, variant }: Readonly<{ title: string; url: string; className?: string; variant?: string }>) {
   return (
     <Button
       component="a"
@@ -20,8 +17,9 @@ export default function DownloadButton({
       variant="contained"
       className={className}
       startIcon={<CloudUploadIcon />}>
-      <Typography className={variant}>{title}</Typography>
-    </Button>
+    <Typography className={`${variant ? variant + " " : ""}text-xs md:text-base`}>
+        {title}
+      </Typography>    </Button>
   );
 }
 
@@ -49,14 +47,17 @@ export const ContactButton = ({ icon, text, available }: { icon: React.ReactNode
     switch (true) {
       case !available && isClicked:
         setContent(<DoNotDisturbIcon />);
+        setTimeout(() => {
+          setIsClicked(false);
+        }, 1500);
         break;
-      case isClicked && isMobile :
+      case isClicked && isMobile:
         setContent(icon);
         break;
       case isClicked && !isMobile && !isEmail:
         setContent(text);
         break;
-        default :
+      default:
         setContent(icon);
         break;
     }
@@ -67,9 +68,24 @@ export const ContactButton = ({ icon, text, available }: { icon: React.ReactNode
       component="li"
       variant="contained"
       onClick={handleClick}
-      className="flex items-center justify-center bg-primary h-full"
-    >
+      className="flex items-center justify-center bg-primary h-full">
       {content}
+    </Button>
+  );
+};
+
+export const ModalButton = ({ modalContent, text }: { modalContent: React.JSX.Element; text: string }) => {
+  const { setOpen, setContent } = useModal()
+  const handleClick = () => {
+    setContent(modalContent);
+    setOpen(true);
+  };
+  return (
+    <Button
+      variant="contained"
+      onClick={handleClick}
+      className="w-full min-h-8">
+      <Typography className="text-xs md:text-base">{text}</Typography>
     </Button>
   );
 };

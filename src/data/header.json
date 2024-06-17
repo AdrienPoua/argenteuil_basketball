@@ -3,7 +3,7 @@
     "title": "Club",
     "subItems": [
       { "title": "Dirigeants", "url": "/club/dirigeants", "img": "/images/header/dirigeants.avif" },
-      { "title": "Les entraineurs", "url": "/club/entraineurs", "img": "/images/header/entraineurs.avif" },
+      { "title": "Entraineurs", "url": "/club/entraineurs", "img": "/images/header/entraineurs.avif" },
       { "title": "Equipes", "url": "/club/equipes", "img": "/images/header/equipes.avif" },
       { "title": "Gymnases", "url": "/club/gymnases", "img": "/images/header/gymnases.avif" }
 

@@ -16,7 +16,7 @@ const Dropdown = ({ header, items }: DropdownProps) => {
     if (contentRef.current) {
       setContentHeight(contentRef.current.scrollHeight);
     }
-  }, [window.innerWidth]);
+  }, []);
 
   return (
     <Box

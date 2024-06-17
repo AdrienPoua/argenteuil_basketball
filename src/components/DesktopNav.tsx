@@ -4,15 +4,21 @@ import { Box, Button, Typography } from "@mui/material";
 import NavItem from "@/components/NavItem";
 import SubBar from "@/components/SubBar";
 import Logo from "@/components/Logo";
+import {ContactContent} from "@/components/Modal";
+import { useModal } from "@/contexts/modalContext";
 
 type DesktopNavProps = {
   data: NavItemType[];
   setActiveNav: (data: NavItemType) => void;
   activeNav: NavItemType;
-  setOpen: (data: boolean) => void;
 };
 
-const DesktopNav: React.FC<DesktopNavProps> = ({ data, setActiveNav, activeNav, setOpen, }) => {
+const DesktopNav: React.FC<DesktopNavProps> = ({ data, setActiveNav, activeNav }) => {
+  const { setOpen, setContent } = useModal();
+  const handleClick = () => {
+    setOpen(true);
+    setContent(<ContactContent isMobile={false} />);
+  }
   return (
   <>
     <Box className="lg:flex hidden">
@@ -24,11 +30,11 @@ const DesktopNav: React.FC<DesktopNavProps> = ({ data, setActiveNav, activeNav, 
           ))}
         </Box>
       </Box>
-      <Button onClick={() => setOpen(true)} variant="contained" color="primary" className="h-fit self-center">
+      <Button onClick={handleClick} variant="contained" color="primary" className="h-fit self-center">
         <Typography variant="body1" className="tracking-widest font-thin">Contact</Typography>
       </Button>
     </Box>
-    <SubBar data={activeNav} open={open} />
+    <SubBar data={activeNav} />
   </>
   )
 }

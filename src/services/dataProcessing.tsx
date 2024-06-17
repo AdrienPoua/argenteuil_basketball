@@ -6,7 +6,8 @@ import documentsData from "@/data/documents.json";
 import FAQdata from "@/data/faq.json";
 import clubData from "@/data/club.json";
 import ratesData from "@/data/rates.json";
-import { Leadership, News, Team, Gym, Document, FAQ, Club, Rate } from "@/models";
+import permanencesData from "@/data/permanences.json";
+import { Leadership, News, Team, Gym, Document, FAQ, Club, Rate, Permanence } from "@/models";
 import { validate } from "class-validator";
 
 export const leadership: Leadership[] = leadershipData.map((leader) => new Leadership(leader));
@@ -31,6 +32,8 @@ export const documents: Document[] = documentsData.map((documentItem) => new Doc
 export const faq: FAQ[] = FAQdata.map((faqItem) => new FAQ(faqItem));
 export const club: Club = new Club(clubData);
 export const rates : Rate[] = ratesData.map((rate) => new Rate(rate));
+export const permanence : Permanence = new Permanence(permanencesData);
+console.log(permanence)
 
 async function validateData(items: any[], className: string) {
   for (const item of items) {
@@ -52,4 +55,5 @@ export async function validateAllData() {
   await validateData(faq, "FAQ");
   await validateData([club], "Club");
   await validateData(rates, "Rate")
+  await validateData([permanence], "Permanences")
 }

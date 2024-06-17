@@ -2,7 +2,7 @@ import { createContext, useContext, useState, ReactNode, ReactElement, Dispatch,
 import { Box } from "@mui/system";
 import Modal from "@/components/Modal";
 
-interface ModalContextProps {
+export interface ModalContextProps {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   content: ReactElement;
@@ -25,6 +25,7 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
   const [content, setContent] = useState<ReactElement>(<Box></Box>);
 
   const value = useMemo(() => ({ open, setOpen, content, setContent }), [open, content]);
+  
 
   return (
     <ModalContext.Provider value={value}>

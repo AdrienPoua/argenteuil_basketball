@@ -14,6 +14,11 @@ const config: Config = {
         main : ["Evogria", "sans-serif"],
         secondary: ['Roboto', 'sans-serif'],
       },
+      textUnderlineOffset: {
+        4: '4px',
+        8: '8px',
+        12: '12px',
+      },
       spacing: {
         'card': '32rem',
       },

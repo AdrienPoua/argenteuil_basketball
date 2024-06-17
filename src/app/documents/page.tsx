@@ -2,7 +2,7 @@
 import Layout from "@/layout/main";
 import { Container } from "@mui/material";
 import { documents } from "@/services/dataProcessing";
-import DownloadButton from "@/components/DownloadButton";
+import {DownloadButton} from "@/components/Buttons";
 
 
 
