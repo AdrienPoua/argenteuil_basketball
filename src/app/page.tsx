@@ -4,6 +4,9 @@ import { Box, Container, Typography } from "@mui/material";
 import { validateAllData, news } from "@/services/dataProcessing";
 import HeroSection from "@/components/HeroSection";
 import NewsContainer from "@/components/NewsContainer";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import headerData from "@/data/header.json";
 
 const Home = () => {
   useEffect(() => {
@@ -17,6 +20,8 @@ const Home = () => {
   }, []);
 
   return (
+    <>
+    <Header data={headerData} />
     <Box className="bg-black">
       <HeroSection />
       <Container maxWidth="xl">
@@ -24,6 +29,8 @@ const Home = () => {
       </Container>
       <NewsContainer news={news} />
     </Box>
+    <Footer />
+    </>
   );
 };
 

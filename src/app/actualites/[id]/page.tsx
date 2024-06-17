@@ -5,6 +5,9 @@ import { usePathname, useRouter } from "next/navigation";
 import { Container, Typography, Box } from "@mui/material";
 import { News, Utils } from "@/models";
 import { v4 as uuidv4 } from "uuid";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import headerData from "@/data/header.json";
 
 export default function Index() {
   const pathname = usePathname();
@@ -23,7 +26,9 @@ export default function Index() {
 
   const formatedDate = Utils.formatDate(data.date).toLocaleLowerCase();
 
-  return (
+  return ( 
+    <>
+    <Header data={headerData} />
     <Container className="flex flex-col grow">
       <Box className="flex items-center justify-between">
         <Typography
@@ -43,5 +48,7 @@ export default function Index() {
         ))}
       </Container>
     </Container>
+    <Footer />
+    </>
   );
 }
