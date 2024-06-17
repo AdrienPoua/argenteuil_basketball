@@ -3,8 +3,9 @@ import { useState, useEffect } from "react";
 import { teams } from "@/services/dataProcessing";
 import { TeamCard } from "@/components/Card";
 import Layout from "@/layout/main";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Container } from "@mui/material";
 import Slider from "@/components/Slider";
+
 
 export default function TeamPage() {
   const [selectedTeamName, setSelectedTeamName] = useState<string | null>(null);
@@ -34,6 +35,7 @@ export default function TeamPage() {
           Toutes les équipes
         </Button>
       </Box>
+      <Container className="max-w-[80%]">
       <Slider>
         {teams.map((team) => (
           <Button
@@ -45,7 +47,8 @@ export default function TeamPage() {
           </Button>
         ))}
       </Slider>
-      <Box className="flex flex-col grow gap-5 mx-20 mt-14">
+      </Container>
+      <Box className="flex flex-col grow gap-5 mt-14">
         {filteredTeams.map((team) => (
           <TeamCard
             key={team.id}

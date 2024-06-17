@@ -8,10 +8,11 @@ export default function Layout({ pageTitle, children }: Readonly<{ pageTitle: st
       <Container
         maxWidth="xl"
         component="main"
-        className="grow pb-24">
-        <Typography variant="h1" className="bg-[url('/images/background.jpg')] bg-no-repeat w-full py-5 bg-fixed">{pageTitle}</Typography>
+        className=" flex flex-col pb-24">
+        <Typography variant="h1" className="bg-[url('/images/background.jpg')] w-full py-5 bg-fixed">{pageTitle}</Typography>
         <Container
-          maxWidth={false}
+          maxWidth="xl"
+          disableGutters
           className="flex flex-col grow">
           {children}
         </Container>

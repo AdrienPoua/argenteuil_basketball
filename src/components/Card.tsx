@@ -40,7 +40,7 @@ export const NewsCard = ({ data, small, sticky }: NewsCardProps) => {
     </Card>
   );
 };
-export const LeaderCard = ({ data }: { data: Leadership }) => {    
+export const LeaderCard = ({ data }: { data: Leadership }) => {
   return (
     <Card className="flex flex-col size-card rounded-lg overflow-hidden ">
       <CardMedia
@@ -49,23 +49,17 @@ export const LeaderCard = ({ data }: { data: Leadership }) => {
         className=" object-cover grow overflow-hidden object-top	"
       />
       <CardContent className="flex p-0 pb-0 bg-primary max-h-24 ">
-        <Box className="flex justify-center items-center gap-2 grow relative">
-          <Box className=" px-5 py-2 flex flex-col items-center w-full rounded-md ">
+        <Box className="flex justify-center items-center gap-2 grow relative ">
+          <Box className=" p-5 md:p-3 flex flex-col items-center w-full rounded-md gap-1 ">
             {" "}
             <Typography className="text-xs md:text-base text-black text-nowrap">{data.name}</Typography>
-            <Typography
-              className="text-center text-xs md:text-base">
-              {data.isLeader ? data.job : data.teams?.join(" | ")}
-            </Typography>
+            <Typography className="text-center text-xs md:text-base">{data.isLeader ? data.job : data.teams?.join(" | ")}</Typography>
           </Box>
-          <Box
-            className="flex h-full"
-            >
+          <Box className="flex h-full">
             <ContactButton
               icon={<EmailIcon />}
               text={data.email}
               available={data.isEmailDisplayed}
-
             />
             <ContactButton
               icon={<PhoneIphone />}
@@ -84,86 +78,61 @@ export const TeamCard = ({ data }: { data: Team }) => {
   const handleClick = () => {
     setIsClicked(!isClicked);
   };
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"))
 
   return (
     <Card
       onClick={handleClick}
-      className="relative overflow-hidden w-full h-[700px] rounded-lg shadow-lg transition-transform duration-150 ease-in-out transform hover:scale-105">
-      <CardActionArea className="h-full">
-        <Box className="absolute inset-0 overflow-hidden rounded-lg z-0">
-          <Image
-            src={data.img}
-            alt={data.name}
-            layout="fill"
-            objectFit="cover"
-            className="object-cover"
+      className="relative overflow-hidden w-full h-[400px] md:h-[600px] rounded-lg shadow-lg transition-transform duration-150 ease-in-out transform hover:scale-105">
+      <CardActionArea className="size-full overflow-hidden">
+        <Box className="absolute inset-0 ">
+          <CardMedia
+            component="img"
+            image={data.img}
+            className="object-cover size-full"
           />
         </Box>
-        <CardContent
-          className={`absolute flex-col justify-center inset-0 flex bg-black ${
-            !isClicked ? "bg-opacity-0" : "bg-opacity-75"
-          } text-white transition-opacity duration-300 z-20`}>
+        <Box
+          className={`absolute inset-0 flex bg-black ${!isClicked ? "bg-opacity-0" : "bg-opacity-75"} transition-opacity duration-300 z-10 `}></Box>
+        <CardContent className="flex flex-col items-center justify-around z-40 size-full py-16">
           {!isClicked ? (
-            <Typography className="absolute inset-0 flex justify-center items-center text-white text-8xl z-10">{data.name}</Typography>
+            <Typography className="text-white text-4xl md:text-6xl z-40 text-center self-center">{data.name}</Typography>
           ) : (
-            <>
-              <Typography
-                variant="h4"
-                className=" absolute top-14 left-1/2 transform -translate-x-1/2 text-6xl font-bold mb-8 text-center">
-                {data.name}
-              </Typography>
-              <Box className="flex grow items-center justify-around">
-                <Box className="flex flex-col gap-5 grow">
+            <Box className="flex flex-col grow z-40 size-full">
+              <Typography className=" text-2xl lg:text-4xl text-center text-white justify-self-start">{data.name}</Typography>
+              <Box className="flex grow justify-between">
+                <Box className="flex flex-col gap-5 justify-center grow basis-1/2">
                   {data.coach && (
-                    <Typography
-                      variant="h4"
-                      className="text-5xl  ms-5 font-bold mb-8 text-center">
-                      Coach <span className="text-primary">{data.coach}</span>
+                    <Typography className="md:text-lg lg:text-3xl mb-8 text-center">
+                      Coach <Box component="span" className="text-primary">{data.coach}</Box>
                     </Typography>
                   )}
                   {data.isChampionship ? (
-                    <Typography
-                      variant="h4"
-                      className="text-4xl font-bold mb-8 text-center">
-                      Division {data.division ? data.division : "départementale"}
-                    </Typography>
+                    <Typography className="md:text-lg lg:text-3xl mb-8 text-center">Division {data.division ? data.division : "départementale"}</Typography>
                   ) : (
-                    <Typography
-                      variant="h4"
-                      className="text-4xl font-bold mb-8 text-center">
-                      Equipe hors championnat
-                    </Typography>
+                    <Typography className="md:text-lg lg:text-3xl mb-8 text-center">Equipe hors championnat</Typography>
                   )}
                 </Box>
-                <Box className="grow">
-                  <Typography
-                    variant="h4"
-                    className="text-4xl font-bold mb-8 text-center text-primary">
-                    Entrainements
-                  </Typography>
-                  <Box className="flex flex-col gap-5 justify-center items-center flex-grow">
+                <Box className="flex flex-col gap-5 justify-center grow basis-1/2">
+                  <Typography className="text-base md:text-lg lg:text-3xl text-center text-primary first-letter:">Entrainements</Typography>
+                  <Box className="flex flex-col gap-5 justify-center items-center   ">
                     {data.trainings ? (
                       data.trainings.map((training) => (
                         <Typography
                           key={uuidv4()}
-                          className="text-center  text-xl ">
-                          {training.day} {training.start} - {training.end} {training.gym}
+                          className="text-center  text-xs md:text-lg lg:text-3xl ">
+                          {training.day} {training.start} - {training.end} {isMobile && <br/> } {training.gym}
                         </Typography>
                       ))
                     ) : (
-                      <Typography className="text-lg text-center mb-5">Pas d&apos;entrainements prévus</Typography>
+                      <Typography className="text-base md:text-lg lg:text-3xl text-center mb-5">Pas d&apos;entrainements prévus</Typography>
                     )}
                   </Box>
                 </Box>
-                {data.isTeamImage && (
-                  <Typography
-                    variant="h4"
-                    className="text-4xl font-bold absolute bottom-28">
-                    En attente de la photo de l&apos;équipe
-                  </Typography>
-                )}
               </Box>
-            </>
+              {!data.isTeamImage && <Typography className="text-base md:text-lg lg:text-3xl text-center">En attente de la photo de l&apos;équipe</Typography>}
+            </Box>
           )}
         </CardContent>
       </CardActionArea>
@@ -193,52 +162,35 @@ export const GymCard = ({ data }: { data: Gym }) => {
   return (
     <Card
       onClick={handleClick}
-      className="relative overflow-hidden w-full h-[700px] rounded-lg shadow-lg transition-transform duration-150 ease-in-out transform hover:scale-105">
-      <CardActionArea className="h-full">
+      className="relative overflow-hidden w-full h-72 lg:h-[700px] rounded-lg shadow-lg transition-transform duration-150 ease-in-out transform hover:scale-105">
+      <CardActionArea className="size-full">
         <Box className="absolute inset-0 overflow-hidden rounded-lg z-0">
-          <Image
+          <CardMedia
             src={data.img}
-            alt={data.name}
-            layout="fill"
-            objectFit="cover"
-            className="object-cover"
+            className="object-cover size-full"
+            component="img"
           />
         </Box>
         <Box className={`absolute inset-0 flex bg-black ${isClicked ? "opacity-50" : "opacity-0"} transition-opacity duration-300 z-20`}></Box>
         <CardContent className="absolute flex-col items-center justify-center inset-0 flex text-white transition-opacity duration-1000 z-20">
           {!isClicked ? (
-            <Box className="flex">
-              <Typography
-                variant="h4"
-                className="text-5xl font-bold mb-8 text-center">
-                {data.name}
-              </Typography>
-            </Box>
+              <Typography className="text-xl md:text-3xl lg:text-5xl text-center">{data.name}</Typography>
           ) : (
             <Box className="flex flex-col">
-              <Typography
-                variant="h4"
-                className="text-5xl font-bold mb-8 text-center">
-                {data.address}
-              </Typography>
-              <Typography
-                variant="h4"
-                className="text-5xl font-bold mb-8 text-center">
-                {data.city}
-              </Typography>
+              <Typography className="text-xl md:text-3xl lg:text-5xl text-center">{data.address}</Typography>
+              <Typography className="text-xl md:text-3xl lg:text-5xl text-center">{data.city}</Typography>
             </Box>
           )}
         </CardContent>
         <Box
-          className="absolute bottom-4 right-4 w-48 h-48 z-30"
+          className="absolute bottom-4 right-4 w-24 lg:w-52 aspect-square z-30"
           ref={mapRef}>
           <MapContainer
             center={center}
             zoom={14}
             scrollWheelZoom={false}
-            style={{ height: "100%", width: "100%", borderRadius: "8px" }}
-            attributionControl={false}
-            className={`z-30`}>
+            className="size-full z-30"
+            attributionControl={true}>
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
             <Marker position={center}>
               <Popup>{data.name}</Popup>

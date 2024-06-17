@@ -36,7 +36,6 @@ const PrevArrow = (props: any ) => {
 export default function SimpleSlider({ children }: Readonly<{ children: React.ReactNode }>) {
   const settings = {
     adaptiveHeight: true,
-    dots: true,
     speed: 500,
     slidesToShow: 5,
     slidesToScroll: 4,

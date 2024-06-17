@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
-import { Box, Button, ButtonGroup } from "@mui/material";
+import { Box, Button, Container } from "@mui/material";
 import { Ranking } from "@/models/api";
 import { ClubType, ClubTeam, CompetitionType } from "@/types/api";
 import Table from "./table";
@@ -67,9 +67,11 @@ export default function Index() {
         {error && <Info content="Les données ne sont pas disponibles, revenez plus tard !" />}
         {!error && (
           <>
-            <ButtonGroup
+            <Container
+              maxWidth="xl"
+              disableGutters
               aria-label="Basic button group"
-              className="flex-wrap flex">
+              className="flex-wrap flex w-full">
               {clubData?.teams.map((team: ClubTeam) => {
                 const id = team.competitions[0].id.toString();
                 return (
@@ -84,7 +86,7 @@ export default function Index() {
                   </Button>
                 );
               })}
-            </ButtonGroup>
+            </Container>
             {ranking && <Table data={ranking} />}
           </>
         )}

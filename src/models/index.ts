@@ -357,7 +357,7 @@ export class Team implements TeamType {
   }
 
   get isTeamImage() {
-    return this._img === "/images/default/equipes.avif";
+    return this._img !== "/images/default/equipes.avif";
   }
 
   get id(): string {
