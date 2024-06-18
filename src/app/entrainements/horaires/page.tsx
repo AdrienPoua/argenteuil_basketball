@@ -40,7 +40,7 @@ const ScheduleDay = ({ day, slots }: ScheduleDayProps ) => (
     <Grid container spacing={1}>
       <Grid item xs={3}>
         <Paper className="h-full flex justify-center items-center">
-          <Typography  className="text-black text-xs md:text-base">
+          <Typography  className="text-black text-xs md:text-lg">
             {day}
           </Typography>
         </Paper>
@@ -58,7 +58,7 @@ const ScheduleDay = ({ day, slots }: ScheduleDayProps ) => (
 
 const Schedule = ({ data }: ScheduleProps) => (
   <Box className="flex flex-col border bg-primary p-2">
-    <Typography variant="h2" color="white" className="text-5xl text-center pb-4">
+    <Typography variant="h2" color="white" className="text-5xl text-center pb-2">
       {data.name}
     </Typography>
     <Grid container spacing={1}>
@@ -68,7 +68,7 @@ const Schedule = ({ data }: ScheduleProps) => (
       })}
       <Grid item xs={12}>
         <Paper className="h-full flex justify-center items-center">
-          <Typography  className="p-2 text-black text-xs md:text-base text-center ">
+          <Typography  className="p-2 text-black text-base lg:text-lg text-center ">
             {data.address} {data.postalCode}
           </Typography>
         </Paper>

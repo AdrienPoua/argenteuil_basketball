@@ -1,6 +1,6 @@
 "use client";
 import { v4 as uuidv4 } from "uuid";
-import { useState, useRef, MouseEvent } from "react";
+import { useState, MouseEvent } from "react";
 import Link from "next/link";
 import { Utils, Team, Leadership, Gym, News } from "@/models";
 import { Card, CardActionArea, CardContent, Typography, Box, CardMedia, useTheme, useMediaQuery } from "@mui/material";
@@ -16,7 +16,7 @@ export const NewsCard = ({ data, small, sticky }: NewsCardProps) => {
   const { img, title, url, date } = data;
   const formatedDate = Utils.formatDate(date, { month: "long", day: "numeric", year: "numeric" });
   return (
-    <Card className={`${sticky ? "sticky top-0" : ""}  rounded-3xl`}>
+    <Card className={`${sticky ? "sticky top-0" : ""}  rounded-3xl w-full`}>
       <Link
         href={url}
         className="relative">
