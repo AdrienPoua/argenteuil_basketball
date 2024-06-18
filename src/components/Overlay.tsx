@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
+import Overlay from "@mui/material/Modal";
 import { useOverlay } from "@/contexts/Overlay";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -16,18 +16,18 @@ import { DownloadButton, OverlayButton } from "./Buttons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function MyModal() {
+export default function MyOverlay() {
   const { open, setOpen, content } = useOverlay();
   const pathname = usePathname();
   useEffect(() => {
     setOpen(false);
   }, [pathname, setOpen]);
   return (
-    <Modal
+    <Overlay
       open={open}
       onClose={() => setOpen(false)}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description">
+      aria-labelledby="overlay-overlay-title"
+      aria-describedby="overlay-overlay-description">
       <Box
         className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-fit min-h-fit
           flex flex-col justify-center items-center">
@@ -37,7 +37,7 @@ export default function MyModal() {
           {content}
         </Paper>
       </Box>
-    </Modal>
+    </Overlay>
   );
 }
 

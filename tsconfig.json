@@ -1,10 +1,6 @@
 {
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
@@ -15,9 +11,8 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
-    "jsx": "preserve",
+    "jsx": "preserve",  // ou "react-jsx"
     "target": "ES6",
-
     "incremental": true,
     "plugins": [
       {
@@ -25,27 +20,20 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@/public/*": [
-        "./public/*"
-      ],
-      "@/libs/*": [
-        "./libs/*"
-      ]
+      "@/*": ["./src/*"],
+      "@/public/*": ["./public/*"],
+      "@/libs/*": ["./libs/*"]
     },
     "isolatedModules": true
   },
   "include": [
-      "next-env.d.ts",
-      "**/*.ts",
-      "**/*.tsx",
-      ".next/types/**/*.ts",
-      "tailwind.config.ts",
-      "src/components/**/*.tsx" 
-    ],
-  "exclude": [
-    "node_modules"
-  ]
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "tailwind.config.ts",
+    "src/**/*.tsx", // inclure tous les fichiers tsx dans src
+    "src/**/*.ts"   // inclure tous les fichiers ts dans src
+  ],
+  "exclude": ["node_modules"]
 }

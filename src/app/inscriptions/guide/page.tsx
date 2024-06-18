@@ -13,8 +13,8 @@ import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import MarkEmailUnreadIcon from "@mui/icons-material/MarkEmailUnread";
 import LaptopMacIcon from "@mui/icons-material/LaptopMac";
 import DoneIcon from "@mui/icons-material/Done";
-import { ModalButton } from "@/components/Buttons";
-import { FormulaireContent, PermanencesContent, EmailContent, InscriptionContent, ValidationContent } from "@/components/Modal";
+import { OverlayButton } from "@/components/Buttons";
+import { FormulaireContent, PermanencesContent, EmailContent, InscriptionContent, ValidationContent } from '@/components/Overlay';
 
 
 
@@ -66,28 +66,28 @@ export default function RegistrationStepsPage() {
         <Timeline sx={{ mt: 0, "& .MuiTimelineItem-root:before": { display: "none" } }} >
           <TimelineStep
             left={<Typography>Recuperez</Typography>}
-            right={<ModalButton text="Formulaire" modalContent={<FormulaireContent/>} />}
+            right={<OverlayButton text="Formulaire" overlayContent={<FormulaireContent/>} />}
             icon={<ArticleIcon />}
           />
           <TimelineStep
             left="Rendre"
             icon={<AssignmentTurnedInIcon />}
-            right={<ModalButton text="Permanences" modalContent={<PermanencesContent/>} />}
+            right={<OverlayButton text="Permanences" overlayContent={<PermanencesContent/>} />}
           />
           <TimelineStep
             left="Recevez"
             icon={<MarkEmailUnreadIcon />}
-            right={<ModalButton text="Email" modalContent={<EmailContent/>} />}
+            right={<OverlayButton text="Email" overlayContent={<EmailContent/>} />}
           />
           <TimelineStep
             left="Completez"
             icon={<LaptopMacIcon />}
-            right={<ModalButton text="Inscription" modalContent={<InscriptionContent/>} />}
+            right={<OverlayButton text="Inscription" overlayContent={<InscriptionContent/>} />}
           />
           <TimelineStep
             left="Verification"
             icon={<MarkEmailUnreadIcon />}
-            right={<ModalButton text="Validation" modalContent={<ValidationContent/>} />}
+            right={<OverlayButton text="Validation" overlayContent={<ValidationContent/>} />}
 
           />
           <TimeLineEnd />

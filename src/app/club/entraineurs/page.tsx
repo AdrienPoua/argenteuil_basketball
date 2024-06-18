@@ -1,11 +1,19 @@
 "use client";
 import Layout from "@/layout/main";
-import { LeaderCard } from "@/components/Card";
 import { Box } from "@mui/material";
 import { leadership } from "@/services/dataProcessing";
 import { v4 as uuidv4 } from "uuid";
 import { Leadership } from "@/models";
 import Info from "@/components/Info";
+
+import dynamic from 'next/dynamic';
+
+// Dynamically import the LeaderCard component
+const LeaderCard = dynamic(() =>
+  import('@/components/Card').then(mod => mod.LeaderCard),
+  { ssr: false }
+);
+
 
 export default function Index() {
   const coachs = leadership.filter((leader) => leader.isCoach);

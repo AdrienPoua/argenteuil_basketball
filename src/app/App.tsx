@@ -1,7 +1,5 @@
 import React from "react";
 
-
-
 export default function App({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang='fr'>

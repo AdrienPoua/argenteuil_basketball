@@ -33,7 +33,6 @@ export const faq: FAQ[] = FAQdata.map((faqItem) => new FAQ(faqItem));
 export const club: Club = new Club(clubData);
 export const rates : Rate[] = ratesData.map((rate) => new Rate(rate));
 export const permanence : Permanence = new Permanence(permanencesData);
-console.log(permanence)
 
 async function validateData(items: any[], className: string) {
   for (const item of items) {

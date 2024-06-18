@@ -1,10 +1,17 @@
 "use client";
 import { useState, useEffect } from "react";
 import { teams } from "@/services/dataProcessing";
-import { TeamCard } from "@/components/Card";
 import Layout from "@/layout/main";
 import { Box, Button, Container } from "@mui/material";
 import Slider from "@/components/Slider";
+import dynamic from 'next/dynamic';
+
+// Dynamically import the LeaderCard component
+const TeamCard = dynamic(() =>
+  import('@/components/Card').then(mod => mod.TeamCard),
+  { ssr: false }
+);
+
 
 
 export default function TeamPage() {

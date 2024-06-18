@@ -1,8 +1,15 @@
 "use client";
 import { v4 as uuidv4 } from "uuid";
-import { NewsCard } from "@/components/Card";
 import { News } from "@/models";
 import { Container, Grid } from "@mui/material";
+
+import dynamic from 'next/dynamic';
+
+const NewsCard = dynamic(() =>
+  import('@/components/Card').then(mod => mod.NewsCard),
+  { ssr: false }
+);
+
 
 interface NewsContainerProps {
   news: News[];

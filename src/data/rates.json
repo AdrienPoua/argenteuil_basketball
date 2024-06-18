@@ -26,22 +26,22 @@
   },
   {
     "birthYear": ["2008", "2009"],
-    "category": "U17 (garçons uniquement)",
+    "category": "U17 (garçons)",
     "rate": 260
   },
   {
     "birthYear": ["2007", "2008", "2009"],
-    "category": "U18 (filles uniquement)",
+    "category": "U18 (filles)",
     "rate": 260
   },
   {
     "birthYear": ["2005", "2006"],
-    "category": "U20 (garçons uniquement)",
+    "category": "U20 (garçons)",
     "rate": 280
   },
   {
     "birthYear": ["2004", " avant"],
-    "category": "Seniors (hommes uniquement)",
+    "category": "Seniors (hommes)",
     "rate": 280
   },
   {

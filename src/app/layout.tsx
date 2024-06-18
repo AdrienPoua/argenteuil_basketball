@@ -5,7 +5,8 @@ import App from "./App";
 import { StyledEngineProvider, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "@/app/theme";
-import { ModalProvider } from "@/contexts/modalContext";
+import { OverlayProvider } from "@/contexts/Overlay";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
 
 const metadata: Metadata = {
   title: "Argenteuil basketball",
@@ -21,10 +22,12 @@ export default function RootLayout({
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <ModalProvider>
+        <OverlayProvider>
           <App>
-            {children}</App>
-        </ModalProvider>
+            <ScrollToTopButton />
+            {children}
+            </App>
+        </OverlayProvider>
       </ThemeProvider>
     </StyledEngineProvider>
   );

@@ -1,10 +1,7 @@
 "use client";
 import { v4 as uuidv4 } from "uuid";
 import { useState, useRef, MouseEvent } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import L from "leaflet";
 import Link from "next/link";
-import Image from "next/image";
 import { Utils, Team, Leadership, Gym, News } from "@/models";
 import { Card, CardActionArea, CardContent, Typography, Box, CardMedia, useTheme, useMediaQuery } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
@@ -28,7 +25,7 @@ export const NewsCard = ({ data, small, sticky }: NewsCardProps) => {
             component="img"
             image={img}
             alt={title}
-            className={`${small || isMobile ? "h-card" : "h-bigCard"}`}
+            className={`${small || isMobile ? "h-[400px]" : "h-[800px]"}`}
           />
           <Box className="absolute inset-0 bg-black bg-opacity-50" />
         </Box>
@@ -144,18 +141,8 @@ export const TeamCard = ({ data }: { data: Team }) => {
 
 export const GymCard = ({ data }: { data: Gym }) => {
   const [isClicked, setIsClicked] = useState(false);
-  const mapRef = useRef<HTMLDivElement>(null);
-  const center = [data.lat, data.lng];
-  L.Icon.Default.mergeOptions({
-    iconRetinaUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png",
-    iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
-    shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
-  });
 
   const handleClick = (e: MouseEvent<HTMLDivElement>) => {
-    if (mapRef.current?.contains(e.target as Node)) {
-      return;
-    }
     setIsClicked(!isClicked);
   };
 
@@ -182,21 +169,6 @@ export const GymCard = ({ data }: { data: Gym }) => {
             </Box>
           )}
         </CardContent>
-        <Box
-          className="absolute bottom-4 right-4 w-24 lg:w-52 aspect-square z-30"
-          ref={mapRef}>
-          <MapContainer
-            center={center}
-            zoom={14}
-            scrollWheelZoom={false}
-            className="size-full z-30"
-            attributionControl={true}>
-            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-            <Marker position={center}>
-              <Popup>{data.name}</Popup>
-            </Marker>
-          </MapContainer>
-        </Box>
       </CardActionArea>
     </Card>
   );

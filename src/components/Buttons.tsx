@@ -6,7 +6,7 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useTheme } from "@mui/material/styles";
 import { useMediaQuery } from "@mui/material";
 import DoNotDisturbIcon from "@mui/icons-material/DoNotDisturb";
-import { useModal } from "@/contexts/modalContext";
+import { useOverlay } from "@/contexts/Overlay";
 
 export function DownloadButton({ title, url, className, variant }: Readonly<{ title: string; url: string; className?: string; variant?: string }>) {
   return (
@@ -31,9 +31,9 @@ export const ContactButton = ({ icon, text, available }: { icon: React.ReactNode
 
   const isEmail = text.includes("@");
   const isPhone = text.startsWith("06") || text.startsWith("07") || text.startsWith("+33");
-
+  
   const handleClick = () => {
-    if (!isClicked && available) {
+    if (!isClicked && available && window !== undefined) {
       if (isEmail) {
         window.open(`mailto:${text}`);
       } else if (isPhone && isMobile) {
@@ -74,10 +74,10 @@ export const ContactButton = ({ icon, text, available }: { icon: React.ReactNode
   );
 };
 
-export const ModalButton = ({ modalContent, text }: { modalContent: React.JSX.Element; text: string }) => {
-  const { setOpen, setContent } = useModal()
+export const OverlayButton = ({ overlayContent, text }: { overlayContent: React.JSX.Element; text: string }) => {
+  const { setOpen, setContent } = useOverlay()
   const handleClick = () => {
-    setContent(modalContent);
+    setContent(overlayContent);
     setOpen(true);
   };
   return (

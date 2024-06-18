@@ -1,6 +1,7 @@
 import { TeamType, TrainingType, GymType, LeadershipType, NewsType } from "@/types";
-import { IsEmail, IsString, Length, IsOptional, IsBoolean, IsArray, IsNumber, isArray } from "class-validator";
+import { IsEmail, IsString, Length, IsOptional, IsBoolean, IsArray, IsNumber } from "class-validator";
 import { v4 as uuidv4 } from "uuid";
+
 
 export class Leadership implements LeadershipType {
   @IsString()
@@ -295,9 +296,9 @@ export class News {
   }
 
   static lastFour(array: News[]): News[] {
-    const sortedArray = array.toSorted((a, b) => b.date.getTime() - a.date.getTime());
+    array.sort((a, b) => b.date.getTime() - a.date.getTime());
+    const sortedArray = array
     const filteredArray = sortedArray.filter((item) => !item.isMain && !item.isSecondary);
-    console.log(filteredArray);
     return filteredArray.slice(0, 4);
   }
 
@@ -444,11 +445,11 @@ export class Gym implements GymType {
   }
 
   get lat(): number {
-    return this._lat;
+    return this._lat || 0;
   }
 
   get lng(): number {
-    return this._lng;
+    return this._lng || 0;
   }
 
   get phone(): string {

@@ -1,9 +1,16 @@
 "use client";
 import Layout from "@/layout/main";
 import { Box } from "@mui/material";
-import { GymCard } from "@/components/Card";
 import { gyms } from "@/services/dataProcessing";
 import { Gym } from "@/models";
+
+import dynamic from 'next/dynamic';
+
+// Dynamically import the LeaderCard component
+const GymCard = dynamic(() =>
+  import('@/components/Card').then(mod => mod.GymCard),
+  { ssr: false }
+);
 
 export default function Page() {
   return (
