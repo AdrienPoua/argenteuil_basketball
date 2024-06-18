@@ -8,28 +8,29 @@ type TableProps = {
 
 export default function ClassementTable({ data }: Readonly<TableProps>): JSX.Element {
   const tableHeaders = [" ", "Equipe", "Pts", "Jo", "G", "P", "F", "Bp", "Bc", "Coeff"];
-  
+
   return (
-    <TableContainer className="w-100 " component={Paper} >
+    <TableContainer
+      className="w-100 "
+      component={Paper}>
       <Table aria-label="simple table">
-        <TableHead>
-          <TableRow className="border-black border-b-2 ">
-            {tableHeaders.map((header) => (
-              <TableCell key={header}>{header}</TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
         <TableBody>
+          {tableHeaders.map((header) => (
+            <TableCell key={header}>{header}</TableCell>
+          ))}
           {data.teams.map((row) => {
             const isABB = row.name.toLowerCase().includes(club.name.toLowerCase());
             return (
-              <TableRow key={row.rank} className={isABB ? "bg-primary" : ""}>
-                <TableCell component="th" scope="row" className="w-[1%] whitespace-nowrap font-bold">
-                  {row.rank }
+              <TableRow
+                key={row.rank}
+                className={isABB ? "bg-primary" : ""}>
+                <TableCell
+                  component="th"
+                  scope="row"
+                  className="w-[1%] whitespace-nowrap font-bold">
+                  {row.rank}
                 </TableCell>
-                <TableCell>
-                  {row.name}{" "}
-                </TableCell>
+                <TableCell>{row.name} </TableCell>
                 <TableCell>{Ranking.getPts(row)}</TableCell>
                 <TableCell>{Ranking.getJo(row)}</TableCell>
                 <TableCell>{Ranking.getG(row)}</TableCell>
@@ -46,4 +47,3 @@ export default function ClassementTable({ data }: Readonly<TableProps>): JSX.Ele
     </TableContainer>
   );
 }
-

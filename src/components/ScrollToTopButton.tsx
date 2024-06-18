@@ -26,7 +26,8 @@ function ScrollTop({children} : Readonly<{ children: React.ReactNode }>) {
     <Zoom in={trigger}>
       <Box
         onClick={handleClick}
-        sx={{ position: 'fixed', bottom: 16, right: 16 }}
+        className="fixed bottom-4 right-4"
+        role="go top"
       >
         {children}
       </Box>

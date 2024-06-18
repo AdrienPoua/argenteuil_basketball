@@ -25,7 +25,7 @@ const Home = () => {
     <Box className="bg-black">
       <HeroSection />
       <Container maxWidth="xl">
-        <Typography className="text-white text-5xl mb-8">Actualités </Typography>
+        <Typography variant="h2" className="text-white mb-8">Actualités </Typography>
       </Container>
       <NewsContainer news={news} />
     </Box>

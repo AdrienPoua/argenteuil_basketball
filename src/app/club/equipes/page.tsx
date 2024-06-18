@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { teams } from "@/services/dataProcessing";
 import Layout from "@/layout/main";
-import { Box, Button, Container } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import Slider from "@/components/Slider";
 import dynamic from 'next/dynamic';
 
@@ -39,7 +39,7 @@ export default function TeamPage() {
           className="flex whitespace-nowrap min-w-fit"
           variant="contained"
           onClick={() => handleTeamSelection(null)}>
-          Toutes les équipes
+          <Typography variant="h2" className="text-base">Toutes les équipes</Typography>
         </Button>
       </Box>
       <Container className="max-w-[80%]">

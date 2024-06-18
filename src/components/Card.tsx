@@ -30,7 +30,11 @@ export const NewsCard = ({ data, small, sticky }: NewsCardProps) => {
           <Box className="absolute inset-0 bg-black bg-opacity-50" />
         </Box>
         <CardContent className="mb-5">
-          <Typography variant="h6">{title}</Typography>
+          <Typography
+            component="h3"
+            className="text-black">
+            {title}
+          </Typography>
           <Typography variant="body2">{formatedDate}</Typography>
         </CardContent>
       </Link>
@@ -44,6 +48,7 @@ export const LeaderCard = ({ data }: { data: Leadership }) => {
         component="img"
         image={data.img}
         className=" object-cover grow overflow-hidden object-top	"
+        alt={data.name}
       />
       <CardContent className="flex p-0 pb-0 bg-primary max-h-24 ">
         <Box className="flex justify-center items-center gap-2 grow relative ">
@@ -76,7 +81,7 @@ export const TeamCard = ({ data }: { data: Team }) => {
     setIsClicked(!isClicked);
   };
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"))
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
     <Card
@@ -88,13 +93,14 @@ export const TeamCard = ({ data }: { data: Team }) => {
             component="img"
             image={data.img}
             className="object-cover size-full"
+            alt={"Les membres de l'équipe" + data.name }
           />
         </Box>
         <Box
-          className={`absolute inset-0 flex bg-black ${!isClicked ? "bg-opacity-0" : "bg-opacity-75"} transition-opacity duration-300 z-10 `}></Box>
+          className={`absolute inset-0 flex bg-black ${!isClicked ? "bg-opacity-10" : "bg-opacity-75"} transition-opacity duration-300 z-10 `}></Box>
         <CardContent className="flex flex-col items-center justify-around z-40 size-full py-16">
           {!isClicked ? (
-            <Typography className="text-white text-4xl md:text-6xl z-40 text-center self-center">{data.name}</Typography>
+            <Typography variant="h3" className="text-white z-40  text-center self-center ">{data.name}</Typography>
           ) : (
             <Box className="flex flex-col grow z-40 size-full">
               <Typography className=" text-2xl lg:text-4xl text-center text-white justify-self-start">{data.name}</Typography>
@@ -102,11 +108,18 @@ export const TeamCard = ({ data }: { data: Team }) => {
                 <Box className="flex flex-col gap-5 justify-center grow basis-1/2">
                   {data.coach && (
                     <Typography className="md:text-lg lg:text-3xl mb-8 text-center">
-                      Coach <Box component="span" className="text-primary">{data.coach}</Box>
+                      Coach{" "}
+                      <Box
+                        component="span"
+                        className="text-primary">
+                        {data.coach}
+                      </Box>
                     </Typography>
                   )}
                   {data.isChampionship ? (
-                    <Typography className="md:text-lg lg:text-3xl mb-8 text-center">Division {data.division ? data.division : "départementale"}</Typography>
+                    <Typography className="md:text-lg lg:text-3xl mb-8 text-center">
+                      Division {data.division ? data.division : "départementale"}
+                    </Typography>
                   ) : (
                     <Typography className="md:text-lg lg:text-3xl mb-8 text-center">Equipe hors championnat</Typography>
                   )}
@@ -119,7 +132,7 @@ export const TeamCard = ({ data }: { data: Team }) => {
                         <Typography
                           key={uuidv4()}
                           className="text-center  text-xs md:text-lg lg:text-3xl ">
-                          {training.day} {training.start} - {training.end} {isMobile && <br/> } {training.gym}
+                          {training.day} {training.start} - {training.end} {isMobile && <br />} {training.gym}
                         </Typography>
                       ))
                     ) : (
@@ -128,7 +141,9 @@ export const TeamCard = ({ data }: { data: Team }) => {
                   </Box>
                 </Box>
               </Box>
-              {!data.isTeamImage && <Typography className="text-base md:text-lg lg:text-3xl text-center">En attente de la photo de l&apos;équipe</Typography>}
+              {!data.isTeamImage && (
+                <Typography className="text-base md:text-lg lg:text-3xl text-center">En attente de la photo de l&apos;équipe</Typography>
+              )}
             </Box>
           )}
         </CardContent>
@@ -161,7 +176,7 @@ export const GymCard = ({ data }: { data: Gym }) => {
         <Box className={`absolute inset-0 flex bg-black ${isClicked ? "opacity-50" : "opacity-0"} transition-opacity duration-300 z-20`}></Box>
         <CardContent className="absolute flex-col items-center justify-center inset-0 flex text-white transition-opacity duration-1000 z-20">
           {!isClicked ? (
-              <Typography className="text-xl md:text-3xl lg:text-5xl text-center">{data.name}</Typography>
+            <Typography variant="h2" className="text-3xl lg:text-5xl text-center bg-black bg-opacity-60 w-full">{data.name}</Typography>
           ) : (
             <Box className="flex flex-col">
               <Typography className="text-xl md:text-3xl lg:text-5xl text-center">{data.address}</Typography>

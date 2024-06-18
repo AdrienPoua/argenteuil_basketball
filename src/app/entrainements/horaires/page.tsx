@@ -25,8 +25,8 @@ const ScheduleSlot = ({ slot }: SlotProps) => {
   const secondTeam = slot.team?.split("-")[1];
   return (
     <Grid item xs={4}>
-      <Box className="p-2 bg-blue-500 text-white rounded shadow-md h-full">
-        <Typography className="text-white text-xs md:text-base text-center ">{!isMobile ? slot.team : firstTeam}<br />{isMobile && secondTeam}</Typography>
+      <Box component={Paper} className="p-2  rounded shadow-md h-full">
+        <Typography className="text-primary text-xs md:text-base text-center ">{!isMobile ? slot.team : firstTeam}<br />{isMobile && secondTeam}</Typography>
         <Typography className="text-black text-xs md:text-base text-center">
           {slot.start} {!isMobile ? "-" : <br/>} {slot.end}
         </Typography>
