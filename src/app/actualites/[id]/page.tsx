@@ -29,14 +29,14 @@ export default function Index() {
   return ( 
     <>
     <Header data={headerData} />
-    <Container className="flex flex-col grow">
-      <Box className="flex items-center justify-between">
+    <Container className="flex flex-col grow mb-10">
+      <Box className="flex items-center flex-wrap ">
         <Typography
           variant="h1"
           className="text-black flex items-center">
           {data.title}
         </Typography>
-        <Typography className="font-secondary text-gray-500 flex items-center mb-7">{`Publié le ${formatedDate}`}</Typography>
+        <Typography className="font-secondary text-gray-500 text-center ms-auto mb-10">{`Publié le ${formatedDate}`}</Typography>
       </Box>
       <Container className="flex flex-col justify-center items-center gap-5">
         {data.content.map((content) => (
