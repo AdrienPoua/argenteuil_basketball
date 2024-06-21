@@ -1,41 +1,60 @@
 "use client";
-import { v4 as uuidv4 } from "uuid";
-import { News } from "@/models";
 import { Container, Grid } from "@mui/material";
+import { SanityDocument } from "next-sanity";
+import { sanityFetch } from "@/sanity/lib/fetch";
+import { useState, useEffect } from "react";
+import { POST_HOME_LEFT_QUERY, POST_HOME_RIGHT_QUERY } from "@/sanity/lib/queries";
+import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
 
-import dynamic from 'next/dynamic';
+const NewsCard = dynamic(() => import("@/components/Card").then((mod) => mod.PostCard), { ssr: false });
 
-const NewsCard = dynamic(() =>
-  import('@/components/Card').then(mod => mod.NewsCard),
-  { ssr: false }
-);
-
-
-interface NewsContainerProps {
-  news: News[];
-}
-
-const NewsContainer = ({ news }: NewsContainerProps) => {
-  const mainNews = News.main(news);
-  const secondaryNews = News.secondary(news);
-  const newsToDisplay = News.lastFour(news);
+const NewsContainer = () => {
+  const [homeLeft, setHomeLeft] = useState<SanityDocument>();
+  const [homeRight, setHomeRight] = useState<SanityDocument>();
+  const router = useRouter();
+  useEffect(() => {
+    async function fetchData() {
+      const homeLeft = await sanityFetch<SanityDocument>({
+        query: POST_HOME_LEFT_QUERY,
+      });
+      const homeRight = await sanityFetch<SanityDocument>({
+        query: POST_HOME_RIGHT_QUERY,
+      });
+        setHomeLeft(homeLeft);
+        setHomeRight(homeRight);
+        console.log(homeRight);
+        
+    }
+    fetchData();
+  }, [router]);
 
   return (
     <Container maxWidth="xl">
-      <Grid container spacing={5} className="mb-10">
-        <Grid item xs={12} md={6}>
-          <NewsCard data={mainNews} sticky />
+      <Grid
+        container
+        spacing={5}
+        className="mb-10">
+        <Grid
+          item
+          xs={12}
+          md={6}>
+          {homeLeft && (
+            <NewsCard
+              post={homeLeft}
+              sticky
+            />
+          )}
         </Grid>
-        <Grid item xs={12} md={6}>
-          <Grid item xs={12} className="mb-2">
-            <NewsCard data={secondaryNews} />
-          </Grid>
-          <Grid container spacing={1}>
-            {newsToDisplay.map((newsItem: News) => (
-              <Grid key={uuidv4()} item xs={6}>
-                <NewsCard small key={newsItem.id} data={newsItem} />
-              </Grid>
-            ))}
+        <Grid
+          item
+          xs={12}
+          md={6}>
+          <Grid
+            item
+            xs={12}
+            className="mb-2">
+            {homeRight && <NewsCard post={homeRight} />}
           </Grid>
         </Grid>
       </Grid>

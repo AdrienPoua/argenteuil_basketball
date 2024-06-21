@@ -12,7 +12,7 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "jsx": "preserve",  // ou "react-jsx"
-    "target": "ES6",
+    "target": "ES2017",
     "incremental": true,
     "plugins": [
       {
@@ -22,7 +22,9 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/public/*": ["./public/*"],
-      "@/libs/*": ["./libs/*"]
+      "@/components/*": ["./src/components/*"],
+      "@/sanity/*": ["./sanity/*"],
+      "@/sanityClient": ["./sanity/lib/client.ts"]
     },
     "isolatedModules": true
   },

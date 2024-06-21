@@ -1,30 +1,32 @@
 "use client";
 import { v4 as uuidv4 } from "uuid";
+import { SanityDocument } from "next-sanity";
 import { useState, MouseEvent } from "react";
 import Link from "next/link";
-import { Utils, Team, Leadership, Gym, News } from "@/models";
+import { Utils, Team, Leadership, Gym } from "@/models";
 import { Card, CardActionArea, CardContent, Typography, Box, CardMedia, useTheme, useMediaQuery } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import { PhoneIphone } from "@mui/icons-material";
 import { ContactButton } from "@/components/Buttons";
+import { urlFor } from "@/sanity/lib/image";
 
-type NewsCardProps = { data: News; small?: boolean; sticky?: boolean };
-export const NewsCard = ({ data, small, sticky }: NewsCardProps) => {
+type PostCardProps = { small?: boolean; sticky?: boolean, post: SanityDocument };
+export const PostCard = ({ small, sticky, post }: PostCardProps) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  console.log(post)
+  const { Image, title, publishedAt : date, slug } = post;
 
-  const { img, title, url, date } = data;
-  const formatedDate = Utils.formatDate(date, { month: "long", day: "numeric", year: "numeric" });
+  const formatedDate = Utils.formatDate(new Date(date), { month: "long", day: "numeric", year: "numeric" });
   return (
     <Card className={`${sticky ? "sticky top-0" : ""}  rounded-3xl w-full`}>
       <Link
-        href={url}
+        href={`/actualites/${slug.current}`}
         className="relative">
         <Box className="relative grow">
           <CardMedia
             component="img"
-            image={img}
-            alt={title}
+            image={urlFor(Image).url()}
             className={`${small || isMobile ? "h-[400px]" : "h-[800px]"}`}
           />
           <Box className="absolute inset-0 bg-black bg-opacity-50" />
@@ -41,6 +43,8 @@ export const NewsCard = ({ data, small, sticky }: NewsCardProps) => {
     </Card>
   );
 };
+
+
 export const LeaderCard = ({ data }: { data: Leadership }) => {
   return (
     <Card className="flex flex-col size-card rounded-lg overflow-hidden ">
@@ -74,6 +78,7 @@ export const LeaderCard = ({ data }: { data: Leadership }) => {
     </Card>
   );
 };
+
 
 export const TeamCard = ({ data }: { data: Team }) => {
   const [isClicked, setIsClicked] = useState(false);
