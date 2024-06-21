@@ -18,6 +18,7 @@ const Home = () => {
         console.error("Validation error:", error);
       });
   }, []);
+  console.log("salut")
   return (
     <>
       <Header data={headerData} />
