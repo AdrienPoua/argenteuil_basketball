@@ -33,9 +33,10 @@ Accédez au site à l'adresse suivante : [argenteuilbasketball.com](https://arge
 - **Bibliothèque UI** : [MUI](https://mui.com/)
 - **Bibliothèque front-end** : [React](https://reactjs.org/)
 
-## Auteur
+Auteur
+Ce site a été développé par serviteur, moi-même. 
 
-Ce site a été développé par votre [serviteur](www.linkedin.com/in/adrien-poua).
+Captures d'écran
 
 ## Captures d'écran
 
