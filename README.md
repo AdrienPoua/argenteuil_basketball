@@ -35,13 +35,15 @@ Accédez au site à l'adresse suivante : [argenteuilbasketball.com](https://arge
 
 ## Auteur
 
-Ce site a été développé par votre serviteur. Pour plus d'informations ou pour entrer en contact, consultez mon profil LinkedIn [ici](https://www.linkedin.com/in/poua-adrien).
+Ce site a été développé par votre [serviteur](www.linkedin.com/in/adrien-poua)
 
 ## Captures d'écran
 
 ![image](https://github.com/AdrienPoua/argenteuil_basketball/assets/73964028/a58dd254-b048-4837-a171-d2305c6a3846)
-![image](https://github.com/AdrienPoua/argenteuil_basketball/assets/73964028/1c09f6eb-c982-4f34-b05e-d5592afe1b5c)
 
+
+
+![image](https://github.com/AdrienPoua/argenteuil_basketball/assets/73964028/1c09f6eb-c982-4f34-b05e-d5592afe1b5c)
 
 
 
