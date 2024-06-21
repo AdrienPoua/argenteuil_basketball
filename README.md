@@ -37,8 +37,6 @@ Accédez au site à l'adresse suivante : [argenteuilbasketball.com](https://arge
 
 Ce site a été développé par votre serviteur, moi-même.
 
-Captures d'écran
-
 ## Captures d'écran
 
 ![image](https://github.com/AdrienPoua/argenteuil_basketball/assets/73964028/a58dd254-b048-4837-a171-d2305c6a3846)
