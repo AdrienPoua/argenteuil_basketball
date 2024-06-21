@@ -1,6 +1,6 @@
 # Argenteuil Basketball
 
-Bienvenue sur le site officiel du club de basketball d'Argenteuil. Ce site a été conçu pour fournir toutes les informations nécessaires aux membres, supporters et nouveaux arrivants.
+Bienvenue sur le site officiel du club de basketball d'Argenteuil. Ce site a été conçu pour fournir toutes les informations nécessaires aux membres, entraineurs, supporters et nouveaux arrivants.
 
 ## Description
 
@@ -35,7 +35,7 @@ Accédez au site à l'adresse suivante : [argenteuilbasketball.com](https://arge
 
 ## Auteur
 
-Ce site a été développé par votre [serviteur](www.linkedin.com/in/adrien-poua)
+Ce site a été développé par votre [serviteur](www.linkedin.com/in/adrien-poua).
 
 ## Captures d'écran
 
