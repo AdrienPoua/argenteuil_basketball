@@ -5,7 +5,7 @@ import { Ranking } from "@/models/api";
 import { ClubType, ClubTeam, CompetitionType } from "@/types/api";
 import Table from "./table";
 import { v4 as uuidv4 } from "uuid";
-import Layout from "@/layout/main";
+import Layout from "@/layouts/main";
 import Info from "@/components/Info";
 
 export default function Index() {

@@ -1,5 +1,5 @@
 "use client";
-import Layout from "@/layout/main";
+import Layout from "@/layouts/main";
 import { Box, Typography, Paper } from "@mui/material";
 import { faq } from "@/services/dataProcessing";
 import { FAQ } from "@/models";

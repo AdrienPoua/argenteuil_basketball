@@ -22,9 +22,7 @@ const NewsContainer = () => {
         query: POST_HOME_RIGHT_QUERY,
       });
         setHomeLeft(homeLeft);
-        setHomeRight(homeRight);
-        console.log(homeRight);
-        
+        setHomeRight(homeRight);        
     }
     fetchData();
   }, [router]);

@@ -1,5 +1,5 @@
 "use client"
-import Layout from "@/layout/main";
+import Layout from "@/layouts/main";
 import { Box, Typography } from "@mui/material";
 import Timeline from "@mui/lab/Timeline";
 import TimelineItem from "@mui/lab/TimelineItem";

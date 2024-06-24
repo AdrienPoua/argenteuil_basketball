@@ -7,6 +7,7 @@ import { useTheme } from "@mui/material/styles";
 import { useMediaQuery } from "@mui/material";
 import DoNotDisturbIcon from "@mui/icons-material/DoNotDisturb";
 import { useOverlay } from "@/contexts/Overlay";
+import { signIn } from "next-auth/react";
 
 export function DownloadButton({ title, url, className, variant }: Readonly<{ title: string; url: string; className?: string; variant?: string }>) {
   return (
@@ -89,3 +90,4 @@ export const OverlayButton = ({ overlayContent, text }: { overlayContent: React.
     </Button>
   );
 };
+

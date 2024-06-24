@@ -11,6 +11,10 @@ module.exports = {
         protocol: "https",
         hostname: "cdn.sanity.io",
       },
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+      },
     ],
   },
   experimental: {

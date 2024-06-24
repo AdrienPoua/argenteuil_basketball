@@ -11,7 +11,7 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
-    "jsx": "preserve",  // ou "react-jsx"
+    "jsx": "preserve", // ou "react-jsx"
     "target": "ES2017",
     "incremental": true,
     "plugins": [
@@ -24,18 +24,22 @@
       "@/public/*": ["./public/*"],
       "@/components/*": ["./src/components/*"],
       "@/sanity/*": ["./sanity/*"],
-      "@/sanityClient": ["./sanity/lib/client.ts"]
+      "@/sanityClient": ["./sanity/lib/client.ts"],
+      "@/authOptions": ["./src/app/api/auth/[...nextauth]/route.ts"],
+      "@/serverActions": ["./src/app/serverActions.ts"]
     },
     "isolatedModules": true
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
+    "middleware.js",
     "**/*.tsx",
     ".next/types/**/*.ts",
     "tailwind.config.ts",
     "src/**/*.tsx", // inclure tous les fichiers tsx dans src
-    "src/**/*.ts"   // inclure tous les fichiers ts dans src
+    "src/**/*.ts", // inclure tous les fichiers ts dans src
+    "src/app/api/auth/[...nextauth]/route.ts"
   ],
   "exclude": ["node_modules"]
 }
