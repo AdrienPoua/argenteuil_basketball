@@ -6,7 +6,9 @@ export default function SignIn() {
   const { status } = useSession();
   const handleClick = async () => {
     await signIn("github");
-  };
+  }
+
+
 
   if (status === "loading") return <CircularProgress />;
   return (
