@@ -1,7 +1,7 @@
-import { TeamType, TrainingType, GymType, LeadershipType, NewsType } from "@/types";
+import { TeamType, TrainingType, GymType, LeadershipType, NewsType, MemberType } from "@/types";
 import { IsEmail, IsString, Length, IsOptional, IsBoolean, IsArray, IsNumber } from "class-validator";
 import { v4 as uuidv4 } from "uuid";
-
+import categories from "@/data/categories.json";
 
 export class Leadership implements LeadershipType {
   @IsString()
@@ -297,7 +297,7 @@ export class News {
 
   static lastFour(array: News[]): News[] {
     array.sort((a, b) => b.date.getTime() - a.date.getTime());
-    const sortedArray = array
+    const sortedArray = array;
     const filteredArray = sortedArray.filter((item) => !item.isMain && !item.isSecondary);
     return filteredArray.slice(0, 4);
   }
@@ -609,3 +609,43 @@ export class Rate {
     return this._rate;
   }
 }
+
+export class Member {
+  private _name: string;
+  private _firstName: string;
+  private _email: string;
+  private _birthDay: string;
+  constructor(data: MemberType) {
+    this._name = data.Nom;
+    this._firstName = data.Prénom;
+    this._email = data["E-mail"];
+    this._birthDay = data["Date de naissance"];
+  }
+
+  get name(): string {
+    return this._name;
+  }
+  get id(): string {
+    return `${this._name}-${this._firstName}`;
+  }
+
+  get firstName(): string {
+    return this._firstName;
+  }
+
+  get email(): string {
+    return this._email;
+  }
+
+  get birthDay(): string {
+    return this._birthDay;
+  }
+
+  get categorie(): string {
+    const birthYear = this._birthDay.split("/")[2];
+    const category = categories.find((item) => item.year.includes(birthYear));
+    if (!category) {
+      return "Seniors";
+    }
+    return category.category;
+  }}

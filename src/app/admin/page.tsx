@@ -37,7 +37,7 @@ export default function SignIn() {
                 color="primary"
                 fullWidth
                 className="mb-3">
-                Dashboard
+                Dashboard 🏠
               </Button>
             </Link>
             <Link
@@ -48,7 +48,7 @@ export default function SignIn() {
                 color="primary"
                 fullWidth
                 className="mb-3">
-                Studio
+                Studio 🎥
               </Button>
             </Link>
             <Link href="/admin/logout">
@@ -57,7 +57,7 @@ export default function SignIn() {
                 color="primary"
                 fullWidth
                 className="mb-3">
-                Logout Page
+                Logout Page 🚪
               </Button>
             </Link>
           </>

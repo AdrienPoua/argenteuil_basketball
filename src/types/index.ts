@@ -25,10 +25,7 @@ export type NavItemType = {
 
 export type SubItemType = { title: string; url: string; img: string };
 
-export type MemberType = {
-  name: string;
-  email: string;
-};
+
 
 export type CoachType = MemberType & {
   isCoach: true;
@@ -48,12 +45,6 @@ export type LeaderType = MemberType & {
   isNumberDisplayed: boolean;
 };
 
-export type PlayerType = MemberType & {
-  isPlayer: true;
-  team: string[];
-  number?: string;
-  img?: string;
-};
 
 export type AssistantType = {
   name: string;
@@ -113,3 +104,15 @@ export type TeamType = {
   division?: string;
   id? : string;
 };
+
+export interface MemberType {
+  Nom: string;
+  Prénom: string;
+  "E-mail": string;
+  "Date de naissance": string;
+  Groupement: string;
+  "Date de création": string;
+  Type: string;
+  Statut: string;
+  "Date de saisie adhérent": string;
+}

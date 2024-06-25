@@ -7,8 +7,11 @@ import FAQdata from "@/data/faq.json";
 import clubData from "@/data/club.json";
 import ratesData from "@/data/rates.json";
 import permanencesData from "@/data/permanences.json";
-import { Leadership, News, Team, Gym, Document, FAQ, Club, Rate, Permanence } from "@/models";
+import membersData2023 from "@/data/members2023.json";
+import membersData2024 from "@/data/members2024.json";
+import { Leadership, News, Team, Gym, Document, FAQ, Club, Rate, Permanence, Member } from "@/models";
 import { validate } from "class-validator";
+
 
 export const leadership: Leadership[] = leadershipData.map((leader) => new Leadership(leader));
 
@@ -27,12 +30,16 @@ export const gyms: Gym[] = gymsData.map((gymData) => {
   return gymInstance;
 });
 
+
 export const news: News[] = newsData.map((newsItem) => new News(newsItem));
 export const documents: Document[] = documentsData.map((documentItem) => new Document(documentItem));
 export const faq: FAQ[] = FAQdata.map((faqItem) => new FAQ(faqItem));
 export const club: Club = new Club(clubData);
 export const rates : Rate[] = ratesData.map((rate) => new Rate(rate));
 export const permanence : Permanence = new Permanence(permanencesData);
+export const members2023 : Member[] = membersData2023.map((member) => new Member(member));
+export const members2024 : Member[] = membersData2024.map((member) => new Member(member));
+
 
 async function validateData(items: any[], className: string) {
   for (const item of items) {
