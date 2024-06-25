@@ -1,8 +1,7 @@
 import GithubProvider from "next-auth/providers/github";
-import NextAuth, { NextAuthOptions, getServerSession } from "next-auth";
-import type { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from "next";
+import NextAuth, { NextAuthOptions } from "next-auth";
 
-const { GITHUB_ID, GITHUB_SECRET, ADMIN_GITHUB_EMAIL } = process.env;
+const { GITHUB_ID, GITHUB_SECRET, ADMIN_GITHUB_EMAIL, JWT_SECRET } = process.env;
 
 if (!GITHUB_ID || !GITHUB_SECRET || !ADMIN_GITHUB_EMAIL) {
   throw new Error("GITHUB_ID and GITHUB_SECRET and ADMIN_GITHUB_EMAIL must be set");
@@ -15,12 +14,15 @@ export const authOptions: NextAuthOptions = {
       clientSecret: GITHUB_SECRET,
     }),
   ],
+  session: {
+    strategy: "jwt",
+  },
   callbacks: {
-    async signIn({ user, account, profile }) {
+    async signIn({ account, profile }) {
       return account?.provider === "github" && profile?.email === ADMIN_GITHUB_EMAIL;
     },
     async redirect() {
-      return '/admin';
+      return "/admin";
     },
   },
 };

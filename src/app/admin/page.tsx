@@ -1,10 +1,9 @@
 "use client";
-import { Container, Box, Button, Typography, CircularProgress } from "@mui/material";
+import { Container, Box, Button, CircularProgress } from "@mui/material";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { action } from "@/serverActions";
 import User from "@/components/User";
-import { Session } from "next-auth";
 
 export default function SignIn() {
   const { data: session, status } = useSession();

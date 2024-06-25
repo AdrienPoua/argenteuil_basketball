@@ -3,9 +3,9 @@ import Image from "next/image";
 import React from "react";
 
 type UserProps = {
-  name: string;
-  email: string;
-  image: string;
+  name?: string | null;
+  email?: string | null;
+  image?: string | null;
 };
 
 export default function User({ user }: Readonly<{ user: UserProps }>) {
@@ -13,8 +13,8 @@ export default function User({ user }: Readonly<{ user: UserProps }>) {
   return (
     <Box className="flex">
       <Image
-        src={image}
-        alt={name}
+        src={image ?? "/images/default/avatar.webp"}
+        alt={name ?? "User"}
         width={200}
         height={200}
         className="rounded-full"
