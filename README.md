@@ -32,6 +32,7 @@ Accédez au site à l'adresse suivante : [argenteuilbasketball.com](https://arge
 - **Langage de programmation** : [TypeScript](https://www.typescriptlang.org/)
 - **Bibliothèque UI** : [MUI](https://mui.com/)
 - **Bibliothèque front-end** : [React](https://reactjs.org/)
+- **Authentification** : [NextAuth](https://next-auth.js.org)
 
 ##Contributeurs
 
