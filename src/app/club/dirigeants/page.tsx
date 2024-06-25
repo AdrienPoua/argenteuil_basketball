@@ -1,6 +1,6 @@
 "use client";
 
-import Layout from "@/layout/main";
+import Layout from "@/layouts/main";
 import { Box } from "@mui/material";
 import { leadership } from "@/services/dataProcessing";
 import { v4 as uuidv4 } from "uuid";

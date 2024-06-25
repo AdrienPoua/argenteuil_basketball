@@ -14,7 +14,6 @@ type PostCardProps = { small?: boolean; sticky?: boolean, post: SanityDocument }
 export const PostCard = ({ small, sticky, post }: PostCardProps) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  console.log(post)
   const { Image, title, publishedAt : date, slug } = post;
 
   const formatedDate = Utils.formatDate(new Date(date), { month: "long", day: "numeric", year: "numeric" });

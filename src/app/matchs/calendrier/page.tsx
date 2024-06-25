@@ -1,4 +1,4 @@
-import Layout from "@/layout/main";
+import Layout from "@/layouts/main";
 import Info from "@/components/Info";
 
 export default function page() {

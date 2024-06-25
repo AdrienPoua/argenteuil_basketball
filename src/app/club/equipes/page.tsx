@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { teams } from "@/services/dataProcessing";
-import Layout from "@/layout/main";
+import Layout from "@/layouts/main";
 import { Box, Button, Container, Typography } from "@mui/material";
 import Slider from "@/components/Slider";
 import dynamic from 'next/dynamic';

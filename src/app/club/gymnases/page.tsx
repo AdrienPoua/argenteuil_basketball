@@ -1,5 +1,5 @@
 "use client";
-import Layout from "@/layout/main";
+import Layout from "@/layouts/main";
 import { Box } from "@mui/material";
 import { gyms } from "@/services/dataProcessing";
 import { Gym } from "@/models";

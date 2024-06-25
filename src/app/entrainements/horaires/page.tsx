@@ -3,7 +3,7 @@ import { Grid, Paper, Typography, Box, useMediaQuery } from "@mui/material";
 import { TrainingType } from "@/types";
 import { Gym } from "@/models";
 import { gyms } from "@/services/dataProcessing";
-import Layout from "@/layout/main";
+import Layout from "@/layouts/main";
 import { useTheme } from "@mui/material/styles";
 
 interface ScheduleProps {

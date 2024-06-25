@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Argenteuil Basketball
 
-## Getting Started
+Bienvenue sur le site officiel du club de basketball d'Argenteuil. Ce site a été conçu pour fournir toutes les informations nécessaires aux membres, entraineurs, supporters et nouveaux arrivants.
 
-First, run the development server:
+## Description
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Argenteuil Basketball permet de :
+- Découvrir les membres dirigeants et entraineurs du club.
+- Découvrir les équipes.
+- Voir les plannings des matchs et des entraînements.
+- Consulter les classements et les résultats des équipes.
+- S'informer en lisant les actualités du club.
+- Prendre contact avec le club.
+- Obtenir des informations pour s'inscrire.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## URL
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Accédez au site à l'adresse suivante : [argenteuilbasketball.com](https://argenteuilbasketball.com)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Fonctionnalités
 
-## Learn More
+- **Calendrier des matchs** : Consultez les dates et heures des prochains matchs et entraînements.
+- **Affichage des équipes et des membres** : Découvrez les photos et informations sur les équipes et les membres du club.
+- **Gestion des actualités** : Lisez les dernières nouvelles et mises à jour du club sur notre blog.
+- **Contact** : Consulter les informations de contact.
+- **Informations d'inscription** : Trouvez toutes les informations nécessaires pour rejoindre le club.
 
-To learn more about Next.js, take a look at the following resources:
+## Technologies utilisées
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Framework principal** : [Next.js](https://nextjs.org/)
+- **CMS** : [Sanity](https://www.sanity.io/)
+- **Langage de programmation** : [TypeScript](https://www.typescriptlang.org/)
+- **Bibliothèque UI** : [MUI](https://mui.com/)
+- **Bibliothèque front-end** : [React](https://reactjs.org/)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+##Contributeurs
 
-## Deploy on Vercel
+Ce site a été développé par votre serviteur, moi-même.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Captures d'écran
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![image](https://github.com/AdrienPoua/argenteuil_basketball/assets/73964028/a58dd254-b048-4837-a171-d2305c6a3846)
+
+
+
+![image](https://github.com/AdrienPoua/argenteuil_basketball/assets/73964028/1c09f6eb-c982-4f34-b05e-d5592afe1b5c)
+
+
+
+---
+
+N'hésitez pas à me demander des ajustements ou des ajouts si nécessaire.

@@ -7,7 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Typography } from "@mui/material";
-import Layout from "@/layout/main";
+import Layout from "@/layouts/main";
 import { club, rates } from "@/services/dataProcessing";
 import { Rate } from "@/models";
 
