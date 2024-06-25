@@ -6,7 +6,7 @@ const { GITHUB_ID, GITHUB_SECRET, ADMIN_GITHUB_EMAIL, JWT_SECRET } = process.env
 if (!GITHUB_ID || !GITHUB_SECRET || !ADMIN_GITHUB_EMAIL) {
   throw new Error("GITHUB_ID and GITHUB_SECRET and ADMIN_GITHUB_EMAIL must be set");
 }
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   providers: [
     GithubProvider({
