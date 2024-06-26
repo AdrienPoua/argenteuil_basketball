@@ -616,6 +616,7 @@ export class Member {
   private _email: string;
   private _birthDay: string;
   private _year: string;
+  private _id: string;
 
   constructor(data: MemberType) {
     this._name = data.Nom;
@@ -623,6 +624,7 @@ export class Member {
     this._email = data["E-mail"];
     this._birthDay = data["Date de naissance"];
     this._year = ""; // Initialize the year
+    this._id = ""; // Generate UUID
   }
 
   get name(): string {
@@ -637,8 +639,12 @@ export class Member {
     return this._year;
   }
 
+  set id(id: string) {
+    this._id = id;
+  }
+
   get id(): string {
-    return uuidv4();
+    return this._id;
   }
 
   get firstName(): string {

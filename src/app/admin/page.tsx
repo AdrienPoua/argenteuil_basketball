@@ -2,7 +2,7 @@
 import { Container, Box, Button, CircularProgress, Typography } from "@mui/material";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { action } from "@/serverActions";
+import { action } from "@/app/actions";
 import User from "@/components/User";
 
 export default function SignIn() {
@@ -62,16 +62,6 @@ export default function SignIn() {
             </Link>
           </>
         )}
-        <Button
-          variant="contained"
-          color="primary"
-          fullWidth
-          onClick={async () => {
-            await action();
-          }}
-          className="mb-3">
-          SS Action
-        </Button>
       </Box>
     </Container>
   );

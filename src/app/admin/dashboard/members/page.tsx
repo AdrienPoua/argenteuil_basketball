@@ -5,14 +5,16 @@ import { members } from "@/services/dataProcessing";
 import { Toolbar, Button, Box, InputLabel, MenuItem, Select } from "@mui/material";
 import { Member } from "@/models";
 import { v4 as uuidv4 } from "uuid";
+import { useOverlay } from "@/contexts/Overlay";
+import { EmailMemberContent } from "@/components/Overlay"
 import cat from "@/data/cat.json";
 
 // Define the columns for the DataGrid
 const columns: GridColDef[] = [
-  { field: "name", headerName: "Nom", width: 150 },
-  { field: "firstName", headerName: "Prenom", width: 150 },
+  { field: "name", headerName: "Nom", width: 200 },
+  { field: "firstName", headerName: "Prenom", width: 200 },
   { field: "email", headerName: "Email", width: 200 },
-  { field: "categorie", headerName: "Categorie", width: 150 },
+  { field: "categorie", headerName: "Categorie", width: 200 },
 ];
 
 // Main Component
@@ -20,6 +22,7 @@ const Index: FC = () => {
   const [membersList, setMembersList] = useState<Member[]>(members);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedYear, setSelectedYear] = useState("2023");
+  const [selectedRows, setSelectedRows] = useState<Member[]>([]);
 
   const handleCategoryChange = (event: { target: { value: any } }) => {
     const categorie = event.target.value;
@@ -36,6 +39,18 @@ const Index: FC = () => {
     setSelectedYear(year);
     setMembersList(members.filter((member) => member.year === year));
   };
+
+  const handleSelectionModelChange = (selection: Iterable<unknown> | null | undefined) => {
+    if (selection && Array.isArray(selection)) {
+      const selectedIDs = new Set(selection);
+      const selectedData = membersList.filter((member) => selectedIDs.has(member.id));
+      setContent(<EmailMemberContent members={selectedData} setOpen={setOpen} />);
+    } else {
+      setSelectedRows([]);
+    }
+  };
+
+  const { open, setOpen, content, setContent } = useOverlay();
 
   return (
     <>
@@ -81,7 +96,7 @@ const Index: FC = () => {
       <Button
         variant="contained"
         color="primary"
-        onClick={() => console.log("Send Email button clicked")}>
+        onClick={() => setOpen(true)}>
         Send Email
       </Button>
       <Box className="h-fit">
@@ -96,7 +111,21 @@ const Index: FC = () => {
               },
             },
           }}
+          sx={{
+            "& .MuiDataGrid-row": {
+              cursor: "pointer",
+            },
+            "& .MuiDataGrid-row:hover": {
+              backgroundColor: "#f56",
+            },
+            "& .MuiDataGrid-row.Mui-selected": {
+              backgroundColor: "#4754A1 ",
+              color: "white !important",
+            },
+          }}
           checkboxSelection
+          autoHeight
+          onRowSelectionModelChange={handleSelectionModelChange}
         />
       </Box>
     </>

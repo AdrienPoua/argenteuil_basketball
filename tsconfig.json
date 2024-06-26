@@ -26,7 +26,7 @@
       "@/sanity/*": ["./sanity/*"],
       "@/sanityClient": ["./sanity/lib/client.ts"],
       "@/authOptions": ["./src/app/api/auth/[...nextauth]/route.ts"],
-      "@/serverActions": ["./src/app/serverActions.ts"]
+      "@/actions": ["./src/app/actions.ts"]
     },
     "isolatedModules": true
   },

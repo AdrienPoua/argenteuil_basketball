@@ -1,4 +1,5 @@
 import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 import Overlay from "@mui/material/Modal";
 import { useOverlay } from "@/contexts/Overlay";
 import Button from "@mui/material/Button";
@@ -6,11 +7,12 @@ import Typography from "@mui/material/Typography";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import { club, permanence, documents } from "@/services/dataProcessing";
-import { Utils } from "@/models";
+import { Utils, Member } from "@/models";
 import { Table, TableBody, TableHead, TableRow, TableCell, TableContainer, Paper } from "@mui/material";
 import EastIcon from "@mui/icons-material/East";
+import { sendEmail } from "@/actions";
 import Image from "next/image";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState, SetStateAction } from "react";
 import { DownloadButton, OverlayButton } from "./Buttons";
 
 import Link from "next/link";
@@ -158,6 +160,7 @@ export function FormulaireContent() {
   );
 }
 
+
 export function EmailContent() {
   return (
     <Box className="flex flex-col bg-white p-5 gap-5 min-w-[350px]">
@@ -299,3 +302,52 @@ export function ValidationContent() {
     </Box>
   );
 }
+
+export const EmailMemberContent = ({ members, setOpen }: { members: Member[], setOpen: (x: boolean) => void }) => {
+  const [content, setContent] = useState("");
+  const [subject, setSubject] = useState("");
+  const [result, setResult] = useState<number | { success: boolean; message: string; error?: unknown }>();
+  const emails = members.map((member) => member.email).join(", ");
+
+  const handleContentChange = (event: { target: { value: SetStateAction<string>; }; }) => {
+    setContent(event.target.value);
+  };
+
+  const handleSubjectChange = (event: { target: { value: SetStateAction<string>; }; }) => {
+    setSubject(event.target.value);
+  }
+
+  const handleSubmit = async (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    const res = await sendEmail(emails, subject, content)
+    setResult(res);
+  };
+
+  return (
+    <Box className="bg-red-500 min-h-[500px] aspect-square p-4">
+      {!result ? (
+        <Box>
+          <TextField
+            label="Sujet du mail"
+            rows={1}
+            variant="outlined"
+            value={content}
+            onChange={handleSubjectChange}
+            sx={{ width: '100%', marginBottom: '16px' }} />
+          <TextField
+            label="Entrez votre message ici"
+            multiline
+            rows={10}
+            variant="outlined"
+            value={content}
+            onChange={handleContentChange}
+            sx={{ width: '100%', marginBottom: '16px' }} />
+          <Button variant="contained" color="primary" onClick={handleSubmit}>
+            Soumettre
+          </Button>
+        </Box>)
+        : <Typography>{JSON.stringify(result)} </Typography>
+      }
+    </Box>
+  );
+};

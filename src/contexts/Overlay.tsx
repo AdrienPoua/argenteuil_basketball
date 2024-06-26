@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, ReactNode, ReactElement, Dispatch, SetStateAction, useMemo } from "react";
 import { Box } from "@mui/system";
 import Overlay from "@/components/Overlay";
+import { Member } from "@/models";
 
 export interface OverlayContextProps {
   open: boolean;

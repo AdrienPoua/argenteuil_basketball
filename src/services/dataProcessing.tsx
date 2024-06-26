@@ -40,6 +40,8 @@ export const members2024: Member[] = membersData2024.map((member) => new Member(
 members2023.forEach((member) => (member.year = "2023"));
 members2024.forEach((member) => (member.year = "2024"));
 export const members: Member[] = [...members2023, ...members2024];
+members.forEach((member, index) => member.id = index.toString()) ;
+
 
 async function validateData(items: any[], className: string) {
   for (const item of items) {
