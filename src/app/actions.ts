@@ -3,6 +3,7 @@ import nodemailer from "nodemailer";
 
 export const sendEmail = async (to: string, subject: string, text: string) => {
   const { EMAIL_USER, EMAIL_PASS, EMAIL_PORT, EMAIL_HOST } = process.env;
+
   if (!EMAIL_USER || !EMAIL_PASS || !EMAIL_PORT || !EMAIL_HOST) {
     throw new Error("Veuillez configurer les variables d'environnement EMAIL_USER, EMAIL_PASS, EMAIL_PORT et EMAIL_HOST");
   }
@@ -34,4 +35,3 @@ export const sendEmail = async (to: string, subject: string, text: string) => {
     return { success: false, message: "Erreur lors de l'envoi de l'email", error };
   }
 };
-

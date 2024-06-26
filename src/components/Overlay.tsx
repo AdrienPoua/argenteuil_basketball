@@ -303,11 +303,16 @@ export function ValidationContent() {
   );
 }
 
-export const EmailMemberContent = ({ members, setOpen }: { members: Member[], setOpen: (x: boolean) => void }) => {
+interface EmailMemberContentProps {
+  members: Member[];
+}
+
+export const EmailMemberContent = ({ members }: EmailMemberContentProps) => {
   const [content, setContent] = useState("");
   const [subject, setSubject] = useState("");
   const [result, setResult] = useState<number | { success: boolean; message: string; error?: unknown }>();
-  const emails = members.map((member) => member.email).join(", ");
+  const [disabled, setDisabled] = useState(false);
+  const emails: string = members.map((member) => member.email).join(", ");
 
   const handleContentChange = (event: { target: { value: SetStateAction<string>; }; }) => {
     setContent(event.target.value);
@@ -315,25 +320,35 @@ export const EmailMemberContent = ({ members, setOpen }: { members: Member[], se
 
   const handleSubjectChange = (event: { target: { value: SetStateAction<string>; }; }) => {
     setSubject(event.target.value);
-  }
+  };
 
   const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    const res = await sendEmail(emails, subject, content)
-    setResult(res);
+    try {
+      setDisabled(true);
+      const res = await sendEmail(emails, subject, content);
+      setResult(res);
+      if (res.success) {
+        setDisabled(false);
+      }
+    } catch (error) {
+      console.error("Erreur lors de l'envoi de l'email:", error);
+      setResult({ success: false, message: "Erreur lors de l'envoi de l'email", error });
+    }
   };
 
   return (
     <Box className="bg-red-500 min-h-[500px] aspect-square p-4">
       {!result ? (
-        <Box>
+        <Box className="flex flex-col justify-center items-center gap-5 grow">
           <TextField
             label="Sujet du mail"
             rows={1}
             variant="outlined"
-            value={content}
+            value={subject}
             onChange={handleSubjectChange}
-            sx={{ width: '100%', marginBottom: '16px' }} />
+            sx={{ width: '100%', marginBottom: '16px' }}
+          />
           <TextField
             label="Entrez votre message ici"
             multiline
@@ -341,13 +356,15 @@ export const EmailMemberContent = ({ members, setOpen }: { members: Member[], se
             variant="outlined"
             value={content}
             onChange={handleContentChange}
-            sx={{ width: '100%', marginBottom: '16px' }} />
-          <Button variant="contained" color="primary" onClick={handleSubmit}>
+            sx={{ width: '100%', marginBottom: '16px' }}
+          />
+          <Button variant="contained" color="primary" disabled={disabled} onClick={handleSubmit}>
             Soumettre
           </Button>
-        </Box>)
-        : <Typography>{JSON.stringify(result)} </Typography>
-      }
+        </Box>
+      ) : (
+        <Typography>{JSON.stringify(result)}</Typography>
+      )}
     </Box>
   );
 };
