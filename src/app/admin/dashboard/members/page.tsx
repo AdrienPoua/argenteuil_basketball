@@ -1,10 +1,11 @@
 "use client";
-import React, { useState, useEffect, FC } from "react";
-import { DataGrid, GridColDef, GridRowSelectionModel } from "@mui/x-data-grid";
-import { members2023, members2024 } from "@/services/dataProcessing";
-import categories from "@/data/categories.json";
-import { FormControl, InputLabel, MenuItem, Select, Toolbar, Button, Box } from "@mui/material";
+import { useState, FC } from "react";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { members } from "@/services/dataProcessing";
+import { Toolbar, Button, Box, InputLabel, MenuItem, Select } from "@mui/material";
 import { Member } from "@/models";
+import { v4 as uuidv4 } from "uuid";
+import cat from "@/data/cat.json";
 
 // Define the columns for the DataGrid
 const columns: GridColDef[] = [
@@ -14,78 +15,80 @@ const columns: GridColDef[] = [
   { field: "categorie", headerName: "Categorie", width: 150 },
 ];
 
-// Define the props for the CatPicker component
-interface PickerProps {
-  value: string;
-  setValue: (value: string) => void;
-}
-
-// Category Picker Component
-const CatPicker: FC<PickerProps> = ({ value, setValue }) => {
-  const handleCategoryChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setValue(event.target.value as string);
-  };
-
-  return (
-    <FormControl variant="outlined" fullWidth margin="normal">
-      <InputLabel className="text-black">Category</InputLabel>
-      <Select className="text-black" value={value} onChange={handleCategoryChange} label="Category">
-        <MenuItem className="text-black" value="All">All</MenuItem>
-        {categories.map((cat) => (
-          <MenuItem className="text-black" key={cat.category} value={cat.category}>
-            {cat.category}
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
-  );
-};
-
-// Year Picker Component
-const YearPicker: FC<PickerProps> = ({ value, setValue }) => {
-  const handleYearChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setValue(event.target.value as string);
-  };
-
-  return (
-    <FormControl variant="outlined" fullWidth margin="normal">
-      <InputLabel className="text-black">Year</InputLabel>
-      <Select className="text-black" value={value} onChange={handleYearChange} label="Year">
-        <MenuItem className="text-black" value="2023">2023</MenuItem>
-        <MenuItem className="text-black" value="2024">2024</MenuItem>
-      </Select>
-    </FormControl>
-  );
-};
-
 // Main Component
 const Index: FC = () => {
-  const [memberList, setMemberList] = useState<Member[]>(members2023);
-  const [category, setCategory] = useState<string>("All");
-  const [year, setYear] = useState<string>("2023");
-  const [selectionModel, setSelectionModel] = useState<GridRowSelectionModel>([]);
+  const [membersList, setMembersList] = useState<Member[]>(members);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedYear, setSelectedYear] = useState("2023");
 
-  useEffect(() => {
-    const members = year === "2023" ? members2023 : members2024;
-    const filteredMembers = category === "All" ? members : members.filter((member) => member.categorie === category);
-    setMemberList(filteredMembers);
-  }, [category, year]);
+  const handleCategoryChange = (event: { target: { value: any } }) => {
+    const categorie = event.target.value;
+    setSelectedCategory(categorie);
+    if (categorie === "All") {
+      setMembersList(members.filter((member) => member.year === selectedYear));
+    } else {
+      setMembersList(members.filter((member) => member.categorie == categorie && member.year === selectedYear));
+    }
+  };
+
+  const handleYearChange = (event: { target: { value: any } }) => {
+    const year = event.target.value;
+    setSelectedYear(year);
+    setMembersList(members.filter((member) => member.year === year));
+  };
 
   return (
     <>
-      <Toolbar className="flex flex-col">
-        <YearPicker value={year} setValue={setYear} />
-        <CatPicker value={category} setValue={setCategory} />
+      <Toolbar className="flex flex-col items-center justify-center">
+        <InputLabel className="text-black">Category</InputLabel>
+        <Select
+          className="text-black w-full"
+          value={selectedCategory}
+          onChange={handleCategoryChange}
+          label="Category">
+          <MenuItem
+            className="text-black"
+            value="All">
+            All
+          </MenuItem>
+          {cat.map(({ category }) => (
+            <MenuItem
+              className="text-black"
+              value={category}
+              key={uuidv4()}>
+              {category}
+            </MenuItem>
+          ))}
+        </Select>
+        <InputLabel className="text-black">Year</InputLabel>
+        <Select
+          className="text-black  w-full"
+          value={selectedYear}
+          onChange={handleYearChange}
+          label="Year">
+          <MenuItem
+            className="text-black"
+            value="2023">
+            2023
+          </MenuItem>
+          <MenuItem
+            className="text-black"
+            value="2024">
+            2024
+          </MenuItem>
+        </Select>
       </Toolbar>
-      <Button variant="contained" color="primary" onClick={() => console.log(selectionModel)}>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => console.log("Send Email button clicked")}>
         Send Email
       </Button>
       <Box className="h-fit">
         <DataGrid
-          rows={memberList}
+          rows={membersList}
           columns={columns}
           getRowId={(row) => row.id}
-          className="h-fit"
           initialState={{
             pagination: {
               paginationModel: {

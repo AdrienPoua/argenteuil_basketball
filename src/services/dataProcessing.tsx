@@ -12,7 +12,6 @@ import membersData2024 from "@/data/members2024.json";
 import { Leadership, News, Team, Gym, Document, FAQ, Club, Rate, Permanence, Member } from "@/models";
 import { validate } from "class-validator";
 
-
 export const leadership: Leadership[] = leadershipData.map((leader) => new Leadership(leader));
 
 export const teams: Team[] = teamsData.map((team) => {
@@ -30,16 +29,17 @@ export const gyms: Gym[] = gymsData.map((gymData) => {
   return gymInstance;
 });
 
-
 export const news: News[] = newsData.map((newsItem) => new News(newsItem));
 export const documents: Document[] = documentsData.map((documentItem) => new Document(documentItem));
 export const faq: FAQ[] = FAQdata.map((faqItem) => new FAQ(faqItem));
 export const club: Club = new Club(clubData);
-export const rates : Rate[] = ratesData.map((rate) => new Rate(rate));
-export const permanence : Permanence = new Permanence(permanencesData);
-export const members2023 : Member[] = membersData2023.map((member) => new Member(member));
-export const members2024 : Member[] = membersData2024.map((member) => new Member(member));
-
+export const rates: Rate[] = ratesData.map((rate) => new Rate(rate));
+export const permanence: Permanence = new Permanence(permanencesData);
+export const members2023: Member[] = membersData2023.map((member) => new Member(member));
+export const members2024: Member[] = membersData2024.map((member) => new Member(member));
+members2023.forEach((member) => (member.year = "2023"));
+members2024.forEach((member) => (member.year = "2024"));
+export const members: Member[] = [...members2023, ...members2024];
 
 async function validateData(items: any[], className: string) {
   for (const item of items) {
@@ -60,6 +60,6 @@ export async function validateAllData() {
   await validateData(documents, "Document");
   await validateData(faq, "FAQ");
   await validateData([club], "Club");
-  await validateData(rates, "Rate")
-  await validateData([permanence], "Permanences")
+  await validateData(rates, "Rate");
+  await validateData([permanence], "Permanences");
 }

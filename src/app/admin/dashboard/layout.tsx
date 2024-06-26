@@ -5,10 +5,10 @@ import ServerSideAuth from "@/components/ServerSideAuth";
 
 export default function AdminMode({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <ClientSideAuth>
-      <ServerSideAuth>
+    // <ClientSideAuth>
+    //   <ServerSideAuth>
         <AdminLayout>{children}</AdminLayout>
-      </ServerSideAuth>
-    </ClientSideAuth>
+    // {/* </ServerSideAuth>
+    // </ClientSideAuth> */}
   );
 }

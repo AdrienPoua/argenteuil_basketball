@@ -1,7 +1,7 @@
 import { TeamType, TrainingType, GymType, LeadershipType, NewsType, MemberType } from "@/types";
 import { IsEmail, IsString, Length, IsOptional, IsBoolean, IsArray, IsNumber } from "class-validator";
 import { v4 as uuidv4 } from "uuid";
-import categories from "@/data/categories.json";
+import cat from "@/data/cat.json";
 
 export class Leadership implements LeadershipType {
   @IsString()
@@ -615,18 +615,30 @@ export class Member {
   private _firstName: string;
   private _email: string;
   private _birthDay: string;
+  private _year: string;
+
   constructor(data: MemberType) {
     this._name = data.Nom;
     this._firstName = data.Prénom;
     this._email = data["E-mail"];
     this._birthDay = data["Date de naissance"];
+    this._year = ""; // Initialize the year
   }
 
   get name(): string {
     return this._name;
   }
+
+  set year(year: string) {
+    this._year = year;
+  }
+
+  get year(): string {
+    return this._year;
+  }
+
   get id(): string {
-    return `${this._name}-${this._firstName}`;
+    return uuidv4();
   }
 
   get firstName(): string {
@@ -643,9 +655,13 @@ export class Member {
 
   get categorie(): string {
     const birthYear = this._birthDay.split("/")[2];
-    const category = categories.find((item) => item.year.includes(birthYear));
-    if (!category) {
-      return "Seniors";
+    const category = cat.find((item) => item.year.includes(birthYear));
+    if (parseInt(birthYear) <= 2004 ) {
+      return "Adultes"
+    } else if (category) {
+      return category.category;
+    } else {
+      throw new Error("Invalid birth year");
     }
-    return category.category;
-  }}
+  }
+}
