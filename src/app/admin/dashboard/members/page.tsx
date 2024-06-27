@@ -96,7 +96,7 @@ const Index: FC = () => {
         >
           ↻
         </Button>
-        
+
       </Toolbar>
       <Box className="h-fit">
         <DataGrid
