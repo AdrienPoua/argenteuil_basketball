@@ -10,6 +10,10 @@ import { Typography } from "@mui/material";
 import Layout from "@/layouts/main";
 import { club, rates } from "@/services/dataProcessing";
 import { Rate } from "@/models";
+import { useRef } from "react";
+import { motion } from "framer-motion";
+import useVisibility from "@/hooks/useVisibility";
+import { guideAnimation } from "@/animations";
 
 const TableHeader = () => (
   <TableHead>
@@ -68,21 +72,32 @@ const TarifRow = ({ rate }: { rate: Rate }) => (
 );
 
 export default function TarifsPage() {
+  const cardRef = useRef(null);
+  const isVisible = useVisibility(cardRef);
   return (
     <Layout pageTitle={`Tarifs saison ${club.saison}`}>
-      <TableContainer component={Paper}>
-        <Table aria-label="simple table">
-          <TableHeader />
-          <TableBody>
-            {rates.map((rate: Rate) => (
-              <TarifRow
-                key={rate.category}
-                rate={rate}
-              />
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <motion.div
+        ref={cardRef}
+        initial="hidden"
+        animate={isVisible ? "visible" : "hidden"}
+        whileHover="hover"
+        variants={guideAnimation}
+        transition={{ duration: 0.5 }}
+      >
+        <TableContainer component={Paper}>
+          <Table aria-label="simple table">
+            <TableHeader />
+            <TableBody>
+              {rates.map((rate: Rate) => (
+                <TarifRow
+                  key={rate.category}
+                  rate={rate}
+                />
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </motion.div>
     </Layout>
   );
 }

@@ -17,6 +17,7 @@ export default function DocumentsPage() {
             key={document.id}
             title={document.title}
             url={document.url}
+            animation={true}
           />
         ))}
       </Container>

@@ -12,6 +12,7 @@ export default function FAQPage() {
         {faq.map((faq: FAQ ) => (
           <Dropdown
             key={faq.id}
+            animation={true}
             header={
               <Typography
                 variant="body2"

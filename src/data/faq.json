@@ -1,58 +1,62 @@
 [
   {
-      "question": "Quel est l'âge minimum pour rejoindre le club ?",
-      "answer": "Le club accueille les joueurs et joueuses à partir de 5 ans."
+    "question": "Quand commencent les inscriptions ?",
+    "answer": "Les inscriptions débutent à partir du 2 septembre."
   },
   {
-      "question": "Quand commencent les inscriptions ?",
-      "answer": "Les inscriptions débutent à partir du 2 septembre. Il est également possible de s'inscrire sur rendez-vous en dehors de ces dates. Pour ce faire, contactez-nous par téléphone."
+    "question": "Quel coach sera en charge de mon équipe ?",
+    "answer": "Les entraîneurs sont désignés en début de saison par le club. Vous serez informé de l'entraîneur de votre équipe lors de la première séance d'entraînement."
   },
   {
-      "question": "Proposez-vous des essais gratuits avant l'inscription ?",
-      "answer": "Oui, nous offrons une séance d'essai gratuite pour les nouveaux membres afin de découvrir le club. Cela est même recommandé."
+    "question": "Proposez-vous des essais gratuits avant l'inscription ?",
+    "answer": "Oui, nous offrons une séance d'essai gratuite pour les nouveaux membres afin de découvrir le club. Cela est même recommandé."
   },
   {
-      "question": "Comment puis-je régler les frais d'inscription ?",
-      "answer": "Les frais d'inscription peuvent être réglés en espèces ou par chèque."
+    "question": "Comment puis-je régler les frais d'inscription ?",
+    "answer": "Les frais d'inscription peuvent être réglés en espèces ou par chèque."
   },
   {
-      "question": "Je n'ai toujours pas reçu de mail pour confirmer mon inscription, que faire ?",
-      "answer": "Si cela fait plus de deux semaines, contactez-nous par email avec les informations suivantes : nom, prénom, date de naissance."
+    "question": "Je n'ai toujours pas reçu de mail pour confirmer mon inscription, que faire ?",
+    "answer": "Si cela fait plus de deux semaines, contactez-nous par email avec les informations suivantes : nom, prénom, date de naissance."
   },
   {
-      "question": "Quels sont les documents à fournir pour l'inscription ?",
-      "answer": "Le formulaire de demande de licence ainsi que le montant de la cotisation."
+    "question": "Quels sont les documents à fournir pour l'inscription ?",
+    "answer": "Le formulaire de demande de licence ainsi que le montant de la cotisation."
   },
   {
-      "question": "Acceptez-vous le paiement en plusieurs fois ?",
-      "answer": "Oui, les modalités sont à voir sur place avec M. DIME lors des permanences."
+    "question": "Acceptez-vous le paiement en plusieurs fois ?",
+    "answer": "Oui, les modalités sont à voir sur place avec M. DIME lors des permanences."
   },
   {
-      "question": "Acceptez-vous le Pass Sport ?",
-      "answer": "Le Pass Sport est une réduction de 50 euros financée par l'État pour une inscription dans une association sportive. Remettez-nous le document lors de votre inscription pour en bénéficier."
+    "question": "Acceptez-vous le Pass Sport ?",
+    "answer": "Le Pass Sport est une réduction de 50 euros financée par l'État pour une inscription dans une association sportive. Remettez-nous le document lors de votre inscription pour en bénéficier."
   },
   {
-      "question": "Comment obtenir une attestation de paiement ?",
-      "answer": "Pour obtenir une attestation de paiement, demandez-la lors de votre inscription ou par email."
+    "question": "Quel est l'âge minimum pour rejoindre le club ?",
+    "answer": "Le club accueille les joueurs et joueuses à partir de 5 ans."
   },
   {
-      "question": "Mon équipe a-t-elle des matchs le week-end ?",
-      "answer": "Certaines équipes participent à des compétitions régulières, d'autres non. Veuillez vous renseigner auprès de votre entraîneur pour plus d'informations."
+    "question": "Comment obtenir une attestation de paiement ?",
+    "answer": "Pour obtenir une attestation de paiement, demandez-la lors de votre inscription ou par email."
   },
   {
-      "question": "Quels sont les niveaux de compétition au sein du club ?",
-      "answer": "Nous avons des équipes de niveau départemental uniquement."
+    "question": "Mon équipe a-t-elle des matchs le week-end ?",
+    "answer": "Certaines équipes participent à des compétitions régulières, d'autres non. Veuillez vous renseigner auprès de votre entraîneur pour plus d'informations."
   },
   {
-      "question": "Y a-t-il des stages durant les vacances scolaires ?",
-      "answer": "Oui, nous organisons des stages de basketball pendant les vacances scolaires, à l'exception des vacances de Noël et des grandes vacances."
+    "question": "Quels sont les niveaux de compétition au sein du club ?",
+    "answer": "Nous avons des équipes de niveau départemental uniquement."
   },
   {
-      "question": "Comment savoir dans quelle équipe je vais jouer ?",
-      "answer": "En cas de plusieurs équipes pour la même catégorie, l'entraîneur évalue le niveau de chaque joueur lors des premières séances d'entraînement pour déterminer l'équipe la plus adaptée."
+    "question": "Y a-t-il des stages durant les vacances scolaires ?",
+    "answer": "Oui, nous organisons des stages de basketball pendant les vacances scolaires, à l'exception des vacances de Noël et des grandes vacances."
   },
   {
-      "question": "Puis-je changer d'équipe en cours de saison ?",
-      "answer": "Oui, il est possible de changer d'équipe en cours de saison si l'entraîneur le juge nécessaire."
+    "question": "Comment savoir dans quelle équipe je vais jouer ?",
+    "answer": "En cas de plusieurs équipes pour la même catégorie, l'entraîneur évalue le niveau de chaque joueur lors des premières séances d'entraînement pour déterminer l'équipe la plus adaptée."
+  },
+  {
+    "question": "Puis-je changer d'équipe en cours de saison ?",
+    "answer": "Oui, il est possible de changer d'équipe en cours de saison si l'entraîneur le juge nécessaire."
   }
 ]

@@ -26,7 +26,8 @@
       "@/sanity/*": ["./sanity/*"],
       "@/sanityClient": ["./sanity/lib/client.ts"],
       "@/authOptions": ["./src/app/api/auth/[...nextauth]/route.ts"],
-      "@/actions": ["./src/app/actions.ts"]
+      "@/actions": ["./src/app/actions.ts"],
+      "@/animations": ["./src/animations/index.js"],
     },
     "isolatedModules": true
   },
@@ -40,6 +41,6 @@
     "src/**/*.tsx", // inclure tous les fichiers tsx dans src
     "src/**/*.ts", // inclure tous les fichiers ts dans src
     "src/app/api/auth/[...nextauth]/route.ts"
-  ],
+, "src/hooks/useVisibility.ts", "src/components/TypingEffect.tsx"  ],
   "exclude": ["node_modules"]
 }

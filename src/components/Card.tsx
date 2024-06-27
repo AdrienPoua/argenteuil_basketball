@@ -1,7 +1,7 @@
 "use client";
 import { v4 as uuidv4 } from "uuid";
 import { SanityDocument } from "next-sanity";
-import { useState, MouseEvent } from "react";
+import { useState, MouseEvent, useRef } from "react";
 import Link from "next/link";
 import { Utils, Team, Leadership, Gym } from "@/models";
 import { Card, CardActionArea, CardContent, Typography, Box, CardMedia, useTheme, useMediaQuery } from "@mui/material";
@@ -9,15 +9,29 @@ import EmailIcon from "@mui/icons-material/Email";
 import { PhoneIphone } from "@mui/icons-material";
 import { ContactButton } from "@/components/Buttons";
 import { urlFor } from "@/sanity/lib/image";
+import { motion } from "framer-motion";
+import useVisibility from "@/hooks/useVisibility";
+import { postAnimation, cardAnimation, teamAnimation } from "@/animations";
+
 
 type PostCardProps = { small?: boolean; sticky?: boolean, post: SanityDocument };
 export const PostCard = ({ small, sticky, post }: PostCardProps) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const { Image, title, publishedAt : date, slug } = post;
+  const { Image, title, publishedAt: date, slug } = post;
 
   const formatedDate = Utils.formatDate(new Date(date), { month: "long", day: "numeric", year: "numeric" });
+  const cardRef = useRef(null);
+  const isVisible = useVisibility(cardRef);
   return (
+    <motion.div
+      ref={cardRef}
+      initial="hidden"
+      animate={isVisible ? "visible" : "hidden"}
+      whileHover="hover"
+      variants={postAnimation}
+      transition={{ duration: 0.3 }}
+    >
     <Card className={`${sticky ? "sticky top-0" : ""}  rounded-3xl w-full`}>
       <Link
         href={`/actualites/${slug.current}`}
@@ -40,41 +54,55 @@ export const PostCard = ({ small, sticky, post }: PostCardProps) => {
         </CardContent>
       </Link>
     </Card>
+    </motion.div>
   );
 };
 
 
+
 export const LeaderCard = ({ data }: { data: Leadership }) => {
+  const cardRef = useRef(null);
+  const isVisible = useVisibility(cardRef);
   return (
-    <Card className="flex flex-col size-card rounded-lg overflow-hidden ">
-      <CardMedia
-        component="img"
-        image={data.img}
-        className=" object-cover grow overflow-hidden object-top	"
-        alt={data.name}
-      />
-      <CardContent className="flex p-0 pb-0 bg-primary max-h-24 ">
-        <Box className="flex justify-center items-center gap-2 grow relative ">
-          <Box className=" p-5 md:p-3 flex flex-col items-center w-full rounded-md gap-1 ">
-            {" "}
-            <Typography className="text-xs md:text-base text-black text-nowrap">{data.name}</Typography>
-            <Typography className="text-center text-xs md:text-base">{data.isLeader ? data.job : data.teams?.join(" | ")}</Typography>
+    <motion.div
+      ref={cardRef}
+      initial="hidden"
+      animate={isVisible ? "visible" : "hidden"}
+      whileHover="hover"
+      variants={cardAnimation}
+      transition={{ duration: 0.5 }}
+    >
+      <Card className="flex flex-col size-card rounded-lg overflow-hidden">
+        <CardMedia
+          component="img"
+          image={data.img}
+          className="object-cover grow overflow-hidden object-top"
+          alt={data.name}
+        />
+        <CardContent className="flex p-0 pb-0 bg-primary max-h-24">
+          <Box className="flex justify-center items-center gap-2 grow relative">
+            <Box className="p-5 md:p-3 flex flex-col items-center w-full rounded-md gap-1">
+              <Typography className="text-xs md:text-base text-black text-nowrap">{data.name}</Typography>
+              <Typography className="text-center text-xs md:text-base">
+                {data.isLeader ? data.job : data.teams?.join(" | ")}
+              </Typography>
+            </Box>
+            <Box className="flex h-full">
+              <ContactButton
+                icon={<EmailIcon />}
+                text={data.email}
+                available={data.isEmailDisplayed}
+              />
+              <ContactButton
+                icon={<PhoneIphone />}
+                text={data.number}
+                available={data.isNumberDisplayed}
+              />
+            </Box>
           </Box>
-          <Box className="flex h-full">
-            <ContactButton
-              icon={<EmailIcon />}
-              text={data.email}
-              available={data.isEmailDisplayed}
-            />
-            <ContactButton
-              icon={<PhoneIphone />}
-              text={data.number}
-              available={data.isNumberDisplayed}
-            />
-          </Box>
-        </Box>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    </motion.div>
   );
 };
 
@@ -86,28 +114,39 @@ export const TeamCard = ({ data }: { data: Team }) => {
   };
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const cardRef = useRef(null);
+  const isVisible = useVisibility(cardRef);
+
 
   return (
+    <motion.div
+    ref={cardRef}
+    initial="hidden"
+    animate={isVisible ? "visible" : "hidden"}
+    whileHover="hover"
+    variants={teamAnimation}
+    transition={{ duration: 0.5 }}
+  >
     <Card
       onClick={handleClick}
-      className="relative overflow-hidden w-full h-[400px] md:h-[600px] rounded-lg shadow-lg transition-transform duration-150 ease-in-out transform hover:scale-105">
+      className="relative overflow-hidden w-full h-[300px] md:h-[600px] rounded-lg shadow-lg transition-transform duration-150 ease-in-out transform hover:scale-105">
       <CardActionArea className="size-full overflow-hidden">
         <Box className="absolute inset-0 ">
           <CardMedia
             component="img"
             image={data.img}
             className="object-cover size-full"
-            alt={"Les membres de l'équipe" + data.name }
+            alt={"Les membres de l'équipe" + data.name}
           />
         </Box>
         <Box
           className={`absolute inset-0 flex bg-black ${!isClicked ? "bg-opacity-10" : "bg-opacity-75"} transition-opacity duration-300 z-10 `}></Box>
         <CardContent className="flex flex-col items-center justify-around z-40 size-full py-16">
           {!isClicked ? (
-            <Typography variant="h3" className="text-white z-40  text-center self-center ">{data.name}</Typography>
+            <Typography variant="h3" className="text-white z-40 text-2xl md:text-5xl  text-center self-center text-nowrap ">{data.name}</Typography>
           ) : (
             <Box className="flex flex-col grow z-40 size-full">
-              <Typography className=" text-2xl lg:text-4xl text-center text-white justify-self-start">{data.name}</Typography>
+              <Typography className=" text-3xl lg:text-4xl text-center text-white justify-self-start">{data.name}</Typography>
               <Box className="flex grow justify-between">
                 <Box className="flex flex-col gap-5 justify-center grow basis-1/2">
                   {data.coach && (
@@ -153,6 +192,7 @@ export const TeamCard = ({ data }: { data: Team }) => {
         </CardContent>
       </CardActionArea>
     </Card>
+  </motion.div>
   );
 };
 
@@ -164,11 +204,21 @@ export const GymCard = ({ data }: { data: Gym }) => {
   const handleClick = (e: MouseEvent<HTMLDivElement>) => {
     setIsClicked(!isClicked);
   };
+  const cardRef = useRef(null);
+  const isVisible = useVisibility(cardRef);
 
   return (
+    <motion.div
+      ref={cardRef}
+      initial="hidden"
+      animate={isVisible ? "visible" : "hidden"}
+      whileHover="hover"
+      variants={cardAnimation}
+      transition={{ duration: 0.5 }}
+    >
     <Card
       onClick={handleClick}
-      className="relative overflow-hidden w-full h-72 lg:h-[700px] rounded-lg shadow-lg transition-transform duration-150 ease-in-out transform hover:scale-105">
+      className="relative overflow-hidden w-full h-72 lg:h-[600px] rounded-lg shadow-lg transition-transform duration-150 ease-in-out transform hover:scale-105">
       <CardActionArea className="size-full">
         <Box className="absolute inset-0 overflow-hidden rounded-lg z-0">
           <CardMedia
@@ -190,5 +240,6 @@ export const GymCard = ({ data }: { data: Gym }) => {
         </CardContent>
       </CardActionArea>
     </Card>
+  </motion.div>
   );
 };

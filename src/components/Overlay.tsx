@@ -14,9 +14,10 @@ import { sendEmail } from "@/actions";
 import Image from "next/image";
 import { useRef, useEffect, useState, SetStateAction } from "react";
 import { DownloadButton, OverlayButton } from "./Buttons";
-
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import TypingEffect from "@/components/TypingEffect";
+
 
 export default function MyOverlay() {
   const { open, setOpen, content } = useOverlay();
@@ -196,7 +197,7 @@ export function EmailContent() {
         </Box>
       </Typography>
       <Typography className="text-xs md:text-base text-black text-center">Pensez à vérifier vos courriers indésirables</Typography>
-      <Typography className="text-xs md:text-base text-black text-center  bg-primary"> À ce stade, vous ne serez pas encore licencié. </Typography>
+      <TypingEffect text="À ce stade, vous n'êtes pas licencié" classNames="text-xs md:text-base text-black text-center bg-primary" />
     </Box>
   );
 }
@@ -242,12 +243,11 @@ export function InscriptionContent() {
         , et doit être signé et tamponné par le médecin.
       </Typography>
       <Typography className="text-xs md:text-base text-black text-center">
-        Choisissez votre{" "}
+        Choisissez l&apos;
         <Box
           className="text-primary"
           component={"span"}>
-          {" "}
-          assurance{" "}
+          assurance A{" "}
         </Box>
         , celle-ci est incluse dans le prix de la licence.
       </Typography>
