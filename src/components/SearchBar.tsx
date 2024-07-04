@@ -3,8 +3,12 @@ import React from 'react';
 import { TextField, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
-const SearchBar = ({ value, onChange }) => {
-  console.log(value);
+type SearchBarProps = {
+  value: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+const SearchBar = ({ value, onChange } : SearchBarProps ) => {
   return (
     <TextField
       variant="outlined"

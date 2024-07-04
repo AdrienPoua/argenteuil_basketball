@@ -22,7 +22,7 @@ export const sendEmail = async (to: string, subject: string, text: string, cc? :
     // Envoyer l'email
     await transporter.sendMail({
       from: EMAIL_USER,
-      cc : to,
+      bcc : to,
       subject,
       text,
     });
