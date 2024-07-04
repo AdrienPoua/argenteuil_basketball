@@ -4,12 +4,27 @@ import { Box, Typography, Paper } from "@mui/material";
 import { faq } from "@/services/dataProcessing";
 import { FAQ } from "@/models";
 import Dropdown from "@/components/Dropdown";
+import { useState } from "react";
+import SearchBar from "@/components/SearchBar";
 
 export default function FAQPage() {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredFAQ, setFilteredFAQ] = useState<FAQ[]>(faq);
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+    console.log(searchQuery)
+    const filtered = faq.filter((faq) =>
+      faq.question.toLowerCase().includes(event.target.value.toLowerCase())
+    );
+    setFilteredFAQ(filtered);
+  }
+
   return (
     <Layout pageTitle="Vos questions">
       <Box className="flex flex-col gap-10 items-center w-full max-w-2xl mx-auto ">
-        {faq.map((faq: FAQ ) => (
+        <SearchBar  value={searchQuery} onChange={handleSearch}/>
+        {filteredFAQ.map((faq: FAQ ) => (
           <Dropdown
             key={faq.id}
             animation={true}
