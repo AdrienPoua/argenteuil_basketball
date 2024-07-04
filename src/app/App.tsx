@@ -35,7 +35,7 @@ export default function App({ children }: Readonly<{ children: React.ReactNode }
         />
         <meta
           property="og:image"
-          content="/images/logo.png"
+          content="https://argenteuilbasketball.com/images/logo.png"
         />
         <meta
           property="og:url"
