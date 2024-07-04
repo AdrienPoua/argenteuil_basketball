@@ -36,13 +36,6 @@ const config: Config = {
         white: "#FFFFFF",
         black: "#000000",
       },
-      width: {
-        card: "500px",
-      }, 
-      height: {
-        card: "500px",
-        bigCard: "1000px",
-      },
       transitionProperty: {
         'max-height': 'max-height'
       }

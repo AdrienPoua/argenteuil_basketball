@@ -28,7 +28,7 @@ export default function Layout({ pageTitle, children }: Readonly<{ pageTitle: st
             >
               <Typography
                 component="h1"
-                className=" text-base md:text-xl lg:text-5xl text-center py-5"
+                className=" text-5xl text-center py-5"
               >
                 {pageTitle}
               </Typography>

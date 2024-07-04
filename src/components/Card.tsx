@@ -72,7 +72,7 @@ export const LeaderCard = ({ data }: { data: Leadership }) => {
       variants={cardAnimation}
       transition={{ duration: 0.5 }}
     >
-      <Card className="flex flex-col size-card rounded-lg overflow-hidden">
+      <Card className="flex flex-col max-h-[500px] aspect-square rounded-lg overflow-hidden">
         <CardMedia
           component="img"
           image={data.img}
