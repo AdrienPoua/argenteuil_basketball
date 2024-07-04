@@ -1,14 +1,12 @@
 "use server";
 import nodemailer from "nodemailer";
 
-export const sendEmail = async (to: string, subject: string, text: string) => {
+export const sendEmail = async (to: string, subject: string, text: string, cc? : string) => {
   const { EMAIL_USER, EMAIL_PASS, EMAIL_PORT, EMAIL_HOST } = process.env;
 
   if (!EMAIL_USER || !EMAIL_PASS || !EMAIL_PORT || !EMAIL_HOST) {
     throw new Error("Veuillez configurer les variables d'environnement EMAIL_USER, EMAIL_PASS, EMAIL_PORT et EMAIL_HOST");
   }
-
-  console.log(`Envoi d'un email à ${to} avec le sujet "${subject}"`);
 
   let transporter = nodemailer.createTransport({
     host: EMAIL_HOST,
@@ -24,7 +22,7 @@ export const sendEmail = async (to: string, subject: string, text: string) => {
     // Envoyer l'email
     await transporter.sendMail({
       from: EMAIL_USER,
-      to,
+      cc : to,
       subject,
       text,
     });
