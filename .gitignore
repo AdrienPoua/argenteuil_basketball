@@ -35,3 +35,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# sensitive data
+
+/src/data/leadership.json
+/src/data/members2023.json
+/src/data/members2024.json
+
