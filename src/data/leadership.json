@@ -1,0 +1,49 @@
+[
+  {
+    "name": "BOUCHERIT Hakim",
+    "isLeader": true,
+    "job": "Président",
+    "email": "hakim.boucherit@club-internet.fr",
+    "number": "0613817772",
+    "isEmailDisplayed": true,
+    "isNumberDisplayed": true
+  },
+  {
+    "name": "DIME Bassirou",
+    "isLeader": true,
+    "job": "Secrétaire Général",
+    "email": "bass.dime@hotmail.fr",
+    "number": "0670222238",
+    "isEmailDisplayed": true,
+    "isNumberDisplayed": true
+  },
+  {
+    "name": "LASSERY Sylvain",
+    "isLeader": true,
+    "job": "Trésorier",
+    "email": "slassery@gmail.com",
+    "number": "0612345678",
+    "isEmailDisplayed": false,
+    "isNumberDisplayed": false
+  },
+  {
+    "name": "POUA Adrien",
+    "isLeader": true,
+    "job": "Correspondant",
+    "img": "/images/staff/dirigeants/poua_adrien.jpg",
+    "email": "argenteuilbasketball@hotmail.fr",
+    "number": "0651261379",
+    "isEmailDisplayed": true,
+    "isNumberDisplayed": true
+  },
+  {
+    "name": "NZE Julien",
+    "isLeader": false,
+    "isCoach": true,
+    "teams": [""],
+    "email": "j_nze@hotmail.com",
+    "number": "0616277614",
+    "isEmailDisplayed": true,
+    "isNumberDisplayed": true
+  }
+]

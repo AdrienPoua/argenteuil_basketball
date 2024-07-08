@@ -1,0 +1,35 @@
+[
+    {
+        "Nom": "DIME",
+        "Prénom": "Bassirou",
+        "E-mail": "argenteuilbasketball@hotmail.fr",
+        "Date de naissance": "13/01/1961",
+        "Groupement": "IDF0095019 - ARGENTEUIL BB",
+        "Date de création": "16/06/2023 12:19",
+        "Type": "Renouvellement",
+        "Statut": "Licence générée",
+        "Date de saisie adhérent": "16/06/2023 12:21"
+    },
+    {
+        "Nom": "BOUCHERIT",
+        "Prénom": "Hakim",
+        "E-mail": "Argenteuilbasketball@hotmail.fr",
+        "Date de naissance": "04/08/1954",
+        "Groupement": "IDF0095019 - ARGENTEUIL BB",
+        "Date de création": "24/06/2023 11:35",
+        "Type": "Renouvellement",
+        "Statut": "Licence générée",
+        "Date de saisie adhérent": "24/06/2023 11:37"
+    },
+    {
+        "Nom": "POUA",
+        "Prénom": "Adrien",
+        "E-mail": "adrienvilb@msn.com",
+        "Date de naissance": "27/07/1995",
+        "Groupement": "IDF0095019 - ARGENTEUIL BB",
+        "Date de création": "13/07/2023 19:50",
+        "Type": "Mutation",
+        "Statut": "Licence générée",
+        "Date de saisie adhérent": "13/07/2023 21:13"
+    }
+]
