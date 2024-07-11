@@ -30,7 +30,7 @@ export function DownloadButton({ title, url, variant, animation, odd }: Readonly
         initial={ odd ? "hidden" : "right"}
         animate={isVisible ? "visible" : "hidden"}
         variants={multiDirection}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 0.5 }}
         className="flex items-center justify-center w-full"
       >
         <Button

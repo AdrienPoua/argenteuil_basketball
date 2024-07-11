@@ -10,11 +10,12 @@ export default function Footer() {
 
   return (
     <Box
-      className="border-t-2 bg-black py-8 border-primary flex justify-center"
+      className="border-t-2 bg-black pt-4 pb-7 border-primary flex justify-center"
       component="footer"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}>
-      <Box className="flex justify-center">
+      <Box className="flex justify-center relative">
+        <Box className="after:bg-gradient-to-r from-primary to-white after:p-1  after:shadow-xl after:w-full after:rounded-lg after:filter after:absolute after:-bottom-3 after:left-0 inline-block" />
         <Link
           href="https://www.linkedin.com/in/adrien-poua"
           target="_blank"
