@@ -18,7 +18,7 @@ const HeroSection = () => {
           variants={blurInAnimation}
           className="absolute inset-0 flex justify-center items-center"
         >
-          <Typography component="h1" className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-primary text-4xl md:text-6xl font-bold text-center p-4">
+          <Typography variant="h1" className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2  text-center">
             Argenteuil Basketball
           </Typography>
         </motion.div>

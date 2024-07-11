@@ -17,7 +17,6 @@ export const guideAnimation = {
 export const postAnimation = {
   hidden: { opacity: 0, y: -50 },
   visible: { opacity: 1, y: 0, transition: { type: "spring" }, duration: 0.1 },
-  hover: { filter: "brightness(1.4)" },
 };
 export const teamAnimation = {
   hidden: { opacity: 0, y: 50 },

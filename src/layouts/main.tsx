@@ -25,10 +25,10 @@ export default function Layout({ pageTitle, children }: Readonly<{ pageTitle: st
               animate="visible"
               transition={{ duration: 1 }}
               variants={blurInAnimation}
+              className="text-center"
             >
               <Typography
-                component="h1"
-                className=" text-5xl text-center py-5"
+                variant="h1"
               >
                 {pageTitle}
               </Typography>

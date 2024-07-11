@@ -1,5 +1,4 @@
-import { createTheme } from "@mui/material/styles";
-
+import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 
 // Créez un thème personnalisé
 const theme = createTheme({
@@ -22,11 +21,7 @@ const theme = createTheme({
     },
     h1: {
       color: "#ffffff",
-      textAlign: "center",
-      fontSize: "3rem",
-      marginTop: "2.5rem",
-      marginBottom: "5rem",
-    }
+    },
   },
   components: {
     MuiButton: {
@@ -43,13 +38,15 @@ const theme = createTheme({
     MuiCardContent: {
       styleOverrides: {
         root: {
-          '&:last-child': {
-            paddingBottom: 0, 
-          }
+          "&:last-child": {
+            paddingBottom: 0,
+          },
         },
       },
     },
   },
 });
 
-export default theme;
+const responsiveTheme = responsiveFontSizes(theme);
+
+export default responsiveTheme;
