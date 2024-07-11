@@ -12,12 +12,13 @@ export default function DocumentsPage() {
       <Container
         className="flex flex-col gap-5"
         maxWidth="xs">
-        {documents.map((document) => (
+        {documents.map((document, index) => (
           <DownloadButton
             key={document.id}
             title={document.title}
             url={document.url}
             animation={true}
+            odd={index % 2 === 0}
           />
         ))}
       </Container>

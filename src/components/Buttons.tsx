@@ -8,16 +8,18 @@ import { useMediaQuery } from "@mui/material";
 import DoNotDisturbIcon from "@mui/icons-material/DoNotDisturb";
 import { useOverlay } from "@/contexts/Overlay";
 import useVisibility from "@/hooks/useVisibility";
-import { guideAnimation } from "@/animations";
+import { multiDirection } from "@/animations";
 import { motion } from "framer-motion";
+
 
 type DownloadButtonProps = {
   title: string;
   url: string;
   variant?: string;
   animation?: boolean;
+  odd: boolean;
 };
-export function DownloadButton({ title, url, variant, animation }: Readonly<DownloadButtonProps>) {
+export function DownloadButton({ title, url, variant, animation, odd }: Readonly<DownloadButtonProps>) {
   const cardRef = useRef<HTMLDivElement>(null);
   const isVisible = useVisibility(cardRef);
 
@@ -25,11 +27,10 @@ export function DownloadButton({ title, url, variant, animation }: Readonly<Down
     return (
       <motion.div
         ref={cardRef}
-        initial="hidden"
+        initial={ odd ? "hidden" : "right"}
         animate={isVisible ? "visible" : "hidden"}
-        whileHover="hover"
-        variants={guideAnimation}
-        transition={{ duration: 0.5 }}
+        variants={multiDirection}
+        transition={{ duration: 0.8 }}
         className="flex items-center justify-center w-full"
       >
         <Button

@@ -23,3 +23,9 @@ export const teamAnimation = {
   visible: { opacity: 1, y: 0, transition: { type: "spring" } },
   hover: { filter: "brightness(1.2)" },
 };
+
+export const multiDirection = {
+  hidden: { opacity: 0, x: "-25vw" },
+  visible: { opacity: 1, x: 0 },
+  right: { opacity: 0, x: "25vw" },
+};
