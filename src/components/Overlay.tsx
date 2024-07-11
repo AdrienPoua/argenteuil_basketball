@@ -33,7 +33,7 @@ export default function MyOverlay() {
       aria-describedby="overlay-overlay-description">
       <Box
         className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-fit min-h-fit
-          flex flex-col justify-center items-center">
+          flex flex-col justify-center items-center max-w-[80%] ">
         <Paper
           elevation={0}
           className="p-5  flex flex-col bg-transparent justify-center items-center px-10 z-10">
@@ -61,23 +61,24 @@ export function ContactContent({ isMobile }: Readonly<{ isMobile: boolean }>) {
     <Box className="flex flex-col items-center  gap-5 max-w-[80%] ">
       <Box
         ref={logoRef}
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] aspect-square"
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] lg:w-[500px] aspect-square flex"
         onClick={() => setOpen(false)}>
         <Image
           src="/images/logo.png"
-          width={500}
-          height={500}
+          width={400}
+          height={400}
           alt="logo"
+          className="grow"
         />
       </Box>
       <Button
-        className=" bg-primary py-4 min-w-[500px] hover:bg-primary "
+        className=" bg-primary py-4 min-w-[350px] lg:min-w-[500px] hover:bg-primary "
         endIcon={<EmailIcon className="text-black" />}
         onClick={() => handleClick(club.email)}>
-        <Typography className=" text-black  text-xs md:text-base">{club.email}</Typography>
+        <Typography className=" text-black  text-xs md:text-base tracking-wider ">{club.email}</Typography>
       </Button>
       <Button
-        className=" bg-primary py-4 min-w-[500px]  hover:bg-primary "
+        className=" bg-primary py-4 min-w-[350px] lg:min-w-[500px]  hover:bg-primary "
         endIcon={<PhoneIphoneIcon className="text-black" />}
         onClick={() => handleClick(club.phone)}>
         <Typography className=" text-black  text-xs md:text-base">{Utils.formatPhoneNumber(club.phone)}</Typography>
