@@ -106,13 +106,13 @@ export const ContactButton = ({ icon, text, available }: { icon: React.ReactNode
   }, [isMobile, isClicked, available, text, icon, isEmail]);
 
   return (
-    <Button
-      component="li"
-      variant="contained"
-      onClick={handleClick}
-      className="flex items-center justify-center bg-primary h-full">
-      {content}
-    </Button>
+      <Button
+        component="li"
+        variant="contained"
+        onClick={handleClick}
+        className={`flex items-center justify-center bg-primary h-full ${!isClicked || content === <DoNotDisturbIcon />  ? " size-16 md:size-20" : "size-fit"} `}>
+        {content}
+      </Button>
   );
 };
 
