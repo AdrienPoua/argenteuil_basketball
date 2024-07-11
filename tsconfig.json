@@ -28,6 +28,7 @@
       "@/authOptions": ["./src/app/api/auth/[...nextauth]/route.ts"],
       "@/actions": ["./src/app/actions.ts"],
       "@/animations": ["./src/animations/index.js"],
+      "@/lib/*": ["./src/lib/*"],
     },
     "isolatedModules": true
   },
