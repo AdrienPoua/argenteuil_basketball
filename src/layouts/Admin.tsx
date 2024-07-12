@@ -18,6 +18,11 @@ const data = [
     href: "/admin/logout",
     logo : "🚪"
   },
+  {
+    title: "Settings",
+    href: "/admin/dashboard/settings",
+    logo : "⚙️"
+  }
 ];
 
 const items = data.map((item, index) => (

@@ -13,7 +13,6 @@ export default function FAQPage() {
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
-    console.log(searchQuery)
     const filtered = faq.filter((faq) =>
       faq.question.toLowerCase().includes(event.target.value.toLowerCase())
     );
