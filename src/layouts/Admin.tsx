@@ -6,22 +6,22 @@ const data = [
   {
     title: "Dashboard",
     href: "/admin/dashboard",
-    logo : "🏠"
+    logo: "🏠"
   },
   {
     title: "Membres",
     href: "/admin/dashboard/members",
-    logo : "👥"
+    logo: "👥"
   },
   {
     title: "Logout",
     href: "/admin/logout",
-    logo : "🚪"
+    logo: "🚪"
   },
   {
     title: "Settings",
     href: "/admin/dashboard/settings",
-    logo : "⚙️"
+    logo: "⚙️"
   }
 ];
 
@@ -35,12 +35,12 @@ const items = data.map((item, index) => (
 ));
 
 
-export default function Page({children} : Readonly<{children: React.ReactNode}>) {
+export default function Page({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <Box className="flex size-full min-h-svh">
-      <Aside>
+      <Box className="w-1/6 bg-primary-light flex flex-col" component="aside" >
         {items}
-      </Aside>
+      </Box>
       <Box className="flex flex-col grow bg-gray-100 p-5">
         {children}
       </Box>
