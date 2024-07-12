@@ -1,5 +1,5 @@
 import { MemberType } from "@/types";
-import cat from "@/data/cat.json";
+import allCategories from '@/data/categories.json';
 
 export default class Member {
     private _name: string;
@@ -72,11 +72,11 @@ export default class Member {
   
     get categorie(): string {
       const birthYear = this._birthday.split("/")[2];
-      const category = cat.find((item) => item.year.includes(birthYear));
+      const category = allCategories.find((item) => item.year.includes(birthYear));
       if (parseInt(birthYear) <= 2004 ) {
         return "Adultes"
       } else if (category) {
-        return category.category;
+        return category.division;
       } else {
         throw new Error("Invalid birth year");
       }

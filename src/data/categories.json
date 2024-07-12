@@ -1,42 +1,52 @@
 [
   {
     "year": ["2018", "2019"],
-    "category": "U07"
+    "division": "U07",
+    "rate": 240
   },
   {
     "year": ["2016", "2017"],
-    "category": "U09"
+    "division": "U09",
+    "rate": 240
   },
   {
     "year": ["2014", "2015"],
-    "category": "U11"
+    "division": "U11",
+    "rate": 240
   },
   {
     "year": ["2012", "2013"],
-    "category": "U13"
+    "division": "U13",
+    "rate": 260
   },
   {
     "year": ["2010", "2011"],
-    "category": "U15"
+    "division": "U15",
+    "rate": 260
   },
   {
     "year": ["2008", "2009"],
-    "category": "U17 (garçons)"
+    "division": "U17 (garçons)",
+    "rate": 260
   },
   {
     "year": ["2007", "2008", "2009"],
-    "category": "U18 (filles)"
+    "division": "U18 (filles)",
+    "rate": 260
   },
   {
     "year": ["2005", "2006"],
-    "category": "U20 (garçons)"
+    "division": "U20 (garçons)",
+    "rate": 280
   },
   {
     "year": ["2004", " avant"],
-    "category": "Seniors (hommes)"
+    "division": "Seniors (hommes)",
+    "rate": 280
   },
   {
     "year": ["2004", " avant"],
-    "category": "Loisirs"
+    "division": "Loisirs",
+    "rate": 160
   }
 ]

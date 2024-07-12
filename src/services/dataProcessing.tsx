@@ -4,11 +4,10 @@ import gymsData from "@/data/gyms.json";
 import documentsData from "@/data/documents.json";
 import FAQdata from "@/data/faq.json";
 import clubData from "@/data/club.json";
-import ratesData from "@/data/rates.json";
 import permanencesData from "@/data/permanences.json";
 import membersData2023 from "@/data/members2023.json";
 import membersData2024 from "@/data/members2024.json";
-import { Leadership, Team, Gym, Document, FAQ, Club, Rate, Permanences, Member } from "@/models";
+import { Leadership, Team, Gym, Document, FAQ, Club, Permanences, Member } from "@/models";
 import { validate } from "class-validator";
 
 export const leadership: Leadership[] = leadershipData.map((leader) => new Leadership(leader));
@@ -31,7 +30,6 @@ export const gyms: Gym[] = gymsData.map((gymData) => {
 export const documents: Document[] = documentsData.map((documentItem) => new Document(documentItem));
 export const faq: FAQ[] = FAQdata.map((faqItem) => new FAQ(faqItem));
 export const club: Club = new Club(clubData);
-export const rates: Rate[] = ratesData.map((rate) => new Rate(rate));
 export const permanence: Permanences = new Permanences(permanencesData);
 export const members2023: Member[] = membersData2023.map((member) => new Member(member));
 export const members2024: Member[] = membersData2024.map((member) => new Member(member));
@@ -59,6 +57,5 @@ export async function validateAllData() {
   await validateData(documents, "Document");
   await validateData(faq, "FAQ");
   await validateData([club], "Club");
-  await validateData(rates, "Rate");
   await validateData([permanence], "Permanences");
 }

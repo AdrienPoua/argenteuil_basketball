@@ -1,4 +1,4 @@
-import { CompetitionType, CompetitionData, CompetitionTeams } from "@/types/API";
+import { CompetitionType, CompetitionData, CompetitionTeams } from "@/types";
 export default class Ranking {
   private _teams: CompetitionTeams[];
   constructor(data: CompetitionType) {

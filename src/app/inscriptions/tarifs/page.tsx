@@ -8,12 +8,12 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Typography } from "@mui/material";
 import Layout from "@/layouts/main";
-import { club, rates } from "@/services/dataProcessing";
-import { Rate } from "@/models";
+import { club } from "@/services/dataProcessing";
 import { useRef } from "react";
 import { motion } from "framer-motion";
 import useVisibility from "@/hooks/useVisibility";
 import { guideAnimation } from "@/animations";
+import allCategories from "@/data/categories.json"
 
 const TableHeader = () => (
   <TableHead>
@@ -43,33 +43,42 @@ const TableHeader = () => (
   </TableHead>
 );
 
-const TarifRow = ({ rate }: { rate: Rate }) => (
-  <TableRow key={rate.category}>
-    <TableCell
-      component="th"
-      scope="row">
-      <Typography
-        variant="body2"
-        className="font-medium">
-        {rate.birthYear.join(" - ")}
-      </Typography>
-    </TableCell>
-    <TableCell>
-      <Typography
-        variant="body2"
-        className="font-medium">
-        {rate.category}
-      </Typography>
-    </TableCell>
-    <TableCell align="right">
-      <Typography
-        variant="body2"
-        className="font-medium">
-        {rate.rate}€
-      </Typography>
-    </TableCell>
-  </TableRow>
-);
+type TarifRowProps = {
+  categorie: {
+    year: string[];
+    division: string;
+    rate: number;
+  }
+};
+const TarifRow = ({ categorie }: TarifRowProps) => {
+  return (
+    <TableRow key={categorie.division}>
+      <TableCell
+        component="th"
+        scope="row">
+        <Typography
+          variant="body2"
+          className="font-medium">
+          {categorie.year.join(" - ")}
+        </Typography>
+      </TableCell>
+      <TableCell>
+        <Typography
+          variant="body2"
+          className="font-medium">
+          {categorie.division}
+        </Typography>
+      </TableCell>
+      <TableCell align="right">
+        <Typography
+          variant="body2"
+          className="font-medium">
+          {categorie.rate}€
+        </Typography>
+      </TableCell>
+    </TableRow>
+  );
+}
 
 export default function TarifsPage() {
   const cardRef = useRef(null);
@@ -88,10 +97,10 @@ export default function TarifsPage() {
           <Table aria-label="simple table">
             <TableHeader />
             <TableBody>
-              {rates.map((rate: Rate) => (
+              {allCategories.map((categorie) => (
                 <TarifRow
-                  key={rate.category}
-                  rate={rate}
+                  key={categorie.division}
+                  categorie={categorie}
                 />
               ))}
             </TableBody>
