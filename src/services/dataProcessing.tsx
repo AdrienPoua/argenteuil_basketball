@@ -9,7 +9,7 @@ import ratesData from "@/data/rates.json";
 import permanencesData from "@/data/permanences.json";
 import membersData2023 from "@/data/members2023.json";
 import membersData2024 from "@/data/members2024.json";
-import { Leadership, News, Team, Gym, Document, FAQ, Club, Rate, Permanence, Member } from "@/models";
+import { Leadership, News, Team, Gym, Document, FAQ, Club, Rate, Permanences, Member } from "@/models";
 import { validate } from "class-validator";
 
 export const leadership: Leadership[] = leadershipData.map((leader) => new Leadership(leader));
@@ -34,7 +34,7 @@ export const documents: Document[] = documentsData.map((documentItem) => new Doc
 export const faq: FAQ[] = FAQdata.map((faqItem) => new FAQ(faqItem));
 export const club: Club = new Club(clubData);
 export const rates: Rate[] = ratesData.map((rate) => new Rate(rate));
-export const permanence: Permanence = new Permanence(permanencesData);
+export const permanence: Permanences = new Permanences(permanencesData);
 export const members2023: Member[] = membersData2023.map((member) => new Member(member));
 export const members2024: Member[] = membersData2024.map((member) => new Member(member));
 members2023.forEach((member) => (member.year = "2023"));

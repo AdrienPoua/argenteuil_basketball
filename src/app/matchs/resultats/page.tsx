@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import { Box, Button, Container } from "@mui/material";
-import { Ranking } from "@/models/api";
+import { Ranking } from "@/models";
 import { ClubType, ClubTeam, CompetitionType } from "@/types/api";
 import Table from "./table";
 import { v4 as uuidv4 } from "uuid";
@@ -80,7 +80,7 @@ export default function Index() {
                     key={uuidv4()}
                     className="grow"
                     id={id}
-                    variant={selectedTeam === id ? "contained" : "outlined" }
+                    variant={selectedTeam === id ? "contained" : "outlined"}
                     onClick={() => setSelectedTeam(id)}>
                     {team.shortName}
                   </Button>

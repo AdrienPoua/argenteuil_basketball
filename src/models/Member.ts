@@ -8,6 +8,7 @@ export default class Member {
     private _birthday: string;
     private _year: string;
     private _statut: string;
+    private _id: string;
   
     constructor(data: MemberType) {
       this._name = data.Nom;
@@ -15,7 +16,8 @@ export default class Member {
       this._email = data["E-mail"];
       this._birthday = data["Date de naissance"];
       this._statut = data.Statut;
-      this._year = "2023";
+      this._year = "";
+      this._id = "";
     }
   
     get name(): string {
@@ -25,9 +27,19 @@ export default class Member {
     set year(year: string) {
       this._year = year;
     }
+
+    set id(id: string) {
+      this._id = id;
+    }
   
     get year(): string {
-      return this._year;
+      const actualYear = new Date().getFullYear();
+      const BeforeFirstOfJuly = new Date().getMonth() < 6;
+      if(BeforeFirstOfJuly) {
+        return (actualYear - 1).toString();
+      } else {
+        return actualYear.toString();
+      }
     }
   
     get firstName(): string {

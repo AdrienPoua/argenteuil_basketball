@@ -6,9 +6,9 @@ export interface Member extends Document {
   email: string;
   birthday: string;
   createdAt: Date;
-  statut?: string;
-  year?: string;
-  categorie?: string;
+  statut: string;
+  year: string;
+  categorie: string;
 }
 
 const memberSchema: Schema<Member> = new Schema({

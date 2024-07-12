@@ -1,5 +1,5 @@
 import { Table, TableBody, TableCell, TableContainer, TableRow, Paper } from "@mui/material";
-import { Ranking } from "@/models/api";
+import { Ranking } from "@/models";
 import { club } from "@/services/dataProcessing";
 import TypingEffect from "@/components/TypingEffect";
 

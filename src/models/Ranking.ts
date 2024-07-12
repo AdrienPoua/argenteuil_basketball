@@ -1,5 +1,5 @@
 import { CompetitionType, CompetitionData, CompetitionTeams } from "@/types/api";
-export class Ranking {
+export default class Ranking {
   private _teams: CompetitionTeams[];
   constructor(data: CompetitionType) {
     this._teams = data.teams;
