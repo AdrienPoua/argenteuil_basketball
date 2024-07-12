@@ -17,7 +17,7 @@ type DownloadButtonProps = {
   url: string;
   variant?: string;
   animation?: boolean;
-  odd: boolean;
+  odd?: boolean;
 };
 export function DownloadButton({ title, url, variant, animation, odd }: Readonly<DownloadButtonProps>) {
   const cardRef = useRef<HTMLDivElement>(null);

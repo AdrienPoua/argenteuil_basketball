@@ -1,17 +1,14 @@
-"use server";
-
 import connectDB from "@/lib/mongo/mongodb";
 import DBMember from "@/lib/mongo/models/Member";
-import MemberClass from "@/models/Member";
+import { Member } from "@/models";
 import { MemberType } from "@/types";
 
-export async function createMember(member: MemberType): Promise<void> {
+export async function createMember(data: MemberType): Promise<void> {
   await connectDB();
-  const dataFilter = new MemberClass(member)
-  const memberObject = dataFilter.toObject()
-  const isUnique = await DBMember.findOne({name: memberObject.name, firstName: memberObject.firstName, year: memberObject.year});
-  if (isUnique) {
-    console.log("Membre déjà existant:", isUnique);
+  const member = new Member(data);
+  const memberObject = member.toObject();
+  const findMatchInDatabase = await DBMember.findOne({ name: memberObject.name, firstName: memberObject.firstName, year: memberObject.year });
+  if (findMatchInDatabase) {
     return;
   }
   const DBmember = new DBMember(memberObject);
