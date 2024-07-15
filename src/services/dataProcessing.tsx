@@ -5,9 +5,7 @@ import documentsData from "@/data/documents.json";
 import FAQdata from "@/data/faq.json";
 import clubData from "@/data/club.json";
 import permanencesData from "@/data/permanences.json";
-import membersData2023 from "@/data/members2023.json";
-import membersData2024 from "@/data/members2024.json";
-import { Leadership, Team, Gym, Document, FAQ, Club, Permanences, Member } from "@/models";
+import { Leadership, Team, Gym, Document, FAQ, Club, Permanences } from "@/models";
 import { validate } from "class-validator";
 
 export const leadership: Leadership[] = leadershipData.map((leader) => new Leadership(leader));
@@ -31,13 +29,6 @@ export const documents: Document[] = documentsData.map((documentItem) => new Doc
 export const faq: FAQ[] = FAQdata.map((faqItem) => new FAQ(faqItem));
 export const club: Club = new Club(clubData);
 export const permanence: Permanences = new Permanences(permanencesData);
-export const members2023: Member[] = membersData2023.map((member) => new Member(member));
-export const members2024: Member[] = membersData2024.map((member) => new Member(member));
-members2023.forEach((member) => (member.year = "2023"));
-members2024.forEach((member) => (member.year = "2024"));
-export const members: Member[] = [...members2023, ...members2024];
-members.forEach((member, index) => member.id = index.toString()) ;
-
 
 async function validateData(items: any[], className: string) {
   for (const item of items) {

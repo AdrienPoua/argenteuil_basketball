@@ -1,13 +1,14 @@
 "use client";
-import { useState, FC } from "react";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { members } from "@/services/dataProcessing";
+import { useState, useEffect } from "react";
+import { DataGrid, GridColDef, GridRowSelectionModel } from "@mui/x-data-grid";
 import { Toolbar, Button, Box, InputLabel, MenuItem, Select } from "@mui/material";
-import { Member } from "@/models";
-import { v4 as uuidv4 } from "uuid";
 import { useOverlay } from "@/contexts/Overlay";
 import { EmailMemberContent } from "@/components/Overlay";
-import cat from "@/data/cat.json";
+import categories from "@/data/categories.json";
+import { getMembers } from "@/lib/mongo/controllers/members";
+import { DBMemberType } from "@/lib/mongo/models/Member";
+import { useQuery } from "react-query";
+
 
 // Define the columns for the DataGrid
 const columns: GridColDef[] = [
@@ -17,46 +18,51 @@ const columns: GridColDef[] = [
   { field: "categorie", headerName: "Categorie", width: 200 },
 ];
 
+
 // Main Component
-const Index: FC = () => {
-  const [membersList, setMembersList] = useState<Member[]>(members);
+export default function Index() {
+  const [allMembers, setAllMembers] = useState<DBMemberType[]>([]);
+  const [filteredMembers, setFilteredMembers] = useState<DBMemberType[]>([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedYear, setSelectedYear] = useState("2023");
-  const [selectedRows, setSelectedRows] = useState<Member[]>([]);
   const { setOpen, setContent } = useOverlay();
+
+  const fetchMembers = async () => {
+    return await getMembers();
+  };
+
+  const { data } = useQuery(['members'], fetchMembers);
+
+  useEffect(() => {
+    if (data) {
+      setAllMembers(data);
+      setFilteredMembers(data);
+    }
+  }, [data]);
 
   const handleCategoryChange = (event: { target: { value: any } }) => {
     const category = event.target.value;
     setSelectedCategory(category);
-    filterMembers(category, selectedYear);
+    if (category === "All") {
+      setFilteredMembers(allMembers);
+    } else {
+      setFilteredMembers(allMembers.filter((member) => category.includes(member.categorie)));
+    }
   };
 
   const handleYearChange = (event: { target: { value: any } }) => {
     const year = event.target.value;
     setSelectedYear(year);
-    filterMembers(selectedCategory, year);
+    setFilteredMembers(allMembers.filter((member) => member.year === year));
   };
 
-  const filterMembers = (category: string, year: string) => {
-    if (category === "All") {
-      setMembersList(members.filter((member) => member.year === year));
-    } else {
-      setMembersList(members.filter((member) => member.categorie === category && member.year === year));
-    }
-  };
-
-  const handleSelectionModelChange = (selection: Iterable<unknown> | null | undefined) => {
-    if (selection && Array.isArray(selection)) {
-      const selectedIDs = new Set(selection);
-      const selectedData = membersList.filter((member) => selectedIDs.has(member.id));
-      setContent(<EmailMemberContent members={selectedData} />);
-    } else {
-      setSelectedRows([]);
-    }
+  const handleSelectionModelChange = (ids: GridRowSelectionModel) => {
+    const selectedMembers = allMembers.filter((member) => ids.find((id) => id === member._id.toString()))
+    setContent(<EmailMemberContent members={selectedMembers} />);
   };
 
   return (
-    <>
+    <div className='text-black'>
       <Toolbar className="flex flex-col items-center justify-center">
         <InputLabel className="text-black">Category</InputLabel>
         <Select
@@ -66,8 +72,8 @@ const Index: FC = () => {
           label="Category"
         >
           <MenuItem className="text-black" value="All">All</MenuItem>
-          {cat.map(({ category }) => (
-            <MenuItem className="text-black" value={category} key={uuidv4()}>{category}</MenuItem>
+          {categories.map(({ division }) => (
+            <MenuItem className="text-black" value={division} key={division}>{division}</MenuItem>
           ))}
         </Select>
         <InputLabel className="text-black">Year</InputLabel>
@@ -92,17 +98,16 @@ const Index: FC = () => {
           variant="contained"
           color="primary"
           className="mb-10"
-          onClick={() => setMembersList(members)}
+          onClick={() => setFilteredMembers(allMembers)}
         >
           ↻
         </Button>
-
       </Toolbar>
       <Box className="h-fit">
         <DataGrid
-          rows={membersList}
+          rows={filteredMembers}
           columns={columns}
-          getRowId={(row) => row.id}
+          getRowId={(row) => row._id}
           initialState={{
             pagination: {
               paginationModel: {
@@ -114,9 +119,6 @@ const Index: FC = () => {
             "& .MuiDataGrid-row": {
               cursor: "pointer",
             },
-            "& .MuiDataGrid-row:hover": {
-              backgroundColor: "primary.light",
-            },
             "& .MuiDataGrid-row.Mui-selected": {
               backgroundColor: "primary.main",
               color: "white",
@@ -127,8 +129,6 @@ const Index: FC = () => {
           onRowSelectionModelChange={handleSelectionModelChange}
         />
       </Box>
-    </>
+    </div>
   );
 };
-
-export default Index;

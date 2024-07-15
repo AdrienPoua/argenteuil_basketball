@@ -1,6 +1,6 @@
-import mongoose, { Schema, Document, Model } from 'mongoose';
+import mongoose, { Schema, Document, Model, Types } from 'mongoose';
 
-export interface Member extends Document {
+export interface DBMemberType extends Document {
   name: string;
   firstName: string;
   email: string;
@@ -9,9 +9,10 @@ export interface Member extends Document {
   statut: string;
   year: string;
   categorie: string;
+  _id: Types.ObjectId;
 }
 
-const memberSchema: Schema<Member> = new Schema({
+const memberSchema: Schema<DBMemberType> = new Schema({
   name: { type: String, required: true },
   firstName: { type: String, required: true },
   email: { type: String, required: true },
@@ -22,6 +23,6 @@ const memberSchema: Schema<Member> = new Schema({
   categorie: { type: String },
 });
 
-const Member: Model<Member> = mongoose.models.Member || mongoose.model<Member>('Member', memberSchema);
+const Member: Model<DBMemberType> = mongoose.models.Member || mongoose.model<DBMemberType>('Member', memberSchema);
 
 export default Member;

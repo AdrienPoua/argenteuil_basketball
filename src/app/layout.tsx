@@ -1,12 +1,16 @@
 "use client";
-import "./globals.css";
-import App from "./App";
+
+import { QueryClient, QueryClientProvider } from "react-query";
 import { StyledEngineProvider, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import { SessionProvider } from "next-auth/react";
 import theme from "@/app/theme";
 import { OverlayProvider } from "@/contexts/Overlay";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
-import { SessionProvider } from "next-auth/react";
+import App from "./App";
+import "./globals.css";
+
+const queryClient = new QueryClient();
 
 export default function RootLayout({
   children,
@@ -15,15 +19,17 @@ export default function RootLayout({
 }>) {
   return (
     <StyledEngineProvider injectFirst>
-      <SessionProvider >
+      <SessionProvider>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <OverlayProvider>
-            <App>
-              <ScrollToTopButton />
-              {children}
-            </App>
-          </OverlayProvider>
+          <QueryClientProvider client={queryClient}>
+            <OverlayProvider>
+              <App>
+                <ScrollToTopButton />
+                {children}
+              </App>
+            </OverlayProvider>
+          </QueryClientProvider>
         </ThemeProvider>
       </SessionProvider>
     </StyledEngineProvider>

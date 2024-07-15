@@ -17,6 +17,7 @@ import { DownloadButton, OverlayButton } from "./Buttons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import TypingEffect from "@/components/TypingEffect";
+import { DBMemberType } from "@/lib/mongo/models/Member";
 
 
 export default function MyOverlay() {
@@ -305,7 +306,7 @@ export function ValidationContent() {
 }
 
 interface EmailMemberContentProps {
-  members: Member[];
+  members: DBMemberType [];
 }
 
 export const EmailMemberContent = ({ members }: EmailMemberContentProps) => {
