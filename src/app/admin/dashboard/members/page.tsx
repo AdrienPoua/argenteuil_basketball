@@ -44,9 +44,9 @@ export default function Index() {
     const category = event.target.value;
     setSelectedCategory(category);
     if (category === "All") {
-      setFilteredMembers(allMembers);
+      setFilteredMembers(allMembers.filter((member) => member.year === selectedYear));
     } else {
-      setFilteredMembers(allMembers.filter((member) => category.includes(member.categorie)));
+      setFilteredMembers(allMembers.filter((member) => category.includes(member.categorie) && member.year === selectedYear ));
     }
   };
 

@@ -33,9 +33,6 @@ export default class Gym implements GymType {
     @IsArray()
     private _slots: TrainingType[] = [];
   
-    @IsNumber()
-    private _lat: number;
-    private _lng: number;
   
     constructor(gym: GymType) {
       this._id = gym.id ?? uuidv4();
@@ -46,8 +43,6 @@ export default class Gym implements GymType {
       this._postalCode = gym.postalCode;
       this._phone = gym.phone;
       this._available = gym.available;
-      this._lat = gym.lat;
-      this._lng = gym.lng;
     }
   
     get id(): string {
@@ -64,14 +59,6 @@ export default class Gym implements GymType {
   
     get postalCode(): string {
       return this._postalCode;
-    }
-  
-    get lat(): number {
-      return this._lat || 0;
-    }
-  
-    get lng(): number {
-      return this._lng || 0;
     }
   
     get phone(): string {

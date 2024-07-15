@@ -1,7 +1,7 @@
 "use client";
-import { Box, TextField, Button, LinearProgress, Alert, Snackbar } from '@mui/material';
+import { Box, TextField, Button, LinearProgress, Alert, Snackbar, FormControl } from '@mui/material';
 import { createMember } from '@/lib/mongo/controllers/members';
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { MemberType } from '@/types';
 
 const Notif = ({ isOpen, isSuccess, onClose }: { isOpen: boolean, isSuccess: boolean, onClose: () => void }) => {
@@ -24,7 +24,6 @@ const Notif = ({ isOpen, isSuccess, onClose }: { isOpen: boolean, isSuccess: boo
 
 
 const Input = () => {
-    const [inputValue, setInputValue] = useState("");
     const [isSending, setIsSending] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
     const [isNotifOpen, setIsNotifOpen] = useState(false);
@@ -42,8 +41,10 @@ const Input = () => {
         }
     }, []);
 
-    const handleSubmit = useCallback(async (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent): Promise<void> => {
         e.preventDefault();
+        const formData = new FormData(e.target as HTMLFormElement);
+        const inputValue = formData.get("content") as string
         setIsSending(true);
         try {
             await createInDatabase(inputValue);
@@ -54,11 +55,10 @@ const Input = () => {
             setIsNotifOpen(true);
             setIsSending(false);
         }
-    }, [inputValue, createInDatabase]);
-
+    }
 
     return (
-        <Box component="form" onSubmit={handleSubmit} className="flex flex-col justify-center items-center gap-5 max-w-full w-[800px]">
+        <Box component="form" onSubmit={(e) => handleSubmit(e)} className="flex flex-col justify-center items-center gap-5 max-w-full w-[800px]">
             <TextField
                 label="Entrez les données issues de FBI sous forme de tableau JSON"
                 multiline
@@ -66,8 +66,6 @@ const Input = () => {
                 required
                 autoComplete="off"
                 variant="outlined"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
                 className="w-full bg-white"
             />
             <Button type="submit" variant="contained" color="primary" disabled={isSending}>
