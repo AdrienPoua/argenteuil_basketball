@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { SubItemSchema } from "@/types/SubItemType";
+import { SubItemSchema } from "@/lib/zod";
 
 const NavItemSchema = z.object({
   title: z.string(),
