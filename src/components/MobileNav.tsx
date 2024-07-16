@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavItemType } from "@/utils/types";
+import { NavItemType, SubItemType } from "@/utils/types";
 import { Box, Button, Drawer, List, ListItem, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Link from "next/link";
@@ -69,7 +69,7 @@ const MobileNav: React.FC<MobileNavProps> = ({ data }) => {
                   }
                   items={
                     <Box className="flex flex-col">
-                      {item.subItems?.map((subItem) => (
+                      {item.subItems?.map((subItem : SubItemType ) => (
                         <ListItem
                           key={subItem.url}
                           className="flex me-9">
