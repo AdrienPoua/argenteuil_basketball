@@ -1,11 +1,11 @@
 import React from "react";
-import { NavItemType } from "@/types";
+import { NavItemType } from "@/utils/types";
 import { Box, Button, Typography } from "@mui/material";
 import NavItem from "@/components/NavItem";
 import SubBar from "@/components/SubBar";
 import Logo from "@/components/Logo";
 import { ContactContent } from "@/components/Overlay";
-import { useOverlay } from "@/contexts/Overlay";
+import { useOverlay } from "@/utils/contexts/Overlay";
 
 type DesktopNavProps = {
   data: NavItemType[];

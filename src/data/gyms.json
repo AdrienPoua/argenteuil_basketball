@@ -4,7 +4,7 @@
       "name": "Jean Guimier",
       "address": "2 rue jean de la fontaine",
       "city": "Argenteuil",
-      "postalCode": "95100",
+      "zipcode": "95100",
       "phone": "0139822313",
       "available": ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"]
     },
@@ -13,7 +13,7 @@
       "name": "Jesse Owens",
       "address": "120 rue de rochefort",
       "city": "Argenteuil",
-      "postalCode": "95100",
+      "zipcode": "95100",
       "phone": "0139807820",
       "available": ["Lundi", "Mercredi", "Jeudi", "Vendredi"]
     }

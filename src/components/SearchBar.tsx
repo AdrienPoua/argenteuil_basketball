@@ -15,6 +15,7 @@ const SearchBar = ({ value, onChange } : SearchBarProps ) => {
       value={value}
       onChange={onChange}
       className="bg-white"
+      placeholder='Inserez un mot-clé'
       InputProps={{
         endAdornment: (
           <InputAdornment position="start">

@@ -2,11 +2,13 @@
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { blurInAnimation } from "@/animations";
 
 
 const HeroSection = () => {
-
+  const animation = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { type: "spring" } },
+  }
   return (
     <Box component="main" className="flex flex-col grow">
       <Box className="h-svh relative">
@@ -15,7 +17,7 @@ const HeroSection = () => {
           initial="hidden"
           animate="visible"
           transition={{ duration: 1 }}
-          variants={blurInAnimation}
+          variants={animation}
           className="absolute inset-0 flex justify-center items-center"
         >
           <Typography variant="h1" className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2  text-center">

@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { DataGrid, GridColDef, GridRowSelectionModel } from "@mui/x-data-grid";
 import { Toolbar, Button, Box, InputLabel, MenuItem, Select } from "@mui/material";
-import { useOverlay } from "@/contexts/Overlay";
+import { useOverlay } from "@/utils/contexts/Overlay";
 import { EmailMemberContent } from "@/components/Overlay";
 import categories from "@/data/categories.json";
 import { getMembers } from "@/lib/mongo/controllers/members";

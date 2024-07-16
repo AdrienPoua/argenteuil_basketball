@@ -1,69 +1,33 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useTheme } from "@mui/material/styles";
 import { useMediaQuery } from "@mui/material";
 import DoNotDisturbIcon from "@mui/icons-material/DoNotDisturb";
-import { useOverlay } from "@/contexts/Overlay";
-import useVisibility from "@/hooks/useVisibility";
-import { multiDirection } from "@/animations";
-import { motion } from "framer-motion";
+import { useOverlay } from "@/utils/contexts/Overlay";
 
 
 type DownloadButtonProps = {
   title: string;
   url: string;
-  variant?: string;
-  animation?: boolean;
-  odd?: boolean;
 };
-export function DownloadButton({ title, url, variant, animation, odd }: Readonly<DownloadButtonProps>) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const isVisible = useVisibility(cardRef);
-
-  if (animation) {
-    return (
-      <motion.div
-        ref={cardRef}
-        initial={ odd ? "hidden" : "right"}
-        animate={isVisible ? "visible" : "hidden"}
-        variants={multiDirection}
-        transition={{ duration: 0.5 }}
-        className="flex items-center justify-center w-full"
-      >
-        <Button
-          component="a"
-          href={url}
-          download
-          variant="contained"
-          className="w-full"
-          startIcon={<CloudUploadIcon />}
-        >
-          <Typography className={`${variant ? variant + " " : ""}text-xs md:text-base`}>
-            {title}
-          </Typography>
-        </Button>
-      </motion.div>
-    );
-  } else {
-    return (
-      <Button
-        component="a"
-        href={url}
-        download
-        variant="contained"
-        className="w-full"
-        startIcon={<CloudUploadIcon />}
-      >
-        <Typography className={`${variant ? variant + " " : ""}text-xs md:text-base`}>
-          {title}
-        </Typography>
-      </Button>
-    );
-  }
+export function DownloadButton({ title, url }: Readonly<DownloadButtonProps>) {
+  return (
+    <Button
+      component="a"
+      href={url}
+      download
+      variant="contained"
+      className="w-full"
+      startIcon={<CloudUploadIcon />}
+    >
+      {title}
+    </Button>
+  );
 }
+
 
 export const ContactButton = ({ icon, text, available }: { icon: React.ReactNode; text: string; available: boolean }) => {
   const theme = useTheme();
@@ -106,13 +70,13 @@ export const ContactButton = ({ icon, text, available }: { icon: React.ReactNode
   }, [isMobile, isClicked, available, text, icon, isEmail]);
 
   return (
-      <Button
-        component="li"
-        variant="contained"
-        onClick={handleClick}
-        className={`flex items-center justify-center bg-primary h-full ${!isClicked || content === <DoNotDisturbIcon />  ? " size-16 md:size-20" : "size-fit"} `}>
-        {content}
-      </Button>
+    <Button
+      component="li"
+      variant="contained"
+      onClick={handleClick}
+      className={`flex items-center justify-center bg-primary h-full ${!isClicked || content === <DoNotDisturbIcon /> ? " size-16 md:size-20" : "size-fit"} `}>
+      {content}
+    </Button>
   );
 };
 

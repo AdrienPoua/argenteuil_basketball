@@ -1,5 +1,5 @@
 import React from "react";
-import { NavItemType, SubItemType } from "@/types";
+import { NavItemType, SubItemType } from "@/utils/types";
 import { Box } from "@mui/material";
 import Item from "@/components/SubBarItem";
 

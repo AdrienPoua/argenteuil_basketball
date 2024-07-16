@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { SubItemType } from "@/types";
+import { SubItemType } from "@/utils/types";
 import { Box, Typography } from "@mui/material";
 
 const Item = ({ data }: { data: SubItemType }) => {

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { NavItemType } from "@/types";
+import { NavItemType } from "@/utils/types";
 import { Box, Button, Drawer, List, ListItem, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Link from "next/link";
 import Dropdown from "@/components/Dropdown";
 import Logo from "@/components/Logo";
 import { usePathname } from "next/navigation";
-import { useOverlay } from "@/contexts/Overlay";
+import { useOverlay } from "@/utils/contexts/Overlay";
 import { ContactContent } from "@/components/Overlay";
 import Arrow from "@/components/Arrow";
 

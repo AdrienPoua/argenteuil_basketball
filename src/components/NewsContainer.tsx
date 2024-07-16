@@ -1,13 +1,13 @@
 "use client";
 import { Container, Grid } from "@mui/material";
 import { SanityDocument } from "next-sanity";
-import { sanityFetch } from "@/sanity/lib/fetch";
+import { sanityFetch } from "@/lib/sanity/fetch";
 import { useState, useEffect } from "react";
-import { POST_HOME_LEFT_QUERY, POST_HOME_RIGHT_QUERY } from "@/sanity/lib/queries";
+import { POST_HOME_LEFT_QUERY, POST_HOME_RIGHT_QUERY } from "@/lib/sanity/queries";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 
-const NewsCard = dynamic(() => import("@/components/Card").then((mod) => mod.PostCard), { ssr: false });
+const NewsCard = dynamic(() => import("@/components/Cards").then((mod) => mod.PostCard), { ssr: false });
 
 const NewsContainer = () => {
   const [homeLeft, setHomeLeft] = useState<SanityDocument>();

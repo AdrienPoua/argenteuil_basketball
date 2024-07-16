@@ -1,5 +1,5 @@
 import { PortableTextComponents } from "@portabletext/react";
-import { urlFor } from "@/sanity/lib/image";
+import { urlFor } from "@/lib/sanity/image";
 import Image from "next/image";
 import Link from "next/link";
 import { Typography, Box, ListItem, List } from "@mui/material";

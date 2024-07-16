@@ -67,5 +67,5 @@ export default function SimpleSlider({ children }: Readonly<{ children: React.Re
     ],
   };
 
-  return <Slider {...settings}>{children}</Slider>;
+  return <Slider className="max-w-[80%]" {...settings}>{children}</Slider>;
 }

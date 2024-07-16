@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef, useEffect, useState } from "react";
 import { Box, ClickAwayListener } from "@mui/material";
-import { NavItemType } from "@/types";
+import { NavItemType } from "@/utils/types";
 import { usePathname } from "next/navigation";
 import DesktopNav from "@/components/DesktopNav";
 import MobileNav from "@/components/MobileNav";
@@ -38,7 +38,7 @@ const Header: React.FC<HeaderProps> = ({ data }) => {
 
   return (
     <ClickAwayListener onClickAway={() => setActiveNav({ title: "", subItems: [] })}>
-      <Box component="header" ref={headerRef} className="w-full flex flex-col flex-wrap px-6 py-2 bg-white" id="back-to-top-anchor">
+      <Box component="header" ref={headerRef} className="flex flex-col flex-wrap px-6 py-2 bg-white" id="back-to-top-anchor">
         <DesktopNav data={data} setActiveNav={setActiveNav} activeNav={activeNav} />
         <MobileNav data={data}  />
       </Box>

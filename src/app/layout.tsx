@@ -5,7 +5,7 @@ import { StyledEngineProvider, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { SessionProvider } from "next-auth/react";
 import theme from "@/app/theme";
-import { OverlayProvider } from "@/contexts/Overlay";
+import { OverlayProvider } from "@/utils/contexts/Overlay";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 import App from "./App";
 import "./globals.css";

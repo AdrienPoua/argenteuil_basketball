@@ -1,3 +1,3 @@
-import { GET, POST } from "@/lib/auth";
+import { GET, POST } from "@/lib/nextAuth/auth";
 
 export { GET, POST };

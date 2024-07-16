@@ -2,7 +2,7 @@
 import { Box, TextField, Button, LinearProgress, Alert, Snackbar } from '@mui/material';
 import { createMember } from '@/lib/mongo/controllers/members';
 import React, { useState, useEffect, useCallback } from 'react';
-import { MemberType } from '@/types';
+import { MemberType } from '@/utils/types';
 
 const Notif = ({ isOpen, isSuccess, onClose }: { isOpen: boolean, isSuccess: boolean, onClose: () => void }) => {
     const errorMessage = "ERREUR : ajout des membres échoués";

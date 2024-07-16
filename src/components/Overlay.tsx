@@ -1,16 +1,16 @@
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Overlay from "@mui/material/Modal";
-import { useOverlay } from "@/contexts/Overlay";
+import { useOverlay } from "@/utils/contexts/Overlay";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
-import { club, permanence, documents } from "@/services/dataProcessing";
-import { Utils, Member } from "@/models";
+import { club, permanence, documents } from "@/utils/services/dataProcessing";
+import { Utils } from "@/utils/models";
 import { Table, TableBody, TableHead, TableRow, TableCell, TableContainer, Paper } from "@mui/material";
 import EastIcon from "@mui/icons-material/East";
-import { sendEmail } from "@/actions";
+import { sendEmail } from "@/utils/serverActions";
 import Image from "next/image";
 import { useRef, useEffect, useState, SetStateAction } from "react";
 import { DownloadButton, OverlayButton } from "./Buttons";
@@ -113,7 +113,7 @@ export function PermanencesContent() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {permanence.slots.map((slot) => (
+            {permanence.slots.map((slot : any) => (
               <TableRow key={slot.day}>
                 <TableCell>
                   <Typography className="text-center text-xs md:text-base">{slot.day}</Typography>

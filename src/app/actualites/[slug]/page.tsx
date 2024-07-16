@@ -2,13 +2,13 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Container, Typography, Box } from "@mui/material";
-import { Utils } from "@/models";
+import { Utils } from "@/utils/models";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import headerData from "@/data/header.json";
 import { SanityDocument } from "next-sanity";
-import { POST_QUERY } from "@/sanity/lib/queries";
-import { sanityFetch } from "@/sanity/lib/fetch";
+import { POST_QUERY } from "@/lib/sanity/queries";
+import { sanityFetch } from "@/lib/sanity/fetch";
 import { PortableText } from "@portabletext/react";
 import { components } from "@/components/PortableText";
 

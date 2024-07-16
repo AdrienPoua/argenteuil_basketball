@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavItemType } from "@/types";
+import { NavItemType } from "@/utils/types";
 import { Box, Button, Typography } from "@mui/material";
 import Arrow from "./Arrow";
 import Link from "next/link";
