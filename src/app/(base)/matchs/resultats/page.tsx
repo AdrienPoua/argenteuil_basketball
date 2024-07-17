@@ -1,97 +1,68 @@
 "use client";
-import { useState, useEffect, useCallback } from "react";
-import { Box, Button, Container } from "@mui/material";
+import { useState, useEffect } from "react";
+import { Box, Button } from "@mui/material";
 import { Ranking } from "@/utils/models";
-import { ClubType, ClubTeam, CompetitionType } from "@/utils/types";
+import { ClubTeam } from "@/utils/types";
 import Table from "./table";
-import { v4 as uuidv4 } from "uuid";
 import H1 from "@/components/H1";
 import Info from "@/components/Info";
 import { MainSection } from "@/utils/layouts";
+import { useQuery } from "react-query";
+import { getClubDataFromApi, getRankingDataFromApi } from "@/utils/serverActions";
 
 export default function Index() {
-  const [clubData, setClubData] = useState<ClubType | undefined>(undefined);
   const [selectedTeam, setSelectedTeam] = useState<string | undefined>(undefined);
   const [ranking, setRanking] = useState<Ranking | undefined>(undefined);
-  const [error, setError] = useState<string | null>(null);
 
-  const fetchData = useCallback(async <T,>(endpoint: string): Promise<T> => {
-    try {
-      const res = await fetch(endpoint);
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
-      }
-      const data = await res.json();
-      return data;
-    } catch (error) {
-      setError("Error fetching data");
-      console.error("Error fetching data:", error);
-      throw error;
-    }
-  }, []);
+  const { data: clubData, isError: isClubDataFetchError } = useQuery(["clubData"], () => getClubDataFromApi());
+  const { data: rankingData, isError: isClubRankingFetchError } = useQuery(
+    ["rankingData", selectedTeam],
+    () => getRankingDataFromApi(selectedTeam),
+    { enabled: !!selectedTeam } // La requête ne s'exécutera que si selectedTeam est défini
+  );
 
   useEffect(() => {
-    const fetchClubData = async () => {
-      try {
-        const data = await fetchData<ClubType>("/api/club");
-        setClubData(data);
-        const seniors = data.teams.find((team: { shortName: string; }) => team.shortName === "SENIOR M1");
-        if (seniors) {
-          setSelectedTeam(seniors.competitions[0].id.toString());
-        }
-      } catch (error) {
-        console.error("Error fetching club data:", error);
-      }
-    };
-    fetchClubData();
-  }, [fetchData]);
+    if (clubData) {
+      const seniorTeam = clubData.teams[0].competitions[0].id.toString();
+      setSelectedTeam(seniorTeam);
+    }
+  }, [clubData]);
 
   useEffect(() => {
-    if (selectedTeam) {
-      const fetchRanking = async () => {
-        try {
-          const rankingData = await fetchData<CompetitionType>(`/api/ranking/${selectedTeam}`);
-          setRanking(new Ranking(rankingData));
-        } catch (error) {
-          console.error("Error fetching ranking data:", error);
-        }
-      };
-      fetchRanking();
+    if (rankingData) {
+      setRanking(new Ranking(rankingData));
     }
-  }, [selectedTeam, fetchData]);
+  }, [rankingData]);
 
   return (
     <>
       <H1> classement </H1>
       <MainSection>
-        {error ? (
+        {isClubDataFetchError || isClubRankingFetchError ? (
           <Info content="Les données ne sont pas disponibles, revenez plus tard !" />
         ) : (
-          <Container
-            maxWidth="xl"
-            disableGutters
-            aria-label="Basic button group"
-            className="flex-wrap flex w-full">
-            <Box >
+          <Box
+            className="flex flex-col ">
+            <Box className="flex overflow-x-auto">
               {clubData?.teams.map((team: ClubTeam) => {
                 const id = team.competitions[0].id.toString();
                 return (
                   <Button
-                    size="large"
-                    key={uuidv4()}
-                    className="grow"
-                    id={id}
+                    key={team.shortName}
+                    className="grow flex-wrap"
                     variant={selectedTeam === id ? "contained" : "outlined"}
                     onClick={() => setSelectedTeam(id)}>
                     {team.shortName}
                   </Button>
                 );
               })}
+            </Box>
+            <Box className="w-full">
               {ranking && <Table data={ranking} />}
             </Box>
-          </Container>
+          </Box>
         )}
-      </MainSection>
+      </MainSection >
     </>
   );
 }

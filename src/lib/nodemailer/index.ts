@@ -1,4 +1,3 @@
-"use server";
 import nodemailer from "nodemailer";
 
 const { EMAIL_USER, EMAIL_PASS, EMAIL_PORT, EMAIL_HOST } = process.env;
