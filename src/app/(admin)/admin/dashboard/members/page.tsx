@@ -2,8 +2,8 @@
 import { useState, useEffect } from "react";
 import { DataGrid, GridColDef, GridRowSelectionModel } from "@mui/x-data-grid";
 import { Toolbar, Button, Box, InputLabel, MenuItem, Select } from "@mui/material";
-import { useOverlay } from "@/utils/contexts/Overlay";
-import { EmailMemberContent } from "@/components/Overlay";
+import { useModal } from "@/utils/contexts/Modal";
+import { EmailMemberContent } from "@/components/Modal";
 import categories from "@/data/categories.json";
 import { getMembers } from "@/lib/mongo/controllers/members";
 import { DBMemberType } from "@/lib/mongo/models/Member";
@@ -25,7 +25,7 @@ export default function Index() {
   const [filteredMembers, setFilteredMembers] = useState<DBMemberType[]>([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedYear, setSelectedYear] = useState("2023");
-  const { setOpen, setContent } = useOverlay();
+  const { setOpen, setContent } = useModal();
 
   const fetchMembers = async () => {
     return await getMembers();

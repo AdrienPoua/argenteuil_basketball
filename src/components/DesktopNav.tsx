@@ -4,8 +4,8 @@ import { Box, Button, Typography } from "@mui/material";
 import NavItem from "@/components/NavItem";
 import SubBar from "@/components/SubBar";
 import Logo from "@/components/Logo";
-import { ContactContent } from "@/components/Overlay";
-import { useOverlay } from "@/utils/contexts/Overlay";
+import { ContactContent } from "@/components/Modal";
+import { useModal } from "@/utils/contexts/Modal";
 
 type DesktopNavProps = {
   data: NavItemType[];
@@ -14,7 +14,7 @@ type DesktopNavProps = {
 };
 
 const DesktopNav: React.FC<DesktopNavProps> = ({ data, setActiveNav, activeNav }) => {
-  const { setOpen, setContent } = useOverlay();
+  const { setOpen, setContent } = useModal();
   const handleClick = () => {
     setOpen(true);
     setContent(<ContactContent isMobile={false} />);

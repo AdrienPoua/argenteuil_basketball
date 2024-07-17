@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import Overlay from "@mui/material/Modal";
-import { useOverlay } from "@/utils/contexts/Overlay";
+import Modal from "@mui/material/Modal";
+import { useModal } from "@/utils/contexts/Modal";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import EmailIcon from "@mui/icons-material/Email";
@@ -13,25 +13,25 @@ import EastIcon from "@mui/icons-material/East";
 import { sendEmail } from "@/utils/serverActions";
 import Image from "next/image";
 import { useRef, useEffect, useState, SetStateAction } from "react";
-import { DownloadButton, OverlayButton } from "./Buttons";
+import { DownloadButton, ModalButton } from "./Buttons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import TypingEffect from "@/components/TypingEffect";
 import { DBMemberType } from "@/lib/mongo/models/Member";
 
 
-export default function MyOverlay() {
-  const { open, setOpen, content } = useOverlay();
+export default function MyModal() {
+  const { open, setOpen, content } = useModal();
   const pathname = usePathname();
   useEffect(() => {
     setOpen(false);
   }, [pathname, setOpen]);
   return (
-    <Overlay
+    <Modal
       open={open}
       onClose={() => setOpen(false)}
-      aria-labelledby="overlay-overlay-title"
-      aria-describedby="overlay-overlay-description">
+      aria-labelledby="Modal-Modal-title"
+      aria-describedby="Modal-Modal-description">
       <Box
         className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-fit min-h-fit
           flex flex-col justify-center items-center max-w-[80%] ">
@@ -41,7 +41,7 @@ export default function MyOverlay() {
           {content}
         </Paper>
       </Box>
-    </Overlay>
+    </Modal>
   );
 }
 
@@ -57,7 +57,7 @@ export function ContactContent({ isMobile }: Readonly<{ isMobile: boolean }>) {
   };
   const logoRef = useRef<HTMLElement | null>(null);
 
-  const { setOpen } = useOverlay();
+  const { setOpen } = useModal();
   return (
     <Box className="flex flex-col items-center  gap-5 max-w-[80%] ">
       <Box
@@ -154,9 +154,9 @@ export function FormulaireContent() {
       <Box className="bg-black min-h-full py-16 px-[1px] grow flex" />
       <Box className="flex flex-col justify-center items-center gap-10 basis-1/2">
         <Typography className="text-xs md:text-base text-black"> récuperez </Typography>
-        <OverlayButton
+        <ModalButton
           text="Permanences"
-          overlayContent={<PermanencesContent />}
+          ModalContent={<PermanencesContent />}
         />
       </Box>
     </Box>

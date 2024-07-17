@@ -17,8 +17,11 @@ const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ user, account, profile }) {       
-      return account?.provider === "github" && profile?.email === ADMIN_GITHUB_EMAIL;
+    async signIn({ user, account, profile }) {     
+        console.log("🚀 ~ signIn ~ user:", user)
+        console.log("🚀 ~ signIn ~ profile:", profile)
+        console.log("🚀 ~ signIn ~ account:", account)
+      return profile?.email === ADMIN_GITHUB_EMAIL;
     },
     async redirect() {
       return "/admin";

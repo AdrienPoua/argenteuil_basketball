@@ -1,26 +1,26 @@
 import { createContext, useContext, useState, ReactNode, ReactElement, Dispatch, SetStateAction, useMemo } from "react";
 import { Box } from "@mui/system";
-import Overlay from "@/components/Overlay";
+import Modal from "@/components/Modal";
 
-export interface OverlayContextProps {
+export interface ModalContextProps {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   content: ReactElement;
   setContent: Dispatch<SetStateAction<ReactElement>>;
 }
 
-const defaultOverlayContext: OverlayContextProps = {
+const defaultModalContext: ModalContextProps = {
   open: false,
   setOpen: () => {},
-  content: <Box> JE SUIS INTERIEUR DE LA OVERLAY</Box>,
+  content: <Box> JE SUIS INTERIEUR DE LA Modal</Box>,
   setContent: () => {},
 };
 
-const OverlayContext = createContext<OverlayContextProps>(defaultOverlayContext);
+const ModalContext = createContext<ModalContextProps>(defaultModalContext);
 
-export const useOverlay = () => useContext(OverlayContext);
+export const useModal = () => useContext(ModalContext);
 
-export const OverlayProvider = ({ children }: { children: ReactNode }) => {
+export const ModalProvider = ({ children }: { children: ReactNode }) => {
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState<ReactElement>(<Box></Box>);
 
@@ -28,9 +28,9 @@ export const OverlayProvider = ({ children }: { children: ReactNode }) => {
   
 
   return (
-    <OverlayContext.Provider value={value}>
-      <Overlay />
+    <ModalContext.Provider value={value}>
+      <Modal />
       {children}
-    </OverlayContext.Provider>
+    </ModalContext.Provider>
   );
 };

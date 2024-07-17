@@ -6,8 +6,8 @@ import Link from "next/link";
 import Dropdown from "@/components/Dropdown";
 import Logo from "@/components/Logo";
 import { usePathname } from "next/navigation";
-import { useOverlay } from "@/utils/contexts/Overlay";
-import { ContactContent } from "@/components/Overlay";
+import { useModal } from "@/utils/contexts/Modal";
+import { ContactContent } from "@/components/Modal";
 import Arrow from "@/components/Arrow";
 
 type MobileNavProps = {
@@ -17,7 +17,7 @@ type MobileNavProps = {
 const MobileNav: React.FC<MobileNavProps> = ({ data }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const pathname = usePathname();
-  const { setOpen, setContent } = useOverlay();
+  const { setOpen, setContent } = useModal();
   const handleClick = () => {
     setOpen(true);
     setContent(<ContactContent isMobile={true} />);

@@ -5,7 +5,7 @@ import { StyledEngineProvider, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { SessionProvider } from "next-auth/react";
 import theme from "@/app/theme";
-import { OverlayProvider } from "@/utils/contexts/Overlay";
+import { ModalProvider } from "@/utils/contexts/Modal";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 import App from "./App";
 import "./globals.css";
@@ -23,12 +23,12 @@ export default function RootLayout({
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <QueryClientProvider client={queryClient}>
-            <OverlayProvider>
+            <ModalProvider>
               <App>
                 <ScrollToTopButton />
                 {children}
               </App>
-            </OverlayProvider>
+            </ModalProvider>
           </QueryClientProvider>
         </ThemeProvider>
       </SessionProvider>

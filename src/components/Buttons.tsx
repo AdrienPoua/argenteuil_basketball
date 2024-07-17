@@ -6,7 +6,7 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useTheme } from "@mui/material/styles";
 import { useMediaQuery } from "@mui/material";
 import DoNotDisturbIcon from "@mui/icons-material/DoNotDisturb";
-import { useOverlay } from "@/utils/contexts/Overlay";
+import { useModal } from "@/utils/contexts/Modal";
 
 
 type DownloadButtonProps = {
@@ -80,10 +80,10 @@ export const ContactButton = ({ icon, text, available }: { icon: React.ReactNode
   );
 };
 
-export const OverlayButton = ({ overlayContent, text }: { overlayContent: React.JSX.Element; text: string }) => {
-  const { setOpen, setContent } = useOverlay()
+export const ModalButton = ({ ModalContent, text }: { ModalContent: React.JSX.Element; text: string }) => {
+  const { setOpen, setContent } = useModal()
   const handleClick = () => {
-    setContent(overlayContent);
+    setContent(ModalContent);
     setOpen(true);
   };
   return (
