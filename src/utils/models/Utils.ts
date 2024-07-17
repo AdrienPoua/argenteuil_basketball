@@ -1,4 +1,3 @@
-
 export default class Utils {
     static parseDate(dateString: string): Date {
       const [day, month, year] = dateString.split("/").map(Number);

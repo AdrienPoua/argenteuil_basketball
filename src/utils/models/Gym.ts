@@ -1,36 +1,16 @@
-import { IsArray, IsOptional, IsString, Length } from "class-validator";
 import { v4 as uuidv4 } from "uuid";
 import { GymType, TrainingType, TeamType } from "@/utils/types";
 import { Team } from "@/utils/models";
 
 export default class Gym implements GymType {
-  @IsString()
   private _id: string;
-
-  @IsString()
   private _name: string;
-
-  @IsString()
   private _address: string;
-
-  @IsString()
   private _city: string;
-
-  @IsString()
   private _zipcode: string;
-
-  @IsString()
-  @Length(10, 13)
   private _phone: string;
-
-  @IsOptional()
-  @IsString()
   private _img?: string;
-
-  @IsArray()
   private _available: string[];
-
-  @IsArray()
   private _slots: TrainingType[] = [];
 
   constructor(gym: GymType) {
