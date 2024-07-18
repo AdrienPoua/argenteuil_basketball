@@ -10,7 +10,7 @@ export default function App({ children }: Readonly<{ children: React.ReactNode }
           name="viewport"
           content="width=device-width, initial-scale=1.0"
         />
-        <title>Argenteuil Basketball</title>
+        <title>Argenteuil Basketball | Site officiel du club de basket d&apos;Argenteuil</title>
         <meta
           name="keywords"
           content="argenteuil, basketball, club"
