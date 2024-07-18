@@ -3,7 +3,6 @@
     "city": "Argenteuil",
     "address": "82 bd du general leclerc",
     "zipcode": "95100",
-    "colors": ["bleu", "blanc"],
     "email" : "argenteuilbasketball@hotmail.fr",
     "phone": "0670222238",
     "logo" : "/images/logo.png",

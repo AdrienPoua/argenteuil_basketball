@@ -17,7 +17,7 @@ import { DownloadButton, ModalButton } from "./Buttons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import TypingEffect from "@/components/TypingEffect";
-import { DBMemberType } from "@/lib/mongo/models/Member";
+import { DBMemberType } from "@/utils/types";
 
 
 export default function MyModal() {

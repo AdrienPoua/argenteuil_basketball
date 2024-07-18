@@ -1,8 +1,8 @@
 "use server";
 import connectDB from "@/lib/mongo/mongodb";
-import DBMember, { DBMemberType } from "@/lib/mongo/models/Member";
+import DBMember from "@/lib/mongo/models/Member";
 import { Member } from "@/utils/models";
-import { MemberType } from "@/utils/types";
+import { MemberType, DBMemberType } from "@/utils/types";
 
 export async function createMember(data: MemberType): Promise<void> {
   await connectDB();

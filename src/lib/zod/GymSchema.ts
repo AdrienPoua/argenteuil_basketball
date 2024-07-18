@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 const GymSchema = z.object({
-  id: z.string().optional(),
+  id: z.string(),
   name: z.string(),
   address: z.string(),
   city: z.string(),

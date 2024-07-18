@@ -11,7 +11,7 @@ import { useQuery } from "react-query";
 import { getClubDataFromApi, getRankingDataFromApi } from "@/utils/serverActions";
 
 export default function Index() {
-  const [selectedTeam, setSelectedTeam] = useState<string | undefined>(undefined);
+  const [selectedTeam, setSelectedTeam] = useState<string>("");
   const [ranking, setRanking] = useState<Ranking | undefined>(undefined);
 
   const { data: clubData, isError: isClubDataFetchError } = useQuery(["clubData"], () => getClubDataFromApi());

@@ -1,5 +1,22 @@
-import { z } from 'zod';
-import { GymSchema, LeadershipSchema, MemberSchema, NavItemSchema, SubItemSchema, TeamSchema, TrainingSchema, ClubCompetitionSchema, ClubSchema, CompetitionTeamsSchema, CompetitionTypeSchema, CompetitionDataSchema, ClubLocationSchema, ClubTeamSchema } from '@/lib/zod';
+import { z } from "zod";
+import {
+  GymSchema,
+  LeadershipSchema,
+  MemberSchema,
+  NavItemSchema,
+  SubItemSchema,
+  TeamSchema,
+  TrainingSchema,
+  ClubCompetitionSchema,
+  ClubSchema,
+  CompetitionTeamsSchema,
+  CompetitionTypeSchema,
+  CompetitionDataSchema,
+  ClubLocationSchema,
+  ClubTeamSchema,
+  APIClubSchema,
+  DBMemberSchema,
+} from "@/lib/zod";
 
 type GymType = z.infer<typeof GymSchema>;
 type LeadershipType = z.infer<typeof LeadershipSchema>;
@@ -15,6 +32,24 @@ type CompetitionData = z.infer<typeof CompetitionDataSchema>;
 type CLubLocation = z.infer<typeof ClubLocationSchema>;
 type ClubTeam = z.infer<typeof ClubTeamSchema>;
 type ClubCompetition = z.infer<typeof ClubCompetitionSchema>;
+type APIClubType = z.infer<typeof APIClubSchema>;
+type DBMemberType = z.infer<typeof DBMemberSchema>;
 
-export type { GymType, LeadershipType, MemberType, NavItemType, SubItemType, TrainingType, TeamType, ClubType, CompetitionType, CompetitionTeams, CompetitionData, CLubLocation, ClubTeam, ClubCompetition };
-
+export type {
+  GymType,
+  DBMemberType,
+  APIClubType,
+  LeadershipType,
+  MemberType,
+  NavItemType,
+  SubItemType,
+  TrainingType,
+  TeamType,
+  ClubType,
+  CompetitionType,
+  CompetitionTeams,
+  CompetitionData,
+  CLubLocation,
+  ClubTeam,
+  ClubCompetition,
+};

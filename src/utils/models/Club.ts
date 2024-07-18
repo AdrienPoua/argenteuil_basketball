@@ -3,7 +3,6 @@ export default class Club {
   private _city: string;
   private _zipcode: string;
   private _address: string;
-  private _colors: string[];
   private _email: string;
   private _phone: string;
   private _logo: string;
@@ -14,7 +13,6 @@ export default class Club {
     city: string;
     zipcode: string;
     address: string;
-    colors: string[];
     email: string;
     phone: string;
     logo: string;
@@ -24,7 +22,6 @@ export default class Club {
     this._city = data.city;
     this._zipcode = data.zipcode;
     this._address = data.address;
-    this._colors = data.colors;
     this._email = data.email;
     this._phone = data.phone;
     this._logo = data.logo;
@@ -45,10 +42,6 @@ export default class Club {
 
   get address(): string {
     return this._address;
-  }
-
-  get colors(): string[] {
-    return this._colors;
   }
 
   get email(): string {

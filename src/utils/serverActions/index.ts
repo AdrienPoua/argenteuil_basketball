@@ -1,6 +1,6 @@
 "use server";
 import { transporter, clubEmail } from "@/lib/nodemailer";
-import { ClubType, CompetitionType } from "@/utils/types";
+import { APIClubType, CompetitionType } from "@/utils/types";
 
 export const sendEmail = async (to: string, subject: string, text: string, cc?: string) => {
   try {
@@ -18,7 +18,7 @@ export const sendEmail = async (to: string, subject: string, text: string, cc?: 
   }
 };
 
-export const getClubDataFromApi = async (): Promise<ClubType> => {
+export const getClubDataFromApi = async (): Promise<APIClubType> => {
   const endpoint = "https://v1.scorenco.com/backend/v1/clubs/sport/basket/club/argenteuil-bb/";
   try {
     const response = await fetch(endpoint);
@@ -30,7 +30,7 @@ export const getClubDataFromApi = async (): Promise<ClubType> => {
     throw new Error();
   }
 };
-export const getRankingDataFromApi = async (id: string | undefined): Promise<CompetitionType> => {
+export const getRankingDataFromApi = async (id: string): Promise<CompetitionType> => {
   const endpoint = `https://v1.scorenco.com/backend/v1/competitions/${id}/rankings/`;
   try {
     const response = await fetch(endpoint);

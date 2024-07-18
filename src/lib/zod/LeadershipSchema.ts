@@ -14,3 +14,4 @@ const LeadershipSchema = z.object({
 });
 
 export default LeadershipSchema;
+

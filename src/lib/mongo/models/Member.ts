@@ -1,16 +1,6 @@
-import mongoose, { Schema, Document, Model, Types } from 'mongoose';
+import mongoose, { Schema, Model,  } from 'mongoose';
+import { DBMemberType } from '@/utils/types';
 
-export interface DBMemberType extends Document {
-  name: string;
-  firstName: string;
-  email: string;
-  birthday: string;
-  createdAt: Date;
-  statut: string;
-  year: string;
-  categorie: string;
-  _id: Types.ObjectId;
-}
 
 const memberSchema: Schema<DBMemberType> = new Schema({
   name: { type: String, required: true },

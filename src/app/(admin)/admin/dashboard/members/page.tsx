@@ -6,8 +6,10 @@ import { useModal } from "@/utils/contexts/Modal";
 import { EmailMemberContent } from "@/components/Modal";
 import categories from "@/data/categories.json";
 import { getMembers } from "@/lib/mongo/controllers/members";
-import { DBMemberType } from "@/lib/mongo/models/Member";
+import { DBMemberType } from "@/utils/types";
 import { useQuery } from "react-query";
+import { DBMemberSchema } from "@/lib/zod";
+import { ValidateWithZod } from "@/utils/services/dataProcessing";
 
 
 // Define the columns for the DataGrid
@@ -27,10 +29,11 @@ export default function Index() {
   const [selectedYear, setSelectedYear] = useState("2023");
   const { setOpen, setContent } = useModal();
 
-  const fetchMembers = async () => {
-    return await getMembers();
-  };
-
+  const fetchMembers = async (): Promise<DBMemberType[]> => {
+    const members = await getMembers();
+    ValidateWithZod(members, DBMemberSchema);
+    return members;
+  }
   const { data } = useQuery(['members'], fetchMembers);
 
   useEffect(() => {
@@ -46,7 +49,7 @@ export default function Index() {
     if (category === "All") {
       setFilteredMembers(allMembers.filter((member) => member.year === selectedYear));
     } else {
-      setFilteredMembers(allMembers.filter((member) => category.includes(member.categorie) && member.year === selectedYear ));
+      setFilteredMembers(allMembers.filter((member) => category.includes(member.categorie) && member.year === selectedYear));
     }
   };
 
