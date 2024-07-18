@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { Types } from "mongoose";
 
 const DBMemberTypeSchema = z.object({
   name: z.string(),
@@ -10,7 +9,8 @@ const DBMemberTypeSchema = z.object({
   statut: z.string(),
   year: z.string(),
   categorie: z.string(),
-  _id: z.instanceof(Types.ObjectId), // Validation pour ObjectId de mongoose
+  __v : z.number(),
+  _id: z.string(),
 });
 
 export default DBMemberTypeSchema;
