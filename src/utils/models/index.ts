@@ -8,5 +8,6 @@ import Permanences from '@/utils/models/Permanences'
 import Team from '@/utils/models/Team'
 import Utils from '@/utils/models/Utils'
 import Ranking from '@/utils/models/Ranking'
+import Match from '@/utils/models/Match'
 
-export { Club, Document, FAQ, Gym, Leadership, Member, Permanences, Team, Utils, Ranking }
+export { Club, Document, FAQ, Gym, Leadership, Member, Permanences, Team, Utils, Ranking, Match }

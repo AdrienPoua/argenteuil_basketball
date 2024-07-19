@@ -16,6 +16,7 @@ import {
   ClubTeamSchema,
   APIClubSchema,
   DBMemberSchema,
+  MatchSchema,
 } from "@/lib/zod";
 
 type GymType = z.infer<typeof GymSchema>;
@@ -34,6 +35,7 @@ type ClubTeam = z.infer<typeof ClubTeamSchema>;
 type ClubCompetition = z.infer<typeof ClubCompetitionSchema>;
 type APIClubType = z.infer<typeof APIClubSchema>;
 type DBMemberType = z.infer<typeof DBMemberSchema>;
+type MatchType = z.infer<typeof MatchSchema>;
 
 export type {
   GymType,
@@ -52,4 +54,5 @@ export type {
   CLubLocation,
   ClubTeam,
   ClubCompetition,
+  MatchType,
 };
