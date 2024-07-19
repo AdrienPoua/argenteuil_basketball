@@ -1,16 +1,20 @@
-import { Button, Typography, Link, Box } from '@mui/material'
+"use client";
+import { Button, Typography, Box } from '@mui/material';
+import { signOut } from 'next-auth/react';
 
-const NavItem = ({ logo, title, href }: Readonly<{ title: string, href: string, logo: string }>) => {
+type NavItemProps = {
+  title: string;
+  logo: string;
+  href: string;
+}
+
+const NavItem = ({ logo, title, href }: NavItemProps) => {
   return (
-    <Button className="w-full h-20" variant="contained">
-      <Link href={href} className="w-full flex justify-center items-center">
-        {logo}
-        <Typography className="text-center ms-5">{title}</Typography>
-      </Link>
+    <Button href={href} className="h-20" fullWidth variant="contained">
+      <Typography className="ms-5"> {logo} {title}</Typography>
     </Button>
   )
 }
-
 
 const data = [
   {
@@ -24,11 +28,6 @@ const data = [
     logo: "👥"
   },
   {
-    title: "Logout",
-    href: "/admin/logout",
-    logo: "🚪"
-  },
-  {
     title: "Settings",
     href: "/admin/dashboard/settings",
     logo: "⚙️"
@@ -38,8 +37,8 @@ const data = [
 export default function Page({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <Box className="flex size-full min-h-svh">
-      <Box className="w-1/6 bg-primary-light flex flex-col" component="aside" >
-        {data.map((item, index) => (
+      <Box className="w-1/6 bg-primary-light flex flex-col" component="aside">
+        {data.map((item) => (
           <NavItem
             key={item.title}
             title={item.title}
@@ -47,6 +46,10 @@ export default function Page({ children }: Readonly<{ children: React.ReactNode 
             logo={item.logo}
           />
         ))}
+        <Button className="h-20" fullWidth variant="contained"
+          onClick={async () => signOut()}>
+          🚪 Logout
+        </Button>
       </Box>
       <Box className="flex flex-col grow bg-gray-100 p-5">
         {children}
