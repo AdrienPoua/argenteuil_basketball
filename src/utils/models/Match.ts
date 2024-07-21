@@ -1,6 +1,20 @@
 import { MatchType } from "@/utils/types";
 import Utils from "@/utils/models/Utils";
 
+const MONTH_ORDER: string[] = [
+  "Janvier",
+  "Février",
+  "Mars",
+  "Avril",
+  "Mai",
+  "Juin",
+  "Juillet",
+  "Août",
+  "Septembre",
+  "Octobre",
+  "Novembre",
+  "Décembre",
+];
 export default class Match {
   private _division: string;
   private _matchNumber: string;
@@ -9,6 +23,7 @@ export default class Match {
   private _date: string;
   private _time: string;
   private _gym: string;
+  private _update: boolean;
   constructor(data: MatchType) {
     this._division = data.Division;
     this._matchNumber = data["N° de match "];
@@ -17,8 +32,8 @@ export default class Match {
     this._date = data["Date de rencontre"];
     this._time = data.Heure;
     this._gym = data.Salle;
+    this._update = data.update || false;
   }
-
   get division(): string {
     return this._division;
   }
@@ -29,6 +44,11 @@ export default class Match {
   get matchNumber(): string {
     return this._matchNumber;
   }
+
+  get isUpdate(): boolean {
+    return this._update;
+  }
+
   get teamA(): string {
     return this._teamA;
   }
@@ -45,9 +65,8 @@ export default class Match {
     return this._gym;
   }
   get month() {
-    const months = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
     const formatedDate = Utils.parseDate(this._date);
-    return months[formatedDate.getMonth()];
+    return MONTH_ORDER[formatedDate.getMonth()];
   }
 
   get day() {
@@ -57,6 +76,9 @@ export default class Match {
 
   static groupByMonth(matchs: Match[]): { [key: string]: Match[] } {
     const groupedMatchs: { [key: string]: Match[] } = {};
+    const sortedGroupedMatchs: { [key: string]: Match[] } = {};
+
+    // Grouper les matchs par mois
     matchs.forEach((match) => {
       const month = match.month;
       if (!groupedMatchs[month]) {
@@ -64,6 +86,15 @@ export default class Match {
       }
       groupedMatchs[month].push(match);
     });
-    return groupedMatchs;
+
+    // Trier les clés des mois
+    const sortedKeys = Object.keys(groupedMatchs).sort((a, b) => MONTH_ORDER.indexOf(a) - MONTH_ORDER.indexOf(b));
+
+    // Répartir les matchs triés dans le nouvel objet
+    sortedKeys.forEach((key) => {
+      sortedGroupedMatchs[key] = groupedMatchs[key];
+    });
+
+    return sortedGroupedMatchs;
   }
 }

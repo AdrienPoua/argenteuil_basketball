@@ -8,6 +8,7 @@ const matchSchema = z.object({
   "Date de rencontre": z.string(),
   Heure: z.string(),
   Salle: z.string(),
+  update: z.boolean().optional(),
 });
 
 export default matchSchema;

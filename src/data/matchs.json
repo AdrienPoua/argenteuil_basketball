@@ -327,7 +327,8 @@
         "Date de rencontre": "09/03/2024",
         "Heure": "20:30",
         "Salle": "Gymnase J. OWENS",
-        "Modif": ""
+        "Modif": "",
+        "update" : true
     },
     {
         "Division": "DM3",
