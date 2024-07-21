@@ -1,8 +1,8 @@
 import React from "react";
 import { NavItemType } from "@/utils/types";
 import { Box, Button, Typography } from "@mui/material";
-import NavItem from "@/components/NavItem";
-import SubBar from "@/components/SubBar";
+import NavItem from "@/components/Header/NavItem";
+import SubBar from "@/components/Header/SubBar";
 import Logo from "@/components/Logo";
 import { ContactContent } from "@/components/Modal";
 import { useModal } from "@/utils/contexts/Modal";

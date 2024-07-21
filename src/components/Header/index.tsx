@@ -3,8 +3,8 @@ import React, { useRef, useEffect, useState } from "react";
 import { Box, ClickAwayListener } from "@mui/material";
 import { NavItemType } from "@/utils/types";
 import { usePathname } from "next/navigation";
-import DesktopNav from "@/components/DesktopNav";
-import MobileNav from "@/components/MobileNav";
+import DesktopNav from "@/components/Header/DesktopNav";
+import MobileNav from "@/components/Header/MobileNav";
 
 type HeaderProps = {
   data: NavItemType[];

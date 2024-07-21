@@ -52,9 +52,15 @@ export default class Match {
   get teamA(): string {
     return this._teamA;
   }
+
   get teamB(): string {
     return this._teamB;
   }
+
+  get isExempt(): boolean {
+    return this._teamB === "Exempt" || this._teamA === "Exempt";
+  }
+
   get date(): string {
     return this._date;
   }
@@ -96,5 +102,29 @@ export default class Match {
     });
 
     return sortedGroupedMatchs;
+  }
+
+  static getCategories(matchs: Match[]): string[] {
+    return matchs.reduce((acc, match) => {
+      if (!acc.includes(match.division)) {
+        acc.push(match.division);
+      }
+      return acc;
+    }, [] as string[]);
+  }
+
+  static getWeekends(matchs: Match[]): string[] {
+    const days = matchs.reduce((acc, match) => {
+      const day = match.day;
+      if (!acc.includes(day)) {
+        acc.push(day);
+      }
+      return acc;
+    }, [] as number[]);
+
+    return days
+      .toSorted((a, b) => a - b)
+      .filter((day, index, array) => index === 0 || array[index - 1] !== day - 1)
+      .map((day) => day.toString() + " / " + (day + 1).toString());
   }
 }

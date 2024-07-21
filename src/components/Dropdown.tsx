@@ -1,6 +1,6 @@
 import { useState, useEffect, ReactNode, useRef } from "react";
 import { Box } from "@mui/material";
-import Arrow from "@/components/Arrow";
+import Arrow from "@/components/Header/Arrow";
 
 type DropdownProps = {
   header: ReactNode;

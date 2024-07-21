@@ -4,7 +4,7 @@ import { faq } from "@/utils/services/dataProcessing";
 import { FAQ } from "@/utils/models";
 import Dropdown from "@/components/Dropdown";
 import { useState, useRef, ReactNode } from "react";
-import SearchBar from "@/components/SearchBar";
+import SearchBar from "@/components/Header/SearchBar";
 import H1 from "@/components/H1";
 import { motion } from "framer-motion";
 import useVisibility from "@/utils/hooks/useVisibility";
