@@ -45,8 +45,14 @@ function checkAllData() {
 }
 checkAllData();
 
-export const allMatchs = matchsData.map((match) => new Match(match))
+// Export the data to be used in the application
+
 export const leadership: Leadership[] = leadershipData.map((leader) => new Leadership(leader));
+export const matchsByMonth = Match.groupByMonth(matchsData.map((match) => new Match(match)))
+export const documents: Document[] = documentsData.map((documentItem) => new Document(documentItem));
+export const faq: FAQ[] = FAQdata.map((faqItem) => new FAQ(faqItem));
+export const club: Club = new Club(clubData);
+export const permanence: Permanences = new Permanences(permanencesData);
 export const teams: Team[] = teamsData.map((team) => {
   const coach = leadershipData.find((leader) => leader.teams?.includes(team.name));
   const teamInstance = new Team(team);
@@ -60,8 +66,3 @@ export const gyms: Gym[] = gymsData.map((gymData) => {
   gymInstance.slots = teams;
   return gymInstance;
 });
-
-export const documents: Document[] = documentsData.map((documentItem) => new Document(documentItem));
-export const faq: FAQ[] = FAQdata.map((faqItem) => new FAQ(faqItem));
-export const club: Club = new Club(clubData);
-export const permanence: Permanences = new Permanences(permanencesData);
