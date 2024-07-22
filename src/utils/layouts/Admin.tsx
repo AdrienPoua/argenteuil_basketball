@@ -28,6 +28,11 @@ const data = [
     logo: "👥"
   },
   {
+    title: "Matchs",
+    href: "/admin/dashboard/matchs",
+    logo: "🏀"
+  },
+  {
     title: "Settings",
     href: "/admin/dashboard/settings",
     logo: "⚙️"

@@ -25,7 +25,7 @@ export default class Match {
   private _gym: string;
   private _update: boolean;
   constructor(data: MatchType) {
-    this._division = data.Division;
+    this._division = data.Division; 
     this._matchNumber = data["N° de match "];
     this._teamA = data["Equipe 1"];
     this._teamB = data["Equipe 2"];
@@ -79,6 +79,21 @@ export default class Match {
     const formatedDate = Utils.parseDate(this._date);
     return formatedDate.getDate();
   }
+
+  
+  toObject() {
+    return {
+      division: this.division,
+      matchNumber: this.matchNumber,
+      teamA: this.teamA,
+      teamB: this.teamB,
+      date: this.date,
+      time: this.time,
+      gym: this.gym,
+      update: this.isUpdate
+    };
+  }
+
 
   static groupByMonth(matchs: Match[]): { [key: string]: Match[] } {
     const groupedMatchs: { [key: string]: Match[] } = {};

@@ -6,7 +6,7 @@ import FAQdata from "@/data/faq.json";
 import clubData from "@/data/club.json";
 import matchsData from "@/data/matchs.json";
 import permanencesData from "@/data/permanences.json";
-import { Leadership, Team, Gym, Document, FAQ, Club, Permanences, Match } from "@/utils/models";
+import { Leadership, Team, Gym, Document, FAQ, Club, Permanences } from "@/utils/models";
 import { ZodSchema, ZodError } from 'zod';
 import { GymSchema, LeadershipSchema, PermanencesSchema, TeamSchema, DocumentSchema, ClubSchema, FAQSchema, MatchSchema } from "@/lib/zod";
 
@@ -48,7 +48,6 @@ checkAllData();
 // Export the data to be used in the application
 
 export const leadership: Leadership[] = leadershipData.map((leader) => new Leadership(leader));
-export const matchsByMonth = Match.groupByMonth(matchsData.map((match) => new Match(match)))
 export const documents: Document[] = documentsData.map((documentItem) => new Document(documentItem));
 export const faq: FAQ[] = FAQdata.map((faqItem) => new FAQ(faqItem));
 export const club: Club = new Club(clubData);
