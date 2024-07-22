@@ -4,7 +4,7 @@ import Schedule from "@/components/Schedule"
 import { matchsByMonth } from "@/utils/services/dataProcessing";
 import { Box } from "@mui/material";
 
-const hidden = false
+const hidden = true
 
 export default function Index() {
   return (
