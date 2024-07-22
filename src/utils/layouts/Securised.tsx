@@ -1,7 +1,6 @@
 import React from "react";
 import AdminLayout from "@/utils/layouts/Admin";
-import ClientSideAuth from "@/components/ClientSideAuth";
-import ServerSideAuth from "@/components/ServerSideAuth";
+import { ClientSideAuth, ServerSideAuth } from "@/components/Auth";
 
 export default function AdminMode({ children }: Readonly<{ children: React.ReactNode }>) {
   return (

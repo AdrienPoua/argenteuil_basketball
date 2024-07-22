@@ -30,8 +30,8 @@ Accédez au site à l'adresse suivante : [argenteuilbasketball.com](https://arge
 - **Framework principal** : [Next.js](https://nextjs.org/)
 - **CMS** : [Sanity](https://www.sanity.io/)
 - **Langage de programmation** : [TypeScript](https://www.typescriptlang.org/)
+- **Database** : [MongoDB](https://www.mongodb.com/fr-fr)
 - **Bibliothèque UI** : [MUI](https://mui.com/)
-- **Bibliothèque front-end** : [React](https://reactjs.org/)
 - **Authentification** : [NextAuth](https://next-auth.js.org)
 
 ##Contributeurs

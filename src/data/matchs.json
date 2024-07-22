@@ -1,0 +1,1042 @@
+[
+    {
+        "Division": "DMU20-2-P2",
+        "N° de match ": "10423",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "SARCELLES",
+        "Date de rencontre": "10/03/2024",
+        "Heure": "13:30",
+        "Salle": "Gymnase J. OWENS",
+        "Modif": "oui"
+    },
+    {
+        "Division": "DFU18-P2",
+        "N° de match ": "50310",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "SARCELLES",
+        "Date de rencontre": "31/03/2024",
+        "Heure": "09:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU13-P2",
+        "N° de match ": "40643",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "CORMEILLAIS - 1",
+        "Date de rencontre": "03/03/2024",
+        "Heure": "11:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "PRM",
+        "N° de match ": "176",
+        "Equipe 1": "Exempt",
+        "Equipe 2": "ST OUEN",
+        "Date de rencontre": "28/01/2024",
+        "Heure": "20:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "PRM",
+        "N° de match ": "176",
+        "Equipe 1": "ARGENTEUIL BB - 1",
+        "Equipe 2": "ST OUEN",
+        "Date de rencontre": "02/03/2024",
+        "Heure": "20:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU17-3-P2",
+        "N° de match ": "20855",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "AUVERS BC",
+        "Date de rencontre": "30/03/2024",
+        "Heure": "17:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "DFU11-2",
+        "N° de match ": "6228",
+        "Equipe 1": "Exempt",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "27/04/2024",
+        "Heure": "00:00",
+        "Salle": "",
+        "Modif": ""
+    },
+    {
+        "Division": "DFU11-2",
+        "N° de match ": "6218",
+        "Equipe 1": "CS PIERRELAYE",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "16/03/2024",
+        "Heure": "00:00",
+        "Salle": "Gymnase M. OSTERMEYER",
+        "Modif": ""
+    },
+    {
+        "Division": "DFU11-2",
+        "N° de match ": "6202",
+        "Equipe 1": "CM GARGES LES GONESSE",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "13/01/2024",
+        "Heure": "00:00",
+        "Salle": "Gymnase R. ANGELONI (DOUCETTES)",
+        "Modif": ""
+    },
+    {
+        "Division": "DFU11-2",
+        "N° de match ": "6225",
+        "Equipe 1": "ES CHAMBLY PERSAN",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "30/03/2024",
+        "Heure": "00:00",
+        "Salle": "SALLE DES SPORTS A BRIAND",
+        "Modif": ""
+    },
+    {
+        "Division": "DFU11-2",
+        "N° de match ": "6208",
+        "Equipe 1": "Entente Fosses Marly Basket Club",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "27/01/2024",
+        "Heure": "00:00",
+        "Salle": "Gymnase C. FLEURY",
+        "Modif": ""
+    },
+    {
+        "Division": "DFU13-2-P2",
+        "N° de match ": "70511",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "FRANCONVILLE",
+        "Date de rencontre": "04/02/2024",
+        "Heure": "13:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": "oui"
+    },
+    {
+        "Division": "DMU15-2-P2",
+        "N° de match ": "30735",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "FRANCONVILLE",
+        "Date de rencontre": "20/01/2024",
+        "Heure": "17:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": "oui"
+    },
+    {
+        "Division": "DFU13-2-P2",
+        "N° de match ": "70513",
+        "Equipe 1": "CM GARGES LES GONESSE",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "02/03/2024",
+        "Heure": "00:00",
+        "Salle": "Gymnase R. ANGELONI (DOUCETTES)",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU20-2-P2",
+        "N° de match ": "10428",
+        "Equipe 1": "FRANCONVILLE",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "23/03/2024",
+        "Heure": "17:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "DFU13-2-P2",
+        "N° de match ": "70522",
+        "Equipe 1": "CS PIERRELAYE",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "23/03/2024",
+        "Heure": "00:00",
+        "Salle": "Gymnase M. OSTERMEYER",
+        "Modif": ""
+    },
+    {
+        "Division": "DFU13-2-P2",
+        "N° de match ": "70505",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "BC TAVERNY MONTIGNY",
+        "Date de rencontre": "21/01/2024",
+        "Heure": "13:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": "oui"
+    },
+    {
+        "Division": "DMU15-2-P2",
+        "N° de match ": "30758",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "BC TAVERNY MONTIGNY - 1",
+        "Date de rencontre": "28/04/2024",
+        "Heure": "11:00",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "DFU13-2-P2",
+        "N° de match ": "70500",
+        "Equipe 1": "VILLIERS LE BEL BASKET (VLB B)",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "13/01/2024",
+        "Heure": "00:00",
+        "Salle": "Gymnase Pierre de Coubertin",
+        "Modif": ""
+    },
+    {
+        "Division": "DFU13-2-P2",
+        "N° de match ": "70526",
+        "Equipe 1": "BASKET CLUB DE FRANCONVILLE (BCF)",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "30/03/2024",
+        "Heure": "00:00",
+        "Salle": "C.S.L.",
+        "Modif": ""
+    },
+    {
+        "Division": "DFU13-2-P2",
+        "N° de match ": "70520",
+        "Equipe 1": "BC TAVERNY MONTIGNY",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "16/03/2024",
+        "Heure": "00:00",
+        "Salle": "Gymnase R. DACOURY",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU17-3-P2",
+        "N° de match ": "20849",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "BEAUCHAMP OLYMPIQUE BASKET CLUB",
+        "Date de rencontre": "16/03/2024",
+        "Heure": "17:30",
+        "Salle": "Gymnase J. OWENS",
+        "Modif": "oui"
+    },
+    {
+        "Division": "DFU18-P2",
+        "N° de match ": "50304",
+        "Equipe 1": "AAS SARCELLES BB",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "27/01/2024",
+        "Heure": "00:00",
+        "Salle": "Gymnase M. BRIAND",
+        "Modif": ""
+    },
+    {
+        "Division": "DFU18-P2",
+        "N° de match ": "50300",
+        "Equipe 1": "ERAGNY BC",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "13/01/2024",
+        "Heure": "00:00",
+        "Salle": "Gymnase de la CAVEE",
+        "Modif": ""
+    },
+    {
+        "Division": "DFU18-P2",
+        "N° de match ": "50308",
+        "Equipe 1": "CERGY-PONTOISE BB",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "23/03/2024",
+        "Heure": "00:00",
+        "Salle": "Complexe MARADAS - Salle 1",
+        "Modif": ""
+    },
+    {
+        "Division": "DXU11",
+        "N° de match ": "7101",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "BOUFFEMONT AC B",
+        "Date de rencontre": "13/01/2024",
+        "Heure": "15:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "PRM",
+        "N° de match ": "188",
+        "Equipe 1": "ARGENTEUIL BB - 1",
+        "Equipe 2": "BOUFFEMONT AC B - 1",
+        "Date de rencontre": "16/03/2024",
+        "Heure": "20:30",
+        "Salle": "Gymnase J. OWENS",
+        "Modif": "oui"
+    },
+    {
+        "Division": "DM3",
+        "N° de match ": "659",
+        "Equipe 1": "Exempt",
+        "Equipe 2": "MENUCOURT BC",
+        "Date de rencontre": "13/01/2024",
+        "Heure": "20:30",
+        "Salle": "Gymnase J. OWENS",
+        "Modif": ""
+    },
+    {
+        "Division": "DM3",
+        "N° de match ": "659",
+        "Equipe 1": "ARGENTEUIL BB - 2",
+        "Equipe 2": "MENUCOURT BC",
+        "Date de rencontre": "23/03/2024",
+        "Heure": "20:30",
+        "Salle": "Gymnase J. OWENS",
+        "Modif": ""
+    },
+    {
+        "Division": "DM3",
+        "N° de match ": "627",
+        "Equipe 1": "ARGENTEUIL BB - 2",
+        "Equipe 2": "CM ORVILLE DE LOUVRES",
+        "Date de rencontre": "20/01/2024",
+        "Heure": "20:30",
+        "Salle": "Gymnase J. OWENS",
+        "Modif": ""
+    },
+    {
+        "Division": "DM3",
+        "N° de match ": "667",
+        "Equipe 1": "ARGENTEUIL BB - 2",
+        "Equipe 2": "US ENNERY BB - 1",
+        "Date de rencontre": "27/04/2024",
+        "Heure": "20:30",
+        "Salle": "Gymnase J. OWENS",
+        "Modif": ""
+    },
+    {
+        "Division": "DM3",
+        "N° de match ": "638",
+        "Equipe 1": "ARGENTEUIL BB - 2",
+        "Equipe 2": "Exempt",
+        "Date de rencontre": "03/02/2024",
+        "Heure": "20:30",
+        "Salle": "Gymnase J. OWENS",
+        "Modif": ""
+    },
+    {
+        "Division": "DM3",
+        "N° de match ": "646",
+        "Equipe 1": "ARGENTEUIL BB - 2",
+        "Equipe 2": "EAUBONNE BASKETBALL - 1",
+        "Date de rencontre": "09/03/2024",
+        "Heure": "20:30",
+        "Salle": "Gymnase J. OWENS",
+        "Modif": "",
+        "update" : true
+    },
+    {
+        "Division": "DM3",
+        "N° de match ": "633",
+        "Equipe 1": "BEAUCHAMP OLYMPIQUE BASKET CLUB - 2",
+        "Equipe 2": "ARGENTEUIL BB - 2",
+        "Date de rencontre": "27/01/2024",
+        "Heure": "00:00",
+        "Salle": "",
+        "Modif": ""
+    },
+    {
+        "Division": "DM3",
+        "N° de match ": "654",
+        "Equipe 1": "Exempt",
+        "Equipe 2": "ARGENTEUIL BB - 2",
+        "Date de rencontre": "16/03/2024",
+        "Heure": "00:00",
+        "Salle": "",
+        "Modif": ""
+    },
+    {
+        "Division": "DM3",
+        "N° de match ": "664",
+        "Equipe 1": "AS ST OUEN L'AUMONE - 2",
+        "Equipe 2": "ARGENTEUIL BB - 2",
+        "Date de rencontre": "30/03/2024",
+        "Heure": "00:00",
+        "Salle": "Gymnase CLAMART",
+        "Modif": ""
+    },
+    {
+        "Division": "DM3",
+        "N° de match ": "640",
+        "Equipe 1": "EN - CTC MSBB -USDEM - 3",
+        "Equipe 2": "ARGENTEUIL BB - 2",
+        "Date de rencontre": "02/03/2024",
+        "Heure": "00:00",
+        "Salle": "Gymnase M. UTRILLO",
+        "Modif": ""
+    },
+    {
+        "Division": "DFU18-P2",
+        "N° de match ": "50302",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "CERGY-PONTOISE BB",
+        "Date de rencontre": "21/01/2024",
+        "Heure": "09:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU13-P2",
+        "N° de match ": "40632",
+        "Equipe 1": "DOMONT B - 1",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "13/01/2024",
+        "Heure": "11:30",
+        "Salle": "Gymnase MUNICIPAL (Jean JAURES)",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU13-P2",
+        "N° de match ": "40648",
+        "Equipe 1": "HERBLAY BASKETBALL CLUB - 1",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "16/03/2024",
+        "Heure": "11:30",
+        "Salle": "Gymnase des Bayonnes-Naquettes",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU13-P2",
+        "N° de match ": "40638",
+        "Equipe 1": "US MONTSOULT-BAILLET-MAFFLIERS",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "27/01/2024",
+        "Heure": "11:30",
+        "Salle": "C.O.S.E.C. MONTSOULT",
+        "Modif": ""
+    },
+    {
+        "Division": "DXU11",
+        "N° de match ": "7124",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "CERGY-PONTOISE BB - 1",
+        "Date de rencontre": "30/03/2024",
+        "Heure": "15:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU13-P2",
+        "N° de match ": "40655",
+        "Equipe 1": "OLYMPIC CLUB JOUY LE MOUTIER",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "30/03/2024",
+        "Heure": "11:30",
+        "Salle": "Gymnase des MERISIERS",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU13-P2",
+        "N° de match ": "40658",
+        "Equipe 1": "ACS CORMEILLAIS - 1",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "27/04/2024",
+        "Heure": "11:30",
+        "Salle": "C.O.S.E.C. CORMEILLES",
+        "Modif": ""
+    },
+    {
+        "Division": "DFU13-2-P2",
+        "N° de match ": "70528",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "CM GARGES LES GONESSE",
+        "Date de rencontre": "27/04/2024",
+        "Heure": "17:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "DFU11-2",
+        "N° de match ": "6217",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "CM GARGES LES GONESSE",
+        "Date de rencontre": "09/03/2024",
+        "Heure": "15:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "DFU11-2",
+        "N° de match ": "6203",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "CS PIERRELAYE",
+        "Date de rencontre": "20/01/2024",
+        "Heure": "15:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "DFU13-2-P2",
+        "N° de match ": "70507",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "CS PIERRELAYE",
+        "Date de rencontre": "27/01/2024",
+        "Heure": "17:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU15-2-P2",
+        "N° de match ": "30730",
+        "Equipe 1": "MAGNY VEXIN BASKET",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "13/01/2024",
+        "Heure": "00:00",
+        "Salle": "Gymnase J. ZAY",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU15-2-P2",
+        "N° de match ": "30752",
+        "Equipe 1": "ERAGNY BC",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "23/03/2024",
+        "Heure": "00:00",
+        "Salle": "Gymnase de la CAVEE",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU15-2-P2",
+        "N° de match ": "30743",
+        "Equipe 1": "BC TAVERNY MONTIGNY - 1",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "02/03/2024",
+        "Heure": "00:00",
+        "Salle": "Gymnase R. DACOURY",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU15-2-P2",
+        "N° de match ": "30756",
+        "Equipe 1": "ES CHAMBLY PERSAN - 2",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "30/03/2024",
+        "Heure": "00:00",
+        "Salle": "SALLE DES SPORTS A BRIAND",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU15-2-P2",
+        "N° de match ": "30750",
+        "Equipe 1": "BASKET CLUB DE FRANCONVILLE (BCF)",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "16/03/2024",
+        "Heure": "00:00",
+        "Salle": "C.S.L.",
+        "Modif": ""
+    },
+    {
+        "Division": "DXU11",
+        "N° de match ": "7118",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "CS PIERRELAYE - 1",
+        "Date de rencontre": "16/03/2024",
+        "Heure": "15:30",
+        "Salle": "Gymnase J. OWENS",
+        "Modif": "oui"
+    },
+    {
+        "Division": "DMU13-P2",
+        "N° de match ": "40647",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "DOMONT B - 1",
+        "Date de rencontre": "10/03/2024",
+        "Heure": "11:30",
+        "Salle": "Gymnase J. OWENS",
+        "Modif": "oui"
+    },
+    {
+        "Division": "PRM",
+        "N° de match ": "208",
+        "Equipe 1": "ARGENTEUIL BB - 1",
+        "Equipe 2": "DOMONT B - 1",
+        "Date de rencontre": "04/05/2024",
+        "Heure": "20:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "DXU11",
+        "N° de match ": "7127",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "E ST LEU B - 1",
+        "Date de rencontre": "27/04/2024",
+        "Heure": "15:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "PRM",
+        "N° de match ": "227",
+        "Equipe 1": "ARGENTEUIL BB - 1",
+        "Equipe 2": "EN - CTC MSBB -USDEM - 1",
+        "Date de rencontre": "25/05/2024",
+        "Heure": "20:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "DFU11-2",
+        "N° de match ": "6223",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "Entente Fosses Marly",
+        "Date de rencontre": "23/03/2024",
+        "Heure": "15:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU20-2-P2",
+        "N° de match ": "10455",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "Entente Fosses Marly",
+        "Date de rencontre": "25/05/2024",
+        "Heure": "15:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU17-3-P2",
+        "N° de match ": "20840",
+        "Equipe 1": "AUVERS BC",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "03/02/2024",
+        "Heure": "00:00",
+        "Salle": "Gymnase F. DAUBIGNY",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU17-3-P2",
+        "N° de match ": "20834",
+        "Equipe 1": "BEAUCHAMP OLYMPIQUE BASKET CLUB",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "20/01/2024",
+        "Heure": "00:00",
+        "Salle": "",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU17-3-P2",
+        "N° de match ": "20851",
+        "Equipe 1": "VILLIERS LE BEL BASKET (VLB B)",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "23/03/2024",
+        "Heure": "00:00",
+        "Salle": "Gymnase Pierre de Coubertin",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU17-3-P2",
+        "N° de match ": "20845",
+        "Equipe 1": "Exempt",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "09/03/2024",
+        "Heure": "00:00",
+        "Salle": "Salle J. PICHERY",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU17-3-P2",
+        "N° de match ": "20857",
+        "Equipe 1": "MAGNY VEXIN BASKET",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "27/04/2024",
+        "Heure": "00:00",
+        "Salle": "Gymnase J. ZAY",
+        "Modif": ""
+    },
+    {
+        "Division": "DFU18-P2",
+        "N° de match ": "50306",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "ERAGNY BC",
+        "Date de rencontre": "17/03/2024",
+        "Heure": "09:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU15-2-P2",
+        "N° de match ": "30737",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "ERAGNY BC",
+        "Date de rencontre": "28/01/2024",
+        "Heure": "13:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "DFU11-2",
+        "N° de match ": "6210",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "ES CHAMBLY PERSAN",
+        "Date de rencontre": "03/02/2024",
+        "Heure": "15:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "DXU11",
+        "N° de match ": "7107",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "ES CHAMBLY PERSAN - 1",
+        "Date de rencontre": "27/01/2024",
+        "Heure": "15:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU15-2-P2",
+        "N° de match ": "30741",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "ES CHAMBLY PERSAN - 2",
+        "Date de rencontre": "03/02/2024",
+        "Heure": "17:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": "oui"
+    },
+    {
+        "Division": "DMU20-2-P2",
+        "N° de match ": "10446",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "EST VAL D'OISE BASKET",
+        "Date de rencontre": "11/05/2024",
+        "Heure": "15:30",
+        "Salle": "Gymnase J. OWENS",
+        "Modif": "oui"
+    },
+    {
+        "Division": "DMU17-3-P2",
+        "N° de match ": "20830",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "Exempt",
+        "Date de rencontre": "13/01/2024",
+        "Heure": "00:00",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "DFU11-2",
+        "N° de match ": "6213",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "Exempt",
+        "Date de rencontre": "02/03/2024",
+        "Heure": "00:00",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU13-P2",
+        "N° de match ": "40633",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "HERBLAY BASKETBALL CLUB - 1",
+        "Date de rencontre": "21/01/2024",
+        "Heure": "11:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU20-2-P2",
+        "N° de match ": "10451",
+        "Equipe 1": "AAS SARCELLES BB",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "18/05/2024",
+        "Heure": "00:00",
+        "Salle": "Gymnase M. BRIAND",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU20-2-P2",
+        "N° de match ": "10418",
+        "Equipe 1": "EST VAL D'OISE BASKET",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "02/03/2024",
+        "Heure": "00:00",
+        "Salle": "Complexe E. COGNEVAULT",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU20-2-P2",
+        "N° de match ": "10427",
+        "Equipe 1": "Entente Fosses Marly Basket Club",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "16/03/2024",
+        "Heure": "00:00",
+        "Salle": "Gymnase C. FLEURY",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU20-2-P2",
+        "N° de match ": "10435",
+        "Equipe 1": "USDEM BASKET",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "30/03/2024",
+        "Heure": "00:00",
+        "Salle": "Salle OMNISPORTS",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU20-2-P2",
+        "N° de match ": "10443",
+        "Equipe 1": "MENUCOURT BC",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "04/05/2024",
+        "Heure": "00:00",
+        "Salle": "C.O.S.E.C. MENUCOURT",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU20-2-P2",
+        "N° de match ": "10400",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "BASKET CLUB DE FRANCONVILLE (BCF)",
+        "Date de rencontre": "13/01/2024",
+        "Heure": "17:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU20-2-P2",
+        "N° de match ": "10411",
+        "Equipe 1": "MACCABI SARCELLES",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "27/01/2024",
+        "Heure": "00:00",
+        "Salle": "Gymnase A. CAMUS",
+        "Modif": ""
+    },
+    {
+        "Division": "DXU11",
+        "N° de match ": "7122",
+        "Equipe 1": "ES CHAMBLY PERSAN - 1",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "23/03/2024",
+        "Heure": "00:00",
+        "Salle": "SALLE DES SPORTS A BRIAND",
+        "Modif": ""
+    },
+    {
+        "Division": "DXU11",
+        "N° de match ": "7112",
+        "Equipe 1": "E ST LEU B - 1",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "02/03/2024",
+        "Heure": "00:00",
+        "Salle": "Gymnase Jean MOULIN",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU20-2-P2",
+        "N° de match ": "10439",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "MACCABI SARCELLES",
+        "Date de rencontre": "28/04/2024",
+        "Heure": "13:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU17-3-P2",
+        "N° de match ": "20842",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "MAGNY VEXIN BASKET",
+        "Date de rencontre": "02/03/2024",
+        "Heure": "17:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU15-2-P2",
+        "N° de match ": "30745",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "MAGNY VEXIN BASKET",
+        "Date de rencontre": "09/03/2024",
+        "Heure": "17:30",
+        "Salle": "Gymnase J. OWENS",
+        "Modif": "oui"
+    },
+    {
+        "Division": "DMU20-2-P2",
+        "N° de match ": "10415",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "MENUCOURT BC",
+        "Date de rencontre": "04/02/2024",
+        "Heure": "15:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "DXU11",
+        "N° de match ": "7103",
+        "Equipe 1": "CS PIERRELAYE - 1",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "20/01/2024",
+        "Heure": "00:00",
+        "Salle": "Gymnase M. OSTERMEYER",
+        "Modif": ""
+    },
+    {
+        "Division": "DXU11",
+        "N° de match ": "7109",
+        "Equipe 1": "CERGY-PONTOISE BB - 1",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "03/02/2024",
+        "Heure": "00:00",
+        "Salle": "Complexe MARADAS - Salle 1",
+        "Modif": ""
+    },
+    {
+        "Division": "DXU11",
+        "N° de match ": "7116",
+        "Equipe 1": "BOUFFEMONT AC B",
+        "Equipe 2": "ARGENTEUIL BB",
+        "Date de rencontre": "09/03/2024",
+        "Heure": "00:00",
+        "Salle": "Gymnase J. B. CLEMENT",
+        "Modif": ""
+    },
+    {
+        "Division": "PRM",
+        "N° de match ": "200",
+        "Equipe 1": "ARGENTEUIL BB - 1",
+        "Equipe 2": "O SANNOIS ST GRATIEN - 2",
+        "Date de rencontre": "30/03/2024",
+        "Heure": "20:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU13-P2",
+        "N° de match ": "40640",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "OLYMPIC CLUB JOUY LE MOUTIER",
+        "Date de rencontre": "04/02/2024",
+        "Heure": "11:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "DMU13-P2",
+        "N° de match ": "40653",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "US MONTSOULT-BAILLET-MAFFLIERS",
+        "Date de rencontre": "24/03/2024",
+        "Heure": "11:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "PRM",
+        "N° de match ": "216",
+        "Equipe 1": "ARGENTEUIL BB - 1",
+        "Equipe 2": "US O BEZONS - 2",
+        "Date de rencontre": "11/05/2024",
+        "Heure": "20:30",
+        "Salle": "Gymnase J. OWENS",
+        "Modif": "oui"
+    },
+    {
+        "Division": "DMU20-2-P2",
+        "N° de match ": "10407",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "USDEM BASKET",
+        "Date de rencontre": "21/01/2024",
+        "Heure": "15:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "DFU13-2-P2",
+        "N° de match ": "70515",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "VILLIERS LE BEL BASKET (VLB B)",
+        "Date de rencontre": "10/03/2024",
+        "Heure": "15:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": "oui"
+    },
+    {
+        "Division": "DMU17-3-P2",
+        "N° de match ": "20836",
+        "Equipe 1": "ARGENTEUIL BB",
+        "Equipe 2": "VILLIERS LE BEL BASKET (VLB B)",
+        "Date de rencontre": "28/01/2024",
+        "Heure": "11:00",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "PRM",
+        "N° de match ": "156",
+        "Equipe 1": "ARGENTEUIL BB - 1",
+        "Equipe 2": "VILLIERS LE BEL BASKET (VLB B) - 2",
+        "Date de rencontre": "13/01/2024",
+        "Heure": "20:30",
+        "Salle": "Gymnase J. GUIMIER",
+        "Modif": ""
+    },
+    {
+        "Division": "PRM",
+        "N° de match ": "161",
+        "Equipe 1": "EN - CTC MSBB -USDEM - 1",
+        "Equipe 2": "ARGENTEUIL BB - 1",
+        "Date de rencontre": "20/01/2024",
+        "Heure": "20:30",
+        "Salle": "Gymnase M. UTRILLO",
+        "Modif": ""
+    },
+    {
+        "Division": "PRM",
+        "N° de match ": "182",
+        "Equipe 1": "BC FREPILLON MERIEL MERY",
+        "Equipe 2": "ARGENTEUIL BB - 1",
+        "Date de rencontre": "09/03/2024",
+        "Heure": "20:30",
+        "Salle": "Gymnase C. LECLERC",
+        "Modif": ""
+    },
+    {
+        "Division": "PRM",
+        "N° de match ": "222",
+        "Equipe 1": "VILLIERS LE BEL BASKET (VLB B) - 2",
+        "Equipe 2": "ARGENTEUIL BB - 1",
+        "Date de rencontre": "19/05/2024",
+        "Heure": "15:30",
+        "Salle": "Gymnase J. JAURES",
+        "Modif": ""
+    },
+    {
+        "Division": "PRM",
+        "N° de match ": "170",
+        "Equipe 1": "BC ERMONT - 2",
+        "Equipe 2": "ARGENTEUIL BB - 1",
+        "Date de rencontre": "04/02/2024",
+        "Heure": "17:30",
+        "Salle": "Gymnase Victor HUGO",
+        "Modif": ""
+    },
+    {
+        "Division": "PRM",
+        "N° de match ": "203",
+        "Equipe 1": "MACCABI SARCELLES - 2",
+        "Equipe 2": "ARGENTEUIL BB - 1",
+        "Date de rencontre": "28/04/2024",
+        "Heure": "13:30",
+        "Salle": "Gymnase A. CAMUS",
+        "Modif": ""
+    },
+    {
+        "Division": "PRM",
+        "N° de match ": "194",
+        "Equipe 1": "EST VAL D'OISE BASKET - 2",
+        "Equipe 2": "ARGENTEUIL BB - 1",
+        "Date de rencontre": "24/03/2024",
+        "Heure": "15:30",
+        "Salle": "Gymnase M. BAQUET"
+    }
+]

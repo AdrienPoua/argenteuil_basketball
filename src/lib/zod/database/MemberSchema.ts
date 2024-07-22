@@ -1,16 +1,15 @@
 import { z } from "zod";
 
-const DBMemberTypeSchema = z.object({
+const DBMemberSchema = z.object({
   name: z.string(),
   firstName: z.string(),
   email: z.string().email(),
   birthday: z.string(),
-  createdAt: z.date(),
+  createdAt: z.union([z.string(), z.date()]),
   statut: z.string(),
   year: z.string(),
   categorie: z.string(),
-  __v : z.number(),
   _id: z.string(),
 });
 
-export default DBMemberTypeSchema;
+export default DBMemberSchema;

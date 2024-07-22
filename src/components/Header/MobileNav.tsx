@@ -8,7 +8,7 @@ import Logo from "@/components/Logo";
 import { usePathname } from "next/navigation";
 import { useModal } from "@/utils/contexts/Modal";
 import { ContactContent } from "@/components/Modal";
-import Arrow from "@/components/Arrow";
+import Arrow from "@/components/Header/Arrow";
 
 type MobileNavProps = {
   data: NavItemType[];

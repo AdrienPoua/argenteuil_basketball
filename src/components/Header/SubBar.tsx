@@ -1,7 +1,7 @@
 import React from "react";
 import { NavItemType, SubItemType } from "@/utils/types";
 import { Box } from "@mui/material";
-import Item from "@/components/SubBarItem";
+import Item from "@/components/Header/SubBarItem";
 
 export default function SubBar({ data }: Readonly<{ data: NavItemType }>) {
   
