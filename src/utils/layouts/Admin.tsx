@@ -23,9 +23,9 @@ const data = [
     logo: "🏠"
   },
   {
-    title: "Membres",
-    href: "/admin/dashboard/members",
-    logo: "👥"
+    title: "emails",
+    href: "/admin/dashboard/emails",
+    logo: "📧"
   },
   {
     title: "Matchs",
@@ -33,8 +33,8 @@ const data = [
     logo: "🏀"
   },
   {
-    title: "Settings",
-    href: "/admin/dashboard/settings",
+    title: "Members",
+    href: "/admin/dashboard/members",
     logo: "⚙️"
   }
 ];

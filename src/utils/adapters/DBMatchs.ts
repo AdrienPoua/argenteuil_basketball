@@ -8,7 +8,7 @@ export default function Adapter(match: DBMatchType) {
     "Equipe 2": match.teamB,
     "Date de rencontre": match.date,
     Heure: match.time,
-    Salle: match.gym,
+    Salle: match.gym ?? "Non défini",
     update: match.update,
   };
 }
