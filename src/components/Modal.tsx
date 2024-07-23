@@ -18,6 +18,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import TypingEffect from "@/components/TypingEffect";
 import { DBMemberType } from "@/utils/types";
+import { createPortal } from "react-dom";
 
 
 export default function MyModal() {
@@ -26,7 +27,7 @@ export default function MyModal() {
   useEffect(() => {
     setOpen(false);
   }, [pathname, setOpen]);
-  return (
+  return createPortal(
     <Modal
       open={open}
       onClose={() => setOpen(false)}
@@ -41,7 +42,7 @@ export default function MyModal() {
           {content}
         </Paper>
       </Box>
-    </Modal>
+    </Modal>, document.body
   );
 }
 

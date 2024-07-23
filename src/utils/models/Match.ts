@@ -31,7 +31,7 @@ export default class Match {
     this._teamB = data["Equipe 2"];
     this._date = data["Date de rencontre"];
     this._time = data.Heure;
-    this._gym = data.Salle;
+    this._gym = data.Salle || "Non défini";
     this._update = data.update || false;
   }
   get division(): string {

@@ -7,7 +7,7 @@ const DBMatchSchema = z.object({
     teamB: z.string(),
     date: z.string(),
     time: z.string(),
-    gym: z.string(),
+    gym: z.string().optional(),
     update: z.boolean().optional(),
 });
 

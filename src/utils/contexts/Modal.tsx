@@ -9,23 +9,21 @@ export interface ModalContextProps {
   setContent: Dispatch<SetStateAction<ReactElement>>;
 }
 
-const defaultModalContext: ModalContextProps = {
-  open: false,
-  setOpen: () => {},
-  content: <Box> JE SUIS INTERIEUR DE LA Modal</Box>,
-  setContent: () => {},
-};
+const ModalContext = createContext<ModalContextProps | null >(null);
 
-const ModalContext = createContext<ModalContextProps>(defaultModalContext);
-
-export const useModal = () => useContext(ModalContext);
-
+export const useModal = () => {
+  const context = useContext(ModalContext);
+  if (!context) {
+    throw new Error('useModal must be used within a ModalProvider');
+  }
+  return context;
+}
 export const ModalProvider = ({ children }: { children: ReactNode }) => {
   const [open, setOpen] = useState(false);
-  const [content, setContent] = useState<ReactElement>(<Box></Box>);
+  const [content, setContent] = useState<ReactElement>(<Box />);
 
   const value = useMemo(() => ({ open, setOpen, content, setContent }), [open, content]);
-  
+
 
   return (
     <ModalContext.Provider value={value}>
