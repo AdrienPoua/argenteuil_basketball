@@ -1,137 +1,58 @@
 "use client";
-import { useState, useEffect } from "react";
-import { DataGrid, GridColDef, GridRowSelectionModel } from "@mui/x-data-grid";
-import { Toolbar, Button, Box, InputLabel, MenuItem, Select } from "@mui/material";
-import { useModal } from "@/utils/contexts/Modal";
-import { EmailMemberContent } from "@/components/Modal";
-import categories from "@/data/categories.json";
-import { getMembers } from "@/lib/mongo/controllers/members";
-import { DBMemberType } from "@/utils/types";
-import { useQuery } from "react-query";
-import { DBMemberSchema } from "@/lib/zod";
-import { ValidateWithZod } from "@/utils/services/dataProcessing";
+import { Box, Button, CircularProgress } from '@mui/material';
+import React, { useState } from 'react';
+import Input from '@mui/material/Input';
+import { parseExcelToJson } from "@/lib/xlsx";
+import { createMember } from '@/lib/mongo/controllers/members';
+import { DBMemberType, MatchType, MemberType } from '@/utils/types';
 
 
-// Define the columns for the DataGrid
-const columns: GridColDef[] = [
-  { field: "name", headerName: "Nom", width: 200 },
-  { field: "firstName", headerName: "Prenom", width: 200 },
-  { field: "email", headerName: "Email", width: 200 },
-  { field: "categorie", headerName: "Categorie", width: 200 },
-];
 
 
-// Main Component
+
 export default function Index() {
-  const [allMembers, setAllMembers] = useState<DBMemberType[]>([]);
-  const [filteredMembers, setFilteredMembers] = useState<DBMemberType[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const [selectedYear, setSelectedYear] = useState("2023");
-  const { setOpen, setContent } = useModal();
+    const [file, setFile] = useState<File | null>(null);
+    const [loading, setLoading] = useState(false);
 
-  const fetchMembers = async (): Promise<DBMemberType[]> => {
-    const members = await getMembers();
-    ValidateWithZod(members, DBMemberSchema);
-    return members;
-  }
-  const { data } = useQuery(['members'], fetchMembers);
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const files = event.target.files;
+        if (files && files.length > 0) {
+            setFile(files[0]);
+        }
+    };
 
-  useEffect(() => {
-    if (data) {
-      setAllMembers(data);
-      setFilteredMembers(data);
-    }
-  }, [data]);
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (file) {
+            try {
+                setLoading(true);
+                const jsonData: MemberType[] = await parseExcelToJson(file);
+                await Promise.all(jsonData.map(match => createMember(match)));
+            } catch (error) {
+                console.log(error);
+            } finally {
+                setFile(null);
+                setLoading(false);
+            }
+        }
+    };
 
-  const handleCategoryChange = (event: { target: { value: any } }) => {
-    const category = event.target.value;
-    setSelectedCategory(category);
-    if (category === "All") {
-      setFilteredMembers(allMembers.filter((member) => member.year === selectedYear));
-    } else {
-      setFilteredMembers(allMembers.filter((member) => category.includes(member.categorie) && member.year === selectedYear));
-    }
-  };
 
-  const handleYearChange = (event: { target: { value: any } }) => {
-    const year = event.target.value;
-    setSelectedYear(year);
-    setFilteredMembers(allMembers.filter((member) => member.year === year));
-  };
 
-  const handleSelectionModelChange = (ids: GridRowSelectionModel) => {
-    const selectedMembers = allMembers.filter((member) => ids.find((id) => id === member._id.toString()))
-    setContent(<EmailMemberContent members={selectedMembers} />);
-  };
+    return (
+        <Box className="flex justify-center items-center grow">
+            <Box component="form" onSubmit={handleSubmit} className="flex flex-col justify-center items-center gap-5 max-w-full w-[800px]">
+                <Input
+                    type="file"
+                    onChange={handleFileChange}
+                    inputProps={{ 'aria-label': 'Télécharger un fichier Excel' }}
+                />
+                <Button type="submit" variant={loading ? "outlined" : "contained"} disabled={loading}>
+                    {loading ? 'Envoi en cours' : 'Envoyer'}
+                </Button>
+                {loading && <CircularProgress size={24} />}
+            </Box>
+        </Box>
 
-  return (
-    <div className='text-black'>
-      <Toolbar className="flex flex-col items-center justify-center">
-        <InputLabel className="text-black">Category</InputLabel>
-        <Select
-          className="text-black w-full mb-10"
-          value={selectedCategory}
-          onChange={handleCategoryChange}
-          label="Category"
-        >
-          <MenuItem className="text-black" value="All">All</MenuItem>
-          {categories.map(({ division }) => (
-            <MenuItem className="text-black" value={division} key={division}>{division}</MenuItem>
-          ))}
-        </Select>
-        <InputLabel className="text-black">Year</InputLabel>
-        <Select
-          className="text-black w-full mb-10"
-          value={selectedYear}
-          onChange={handleYearChange}
-          label="Year"
-        >
-          <MenuItem className="text-black" value="2023">2023</MenuItem>
-          <MenuItem className="text-black" value="2024">2024</MenuItem>
-        </Select>
-        <Button
-          variant="contained"
-          color="primary"
-          className="mb-10"
-          onClick={() => setOpen(true)}
-        >
-          Send Email
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          className="mb-10"
-          onClick={() => setFilteredMembers(allMembers)}
-        >
-          ↻
-        </Button>
-      </Toolbar>
-      <Box className="h-fit">
-        <DataGrid
-          rows={filteredMembers}
-          columns={columns}
-          getRowId={(row) => row._id}
-          initialState={{
-            pagination: {
-              paginationModel: {
-                pageSize: 50,
-              },
-            },
-          }}
-          sx={{
-            "& .MuiDataGrid-row": {
-              cursor: "pointer",
-            },
-            "& .MuiDataGrid-row.Mui-selected": {
-              backgroundColor: "primary.main",
-              color: "white",
-            },
-          }}
-          checkboxSelection
-          autoHeight
-          onRowSelectionModelChange={handleSelectionModelChange}
-        />
-      </Box>
-    </div>
-  );
+    );
 };

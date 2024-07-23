@@ -11,6 +11,7 @@ export async function createMember(data: MemberType): Promise<void> {
   const memberObject = member.toObject();
   const findMatchInDatabase = await DBMember.findOne({ name: memberObject.name, firstName: memberObject.firstName, year: memberObject.year });
   if (findMatchInDatabase) {
+    console.log("Un membre identique est déjà dans la database", memberObject);
     return;
   }
   const DBmember = new DBMember(memberObject);
