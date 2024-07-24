@@ -53,7 +53,7 @@ export default function Page({ children }: Readonly<{ children: React.ReactNode 
         ))}
         <Button className="h-20" fullWidth variant="contained"
           onClick={async () => signOut()}>
-          🚪 Logout
+          <Typography className="ms-5"> 🚪 Logout</Typography>
         </Button>
       </Box>
       <Box className="flex flex-col grow bg-gray-100 p-5">

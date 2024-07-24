@@ -43,6 +43,7 @@ export async function createMatch(data: MatchType): Promise<void> {
     console.log("Match créé avec succès:", newDBMatch);
   } catch (error) {
     console.error("Erreur lors de la création du match:", error);
+    throw new Error("Erreur lors de la création du match");
   }
 }
 
