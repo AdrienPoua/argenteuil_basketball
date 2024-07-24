@@ -18,7 +18,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import TypingEffect from "@/components/TypingEffect";
 import { DBMemberType } from "@/utils/types";
-import { createPortal } from "react-dom";
 
 
 export default function MyModal() {
@@ -27,7 +26,7 @@ export default function MyModal() {
   useEffect(() => {
     setOpen(false);
   }, [pathname, setOpen]);
-  return createPortal(
+  return (
     <Modal
       open={open}
       onClose={() => setOpen(false)}
@@ -42,7 +41,7 @@ export default function MyModal() {
           {content}
         </Paper>
       </Box>
-    </Modal>, document.body
+    </Modal>
   );
 }
 
@@ -114,7 +113,7 @@ export function PermanencesContent() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {permanence.slots.map((slot : any) => (
+            {permanence.slots.map((slot: any) => (
               <TableRow key={slot.day}>
                 <TableCell>
                   <Typography className="text-center text-xs md:text-base">{slot.day}</Typography>
@@ -307,7 +306,7 @@ export function ValidationContent() {
 }
 
 interface EmailMemberContentProps {
-  members: DBMemberType [];
+  members: DBMemberType[];
 }
 
 export const EmailMemberContent = ({ members }: EmailMemberContentProps) => {
