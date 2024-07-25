@@ -1,5 +1,6 @@
 import { MatchType } from "@/utils/types";
 import Utils from "@/utils/models/Utils";
+import clubEmail from "@/data/clubsEmail.json";
 
 const MONTH_ORDER: string[] = [
   "Janvier",
@@ -25,7 +26,7 @@ export default class Match {
   private _gym: string;
   private _update: boolean;
   constructor(data: MatchType) {
-    this._division = data.Division; 
+    this._division = data.Division;
     this._matchNumber = data["N° de match "];
     this._teamA = data["Equipe 1"];
     this._teamB = data["Equipe 2"];
@@ -37,7 +38,7 @@ export default class Match {
   get division(): string {
     return this._division;
   }
-  get home(): boolean {
+  get isHome(): boolean {
     return this._teamA.includes("ARGENTEUIL");
   }
 
@@ -47,6 +48,13 @@ export default class Match {
 
   get isUpdate(): boolean {
     return this._update;
+  }
+
+  get correspondant(): string {
+    return (
+      clubEmail.find(({ club }) => (this.isHome ? this.teamB.toLowerCase().includes(club.toLowerCase()) : this.teamB.toLowerCase().includes(club)))
+        ?.email ?? "Email introuvable, changez les données dans clubsEmail.json"
+    );
   }
 
   get teamA(): string {
@@ -80,7 +88,6 @@ export default class Match {
     return formatedDate.getDate();
   }
 
-  
   toObject() {
     return {
       division: this.division,
@@ -90,10 +97,9 @@ export default class Match {
       date: this.date,
       time: this.time,
       gym: this.gym,
-      update: this.isUpdate
+      update: this.isUpdate,
     };
   }
-
 
   static groupByMonth(matchs: Match[]): { [key: string]: Match[] } {
     const groupedMatchs: { [key: string]: Match[] } = {};

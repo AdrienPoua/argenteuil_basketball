@@ -7,10 +7,9 @@ import Typography from "@mui/material/Typography";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import { club, permanence, documents } from "@/utils/services/dataProcessing";
-import { Utils } from "@/utils/models";
+import { Utils, Match } from "@/utils/models";
 import { Table, TableBody, TableHead, TableRow, TableCell, TableContainer, Paper } from "@mui/material";
 import EastIcon from "@mui/icons-material/East";
-import { sendEmail } from "@/utils/serverActions";
 import Image from "next/image";
 import { useRef, useEffect, useState, SetStateAction } from "react";
 import { DownloadButton, ModalButton } from "./Buttons";
@@ -18,6 +17,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import TypingEffect from "@/components/TypingEffect";
 import { DBMemberType } from "@/utils/types";
+import { sendEmail } from "@/utils/serverActions";
+import ClubsData from "@/data/clubsEmail.json";
+import { SentMessageInfo } from "nodemailer";
 
 
 export default function MyModal() {
@@ -312,7 +314,7 @@ interface EmailMemberContentProps {
 export const EmailMemberContent = ({ members }: EmailMemberContentProps) => {
   const [content, setContent] = useState("");
   const [subject, setSubject] = useState("");
-  const [result, setResult] = useState<number | { success: boolean; message: string; error?: unknown }>();
+  const [result, setResult] = useState<SentMessageInfo | null>(null);
   const [disabled, setDisabled] = useState(false);
   const emails: string = members.map((member) => member.email).join(", ");
 
@@ -324,23 +326,21 @@ export const EmailMemberContent = ({ members }: EmailMemberContentProps) => {
     setSubject(event.target.value);
   };
 
-  const handleSubmit = async (e: { preventDefault: () => void; }) => {
+  const handleSubmit = async (e: { preventDefault: () => void; }): Promise<SentMessageInfo> => {
     e.preventDefault();
     try {
       setDisabled(true);
-      const res = await sendEmail(emails, subject, content);
+      const res = await sendEmail({ subject, text: content, bcc: emails });
       setResult(res);
-      if (res.success) {
-        setDisabled(false);
-      }
     } catch (error) {
       console.error("Erreur lors de l'envoi de l'email:", error);
-      setResult({ success: false, message: "Erreur lors de l'envoi de l'email", error });
+    } finally {
+      setDisabled(false);
     }
   };
 
   return (
-    <Box className="bg-red-500 min-h-[500px] aspect-square p-4">
+    <Box className="bg-red-500  min-size-96  min-w-[500px] p-4">
       {!result ? (
         <Box className="flex flex-col justify-center items-center gap-5 grow">
           <TextField
@@ -369,4 +369,9 @@ export const EmailMemberContent = ({ members }: EmailMemberContentProps) => {
       )}
     </Box>
   );
+};
+
+type ConvocationContentProps = {
+  match: Match;
+  content: { sujet: string; message: string };
 };

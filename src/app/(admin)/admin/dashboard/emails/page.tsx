@@ -1,15 +1,16 @@
 "use client";
 import { useState, useEffect } from "react";
 import { DataGrid, GridColDef, GridRowSelectionModel } from "@mui/x-data-grid";
-import { Toolbar, Button, Box, InputLabel, MenuItem, Select } from "@mui/material";
+import { Toolbar, Button, Box } from "@mui/material";
 import { useModal } from "@/utils/contexts/Modal";
 import { EmailMemberContent } from "@/components/Modal";
-import categories from "@/data/categories.json";
 import { getMembers } from "@/lib/mongo/controllers/members";
 import { DBMemberType } from "@/utils/types";
 import { useQuery } from "react-query";
 import { DBMemberSchema } from "@/lib/zod";
 import { ValidateWithZod } from "@/utils/services/dataProcessing";
+import  SelectCategory  from "./SelectCategory";
+import  SelectYear  from "./SelectYear";
 
 
 // Define the columns for the DataGrid
@@ -21,7 +22,6 @@ const columns: GridColDef[] = [
 ];
 
 
-// Main Component
 export default function Index() {
   const [allMembers, setAllMembers] = useState<DBMemberType[]>([]);
   const [filteredMembers, setFilteredMembers] = useState<DBMemberType[]>([]);
@@ -43,21 +43,6 @@ export default function Index() {
     }
   }, [data]);
 
-  const handleCategoryChange = (event: { target: { value: any } }) => {
-    const category = event.target.value;
-    setSelectedCategory(category);
-    if (category === "All") {
-      setFilteredMembers(allMembers.filter((member) => member.year === selectedYear));
-    } else {
-      setFilteredMembers(allMembers.filter((member) => category.includes(member.categorie) && member.year === selectedYear));
-    }
-  };
-
-  const handleYearChange = (event: { target: { value: any } }) => {
-    const year = event.target.value;
-    setSelectedYear(year);
-    setFilteredMembers(allMembers.filter((member) => member.year === year));
-  };
 
   const handleSelectionModelChange = (ids: GridRowSelectionModel) => {
     const selectedMembers = allMembers.filter((member) => ids.find((id) => id === member._id.toString()))
@@ -67,28 +52,8 @@ export default function Index() {
   return (
     <div className='text-black'>
       <Toolbar className="flex flex-col items-center justify-center">
-        <InputLabel className="text-black">Category</InputLabel>
-        <Select
-          className="text-black w-full mb-10"
-          value={selectedCategory}
-          onChange={handleCategoryChange}
-          label="Category"
-        >
-          <MenuItem className="text-black" value="All">All</MenuItem>
-          {categories.map(({ division }) => (
-            <MenuItem className="text-black" value={division} key={division}>{division}</MenuItem>
-          ))}
-        </Select>
-        <InputLabel className="text-black">Year</InputLabel>
-        <Select
-          className="text-black w-full mb-10"
-          value={selectedYear}
-          onChange={handleYearChange}
-          label="Year"
-        >
-          <MenuItem className="text-black" value="2023">2023</MenuItem>
-          <MenuItem className="text-black" value="2024">2024</MenuItem>
-        </Select>
+        <SelectCategory setFilteredMembers={setFilteredMembers} allMembers={allMembers} selectedYear={selectedYear} setSelectedCategory={setSelectedCategory} selectedCategory={selectedCategory} />
+        <SelectYear selectedYear={selectedYear} setSelectedYear={setSelectedYear} allMembers={allMembers} setFilteredMembers={setFilteredMembers} />
         <Button
           variant="contained"
           color="primary"

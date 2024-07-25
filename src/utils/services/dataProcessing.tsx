@@ -4,11 +4,10 @@ import gymsData from "@/data/gyms.json";
 import documentsData from "@/data/documents.json";
 import FAQdata from "@/data/faq.json";
 import clubData from "@/data/club.json";
-import matchsData from "@/data/matchs.json";
 import permanencesData from "@/data/permanences.json";
 import { Leadership, Team, Gym, Document, FAQ, Club, Permanences } from "@/utils/models";
 import { ZodSchema, ZodError } from 'zod';
-import { GymSchema, LeadershipSchema, PermanencesSchema, TeamSchema, DocumentSchema, ClubSchema, FAQSchema, MatchSchema } from "@/lib/zod";
+import { GymSchema, LeadershipSchema, PermanencesSchema, TeamSchema, DocumentSchema, ClubSchema, FAQSchema } from "@/lib/zod";
 
 // This is a data processing file that imports data from JSON files and processes it into instances of classes defined in the models folder.
 // The data is then exported to be used in the application.
@@ -41,7 +40,6 @@ function checkAllData() {
   ValidateWithZod(FAQdata, FAQSchema)
   ValidateWithZod(clubData, ClubSchema)
   ValidateWithZod(permanencesData, PermanencesSchema)
-  ValidateWithZod(matchsData, MatchSchema)
 }
 checkAllData();
 

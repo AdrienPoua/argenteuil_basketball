@@ -47,12 +47,14 @@ export async function createMatch(data: MatchType): Promise<void> {
   }
 }
 
-
 export async function getMatchs(): Promise<DBMatchType[]> {
   await connectDB();
   try {
     const matchs = await DBMatch.find();
-    return JSON.parse(JSON.stringify(matchs));
+    const sortedMatchs = matchs.toSorted((a, b) => {
+      return parseInt(a.matchNumber) - parseInt(b.matchNumber);
+    });
+    return JSON.parse(JSON.stringify(sortedMatchs));
   } catch (error) {
     console.error("Erreur lors de la récupération des membres:", error);
     return [];

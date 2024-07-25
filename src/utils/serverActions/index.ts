@@ -1,20 +1,29 @@
 "use server";
 import { transporter, clubEmail } from "@/lib/nodemailer";
 import { APIClubType, CompetitionType } from "@/utils/types";
+import { SentMessageInfo } from "nodemailer";
 
-export const sendEmail = async (to: string, subject: string, text: string, cc?: string) => {
+type SendEmailType = {
+  to?: string;
+  subject: string;
+  text: string;
+  bcc?: string;
+  cc?: string;
+};
+
+export const sendEmail = async (payload: SendEmailType): Promise<SentMessageInfo> => {
+  const { to, subject, text, bcc, cc } = payload;
   try {
-    await transporter.sendMail({
+    return await transporter.sendMail({
       from: clubEmail,
-      bcc: to,
       subject,
       text,
+      ...(cc && { cc }), // Inclure to seulement s'il est fourni
+      ...(to && { to }), // Inclure to seulement s'il est fourni
+      ...(bcc && { bcc }), // Inclure cci seulement s'il est fourni
     });
-    return { success: true, message: "Email envoyé avec succès" };
   } catch (error) {
-    return { success: false, message: "Erreur lors de l'envoi de l'email", error };
-  } finally {
-    transporter.close();
+    throw new Error("Erreur lors de l'envoi de l'email");
   }
 };
 

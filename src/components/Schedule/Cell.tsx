@@ -60,9 +60,9 @@ const HomeMatchCell = ({ match }: { match: Match }) => (
 export default function Cell({ match }: Readonly<{ match: Match }>) {
     if (!match || match.isExempt) {
         return <NoMatchCell />;
-    } else if (!match.home) {
+    } else if (!match.isHome) {
         return <AwayMatchCell match={match} />;
-    } else if (match.home) {
+    } else if (match.isHome) {
         return <HomeMatchCell match={match} />;
     }
     return null;

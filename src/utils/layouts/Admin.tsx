@@ -35,7 +35,12 @@ const data = [
   {
     title: "Members",
     href: "/admin/dashboard/members",
-    logo: "⚙️"
+    logo: "👥"
+  },
+  {
+    title: "Convocations",
+    href: "/admin/dashboard/convocations",
+    logo: "📅"
   }
 ];
 
@@ -56,7 +61,7 @@ export default function Page({ children }: Readonly<{ children: React.ReactNode 
           <Typography className="ms-5"> 🚪 Logout</Typography>
         </Button>
       </Box>
-      <Box className="flex flex-col grow bg-gray-100 p-5">
+      <Box className="flex flex-col grow bg-gray-100 p-5 justify-center items-center">
         {children}
       </Box>
     </Box>
