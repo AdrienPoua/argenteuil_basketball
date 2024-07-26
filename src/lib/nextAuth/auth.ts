@@ -3,7 +3,6 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 
 const { GITHUB_ID, GITHUB_SECRET, ADMIN_GITHUB_EMAIL } = process.env;
 
-
 if (!GITHUB_ID || !GITHUB_SECRET || !ADMIN_GITHUB_EMAIL) {
   throw new Error("GITHUB_ID and GITHUB_SECRET and ADMIN_GITHUB_EMAIL must be set");
 }
@@ -17,12 +16,15 @@ const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ user, account, profile }) {     
+    async signIn({ profile }) {
       return profile?.email === ADMIN_GITHUB_EMAIL;
     },
     async redirect() {
       return "/admin";
     },
+  },
+  session: {
+    strategy: "jwt",
   },
 };
 
