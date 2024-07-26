@@ -1,26 +1,30 @@
 "use client";
 import { useSession } from "next-auth/react";
-import { ReactNode, useEffect } from "react";
+import { ReactElement, ReactNode, useEffect } from "react";
 import { CircularProgress, Container, Box } from "@mui/material";
 import Info from "@/components/Info";
 import { useRouter } from "next/navigation";
 
-export default function Page({ children }: Readonly<{ children: ReactNode }>) {
+type PropsType = {
+  children: ReactNode;
+};
+export default function Index({ children }: Readonly<PropsType>): ReactElement {
   const { status } = useSession();
   const router = useRouter();
   useEffect(() => {
-    setTimeout(() => {
+    const id = setTimeout(() => {
       if (status === "unauthenticated") {
         router.push("/admin");
       }
     }, 5000);
+
+    return () => clearTimeout(id);
   }, [status, router]);
 
   if (status === "loading") {
     return (
       <Container
-        maxWidth="sm"
-        className="flex flex-col items-center justify-center h-screen size-full">
+        className="flex flex-col items-center justify-center size-full">
         <CircularProgress />
       </Container>
     );
@@ -32,12 +36,6 @@ export default function Page({ children }: Readonly<{ children: ReactNode }>) {
         <Info content="Tentative d'effraction" />
         <Info content="Telechargement de toutes les données sensibles de votre ordinateur" />
         <Box>
-          <CircularProgress />
-          <CircularProgress />
-          <CircularProgress />
-          <CircularProgress />
-          <CircularProgress />
-          <CircularProgress />
           <CircularProgress />
           <CircularProgress />
           <CircularProgress />

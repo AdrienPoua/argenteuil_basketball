@@ -1,11 +1,31 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { getServerSession } from "next-auth/next";
-import { redirect } from "next/navigation";
+import { GetServerSideProps } from "next";
 
-export default async function AdminMode({ children }: Readonly<{ children: React.ReactNode }>) {
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getServerSession();
   if (!session) {
-    redirect("/admin");
+    return {
+      redirect: {
+        destination: '/admin',
+        permanent: false,
+      },
+    };
   }
-  return <>{children}</>;
+  return {
+    props: {},
+  };
+}
+
+type PropsType = {
+  children: React.ReactNode;
+};
+
+export default function Index({ children }: Readonly<PropsType>): ReactElement {
+  return (
+    <>
+      {children}
+    </>
+  )
 }
