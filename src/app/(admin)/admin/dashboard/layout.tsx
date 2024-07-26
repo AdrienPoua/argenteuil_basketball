@@ -1,14 +1,17 @@
-import React from "react";
-import AdminLayout from "@/utils/layouts/Admin";
-import ClientSideAuth from "@/components/Auth/ClientSideAuth";
-import ServerSideAuth from "@/components/Auth/ServerSideAuth";
+import React, { ReactElement } from "react";
+import SecurisedPath from "@/lib/nextAuth/SecurisedPath";
+import Layout from "@/utils/layouts/Admin";
 
-export default function AdminMode({ children }: Readonly<{ children: React.ReactNode }>) {
+type PropsType = {
+  children: React.ReactNode;
+}
+
+export default function Index({ children }: Readonly<PropsType>): ReactElement {
   return (
-    <ClientSideAuth>
-      <ServerSideAuth>
-        <AdminLayout>{children}</AdminLayout>
-      </ServerSideAuth>
-    </ClientSideAuth>
+    <SecurisedPath>
+      <Layout>
+      {children}
+      </Layout>
+    </SecurisedPath>
   );
 }
