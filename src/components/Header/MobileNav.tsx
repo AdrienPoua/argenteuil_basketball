@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ReactElement } from "react";
 import { NavItemType, SubItemType } from "@/utils/types";
 import { Box, Button, Drawer, List, ListItem, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -10,11 +10,11 @@ import { useModal } from "@/utils/contexts/Modal";
 import { ContactContent } from "@/components/Modal";
 import Arrow from "@/components/Header/Arrow";
 
-type MobileNavProps = {
+type PropsType = {
   data: NavItemType[];
 };
 
-const MobileNav: React.FC<MobileNavProps> = ({ data }) => {
+export default function Index({ data }: Readonly<PropsType>): ReactElement {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const pathname = usePathname();
   const { setOpen, setContent } = useModal();
@@ -69,7 +69,7 @@ const MobileNav: React.FC<MobileNavProps> = ({ data }) => {
                   }
                   items={
                     <Box className="flex flex-col">
-                      {item.subItems?.map((subItem : SubItemType ) => (
+                      {item.subItems?.map((subItem: SubItemType) => (
                         <ListItem
                           key={subItem.url}
                           className="flex me-9">
@@ -104,4 +104,3 @@ const MobileNav: React.FC<MobileNavProps> = ({ data }) => {
   );
 };
 
-export default MobileNav;

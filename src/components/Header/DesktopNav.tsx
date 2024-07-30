@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { NavItemType } from "@/utils/types";
 import { Box, Button, Typography } from "@mui/material";
 import NavItem from "@/components/Header/NavItem";
@@ -7,13 +7,15 @@ import Logo from "@/components/Logo";
 import { ContactContent } from "@/components/Modal";
 import { useModal } from "@/utils/contexts/Modal";
 
-type DesktopNavProps = {
-  data: NavItemType[];
-  setActiveNav: (data: NavItemType) => void;
-  activeNav: NavItemType;
-};
 
-const DesktopNav: React.FC<DesktopNavProps> = ({ data, setActiveNav, activeNav }) => {
+type PropsType = {
+  data: NavItemType[]
+  setCurrentNav: (data: NavItemType) => void
+  currentNav: NavItemType | null
+  isHidden: boolean
+  setIsHidden: (b: boolean) => void
+}
+export default function Index({ data, setCurrentNav, currentNav, isHidden, setIsHidden }: Readonly<PropsType>): ReactElement {
   const { setOpen, setContent } = useModal();
   const handleClick = () => {
     setOpen(true);
@@ -21,7 +23,7 @@ const DesktopNav: React.FC<DesktopNavProps> = ({ data, setActiveNav, activeNav }
   };
   return (
     <>
-      <Box className="lg:flex hidden">
+      <Box className="lg:flex hidden relative">
         <Logo />
         <Box
           component="nav"
@@ -33,8 +35,9 @@ const DesktopNav: React.FC<DesktopNavProps> = ({ data, setActiveNav, activeNav }
               <NavItem
                 key={item.title}
                 data={item}
-                activeNav={activeNav}
-                setActiveNav={setActiveNav}
+                currentNav={currentNav}
+                setCurrentNav={setCurrentNav}
+                setIsHidden={setIsHidden}
               />
             ))}
           </Box>
@@ -51,9 +54,7 @@ const DesktopNav: React.FC<DesktopNavProps> = ({ data, setActiveNav, activeNav }
           </Typography>
         </Button>
       </Box>
-      <SubBar data={activeNav} />
+      <SubBar data={data} currentNav={currentNav} isHidden={isHidden} />
     </>
   );
 };
-
-export default DesktopNav;

@@ -1,49 +1,42 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactElement } from "react";
 import { NavItemType } from "@/utils/types";
 import { Box, Button, Typography } from "@mui/material";
 import Arrow from "./Arrow";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-type NavItemProps = {
+type PropsType = {
   data: NavItemType;
-  setActiveNav: (data: NavItemType) => void;
-  activeNav: NavItemType;
+  setCurrentNav: (data: NavItemType) => void;
+  currentNav: NavItemType | null;
+  setIsHidden: (b: boolean) => void;
 };
 
-const NavItem: React.FC<NavItemProps> = ({ data, setActiveNav, activeNav }) => {
-  const [open, setOpen] = useState(false);
-  const [isActive, setIsActive] = useState(false);
+export default function Index({ data, setCurrentNav, currentNav, setIsHidden }: Readonly<PropsType>) : ReactElement {
   const url = usePathname();
+  const isCurrentlySelected = currentNav?.title === data.title;
+  const isCurrentlyActive = data.url?.includes(url);
 
   const handleClick = () => {
-    setActiveNav(data);
+    setCurrentNav(data)
+    setIsHidden(false);
   };
-
-  useEffect(() => {
-    setOpen(activeNav.title === data.title);
-  }, [activeNav, data.title]);
-
-  useEffect(() => {
-    setIsActive(data.url === url);
-  }, [data.url, url]);
-
 
   return (
     <Box component="li" className="grow flex justify-center items-center">
       {!data.url ? (
         <Button className="flex grow relative px-5 py-3 tracking-wider" onClick={handleClick}>
           <Box className="flex justify-center items-center">
-            <Typography variant="body2" className={`flex text-lg ${open ? "text-primary" : ""}`}>
+            <Typography variant="body2" className={`flex text-lg ${isCurrentlySelected ? "text-primary" : ""}`}>
               {data.title}
             </Typography>
-            <Arrow open={open} />
+            <Arrow open={isCurrentlySelected} />
           </Box>
         </Button>
       ) : (
         <Link href={data.url} passHref>
           <Box className="grow flex justify-center items-center px-5 py-3">
-            <Typography variant="body2" className={`flex text-lg ${isActive ? "text-primary" : ""}`}>
+            <Typography variant="body2" className={`flex text-lg ${isCurrentlyActive ? "text-primary" : ""}`}>
               {data.title}
             </Typography>
           </Box>
@@ -53,4 +46,3 @@ const NavItem: React.FC<NavItemProps> = ({ data, setActiveNav, activeNav }) => {
   );
 };
 
-export default NavItem;

@@ -1,49 +1,31 @@
 "use client";
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, ReactElement } from "react";
 import { Box, ClickAwayListener } from "@mui/material";
 import { NavItemType } from "@/utils/types";
 import { usePathname } from "next/navigation";
 import DesktopNav from "@/components/Header/DesktopNav";
 import MobileNav from "@/components/Header/MobileNav";
+import headerData from "@/data/header.json";
 
-type HeaderProps = {
-  data: NavItemType[];
-};
 
-const Header: React.FC<HeaderProps> = ({ data }) => {
-  const [activeNav, setActiveNav] = useState<NavItemType>({ title: "", subItems: [] });
+
+export default function Index(): ReactElement {
+  const [currentNav, setCurrentNav] = useState<NavItemType | null>(null);
+  const [isHidden, setIsHidden] = useState(true);
   const headerRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
   useEffect(() => {
-    setActiveNav({ title: "", subItems: [] });
+    setCurrentNav(null);
   }, [pathname]);
 
-  useEffect(() => {
-    const handleMouseDown = (e: MouseEvent) => {
-      if (!headerRef.current) return;
-      const clickedElement = e.target as Node;
-      if (clickedElement.textContent === activeNav.title) {
-        setActiveNav({ title: "", subItems: [] });
-      }
-    };
-
-    document.addEventListener("mouseup", handleMouseDown);
-
-    return () => {
-      document.removeEventListener("mouseup", handleMouseDown);
-    };
-  }, [activeNav]);
-
-
   return (
-    <ClickAwayListener onClickAway={() => setActiveNav({ title: "", subItems: [] })}>
+    <ClickAwayListener onClickAway={() => setIsHidden(true)}>
       <Box component="header" ref={headerRef} className="flex flex-col flex-wrap px-6 py-2 bg-white" id="back-to-top-anchor">
-        <DesktopNav data={data} setActiveNav={setActiveNav} activeNav={activeNav} />
-        <MobileNav data={data}  />
+        <DesktopNav data={headerData} setCurrentNav={setCurrentNav} currentNav={currentNav} isHidden={isHidden} setIsHidden={setIsHidden} />
+        <MobileNav data={headerData} />
       </Box>
     </ClickAwayListener>
   );
 };
 
-export default Header;
