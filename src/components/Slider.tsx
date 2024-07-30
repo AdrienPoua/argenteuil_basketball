@@ -1,10 +1,10 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import Slider from "react-slick";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { useMediaQuery, useTheme, Fab } from "@mui/material";
 
-const NextArrow = (props:  any ) => {
+const NextArrow = (props:  any ) : ReactElement => {
   const { onClick } = props;
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("lg"));
@@ -19,7 +19,7 @@ const NextArrow = (props:  any ) => {
   );
 };
 
-const PrevArrow = (props: any ) => {
+const PrevArrow = (props: any ) : ReactElement => {
   const { onClick } = props;
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("lg"));
@@ -33,7 +33,11 @@ const PrevArrow = (props: any ) => {
     </Fab>
   );
 };
-export default function SimpleSlider({ children }: Readonly<{ children: React.ReactNode }>) {
+
+type PropsType = {
+  children: React.ReactNode;
+};
+export default function Index({ children }: Readonly<PropsType>) : ReactElement {
   const settings = {
     adaptiveHeight: true,
     speed: 500,

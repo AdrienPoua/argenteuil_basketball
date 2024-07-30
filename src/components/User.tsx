@@ -1,14 +1,16 @@
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
-import React from "react";
+import React, { ReactElement } from "react";
 
-type UserProps = {
-  name?: string | null;
-  email?: string | null;
-  image?: string | null;
+type PropsType = {
+  user: {
+    name: string | null;
+    email: string | null;
+    image: string | null;
+  };
 };
 
-export default function User({ user }: Readonly<{ user: UserProps }>) {
+export default function User({ user }: Readonly<PropsType>)  : ReactElement {
   const { name, email, image } = user;
   return (
     <Box className="flex">

@@ -1,20 +1,21 @@
 // SearchBar.js
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { TextField, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
-type SearchBarProps = {
+type PropsType = {
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const SearchBar = ({ value, onChange } : SearchBarProps ) => {
+export default function Index({ value, onChange }: Readonly<PropsType>): ReactElement {
   return (
     <TextField
       variant="outlined"
       value={value}
       onChange={onChange}
       className="bg-white"
+      fullWidth
       placeholder='Inserez un mot-clé'
       InputProps={{
         endAdornment: (
@@ -23,9 +24,7 @@ const SearchBar = ({ value, onChange } : SearchBarProps ) => {
           </InputAdornment>
         ),
       }}
-      fullWidth
     />
   );
 };
 
-export default SearchBar;

@@ -33,7 +33,7 @@ export const parseExcelToJson = (file: File): Promise<any[]> => {
         };
         reader.onerror = (error) => {
             console.error('FileReader onerror event triggered', error);
-            reject(error);
+            reject(new Error('Error reading file'));
         };
         reader.readAsArrayBuffer(file);
     });

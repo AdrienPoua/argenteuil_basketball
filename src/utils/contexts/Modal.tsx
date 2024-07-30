@@ -9,7 +9,7 @@ export interface ModalContextProps {
   setContent: Dispatch<SetStateAction<ReactElement>>;
 }
 
-const ModalContext = createContext<ModalContextProps | null >(null);
+const ModalContext = createContext<ModalContextProps | null>(null);
 
 export const useModal = () => {
   const context = useContext(ModalContext);
@@ -18,13 +18,11 @@ export const useModal = () => {
   }
   return context;
 }
-export const ModalProvider = ({ children }: { children: ReactNode }) => {
+
+export default function Provider({ children }: Readonly<{ children: ReactNode }>) {
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState<ReactElement>(<Box />);
-
   const value = useMemo(() => ({ open, setOpen, content, setContent }), [open, content]);
-
-
   return (
     <ModalContext.Provider value={value}>
       <Modal />

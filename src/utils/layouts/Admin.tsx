@@ -1,20 +1,7 @@
 "use client";
 import { Button, Typography, Box } from '@mui/material';
 import { signOut } from 'next-auth/react';
-
-type NavItemProps = {
-  title: string;
-  logo: string;
-  href: string;
-}
-
-const NavItem = ({ logo, title, href }: NavItemProps) => {
-  return (
-    <Button href={href} className="h-20" fullWidth variant="contained">
-      <Typography className="ms-5"> {logo} {title}</Typography>
-    </Button>
-  )
-}
+import { ReactElement } from 'react';
 
 const data = [
   {
@@ -44,17 +31,14 @@ const data = [
   }
 ];
 
-export default function Page({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function Index({ children }: Readonly<{ children: React.ReactNode }>): ReactElement {
   return (
     <Box className="flex size-full min-h-svh">
       <Box className="w-1/6 bg-primary-light flex flex-col" component="aside">
-        {data.map((item) => (
-          <NavItem
-            key={item.title}
-            title={item.title}
-            href={item.href}
-            logo={item.logo}
-          />
+        {data.map(({ href, logo, title }) => (
+          <Button key={title} href={href} className="h-20" fullWidth variant="contained">
+            <Typography className="ms-5"> {logo} {title}</Typography>
+          </Button>
         ))}
         <Button className="h-20" fullWidth variant="contained"
           onClick={async () => signOut()}>

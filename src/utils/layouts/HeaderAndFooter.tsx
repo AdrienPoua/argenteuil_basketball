@@ -1,14 +1,14 @@
 "use client";
-import React from "react";
+import React, { ReactElement } from "react";
 import { Box } from "@mui/material";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 
-export default function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function Index({ children }: Readonly<{ children: React.ReactNode }>): ReactElement {
   return (
     <>
       <Header />
-      <Box className="bg-black py-16 grow ">     
+      <Box className="bg-black py-16 grow ">
         {children}
       </Box>
       <Footer />
