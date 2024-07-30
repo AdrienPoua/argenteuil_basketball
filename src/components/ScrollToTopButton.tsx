@@ -24,10 +24,10 @@ export default function Index(): ReactElement {
   };
 
   return (
-    <Zoom in={trigger} className='z-50'>
+    <Zoom in={trigger}>
       <Box
         onClick={handleClick}
-        className="fixed bottom-4 right-4"
+        className="fixed bottom-4 right-4 z-50"
         role="go top"
       >
         <Fab color="primary" size="large" aria-label="scroll back to top">
