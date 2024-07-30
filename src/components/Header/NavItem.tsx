@@ -12,10 +12,11 @@ type PropsType = {
   setIsHidden: (b: boolean) => void;
 };
 
-export default function Index({ data, setCurrentNav, currentNav, setIsHidden }: Readonly<PropsType>) : ReactElement {
+export default function Index({ data, setCurrentNav, currentNav, setIsHidden }: Readonly<PropsType>): ReactElement {
   const url = usePathname();
   const isCurrentlySelected = currentNav?.title === data.title;
-  const isCurrentlyActive = data.url?.includes(url);
+  const isCurrentlyActive = data.url === url
+
 
   const handleClick = () => {
     setCurrentNav(data)
