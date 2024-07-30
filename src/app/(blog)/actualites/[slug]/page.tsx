@@ -18,7 +18,7 @@ export default function Index() {
   const { data } = useQuery(['post', slug], () => sanityFetch<SanityDocument>({ query: POST_QUERY(slug as string) }));
   return (
     <>
-      <Header data={headerData} />
+      <Header />
       <Container className="flex flex-col grow mb-20">
         <Box className="flex flex-col items-center w-full mb-10">
           {data && (
