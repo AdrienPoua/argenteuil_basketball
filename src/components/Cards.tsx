@@ -1,7 +1,7 @@
 "use client";
 import { v4 as uuidv4 } from "uuid";
 import { SanityDocument } from "next-sanity";
-import { useState, MouseEvent, useRef } from "react";
+import { useState, MouseEvent, useRef, ReactElement } from "react";
 import Link from "next/link";
 import { Utils, Team, Leadership, Gym } from "@/utils/models";
 import { Card, CardActionArea, CardContent, Typography, Box, CardMedia, useTheme, useMediaQuery } from "@mui/material";
@@ -14,8 +14,7 @@ import useVisibility from "@/utils/hooks/useVisibility";
 import { TrainingType } from "@/utils/types";
 
 
-type PostCardProps = { small?: boolean; sticky?: boolean, post: SanityDocument };
-export const PostCard = ({ small, sticky, post }: PostCardProps) => {
+export const PostCard = ({ small, sticky, post }: { small?: boolean; sticky?: boolean, post: SanityDocument }): ReactElement => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const { Image, title, publishedAt: date, slug } = post;
@@ -65,51 +64,45 @@ export const PostCard = ({ small, sticky, post }: PostCardProps) => {
 
 
 
-export const LeaderCard = ({ data }: { data: Leadership }) => {
+export const LeaderCard = ({ data }: { data: Leadership }): ReactElement => {
   const cardRef = useRef(null);
   const isVisible = useVisibility(cardRef);
   const animation = {
-    hidden: { filter: "blur(10px)", opacity: 0, y : 50 },
-    visible: { filter: "blur(0px)", opacity: 1, y : 0 }
+    hidden: { filter: 'blur(10px)', opacity: 0, y: 50 },
+    visible: { filter: 'blur(0px)', opacity: 1, y: 0 },
   };
+
   return (
     <motion.div
       ref={cardRef}
       initial="hidden"
-      animate={isVisible ? "visible" : "hidden"}
-      whileHover="hover"
+      animate={isVisible ? 'visible' : 'hidden'}
       variants={animation}
       transition={{ duration: 0.5 }}
       className="group"
     >
-      <Card className="flex flex-col max-h-[500px] aspect-square rounded-lg overflow-hidden">
-        <Box className="size-fit flex overflow-hidden grow">
+      <Card className="flex flex-col max-h-[500px] aspect-square rounded-3xl overflow-hidden" sx={{ bgcolor: 'transparent' }}>
+        <Box className="flex overflow-hidden grow rounded-b-3xl">
           <CardMedia
             component="img"
             image={data.img}
-            className="object-cover grow object-top  group-hover:scale-110 duration-300 transition-transform"
+            className="object-cover object-top group-hover:brightness-125 transition-transform duration-300"
             alt={data.name}
           />
         </Box>
-        <CardContent className="flex p-0 pb-0 bg-primary max-h-24">
+        <CardContent className="flex p-0 pb-0 bg-primary max-h-24 rounded-3xl overflow-hidden">
           <Box className="flex justify-center items-center gap-2 grow relative">
-            <Box className="p-5 md:p-3 flex flex-col items-center w-full rounded-md gap-1">
-              <Typography variant="h3" className="text-xs md:text-xl text-black text-nowrap">{data.name}</Typography>
+            <Box className="p-5 md:p-3 flex flex-col items-center w-full gap-1">
+              <Typography variant="h3" className="text-xs md:text-xl text-black">
+                {data.name}
+              </Typography>
               <Typography className="text-center text-xs md:text-base">
-                {data.isLeader ? data.job : data.teams?.join(" | ")}
+                {data.isLeader ? data.job : data.teams?.join(' | ')}
               </Typography>
             </Box>
             <Box className="flex h-full">
-              <ContactButton
-                icon={<EmailIcon />}
-                text={data.email}
-                available={data.isEmailDisplayed}
-              />
-              <ContactButton
-                icon={<PhoneIphone />}
-                text={data.number}
-                available={data.isNumberDisplayed}
-              />
+              <ContactButton icon={<EmailIcon />} text={data.email} available={data.isEmailDisplayed} />
+              <ContactButton icon={<PhoneIphone />} text={data.number} available={data.isNumberDisplayed} />
             </Box>
           </Box>
         </CardContent>
@@ -119,7 +112,7 @@ export const LeaderCard = ({ data }: { data: Leadership }) => {
 };
 
 
-export const TeamCard = ({ data }: { data: Team }) => {
+export const TeamCard = ({ data }: { data: Team }): ReactElement => {
   const [isClicked, setIsClicked] = useState(false);
   const handleClick = () => {
     setIsClicked(!isClicked);
@@ -210,9 +203,8 @@ export const TeamCard = ({ data }: { data: Team }) => {
   );
 };
 
-// Réglez le problème avec les icônes Leaflet
 
-export const GymCard = ({ data }: { data: Gym }) => {
+export const GymCard = ({ data }: { data: Gym }): ReactElement => {
   const [isClicked, setIsClicked] = useState(false);
 
   const handleClick = (e: MouseEvent<HTMLDivElement>) => {

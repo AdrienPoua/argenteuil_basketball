@@ -39,15 +39,7 @@ export default class Leadership implements LeadershipType {
   }
 
   get img(): string {
-    if (this._img) {
-      return this._img;
-    } else if (this.isLeader) {
-      return "/images/default/leader.avif";
-    } else if (this.isCoach) {
-      return "/images/default/coach.avif";
-    } else {
-      return "/images/default/avatar.webp";
-    }
+    return this._img ?? "/images/default/avatar.png";
   }
 
   get teams(): string[] | undefined {
