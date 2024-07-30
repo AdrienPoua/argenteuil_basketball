@@ -24,7 +24,7 @@ export default function Index(): ReactElement {
   };
 
   return (
-    <Zoom in={trigger}>
+    <Zoom in={trigger} className='z-50'>
       <Box
         onClick={handleClick}
         className="fixed bottom-4 right-4"

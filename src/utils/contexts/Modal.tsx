@@ -19,7 +19,7 @@ export const useModal = () => {
   return context;
 }
 
-export default function Provider({ children }: Readonly<{ children: ReactNode }>) {
+export function ModalProvider({ children }: Readonly<{ children: ReactNode }>) {
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState<ReactElement>(<Box />);
   const value = useMemo(() => ({ open, setOpen, content, setContent }), [open, content]);
