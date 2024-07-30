@@ -4,14 +4,14 @@ import React, { ReactElement } from "react";
 
 type PropsType = {
   user: {
-    name: string | null;
-    email: string | null;
-    image: string | null;
-  };
-};
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+  } | undefined
+}
 
-export default function User({ user }: Readonly<PropsType>)  : ReactElement {
-  const { name, email, image } = user;
+export default function User({ user }: Readonly<PropsType>): ReactElement {
+  const { name, email, image } = user ?? {};
   return (
     <Box className="flex">
       <Image
