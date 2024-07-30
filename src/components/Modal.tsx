@@ -11,14 +11,14 @@ import { Utils, Match } from "@/utils/models";
 import { Table, TableBody, TableHead, TableRow, TableCell, TableContainer, Paper } from "@mui/material";
 import EastIcon from "@mui/icons-material/East";
 import Image from "next/image";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useRef, useEffect, useState, SetStateAction } from "react";
-import { DownloadButton, ModalButton } from "./Buttons";
+import { ModalButton } from "./Buttons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import TypingEffect from "@/components/TypingEffect";
 import { DBMemberType } from "@/utils/types";
 import { sendEmail } from "@/utils/serverActions";
-import ClubsData from "@/data/clubsEmail.json";
 import { SentMessageInfo } from "nodemailer";
 
 
@@ -148,10 +148,16 @@ export function FormulaireContent() {
     <Box className="flex items-center bg-white p-12 gap-2 basis-1/2 rounded-lg">
       <Box className="flex flex-col justify-center items-center gap-10 ">
         <Typography className="text-xs md:text-base text-black"> Telechargez </Typography>
-        <DownloadButton
-          title="Formulaire"
-          url={licence}
-        />
+        <Button
+          component="a"
+          href={licence}
+          download
+          variant="contained"
+          className="w-full"
+          startIcon={<CloudUploadIcon />}
+        >
+          formulaire
+        </Button>
       </Box>
       <Box className="bg-black min-h-full py-16 px-[1px] grow flex" />
       <Box className="flex flex-col justify-center items-center gap-10 basis-1/2">

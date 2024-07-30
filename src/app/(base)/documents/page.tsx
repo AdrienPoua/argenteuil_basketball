@@ -1,7 +1,7 @@
 "use client";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { documents } from "@/utils/services/dataProcessing";
-import { DownloadButton } from "@/components/Buttons";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import H1 from "@/components/H1";
 import { MainSection } from "@/utils/layouts";
 import { motion } from "framer-motion";
@@ -32,10 +32,16 @@ export default function DocumentsPage() {
               transition={{ duration: 0.5 }}
               className="flex items-center justify-center w-full"
             >
-              <DownloadButton
-                title={document.title}
-                url={document.url}
-              />
+              <Button
+                component="a"
+                href={document.url}
+                download
+                variant="contained"
+                className="w-full"
+                endIcon={<CloudUploadIcon />}
+              >
+                {document.title}
+              </Button>
             </motion.div>
           ))}
         </Box>

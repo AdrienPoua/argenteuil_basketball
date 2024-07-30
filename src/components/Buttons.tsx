@@ -2,31 +2,10 @@
 import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useTheme } from "@mui/material/styles";
 import { useMediaQuery } from "@mui/material";
 import DoNotDisturbIcon from "@mui/icons-material/DoNotDisturb";
 import { useModal } from "@/utils/contexts/Modal";
-
-
-type DownloadButtonProps = {
-  title: string;
-  url: string;
-};
-export function DownloadButton({ title, url }: Readonly<DownloadButtonProps>) {
-  return (
-    <Button
-      component="a"
-      href={url}
-      download
-      variant="contained"
-      className="w-full"
-      startIcon={<CloudUploadIcon />}
-    >
-      {title}
-    </Button>
-  );
-}
 
 
 export const ContactButton = ({ icon, text, available }: { icon: React.ReactNode; text: string; available: boolean }) => {
@@ -74,7 +53,7 @@ export const ContactButton = ({ icon, text, available }: { icon: React.ReactNode
       component="li"
       variant="contained"
       onClick={handleClick}
-      className={`flex items-center justify-center bg-primary h-full ${!isClicked || content === <DoNotDisturbIcon /> ? " size-16 md:size-20" : "size-fit"} `}>
+      className={`flex items-center justify-center bg-primary h-full ${!isClicked || content === <DoNotDisturbIcon /> ? " size-16" : "size-fit"} `}>
       {content}
     </Button>
   );
