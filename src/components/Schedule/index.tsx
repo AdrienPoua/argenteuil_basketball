@@ -1,13 +1,14 @@
 import { Table, TableCell, TableHead, TableRow, TableBody, TableContainer, Paper } from '@mui/material'
 import { Match } from "@/utils/models"
 import Cell from './Cell'
+import { ReactElement } from 'react'
 
-type ScheduleProps = {
+type PropsType = {
     matchs: Match[]
     title: string
 }
 
-export default function Schedule({ matchs, title }: Readonly<ScheduleProps>) {
+export default function Schedule({ matchs, title }: Readonly<PropsType>): ReactElement {
     const categories = Match.getCategories(matchs)
     const weekends = Match.getWeekends(matchs)
     const width = "max-w-40 min-w-40 flex justify-center items-center"

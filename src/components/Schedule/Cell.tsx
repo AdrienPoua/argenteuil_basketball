@@ -1,11 +1,10 @@
 import { TableCell, Box, Typography, Tooltip } from '@mui/material';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Match } from "@/utils/models";
 
 const typoClass = "text-black text-center";
 
-
-const InsideCell = ({ children }: { children: React.ReactNode }) => {
+const InsideCell = ({ children }: { children: React.ReactNode }): ReactElement => {
     return (
         <TableCell className="flex flex-col justify-center items-center grow basis-1 relative bg-white">
             <Box className="size-fit">
@@ -16,7 +15,7 @@ const InsideCell = ({ children }: { children: React.ReactNode }) => {
 
 }
 
-const NoMatchCell = () => (
+const NoMatchCell = (): ReactElement => (
     <InsideCell>
         <Typography className={typoClass}> EXEMPT </Typography>
         <Tooltip title="Pas de match">
@@ -25,7 +24,7 @@ const NoMatchCell = () => (
     </InsideCell>
 );
 
-const AwayMatchCell = ({ match }: { match: Match }) => (
+const AwayMatchCell = ({ match }: { match: Match }): ReactElement => (
     <InsideCell>
         <Typography className={typoClass}> Déplacement <br /> {match.teamA} </Typography>
         <Box className="flex flex-col">
@@ -41,7 +40,7 @@ const AwayMatchCell = ({ match }: { match: Match }) => (
     </InsideCell >
 );
 
-const HomeMatchCell = ({ match }: { match: Match }) => (
+const HomeMatchCell = ({ match }: { match: Match }): ReactElement => (
     <InsideCell>
         <Typography className={typoClass}>{match.teamA.replace(/ARGENTEUIL BB/i, "ABB")} vs {match.teamB}</Typography>
         <Typography className={typoClass}>{match.date} - {match.time}</Typography>
@@ -57,7 +56,7 @@ const HomeMatchCell = ({ match }: { match: Match }) => (
     </InsideCell>
 );
 
-export default function Cell({ match }: Readonly<{ match: Match }>) {
+export default function Cell({ match }: Readonly<{ match: Match }>): ReactElement | null {
     if (!match || match.isExempt) {
         return <NoMatchCell />;
     } else if (!match.isHome) {
