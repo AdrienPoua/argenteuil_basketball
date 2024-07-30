@@ -89,7 +89,7 @@ const PostsWrapper = () => {
 export default function HomePage() {
   return (
     <>
-      <Header data={headerData} />
+      <Header />
       <Box className="bg-black">
         <HeroSection />
         <Container maxWidth="xl">

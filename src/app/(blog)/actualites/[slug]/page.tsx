@@ -4,7 +4,6 @@ import { Container, Typography, Box } from "@mui/material";
 import { Utils } from "@/utils/models";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import headerData from "@/data/header.json";
 import { SanityDocument } from "next-sanity";
 import { POST_QUERY } from "@/lib/sanity/queries";
 import { sanityFetch } from "@/lib/sanity/fetch";

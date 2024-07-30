@@ -1,14 +1,13 @@
-import { useState, useEffect, ReactNode, useRef } from "react";
+import { useState, useEffect, ReactNode, useRef, ReactElement } from "react";
 import { Box } from "@mui/material";
 import Arrow from "@/components/Header/Arrow";
 
-type DropdownProps = {
+type PropsType = {
   header: ReactNode;
   items: ReactNode;
 };
 
-
-const Dropdown = ({ header, items }: DropdownProps) => {
+export default function Index({ header, items }: Readonly<PropsType>): ReactElement {
   const [open, setOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
   const [contentHeight, setContentHeight] = useState(0);
@@ -38,5 +37,3 @@ const Dropdown = ({ header, items }: DropdownProps) => {
     </Box>
   );
 };
-
-export default Dropdown;

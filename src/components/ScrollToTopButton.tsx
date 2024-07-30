@@ -1,18 +1,19 @@
-import React from 'react';
+"use client"
+import React, { ReactElement } from 'react';
 import { Fab, Zoom, useScrollTrigger } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Box from '@mui/material/Box';
 
 const hasWindow = typeof window !== 'undefined';
 
-function ScrollTop({children} : Readonly<{ children: React.ReactNode }>) {
+export default function Index(): ReactElement {
   const trigger = useScrollTrigger({
     target: hasWindow ? window : undefined,
     disableHysteresis: true,
     threshold: 100,
   });
 
-  const handleClick = (event : React.MouseEvent<HTMLElement> ) => {
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     const anchor = document.querySelector('#back-to-top-anchor');
     if (anchor) {
       anchor.scrollIntoView({
@@ -29,19 +30,11 @@ function ScrollTop({children} : Readonly<{ children: React.ReactNode }>) {
         className="fixed bottom-4 right-4"
         role="go top"
       >
-        {children}
+        <Fab color="primary" size="large" aria-label="scroll back to top">
+          <KeyboardArrowUpIcon />
+        </Fab>
       </Box>
     </Zoom>
   );
 }
 
-export default function BackToTop() {
-
-  return (
-      <ScrollTop >
-        <Fab color="primary" size="large" aria-label="scroll back to top">
-          <KeyboardArrowUpIcon />
-        </Fab>
-      </ScrollTop>
-  );
-}
