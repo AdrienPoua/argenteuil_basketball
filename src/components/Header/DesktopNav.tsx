@@ -1,11 +1,11 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { NavItemType } from "@/utils/types";
 import { Box, Button, Typography } from "@mui/material";
 import NavItem from "@/components/Header/NavItem";
 import SubBar from "@/components/Header/SubBar";
 import Logo from "@/components/Logo";
-import { ContactContent } from "@/components/Modal";
 import { useModal } from "@/utils/contexts/Modal";
+import HeaderModal from "./Modal";
 
 
 type PropsType = {
@@ -19,7 +19,7 @@ export default function Index({ data, setCurrentNav, currentNav, isHidden, setIs
   const { setOpen, setContent } = useModal();
   const handleClick = () => {
     setOpen(true);
-    setContent(<ContactContent isMobile={false} />);
+    setContent(<HeaderModal isMobile={false} />);
   };
   return (
     <>

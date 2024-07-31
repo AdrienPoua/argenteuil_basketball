@@ -3,14 +3,14 @@ import { Box, Typography, Paper } from "@mui/material";
 import { faq } from "@/utils/services/dataProcessing";
 import { FAQ } from "@/utils/models";
 import Dropdown from "@/components/Dropdown";
-import { useState, useRef, ReactNode } from "react";
+import { useState, useRef, ReactNode, ReactElement } from "react";
 import SearchBar from "@/components/SearchBar";
 import H1 from "@/components/H1";
 import { motion } from "framer-motion";
 import useVisibility from "@/utils/hooks/useVisibility";
 import { MainSection } from "@/utils/layouts";
 
-const AnimatedDropdown = ({ children }: { children: ReactNode }) => {
+const AnimatedDropdown = ({ children }: { children: ReactNode }) : ReactElement => {
   const cardRef = useRef(null);
   const isVisible = useVisibility(cardRef);
   const animation = {
@@ -33,7 +33,7 @@ const AnimatedDropdown = ({ children }: { children: ReactNode }) => {
 }
 
 
-export default function FAQPage() {
+export default function Index() : ReactElement {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredFAQ, setFilteredFAQ] = useState<FAQ[]>(faq);
 

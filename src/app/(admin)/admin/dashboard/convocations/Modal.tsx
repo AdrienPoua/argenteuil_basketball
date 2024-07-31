@@ -10,7 +10,6 @@ type PropsType = {
     email: { sujet: string, message: string }
 }
 
-
 export default function Index({ matchs, email }: Readonly<PropsType>): ReactElement {
     const [result, setResult] = useState<SentMessageInfo | null>(null);
     const [disabled, setDisabled] = useState(false);
@@ -21,7 +20,7 @@ export default function Index({ matchs, email }: Readonly<PropsType>): ReactElem
         const text = email.message;
         try {
             setDisabled(true);
-            const res = await sendEmail({ to, subject, text, bcc : "convocation@basket95.com" });
+            const res = await sendEmail({ to, subject, text, bcc: "convocation@basket95.com" });
             console.log(res)
             setResult(res);
         } catch (error) {
@@ -58,7 +57,6 @@ export default function Index({ matchs, email }: Readonly<PropsType>): ReactElem
             </Box>
         );
     }
-
 
     return (
         <Box className="min-size-96 p-20 gap-5 flex flex-col justify-center items-center bg-white">
