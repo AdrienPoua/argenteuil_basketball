@@ -7,8 +7,8 @@ import Dropdown from "@/components/Dropdown";
 import Logo from "@/components/Logo";
 import { usePathname } from "next/navigation";
 import { useModal } from "@/utils/contexts/Modal";
-import { ContactContent } from "@/components/Modal";
 import Arrow from "@/components/Header/Arrow";
+import HeaderModal from "./Modal";
 
 type PropsType = {
   data: NavItemType[];
@@ -20,7 +20,7 @@ export default function Index({ data }: Readonly<PropsType>): ReactElement {
   const { setOpen, setContent } = useModal();
   const handleClick = () => {
     setOpen(true);
-    setContent(<ContactContent isMobile={true} />);
+    setContent(<HeaderModal isMobile={true} />);
   };
 
   useEffect(() => {

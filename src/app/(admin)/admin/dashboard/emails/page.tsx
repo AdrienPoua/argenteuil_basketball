@@ -3,14 +3,14 @@ import { useState, useEffect } from "react";
 import { DataGrid, GridColDef, GridRowSelectionModel } from "@mui/x-data-grid";
 import { Toolbar, Button, Box } from "@mui/material";
 import { useModal } from "@/utils/contexts/Modal";
-import { EmailMemberContent } from "@/components/Modal";
 import { getMembers } from "@/lib/mongo/controllers/members";
 import { DBMemberType } from "@/utils/types";
 import { useQuery } from "react-query";
 import { DBMemberSchema } from "@/lib/zod";
 import { ValidateWithZod } from "@/utils/services/dataProcessing";
-import  SelectCategory  from "./SelectCategory";
-import  SelectYear  from "./SelectYear";
+import SelectCategory from "./SelectCategory";
+import SelectYear from "./SelectYear";
+import Modal from "./Modal";
 
 
 // Define the columns for the DataGrid
@@ -46,7 +46,7 @@ export default function Index() {
 
   const handleSelectionModelChange = (ids: GridRowSelectionModel) => {
     const selectedMembers = allMembers.filter((member) => ids.find((id) => id === member._id.toString()))
-    setContent(<EmailMemberContent members={selectedMembers} />);
+    setContent(<Modal members={selectedMembers} />);
   };
 
   return (

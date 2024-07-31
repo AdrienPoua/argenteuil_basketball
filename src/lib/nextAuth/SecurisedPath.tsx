@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 import ClientSideAuth from './ClientSideAuth';
 import { getServerSideProps } from './ServerSideAuth';
 
+
 type PropsType = {
     children: React.ReactNode;
 }

@@ -7,13 +7,8 @@ type PropsType = {
     children: React.ReactNode;
 };
 
-export default function Index({ children }: Readonly<PropsType>): null | ReactElement {
+export default function Index({ children }: Readonly<PropsType>): ReactElement {
     const { data: clientSession, status } = useSession();
-
-    // Si le composant est rendu côté serveur, retourner null
-    if (typeof window === "undefined") {
-        return null;
-    }
 
     if (status === "loading") {
         return (
