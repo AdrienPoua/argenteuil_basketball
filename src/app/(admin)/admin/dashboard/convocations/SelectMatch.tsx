@@ -15,7 +15,6 @@ export default function Index({ matchs, setSelectedMatch }: Readonly<PropsType>)
         value: Match[],
         reason: AutocompleteChangeReason
     ) => {
-        console.log(value)
         setSelectedMatch(value);
     };
     return (

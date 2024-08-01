@@ -80,7 +80,6 @@ export default function EmailForm({ members }: Readonly<PropsType>): ReactElemen
                     Soumettre
                 </Button>
             </Box>
-            )
         </Box>
     );
 }

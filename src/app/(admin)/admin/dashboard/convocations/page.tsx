@@ -36,7 +36,7 @@ export default function Index(): ReactElement {
     return (
         <Box className="w-full justify-center">
             <SelectMatch matchs={matchs} setSelectedMatch={setSelectedMatch} />
-            <Preview selectedMatch={selectedMatch} matchs={matchs} />
+            <Preview selectedMatch={selectedMatch} setSelectedMatch={setSelectedMatch} matchs={matchs}  />
         </Box>
     );
 }

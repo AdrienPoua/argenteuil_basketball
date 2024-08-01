@@ -28,22 +28,24 @@ const data = [
     title: "Convocations",
     href: "/admin/dashboard/convocations",
     logo: "📅"
-  }
+  },
+  {
+    title: "Logout",
+    logo: "🚪",
+    serverAction: async (): Promise<void> => signOut()
+  },
 ];
 
 export default function Index({ children }: Readonly<{ children: React.ReactNode }>): ReactElement {
   return (
     <Box className="flex size-full min-h-svh">
-      <Box className="w-1/6 bg-primary-light flex flex-col" component="aside">
-        {data.map(({ href, logo, title }) => (
-          <Button key={title} href={href} className="h-20" fullWidth variant="contained">
-            <Typography className="ms-5"> {logo} {title}</Typography>
+      <Box className=" bg-gray-100 flex flex-col w-48 h-svh" component="aside">
+        {data.map(({ href, logo, title, serverAction }) => (
+          <Button onClick={serverAction} key={title} href={href} className='flex gap-5 items-center py-5 group rounded-none  w-fit' variant="contained">
+            <Typography className="text-5xl min-w-20">{logo}</Typography>
+            <Typography className="hidden group-hover:flex">{title}</Typography>
           </Button>
         ))}
-        <Button className="h-20" fullWidth variant="contained"
-          onClick={async () => signOut()}>
-          <Typography className="ms-5"> 🚪 Logout</Typography>
-        </Button>
       </Box>
       <Box className="flex flex-col grow bg-gray-100 p-5 justify-center items-center">
         {children}

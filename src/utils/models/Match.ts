@@ -51,10 +51,9 @@ export default class Match {
   }
 
   get correspondant(): string {
-    return (
-      clubEmail.find(({ club }) => (this.isHome ? this.teamB.toLowerCase().includes(club.toLowerCase()) : this.teamB.toLowerCase().includes(club)))
-        ?.email ?? "Email introuvable, changez les données dans clubsEmail.json"
-    );
+    const him = this.isHome ? this.teamB.toLowerCase() : this.teamA.toLowerCase();
+    const club = clubEmail.find(({ club }) => him.includes(club.toLowerCase()))
+    return club?.email ?? "Email non trouvé";
   }
 
   get teamA(): string {

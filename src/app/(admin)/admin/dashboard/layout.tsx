@@ -10,7 +10,7 @@ export default function Index({ children }: Readonly<PropsType>): ReactElement {
   return (
     <SecurisedPath>
       <Layout>
-      {children}
+        {children}
       </Layout>
     </SecurisedPath>
   );

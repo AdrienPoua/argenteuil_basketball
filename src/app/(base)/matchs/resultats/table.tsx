@@ -29,7 +29,7 @@ export default function ClassementTable({ data }: Readonly<TableProps>): JSX.Ele
                   className="w-[1%] whitespace-nowrap font-bold">
                   {row.rank}
                 </TableCell>
-                <TableCell className={`${isABB && "text-primary"}`}>{row.name}</TableCell> :
+                <TableCell>{row.name}</TableCell>
                 <TableCell>{Ranking.getPts(row)}</TableCell>
                 <TableCell>{Ranking.getJo(row)}</TableCell>
                 <TableCell>{Ranking.getG(row)}</TableCell>

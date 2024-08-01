@@ -2,7 +2,6 @@
 import { Box, Container, Typography, Grid } from "@mui/material";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import headerData from "@/data/header.json";
 import { SanityDocument } from "next-sanity";
 import { sanityFetch } from "@/lib/sanity/fetch";
 import { POST_HOME_LEFT_QUERY, POST_HOME_RIGHT_QUERY } from "@/lib/sanity/queries";
