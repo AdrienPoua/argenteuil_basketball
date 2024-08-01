@@ -5,22 +5,24 @@ import { SentMessageInfo } from "nodemailer";
 
 type SendEmailType = {
   to?: string;
-  subject: string;
-  text: string;
+  subject?: string;
+  text?: string;
   bcc?: string;
   cc?: string;
+  html?: string;
 };
 
 export const sendEmail = async (payload: SendEmailType): Promise<SentMessageInfo> => {
-  const { to, subject, text, bcc, cc } = payload;
+  const { to, subject, text, bcc, cc, html } = payload;
   try {
     return await transporter.sendMail({
       from: clubEmail,
-      subject,
-      text,
+      ...(subject && { subject }), // Inclure subject seulement s'il est fourni
+      ...(text && { text }), // Inclure text seulement s'il est fourni
       ...(cc && { cc }), // Inclure to seulement s'il est fourni
       ...(to && { to }), // Inclure to seulement s'il est fourni
       ...(bcc && { bcc }), // Inclure cci seulement s'il est fourni
+      ...(html && { html }), // Inclure html seulement s'il est fourni
     });
   } catch (error) {
     throw new Error("Erreur lors de l'envoi de l'email");

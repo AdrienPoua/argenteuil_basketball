@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ReactElement } from "react";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useTheme } from "@mui/material/styles";
@@ -8,7 +8,7 @@ import DoNotDisturbIcon from "@mui/icons-material/DoNotDisturb";
 import { useModal } from "@/utils/contexts/Modal";
 
 
-export const ContactButton = ({ icon, text, available }: { icon: React.ReactNode; text: string; available: boolean }) => {
+export const ContactButton = ({ icon, text, available }: { icon: React.ReactNode; text: string; available: boolean }): ReactElement => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [isClicked, setIsClicked] = useState(false);

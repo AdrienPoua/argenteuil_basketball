@@ -1,45 +1,59 @@
-"use client"
+"use client";
+
 import { Match } from "@/utils/models";
 import { Box, Typography, Button, CircularProgress } from "@mui/material";
 import { useState, ReactElement } from "react";
-import { SentMessageInfo } from "nodemailer";
 import { sendEmail } from "@/utils/serverActions";
+import { Convocation } from '@/lib/react-email/templates';
+import { render } from '@react-email/components';
 
 type PropsType = {
-    matchs: Match[]
-    email: { sujet: string, message: string }
+    matchs: Match[],
+    email: { sujet: string, message: string },
+    isChecked: boolean,
+    setSelectedMatch: (match: Match[]) => void
 }
 
-export default function Index({ matchs, email }: Readonly<PropsType>): ReactElement {
-    const [result, setResult] = useState<SentMessageInfo | null>(null);
+export default function Index({ matchs, isChecked, setSelectedMatch }: Readonly<PropsType>): ReactElement {
     const [disabled, setDisabled] = useState(false);
+    const [res, setRes] = useState<{ rejected: string[]; accepted: string[] }>({ rejected: [], accepted: [] });
+    const sent = res.accepted.length > 0 || res.rejected.length > 0
+    const someReject = res.rejected.length > 0
 
     const handleClick = async () => {
-        const to = matchs.length === 1 ? matchs[0].correspondant : undefined
-        const subject = email.sujet
-        const text = email.message;
         try {
             setDisabled(true);
-            const res = await sendEmail({ to, subject, text, bcc: "convocation@basket95.com" });
-            console.log(res)
-            setResult(res);
+            await Promise.all(
+                matchs.map(async (match) => {
+                    const html = render(<Convocation match={match} isModif={isChecked} />);
+                    const { correspondant, matchNumber } = match;
+                    const subject = `Convocation pour le match n°${matchNumber} en ${match.division}`;
+                    const res = await sendEmail({ to: correspondant, subject, html });
+                    setRes((prev) => ({
+                        rejected: [...prev.rejected, ...res.rejected],
+                        accepted: [...prev.accepted, ...res.accepted],
+                    }))
+                })
+            );
         } catch (error) {
             console.error("Erreur lors de l'envoi de l'email:", error);
         } finally {
             setDisabled(false);
+            setSelectedMatch([]);
         }
-    }
+    };
 
-    if (result) {
+    if (sent) {
         return (
             <Box className="min-size-96 p-20 gap-5 flex flex-col justify-center items-center bg-white">
-                {result.rejected.length === 0 ? (
-                    <Typography className="text-black mb-1"> Tous les emails sont bien partis. </Typography>) : (
+                { !someReject ? (
+                    <Typography className="text-black mb-1">Tous les emails sont bien partis.</Typography>
+                ) : (
                     <Box>
                         <Typography className="text-black mb-1">
                             Les correspondants suivants ont bien reçu l&apos;email :
                         </Typography>
-                        {result.accepted.map((email: string) => (
+                        {res.accepted.map((email: string) => (
                             <Typography key={email} className="text-black">
                                 {email}
                             </Typography>
@@ -47,7 +61,7 @@ export default function Index({ matchs, email }: Readonly<PropsType>): ReactElem
                         <Typography className="text-black mt-5">
                             Les correspondants suivants n&apos;ont pas reçu l&apos;email :
                         </Typography>
-                        {result.rejected.map((email: string) => (
+                        {res.rejected.map((email: string) => (
                             <Typography key={email} className="text-black">
                                 {email}
                             </Typography>
@@ -60,10 +74,17 @@ export default function Index({ matchs, email }: Readonly<PropsType>): ReactElem
 
     return (
         <Box className="min-size-96 p-20 gap-5 flex flex-col justify-center items-center bg-white">
-            <Typography className="text-black" > Vous vous appretez a envoyer une convocation aux adresse suivantes : </Typography>
-            {!disabled && matchs.map((match) => <Typography className="text-black" key={match.matchNumber}>{match.correspondant}</Typography>)}
-            {!disabled ? <Button variant="contained" onClick={handleClick}> Oui je suis sur </Button> : <CircularProgress />}
+            <Typography className="text-black">Vous vous apprêtez à envoyer une convocation aux adresses suivantes :</Typography>
+            {!disabled && matchs.map((match) => (
+                <Typography className="text-black" key={match.matchNumber}>{match.correspondant}</Typography>
+            ))}
+            {!disabled ? (
+                <Button variant="contained" onClick={handleClick}>
+                    Oui, je suis sûr
+                </Button>
+            ) : (
+                <CircularProgress />
+            )}
         </Box>
-    )
+    );
 }
-
