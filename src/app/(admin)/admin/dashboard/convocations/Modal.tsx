@@ -9,7 +9,6 @@ import { render } from '@react-email/components';
 
 type PropsType = {
     matchs: Match[],
-    email: { sujet: string, message: string },
     isChecked: boolean,
     setSelectedMatch: (match: Match[]) => void
 }
@@ -20,7 +19,7 @@ export default function Index({ matchs, isChecked, setSelectedMatch }: Readonly<
     const sent = res.accepted.length > 0 || res.rejected.length > 0
     const someReject = res.rejected.length > 0
 
-    const handleClick = async () => {
+    const handleClick = async () : Promise<void> => {
         try {
             setDisabled(true);
             await Promise.all(
@@ -46,7 +45,7 @@ export default function Index({ matchs, isChecked, setSelectedMatch }: Readonly<
     if (sent) {
         return (
             <Box className="min-size-96 p-20 gap-5 flex flex-col justify-center items-center bg-white">
-                { !someReject ? (
+                {!someReject ? (
                     <Typography className="text-black mb-1">Tous les emails sont bien partis.</Typography>
                 ) : (
                     <Box>

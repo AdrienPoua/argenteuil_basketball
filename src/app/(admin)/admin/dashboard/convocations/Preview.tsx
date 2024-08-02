@@ -12,15 +12,15 @@ type PropsType = {
     setSelectedMatch: (match: Match[]) => void;
 };
 
-
-
 export default function Index({ selectedMatch, setSelectedMatch }: Readonly<PropsType>) {
-    const emptyMessage = { sujet: '', message: '' };
-    const [value, setValue] = useState<{ sujet: string; message: string }>(emptyMessage);
     const [isChecked, setIsChecked] = useState<boolean>(false);
     const { setOpen, setContent } = useModal();
-
-
+    const isSelectedMatch = selectedMatch.length > 0;
+    const isMultipleMatch = selectedMatch.length > 1;
+    const handleClick = () => {
+        setOpen(true);
+        setContent(<Modal matchs={selectedMatch} isChecked={isChecked} setSelectedMatch={setSelectedMatch} />);
+    };
 
     return (
         <Box component='form' className="flex flex-col justify-center items-center gap-5 grow">
@@ -30,11 +30,11 @@ export default function Index({ selectedMatch, setSelectedMatch }: Readonly<Prop
                     Cette convocation est une convocation modificative
                 </Typography>
             </Box>
-            {selectedMatch.length > 0 && <Convocation match={selectedMatch[0]} isModif={isChecked} isExemple={selectedMatch.length > 1} />}
-            <Button variant="contained" color="primary" onClick={() => { setOpen(true); setContent(<Modal matchs={selectedMatch} email={value} isChecked={isChecked} setSelectedMatch={setSelectedMatch} />) }} disabled={!selectedMatch.length}>
+            {isSelectedMatch && <Convocation match={selectedMatch[0]} isModif={isChecked} isExemple={isMultipleMatch} />}
+            <Button variant="contained" color="primary" onClick={handleClick} disabled={!isSelectedMatch}>
                 Envoyer
             </Button>
-        </Box>
+        </Box >
     );
 }
 
