@@ -1,11 +1,10 @@
 import { ReactElement } from 'react';
-import { Container, Tailwind, Text, Section, Heading, Link } from '@react-email/components';
+import { Text, Section, Heading, Link } from '@react-email/components';
 import { Match } from '@/utils/models';
-import config from '@/../tailwind.config';
 import { gyms } from "@/utils/services/dataProcessing";
+import Layout from './Layout';
 
-
-type PropsType = {
+export type PropsType = {
     match: Match
     isModif: boolean
     isExemple?: boolean
@@ -14,24 +13,20 @@ type PropsType = {
 
 export default function Index({ match, isModif, isExemple }: Readonly<PropsType>): ReactElement {
     return (
-        <Tailwind
-            config={config}
-        >
-            <Container className="bg-primary p-10">
-                <div className="flex flex-col " style={{ padding: "60px" }}>
-                    <Header />
-                    <Body match={match} isExemple={isExemple} />
-                    <Signature />
-                </div>
-            </Container>
-        </Tailwind>
+        <Layout>
+            <>
+                <Header isModif={isModif} />
+                <Body match={match} isExemple={isExemple} />
+                <Signature />
+            </>
+        </Layout>
     )
 }
 
-const Header = (): ReactElement => {
+const Header = ({ isModif }: { isModif: boolean }): ReactElement => {
     return (
         <Section >
-            <Heading className="text-black text-center">  Convocation </Heading>
+            <Heading className="text-black text-center">  Convocation {isModif && "modificative"} </Heading>
         </Section>
     )
 }

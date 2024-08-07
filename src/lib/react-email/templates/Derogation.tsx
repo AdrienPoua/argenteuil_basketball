@@ -1,11 +1,11 @@
 import { ReactElement } from 'react';
-import { Container, Tailwind, Text, Section, Heading, Hr, Link } from '@react-email/components';
+import { Text, Section, Heading, Hr, Link } from '@react-email/components';
 import { Leadership, Match } from '@/utils/models';
-import config from '@/../tailwind.config';
 import { leadership } from "@/utils/services/dataProcessing";
+import Layout from './Layout';
 
 
-type PropsType = {
+export type PropsType = {
     match: Match,
     reason: string,
     proposition: string,
@@ -14,19 +14,14 @@ type PropsType = {
 
 export default function Index({ match, reason, proposition }: Readonly<PropsType>): ReactElement {
     const coach = leadership.find((coach) => coach.teams?.includes(match.division))
-
     return (
-        <Tailwind
-            config={config}
-        >
-            <Container className="bg-primary p-10">
-                <div className="flex flex-col " style={{ padding: "60px" }}>
-                    <Header />
-                    <Body match={match} reason={reason} proposition={proposition} coach={coach} />
-                    <Signature />
-                </div>
-            </Container>
-        </Tailwind>
+        <Layout>
+            <>
+                <Header />
+                <Body match={match} reason={reason} proposition={proposition} coach={coach} />
+                <Signature />
+            </>
+        </Layout>
     )
 }
 
