@@ -6,7 +6,7 @@ import Slider from "@/components/Slider";
 import dynamic from 'next/dynamic';
 import H1 from '@/components/H1';
 import { MainSection } from "@/utils/layouts";
-
+import { Team } from "@/utils/models";
 
 // Dynamically import the LeaderCard component
 const TeamCard = dynamic(() =>
@@ -15,22 +15,11 @@ const TeamCard = dynamic(() =>
 );
 
 export default function TeamPage() {
-  const [selectedTeamName, setSelectedTeamName] = useState<string | null>(null);
-  const [filteredTeams, setFilteredTeams] = useState(teams);
-
-  useEffect(() => {
-    if (selectedTeamName) {
-      const filtered = teams.filter((team) => team.name === selectedTeamName);
-      setFilteredTeams(filtered);
-    } else {
-      setFilteredTeams(teams);
-    }
-  }, [selectedTeamName]);
-
-  const handleTeamSelection = (teamName: string | null) => {
-    setSelectedTeamName(teamName);
+  const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
+  const filteredTeams = teams.filter((team) => selectedTeam === null || team.name === selectedTeam?.name);
+  const handleClick = (team: Team | null) => {
+    setSelectedTeam(team);
   };
-
   return (
     <>
       <H1>Nos équipes 2024-2025</H1>
@@ -39,16 +28,16 @@ export default function TeamPage() {
           <Button
             size="large"
             variant="contained"
-            onClick={() => handleTeamSelection(null)}>
+            onClick={() => handleClick(null)}>
             Toutes les équipes
           </Button>
           <Slider>
             {teams.map((team) => (
               <Button
                 className="flex whitespace-nowrap"
-                variant={team.name === selectedTeamName ? "contained" : "outlined"}
+                variant={team.name === selectedTeam?.name ? "contained" : "outlined"}
                 key={team.id}
-                onClick={() => handleTeamSelection(team.name)}>
+                onClick={() => handleClick(team)}>
                 {team.name}
               </Button>
             ))}
