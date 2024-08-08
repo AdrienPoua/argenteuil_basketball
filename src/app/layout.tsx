@@ -9,6 +9,8 @@ import { ModalProvider } from "@/utils/contexts/Modal";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 import App from "./App";
 import "./globals.css";
+import store from "@/lib/redux/store";
+import { Provider as ReduxProvider } from "react-redux";
 
 const queryClient = new QueryClient();
 
@@ -19,19 +21,21 @@ export default function RootLayout({
 }>) {
   return (
     <StyledEngineProvider injectFirst>
-      <SessionProvider>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <QueryClientProvider client={queryClient}>
-            <ModalProvider>
-              <App>
-                <ScrollToTopButton />
-                {children}
-              </App>
-            </ModalProvider>
-          </QueryClientProvider>
-        </ThemeProvider>
-      </SessionProvider>
+      <ReduxProvider store={store}>
+        <SessionProvider>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <QueryClientProvider client={queryClient}>
+              <ModalProvider>
+                <App>
+                  <ScrollToTopButton />
+                  {children}
+                </App>
+              </ModalProvider>
+            </QueryClientProvider>
+          </ThemeProvider>
+        </SessionProvider>
+      </ReduxProvider>
     </StyledEngineProvider>
   );
 }

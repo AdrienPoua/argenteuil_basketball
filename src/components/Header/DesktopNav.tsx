@@ -1,21 +1,16 @@
 import { ReactElement } from "react";
-import { NavItemType } from "@/utils/types";
 import { Box, Button, Typography } from "@mui/material";
 import NavItem from "@/components/Header/NavItem";
 import SubBar from "@/components/Header/SubBar";
 import Logo from "@/components/Logo";
 import { useModal } from "@/utils/contexts/Modal";
 import HeaderModal from "./Modal";
+import { useSelector } from "react-redux";
+import { RootState } from "@/lib/redux/store";
 
-
-type PropsType = {
-  data: NavItemType[]
-  setCurrentNav: (data: NavItemType) => void
-  currentNav: NavItemType | null
-  isHidden: boolean
-  setIsHidden: (b: boolean) => void
-}
-export default function Index({ data, setCurrentNav, currentNav, isHidden, setIsHidden }: Readonly<PropsType>): ReactElement {
+export default function Index(): ReactElement {
+  const navItems = useSelector((state: RootState) => state.navbar.navItems);
+  
   const { setOpen, setContent } = useModal();
   const handleClick = () => {
     setOpen(true);
@@ -31,13 +26,10 @@ export default function Index({ data, setCurrentNav, currentNav, isHidden, setIs
           <Box
             component="ul"
             className="flex">
-            {data.map((item) => (
+            {navItems.map((item) => (
               <NavItem
                 key={item.title}
-                data={item}
-                currentNav={currentNav}
-                setCurrentNav={setCurrentNav}
-                setIsHidden={setIsHidden}
+                navItem={item}
               />
             ))}
           </Box>
@@ -54,7 +46,7 @@ export default function Index({ data, setCurrentNav, currentNav, isHidden, setIs
           </Typography>
         </Button>
       </Box>
-      <SubBar data={data} currentNav={currentNav} isHidden={isHidden} />
+      <SubBar />
     </>
   );
 };

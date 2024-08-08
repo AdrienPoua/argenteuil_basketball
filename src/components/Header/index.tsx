@@ -1,29 +1,29 @@
 "use client";
-import React, { useRef, useEffect, useState, ReactElement } from "react";
+import { useEffect, ReactElement } from "react";
 import { Box, ClickAwayListener } from "@mui/material";
-import { NavItemType } from "@/utils/types";
 import { usePathname } from "next/navigation";
 import DesktopNav from "@/components/Header/DesktopNav";
 import MobileNav from "@/components/Header/MobileNav";
-import headerData from "@/data/header.json";
-
+import { useDispatch } from "react-redux";
+import { hideSubBar, setCurrentNav } from "@/lib/redux/slices/navbar";
 
 
 export default function Index(): ReactElement {
-  const [currentNav, setCurrentNav] = useState<NavItemType | null>(null);
-  const [isHidden, setIsHidden] = useState(true);
-  const headerRef = useRef<HTMLDivElement>(null);
+  const dispatch = useDispatch();
   const pathname = usePathname();
-
+  const handleClickAWay = () => {
+    dispatch(hideSubBar());
+  };
+  
   useEffect(() => {
-    setCurrentNav(null);
-  }, [pathname]);
+    dispatch(setCurrentNav(null));
+  }, [pathname, dispatch]);
 
   return (
-    <ClickAwayListener onClickAway={() => setIsHidden(true)}>
-      <Box component="header" ref={headerRef} className="flex flex-col flex-wrap px-6 py-2 bg-white" id="back-to-top-anchor">
-        <DesktopNav data={headerData} setCurrentNav={setCurrentNav} currentNav={currentNav} isHidden={isHidden} setIsHidden={setIsHidden} />
-        <MobileNav data={headerData} />
+    <ClickAwayListener onClickAway={handleClickAWay}>
+      <Box component="header" className="flex flex-col flex-wrap px-6 py-2 bg-white" id="back-to-top-anchor">
+        <DesktopNav />
+        <MobileNav />
       </Box>
     </ClickAwayListener>
   );

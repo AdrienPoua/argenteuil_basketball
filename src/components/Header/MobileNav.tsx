@@ -1,5 +1,5 @@
-import React, { useState, useEffect, ReactElement } from "react";
-import { NavItemType, SubItemType } from "@/utils/types";
+import { useEffect, ReactElement } from "react";
+import { SubItemType } from "@/utils/types";
 import { Box, Button, Drawer, List, ListItem, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Link from "next/link";
@@ -9,14 +9,15 @@ import { usePathname } from "next/navigation";
 import { useModal } from "@/utils/contexts/Modal";
 import Arrow from "@/components/Header/Arrow";
 import HeaderModal from "./Modal";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/lib/redux/store";
+import { closeDrawer, openDrawer } from "@/lib/redux/slices/navbar";
 
-type PropsType = {
-  data: NavItemType[];
-};
-
-export default function Index({ data }: Readonly<PropsType>): ReactElement {
-  const [drawerOpen, setDrawerOpen] = useState(false);
+export default function Index(): ReactElement {
   const pathname = usePathname();
+  const dispatch = useDispatch();
+  const isDrawerOpen = useSelector((state: RootState) => state.navbar.isDrawerOpen);
+  const navItems = useSelector((state: RootState) => state.navbar.navItems);
   const { setOpen, setContent } = useModal();
   const handleClick = () => {
     setOpen(true);
@@ -24,12 +25,9 @@ export default function Index({ data }: Readonly<PropsType>): ReactElement {
   };
 
   useEffect(() => {
-    setDrawerOpen(false);
-  }, [pathname]);
+    dispatch(closeDrawer());
+  }, [pathname, dispatch]);
 
-  const toggleDrawer = (open: boolean) => () => {
-    setDrawerOpen(open);
-  };
 
   return (
     <Box className="flex items-center grow lg:hidden justify-between">
@@ -45,17 +43,17 @@ export default function Index({ data }: Readonly<PropsType>): ReactElement {
           Contact
         </Typography>
       </Button>
-      <Button onClick={toggleDrawer(true)}>
+      <Button onClick={() => dispatch(openDrawer())}>
         <MenuIcon />
       </Button>
       <Drawer
         anchor="right"
-        open={drawerOpen}
-        onClose={toggleDrawer(false)}>
+        open={isDrawerOpen}
+        onClose={() => dispatch(closeDrawer())}>
         <Box>
           <List className="flex flex-col justify-end pt-0">
-            {data.map((item) =>
-              !item.url ? (
+            {navItems.map((item) =>
+              !item.href ? (
                 <Dropdown
                   key={item.title}
                   header={
@@ -71,14 +69,13 @@ export default function Index({ data }: Readonly<PropsType>): ReactElement {
                     <Box className="flex flex-col">
                       {item.subItems?.map((subItem: SubItemType) => (
                         <ListItem
-                          key={subItem.url}
+                          key={subItem.href}
                           className="flex me-9">
                           <Link
-                            href={subItem.url}
+                            href={subItem.href}
                             className="grow flex justify-end me-5">
                             <Typography variant="body2">{subItem.title}</Typography>
                           </Link>
-
                         </ListItem>
                       ))}
                     </Box>
@@ -86,10 +83,10 @@ export default function Index({ data }: Readonly<PropsType>): ReactElement {
                 />
               ) : (
                 <ListItem
-                  key={item.url}
+                  key={item.href}
                   className="flex bg-primary">
                   <Link
-                    href={item.url}
+                    href={item.href}
                     className="grow flex justify-end">
                     <Typography variant="body2">{item.title}</Typography>
                   </Link>

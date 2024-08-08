@@ -1,44 +1,45 @@
-import React, { ReactElement } from "react";
-import { NavItemType } from "@/utils/types";
+import { ReactElement } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import Arrow from "./Arrow";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
-
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/lib/redux/store";
+import { NavItemType } from "@/utils/types";
+import Link from "next/link";
+import { setCurrentNav, showSubBar } from "@/lib/redux/slices/navbar";
 type PropsType = {
-  data: NavItemType;
-  setCurrentNav: (data: NavItemType) => void;
-  currentNav: NavItemType | null;
-  setIsHidden: (b: boolean) => void;
+  navItem: NavItemType
 };
 
-export default function Index({ data, setCurrentNav, currentNav, setIsHidden }: Readonly<PropsType>): ReactElement {
+export default function Index({ navItem }: Readonly<PropsType>): ReactElement {
+  const { title, href } = navItem;
+  const dispatch = useDispatch();
+  const currentNav = useSelector((state: RootState) => state.navbar.currentNav);
   const url = usePathname();
-  const isCurrentlySelected = currentNav?.title === data.title;
-  const isCurrentlyActive = data.url === url
-
+  const isActive = url === href
+  const isSelected = currentNav?.title === title;
 
   const handleClick = () => {
-    setCurrentNav(data)
-    setIsHidden(false);
-  };
+    dispatch(setCurrentNav(navItem))
+    dispatch(showSubBar())
+  }
 
   return (
     <Box component="li" className="grow flex justify-center items-center">
-      {!data.url ? (
+      {!href ? (
         <Button className="flex grow relative px-5 py-3 tracking-wider" onClick={handleClick}>
           <Box className="flex justify-center items-center">
-            <Typography variant="body2" className={`flex text-lg ${isCurrentlySelected ? "text-primary" : ""}`}>
-              {data.title}
+            <Typography variant="body2" className={`flex text-lg ${isSelected ? "text-primary" : ""}`}>
+              {title}
             </Typography>
-            <Arrow open={isCurrentlySelected} />
+            <Arrow open={isSelected} />
           </Box>
         </Button>
       ) : (
-        <Link href={data.url} passHref>
+        <Link href={href} passHref >
           <Box className="grow flex justify-center items-center px-5 py-3">
-            <Typography variant="body2" className={`flex text-lg ${isCurrentlyActive ? "text-primary" : ""}`}>
-              {data.title}
+            <Typography variant="body2" className={`flex text-lg ${isActive ? "text-primary" : ""}`}>
+              {title}
             </Typography>
           </Box>
         </Link>
