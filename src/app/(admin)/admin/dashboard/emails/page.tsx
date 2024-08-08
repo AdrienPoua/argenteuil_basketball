@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import { DataGrid, GridColDef, GridRowSelectionModel } from "@mui/x-data-grid";
 import { Toolbar, Button, Box } from "@mui/material";
-import { useModal } from "@/utils/contexts/Modal";
 import { getMembers } from "@/lib/mongo/controllers/members";
 import { DBMemberType } from "@/utils/types";
 import { useQuery } from "react-query";
@@ -11,7 +10,8 @@ import { ValidateWithZod } from "@/utils/services/dataProcessing";
 import SelectCategory from "./SelectCategory";
 import SelectYear from "./SelectYear";
 import Modal from "./Modal";
-
+import { useDispatch } from "react-redux";
+import { open, setContent } from "@/lib/redux/slices/modal";
 
 // Define the columns for the DataGrid
 const columns: GridColDef[] = [
@@ -23,11 +23,11 @@ const columns: GridColDef[] = [
 
 
 export default function Index() {
+  const dispatch = useDispatch();
   const [allMembers, setAllMembers] = useState<DBMemberType[]>([]);
   const [filteredMembers, setFilteredMembers] = useState<DBMemberType[]>([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedYear, setSelectedYear] = useState("2023");
-  const { setOpen, setContent } = useModal();
 
   const fetchMembers = async (): Promise<DBMemberType[]> => {
     const members = await getMembers();
@@ -58,7 +58,7 @@ export default function Index() {
           variant="contained"
           color="primary"
           className="mb-10"
-          onClick={() => setOpen(true)}
+          onClick={() => dispatch(open())}
         >
           Send Email
         </Button>

@@ -1,14 +1,16 @@
 
 import { Box, Button, Typography } from "@mui/material";
 import Image from "next/image";
-import { useModal } from "@/utils/contexts/Modal";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import { club } from "@/utils/services/dataProcessing";
 import { ReactElement } from "react";
 import Utils from "@/utils/models/Utils";
+import { useDispatch } from "react-redux";
+import { close } from "@/lib/redux/slices/modal";
 
-export default function Index({ isMobile }: Readonly<{ isMobile: boolean }>): ReactElement {
+export default function Index({ isMobile }: Readonly<{ isMobile: boolean }>): ReactElement {   
+    const dispatch = useDispatch()
     const handleClick = (text: string) => {
         if (isMobile && text.includes("@") && window !== undefined) {
             window.location.href = `mailto:${text}`;
@@ -19,12 +21,12 @@ export default function Index({ isMobile }: Readonly<{ isMobile: boolean }>): Re
         }
     };
 
-    const { setOpen } = useModal();
+
     return (
         <Box className="flex flex-col items-center  gap-5 max-w-[80%] ">
             <Box
                 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] lg:w-[500px] aspect-square flex"
-                onClick={() => setOpen(false)}>
+                onClick={() => dispatch(close())}>
                 <Image
                     src="/images/logo.png"
                     width={400}

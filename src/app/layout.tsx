@@ -5,12 +5,12 @@ import { StyledEngineProvider, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { SessionProvider } from "next-auth/react";
 import theme from "@/app/theme";
-import { ModalProvider } from "@/utils/contexts/Modal";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 import App from "./App";
 import "./globals.css";
 import store from "@/lib/redux/store";
 import { Provider as ReduxProvider } from "react-redux";
+import Modal from "@/components/Modal";
 
 const queryClient = new QueryClient();
 
@@ -26,12 +26,11 @@ export default function RootLayout({
           <ThemeProvider theme={theme}>
             <CssBaseline />
             <QueryClientProvider client={queryClient}>
-              <ModalProvider>
-                <App>
-                  <ScrollToTopButton />
-                  {children}
-                </App>
-              </ModalProvider>
+              <App>
+                <ScrollToTopButton />
+                <Modal />
+                {children}
+              </App>
             </QueryClientProvider>
           </ThemeProvider>
         </SessionProvider>

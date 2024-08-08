@@ -37,7 +37,7 @@ export default function Index(): ReactElement {
         </Box>
       </Typography>
       <Typography className="text-xs md:text-base text-black text-center">Pensez à vérifier vos courriers indésirables</Typography>
-      <Typography className="bg-primary" > À ce stade, vous n&apos;êtes pas licencié </Typography>
+      <Typography className="bg-primary text-center" > À ce stade, vous n&apos;êtes pas licencié </Typography>
     </Box>
   );
 }

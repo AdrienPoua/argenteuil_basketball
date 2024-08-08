@@ -5,8 +5,8 @@ import Typography from "@mui/material/Typography";
 import { useTheme } from "@mui/material/styles";
 import { useMediaQuery } from "@mui/material";
 import DoNotDisturbIcon from "@mui/icons-material/DoNotDisturb";
-import { useModal } from "@/utils/contexts/Modal";
-
+import { open, setContent } from "@/lib/redux/slices/modal";
+import { useDispatch } from "react-redux";
 
 export const ContactButton = ({ icon, text, available }: { icon: React.ReactNode; text: string; available: boolean }): ReactElement => {
   const theme = useTheme();
@@ -60,10 +60,10 @@ export const ContactButton = ({ icon, text, available }: { icon: React.ReactNode
 };
 
 export const ModalButton = ({ ModalContent, text }: { ModalContent: React.JSX.Element; text: string }) => {
-  const { setOpen, setContent } = useModal()
+  const dispatch = useDispatch();
   const handleClick = () => {
-    setContent(ModalContent);
-    setOpen(true);
+    dispatch(setContent(ModalContent));
+    dispatch(open());
   };
   return (
     <Button

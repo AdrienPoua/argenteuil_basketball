@@ -1,21 +1,24 @@
-import React, { ReactElement, useEffect } from "react";
+import { ReactElement, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import { useModal } from "@/utils/contexts/Modal";
 import { Paper } from "@mui/material";
 import { usePathname } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { close } from "@/lib/redux/slices/modal";
+import { RootState } from "@/lib/redux/store";
 
 
 export default function Index(): ReactElement {
-  const { open, setOpen, content } = useModal();
+  const dispatch = useDispatch();
+  const { open, content } = useSelector((state: RootState) => state.modal);
   const pathname = usePathname();
   useEffect(() => {
-    setOpen(false);
-  }, [pathname, setOpen]);
+    dispatch(close());
+  }, [pathname, dispatch]);
   return (
     <Modal
       open={open}
-      onClose={() => setOpen(false)}
+      onClose={() => dispatch(close())}
       aria-labelledby="Modal-Modal-title"
       aria-describedby="Modal-Modal-description">
       <Box

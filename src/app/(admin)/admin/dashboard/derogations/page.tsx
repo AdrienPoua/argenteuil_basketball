@@ -18,14 +18,16 @@ import { ValidateWithZod } from "@/utils/services/dataProcessing";
 import DBMatchschema from "@/lib/zod/database/MatchSchema";
 import Adapter from "@/utils/adapters/DBMatchs";
 import { Derogation } from "@/lib/react-email/templates";
-import { useModal } from "@/utils/contexts/Modal";
 import Modal from "./Modal";
+import { useDispatch } from 'react-redux';
+import { open, setContent } from '@/lib/redux/slices/modal';
 
 export default function Index(): ReactElement {
+    const dispatch = useDispatch();
     const [selectedMatch, setSelectedMatch] = useState<Match | null>(null);
     const [reason, setReason] = useState<string>("");
     const [proposition, setProposition] = useState<string>("");
-    const { setOpen, setContent } = useModal();
+
 
     const fetchMatchs = async (): Promise<Match[]> => {
         const matchs = await getMatchs();
@@ -44,8 +46,8 @@ export default function Index(): ReactElement {
 
     const handleClick = () => {
         if (selectedMatch) {
-            setOpen(true);
-            setContent(<Modal match={selectedMatch} setSelectedMatch={setSelectedMatch} reason={reason} proposition={proposition} />);
+            dispatch(open());
+            dispatch(setContent(<Modal match={selectedMatch} setSelectedMatch={setSelectedMatch} reason={reason} proposition={proposition} />));
         }
     }
 

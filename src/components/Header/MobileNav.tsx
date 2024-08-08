@@ -6,22 +6,21 @@ import Link from "next/link";
 import Dropdown from "@/components/Dropdown";
 import Logo from "@/components/Logo";
 import { usePathname } from "next/navigation";
-import { useModal } from "@/utils/contexts/Modal";
 import Arrow from "@/components/Header/Arrow";
 import HeaderModal from "./Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/lib/redux/store";
 import { closeDrawer, openDrawer } from "@/lib/redux/slices/navbar";
+import { open, setContent } from "@/lib/redux/slices/modal";
 
 export default function Index(): ReactElement {
   const pathname = usePathname();
   const dispatch = useDispatch();
   const isDrawerOpen = useSelector((state: RootState) => state.navbar.isDrawerOpen);
   const navItems = useSelector((state: RootState) => state.navbar.navItems);
-  const { setOpen, setContent } = useModal();
   const handleClick = () => {
-    setOpen(true);
-    setContent(<HeaderModal isMobile={true} />);
+    dispatch(open());
+    dispatch(setContent(<HeaderModal isMobile={true} />));
   };
 
   useEffect(() => {

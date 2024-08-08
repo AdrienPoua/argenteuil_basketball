@@ -1,9 +1,11 @@
 // store.js
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import navbarReducer from "./slices/navbar";
+import modalReducer from "./slices/modal";
 
 const rootReducer = combineReducers({
   navbar: navbarReducer,
+  modal: modalReducer,
 });
 
 const store = configureStore({

@@ -3,18 +3,18 @@ import { Box, Button, Typography } from "@mui/material";
 import NavItem from "@/components/Header/NavItem";
 import SubBar from "@/components/Header/SubBar";
 import Logo from "@/components/Logo";
-import { useModal } from "@/utils/contexts/Modal";
 import HeaderModal from "./Modal";
 import { useSelector } from "react-redux";
 import { RootState } from "@/lib/redux/store";
+import { useDispatch } from "react-redux";
+import { open, setContent } from "@/lib/redux/slices/modal";
 
 export default function Index(): ReactElement {
   const navItems = useSelector((state: RootState) => state.navbar.navItems);
-  
-  const { setOpen, setContent } = useModal();
+  const dispatch = useDispatch();
   const handleClick = () => {
-    setOpen(true);
-    setContent(<HeaderModal isMobile={false} />);
+    dispatch(open());
+    dispatch(setContent(<HeaderModal isMobile={false} />));
   };
   return (
     <>

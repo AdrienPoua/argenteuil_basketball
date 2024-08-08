@@ -1,10 +1,11 @@
 "use client";
 import { Box, Button, Checkbox, Typography } from '@mui/material';
 import { useState } from 'react';
-import { useModal } from '@/utils/contexts/Modal';
 import { Match } from '@/utils/models';
 import Modal from "./Modal";
 import { Convocation } from '@/lib/react-email/templates';
+import { useDispatch } from 'react-redux';
+import { open, setContent } from '@/lib/redux/slices/modal';
 
 type PropsType = {
     matchs: Match[];
@@ -14,12 +15,13 @@ type PropsType = {
 
 export default function Index({ selectedMatch, setSelectedMatch }: Readonly<PropsType>) {
     const [isChecked, setIsChecked] = useState<boolean>(false);
-    const { setOpen, setContent } = useModal();
+    const dispatch = useDispatch();
     const isSelectedMatch = selectedMatch.length > 0;
     const isMultipleMatch = selectedMatch.length > 1;
+
     const handleClick = () => {
-        setOpen(true);
-        setContent(<Modal matchs={selectedMatch} isChecked={isChecked} setSelectedMatch={setSelectedMatch} />);
+        dispatch(open());
+        dispatch(setContent(<Modal matchs={selectedMatch} isChecked={isChecked} setSelectedMatch={setSelectedMatch} />));
     };
 
     return (

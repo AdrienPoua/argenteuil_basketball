@@ -1,7 +1,8 @@
 import { ReactElement } from "react";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { useModal } from "@/utils/contexts/Modal";
+import { useDispatch } from "react-redux";
+import { open, setContent } from "@/lib/redux/slices/modal";
 
 type PropsType = {
     ModalContent: React.JSX.Element;
@@ -9,10 +10,10 @@ type PropsType = {
 };
 
 export default function Index({ ModalContent, text }: Readonly<PropsType>): ReactElement {
-    const { setOpen, setContent } = useModal()
+    const dispatch = useDispatch();
     const handleClick = () => {
-        setContent(ModalContent);
-        setOpen(true);
+        dispatch(setContent(ModalContent));
+        dispatch(open());
     };
     return (
         <Button
