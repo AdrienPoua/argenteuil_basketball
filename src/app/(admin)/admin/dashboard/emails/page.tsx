@@ -28,7 +28,21 @@ export default function Index() {
   const [filteredMembers, setFilteredMembers] = useState<DBMemberType[]>([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedYear, setSelectedYear] = useState("2023");
-
+  const props = {
+    SelectCategory: {
+      selectedCategory,
+      setSelectedCategory,
+      allMembers,
+      selectedYear,
+      setFilteredMembers
+    },
+    SelectYear: {
+      selectedYear,
+      setSelectedYear,
+      allMembers,
+      setFilteredMembers
+    }
+  }
   const fetchMembers = async (): Promise<DBMemberType[]> => {
     const members = await getMembers();
     ValidateWithZod(members, DBMemberSchema);
@@ -52,8 +66,8 @@ export default function Index() {
   return (
     <div className='text-black'>
       <Toolbar className="flex flex-col items-center justify-center">
-        <SelectCategory setFilteredMembers={setFilteredMembers} allMembers={allMembers} selectedYear={selectedYear} setSelectedCategory={setSelectedCategory} selectedCategory={selectedCategory} />
-        <SelectYear selectedYear={selectedYear} setSelectedYear={setSelectedYear} allMembers={allMembers} setFilteredMembers={setFilteredMembers} />
+        <SelectCategory {...props.SelectCategory} />
+        <SelectYear {...props.SelectYear} />
         <Button
           variant="contained"
           color="primary"
