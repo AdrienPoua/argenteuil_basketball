@@ -12,7 +12,9 @@ import PermanencesSchema from "@/lib/zod/PermanencesSchema";
 import DBMemberSchema from "@/lib/zod/database/MemberSchema";
 import DBMatchSchema from "@/lib/zod/database/MatchSchema";
 import MatchSchema from "@/lib/zod/MatchSchema";
-
+import StaffSchema from "@/lib/zod/StaffSchema";
+import LeaderSchema from "@/lib/zod/LeaderSchema";
+import CoachSchema from "@/lib/zod/CoachSchema";
 import {
   ClubCompetitionSchema,
   ClubTeamSchema,
@@ -31,12 +33,15 @@ export {
   ClubSchema,
   FAQSchema,
   DocumentSchema,
+  LeaderSchema,
+  CoachSchema,
   LeadershipSchema,
   SubItemSchema,
   NavItemSchema,
   MemberSchema,
   TeamSchema,
   TrainingSchema,
+  StaffSchema,
   ClubCompetitionSchema,
   ClubTeamSchema,
   ClubLocationSchema,

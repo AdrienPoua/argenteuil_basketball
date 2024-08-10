@@ -1,7 +1,6 @@
 import { z } from "zod";
 import {
   GymSchema,
-  LeadershipSchema,
   MemberSchema,
   NavItemSchema,
   SubItemSchema,
@@ -16,12 +15,18 @@ import {
   ClubTeamSchema,
   APIClubSchema,
   DBMemberSchema,
+  CoachSchema,
   MatchSchema,
   DBMatchSchema,
+  StaffSchema,
+  LeaderSchema,
 } from "@/lib/zod";
 
+import { StaffPropsType } from "@/utils/models/Staff";
+import { LeaderPropsType } from "@/utils/models/Leader";
+import { CoachPropsType } from "@/utils/models/Coach";
+
 type GymType = z.infer<typeof GymSchema>;
-type LeadershipType = z.infer<typeof LeadershipSchema>;
 type MemberType = z.infer<typeof MemberSchema>;
 type NavItemType = z.infer<typeof NavItemSchema>;
 type SubItemType = z.infer<typeof SubItemSchema>;
@@ -35,20 +40,25 @@ type CLubLocation = z.infer<typeof ClubLocationSchema>;
 type ClubTeam = z.infer<typeof ClubTeamSchema>;
 type ClubCompetition = z.infer<typeof ClubCompetitionSchema>;
 type APIClubType = z.infer<typeof APIClubSchema>;
+type LeaderType = z.infer<typeof LeaderSchema>;
 type DBMemberType = z.infer<typeof DBMemberSchema>;
 type MatchType = z.infer<typeof MatchSchema>;
 type DBMatchType = z.infer<typeof DBMatchSchema>;
+type StaffType = z.infer<typeof StaffSchema>;
+type CoachType = z.infer<typeof CoachSchema>;
 
 export type {
   GymType,
   DBMemberType,
   DBMatchType,
   APIClubType,
-  LeadershipType,
   MemberType,
   NavItemType,
   SubItemType,
   TrainingType,
+  LeaderType,
+  CoachType,
+  StaffPropsType,
   TeamType,
   ClubType,
   CompetitionType,
@@ -58,4 +68,7 @@ export type {
   ClubTeam,
   ClubCompetition,
   MatchType,
+  StaffType,
+  LeaderPropsType,
+  CoachPropsType,
 };

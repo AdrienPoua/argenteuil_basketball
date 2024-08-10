@@ -38,6 +38,6 @@
     "src/**/*.tsx", // inclure tous les fichiers tsx dans src
     "src/**/*.ts", // inclure tous les fichiers ts dans src
     "src/app/api/auth/[...nextauth]/route.ts"
-, "src/utils/hooks/useVisibility.ts", "src/components/TypingEffect.tsx"  ],
+, "src/utils/hooks/useVisibility.ts", "src/components/TypingEffect.tsx", "src/lib/zod/LeaderSchema.ts"  ],
   "exclude": ["node_modules"]
 }
