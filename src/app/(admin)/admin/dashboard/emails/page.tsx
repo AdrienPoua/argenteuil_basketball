@@ -5,8 +5,8 @@ import { Toolbar, Button, Box } from "@mui/material";
 import { getMembers } from "@/lib/mongo/controllers/members";
 import { DBMemberType } from "@/utils/types";
 import { useQuery } from "react-query";
-import { DBMemberSchema } from "@/lib/zod";
-import { ValidateWithZod } from "@/utils/services/dataProcessing";
+import { DBMemberSchema } from "@/lib/zod/schemas";
+import { ValidateWithZod } from "@/lib/zod/utils/index"
 import SelectCategory from "./SelectCategory";
 import SelectYear from "./SelectYear";
 import Modal from "./Modal";

@@ -6,8 +6,8 @@ import { Box, CircularProgress } from "@mui/material";
 import { useQuery } from "react-query";
 import { getMatchs } from "@/lib/mongo/controllers/matchs";
 import { DBMatchType } from "@/utils/types";
-import { ValidateWithZod } from "@/utils/services/dataProcessing";
-import DBMatchschema from "@/lib/zod/database/MatchSchema";
+import { ValidateWithZod } from "@/lib/zod/utils/index"
+import DBMatchschema from "@/lib/zod/schemas/database/MatchSchema";
 import MatchAdapter from "@/utils/adapters/DBMatchs";
 import Match from "@/utils/models/Match";
 

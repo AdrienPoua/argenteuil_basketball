@@ -20,7 +20,7 @@ import {
   DBMatchSchema,
   StaffSchema,
   LeaderSchema,
-} from "@/lib/zod";
+} from "@/lib/zod/schemas";
 
 import { StaffPropsType } from "@/utils/models/Staff";
 import { LeaderPropsType } from "@/utils/models/Leader";

@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { SanityDocument } from "next-sanity";
 import { useState, MouseEvent, useRef, ReactElement } from "react";
 import Link from "next/link";
-import { Utils, Team, Leadership, Gym } from "@/utils/models";
+import { Utils, Team, Gym, Coach, Leader } from "@/utils/models";
 import { Card, CardActionArea, CardContent, Typography, Box, CardMedia, useTheme, useMediaQuery } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import { PhoneIphone } from "@mui/icons-material";
@@ -64,7 +64,7 @@ export const PostCard = ({ small, sticky, post }: { small?: boolean; sticky?: bo
 
 
 
-export const LeaderCard = ({ data }: { data: Leadership }): ReactElement => {
+export const LeaderCard = ({ data }: { data: Coach | Leader }): ReactElement => {
   const cardRef = useRef(null);
   const isVisible = useVisibility(cardRef);
   const animation = {
@@ -97,7 +97,8 @@ export const LeaderCard = ({ data }: { data: Leadership }): ReactElement => {
                 {data.name}
               </Typography>
               <Typography className="text-center text-xs md:text-base">
-                {data.isLeader ? data.job : data.teams?.join(' | ')}
+                {data instanceof Leader && data.job}
+                {data instanceof Coach && data.teams?.join(' | ')}
               </Typography>
             </Box>
             <Box className="flex h-full">

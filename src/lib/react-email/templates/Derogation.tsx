@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import { Text, Section, Heading, Hr, Link } from '@react-email/components';
-import { Leadership, Match } from '@/utils/models';
-import { leadership } from "@/utils/services/dataProcessing";
+import { Match, Coach } from '@/utils/models';
+import { coachs } from "@/utils/services/dataProcessing";
 import Layout from './Layout';
 
 
@@ -13,7 +13,7 @@ export type PropsType = {
 
 
 export default function Index({ match, reason, proposition }: Readonly<PropsType>): ReactElement {
-    const coach = leadership.find((coach) => coach.teams?.includes(match.division))
+    const coach = coachs.find((coach) => coach.teams?.includes(match.division))
     return (
         <Layout>
             <>
@@ -33,7 +33,7 @@ const Header = (): ReactElement => {
     )
 }
 
-const Body = ({ match, reason, proposition, coach }: { match: Match, reason: string, proposition: string, coach: Leadership | undefined }): ReactElement => {
+const Body = ({ match, reason, proposition, coach }: { match: Match, reason: string, proposition: string, coach: Coach | undefined }): ReactElement => {
     return (
         <Section>
             <Hr />

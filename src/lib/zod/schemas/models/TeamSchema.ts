@@ -1,5 +1,5 @@
 import { z } from "zod";
-import TrainingSchema  from "@/lib/zod/TrainingSchema";
+import TrainingSchema  from "@/lib/zod/schemas/models/TrainingSchema";
 
 const TeamSchema = z.object({
   name: z.string(),

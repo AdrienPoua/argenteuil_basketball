@@ -6,32 +6,13 @@ import FAQdata from "@/data/faq.json";
 import clubData from "@/data/club.json";
 import permanencesData from "@/data/permanences.json";
 import { Team, Gym, Document, FAQ, Club, Permanences, Leader, Coach } from "@/utils/models";
-import { ZodSchema, ZodError } from 'zod';
-import { GymSchema, PermanencesSchema, TeamSchema, DocumentSchema, ClubSchema, FAQSchema, LeaderSchema, CoachSchema } from "@/lib/zod";
+import { GymSchema, PermanencesSchema, TeamSchema, DocumentSchema, ClubSchema, FAQSchema, LeaderSchema, CoachSchema, ValidateWithZod } from "@/lib/zod/schemas";
 import { LeaderPropsType, CoachPropsType } from "@/utils/types";
+
 
 // This is a data processing file that imports data from JSON files and processes it into instances of classes defined in the models folder.
 // The data is then exported to be used in the application.
 // It also add setters and getters to the data, and validates the data using zod.
-
-export const ValidateWithZod = <T,>(objectToCheck: T | T[], schema: ZodSchema<T>) => {
-  try {
-    if (Array.isArray(objectToCheck)) {
-      objectToCheck.forEach((object) => {
-        schema.parse(object);
-      });
-    } else {
-      schema.parse(objectToCheck);
-    }
-  } catch (error) {
-    if (error instanceof ZodError) {
-      console.log("🚀 ~ ValidateWithZod ~ objectToCheck:", objectToCheck)
-      throw new Error(`${JSON.stringify(error.errors)}`);
-    } else {
-      throw new Error('Unknown error');
-    }
-  }
-};
 
 function checkAllData() {
   ValidateWithZod(teamsData, TeamSchema);
