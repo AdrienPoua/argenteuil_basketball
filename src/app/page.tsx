@@ -9,9 +9,12 @@ import dynamic from "next/dynamic";
 import { useQuery } from "react-query";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useTheme, useMediaQuery } from "@mui/material";
+import { useRef, ReactElement } from "react";
+import useVisibility from "@/utils/hooks/useVisibility";
 
 
-const NewsCard = dynamic(() => import("@/components/Cards").then((mod) => mod.PostCard), { ssr: false });
+const PostCard = dynamic(() => import("@/components/Cards").then((mod) => mod.PostCard), { ssr: false });
 
 const HeroSection = () => {
   const animation = {
@@ -45,28 +48,48 @@ const HeroSection = () => {
   );
 };
 
-const PostsWrapper = () => {
+const PostsWrapper = () : ReactElement => {
   const { data: leftPostOnHomePage } = useQuery(['home', 'left'], () =>
     sanityFetch<SanityDocument>({ query: POST_HOME_LEFT_QUERY })
   );
   const { data: rightPostOnHomePage } = useQuery(['home', 'right'], () =>
     sanityFetch<SanityDocument>({ query: POST_HOME_RIGHT_QUERY })
   );
+
+  const GridRef = useRef(null);
+  const isVisible = useVisibility(GridRef);
+  const animation = {
+    hidden: { opacity: 0, y: -50 },
+    visible: { opacity: 1, y: 0, transition: { type: "spring" }, duration: 0.3 },
+  }
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   return (
     <Container maxWidth="xl">
       <Grid
         container
         spacing={5}
+        ref={GridRef}
         className="mb-10">
         <Grid
           item
           xs={12}
           md={6}>
           {leftPostOnHomePage && (
-            <NewsCard
-              post={leftPostOnHomePage}
-              sticky
-            />
+            <motion.div
+              initial="hidden"
+              animate={isVisible ? "visible" : "hidden"}
+              whileHover="hover"
+              variants={animation}
+              transition={{ duration: 0.3 }}
+              className="group"
+            >
+              <PostCard
+                post={leftPostOnHomePage}
+                isMobile={isMobile}
+                sticky
+              />
+            </motion.div>
           )}
         </Grid>
         <Grid
@@ -77,7 +100,21 @@ const PostsWrapper = () => {
             item
             xs={12}
             className="mb-2">
-            {rightPostOnHomePage && <NewsCard post={rightPostOnHomePage} />}
+            {rightPostOnHomePage && (
+              <motion.div
+                initial="hidden"
+                animate={isVisible ? "visible" : "hidden"}
+                whileHover="hover"
+                variants={animation}
+                transition={{ duration: 0.3 }}
+                className="group"
+              >
+                <PostCard
+                  post={rightPostOnHomePage}
+                  isMobile={isMobile}
+                />
+              </motion.div>
+            )}
           </Grid>
         </Grid>
       </Grid>

@@ -8,8 +8,8 @@ import H1 from '@/components/H1';
 import { MainSection } from "@/utils/layouts";
 
 // Dynamically import the LeaderCard component
-const LeaderCard = dynamic(() =>
-  import('@/components/Cards').then(mod => mod.LeaderCard),
+const StaffCard = dynamic(() =>
+  import('@/components/Cards').then(mod => mod.StaffCard),
   { ssr: false }
 );
 
@@ -20,7 +20,7 @@ export default function Index() {
       <MainSection>
         <Box className="flex flex-wrap gap-10 justify-center items-center">
           {leaders.map((leader: Leader) => (
-            <LeaderCard
+            <StaffCard
               key={uuidv4()}
               data={leader}
             />

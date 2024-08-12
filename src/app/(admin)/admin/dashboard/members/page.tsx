@@ -5,7 +5,6 @@ import { createMember } from '@/lib/mongo/controllers/members';
 
 
 export default function Index() {
-
     return (
         <Box className="flex justify-center items-center grow">
             <Import serverAction={createMember} />
