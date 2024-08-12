@@ -1,68 +1,47 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
-import { SentMessageInfo } from "nodemailer";
-import { useState, ReactElement, FormEvent } from "react";
+import { Box, Button, TextField } from "@mui/material";
+import { useState, ReactElement } from "react";
 import { DBMemberType } from "@/utils/types";
-import { sendEmail } from "@/utils/serverActions";
+import { send } from "@/lib/nodemailer/utils";
+import EmailModal from "@/components/EmailModal";
 
 type PropsType = {
     members: DBMemberType[];
 };
 
 export default function EmailForm({ members }: Readonly<PropsType>): ReactElement {
-    const [emailBody, setEmailBody] = useState("");
-    const [emailSubject, setEmailSubject] = useState("");
-    const [result, setResult] = useState<SentMessageInfo | null>(null);
-    const [isLoading, setIsLoading] = useState(false);
-    const emails = members.map(member => member.email).join(", ");
+    const [text, setText] = useState("");
+    const [subject, setSubject] = useState("");
+    const [sending, setSending] = useState(false);
+    const [sent, setSent] = useState(false);
+    const [nextStep, setNextStep] = useState(false);
+    const bcc = members.map(member => member.email)
 
-    const handleFormSubmit = async (event: FormEvent) => {
-        event.preventDefault();
+    const handleClick = async () => {
         try {
-            setIsLoading(true);
-            const response = await sendEmail({ subject: emailSubject, text: emailBody, bcc: emails });
-            setResult(response);
+            setSending(true);
+            await send({ subject, text, bcc });
+            setSent(true);
         } catch (error) {
             console.error("Erreur lors de l'envoi de l'email:", error);
+            throw new Error("Erreur lors de l'envoi de l'email");
         } finally {
-            setIsLoading(false);
+            setSending(false);
         }
     };
-    if (result) {
-        return (
-            <Box className="min-size-96 p-20 gap-5 flex flex-col justify-center items-center bg-white">
-                {result.rejected.length === 0 ? (
-                    <Typography className="text-black mb-1"> Tous les emails sont bien partis. </Typography>) : (
-                    <Box>
-                        <Typography className="text-black mb-1">
-                            Les membres suivants ont bien reçu l&apos;email :
-                        </Typography>
-                        {result.accepted.map((email: string) => (
-                            <Typography key={email} className="text-black">
-                                {email}
-                            </Typography>
-                        ))}
-                        <Typography className="text-black mt-5">
-                            Les correspondants suivants n&apos;ont pas reçu l&apos;email :
-                        </Typography>
-                        {result.rejected.map((email: string) => (
-                            <Typography key={email} className="text-black">
-                                {email}
-                            </Typography>
-                        ))}
-                    </Box>
-                )}
-            </Box>
-        );
+
+    if (nextStep) {
+        return <EmailModal handleClick={handleClick} emails={bcc} sending={sending} sent={sent} />
     }
+
 
     return (
         <Box className="bg-red-500 min-size-96 min-w-[500px] p-4">
-            <Box component="form" onSubmit={handleFormSubmit} className="flex flex-col justify-center items-center gap-5 grow">
+            <Box  className="flex flex-col justify-center items-center gap-5 grow">
                 <TextField
                     label="Sujet du mail"
                     variant="outlined"
-                    value={emailSubject}
-                    onChange={(e) => setEmailSubject(e.target.value)}
+                    value={subject}
+                    onChange={(e) => setSubject(e.target.value)}
                     fullWidth
                     margin="normal"
                 />
@@ -71,12 +50,12 @@ export default function EmailForm({ members }: Readonly<PropsType>): ReactElemen
                     multiline
                     rows={10}
                     variant="outlined"
-                    value={emailBody}
-                    onChange={(e) => setEmailBody(e.target.value)}
+                    value={text}
+                    onChange={(e) => setText(e.target.value)}
                     fullWidth
                     margin="normal"
                 />
-                <Button type="submit" variant="contained" color="primary" disabled={isLoading}>
+                <Button onClick={() => setNextStep(true)} variant="contained" color="primary" disabled={sending}>
                     Soumettre
                 </Button>
             </Box>

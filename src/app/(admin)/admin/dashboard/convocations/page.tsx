@@ -3,7 +3,7 @@ import { ReactElement, useState } from 'react';
 import { useQuery } from 'react-query';
 import { CircularProgress, Typography, Box } from '@mui/material';
 import { getMatchs } from '@/lib/mongo/controllers/matchs';
-import { ValidateWithZod } from '@/utils/services/dataProcessing';
+import { ValidateWithZod } from '@/lib/zod/utils';
 import DBMatchschema from '@/lib/zod/schemas/database/MatchSchema';
 import SelectMatch from './SelectMatch';
 import Preview from './Preview';

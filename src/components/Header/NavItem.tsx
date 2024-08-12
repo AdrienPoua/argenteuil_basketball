@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import Arrow from "./Arrow";
 import { usePathname } from "next/navigation";
@@ -15,15 +15,17 @@ export default function Index({ navItem }: Readonly<PropsType>): ReactElement {
   const { title, href } = navItem;
   const dispatch = useDispatch();
   const currentNav = useSelector((state: RootState) => state.navbar.currentNav);
+  const isHidden = useSelector((state: RootState) => state.navbar.isHidden);
   const url = usePathname();
   const isActive = url === href
-  const isSelected = currentNav?.title === title;
-
+  const isSelected =  isHidden === false && currentNav?.title === title;
   const handleClick = () => {
     dispatch(setCurrentNav(navItem))
     dispatch(showSubBar())
   }
-
+  useEffect(() => {
+    console.log(currentNav);
+  }, [currentNav]);
   return (
     <Box component="li" className="grow flex justify-center items-center">
       {!href ? (

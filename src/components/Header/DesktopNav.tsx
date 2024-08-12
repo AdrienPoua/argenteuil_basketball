@@ -4,9 +4,8 @@ import NavItem from "@/components/Header/NavItem";
 import SubBar from "@/components/Header/SubBar";
 import Logo from "@/components/Logo";
 import HeaderModal from "./Modal";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/lib/redux/store";
-import { useDispatch } from "react-redux";
 import { open, setContent } from "@/lib/redux/slices/modal";
 
 export default function Index(): ReactElement {

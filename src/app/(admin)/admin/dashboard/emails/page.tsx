@@ -60,7 +60,7 @@ export default function Index() {
 
   const handleSelectionModelChange = (ids: GridRowSelectionModel) => {
     const selectedMembers = allMembers.filter((member) => ids.find((id) => id === member._id.toString()))
-    setContent(<Modal members={selectedMembers} />);
+    dispatch(setContent(<Modal members={selectedMembers} />));
   };
 
   return (
