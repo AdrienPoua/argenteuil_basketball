@@ -34,7 +34,11 @@ const data = [
     href: "/admin/dashboard/derogations",
     logo: "🎭"
   },
-
+  {
+    title: "Correspondants",
+    href: "/admin/dashboard/correspondants",
+    logo: "👲"
+  },
   {
     title: "Logout",
     logo: "🚪",
