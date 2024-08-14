@@ -1,14 +1,7 @@
 import { ReactElement } from 'react';
 import { CircularProgress, Typography } from '@mui/material';
 
-type FeedbackProps = {
-    isLoading: boolean;
-    error: unknown;
-    data: any;
-    children: ReactElement;
-}
-
-export default function Feedback({ isLoading, error, data, children }: Readonly<FeedbackProps>): ReactElement {
+export default function Feedback({ isLoading, error, data, children }: { isLoading: boolean, error: unknown, data: any, children: ReactElement }): ReactElement {
     if (isLoading) {
         return <CircularProgress />;
     }

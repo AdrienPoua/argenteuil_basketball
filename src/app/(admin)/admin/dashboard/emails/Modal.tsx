@@ -1,47 +1,53 @@
 import { Box, Button, TextField } from "@mui/material";
 import { useState, ReactElement } from "react";
 import { DBMemberType } from "@/utils/types";
-import { send } from "@/lib/nodemailer/utils";
-import EmailModal from "@/components/EmailModal";
+import useSendEmail from "@/utils/hooks/useSendEmail";
+import Layout from "@/utils/layouts/email";
 
 type PropsType = {
     members: DBMemberType[];
 };
 
+type PayloadType = {
+    text: string,
+    subject: string,
+    bcc: string[]
+}
+type firstStepProps = {
+    payload: PayloadType,
+    setPayload: React.Dispatch<React.SetStateAction<PayloadType>>,
+    setStep: (step: number) => void
+}
 export default function EmailForm({ members }: Readonly<PropsType>): ReactElement {
-    const [text, setText] = useState("");
-    const [subject, setSubject] = useState("");
-    const [sending, setSending] = useState(false);
-    const [sent, setSent] = useState(false);
-    const [nextStep, setNextStep] = useState(false);
-    const bcc = members.map(member => member.email)
+    const [step, setStep] = useState(1);
+    const [payload, setPayload] = useState<PayloadType>({
+        text: "",
+        subject: "",
+        bcc: members.map(member => member.email)
+    });
 
-    const handleClick = async () => {
-        try {
-            setSending(true);
-            await send({ subject, text, bcc });
-            setSent(true);
-        } catch (error) {
-            console.error("Erreur lors de l'envoi de l'email:", error);
-            throw new Error("Erreur lors de l'envoi de l'email");
-        } finally {
-            setSending(false);
-        }
-    };
-
-    if (nextStep) {
-        return <EmailModal handleClick={handleClick} emails={bcc} sending={sending} sent={sent} />
+    if (step === 1) {
+        return <FirstStep setPayload={setPayload} payload={payload} setStep={setStep} />
     }
 
+    if (step === 2) {
+        return <SecondStep payload={payload} />
+    }
 
+    return <></>
+
+}
+
+
+const FirstStep = ({ payload, setPayload, setStep }: Readonly<firstStepProps>): ReactElement => {
     return (
         <Box className="bg-red-500 min-size-96 min-w-[500px] p-4">
-            <Box  className="flex flex-col justify-center items-center gap-5 grow">
+            <Box className="flex flex-col justify-center items-center gap-5 grow">
                 <TextField
                     label="Sujet du mail"
                     variant="outlined"
-                    value={subject}
-                    onChange={(e) => setSubject(e.target.value)}
+                    value={payload.subject}
+                    onChange={(e) => setPayload({ ...payload, subject: e.target.value })}
                     fullWidth
                     margin="normal"
                 />
@@ -50,15 +56,29 @@ export default function EmailForm({ members }: Readonly<PropsType>): ReactElemen
                     multiline
                     rows={10}
                     variant="outlined"
-                    value={text}
-                    onChange={(e) => setText(e.target.value)}
+                    value={payload.text}
+                    onChange={(e) => setPayload({ ...payload, text: e.target.value })}
                     fullWidth
                     margin="normal"
                 />
-                <Button onClick={() => setNextStep(true)} variant="contained" color="primary" disabled={sending}>
+                <Button onClick={() => setStep(2)} variant="contained" color="primary">
                     Soumettre
                 </Button>
             </Box>
         </Box>
     );
+}
+
+const SecondStep = ({ payload }: Readonly<{ payload: PayloadType }>): ReactElement => {
+    const { sendEmail, sending, sent } = useSendEmail();
+    const handleClick = async (): Promise<void> => {
+        await sendEmail(payload);
+    }
+    return (
+        <Layout emails={payload.bcc} sending={sending} sent={sent} >
+            <Button variant="contained" onClick={handleClick}>
+                Oui, je suis sûr
+            </Button>
+        </Layout>
+    )
 }

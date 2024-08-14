@@ -4,22 +4,14 @@ import { Box, Typography, Button, CircularProgress, List, ListItem } from "@mui/
 import { ReactElement } from "react";
 
 type PropsType = {
-    handleClick: () => Promise<void>
     emails: string[]
     sending: boolean
     sent: boolean
+    children: ReactElement
 }
+const modalClass = "min-size-96 p-20 gap-5 flex flex-col justify-center items-center bg-white"
 
-export default function Index({ handleClick, emails, sending, sent }: Readonly<PropsType>): ReactElement {
-
-    const EmailListItem = emails.map((email, index) => (
-        <ListItem key={email + index}>
-            <Typography className="text-black">{email}</Typography>
-        </ListItem>
-    ))
-
-    const modalClass = "min-size-96 p-20 gap-5 flex flex-col justify-center items-center bg-white"
-
+export default function Index({ emails, sending, sent, children }: Readonly<PropsType>): ReactElement {
     if (sending) {
         return (
             <Box className={modalClass}>
@@ -27,7 +19,6 @@ export default function Index({ handleClick, emails, sending, sent }: Readonly<P
             </Box>
         );
     }
-
     if (sent) {
         return (
             <Box className={modalClass}>
@@ -35,16 +26,17 @@ export default function Index({ handleClick, emails, sending, sent }: Readonly<P
             </Box>
         );
     }
-
     return (
         <Box className={modalClass}>
             <Typography className="text-black">Vous vous apprêtez à envoyer un email aux adresses suivantes :</Typography>
             <List>
-                {EmailListItem}
+                {emails.map((email, index) => (
+                    <ListItem key={email + index}>
+                        <Typography className="text-black">{email}</Typography>
+                    </ListItem>
+                ))}
             </List>
-            <Button variant="contained" onClick={handleClick}>
-                Oui, je suis sûr
-            </Button>
+            {children}
         </Box>
     );
 }

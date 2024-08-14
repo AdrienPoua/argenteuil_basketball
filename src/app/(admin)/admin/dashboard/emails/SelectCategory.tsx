@@ -4,7 +4,7 @@ import { useValidContext } from "@/utils/contexts/DashboardEmail";
 import { useState, useEffect } from "react";
 
 export default function Index() {
-    const { selectedMembers, setSelectedMembers, filterByCategory, reset } = useValidContext();
+    const { setSelectedMembers, filterByCategory, reset } = useValidContext();
     useEffect(() => {
         setValue("All");
     }, [reset]);

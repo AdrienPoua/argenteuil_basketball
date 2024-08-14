@@ -2,19 +2,21 @@
 import { SentMessageInfo } from "nodemailer";
 import { Email, SingleTargetHtmlPayload, MultipleTargetPayload } from "@/lib/nodemailer/class";
 
+export type PayloadType = {
+  to?: string;
+  subject: string;
+  html?: string;
+  bcc?: string[];
+  text?: string;
+}
+
 export async function send({
   to,
   subject,
   html,
   bcc,
   text,
-}: {
-  to?: string;
-  subject: string;
-  html?: string;
-  bcc?: string[];
-  text?: string;
-}): Promise<SentMessageInfo> {
+}: PayloadType): Promise<SentMessageInfo> {
   const email = createEmail({ to, subject, html, bcc, text });
   try {
     return await email.send();
@@ -23,7 +25,7 @@ export async function send({
   }
 }
 
-function createEmail({ to, subject, html, bcc, text }: { to?: string; subject: string; html?: string; bcc?: string[]; text?: string }): Email {
+function createEmail({ to, subject, html, bcc, text }: PayloadType): Email {
   if (bcc === undefined && html && to) {
     // Cas où l'on envoie un email avec HTML à un seul destinataire
     return new Email(new SingleTargetHtmlPayload({ to, subject, html }));

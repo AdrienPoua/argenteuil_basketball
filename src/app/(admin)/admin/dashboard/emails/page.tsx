@@ -68,6 +68,7 @@ const Table = (): ReactElement => {
             variant="contained"
             color="primary"
             className="mb-10"
+            disabled={rowSelectionModel.length === 0}
             onClick={() => {
               if (members) {
                 dispatch(setContent(<Modal members={selectedMembers.filter((member) => rowSelectionModel.includes(member._id.toString()))} />));
