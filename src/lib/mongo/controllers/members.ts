@@ -20,16 +20,17 @@ export async function createMember(data: MemberType): Promise<void> {
     console.log("Membre créé avec succès:", DBmember);
   } catch (error) {
     console.error("Erreur lors de la création du membre:", error);
+    throw new Error("Erreur lors de la création du membre");
   }
 }
 
 export async function getMembers(): Promise<DBMemberType[]> {
   await connectDB();
   try {
-    const members = await DBMember.find();
+    const members = await DBMember.find().lean();
     return JSON.parse(JSON.stringify(members));
   } catch (error) {
     console.error("Erreur lors de la récupération des membres:", error);
-    return [];
+    throw new Error("Erreur lors de la récupération des membres");
   }
 }

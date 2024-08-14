@@ -1,8 +1,9 @@
 "use client"
-import { Box, Typography, TextField, Button } from '@mui/material'
-import React, { ReactElement, useState } from 'react'
+import { Box, TextField, Button } from '@mui/material';
+import { ReactElement, useState } from 'react';
 import { useQuery, useQueryClient } from "react-query";
-import { getClubs, createClub, updateClub, deleteClub } from '@/lib/mongo/controllers/clubs'
+import { getClubs, createClub, updateClub, deleteClub } from '@/lib/mongo/controllers/clubs';
+import Feedback from '@/components/FetchFeedback';
 
 type FieldProps = {
     club: string,
@@ -87,23 +88,20 @@ const Field = ({ club, correspondant, id, firstItem }: FieldProps) => {
 }
 
 export default function Index(): ReactElement {
-    const { data } = useQuery(['clubs'], async () => await getClubs());
+    const { data, error, isLoading } = useQuery(['clubs'], async () => await getClubs());
 
-    if (!data) {
-        return <Typography variant="h1">No data</Typography>
-    }
-
-    const clubs = data.toSorted((a, b) => a.club.localeCompare(b.club))
+    const clubs = data?.toSorted((a, b) => a.club.localeCompare(b.club))
     return (
-        <Box className="flex justify-center items-center size-full">
-            <Box className="flex flex-col gap-3 overflow-scroll max-h-[500px] p-10">
-                <Box className="flex gap-3">
-                    <Field club={"exemple"} correspondant={"exemple"} id={""} firstItem={true} />
+        <Feedback data={clubs} error={error} isLoading={isLoading}>
+            <Box className="flex justify-center items-center size-full">
+                <Box className="flex flex-col gap-3 overflow-scroll max-h-[500px] p-10">
+                    <Box className="flex gap-3">
+                        <Field club={"exemple"} correspondant={"exemple"} id={""} firstItem={true} />
+                    </Box>
+                    {clubs?.map(({ club, correspondant, _id }: { club: string, correspondant: string, _id: string }) => (
+                        <Field key={club} club={club} correspondant={correspondant} id={_id} />
+                    ))}
                 </Box>
-                {clubs.map(({ club, correspondant, _id }: { club: string, correspondant: string, _id: string }) => (
-                    <Field key={club} club={club} correspondant={correspondant} id={_id} />
-                ))}
             </Box>
-        </Box>
-    )
+        </Feedback>)
 }

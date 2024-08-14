@@ -1,93 +1,95 @@
 "use client";
-import { useState, useEffect } from "react";
 import { DataGrid, GridColDef, GridRowSelectionModel } from "@mui/x-data-grid";
 import { Toolbar, Button, Box } from "@mui/material";
-import { getMembers } from "@/lib/mongo/controllers/members";
-import { DBMemberType } from "@/utils/types";
-import { useQuery } from "react-query";
-import { DBMemberSchema } from "@/lib/zod/schemas";
-import { ValidateWithZod } from "@/lib/zod/utils/index"
 import SelectCategory from "./SelectCategory";
 import SelectYear from "./SelectYear";
+import { open, setContent } from "@/lib/redux/slices/modal";
+import FetchFeedback from '@/components/FetchFeedback';
+import { Provider, useValidContext } from "@/utils/contexts/DashboardEmail";
+import { ReactElement, useState } from "react";
 import Modal from "./Modal";
 import { useDispatch } from "react-redux";
-import { open, setContent } from "@/lib/redux/slices/modal";
-
-// Define the columns for the DataGrid
-const columns: GridColDef[] = [
-  { field: "name", headerName: "Nom", width: 200 },
-  { field: "firstName", headerName: "Prenom", width: 200 },
-  { field: "email", headerName: "Email", width: 200 },
-  { field: "categorie", headerName: "Categorie", width: 200 },
-];
 
 
 export default function Index() {
+  return (
+    <Provider>
+      <Feedback>
+        <Box>
+          <Toolbar className="flex flex-col items-center justify-center">
+            <SelectCategory />
+            <SelectYear />
+          </Toolbar>
+          <Table />
+        </Box>
+      </Feedback>
+    </Provider>
+  );
+}
+
+
+const Feedback = ({ children }: { children: ReactElement }): ReactElement => {
+  const { isLoading, error, members } = useValidContext();
+  return (
+    <FetchFeedback data={members} error={error as string} isLoading={isLoading}>
+      {children}
+    </FetchFeedback>
+  );
+}
+
+const Table = (): ReactElement => {
+  const [rowSelectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>([]);
   const dispatch = useDispatch();
-  const [allMembers, setAllMembers] = useState<DBMemberType[]>([]);
-  const [filteredMembers, setFilteredMembers] = useState<DBMemberType[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const [selectedYear, setSelectedYear] = useState("2023");
-  const props = {
-    SelectCategory: {
-      selectedCategory,
-      setSelectedCategory,
-      allMembers,
-      selectedYear,
-      setFilteredMembers
-    },
-    SelectYear: {
-      selectedYear,
-      setSelectedYear,
-      allMembers,
-      setFilteredMembers
-    }
-  }
-  const fetchMembers = async (): Promise<DBMemberType[]> => {
-    const members = await getMembers();
-    ValidateWithZod(members, DBMemberSchema);
-    return members;
-  }
-  const { data } = useQuery(['members'], fetchMembers);
-
-  useEffect(() => {
-    if (data) {
-      setAllMembers(data);
-      setFilteredMembers(data);
-    }
-  }, [data]);
-
+  const { selectedMembers, setSelectedMembers, members, setReset } = useValidContext();
 
   const handleSelectionModelChange = (ids: GridRowSelectionModel) => {
-    const selectedMembers = allMembers.filter((member) => ids.find((id) => id === member._id.toString()))
-    dispatch(setContent(<Modal members={selectedMembers} />));
+    setRowSelectionModel(ids);
   };
 
+  const handleReset = (): void => {
+    setSelectedMembers(members || []);
+    setRowSelectionModel([]);
+    dispatch(setContent(<Modal members={[]} />));
+    setReset((prev: boolean) => !prev);
+  };
+  // Define the columns for the DataGrid
+  const columns: GridColDef[] = [
+    { field: "name", headerName: "Nom", width: 200 },
+    { field: "firstName", headerName: "Prenom", width: 200 },
+    { field: "email", headerName: "Email", width: 200 },
+    { field: "categorie", headerName: "Categorie", width: 200 },
+  ];
+
   return (
-    <div className='text-black'>
-      <Toolbar className="flex flex-col items-center justify-center">
-        <SelectCategory {...props.SelectCategory} />
-        <SelectYear {...props.SelectYear} />
-        <Button
-          variant="contained"
-          color="primary"
-          className="mb-10"
-          onClick={() => dispatch(open())}
-        >
-          Send Email
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          className="mb-10"
-          onClick={() => setFilteredMembers(allMembers)}
-        >
-          ↻
-        </Button>
-      </Toolbar>
+    <Box>
+      <Box>
+        <Toolbar className="flex flex-row justify-center gap-8">
+          <Button
+            variant="contained"
+            color="primary"
+            className="mb-10"
+            onClick={() => {
+              if (members) {
+                dispatch(setContent(<Modal members={selectedMembers.filter((member) => rowSelectionModel.includes(member._id.toString()))} />));
+                dispatch(open());
+              }
+            }}
+          >
+            Send Email
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            className="mb-10"
+            onClick={handleReset}
+          >
+            ↻
+          </Button>
+        </Toolbar>
+      </Box>
       <Box className="h-fit">
         <DataGrid
-          rows={filteredMembers}
+          rows={selectedMembers}
           columns={columns}
           getRowId={(row) => row._id}
           initialState={{
@@ -108,9 +110,10 @@ export default function Index() {
           }}
           checkboxSelection
           autoHeight
+          rowSelectionModel={rowSelectionModel}
           onRowSelectionModelChange={handleSelectionModelChange}
         />
       </Box>
-    </div>
+    </Box>
   );
 };

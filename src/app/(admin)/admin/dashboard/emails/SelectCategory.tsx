@@ -1,34 +1,26 @@
 import { InputLabel, MenuItem, Select } from "@mui/material";
 import categories from "@/data/categories.json";
-import { DBMemberType } from "@/utils/types";
+import { useValidContext } from "@/utils/contexts/DashboardEmail";
+import { useState, useEffect } from "react";
 
-
-type SelectCategoryProps = {
-    allMembers: DBMemberType[];
-    setFilteredMembers: (members: DBMemberType[]) => void;
-    selectedYear: string;
-    setSelectedCategory: (category: string) => void;
-    selectedCategory: string;
-};
-
-export default function Index({ setFilteredMembers, allMembers, selectedYear, setSelectedCategory, selectedCategory }: Readonly<SelectCategoryProps>) {
-    const handleChange = (event: { target: { value: any } }) => {
-        const category = event.target.value;
-        setSelectedCategory(category);
-        if (category === "All") {
-            setFilteredMembers(allMembers.filter((member) => member.year === selectedYear));
-        } else {
-            setFilteredMembers(allMembers.filter((member) => category.includes(member.categorie) && member.year === selectedYear));
-        }
-    }
+export default function Index() {
+    const { selectedMembers, setSelectedMembers, filterByCategory, reset } = useValidContext();
+    useEffect(() => {
+        setValue("All");
+    }, [reset]);
+    const [value, setValue] = useState("All");
+    const handleChange = ({ target: { value } }: { target: { value: string } }) => {
+        setSelectedMembers(filterByCategory(value));
+        setValue(value);
+    };
     return (
         <>
-            <InputLabel className="text-black">Category</InputLabel>
+            <InputLabel className="text-black">Categorie</InputLabel>
             <Select
                 className="text-black w-full mb-10"
-                value={selectedCategory}
                 onChange={handleChange}
-                label="Category"
+                label="Categorie"
+                value={value}
             >
                 <MenuItem className="text-black" value="All">All</MenuItem>
                 {categories.map(({ division }) => (

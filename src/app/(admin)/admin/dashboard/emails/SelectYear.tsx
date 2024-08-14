@@ -1,30 +1,32 @@
 import { InputLabel, MenuItem, Select } from "@mui/material";
-import { DBMemberType } from "@/utils/types";
+import { useValidContext } from "@/utils/contexts/DashboardEmail";
+import { useState, useEffect } from "react";
 
-type SelectYearProps = {
-    setSelectedYear: (year: string) => void;
-    setFilteredMembers: (members: DBMemberType[]) => void;
-    allMembers: DBMemberType[];
-    selectedYear: string;
-}
+export default function Index() {
+    const [value, setValue] = useState("2024");
+    const { setSelectedMembers, filterByYear, setFilteredByYearMembers, selectedMembers, reset } = useValidContext();
 
-export default function Index({ setSelectedYear, selectedYear, setFilteredMembers, allMembers }: Readonly<SelectYearProps>) {
-    const handleChange = (event: { target: { value: any } }) => {
-        const year = event.target.value;
-        setSelectedYear(year);
-        setFilteredMembers(allMembers.filter((member) => member.year === year));
+    const handleChange = ({ target: { value } }: { target: { value: string } }) => {
+        const filteredMembers = filterByYear(value);
+        setSelectedMembers(filteredMembers);
+        setFilteredByYearMembers(filteredMembers);
+        setValue(value);
     };
+    
+    useEffect(() => {
+        setValue("2024");
+    }, [reset]);
     return (
         <>
             <InputLabel className="text-black">Year</InputLabel>
             <Select
                 className="text-black w-full mb-10"
-                value={selectedYear}
                 onChange={handleChange}
+                value={value}
                 label="Year"
             >
-                <MenuItem className="text-black" value="2023">2023</MenuItem>
                 <MenuItem className="text-black" value="2024">2024</MenuItem>
+                <MenuItem className="text-black" value="2023">2023</MenuItem>
             </Select>
         </>
     )
