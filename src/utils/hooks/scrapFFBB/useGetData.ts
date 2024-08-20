@@ -18,7 +18,7 @@ export default function useGetData() {
       throw new Error("Aucune donnée récupérée.");
     }
 
-    return data;
+    return data.filter((club) => club !== null) as TDatabase.Club[];
   };
 
 

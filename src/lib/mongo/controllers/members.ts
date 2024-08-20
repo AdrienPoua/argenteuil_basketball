@@ -2,9 +2,9 @@
 import connectDB from "@/lib/mongo/mongodb";
 import DBMember from "@/lib/mongo/models/Member";
 import { Member } from "@/utils/models";
-import { TDatabase } from "@/utils/types";
+import { TDatabase, TFBI } from "@/utils/types";
 
-export async function createMember(data: TDatabase.Member): Promise<void> {
+export async function createMember(data: TFBI.Member): Promise<void> {
   await connectDB();
   const member = new Member(data);
   member.setYear();

@@ -1,5 +1,4 @@
-import mongoose, { Schema, Model } from "mongoose";
-import { TDatabase } from "@/utils/types";
+import mongoose, { Schema } from "mongoose";
 
 const memberSchema = new Schema({
   name: { type: String, required: true },

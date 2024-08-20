@@ -1,5 +1,6 @@
-import { MemberType } from "@/utils/types";
 import allCategories from "@/data/categories.json";
+import { TFBI } from "@/utils/types";
+
 
 export default class Member {
   private _name: string;
@@ -10,7 +11,7 @@ export default class Member {
   private _statut: string;
   private _id: string;
 
-  constructor(data: MemberType) {
+  constructor(data: TFBI.Member) {
     this._name = data.Nom;
     this._firstName = data.Prénom;
     this._email = data["E-mail"];

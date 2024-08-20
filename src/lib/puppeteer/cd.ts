@@ -1,6 +1,6 @@
 "use server";
 import puppeteer, { Page, ElementHandle } from "puppeteer";
-import { DBClubType } from "@/utils/types";
+import { TDatabase } from "@/utils/types";
 
 const cd95 = "https://resultats.ffbb.com/organisation/listeorganismes/846.html";
 
@@ -41,7 +41,7 @@ const extractData = async (table: ElementHandle) => {
   await table.waitForSelector(".p120 .bolder");
 
   const roleElement = await table.$(".p120 .bolder");
-  const memberElement = await table.$("tr:nth-child(2)");
+  const nameElement = await table.$("tr:nth-child(2)");
   const emailElement = await table.$("a[href^='mailto:']");
   const numberElement = await table.$("tr:nth-last-child(2)");
   console.log("🚀 ~ extractData ~ numberElement:", numberElement);
@@ -49,9 +49,9 @@ const extractData = async (table: ElementHandle) => {
   const number = (await numberElement?.evaluate((el) => el.textContent?.trim()))?.split(":")[1]?.trim() ?? "/";
   console.log("🚀 ~ extractData ~ number:", number);
   const role = (await roleElement?.evaluate((el) => el.textContent?.trim())) ?? "/";
-  const member = (await memberElement?.evaluate((el) => el.textContent?.trim())) ?? "/";
+  const name = (await nameElement?.evaluate((el) => el.textContent?.trim())) ?? "/";
   const email = (await emailElement?.evaluate((el) => el.textContent?.trim())) ?? "@";
-  return { member, email, role, number };
+  return { name, email, role, number };
 };
 
 // Fonction pour récupérer le nom du club
@@ -67,7 +67,7 @@ const getTables = async (page: Page): Promise<ElementHandle<HTMLElement>[]> => {
   return tables;
 };
 // Fonction principale pour scraper un lien spécifique
-export const scrap = async (link: string): Promise<DBClubType | null> => {
+export const scrap = async (link: string): Promise<TDatabase.Club | null> => {
   const browser = await launchBrowser();
   const page = await browser.newPage();
   try {
