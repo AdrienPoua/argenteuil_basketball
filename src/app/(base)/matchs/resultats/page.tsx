@@ -1,50 +1,26 @@
 "use client";
-import { useState, useEffect } from "react";
 import { Box, Button } from "@mui/material";
-import { Ranking } from "@/utils/models";
-import { ClubTeam } from "@/utils/types";
 import Table from "./table";
 import H1 from "@/components/H1";
-import Info from "@/components/Info";
 import { MainSection } from "@/utils/layouts";
-import { useQuery } from "react-query";
-import { getClubDataFromApi, getRankingDataFromApi } from "@/utils/serverActions";
+import Feedback from "@/components/FetchFeedback";
+import useScorenco from "@/utils/hooks/scorenco/useScorenco";
 
 export default function Index() {
-  const [selectedTeam, setSelectedTeam] = useState<string>("");
-  const [ranking, setRanking] = useState<Ranking | undefined>(undefined);
-
-  const { data: clubData, isError: isClubDataFetchError } = useQuery(["clubData"], () => getClubDataFromApi());
-  const { data: rankingData, isError: isClubRankingFetchError } = useQuery(
-    ["rankingData", selectedTeam],
-    () => getRankingDataFromApi(selectedTeam),
-    { enabled: !!selectedTeam } // La requête ne s'exécutera que si selectedTeam est défini
-  );
-
-  useEffect(() => {
-    if (clubData) {
-      const seniorTeam = clubData.teams[0].competitions[0].id.toString();
-      setSelectedTeam(seniorTeam);
-    }
-  }, [clubData]);
-
-  useEffect(() => {
-    if (rankingData) {
-      setRanking(new Ranking(rankingData));
-    }
-  }, [rankingData]);
-
+  const { clubs, loadingClubs, errorClubs, ranking, selectedTeam, setSelectedTeam } = useScorenco();
   return (
     <>
       <H1> classement </H1>
       <MainSection>
-        {isClubDataFetchError || isClubRankingFetchError ? (
-          <Info content="Les données ne sont pas disponibles, revenez plus tard !" />
-        ) : (
+        <Feedback
+          data={clubs}
+          isLoading={loadingClubs}
+          error={errorClubs}
+        >
           <Box
             className="flex flex-col ">
             <Box className="flex overflow-x-auto">
-              {clubData?.teams.map((team: ClubTeam) => {
+              {clubs?.teams.map((team: { competitions: { id: string }[]; shortName: string }) => {
                 const id = team.competitions[0].id.toString();
                 return (
                   <Button
@@ -58,10 +34,10 @@ export default function Index() {
               })}
             </Box>
             <Box className="w-full">
-              {ranking && <Table data={ranking} />}
+              {ranking && <Table ranking={ranking} />}
             </Box>
           </Box>
-        )}
+        </Feedback>
       </MainSection >
     </>
   );

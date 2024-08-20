@@ -3,13 +3,14 @@ import { v4 as uuidv4 } from "uuid";
 import { SanityDocument } from "next-sanity";
 import { useState, MouseEvent, ReactElement } from "react";
 import Link from "next/link";
-import { Utils, Team, Gym, Coach, Leader } from "@/utils/models";
+import { Utils, Team, RankedTeam, Gym, Coach, Leader } from "@/utils/models";
 import { Card, CardActionArea, CardContent, Typography, Box, CardMedia } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import { PhoneIphone } from "@mui/icons-material";
 import { ContactButton } from "@/components/Buttons";
 import { urlFor } from "@/lib/sanity/image";
-import { TrainingType } from "@/utils/types";
+import useIsMobile from "@/utils/hooks/useIsMobile";
+
 
 
 export const PostCard = ({ small, sticky, post, isMobile }: { small?: boolean; sticky?: boolean, post: SanityDocument, isMobile: boolean }): ReactElement => {
@@ -46,12 +47,12 @@ export const PostCard = ({ small, sticky, post, isMobile }: { small?: boolean; s
 export const StaffCard = ({ data }: { data: Coach | Leader }): ReactElement => {
   return (
     <Card
-      className="flex flex-col max-h-[500px] aspect-square rounded-3xl overflow-hidden" sx={{ bgcolor: 'transparent' }}>
-      <Box className="flex overflow-hidden grow rounded-b-3xl">
+      className="flex flex-col max-h-[500px] aspect-square rounded-3xl overflow-hidden group" sx={{ bgcolor: 'transparent' }}>
+      <Box className="flex overflow-hidden grow rounded-t-3xl">
         <CardMedia
           component="img"
           image={data.img}
-          className="object-cover object-top group-hover:brightness-125 transition-transform duration-300"
+          className="object-cover object-top group-hover:brightness-110 transition-transform duration-300 group-hover:scale-105"
           alt={data.name}
         />
       </Box>
@@ -77,7 +78,8 @@ export const StaffCard = ({ data }: { data: Coach | Leader }): ReactElement => {
 };
 
 
-export const TeamCard = ({ data, isMobile }: { data: Team, isMobile: boolean }): ReactElement => {
+export const TeamCard = ({ data }: { data: Team | RankedTeam }): ReactElement => {
+  const isMobile = useIsMobile();
   const [isClicked, setIsClicked] = useState(false);
   const handleClick = () => {
     setIsClicked(!isClicked);
@@ -85,19 +87,16 @@ export const TeamCard = ({ data, isMobile }: { data: Team, isMobile: boolean }):
   return (
     <Card
       onClick={handleClick}
-      className="size-full">
+      className="w-full h-[300px] md:h-[600px] relative rounded-lg shadow-lg transition-transform duration-150 ease-in-out transform hover:scale-105">
       <CardActionArea className="size-full ">
-        <Box className="absolute inset-0 ">
-          <CardMedia
-            component="img"
-            image={data.img}
-            className="object-cover size-full"
-            alt={"Les membres de l'équipe" + data.name}
-          />
-        </Box>
-        <Box
-          className={`absolute inset-0 flex bg-black ${!isClicked ? "bg-opacity-10" : "bg-opacity-75"} transition-opacity duration-300 z-10 `}></Box>
-        <CardContent className="flex flex-col items-center justify-around z-40 size-full py-16">
+        <Box className={`absolute inset-0 bg-black ${!isClicked ? "bg-opacity-10" : "bg-opacity-75"} transition-opacity duration-300 z-10 `}></Box>
+        <CardMedia
+          component="img"
+          image={data.img}
+          className="object-cover size-full absolute inset-0"
+          alt={"Les membres de l'équipe" + data.name}
+        />
+        <CardContent className="flex flex-col items-center justify-around z-40 size-full">
           {!isClicked ? (
             <Typography variant="h3" className="text-white z-40 text-2xl md:text-5xl  text-center self-center text-nowrap ">{data.name}</Typography>
           ) : (
@@ -115,28 +114,22 @@ export const TeamCard = ({ data, isMobile }: { data: Team, isMobile: boolean }):
                       </Box>
                     </Typography>
                   )}
-                  {data.isChampionship ? (
-                    <Typography className="md:text-lg lg:text-3xl mb-8 text-center">
-                      Division {data.division ? data.division : "départementale"}
-                    </Typography>
-                  ) : (
-                    <Typography className="md:text-lg lg:text-3xl mb-8 text-center">Equipe hors championnat</Typography>
-                  )}
+                  <Typography className="md:text-lg lg:text-3xl mb-8 text-center">
+                    {data instanceof RankedTeam
+                      ? `Division ${data.division || "départementale"}`
+                      : "Equipe hors championnat"}
+                  </Typography>
                 </Box>
                 <Box className="flex flex-col gap-5 justify-center grow basis-1/2">
                   <Typography className="text-base md:text-lg lg:text-3xl text-center text-primary first-letter:">Entrainements</Typography>
                   <Box className="flex flex-col gap-5 justify-center items-center   ">
-                    {data.trainings ? (
-                      data.trainings.map((training: TrainingType) => (
-                        <Typography
-                          key={uuidv4()}
-                          className="text-center  text-xs md:text-lg lg:text-3xl ">
-                          {training.day} {training.start} - {training.end} {isMobile && <br />} {training.gym}
-                        </Typography>
-                      ))
-                    ) : (
-                      <Typography className="text-base md:text-lg lg:text-3xl text-center mb-5">Pas d&apos;entrainements prévus</Typography>
-                    )}
+                    {data.trainings.map((training) => (
+                      <Typography
+                        key={uuidv4()}
+                        className="text-center text-xs md:text-lg lg:text-3xl">
+                        {`${training.day} ${training.start} - ${training.end}`} {isMobile && <br />} {training.gym}
+                      </Typography>
+                    ))}
                   </Box>
                 </Box>
               </Box>

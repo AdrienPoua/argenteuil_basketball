@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 import { Box, Button, Typography } from "@mui/material";
-import NavItem from "@/components/Header/NavItem";
+import NavItem from "@/components/Header/DesktopNavItem";
 import SubBar from "@/components/Header/SubBar";
 import Logo from "@/components/Logo";
 import HeaderModal from "./Modal";
@@ -28,7 +28,7 @@ export default function Index(): ReactElement {
             {navItems.map((item) => (
               <NavItem
                 key={item.title}
-                navItem={item}
+                item={item}
               />
             ))}
           </Box>

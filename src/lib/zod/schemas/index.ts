@@ -1,54 +1,19 @@
-import GymSchema from "@/lib/zod/schemas/models/GymSchema";
-import SubItemSchema from "@/lib/zod/schemas/json/SubItemSchema";
-import NavItemSchema from "@/lib/zod/schemas/json/NavItemSchema";
-import MemberSchema from "@/lib/zod/schemas/models/MemberSchema";
-import TeamSchema from "@/lib/zod/schemas/models/TeamSchema";
-import TrainingSchema from "@/lib/zod/schemas/models/TrainingSchema";
-import DocumentSchema from "@/lib/zod/schemas/models/DocumentSchema";
-import FAQSchema from "@/lib/zod/schemas/models/FAQSchema";
-import ClubSchema from "@/lib/zod/schemas/models/ClubSchema";
-import PermanencesSchema from "@/lib/zod/schemas/models/PermanencesSchema";
-import DBMemberSchema from "@/lib/zod/schemas/database/MemberSchema";
-import DBMatchSchema from "@/lib/zod/schemas/database/MatchSchema";
-import MatchSchema from "@/lib/zod/schemas/models/MatchSchema";
-import StaffSchema from "@/lib/zod/schemas/models/StaffSchema";
-import LeaderSchema from "@/lib/zod/schemas/models/LeaderSchema";
-import CoachSchema from "@/lib/zod/schemas/models/CoachSchema";
-import {
-  ClubCompetitionSchema,
-  ClubTeamSchema,
-  ClubLocationSchema,
-  CompetitionDataSchema,
-  CompetitionTeamsSchema,
-  CompetitionTypeSchema,
-  ClubSchema as APIClubSchema,
-} from "@/lib/zod/schemas/API/scorenco";
+import SDBMember from "@/lib/zod/schemas/database/MemberSchema";
+import SDBClub from "@/lib/zod/schemas/database/ClubsSchema";
+import SFBIMember from "@/lib/zod/schemas/FBI/MemberSchema";
+import SFBIMatch from "@/lib/zod/schemas/FBI/MatchSchema";
+import SDBMatch from "@/lib/zod/schemas/database/MatchSchema";
 
-import { ValidateWithZod } from "@/lib/zod/utils";
+// Namespace pour les schémas de base de données
+export namespace SDatabase {
+  export const Club = SDBClub;
+  export const Member = SDBMember;
+  export const Match = SDBMatch;
+}
 
-export {
-  GymSchema,
-  DBMatchSchema,
-  PermanencesSchema,
-  DBMemberSchema,
-  ClubSchema,
-  FAQSchema,
-  DocumentSchema,
-  LeaderSchema,
-  CoachSchema,
-  SubItemSchema,
-  NavItemSchema,
-  MemberSchema,
-  TeamSchema,
-  TrainingSchema,
-  StaffSchema,
-  ClubCompetitionSchema,
-  ClubTeamSchema,
-  ClubLocationSchema,
-  CompetitionDataSchema,
-  CompetitionTeamsSchema,
-  CompetitionTypeSchema,
-  APIClubSchema,
-  MatchSchema,
-  ValidateWithZod
-};
+// Namespace pour les schémas issues de FBI
+
+export namespace SFBI {
+  export const Member = SFBIMember;
+  export const Match = SFBIMatch;
+}

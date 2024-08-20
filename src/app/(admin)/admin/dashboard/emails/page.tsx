@@ -31,7 +31,7 @@ export default function Index() {
 const Feedback = ({ children }: { children: ReactElement }): ReactElement => {
   const { isLoading, error, members } = useValidContext();
   return (
-    <FetchFeedback data={members} error={error as string} isLoading={isLoading}>
+    <FetchFeedback data={members} error={error} isLoading={isLoading}>
       {children}
     </FetchFeedback>
   );
@@ -39,8 +39,8 @@ const Feedback = ({ children }: { children: ReactElement }): ReactElement => {
 
 const Table = (): ReactElement => {
   const [rowSelectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>([]);
-  const dispatch = useDispatch();
   const { selectedMembers, setSelectedMembers, members, setReset } = useValidContext();
+  const dispatch = useDispatch();
 
   const handleSelectionModelChange = (ids: GridRowSelectionModel) => {
     setRowSelectionModel(ids);

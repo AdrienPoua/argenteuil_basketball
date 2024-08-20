@@ -7,7 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Typography } from "@mui/material";
-import { club } from "@/utils/services/dataProcessing";
+import { ABB } from "@/utils/services/dataProcessing";
 import { useRef } from "react";
 import { motion } from "framer-motion";
 import useVisibility from "@/utils/hooks/useVisibility";
@@ -90,7 +90,7 @@ export default function TarifsPage() {
   };
   return (
     <>
-      <H1>{`Tarifs saison ${club.saison}`}</H1>
+      <H1>{`Tarifs saison ${ABB.saison}`}</H1>
       <MainSection>
         <motion.div
           ref={cardRef}

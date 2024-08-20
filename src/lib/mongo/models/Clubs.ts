@@ -1,11 +1,21 @@
 import mongoose, { Schema, Model } from "mongoose";
+import { DBClubType } from "@/utils/types";
 
-const clubSchema: Schema<{ club: string; correspondant: string }> = new Schema({
-  club: { type: String, required: true },
-  correspondant: { type: String, required: true },
+// Définir un sous-schéma pour Member
+const memberSchema: Schema = new Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true },
+  role: { type: String, required: true },
+  number: { type: String, required: true },
 });
 
-const Club: Model<{ club: string; correspondant: string }> =
-  mongoose.models.Club || mongoose.model<{ club: string; correspondant: string }>("Club", clubSchema);
+// Définir le schéma du Club
+const clubSchema: Schema<DBClubType> = new Schema({
+  name: { type: String },
+  members: { type: [memberSchema] },
+});
+
+// Définir le modèle Club
+const Club: Model<DBClubType> = mongoose.models.Club || mongoose.model<DBClubType>("Club", clubSchema);
 
 export default Club;

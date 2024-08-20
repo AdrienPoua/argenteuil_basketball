@@ -1,13 +1,13 @@
 import Staff from "@/utils/models/Staff";
-import { CoachType, StaffPropsType } from "@/utils/types";
+import { Constructor as ExtentedConstructor } from "@/utils/models/Staff";
 
-export type CoachPropsType = {
+type Constructor = {
   teams: string[];
-} & StaffPropsType;
+} & ExtentedConstructor;
 
-export default class Coach extends Staff implements CoachType {
+export default class Coach extends Staff {
   private _teams: string[];
-  constructor(data: CoachPropsType) {
+  constructor(data: Constructor) {
     super(data);
     this._teams = data.teams;
   }

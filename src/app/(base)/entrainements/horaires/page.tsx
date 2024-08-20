@@ -1,30 +1,31 @@
 "use client";
-import { Grid, Paper, Typography, Box, useMediaQuery } from "@mui/material";
-import { TrainingType } from "@/utils/types";
+import { Grid, Paper, Typography, Box } from "@mui/material";
 import { Gym } from "@/utils/models";
 import { gyms } from "@/utils/services/dataProcessing";
-import { useTheme } from "@mui/material/styles";
 import { motion } from "framer-motion";
 import useVisibility from "@/utils/hooks/useVisibility";
 import { useRef } from "react";
 import H1 from "@/components/H1";
 import { MainSection } from "@/utils/layouts";
+import useIsMobile from "@/utils/hooks/useIsMobile";
 
 interface ScheduleProps {
   data: Gym;
 }
-interface SlotProps {
-  slot: TrainingType;
-}
 
-interface ScheduleDayProps {
-  day: string;
-  slots: TrainingType[];
-}
 
-const ScheduleSlot = ({ slot }: SlotProps) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+
+const ScheduleSlot = ({ slot }: {
+  slot: {
+    team?: string;
+    day: string;
+    start: string;
+    end: string;
+    gym: string;
+  }
+}) => {
+  const isMobile = useIsMobile();
   const firstTeam = slot.team?.split("-")[0];
   const secondTeam = slot.team?.split("-")[1];
   return (
@@ -39,7 +40,15 @@ const ScheduleSlot = ({ slot }: SlotProps) => {
   );
 };
 
-const ScheduleDay = ({ day, slots }: ScheduleDayProps) => (
+const ScheduleDay = ({ day, slots }: {
+  day: string, slots: {
+    team?: string;
+    day: string;
+    start: string;
+    end: string;
+    gym: string;
+  }[]
+}) => (
   <Grid item xs={12}>
     <Grid container spacing={1}>
       <Grid item xs={3}>
@@ -60,7 +69,7 @@ const ScheduleDay = ({ day, slots }: ScheduleDayProps) => (
   </Grid>
 );
 
-const Schedule = ({ data }: ScheduleProps) => {
+const Schedule = ({ data: gym }: { data: Gym }) => {
   const cardRef = useRef(null);
   const isVisible = useVisibility(cardRef);
   const animation = {
@@ -73,23 +82,22 @@ const Schedule = ({ data }: ScheduleProps) => {
       ref={cardRef}
       initial="hidden"
       animate={isVisible ? "visible" : "hidden"}
-      whileHover="hover"
       variants={animation}
       transition={{ duration: 0.5 }}
     >
       <Box className="flex flex-col border bg-primary p-2">
         <Typography variant="h2" color="white" className="text-5xl text-center pb-2">
-          {data.name}
+          {gym.name}
         </Typography>
         <Grid container spacing={1}>
-          {data.available.map((day) => {
-            const slotsForDay = data.slots.filter((slot) => slot.day === day);
+          {gym.available.map((day) => {
+            const slotsForDay = gym.slots.filter((slot) => slot.day === day);
             return <ScheduleDay key={day} day={day} slots={slotsForDay} />;
           })}
           <Grid item xs={12}>
             <Paper className="h-full flex justify-center items-center">
               <Typography className="p-2 text-black text-base lg:text-lg text-center">
-                {data.address} {data.zipcode}
+                {gym.address} {gym.zipcode}
               </Typography>
             </Paper>
           </Grid>

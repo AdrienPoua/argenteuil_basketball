@@ -31,11 +31,6 @@ const AwayMatchCell = ({ match }: { match: Match }): ReactElement => (
             <Tooltip title="Match à domicile">
                 <Box className=" after:absolute after:top-0 after:right-0 after:content-['🚗'] text-xl" />
             </Tooltip>
-            {match.isUpdate && (
-                <Tooltip title="Les informations ont changés">
-                    <Box className=" after:absolute after:top-8 after:right-0 after:content-['🆕'] text-xl animate-pulse" />
-                </Tooltip>
-            )}
         </Box>
     </InsideCell >
 );
@@ -48,11 +43,6 @@ const HomeMatchCell = ({ match }: { match: Match }): ReactElement => (
         <Tooltip title="Match à domicile">
             <Box className=" after:absolute after:top-0 after:right-0 after:content-['🏠'] text-xl" />
         </Tooltip>
-        {match.isUpdate && (
-            <Tooltip title="Les informations ont changés">
-                <Box className=" after:absolute after:top-8 after:right-0 after:content-['🆕'] text-xl animate-pulse" />
-            </Tooltip>
-        )}
     </InsideCell>
 );
 

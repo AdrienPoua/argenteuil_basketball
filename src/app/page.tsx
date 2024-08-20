@@ -9,9 +9,9 @@ import dynamic from "next/dynamic";
 import { useQuery } from "react-query";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useTheme, useMediaQuery } from "@mui/material";
 import { useRef, ReactElement } from "react";
 import useVisibility from "@/utils/hooks/useVisibility";
+import useIsMobile from "@/utils/hooks/useIsMobile";
 
 
 const PostCard = dynamic(() => import("@/components/Cards").then((mod) => mod.PostCard), { ssr: false });
@@ -48,7 +48,7 @@ const HeroSection = () => {
   );
 };
 
-const PostsWrapper = () : ReactElement => {
+const PostsWrapper = (): ReactElement => {
   const { data: leftPostOnHomePage } = useQuery(['home', 'left'], () =>
     sanityFetch<SanityDocument>({ query: POST_HOME_LEFT_QUERY })
   );
@@ -62,8 +62,7 @@ const PostsWrapper = () : ReactElement => {
     hidden: { opacity: 0, y: -50 },
     visible: { opacity: 1, y: 0, transition: { type: "spring" }, duration: 0.3 },
   }
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useIsMobile();
   return (
     <Container maxWidth="xl">
       <Grid

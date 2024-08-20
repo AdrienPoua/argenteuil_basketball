@@ -1,20 +1,17 @@
-import { ReactElement, useEffect } from "react";
+import { ReactElement } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { Paper } from "@mui/material";
-import { usePathname } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { close } from "@/lib/redux/slices/modal";
 import { RootState } from "@/lib/redux/store";
+import useCloseModalOnPathChange from "@/utils/hooks/useCloseModal";
 
 
 export default function Index(): ReactElement {
   const dispatch = useDispatch();
+  useCloseModalOnPathChange();
   const { open, content } = useSelector((state: RootState) => state.modal);
-  const pathname = usePathname();
-  useEffect(() => {
-    dispatch(close());
-  }, [pathname, dispatch]);
   return (
     <Modal
       open={open}

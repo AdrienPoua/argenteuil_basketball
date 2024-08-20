@@ -1,22 +1,24 @@
 "use client";
 
 import { getMembers } from "@/lib/mongo/controllers/members";
-import { DBMemberType } from "@/utils/types";
 import { useQuery } from "react-query";
-import { DBMemberSchema } from "@/lib/zod/schemas";
 import { ValidateWithZod } from "@/lib/zod/utils/index";
 import { createContext, useState, useMemo, useContext, useEffect, SetStateAction, Dispatch } from "react";
+import { TDatabase } from "@/utils/types";
+import { SDatabase } from "@/lib/zod/schemas";
+
 import useMembersFilter from "@/utils/hooks/useMembersFilter";
+
 type MembersContextType = {
-    members: DBMemberType[] | undefined;
+    members: TDatabase.Member[] | undefined;
     isLoading: boolean;
     error: unknown;
-    selectedMembers: DBMemberType[];
-    setSelectedMembers: (members: DBMemberType[]) => void;
-    filteredByYearMembers: DBMemberType[];
-    setFilteredByYearMembers: (members: DBMemberType[]) => void;
-    filterByYear: (year: string) => DBMemberType[];
-    filterByCategory: (category: string) => DBMemberType[];
+    selectedMembers: TDatabase.Member[];
+    setSelectedMembers: (members: TDatabase.Member[]) => void;
+    filteredByYearMembers: TDatabase.Member[];
+    setFilteredByYearMembers: (members: TDatabase.Member[]) => void;
+    filterByYear: (year: string) => TDatabase.Member[];
+    filterByCategory: (category: string) => TDatabase.Member[];
     reset: boolean;
     setReset: Dispatch<SetStateAction<boolean>>;
 }
@@ -32,9 +34,9 @@ export const useValidContext = (): MembersContextType => {
     return context;
 };
 
-const fetchMembers = async (): Promise<DBMemberType[]> => {
+const fetchMembers = async (): Promise<TDatabase.Member[]> => {
     const members = await getMembers();
-    ValidateWithZod(members, DBMemberSchema);
+    ValidateWithZod(members, SDatabase.Member);
     return members;
 }
 
@@ -45,10 +47,10 @@ export function Provider({ children }: Readonly<{ children: React.ReactNode }>) 
             setSelectedMembers(members);
         }
     }, [isSuccess, members]);
-    const [selectedMembers, setSelectedMembers] = useState<DBMemberType[]>([]);
-    const [filteredByYearMembers, setFilteredByYearMembers] = useState<DBMemberType[]>([]);
+    const [selectedMembers, setSelectedMembers] = useState<TDatabase.Member[]>([]);
+    const [filteredByYearMembers, setFilteredByYearMembers] = useState<TDatabase.Member[]>([]);
     const [reset, setReset] = useState(false);
-    const { filterByYear } = useMembersFilter(members as DBMemberType[]);
+    const { filterByYear } = useMembersFilter(members as TDatabase.Member[]);
     const { filterByCategory } = useMembersFilter(filteredByYearMembers);
 
 

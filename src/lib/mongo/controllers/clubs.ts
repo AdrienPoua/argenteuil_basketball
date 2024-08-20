@@ -1,39 +1,26 @@
 "use server";
 import connectDB from "@/lib/mongo/mongodb";
+import mongoose from "mongoose";
 import Club from "@/lib/mongo/models/Clubs";
+import { TDatabase } from "@/utils/types";
+import { SDatabase } from "@/lib/zod/schemas";
+import { ValidateWithZod } from "@/lib/zod/utils";
 
-const formatData = ({ club, correspondant }: { club: string; correspondant: string }) => {
-  return { club: club.trim().toLowerCase(), correspondant: correspondant.trim().toLowerCase() };
-};
+const collection = "clubs";
 
-export async function createClub({ club, correspondant }: { club: string; correspondant: string }): Promise<void> {
+export async function createClub(payload: TDatabase.Club): Promise<void> {
   await connectDB();
-  const findMatchInDatabase = await Club.findOne({ club });
-  if (findMatchInDatabase) {
-    console.log("Un club identique est déjà dans la database", club);
-    return;
-  }
-  const formatedData = formatData({ club, correspondant });
-  const newClub = new Club(formatedData);
+  ValidateWithZod(payload, SDatabase.Club);
+  const club = new Club(payload);
   try {
-    await newClub.save();
-    console.log("Club créé avec succès:", newClub);
+    await club.save();
+    console.log("Club créé avec succès:", club);
   } catch (error) {
     console.error("Erreur lors de la création du club:", error);
   }
 }
 
-export async function updateClub({ club, correspondant, id }: { club: string; correspondant: string; id: string }): Promise<void> {
-  await connectDB();
-  try {
-    await Club.findByIdAndUpdate(id, formatData({ club, correspondant }));
-    console.log("Club mis à jour avec succès:", club);
-  } catch (error) {
-    console.error("Erreur lors de la mise à jour du club:", error);
-  }
-}
-
-export async function getClubs(): Promise<{ club: string; correspondant: string; _id: string }[]> {
+export async function getClubs(): Promise<TDatabase.Club[]> {
   await connectDB();
   try {
     const clubs = await Club.find();
@@ -44,11 +31,11 @@ export async function getClubs(): Promise<{ club: string; correspondant: string;
   }
 }
 
-export async function deleteClub(id: string): Promise<void> {
+export async function dropCollection(): Promise<void> {
   await connectDB();
   try {
-    await Club.findByIdAndDelete(id);
-    console.log("Club supprimé avec succès:", id);
+    await mongoose.connection.db.dropCollection(collection);
+    console.log("Collection supprimée avec succès:", collection);
   } catch (error) {
     console.error("Erreur lors de la suppression du club:", error);
   }

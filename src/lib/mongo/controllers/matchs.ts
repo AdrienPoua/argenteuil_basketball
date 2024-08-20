@@ -2,9 +2,9 @@
 import connectDB from "@/lib/mongo/mongodb";
 import DBMatch from "@/lib/mongo/models/Match";
 import { Match } from "@/utils/models";
-import { DBMatchType, MatchType } from "@/utils/types";
+import { TDatabase } from "@/utils/types";
 
-export async function createMatch(data: MatchType): Promise<void> {
+export async function createMatch(data: Match): Promise<void> {
   await connectDB();
   const match = new Match(data);
   const matchObject = match.toObject();
@@ -47,16 +47,16 @@ export async function createMatch(data: MatchType): Promise<void> {
   }
 }
 
-export async function getMatchs(): Promise<DBMatchType[]> {
+export async function getMatchs(): Promise<TDatabase.Match[]> {
   await connectDB();
   try {
     const matchs = await DBMatch.find();
-    const sortedMatchs = matchs.toSorted((a, b) => {
+    const sortedMatchs = matchs.sort((a, b) => {
       return parseInt(a.matchNumber) - parseInt(b.matchNumber);
     });
-    return JSON.parse(JSON.stringify(sortedMatchs));
+    return sortedMatchs;
   } catch (error) {
-    console.error("Erreur lors de la récupération des membres:", error);
+    console.error("Erreur lors de la récupération des matchs:", error);
     return [];
   }
 }

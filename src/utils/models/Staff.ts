@@ -1,6 +1,4 @@
-import { StaffType } from "@/utils/types";
-
-export type StaffPropsType = {
+export type Constructor = {
   name: string;
   number: string;
   email: string;
@@ -9,7 +7,7 @@ export type StaffPropsType = {
   isNumberDisplayed?: boolean;
 };
 
-export default class Staff implements StaffType {
+export default class Staff {
   private _name: string;
   private _number: string;
   private _email: string;
@@ -17,7 +15,7 @@ export default class Staff implements StaffType {
   private _isEmailDisplayed: boolean;
   private _isNumberDisplayed: boolean;
 
-  constructor(data: StaffPropsType) {
+  constructor(data: Constructor) {
     this._name = data.name;
     this._number = data.number;
     this._email = data.email;

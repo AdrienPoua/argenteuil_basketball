@@ -6,6 +6,7 @@ import { Leader } from "@/utils/models";
 import dynamic from 'next/dynamic';
 import H1 from '@/components/H1';
 import { MainSection } from "@/utils/layouts";
+import { motion } from "framer-motion";
 
 // Dynamically import the LeaderCard component
 const StaffCard = dynamic(() =>
@@ -20,13 +21,20 @@ export default function Index() {
       <MainSection>
         <Box className="flex flex-wrap gap-10 justify-center items-center">
           {leaders.map((leader: Leader) => (
-            <StaffCard
-              key={uuidv4()}
-              data={leader}
-            />
+            <motion.div
+              key={leader.name}
+              initial={{ filter: 'blur(30px)', opacity: 0, y: 50 }}
+              animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
+            >
+              <StaffCard
+                key={uuidv4()}
+                data={leader}
+              />
+            </motion.div>
           ))}
         </Box>
-      </MainSection>
+      </MainSection >
     </>
   );
 }

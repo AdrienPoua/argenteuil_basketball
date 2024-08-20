@@ -8,7 +8,7 @@ import DBMatchschema from '@/lib/zod/schemas/database/MatchSchema';
 import SelectMatch from './SelectMatch';
 import Preview from './Preview';
 import { Match } from '@/utils/models';
-import Adapter from '@/utils/adapters/DBMatchs';
+import Adapter from '@/utils/adapters/matchs/fromDBforModel';
 import Feedback from '@/components/FetchFeedback';
 
 const fetchAndProcess = async (): Promise<Match[]> => {

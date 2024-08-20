@@ -13,7 +13,7 @@ import { Match } from "@/utils/models";
 import { getMatchs } from "@/lib/mongo/controllers/matchs";
 import { ValidateWithZod } from "@/lib/zod/utils/index";
 import DBMatchschema from "@/lib/zod/schemas/database/MatchSchema";
-import Adapter from "@/utils/adapters/DBMatchs";
+import Adapter from '@/utils/adapters/matchs/fromDBforModel';
 import { Derogation } from "@/lib/react-email/templates";
 import Modal from "./Modal";
 import { useDispatch } from 'react-redux';

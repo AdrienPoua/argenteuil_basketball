@@ -2,9 +2,9 @@
 import connectDB from "@/lib/mongo/mongodb";
 import DBMember from "@/lib/mongo/models/Member";
 import { Member } from "@/utils/models";
-import { DBMemberType, MemberType } from "@/utils/types";
+import { TDatabase } from "@/utils/types";
 
-export async function createMember(data: MemberType): Promise<void> {
+export async function createMember(data: TDatabase.Member): Promise<void> {
   await connectDB();
   const member = new Member(data);
   member.setYear();
@@ -24,7 +24,7 @@ export async function createMember(data: MemberType): Promise<void> {
   }
 }
 
-export async function getMembers(): Promise<DBMemberType[]> {
+export async function getMembers(): Promise<TDatabase.Member[]> {
   await connectDB();
   try {
     const members = await DBMember.find().lean();

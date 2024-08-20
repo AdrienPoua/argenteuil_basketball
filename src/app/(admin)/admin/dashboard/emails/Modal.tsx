@@ -1,11 +1,11 @@
 import { Box, Button, TextField } from "@mui/material";
 import { useState, ReactElement } from "react";
-import { DBMemberType } from "@/utils/types";
 import useSendEmail from "@/utils/hooks/useSendEmail";
 import Layout from "@/utils/layouts/email";
+import { TDatabase } from "@/utils/types";
 
 type PropsType = {
-    members: DBMemberType[];
+    members: TDatabase.Member[];
 };
 
 type PayloadType = {

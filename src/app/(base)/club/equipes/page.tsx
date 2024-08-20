@@ -1,7 +1,7 @@
 "use client";
 import { ReactElement, useState, useRef } from "react";
 import { teams } from "@/utils/services/dataProcessing";
-import { Box, Button, useTheme, useMediaQuery } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import Slider from "@/components/Slider";
 import dynamic from 'next/dynamic';
 import H1 from '@/components/H1';
@@ -30,7 +30,7 @@ const AnimateCard = ({ children }: { children: ReactElement }): ReactElement => 
       animate={isVisible ? "visible" : "hidden"}
       variants={animation}
       transition={{ duration: 0.3, type: "just" }}
-      className="w-full h-[300px] md:h-[600px] relative overflow-hidden rounded-lg shadow-lg transition-transform duration-150 ease-in-out transform hover:scale-105"
+      className="w-full h-fit"
     >
       {children}
     </motion.div>
@@ -40,8 +40,6 @@ const AnimateCard = ({ children }: { children: ReactElement }): ReactElement => 
 export default function TeamPage() {
   const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
   const filteredTeams = teams.filter((team) => selectedTeam === null || team.name === selectedTeam?.name);
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const handleClick = (team: Team | null) => {
     setSelectedTeam(team);
   };
@@ -49,10 +47,11 @@ export default function TeamPage() {
     <>
       <H1>Nos équipes 2024-2025</H1>
       <MainSection>
-        <Box className="flex flex-col items-center gap-10">
+        <Box className="flex flex-col items-center mb-20">
           <Button
             size="large"
             variant="contained"
+            className="mb-8"
             onClick={() => handleClick(null)}>
             Toutes les équipes
           </Button>
@@ -71,7 +70,6 @@ export default function TeamPage() {
             <AnimateCard key={team.id}>
               <TeamCard
                 data={team}
-                isMobile={isMobile}
               />
             </AnimateCard>
           ))}

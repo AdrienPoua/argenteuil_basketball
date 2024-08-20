@@ -3,25 +3,16 @@ import { Box, Button, Typography } from "@mui/material";
 import Image from "next/image";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
-import { club } from "@/utils/services/dataProcessing";
+import { ABB } from "@/utils/services/dataProcessing";
 import { ReactElement } from "react";
 import Utils from "@/utils/models/Utils";
 import { useDispatch } from "react-redux";
 import { close } from "@/lib/redux/slices/modal";
+import useLogicalResponsiveHandleClick from "@/utils/hooks/useLogicalResponsiveHandleClick";
 
-export default function Index({ isMobile }: Readonly<{ isMobile: boolean }>): ReactElement {   
+export default function Index({ isMobile }: Readonly<{ isMobile: boolean }>): ReactElement {
     const dispatch = useDispatch()
-    const handleClick = (text: string) => {
-        if (isMobile && text.includes("@") && window !== undefined) {
-            window.location.href = `mailto:${text}`;
-        } else if (isMobile && window !== undefined) {
-            window.location.href = `tel:${text}`;
-        } else if (!isMobile && text.includes("@") && window !== undefined) {
-            window.location.href = `mailto:${text}`;
-        }
-    };
-
-
+    const handleClick = useLogicalResponsiveHandleClick();
     return (
         <Box className="flex flex-col items-center  gap-5 max-w-[80%] ">
             <Box
@@ -38,14 +29,14 @@ export default function Index({ isMobile }: Readonly<{ isMobile: boolean }>): Re
             <Button
                 className=" bg-primary py-4 min-w-[350px] lg:min-w-[500px] hover:bg-primary "
                 endIcon={<EmailIcon className="text-black" />}
-                onClick={() => handleClick(club.email)}>
-                <Typography className=" text-black  text-xs md:text-base tracking-wider ">{club.email}</Typography>
+                onClick={() => handleClick(ABB.email)}>
+                <Typography className=" text-black  text-xs md:text-base tracking-wider ">{ABB.email}</Typography>
             </Button>
             <Button
                 className=" bg-primary py-4 min-w-[350px] lg:min-w-[500px]  hover:bg-primary "
                 endIcon={<PhoneIphoneIcon className="text-black" />}
-                onClick={() => handleClick(club.phone)}>
-                <Typography className=" text-black  text-xs md:text-base">{Utils.formatPhoneNumber(club.phone)}</Typography>
+                onClick={() => handleClick(ABB.phone)}>
+                <Typography className=" text-black  text-xs md:text-base">{Utils.formatPhoneNumber(ABB.phone)}</Typography>
             </Button>
         </Box>
     );

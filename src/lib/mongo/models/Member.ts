@@ -1,8 +1,7 @@
-import mongoose, { Schema, Model,  } from 'mongoose';
-import { DBMemberType } from '@/utils/types';
+import mongoose, { Schema, Model } from "mongoose";
+import { TDatabase } from "@/utils/types";
 
-
-const memberSchema: Schema<DBMemberType> = new Schema({
+const memberSchema = new Schema({
   name: { type: String, required: true },
   firstName: { type: String, required: true },
   email: { type: String, required: true },
@@ -13,6 +12,6 @@ const memberSchema: Schema<DBMemberType> = new Schema({
   categorie: { type: String },
 });
 
-const Member: Model<DBMemberType> = mongoose.models.Member || mongoose.model<DBMemberType>('Member', memberSchema);
+const Member = mongoose.models.Member || mongoose.model("Member", memberSchema);
 
 export default Member;

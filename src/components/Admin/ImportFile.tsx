@@ -3,7 +3,7 @@ import { Box, Button, CircularProgress, Snackbar, Alert } from '@mui/material';
 import React, { useState, useRef, ReactElement } from 'react';
 import Input from '@mui/material/Input';
 import { parseExcelToJson } from "@/lib/xlsx";
-import { MatchType, MemberType } from '@/utils/types';
+import { TDatabase } from '@/utils/types';
 
 
 type PropsType = {
@@ -28,7 +28,7 @@ export default function Index({ serverAction }: Readonly<PropsType>): ReactEleme
         if (file) {
             try {
                 setLoading(true);
-                const jsonData: MatchType[] | MemberType[] = await parseExcelToJson(file);
+                const jsonData: TDatabase.Match[] | TDatabase.Member[] = await parseExcelToJson(file);
                 await Promise.all(jsonData.map(async (match) => {
                     try {
                         await serverAction(match);

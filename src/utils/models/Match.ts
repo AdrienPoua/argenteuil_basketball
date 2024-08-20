@@ -1,21 +1,18 @@
-import { MatchType } from "@/utils/types";
 import Utils from "@/utils/models/Utils";
 import clubEmail from "@/data/clubsEmail.json";
+import { TFBI, TDatabase } from "@/utils/types";
+import { MONTH_ORDER } from "@/utils/magicNumber";
 
-const MONTH_ORDER: string[] = [
-  "Janvier",
-  "Février",
-  "Mars",
-  "Avril",
-  "Mai",
-  "Juin",
-  "Juillet",
-  "Août",
-  "Septembre",
-  "Octobre",
-  "Novembre",
-  "Décembre",
-];
+type Constructor = {
+  division: string;
+  matchNumber: string;
+  teamA: string;
+  teamB: string;
+  date: string;
+  time: string;
+  gym: string;
+};
+
 export default class Match {
   private _division: string;
   private _matchNumber: string;
@@ -24,16 +21,14 @@ export default class Match {
   private _date: string;
   private _time: string;
   private _gym: string;
-  private _update: boolean;
-  constructor(data: MatchType) {
-    this._division = data.Division;
-    this._matchNumber = data["N° de match "];
-    this._teamA = data["Equipe 1"];
-    this._teamB = data["Equipe 2"];
-    this._date = data["Date de rencontre"];
-    this._time = data.Heure;
-    this._gym = data.Salle || "Non défini";
-    this._update = data.update || false;
+  constructor(data: Constructor) {
+    this._division = data.division;
+    this._matchNumber = data.matchNumber;
+    this._teamA = data.teamA;
+    this._teamB = data.teamB;
+    this._date = data.date;
+    this._time = data.time;
+    this._gym = data.gym;
   }
   get division(): string {
     return this._division;
@@ -46,13 +41,9 @@ export default class Match {
     return this._matchNumber;
   }
 
-  get isUpdate(): boolean {
-    return this._update;
-  }
-
   get correspondant(): string {
     const him = this.isHome ? this.teamB.toLowerCase() : this.teamA.toLowerCase();
-    const club = clubEmail.find(({ club }) => him.includes(club.toLowerCase()))
+    const club = clubEmail.find(({ club }) => him.includes(club.toLowerCase()));
     return club?.email ?? "Email non trouvé";
   }
 
@@ -96,7 +87,6 @@ export default class Match {
       date: this.date,
       time: this.time,
       gym: this.gym,
-      update: this.isUpdate,
     };
   }
 

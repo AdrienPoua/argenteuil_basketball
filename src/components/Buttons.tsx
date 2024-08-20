@@ -2,15 +2,13 @@
 import React, { useState, useEffect, ReactElement } from "react";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { useTheme } from "@mui/material/styles";
-import { useMediaQuery } from "@mui/material";
 import DoNotDisturbIcon from "@mui/icons-material/DoNotDisturb";
 import { open, setContent } from "@/lib/redux/slices/modal";
 import { useDispatch } from "react-redux";
+import useIsMobile from "@/utils/hooks/useIsMobile";
 
 export const ContactButton = ({ icon, text, available }: { icon: React.ReactNode; text: string; available: boolean }): ReactElement => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useIsMobile();
   const [isClicked, setIsClicked] = useState(false);
   const [content, setContent] = useState<React.ReactNode>(icon);
 

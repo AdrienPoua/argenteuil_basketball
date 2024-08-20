@@ -1,8 +1,25 @@
 import { v4 as uuidv4 } from "uuid";
-import { GymType, TrainingType, TeamType } from "@/utils/types";
 import { Team } from "@/utils/models";
 
-export default class Gym implements GymType {
+type Slots = {
+  team?: string;
+  day: string;
+  start: string;
+  end: string;
+  gym: string;
+};
+
+type Constructor = {
+  id: string;
+  name: string;
+  address: string;
+  city: string;
+  zipcode: string;
+  phone: string;
+  img?: string;
+  available: string[];
+};
+export default class Gym {
   private _id: string;
   private _name: string;
   private _address: string;
@@ -11,17 +28,17 @@ export default class Gym implements GymType {
   private _phone: string;
   private _img?: string;
   private _available: string[];
-  private _slots: TrainingType[] = [];
+  private _slots: Slots[] = [];
 
-  constructor(gym: GymType) {
-    this._id = gym.id ?? uuidv4();
-    this._name = gym.name;
-    this._address = gym.address;
-    this._img = gym.img;
-    this._city = gym.city;
-    this._zipcode = gym.zipcode;
-    this._phone = gym.phone;
-    this._available = gym.available;
+  constructor(data: Constructor) {
+    this._id = data.id ?? uuidv4();
+    this._name = data.name;
+    this._address = data.address;
+    this._img = data.img;
+    this._city = data.city;
+    this._zipcode = data.zipcode;
+    this._phone = data.phone;
+    this._available = data.available;
   }
 
   get id(): string {
@@ -60,7 +77,7 @@ export default class Gym implements GymType {
     return `${this._address}, ${this._zipcode} ${this._city}`;
   }
 
-  addTrainingSlot(training: TrainingType): void {
+  addTrainingSlot(training: Slots): void {
     if (training.gym !== this._name) {
       throw new Error("Training gym does not match this gym");
     }
@@ -74,10 +91,10 @@ export default class Gym implements GymType {
     this._slots.splice(index, 1);
   }
 
-  planning(teams: TeamType[]): TrainingType[] {
-    const isMyGym = (creneau: TrainingType): boolean => creneau.gym === this._name;
-    return teams.flatMap((team: TeamType) => {
-      return team.trainings.filter(isMyGym).map((creneau: TrainingType) => ({
+  planning(teams: Team[]): Slots[] {
+    const isMyGym = (creneau: Slots): boolean => creneau.gym === this._name;
+    return teams.flatMap((team: Team) => {
+      return team.trainings.filter(isMyGym).map((creneau: Slots) => ({
         ...creneau,
         team: team.name,
       }));
@@ -88,7 +105,7 @@ export default class Gym implements GymType {
     this._slots = this.planning(data);
   }
 
-  get slots(): TrainingType[] {
+  get slots(): Slots[] {
     return this._slots;
   }
 }

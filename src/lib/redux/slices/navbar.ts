@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { NavItemType } from "@/utils/types";
 import headerData from "@/data/header.json";
+import { TNavbar } from "@/utils/types";
 
 type StateType = {
-  currentNav: NavItemType | null;
+  currentNav: TNavbar.ExpendableNavItem | null;
   isHidden: boolean;
-  navItems: NavItemType[];
+  navItems: (TNavbar.ExpendableNavItem | TNavbar.DirectNavItem)[];
   isDrawerOpen: boolean;
 };
 
@@ -20,7 +20,7 @@ const Slice = createSlice({
   name: "navbar",
   initialState,
   reducers: {
-    setCurrentNav: (state, action: PayloadAction<NavItemType | null>) => {
+    setCurrentNav: (state, action: PayloadAction<TNavbar.ExpendableNavItem | null>) => {
       state.currentNav = action.payload;
     },
     hideSubBar: (state) => {
