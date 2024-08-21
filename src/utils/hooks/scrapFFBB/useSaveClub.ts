@@ -1,5 +1,4 @@
 "use client";
-import useGetData from "./useGetData";
 import { createClub } from "@/lib/mongo/controllers/clubs";
 import { TDatabase } from "@/utils/types";
 

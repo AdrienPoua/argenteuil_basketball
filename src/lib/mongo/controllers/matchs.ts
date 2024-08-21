@@ -51,10 +51,10 @@ export async function getMatchs(): Promise<TDatabase.Match[]> {
   await connectDB();
   try {
     const matchs = await DBMatch.find();
-    const sortedMatchs = matchs.sort((a, b) => {
+    const sortedMatchs = matchs.toSorted((a, b) => {
       return parseInt(a.matchNumber) - parseInt(b.matchNumber);
     });
-    return sortedMatchs;
+    return JSON.parse(JSON.stringify(sortedMatchs));
   } catch (error) {
     console.error("Erreur lors de la récupération des matchs:", error);
     return [];

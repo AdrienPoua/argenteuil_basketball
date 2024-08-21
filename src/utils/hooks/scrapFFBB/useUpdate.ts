@@ -8,7 +8,7 @@ import useGetData from "./useGetData";
 import useSaveClub from "./useSaveClub";
 
 export default function useUpdate() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const queryClient = useQueryClient();
   const { links } = useLinks();
   const { getData } = useGetData();
@@ -16,6 +16,7 @@ export default function useUpdate() {
 
   const update = async (): Promise<void> => {
     try {
+      setIsLoading(true);
       const data = await getData();
       await dropCollection();
       await Promise.all(

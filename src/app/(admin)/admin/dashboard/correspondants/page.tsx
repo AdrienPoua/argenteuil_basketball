@@ -4,9 +4,8 @@ import { ReactElement } from 'react';
 import { useQuery } from "react-query";
 import { getClubs } from '@/lib/mongo/controllers/clubs';
 import Feedback from '@/components/FetchFeedback';
-import useUpdate from '@/utils/hooks/scrapFFBB/useScrap';
+import useUpdate from '@/utils/hooks/scrapFFBB/useUpdate';
 import Club from '@/utils/models/Club';
-import { TDatabase } from '@/utils/types';
 
 export default function Index(): ReactElement {
     const { data, error, isLoading: queryLoading } = useQuery(['clubs'], async () => await getClubs());
