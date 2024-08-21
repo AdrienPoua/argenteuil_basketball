@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Typography, Button, CircularProgress, List, ListItem } from "@mui/material";
+import { Box, Typography, CircularProgress, List, ListItem } from "@mui/material";
 import { ReactElement } from "react";
 
 type PropsType = {

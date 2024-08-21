@@ -1,5 +1,4 @@
 import Utils from "@/utils/models/Utils";
-import clubEmail from "@/data/clubsEmail.json";
 
 import { MONTH_ORDER } from "@/utils/magicNumber";
 

@@ -11,6 +11,7 @@ const launchBrowser = async () => {
 
 // Fonction pour récupérer les liens des clubs
 export const getLinks = async (): Promise<string[]> => {
+  console.log("🚀 PUPPETEER");
   const browser = await launchBrowser();
   const page = await browser.newPage();
   try {
