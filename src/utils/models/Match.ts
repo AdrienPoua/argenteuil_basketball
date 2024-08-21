@@ -1,6 +1,6 @@
 import Utils from "@/utils/models/Utils";
 import clubEmail from "@/data/clubsEmail.json";
-import { TFBI, TDatabase } from "@/utils/types";
+
 import { MONTH_ORDER } from "@/utils/magicNumber";
 
 type Constructor = {
@@ -41,10 +41,16 @@ export default class Match {
     return this._matchNumber;
   }
 
+  get opponent(): string {
+    return this.isHome ? this.teamB.toLowerCase() : this.teamA.toLowerCase();
+  }
+
+  set correspondant(value: string) {
+    this.correspondant = value;
+  }
+
   get correspondant(): string {
-    const him = this.isHome ? this.teamB.toLowerCase() : this.teamA.toLowerCase();
-    const club = clubEmail.find(({ club }) => him.includes(club.toLowerCase()));
-    return club?.email ?? "Email non trouvé";
+    return this.correspondant;
   }
 
   get teamA(): string {

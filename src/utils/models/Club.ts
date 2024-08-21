@@ -16,7 +16,7 @@ export default class Club {
   private _members: Member[];
 
   constructor(data: Constructor) {
-    this._name = data.name;
+    this._name = data.name
     this._members = data.members;
   }
 
@@ -29,10 +29,10 @@ export default class Club {
   }
 
   get president(): Member | undefined {
-    return this._members.find((member) => member.role?.includes("Président"));
+    return this._members.find((member) => member.role?.toLowerCase().includes("président"));
   }
 
   get correspondant(): Member | undefined {
-    return this._members.find((member) => member.role?.includes("correspondant"));
+    return this._members.find((member) => member.role?.toLowerCase().includes("correspondant"));
   }
 }
