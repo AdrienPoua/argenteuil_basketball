@@ -4,7 +4,7 @@ import { useValidContext } from "@/utils/contexts/DashboardEmail";
 import { useState, useEffect } from "react";
 
 export default function Index() {
-    const { setSelectedMembers, filterByCategory, reset } = useValidContext();
+    const { setSelectedMembers, filterByCategory, reset, year } = useValidContext();
     useEffect(() => {
         setValue("All");
     }, [reset]);
@@ -13,6 +13,9 @@ export default function Index() {
         setSelectedMembers(filterByCategory(value));
         setValue(value);
     };
+    useEffect(() => {
+        setValue("All");
+    }, [year]);
     return (
         <>
             <InputLabel className="text-black">Categorie</InputLabel>

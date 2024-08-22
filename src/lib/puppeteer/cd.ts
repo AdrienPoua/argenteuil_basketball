@@ -2,6 +2,12 @@
 import puppeteer, { Page, ElementHandle } from "puppeteer";
 import { TDatabase } from "@/utils/types";
 
+
+/// THIS ONLY WORK IN LOCALHOST, NOT IN PRODUCTION
+/// I'M WORKING ON IT
+// THE FFBB WEBSITE WILL GET AN UPDRAGE SOON
+
+
 const cd95 = "https://resultats.ffbb.com/organisation/listeorganismes/846.html";
 
 // Fonction pour lancer le navigateur
@@ -11,7 +17,6 @@ const launchBrowser = async () => {
 
 // Fonction pour récupérer les liens des clubs
 export const getLinks = async (): Promise<string[]> => {
-  console.log("🚀 PUPPETEER");
   const browser = await launchBrowser();
   const page = await browser.newPage();
   try {

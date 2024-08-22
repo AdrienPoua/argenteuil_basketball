@@ -41,22 +41,21 @@ const Card = ({ data }: { data: Club }): ReactElement => {
 
 const Cell = ({ data }: { data: { role: string, name: string, email: string, number: string } }): ReactElement => {
     const { role, name, email, number } = data;
+    const isDisabled = email === "@" || number === "/";
     return (
         <>
-            <Button disabled className="text-black size-full">
+            <Button variant="contained" className="text-black size-full">
                 {role}
             </Button>
-            <Button disabled className="text-black size-full">
+            <Button variant="contained" className="text-black size-full">
                 {name}
             </Button>
-            <Button disabled className="text-black size-full" onClick={() => {
+            <Button variant="contained" disabled={isDisabled} className="text-black size-full" onClick={() => {
                 window.open(`mailto:${email}`);
             }}>
                 {email}
             </Button>
-            <Button disabled className="text-black size-full" onClick={() => {
-                window.open(`tel:${number}`);
-            }}>
+            <Button variant="contained" disabled={isDisabled} className="text-black size-full">
                 {number}
             </Button>
         </>

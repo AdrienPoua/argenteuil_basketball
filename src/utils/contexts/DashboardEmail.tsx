@@ -20,6 +20,8 @@ type MembersContextType = {
     filterByYear: (year: string) => TDatabase.Member[];
     filterByCategory: (category: string) => TDatabase.Member[];
     reset: boolean;
+    year: string;
+    setYear: Dispatch<SetStateAction<string>>;
     setReset: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -52,6 +54,8 @@ export function Provider({ children }: Readonly<{ children: React.ReactNode }>) 
     const [reset, setReset] = useState(false);
     const { filterByYear } = useMembersFilter(members as TDatabase.Member[]);
     const { filterByCategory } = useMembersFilter(filteredByYearMembers);
+    const [year, setYear] = useState("2024");
+
 
 
     const value: MembersContextType = useMemo(() => ({
@@ -65,7 +69,9 @@ export function Provider({ children }: Readonly<{ children: React.ReactNode }>) 
         filterByYear,
         filterByCategory,
         reset,
-        setReset
+        setReset,
+        year,
+        setYear
     }), [
         members,
         isLoading,
@@ -75,7 +81,9 @@ export function Provider({ children }: Readonly<{ children: React.ReactNode }>) 
         filterByYear,
         filterByCategory,
         reset,
-        setReset
+        setReset,
+        year,
+        setYear
     ]);
 
     return (
