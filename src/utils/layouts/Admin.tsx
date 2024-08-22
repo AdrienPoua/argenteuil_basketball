@@ -40,6 +40,11 @@ const data = [
     logo: "👲"
   },
   {
+    title: "FAQ",
+    href: "/admin/dashboard/faq",
+    logo: "❓"
+  },
+  {
     title: "Logout",
     logo: "🚪",
     serverAction: async (): Promise<void> => signOut()

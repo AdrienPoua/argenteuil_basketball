@@ -34,7 +34,7 @@ export async function getClubs(): Promise<TDatabase.Club[]> {
 export async function dropCollection(): Promise<void> {
   await connectDB();
   try {
-    await mongoose.connection.db.dropCollection(collection);
+    await mongoose.connection.db?.dropCollection(collection);
     console.log("Collection supprimée avec succès:", collection);
   } catch (error) {
     console.error("Erreur lors de la suppression du club:", error);

@@ -1,9 +1,9 @@
 import { ReactElement } from 'react';
-import { CircularProgress, Typography } from '@mui/material';
+import { CircularProgress, Typography, Box } from '@mui/material';
 
 export default function Feedback({ isLoading, error, data, children }: Readonly<{ isLoading: boolean, error: unknown, data: any, children: ReactElement }>): ReactElement {
     if (isLoading) {
-        return <CircularProgress />;
+        return <Box className="flex justify-center items-center size-full"><CircularProgress /></Box>;
     }
 
     if (error) {

@@ -3,12 +3,14 @@ import SDBClub from "@/lib/zod/schemas/database/ClubsSchema";
 import SFBIMember from "@/lib/zod/schemas/FBI/MemberSchema";
 import SFBIMatch from "@/lib/zod/schemas/FBI/MatchSchema";
 import SDBMatch from "@/lib/zod/schemas/database/MatchSchema";
+import SDBFAQ from "@/lib/zod/schemas/database/FAQSchema";
 
 // Namespace pour les schémas de base de données
 export namespace SDatabase {
   export const Club = SDBClub;
   export const Member = SDBMember;
   export const Match = SDBMatch;
+  export const FAQ = SDBFAQ;
 }
 
 // Namespace pour les schémas issues de FBI
