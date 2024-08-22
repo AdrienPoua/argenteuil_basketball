@@ -14,7 +14,6 @@ export default function Index() {
         <Form />
         {data?.map((faq) => (
           <>
-            {console.log(faq)}
             <CustomDropdown key={faq._id} {...faq} />
           </>
         ))}
@@ -53,14 +52,29 @@ const Form = () => {
   )
 }
 
-const CustomDropdown = ({ question, answer, _id: id, rank }: { question: string, answer: string, rank: number, _id: string }) => {
+const CustomDropdown = ({ question, answer, _id: id, rank: R }: { question: string, answer: string, rank: number, _id: string }) => {
   const { erase, update } = useFAQ()
-  const [R, setRank] = useState(rank)
+  const [rank, setRank] = useState(R)
+  const Increment = () => {
+    const newRank = rank + 1
+    update({ id, rank: newRank })
+    console.log(newRank)
+    setRank(newRank)
+  }
+  const Decrement = () => {
+    const newRank = rank - 1
+    console.log(newRank)
+    update({ id, rank: newRank })
+    setRank(newRank)
+  }
+
   return (
-    <Box className="flex flex-col items-center relative mt-10">
+    <Box className="flex flex-col items-center relative mt-10 ">
       <Box className="absolute -top-10 right-1/2 transform translate-x-1/2 flex h-10 border-2 border-black">
-        <Input className="w-fit bg-white text-center" value={R} onChange={(e) => setRank(Number(e.target.value))} />
-        <Button variant="contained" className="w-fit rounded-none " onClick={() => update({ id, rank: R })}>✏️</Button>
+        <Box className="flex">
+          <Button className="w-fit bg-white text-center" onClick={Increment}  > ⏫</Button>
+          <Button className="w-fit bg-white text-center" onClick={Decrement} > ⏬</Button>
+        </Box>
         <Button variant="contained" className="w-fit rounded-none " onClick={() => erase(id)}>❌</Button>
       </Box>
       <Dropdown

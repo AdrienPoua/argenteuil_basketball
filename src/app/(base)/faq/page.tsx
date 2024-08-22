@@ -1,6 +1,5 @@
 "use client";
 import { Box, Typography, Paper } from "@mui/material";
-import { faq } from "@/utils/services/dataProcessing";
 import { FAQ } from "@/utils/models";
 import Dropdown from "@/components/Dropdown";
 import { useState, useRef, ReactElement } from "react";
@@ -57,7 +56,7 @@ const AnimatedDropdown = ({ dropdown }: { dropdown: FAQ }): ReactElement | null 
 export default function Index(): ReactElement {
   const [searchQuery, setSearchQuery] = useState('');
   const { data: FAQlist, isLoading, error } = useFetchFAQ();
-  const filteredFAQ = FAQlist?.filter((item) => searchQuery.length === 0 || item.question.toLowerCase().includes(searchQuery.toLowerCase()));
+  const filteredFAQ = FAQlist?.filter((item: { question: string, answer: string, rank: number, _id: string }) => searchQuery.length === 0 || item.question.toLowerCase().includes(searchQuery.toLowerCase()));
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
   };
@@ -71,7 +70,7 @@ export default function Index(): ReactElement {
         </Box>
         <Feedback isLoading={isLoading} error={error} data={FAQlist} >
           <Box className="flex flex-col gap-5 max-w-[800px] mx-auto">
-            {filteredFAQ?.map((item) => (
+            {filteredFAQ?.map((item: { question: string, answer: string, rank: number, _id: string }) => (
               <AnimatedDropdown key={item.id} dropdown={item} />
             ))}
           </Box>

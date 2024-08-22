@@ -17,8 +17,8 @@ export async function createFAQ(payload: { question: string; answer: string; ran
 export async function getFAQ() {
   await connectDB();
   try {
-    const FAQ = await DBFAQ.find().sort({ rank: 1 });
-    return FAQ;
+    const FAQ = await DBFAQ.find().sort({ rank: "descending" }).lean();
+    return JSON.parse(JSON.stringify(FAQ))
   } catch (error) {
     console.error("Erreur lors de la récupération des FAQ:", error);
     throw new Error("Erreur lors de la récupération des FAQ");
