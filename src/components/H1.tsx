@@ -7,11 +7,11 @@ type PropsType = {
 export default function Index({ children }: Readonly<PropsType>): ReactElement {
     return (
         <Container
-            className="bg-[url('/images/background.jpg')] flex justify-center items-center mb-10 max-w-[80%] py-5"
+            className="bg-[url('/images/background.jpg')] flex justify-center items-center mb-10 max-w-[80%] py-5 overflow-hidden"
         >
             <Typography
                 component="h1"
-                className="whitespace-nowrap  text-5xl text-center text-white"
+                className=" text-xl md:text-5xl text-center text-white"
             >
                 {children}
             </Typography>
