@@ -39,7 +39,7 @@ export default function SignIn() {
               </Button>
             </Link>
             <Link
-              href="/studio"
+              href="/studio/structure"
               passHref>
               <Button
                 variant="contained"

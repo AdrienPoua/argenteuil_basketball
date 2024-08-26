@@ -13,7 +13,10 @@ import { useRef, ReactElement } from "react";
 import useVisibility from "@/utils/hooks/useVisibility";
 import useIsMobile from "@/utils/hooks/useIsMobile";
 
-
+const animation = {
+  hidden: { opacity: 0, y: -50 },
+  visible: { opacity: 1, y: 0, transition: { type: "spring" }, duration: 0.3 },
+}
 const PostCard = dynamic(() => import("@/components/Cards").then((mod) => mod.PostCard), { ssr: false });
 
 const HeroSection = () => {
@@ -56,12 +59,10 @@ const PostsWrapper = (): ReactElement => {
     sanityFetch<SanityDocument>({ query: POST_HOME_RIGHT_QUERY })
   );
 
+
   const GridRef = useRef(null);
   const isVisible = useVisibility(GridRef);
-  const animation = {
-    hidden: { opacity: 0, y: -50 },
-    visible: { opacity: 1, y: 0, transition: { type: "spring" }, duration: 0.3 },
-  }
+
   const isMobile = useIsMobile();
   return (
     <Container maxWidth="xl">

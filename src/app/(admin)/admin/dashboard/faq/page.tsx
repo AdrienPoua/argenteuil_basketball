@@ -16,7 +16,10 @@ export default function Index() {
       <Container className="flex flex-col grow w-full gap-5">
         <Form />
         {data?.map((faq: { _id: string, question: string, answer: string, rank: number }) => (
-          <CustomDropdown key={faq._id} {...faq} />
+          <>
+            {console.log(faq)}
+            <CustomDropdown key={faq._id} {...faq} />
+          </>
         ))}
 
       </Container>
@@ -44,7 +47,6 @@ const Form = () => {
       <InputLabel className="text-black m-auto" >Question</InputLabel>
       <TextareaAutosize className="w-full min-h-10 rounded-lg text-black" value={question} onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setQuestion(e.target.value)} />
       <InputLabel className="text-black m-auto">Answer</InputLabel>
-
       <TextareaAutosize className="w-full min-h-10 rounded-lg text-black" value={answer} onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setAnswer(e.target.value)} />
       <InputLabel className="text-black m-auto">Rank</InputLabel>
       <TextField className="w-fit m-auto" value={rank} onChange={(e) => setRank(Number(e.target.value))} />
@@ -54,6 +56,7 @@ const Form = () => {
 }
 
 const CustomDropdown = ({ question, answer, _id: id, rank: R }: { question: string, answer: string, rank: number, _id: string }) => {
+  
   const { erase, update } = useFAQ()
   const [rank, setRank] = useState(R)
   const Increment = () => {
