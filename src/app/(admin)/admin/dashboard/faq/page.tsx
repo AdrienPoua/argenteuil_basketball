@@ -2,9 +2,12 @@
 import useFetchFAQ from "@/utils/hooks/fetchDatabase/useFetchFAQ";
 import Feedback from "@/components/FetchFeedback";
 import Dropdown from "@/components/Dropdown";
-import { Box, Typography, Container, TextField, InputLabel, Button, TextareaAutosize, Paper, Input } from "@mui/material";
+import { Box, Typography, Container, TextField, InputLabel, Button, TextareaAutosize, Paper } from "@mui/material";
 import { ChangeEvent, useState } from "react";
 import { useFAQ } from "@/utils/hooks/useFAQ";
+
+
+
 
 export default function Index() {
   const { data, error, isLoading } = useFetchFAQ()
@@ -12,10 +15,8 @@ export default function Index() {
     <Feedback data={data} isLoading={isLoading} error={error}   >
       <Container className="flex flex-col grow w-full gap-5">
         <Form />
-        {data?.map((faq) => (
-          <>
-            <CustomDropdown key={faq._id} {...faq} />
-          </>
+        {data?.map((faq: { _id: string, question: string, answer: string, rank: number }) => (
+          <CustomDropdown key={faq._id} {...faq} />
         ))}
 
       </Container>

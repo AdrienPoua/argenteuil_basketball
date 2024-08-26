@@ -8,7 +8,6 @@ import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent";
 import TimelineDot from "@mui/lab/TimelineDot";
 import { motion } from "framer-motion";
 import { ReactElement } from "react";
-import DoneIcon from "@mui/icons-material/Done";
 
 type PropsType = {
     left: React.ReactNode;
@@ -17,18 +16,22 @@ type PropsType = {
     index: number;
 };
 
-export default function Index({ left, icon, right, index }: Readonly<PropsType>): ReactElement {
-    const animation = {
+const animation = (index: number) => {
+    return {
         hidden: { opacity: 0, y: 50 },
         visible: { opacity: 1, y: 0, transition: { type: "spring", delay: index * 0.2 } },
         hover: { backgroundColor: "#172554" },
     };
+};
+
+export default function Index({ left, icon, right, index }: Readonly<PropsType>): ReactElement {
+
     return (
         <motion.div
             initial="hidden"
             animate="visible"
             whileHover="hover"
-            variants={animation}
+            variants={animation(index)}
             transition={{ duration: 0.3 }}
         >
             <TimelineItem className="flex relative">
@@ -51,15 +54,17 @@ export default function Index({ left, icon, right, index }: Readonly<PropsType>)
 
 export const TimeLineEnd = (): ReactElement => {
     return (
-        <TimelineItem className="flex flex-col justify-center items-center self-center ">
-            <TimelineConnector className="min-h-10" />
-            <TimelineDot
-                className="self-center "
-                color="primary">
-                <DoneIcon className="self-center" />
-            </TimelineDot>
+        <motion.div
+        initial="hidden"
+        animate="visible"
+        whileHover="hover"
+        variants={animation(0)}
+        transition={{ duration: 0.3 }}
+    >
+        <TimelineItem className="flex justify-center items-center">
             <Typography className="self-center text-white">Vous êtes maintenant licencié</Typography>
-        </TimelineItem>
+            </TimelineItem>
+        </motion.div>
     )
 }
 
