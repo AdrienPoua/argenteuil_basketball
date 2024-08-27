@@ -11,7 +11,7 @@ import { MainSection } from "@/utils/layouts";
 import useFetchFAQ from "@/utils/hooks/fetchDatabase/useFetchFAQ";
 import Feedback from "@/components/FetchFeedback";
 
-const AnimatedDropdown = ({ dropdown }: { dropdown: FAQ }): ReactElement | null => {
+const AnimatedDropdown = ({ question, answer }: { question: string, answer: string }): ReactElement | null => {
   const cardRef = useRef(null);
   const isVisible = useVisibility(cardRef);
   const animation = {
@@ -33,14 +33,14 @@ const AnimatedDropdown = ({ dropdown }: { dropdown: FAQ }): ReactElement | null 
       <Dropdown
         header={
           <Typography variant="body2" className="flex text-lg">
-            {dropdown.question}
+            {question}
           </Typography>
         }
         items={
           <Box className="flex flex-col">
             <Paper className="p-3">
               <Typography variant="body2" className="flex text-lg">
-                {dropdown.answer}
+                {answer}
               </Typography>
             </Paper>
           </Box>
@@ -71,7 +71,7 @@ export default function Index(): ReactElement {
         <Feedback isLoading={isLoading} error={error} data={FAQlist} >
           <Box className="flex flex-col gap-5 max-w-[800px] mx-auto">
             {filteredFAQ?.map((item: { question: string, answer: string, rank: number, _id: string }) => (
-              <AnimatedDropdown key={item.id} dropdown={item} />
+              <AnimatedDropdown key={item._id} question={item.question} answer={item.answer} />
             ))}
           </Box>
         </Feedback>

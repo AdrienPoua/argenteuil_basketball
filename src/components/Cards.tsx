@@ -13,11 +13,12 @@ import useIsMobile from "@/utils/hooks/useIsMobile";
 
 
 
-export const PostCard = ({ small, sticky, post, isMobile }: { small?: boolean; sticky?: boolean, post: SanityDocument, isMobile: boolean }): ReactElement => {
+export const PostCard = ({ small, post, isMobile }: { post: SanityDocument, small?: boolean, isMobile: boolean }): ReactElement => {
   const { Image, title, publishedAt: date, slug } = post;
   const formatedDate = Utils.formatDate(new Date(date), { month: "long", day: "numeric", year: "numeric" });
+  const className = (small && isMobile) ? "hidden" : (!small && isMobile) ? "h-[500px]" : (small) ? "h-[400px]" : "h-[800px]"
   return (
-    <Card className={`${sticky ? "sticky top-0" : ""} group  rounded-3xl w-full `}>
+    <Card className={` group  rounded-3xl w-full `}>
       <Link
         href={`/actualites/${slug.current}`}
         className="relative size-full">
@@ -25,7 +26,7 @@ export const PostCard = ({ small, sticky, post, isMobile }: { small?: boolean; s
           <CardMedia
             component="img"
             image={urlFor(Image).url()}
-            className={` group-hover:scale-110 duration-300 ${small || isMobile ? "h-[400px]" : "h-[600px]"}`}
+            className={` group-hover:scale-110 duration-300 ${className} `}
           />
           <Box className="absolute inset-0 bg-black bg-opacity-50" />
         </Box>

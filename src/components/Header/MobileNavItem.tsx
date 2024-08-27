@@ -3,6 +3,8 @@ import { Box, Button, ListItem, Typography } from "@mui/material";
 import Link from "next/link";
 import Dropdown from "@/components/Dropdown";
 import { TNavbar } from "@/utils/types";
+import Arrow from "./Arrow";
+
 
 
 const DirectNavItem = ({ item }: { item: TNavbar.DirectNavItem }): ReactElement => {
@@ -15,6 +17,7 @@ const DirectNavItem = ({ item }: { item: TNavbar.DirectNavItem }): ReactElement 
                 className="grow flex justify-end">
                 <Typography variant="body2">{item.title}</Typography>
             </Link>
+            <Arrow hidden />
         </ListItem>
     );
 };

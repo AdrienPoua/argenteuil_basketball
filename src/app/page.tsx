@@ -2,22 +2,37 @@
 import { Box, Container, Typography, Grid } from "@mui/material";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { SanityDocument } from "next-sanity";
-import { sanityFetch } from "@/lib/sanity/fetch";
-import { POST_HOME_LEFT_QUERY, POST_HOME_RIGHT_QUERY } from "@/lib/sanity/queries";
 import dynamic from "next/dynamic";
-import { useQuery } from "react-query";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useRef, ReactElement } from "react";
 import useVisibility from "@/utils/hooks/useVisibility";
 import useIsMobile from "@/utils/hooks/useIsMobile";
-
-const animation = {
-  hidden: { opacity: 0, y: -50 },
-  visible: { opacity: 1, y: 0, transition: { type: "spring" }, duration: 0.3 },
-}
+import { useSanity } from "@/utils/hooks/sanity/useSanity";
+import { SanityDocument } from "next-sanity";
+import { MAX_POSTS_ON_HOME_PAGE } from "@/utils/magicNumber";
 const PostCard = dynamic(() => import("@/components/Cards").then((mod) => mod.PostCard), { ssr: false });
+
+
+export default function HomePage() {
+  return (
+    <>
+      <Header />
+      <Box className="bg-black">
+        <HeroSection />
+        <Container maxWidth="xl">
+          <Typography
+            variant="h2"
+            className="text-white mb-8">
+            Actualités{" "}
+          </Typography>
+        </Container>
+        <PostsWrapper />
+      </Box>
+      <Footer />
+    </>
+  );
+};
 
 const HeroSection = () => {
   const animation = {
@@ -51,17 +66,26 @@ const HeroSection = () => {
   );
 };
 
+const AnimatedCard = ({ post, isMobile, small, className }: { post: SanityDocument, isMobile: boolean, small?: boolean, className?: string }): ReactElement => {
+  const animation = {
+    hidden: { opacity: 0, y: -50 },
+    visible: { opacity: 1, y: 0, transition: { type: "spring" }, duration: 0.3 },
+  };
+  return (
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      variants={animation}
+      transition={{ duration: 0.3 }}
+      className={className}
+    >
+      <PostCard post={post} isMobile={isMobile} small={small} />
+    </motion.div>
+  );
+};
+
 const PostsWrapper = (): ReactElement => {
-  const { data: leftPostOnHomePage } = useQuery(['home', 'left'], () =>
-    sanityFetch<SanityDocument>({ query: POST_HOME_LEFT_QUERY })
-  );
-  const { data: rightPostOnHomePage } = useQuery(['home', 'right'], () =>
-    sanityFetch<SanityDocument>({ query: POST_HOME_RIGHT_QUERY })
-  );
-
-
-  const GridRef = useRef(null);
-  const isVisible = useVisibility(GridRef);
+  const { leftPostOnHomePage, rightPostOnHomePage, postsOnHomePage } = useSanity()
 
   const isMobile = useIsMobile();
   return (
@@ -69,78 +93,52 @@ const PostsWrapper = (): ReactElement => {
       <Grid
         container
         spacing={5}
-        ref={GridRef}
         className="mb-10">
         <Grid
           item
           xs={12}
           md={6}>
           {leftPostOnHomePage && (
-            <motion.div
-              initial="hidden"
-              animate={isVisible ? "visible" : "hidden"}
-              whileHover="hover"
-              variants={animation}
-              transition={{ duration: 0.3 }}
-              className="group"
-            >
-              <PostCard
-                post={leftPostOnHomePage}
-                isMobile={isMobile}
-                sticky
-              />
-            </motion.div>
+            <AnimatedCard post={leftPostOnHomePage} isMobile={isMobile} className="sticky top-0" />
           )}
         </Grid>
         <Grid
+          container
           item
           xs={12}
-          md={6}>
+          md={6}
+        >
           <Grid
             item
             xs={12}
-            className="mb-2">
+          >
             {rightPostOnHomePage && (
-              <motion.div
-                initial="hidden"
-                animate={isVisible ? "visible" : "hidden"}
-                whileHover="hover"
-                variants={animation}
-                transition={{ duration: 0.3 }}
-                className="group"
-              >
-                <PostCard
-                  post={rightPostOnHomePage}
-                  isMobile={isMobile}
-                />
-              </motion.div>
+              <AnimatedCard post={rightPostOnHomePage} isMobile={isMobile} className="mb-3" />
             )}
+          </Grid>
+          <Grid
+            container
+            item
+            spacing={2}
+            xs={12}
+          >
+            {
+              postsOnHomePage?.map((post: SanityDocument, index: number) => (
+                index < MAX_POSTS_ON_HOME_PAGE && (
+                  <Grid
+                    item
+                    xs={12}
+                    md={6}
+                    key={post._id}
+                  >
+                    <AnimatedCard post={post} isMobile={isMobile} small />
+                  </Grid>
+                )
+              ))
+            }
           </Grid>
         </Grid>
       </Grid>
     </Container>
   )
 }
-
-export default function HomePage() {
-  return (
-    <>
-      <Header />
-      <Box className="bg-black">
-        <HeroSection />
-        <Container maxWidth="xl">
-          <Typography
-            variant="h2"
-            className="text-white mb-8">
-            Actualités{" "}
-          </Typography>
-        </Container>
-        <PostsWrapper />
-      </Box>
-      <Footer />
-    </>
-  );
-};
-
-
-

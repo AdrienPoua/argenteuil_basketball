@@ -47,11 +47,11 @@ export default function TeamPage() {
     <>
       <H1>Nos équipes 2024-2025</H1>
       <MainSection>
-        <Box className="flex flex-col items-center mb-20">
+        <Box className="flex flex-col items-center mb-20 gap-8">
           <Button
             size="large"
             variant="contained"
-            className="mb-8"
+            className="mb-3"
             onClick={() => handleClick(null)}>
             Toutes les équipes
           </Button>

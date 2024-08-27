@@ -7,12 +7,13 @@ import { Typography, Box, ListItem, List } from "@mui/material";
 export const components: PortableTextComponents = {
   types: {
     image: ({ value }) => (
-      <Box className="relative w-full h-64 md:h-96 aspect-square">
+      <Box className="relative w-full h-auto aspect-square overflow-hidden">
         <Image
           src={urlFor(value).url()}
           alt={value.alt || ""}
           objectFit="cover"
-          className="rounded-md"
+          className="rounded-md size-full mb-5"
+          fill
         />
       </Box>
     ),
@@ -28,23 +29,39 @@ export const components: PortableTextComponents = {
     ),
   },
   block: {
+    h1: ({ children }) => (
+      <Typography
+        variant="h1"
+        className="text-black text-center text-4xl">
+        {children}
+      </Typography>
+    ),
     h2: ({ children }) => (
       <Typography
         variant="h2"
-        className="text-black">
+        className="text-black text-center">
         {children}
       </Typography>
     ),
     h3: ({ children }) => (
       <Typography
         variant="h3"
-        className="text-black text-3xl ">
+        className="text-black text-3xl text-center mb-5">
+        {children}
+      </Typography>
+    ),
+    h4: ({ children }) => (
+      <Typography
+        variant="h4"
+        className="text-black text-2xl mb-1"
+      >
         {children}
       </Typography>
     ),
     normal: ({ children }) => (
       <Typography
-        className="text-black font-secondary">
+        className="text-black font-secondary"
+      >
         {children}
       </Typography>
     ),
@@ -59,4 +76,5 @@ export const components: PortableTextComponents = {
       </ListItem>
     ),
   },
+
 };

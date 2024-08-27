@@ -13,4 +13,4 @@ export const MONTH_ORDER: string[] = [
   "Décembre",
 ];
 
-export const MAX_POSTS_ON_HOME_PAGE = 3;
+export const MAX_POSTS_ON_HOME_PAGE = 4;
