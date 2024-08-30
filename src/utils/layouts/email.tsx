@@ -9,7 +9,7 @@ type PropsType = {
     sent: boolean
     children: ReactElement
 }
-const modalClass = "min-size-96 p-20 gap-5 flex flex-col justify-center items-center bg-white"
+const modalClass = "min-size-96 p-20 gap-5 flex flex-col justify-center items-center bg-white scroll-y-auto max-h-[60vh] overflow-y-auto"
 
 export default function Index({ emails, sending, sent, children }: Readonly<PropsType>): ReactElement {
     if (sending) {
