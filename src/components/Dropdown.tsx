@@ -20,7 +20,7 @@ export default function Index({ header, items }: Readonly<PropsType>): ReactElem
 
   return (
     <Box
-      className={`flex flex-col overflow-hidden grow transition-all w-full duration-300 cursor-pointer`}
+      className={`flex flex-col overflow-hidden grow transition-all w-full duration-300`}
       onClick={() => setOpen((prev) => !prev)}
     >
       <Box className="flex items-center justify-between bg-primary p-4">

@@ -11,6 +11,7 @@ import "./globals.css";
 import store from "@/lib/redux/store";
 import { Provider as ReduxProvider } from "react-redux";
 import Modal from "@/components/Modal";
+import LottieCursor from "@/components/cursor";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,7 @@ export default function RootLayout({
               <App>
                 <ScrollToTopButton />
                 <Modal />
+                <LottieCursor />
                 {children}
               </App>
             </QueryClientProvider>

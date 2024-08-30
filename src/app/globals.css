@@ -14,4 +14,11 @@
   src: url("/fonts/Evogria.otf") format("opentype");
 }
 
+html {
+  cursor: none;
+}
 
+a:-webkit-any-link {
+  cursor: none;
+  text-decoration: none;
+}

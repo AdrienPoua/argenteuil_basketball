@@ -101,9 +101,6 @@ const Table = (): ReactElement => {
             },
           }}
           sx={{
-            "& .MuiDataGrid-row": {
-              cursor: "pointer",
-            },
             "& .MuiDataGrid-row.Mui-selected": {
               backgroundColor: "primary.main",
               color: "white",

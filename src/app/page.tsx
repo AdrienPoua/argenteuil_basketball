@@ -5,8 +5,7 @@ import Footer from "@/components/Footer";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useRef, ReactElement } from "react";
-import useVisibility from "@/utils/hooks/useVisibility";
+import { ReactElement } from "react";
 import useIsMobile from "@/utils/hooks/useIsMobile";
 import { useSanity } from "@/utils/hooks/sanity/useSanity";
 import { SanityDocument } from "next-sanity";
@@ -99,7 +98,7 @@ const PostsWrapper = (): ReactElement => {
           xs={12}
           md={6}>
           {leftPostOnHomePage && (
-            <AnimatedCard post={leftPostOnHomePage} isMobile={isMobile} className="sticky top-0" />
+            <AnimatedCard post={leftPostOnHomePage} isMobile={isMobile} className="sticky top-10" />
           )}
         </Grid>
         <Grid

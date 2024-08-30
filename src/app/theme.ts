@@ -27,11 +27,29 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
+          cursor: "none",
+          "&:hover": {
+            cursor: "none",
+          },
           "&.Mui-disabled": {
             backgroundColor: "gray",
             color: "white",
             borderColor: "gray",
           },
+        },
+      },
+    },
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          cursor: "none",
+        },
+      },
+    },
+    MuiButtonBase: {
+      styleOverrides: {
+        root: {
+          cursor: "none",
         },
       },
     },
