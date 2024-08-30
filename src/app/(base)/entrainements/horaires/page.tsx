@@ -8,11 +8,7 @@ import { useRef } from "react";
 import H1 from "@/components/H1";
 import { MainSection } from "@/utils/layouts";
 import useIsMobile from "@/utils/hooks/useIsMobile";
-
-interface ScheduleProps {
-  data: Gym;
-}
-
+import Instructions from "@/components/Instructions";
 
 
 
@@ -113,6 +109,25 @@ export default function SchedulePage() {
     <>
       <H1>Plannings</H1>
       <MainSection>
+        <Instructions >
+          <Box className="flex ">
+            <Typography className="grow">
+              U07 = 5/6 ans <br />
+              U09 = 7/8 ans <br />
+              U11 = 9/10 ans <br />
+              U13 = 11/12 ans <br />
+              U15 = 13/14 ans <br />
+              U17 = 15/16 ans <br />
+            </Typography>
+            <Typography className="grow">
+              &quot;F&quot; est une séction féminine <br />
+              &quot;M&quot; est une séction masculine <br />
+            </Typography>
+          </Box>
+          <Typography>
+            Si je suis une fille née le 31 décembre 2010, je suis en U15F car j&apos;aurai 15 ans sur l&apos;année en cours
+          </Typography>
+        </Instructions>
         <Box className="flex flex-col gap-10">
           {gyms.map((gym) => (
             <Schedule key={gym.id} data={gym} />
