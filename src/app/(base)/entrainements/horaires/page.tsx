@@ -109,7 +109,7 @@ export default function SchedulePage() {
     <>
       <H1>Plannings</H1>
       <MainSection>
-        <Instructions >
+        <Instructions className="bg-white">
           <Box className="flex ">
             <Typography className="grow basis-1">
               U07 = 5/6 ans <br />

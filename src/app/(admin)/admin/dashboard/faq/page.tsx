@@ -3,9 +3,10 @@ import useFetchFAQ from "@/utils/hooks/fetchDatabase/useFetchFAQ";
 import Feedback from "@/components/FetchFeedback";
 import Dropdown from "@/components/Dropdown";
 import { Box, Typography, Container, TextField, InputLabel, Button, TextareaAutosize, Paper } from "@mui/material";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { useFAQ } from "@/utils/hooks/useFAQ";
 
+import Instructions from "@/components/Instructions";
 
 
 
@@ -14,10 +15,17 @@ export default function Index() {
   return (
     <Feedback data={data} isLoading={isLoading} error={error}   >
       <Container className="flex flex-col grow w-full gap-5">
+        <Instructions className="bg-gray-100">
+          <Typography className="text-black">
+            Créer une question et une réponse pour les questions fréquentes
+          </Typography>
+          <Typography className="text-black">
+            Modifier l&apos;ordre des questions avec les fleches pour les trier dans leur ordre d&apos;apparition
+          </Typography>
+        </Instructions>
         <Form />
         {data?.map((faq: { _id: string, question: string, answer: string, rank: number }) => (
           <>
-            {console.log(faq)}
             <CustomDropdown key={faq._id} {...faq} />
           </>
         ))}
@@ -29,34 +37,55 @@ export default function Index() {
 
 
 const Form = () => {
-  const [question, setQuestion] = useState("")
-  const [answer, setAnswer] = useState("")
-  const [rank, setRank] = useState(0)
-  const { create } = useFAQ()
-  const reset = () => {
-    setQuestion("")
-    setAnswer("")
-    setRank(0)
-  }
-  const handleClick = () => {
-    create({ question, answer, rank })
-    reset()
-  }
+  const { create } = useFAQ();
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    create(new FormData(e.target as HTMLFormElement));
+    (e.target as HTMLFormElement).reset();
+  };
+
   return (
-    <Box className="flex flex-col w-[80%] mx-auto gap-1 bg-primary p-10">
-      <InputLabel className="text-black m-auto" >Question</InputLabel>
-      <TextareaAutosize className="w-full min-h-10 rounded-lg text-black" value={question} onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setQuestion(e.target.value)} />
-      <InputLabel className="text-black m-auto">Answer</InputLabel>
-      <TextareaAutosize className="w-full min-h-10 rounded-lg text-black" value={answer} onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setAnswer(e.target.value)} />
-      <InputLabel className="text-black m-auto">Rank</InputLabel>
-      <TextField className="w-fit m-auto" value={rank} onChange={(e) => setRank(Number(e.target.value))} />
-      <Button variant="contained" className="w-fit m-auto mt-5" onClick={handleClick}>Create</Button>
+    <Box
+      component="form"
+      onSubmit={handleSubmit}
+      className="flex flex-col w-[80%] mx-auto gap-4 bg-primary p-10"
+    >
+      <InputLabel htmlFor="question-input" className="text-black m-auto">Question</InputLabel>
+      <TextareaAutosize
+        name="question"
+        id="question-input"
+        className="w-full min-h-10 rounded-lg text-black"
+      />
+
+      <InputLabel htmlFor="answer-input" className="text-black m-auto">Answer</InputLabel>
+      <TextareaAutosize
+        name="answer"
+        id="answer-input"
+        className="w-full min-h-10 rounded-lg text-black"
+      />
+      <InputLabel htmlFor="rank-input" className="text-black m-auto">Rank</InputLabel>
+      <TextField
+        name="rank"
+        id="rank-input"
+        className="w-fit m-auto bg-white rounded-lg"
+        type="number"
+      />
+
+      <Button
+        variant="contained"
+        className="w-fit m-auto mt-5"
+        type="submit"
+      >
+        Create
+      </Button>
     </Box>
-  )
-}
+  );
+};
+
+
 
 const CustomDropdown = ({ question, answer, _id: id, rank: R }: { question: string, answer: string, rank: number, _id: string }) => {
-  
+
   const { erase, update } = useFAQ()
   const [rank, setRank] = useState(R)
   const Increment = () => {

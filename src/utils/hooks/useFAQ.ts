@@ -20,8 +20,11 @@ export function useFAQ() {
     await handleAction(() => deleteFAQ(id), "la suppression");
   };
 
-  const create = async (payload: { question: string; answer: string; rank: number }) => {
-    await handleAction(() => createFAQ(payload), "la création");
+  const create = async (payload: FormData) => {
+    const question = payload.get("question") as string;
+    const answer = payload.get("answer") as string;
+    const rank = Number(payload.get("rank"))
+    await handleAction(() => createFAQ({ question, answer, rank }), "la création");
   };
 
   const update = async (payload: { id: string; rank: number }) => {
