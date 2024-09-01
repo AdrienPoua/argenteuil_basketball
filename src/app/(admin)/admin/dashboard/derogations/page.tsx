@@ -19,7 +19,7 @@ import Modal from "./Modal";
 import { useDispatch } from 'react-redux';
 import { open, setContent } from '@/lib/redux/slices/modal';
 import Feedback from '@/components/FetchFeedback';
-
+import Info from '@/components/Info';
 const FetchAndProcess = async (): Promise<Match[]> => {
     const matchs = await getMatchs();
     ValidateWithZod(matchs, DBMatchschema);
@@ -34,6 +34,9 @@ export default function Index(): ReactElement {
     const [reason, setReason] = useState<string>("");
     const [proposition, setProposition] = useState<string>("");
     const { data: matchs, isLoading, error } = useQuery('matchs', FetchAndProcess);
+
+    if (matchs?.length === 0) return <Info content="Aucun match dans la base de données" />
+
 
     const handleMatchChange = (event: SelectChangeEvent) => {
         const selectedMatch = matchs?.find((match) => match.matchNumber === event.target.value) || null;
