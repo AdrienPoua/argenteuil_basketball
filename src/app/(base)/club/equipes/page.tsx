@@ -29,7 +29,7 @@ const AnimateCard = ({ children }: { children: ReactElement }): ReactElement => 
       initial="hidden"
       animate={isVisible ? "visible" : "hidden"}
       variants={animation}
-      transition={{ duration: 0.3, type: "just" }}
+      transition={{ duration: 0.3, type: "spring" }}
       className="w-full h-fit"
     >
       {children}

@@ -14,9 +14,6 @@ const config: Config = {
         main : ["Evogria", "sans-serif"],
         secondary: ['Roboto', 'sans-serif'],
       },
-      cursor: {
-        pointer: 'none',
-      },
       textUnderlineOffset: {
         4: '4px',
         8: '8px',
