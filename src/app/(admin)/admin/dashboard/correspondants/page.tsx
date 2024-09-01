@@ -6,6 +6,7 @@ import { getClubs } from '@/lib/mongo/controllers/clubs';
 import Feedback from '@/components/FetchFeedback';
 import useUpdate from '@/utils/hooks/scrapFFBB/useUpdate';
 import Club from '@/utils/models/Club';
+import Instructions from "@/components/Instructions";
 
 export default function Index(): ReactElement {
     const { data, error, isLoading: queryLoading } = useQuery(['clubs'], async () => await getClubs());
@@ -14,6 +15,13 @@ export default function Index(): ReactElement {
     return (
         <Feedback data={data} error={error} isLoading={queryLoading}>
             <Box className="flex flex-col gap-1 justify-center items-center size-fit">
+                <Instructions className="bg-gray-100">
+                    <Typography className="text-black">
+                        Pour l&apos;instant, la fonctionnalité pour mettre à jour les correspondants des clubs n&apos;est pas disponible.<br />
+                        Elle est disponible que en local. <br />
+                        J&apos;attends la mise à jour du site de la fédération
+                    </Typography>
+                </Instructions>
                 <Button variant="contained" disabled={isLoading} className="mb-5" onClick={update}> {isLoading ? <CircularProgress /> : "Update"} </Button>
                 {
                     clubs?.map((club, index) => (

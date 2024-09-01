@@ -1,8 +1,9 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, InputLabel } from "@mui/material";
 import { useState, ReactElement } from "react";
 import useSendEmail from "@/utils/hooks/useSendEmail";
 import Layout from "@/utils/layouts/email";
 import { TDatabase } from "@/utils/types";
+
 
 type PropsType = {
     members: TDatabase.Member[];
@@ -40,34 +41,53 @@ export default function EmailForm({ members }: Readonly<PropsType>): ReactElemen
 
 
 const FirstStep = ({ payload, setPayload, setStep }: Readonly<firstStepProps>): ReactElement => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+        e.preventDefault();
+        const formData = new FormData(e.target as HTMLFormElement);
+        const subject = formData.get("subject") as string;
+        const text = formData.get("text") as string;
+        setPayload({ ...payload, subject, text });
+        setStep(2);
+    };
     return (
-        <Box className="bg-red-500 min-size-96 min-w-[500px] p-4">
-            <Box className="flex flex-col justify-center items-center gap-5 grow">
-                <TextField
-                    label="Sujet du mail"
-                    variant="outlined"
-                    value={payload.subject}
-                    onChange={(e) => setPayload({ ...payload, subject: e.target.value })}
-                    fullWidth
-                    margin="normal"
-                />
-                <TextField
-                    label="Entrez votre message ici"
-                    multiline
-                    rows={10}
-                    variant="outlined"
-                    value={payload.text}
-                    onChange={(e) => setPayload({ ...payload, text: e.target.value })}
-                    fullWidth
-                    margin="normal"
-                />
-                <Button onClick={() => setStep(2)} variant="contained" color="primary">
-                    Soumettre
-                </Button>
-            </Box>
+        <Box
+        component="form"
+        onSubmit={handleSubmit}
+        className="bg-primary min-h-96 min-w-[500px] p-6 rounded-lg"
+      >
+        <Box className="flex flex-col justify-center items-center gap-5">
+          <InputLabel htmlFor="subject-input" className="text-black text-center">
+            Sujet
+          </InputLabel>
+          <TextField
+            id="subject-input"
+            name="subject"
+            variant="outlined"
+            fullWidth
+            defaultValue={payload.subject}
+            className="bg-white rounded-md"
+          />
+          <InputLabel htmlFor="message-input" className="text-black text-center">
+            Message
+          </InputLabel>
+          <TextField
+            id="message-input"
+            name="text"
+            multiline
+            rows={10}
+            variant="outlined"
+            fullWidth
+            defaultValue={payload.text}
+            className="bg-white rounded-md"
+          />
+          <Button variant="contained" color="primary" type="submit" className="mt-4">
+            Soumettre
+          </Button>
         </Box>
+      </Box>
     );
-}
+  };
+  
 
 const SecondStep = ({ payload }: Readonly<{ payload: PayloadType }>): ReactElement => {
     const { sendEmail, sending, sent } = useSendEmail();
