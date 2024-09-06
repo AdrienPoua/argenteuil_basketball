@@ -1,6 +1,6 @@
 [
   {
-    "name": "U07 M1",
+    "name": "U07M-1",
     "trainings": [
       {
         "day": "Samedi",
@@ -11,7 +11,7 @@
     ]
   },
   {
-    "name": "U07 F1 - U09 F1",
+    "name": "U07F-1 / U09F-1",
     "trainings": [
       {
         "day": "Lundi",
@@ -22,7 +22,7 @@
     ]
   },
   {
-    "name": "U09 M1",
+    "name": "U09M-1",
     "trainings": [
       {
         "day": "Samedi",
@@ -33,7 +33,7 @@
     ]
   },
   {
-    "name": "U11 M1",
+    "name": "U11M-1",
     "championship": true,
     "trainings": [
       {
@@ -45,7 +45,7 @@
     ]
   },
   {
-    "name": "U11 M2",
+    "name": "U11-M2",
     "trainings": [
       {
         "day": "Vendredi",
@@ -56,7 +56,7 @@
     ]
   },
   {
-    "name": "U11 F1 - U13 F1",
+    "name": "U11F-1 / U13F-1",
     "trainings": [
       {
         "day": "Mardi",
@@ -73,7 +73,7 @@
     ]
   },
   {
-    "name": "U13 M1",
+    "name": "U13M-1",
     "championship": true,
     "trainings": [
       {
@@ -91,7 +91,92 @@
     ]
   },
   {
-    "name": "U13 M2",
+    "name": "U13M-2",
+    "trainings": [
+      {
+        "day": "Vendredi",
+        "start": "18:45",
+        "end": "20:00",
+        "gym": "Jean Guimier"
+      }
+    ]
+  },
+  {
+    "name": "U15M-1",
+    "championship": true,
+    "trainings": [
+      {
+        "day": "Lundi",
+        "start": "19:00",
+        "end": "20:15",
+        "gym": "Jesse Owens"
+      },
+      {
+        "day": "Jeudi",
+        "start": "19:00",
+        "end": "20:15",
+        "gym": "Jesse Owens"
+      }
+    ]
+  },
+  {
+    "name": "U15M-2",
+    "trainings": [
+      {
+        "day": "Mercredi",
+        "start": "18:30",
+        "end": "20:00",
+        "gym": "Jean Guimier"
+      }
+    ]
+  },
+  {
+    "name": "U15F-2 / U18F-2",
+    "trainings": [
+      {
+        "day": "Mercredi",
+        "start": "17:00",
+        "end": "18:30",
+        "gym": "Jesse Owens"
+      }
+    ]
+  },
+  {
+    "name": "U15F-1 / U18F-1",
+    "trainings": [
+      {
+        "day": "Lundi",
+        "start": "19:00",
+        "end": "20:15",
+        "gym": "Jean Guimier"
+      },
+      {
+        "day": "Mercredi",
+        "start": "18:30",
+        "end": "20:00",
+        "gym": "Jesse Owens"
+      }
+    ]
+  },
+  {
+    "name": "U17M-1",
+    "trainings": [
+      {
+        "day": "Mardi",
+        "start": "18:45",
+        "end": "20:00",
+        "gym": "Jean Guimier"
+      },
+      {
+        "day": "Jeudi",
+        "start": "18:45",
+        "end": "20:00",
+        "gym": "Jean Guimier"
+      }
+    ]
+  },
+  {
+    "name": "U17M-2",
     "trainings": [
       {
         "day": "Mercredi",
@@ -101,87 +186,13 @@
       },
       {
         "day": "Vendredi",
-        "start": "17:30",
-        "end": "18:45",
+        "start": "18:00",
+        "end": "20:00",
         "gym": "Jesse Owens"
       }
     ]
   },
-  {
-    "name": "U15 M1",
-    "championship": true,
 
-    "trainings": [
-      {
-        "day": "Lundi",
-        "start": "19:00",
-        "end": "20:15",
-        "gym": "Jesse Owens"
-      },
-      {
-        "day": "Jeudi",
-        "start": "19:00",
-        "end": "20:15",
-        "gym": "Jesse Owens"
-      }
-    ]
-  },
-  {
-    "name": "U15 M2",
-    "trainings": [
-      {
-        "day": "Vendredi",
-        "start": "18:45",
-        "end": "20:00",
-        "gym": "Jean Guimier"
-      }
-    ]
-  },
-  {
-    "name": "U15 F2 - U18 F2",
-    "trainings": [
-      {
-        "day": "Mercredi",
-        "start": "18:30",
-        "end": "20:00",
-        "gym": "Jesse Owens"
-      },
-      {
-        "day": "Vendredi",
-        "start": "18:45",
-        "end": "20:00",
-        "gym": "Jesse Owens"
-      }
-    ]
-  },
-  {
-    "name": "U15 F - U17 F",
-    "trainings": [
-      {
-        "day": "Mardi",
-        "start": "18:45",
-        "end": "20:00",
-        "gym": "Jean Guimier"
-      },
-      {
-        "day": "Jeudi",
-        "start": "18:45",
-        "end": "20:00",
-        "gym": "Jean Guimier"
-      }
-    ]
-  },
-  {
-    "name": "U18 F2",
-    "trainings": [
-      {
-        "day": "Lundi",
-        "start": "19:00",
-        "end": "20:15",
-        "gym": "Jean Guimier"
-      }
-    ]
-  },
   {
     "name": "Seniors 1",
     "championship": true,

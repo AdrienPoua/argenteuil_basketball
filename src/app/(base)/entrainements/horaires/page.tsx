@@ -1,32 +1,35 @@
 "use client";
-import { Grid, Paper, Typography, Box } from "@mui/material";
+import { Grid, Paper, Typography, Box, Select, MenuItem, Button, FormControl, Input } from "@mui/material";
 import { Gym } from "@/utils/models";
 import { gyms } from "@/utils/services/dataProcessing";
 import { motion } from "framer-motion";
 import useVisibility from "@/utils/hooks/useVisibility";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import H1 from "@/components/H1";
 import { MainSection } from "@/utils/layouts";
 import useIsMobile from "@/utils/hooks/useIsMobile";
-import Instructions from "@/components/Instructions";
+import { MIN_BIRTH_YEAR_FOR_MEMBER, AT_THIS_YEAR_IAM_SENIOR } from "@/utils/magicNumber";
+import categories from "@/data/categories.json";
 
 
 
-const ScheduleSlot = ({ slot }: {
+
+const ScheduleSlot = ({ slot, categoryResult }: {
   slot: {
     team?: string;
     day: string;
     start: string;
     end: string;
     gym: string;
-  }
+  }, categoryResult: string | null
 }) => {
   const isMobile = useIsMobile();
   const firstTeam = slot.team?.split("-")[0];
   const secondTeam = slot.team?.split("-")[1];
+  const isCategoryResult = categoryResult && (slot.team?.includes(categoryResult.split(" ")[0]) || slot.team?.includes(categoryResult.split(" ")[1]))
   return (
-    <Grid item xs={4}>
-      <Box component={Paper} className="p-2  rounded shadow-md h-full">
+    <Grid item xs={4} >
+      <Box component={Paper} className={`p-2  rounded shadow-md h-full ${isCategoryResult ? "transform animate-bounce bg-green-500" : ""}`}>
         <Typography className="text-primary text-xs md:text-base text-center ">{!isMobile ? slot.team : firstTeam}<br />{isMobile && secondTeam}</Typography>
         <Typography className="text-black text-xs md:text-base text-center">
           {slot.start} {!isMobile ? "-" : <br />} {slot.end}
@@ -36,14 +39,14 @@ const ScheduleSlot = ({ slot }: {
   );
 };
 
-const ScheduleDay = ({ day, slots }: {
+const ScheduleDay = ({ day, slots, categoryResult }: {
   day: string, slots: {
     team?: string;
     day: string;
     start: string;
     end: string;
     gym: string;
-  }[]
+  }[], categoryResult: string | null
 }) => (
   <Grid item xs={12}>
     <Grid container spacing={1}>
@@ -57,7 +60,7 @@ const ScheduleDay = ({ day, slots }: {
       <Grid item xs={9}>
         <Grid container spacing={1}>
           {slots.map((slot) => (
-            <ScheduleSlot key={slot.day + slot.start + slot.end + slot.gym} slot={slot} />
+            <ScheduleSlot key={slot.day + slot.start + slot.end + slot.gym} slot={slot} categoryResult={categoryResult} />
           ))}
         </Grid>
       </Grid>
@@ -65,7 +68,7 @@ const ScheduleDay = ({ day, slots }: {
   </Grid>
 );
 
-const Schedule = ({ data: gym }: { data: Gym }) => {
+const Schedule = ({ data: gym, categoryResult }: { data: Gym, categoryResult: string | null }) => {
   const cardRef = useRef(null);
   const isVisible = useVisibility(cardRef);
   const animation = {
@@ -88,7 +91,7 @@ const Schedule = ({ data: gym }: { data: Gym }) => {
         <Grid container spacing={1}>
           {gym.available.map((day) => {
             const slotsForDay = gym.slots.filter((slot) => slot.day === day);
-            return <ScheduleDay key={day} day={day} slots={slotsForDay} />;
+            return <ScheduleDay key={day} day={day} slots={slotsForDay} categoryResult={categoryResult} />;
           })}
           <Grid item xs={12}>
             <Paper className="h-full flex justify-center items-center">
@@ -105,40 +108,124 @@ const Schedule = ({ data: gym }: { data: Gym }) => {
 
 
 export default function SchedulePage() {
+  const [categoryResult, setCategoryResult] = useState<string | null>(null);
   return (
     <>
       <H1>Plannings</H1>
       <MainSection>
-        <Instructions className="bg-black">
-          <Box className="flex ">
-            <Typography className="grow basis-1">
-              U07 = 5/6 ans <br />
-              U09 = 7/8 ans <br />
-              U11 = 9/10 ans <br />
-              U13 = 11/12 ans <br />
-              U15 = 13/14 ans <br />
-              U17 = 15/16 ans <br />
-            </Typography>
-            <Typography className="grow basis-1">
-              &quot;F&quot; est une séction féminine <br />
-              &quot;M&quot; est une séction masculine <br />
-              &quot;F1&quot; est la première équipe féminine <br />
-              &quot;M2&quot; est la deuxième équipe masculine... <br />
-            </Typography>
-          </Box>
-          <Typography className="text-center">
-            Si je suis une fille qui débute le basket née le 31 décembre 2010, je suis en U15 F2
-          </Typography>
-          <Typography className="text-center">
-            Vous pouvez changer d&apos;équipe ou être surclassé de division si l&apos;entraineur le juge nécessaire.
-          </Typography>
-        </Instructions>
+        <Form className="mb-10" setCategoryResult={setCategoryResult} />
         <Box className="flex flex-col gap-10">
           {gyms.map((gym) => (
-            <Schedule key={gym.id} data={gym} />
+            <Schedule categoryResult={categoryResult} key={gym.id} data={gym} />
           ))}
         </Box>
       </MainSection>
     </>
   );
 }
+
+
+
+const Form = ({ className, setCategoryResult }: { className: string, setCategoryResult: (category: string | null) => void }) => {
+  const [category, setCategory] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const getCategory = (age: number, sexe: string) => {
+    const result = categories.find((category) => category.year.includes(age.toString()) && category.sexe.includes(sexe));
+    const seniorM = age <= AT_THIS_YEAR_IAM_SENIOR && sexe === "M"
+    const seniorF = age <= AT_THIS_YEAR_IAM_SENIOR && sexe === "F"
+
+    if (seniorM) {
+      return "Seniors équipe 1 ou 2 ou Loisirs";
+    }
+    if (seniorF) {
+      return "Loisirs (mixte & sans championnat)";
+    }
+
+    if (!result) {
+      setError("Nous n'avons pas trouvé votre catégorie");
+      return null;
+    }
+    return result.division.split(" ")[0] + sexe;
+  };
+  const isValidInput = (birthYear: number, sexe: string) => {
+    const reset = () => {
+      setCategory(null);
+      setCategoryResult(null);
+    }
+
+    if (sexe === "X" && birthYear > MIN_BIRTH_YEAR_FOR_MEMBER) {
+      setError("Nous acceptons pas les tabourets de moins de 5 ans");
+      reset();
+      return
+    }
+    if (sexe === "X") {
+      setError("Nous acceptons pas les tabourets");
+      reset();
+      return
+    }
+    if (birthYear <= MIN_BIRTH_YEAR_FOR_MEMBER) return true;
+    setError("Nous acceptons les enfants de 5 ans et plus");
+    reset();
+    return false;
+  }
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const birthYear = Number(formData.get("birthYear"))
+    const sexe = String(formData.get("sexe"))
+    setError(null);
+    setCategory(null);
+    if (!isValidInput(birthYear, sexe)) return;
+    setCategory(getCategory(birthYear, sexe));
+    setCategoryResult(getCategory(birthYear, sexe));
+  }
+
+
+  return (
+    <form className={className} onSubmit={onSubmit}>
+      <FormControl className="flex flex-row justify-center gap-5 w-full h-full">
+        <Input
+          id="birthYear-input"
+          name="birthYear"
+          type="number"
+          defaultValue={2010}
+          className="text-black bg-white"
+          placeholder="Date de naissance"
+          inputProps={{
+            className: "text-black",
+          }}
+        />
+        <Select
+          labelId="sexe-label"
+          name="sexe"
+          defaultValue="M"
+          className="text-black bg-white min-w-20"
+          inputProps={{
+            className: "text-black",
+          }}
+        >
+          <MenuItem value="M" className="text-black">Homme</MenuItem>
+          <MenuItem value="F" className="text-black">Femme</MenuItem>
+          <MenuItem value="X" className="text-black">Tabouret</MenuItem>
+        </Select>
+
+        <Button type="submit" variant="contained">Ma catégorie</Button>
+      </FormControl>
+      {error && (
+        <Box className="mt-4 text-center">
+          <Typography color="red">{error}</Typography>
+        </Box>
+      )}
+      {category && (
+        <Box className="mt-4 text-center">
+          <p>Votre catégorie est : <strong>{category}</strong></p>
+        </Box>
+      )}
+    </form>
+  );
+};
+
+
+
