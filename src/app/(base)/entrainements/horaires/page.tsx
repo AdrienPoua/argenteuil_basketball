@@ -139,7 +139,7 @@ const Form = ({ className, setCategoryResult }: { className: string, setCategory
       return "Seniors équipe 1 ou 2 ou Loisirs";
     }
     if (seniorF) {
-      return "Loisirs (mixte & sans championnat)";
+      return "Loisirs filles";
     }
 
     if (!result) {

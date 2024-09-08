@@ -85,19 +85,19 @@
       {
         "day": "Jeudi",
         "start": "17:30",
-        "end": "19:00",
+        "end": "18:45",
         "gym": "Jesse Owens"
       }
     ]
   },
   {
-    "name": "U13M-2",
+    "name": "U13M-2 / U15M-2",
     "trainings": [
       {
-        "day": "Vendredi",
-        "start": "18:45",
-        "end": "20:00",
-        "gym": "Jean Guimier"
+        "day": "Mercredi",
+        "start": "17:00",
+        "end": "18:30",
+        "gym": "Jesse Owens"
       }
     ]
   },
@@ -112,15 +112,15 @@
         "gym": "Jesse Owens"
       },
       {
-        "day": "Jeudi",
-        "start": "19:00",
-        "end": "20:15",
+        "day": "Vendredi",
+        "start": "18:00",
+        "end": "20:00",
         "gym": "Jesse Owens"
       }
     ]
   },
   {
-    "name": "U15M-2",
+    "name": "U17M-2",
     "trainings": [
       {
         "day": "Mercredi",
@@ -131,13 +131,13 @@
     ]
   },
   {
-    "name": "U15F-2 / U18F-2",
+    "name": "U13M-2 / U15M-2",
     "trainings": [
       {
-        "day": "Mercredi",
-        "start": "17:00",
-        "end": "18:30",
-        "gym": "Jesse Owens"
+        "day": "Vendredi",
+        "start": "18:45",
+        "end": "20:00",
+        "gym": "Jean Guimier"
       }
     ]
   },
@@ -185,9 +185,9 @@
         "gym": "Jean Guimier"
       },
       {
-        "day": "Vendredi",
-        "start": "18:00",
-        "end": "20:00",
+        "day": "Jeudi",
+        "start": "18:45",
+        "end": "20:15",
         "gym": "Jesse Owens"
       }
     ]
@@ -212,7 +212,7 @@
     ]
   },
   {
-    "name": "Seniors 2",
+    "name": "Seniors-2",
     "championship": true,
     "trainings": [
       {
@@ -222,17 +222,6 @@
         "gym": "Jean Guimier"
       },
       {
-        "day": "Mercredi",
-        "start": "20:00",
-        "end": "22:00",
-        "gym": "Jesse Owens"
-      }
-    ]
-  },
-  {
-    "name": "Seniors loisirs",
-    "trainings": [
-      {
         "day": "Jeudi",
         "start": "20:15",
         "end": "22:00",
@@ -241,7 +230,18 @@
     ]
   },
   {
-    "name": "Veterans",
+    "name": "Seniors-F loisirs",
+    "trainings": [
+      {
+        "day": "Mercredi",
+        "start": "20:00",
+        "end": "22:00",
+        "gym": "Jesse Owens"
+      }
+    ]
+  },
+  {
+    "name": "Seniors-M loisirs",
     "trainings": [
       {
         "day": "Lundi",
