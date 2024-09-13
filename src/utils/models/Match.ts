@@ -29,7 +29,7 @@ export default class Match {
     this._teamB = data.teamB;
     this._date = data.date;
     this._time = data.time;
-    this._gym = data.gym || "à définir";
+    this._gym = data.gym ?? "à définir";
   }
   get division(): string {
     return this._division;

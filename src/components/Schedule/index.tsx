@@ -13,8 +13,8 @@ export default function Schedule({ matchs, title }: Readonly<PropsType>): ReactE
     const weekends = Match.getWeekends(matchs)
     const width = "max-w-40 min-w-40 flex justify-center items-center"
     return (
-        <TableContainer component={Paper}>
-            <Table className="bg-primary min-w-[500px] ">
+        <TableContainer component={Paper} className="grow">
+            <Table className="bg-primary ">
                 <TableHead>
                     <TableRow className='text-center my-5' >
                         <TableCell className="text-center text-6xl text-white py-10">{title}</TableCell>
