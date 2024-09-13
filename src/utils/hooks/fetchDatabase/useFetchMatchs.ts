@@ -13,4 +13,4 @@ const fetchMatchs = async () => {
 export default function useFetchMatchs() {
   const { data, isLoading, error } = useQuery(["matchs"], fetchMatchs);
   return { data, isLoading, error };
-};
+}

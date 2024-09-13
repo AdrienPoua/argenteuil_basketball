@@ -26,7 +26,7 @@ export default function Index({ match, reason, proposition, setSelectedMatch }: 
     const handleClick = async (): Promise<void> => {
         const html = render(<Template match={match} reason={reason} proposition={proposition} />);
         const subject = `Demande de dérogation pour le match n°${match.matchNumber} en ${match.division}`;
-        await sendEmail({ to: emails[0], subject, html, bcc: ["convocation@basket95.com"] });
+        await sendEmail({ to: emails[0], subject, html, bcc: ["convocation@basket95.com", "sportive@basket95.com"] });
         setSelectedMatch(null);
     }
     return (

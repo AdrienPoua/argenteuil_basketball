@@ -31,7 +31,8 @@ export default function Index({ serverAction }: Readonly<PropsType>): ReactEleme
                 const jsonData: TDatabase.Match[] | TDatabase.Member[] = await parseExcelToJson(file);
                 await Promise.all(jsonData.map(async (match) => {
                     try {
-                        await serverAction(match);
+                        const plainObject = JSON.parse(JSON.stringify(match)); // Convert to plain object
+                        await serverAction(plainObject);
                     } catch (error) {
                         console.error(`Erreur lors de l'exécution de la server action: ${error}`);
                         throw new Error(`Erreur lors de la création du match: ${error}`);
