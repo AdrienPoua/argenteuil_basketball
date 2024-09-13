@@ -8,7 +8,6 @@ const matchSchema = new Schema({
   date: { type: String, required: true },
   time: { type: String, required: true },
   gym: { type: String },
-  update: { type: Boolean, default: false },
 });
 
 const Match = mongoose.models.Match || mongoose.model("Match", matchSchema);

@@ -27,6 +27,7 @@ const NoMatchCell = (): ReactElement => (
 const AwayMatchCell = ({ match }: { match: Match }): ReactElement => (
     <InsideCell>
         <Typography className={typoClass}> Déplacement <br /> {match.teamA} </Typography>
+        {match.time !== "00:00" && <Typography className={typoClass}> {match.date} - {match.time} <br /> {match.gym}</Typography>}
         <Box className="flex flex-col">
             <Tooltip title="Match à domicile">
                 <Box className=" after:absolute after:top-0 after:right-0 after:content-['🚗'] text-xl" />
