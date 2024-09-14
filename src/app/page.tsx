@@ -10,14 +10,18 @@ import useIsMobile from "@/utils/hooks/useIsMobile";
 import { useSanity } from "@/utils/hooks/sanity/useSanity";
 import { SanityDocument } from "next-sanity";
 import { MAX_POSTS_ON_HOME_PAGE } from "@/utils/magicNumber";
+import LottieCursor from "@/components/LottieCursor";
+import { useRef } from "react";
 const PostCard = dynamic(() => import("@/components/Cards").then((mod) => mod.PostCard), { ssr: false });
 
 
 export default function HomePage() {
+
   return (
     <>
       <Header />
-      <Box className="bg-black">
+      <Box className="bg-black" >
+
         <HeroSection />
         <Container maxWidth="xl">
           <Typography
@@ -38,9 +42,13 @@ const HeroSection = () => {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0, transition: { type: "spring" } },
   }
+  const ref = useRef<HTMLDivElement>(null);
+
   return (
-    <Box component="main" className="flex flex-col grow">
-      <Box className="h-svh relative">
+    <Box component="main" className="flex flex-col grow" >
+      <LottieCursor containerRef={ref} />
+      <Box className="h-svh relative cursor-none " ref={ref}
+      >
         <Box className="absolute h-96 inset-x-0 bottom-0 w-full bg-gradient-to-t marker: from-black from-20%"></Box>
         <motion.div
           initial="hidden"

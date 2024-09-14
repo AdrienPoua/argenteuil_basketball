@@ -30,10 +30,64 @@
   ],
   "coachs": [
     {
-      "name": "NZE Julien",
-      "teams": [""],
-      "email": "j_nze@hotmail.com",
-      "number": "0616277614"
+      "name": "Benoit",
+      "teams": ["Seniors-1", "U11M", "U09M"],
+      "email": "b.trichot@live.fr",
+      "number": "+33659265041"
+    },
+    {
+      "name": "Mouhamed",
+      "teams": ["Seniors-2"],
+      "email": "à definir",
+      "number": "+33778880396"
+    },
+    {
+      "name": "Sofiane",
+      "teams": ["U18F", "U15F", "U13F"],
+      "email": "ziane.sofiane95@gmail.com",
+      "number": "+33667340253"
+    },
+    {
+      "name": "Allan",
+      "teams": ["U17M-1", "U17M-2", "Seniors-Loisirs"],
+      "email": "allan.akmo@gmail.com",
+      "number": "+33669405738"
+    },
+    {
+      "name": "Yassir",
+      "teams": ["U15M-1", "U15M-2"],
+      "email": "chajid.yassir@icloud.com",
+      "number": "+33616652219"
+    },
+    {
+      "name": "Jun",
+      "teams": ["U13M-1", "U13M-2", "U06"],
+      "email": "joobaba8@yahoo.fr",
+      "number": "+33660595455"
+    },
+    {
+      "name": "Yassine",
+      "teams": ["U11F"],
+      "email": "Draouipf.95@gmail.com",
+      "number": "+33663692663"
+    },
+    {
+      "name": "Tawfik",
+      "teams": ["U13M-2", "U09M"],
+      "email": "tawfik3105@gmail.com",
+      "number": "+33650268234"
+    },
+    {
+      "name": "Ilyes",
+      "teams": ["Seniors-Loisirs", "U13M-2", "U06"],
+      "email": "mont.ilyes@yahoo.fr",
+      "number": "+33783536725"
+    },
+    {
+      "name": "Samir",
+      "teams": ["U09M"],
+      "email": "Samir.ait-haddou@outlook.fr",
+      "number": "+33781789629"
     }
   ]
 }

@@ -15,11 +15,7 @@
 }
 
 
-html {
-  cursor: none;
-}
 
 a:-webkit-any-link {
-  cursor: none;
   text-decoration: none;
 }
