@@ -1,27 +1,23 @@
 "use client";
 import { Box, Container, Typography, Grid } from "@mui/material";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { ReactElement } from "react";
+import { ReactElement, useRef } from "react";
 import useIsMobile from "@/utils/hooks/useIsMobile";
 import { useSanity } from "@/utils/hooks/sanity/useSanity";
 import { SanityDocument } from "next-sanity";
 import { MAX_POSTS_ON_HOME_PAGE } from "@/utils/magicNumber";
 import LottieCursor from "@/components/LottieCursor";
-import { useRef } from "react";
+import { HeaderAndFooter } from "@/utils/layouts";
 const PostCard = dynamic(() => import("@/components/Cards").then((mod) => mod.PostCard), { ssr: false });
 
 
 export default function HomePage() {
 
   return (
-    <>
-      <Header />
-      <Box className="bg-black" >
-
+    <HeaderAndFooter>
+      <>
         <HeroSection />
         <Container maxWidth="xl">
           <Typography
@@ -31,11 +27,11 @@ export default function HomePage() {
           </Typography>
         </Container>
         <PostsWrapper />
-      </Box>
-      <Footer />
-    </>
+      </>
+    </HeaderAndFooter>
   );
-};
+}
+
 
 const HeroSection = () => {
   const animation = {
@@ -45,7 +41,7 @@ const HeroSection = () => {
   const ref = useRef<HTMLDivElement>(null);
 
   return (
-    <Box component="main" className="flex flex-col grow" >
+    <Box component="main" className="flex flex-col grow -mt-16" >
       <LottieCursor containerRef={ref} />
       <Box className="h-svh relative cursor-none " ref={ref}
       >

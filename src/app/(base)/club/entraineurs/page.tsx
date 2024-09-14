@@ -27,6 +27,7 @@ export default function Index() {
                 initial={{ filter: 'blur(30px)', opacity: 0, y: 50 }}
                 animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
                 transition={{ duration: 1 }}
+                className="grow"
               >
                 <StaffCard
                   key={uuidv4()}

@@ -7,9 +7,7 @@ const typoClass = "text-black text-center";
 const InsideCell = ({ children }: { children: React.ReactNode }): ReactElement => {
     return (
         <TableCell className="flex flex-col justify-center items-center grow basis-1 relative bg-white">
-            <Box className="size-fit">
-                {children}
-            </Box>
+            {children}
         </TableCell>
     );
 
@@ -29,7 +27,7 @@ const AwayMatchCell = ({ match }: { match: Match }): ReactElement => (
         <Typography className={typoClass}> Déplacement <br /> {match.teamA} </Typography>
         {match.time !== "00:00" && <Typography className={typoClass}> {match.date} - {match.time} <br /> {match.gym}</Typography>}
         <Box className="flex flex-col">
-            <Tooltip title="Match à domicile">
+            <Tooltip title="Match à l'exterieur">
                 <Box className=" after:absolute after:top-0 after:right-0 after:content-['🚗'] text-xl" />
             </Tooltip>
         </Box>
