@@ -23,7 +23,7 @@ export default function Schedule({ matchs, title }: Readonly<PropsType>): ReactE
                     <TableBody>
                         {categories.map((category) => (
                             <TableRow key={category} className="flex">
-                                <TableCell className="shrink-1 flex justify-center items-center"> {category}</TableCell>
+                                <TableCell className="shrink-1 flex justify-center items-center min-w-20"> {category}</TableCell>
                                 {weekends.map((weekend, index) => (
                                     <Cell
                                         key={weekend + category}

@@ -23,7 +23,7 @@
     {
       "name": "POUA Adrien",
       "job": "Correspondant",
-      "img": "/images/staff/dirigeants/poua_adrien.png",
+      "image": "/images/staff/dirigeants/poua_adrien.png",
       "email": "argenteuilbasketball@hotmail.fr",
       "number": "0651261379"
     }
@@ -57,7 +57,7 @@
       "name": "Yassir",
       "teams": ["U15M-1", "U15M-2"],
       "email": "chajid.yassir@icloud.com",
-      "img": "/images/staff/coachs/yassir.png",
+      "image": "/images/staff/coachs/yassir.png",
       "number": "+33616652219"
     },
     {

@@ -18,7 +18,7 @@ export default function Index(): ReactElement {
                 <Instructions className="bg-gray-100">
                     <Typography className="text-black">
                         Pour l&apos;instant, la fonctionnalité pour mettre à jour les correspondants des clubs n&apos;est pas disponible.<br />
-                        Elle est disponible que en local. <br />
+                        Elle est disponible qu&apos;en local. <br />
                         J&apos;attends la mise à jour du site de la fédération
                     </Typography>
                 </Instructions>

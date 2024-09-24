@@ -46,6 +46,7 @@ export const PostCard = ({ small, post, isMobile }: { post: SanityDocument, smal
 
 
 export const StaffCard = ({ data }: { data: Coach | Leader }): ReactElement => {
+  console.log(data);
   return (
     <Card
       className="flex flex-col max-h-[500px] aspect-square overflow-hidden group" sx={{ bgcolor: 'transparent' }}>
@@ -57,13 +58,13 @@ export const StaffCard = ({ data }: { data: Coach | Leader }): ReactElement => {
           alt={data.name}
         />
       </Box>
-      <CardContent className="flex p-0 pb-0 bg-primary h-24 rounded-b-3xl overflow-hidden">
+      <CardContent className="flex p-0 pb-0 bg-primary h-24 rounded-xl overflow-hidden">
         <Box className="flex justify-center items-center gap-2 grow relative">
           <Box className="p-5 md:p-3 flex flex-col items-center w-full gap-1">
-            <Typography variant="h3" className="text-xs md:text-xl text-black">
+            <Typography variant="h3" className="text-xl text-black">
               {data.name}
             </Typography>
-            <Typography className="text-center text-xs md:text-base">
+            <Typography className="text-center">
               {data instanceof Leader && data.job}
               {data instanceof Coach && data.teams?.join(' | ')}
             </Typography>

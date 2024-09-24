@@ -13,8 +13,8 @@ import HelpIcon from '@mui/icons-material/Help';
 import LogoutIcon from '@mui/icons-material/Logout';
 import CameraIcon from '@mui/icons-material/Camera';
 import HomeIcon from '@mui/icons-material/Home';
-
-
+import GroupsIcon from '@mui/icons-material/Groups';
+import SchoolIcon from '@mui/icons-material/School';
 
 const data = [
   {
@@ -51,6 +51,16 @@ const data = [
     title: "Correspondants",
     href: "/admin/dashboard/correspondants",
     icon: <SupervisorAccountIcon className="text-white" />,
+  },
+  {
+    title: "Coachs",
+    href: "/admin/dashboard/coachs",
+    icon: <SchoolIcon className="text-white" />,
+  },
+  {
+    title: "Equipes",
+    href: "/admin/dashboard/equipes",
+    icon: <GroupsIcon className="text-white" />,
   },
   {
     title: "FAQ",

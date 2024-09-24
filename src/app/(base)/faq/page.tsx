@@ -8,7 +8,7 @@ import H1 from "@/components/H1";
 import { motion } from "framer-motion";
 import useVisibility from "@/utils/hooks/useVisibility";
 import { MainSection } from "@/utils/layouts";
-import useFetchFAQ from "@/utils/hooks/fetchDatabase/useFetchFAQ";
+import useFetchFAQ from "@/utils/hooks/DBFetch/useFetchFAQ";
 import Feedback from "@/components/FetchFeedback";
 
 const AnimatedDropdown = ({ question, answer }: { question: string, answer: string }): ReactElement | null => {

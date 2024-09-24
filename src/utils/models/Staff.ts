@@ -2,7 +2,7 @@ export type Constructor = {
   name: string;
   number: string;
   email: string;
-  img?: string;
+  image?: string;
   isEmailDisplayed?: boolean;
   isNumberDisplayed?: boolean;
 };
@@ -19,7 +19,7 @@ export default class Staff {
     this._name = data.name;
     this._number = data.number;
     this._email = data.email;
-    this._img = data.img ?? "/images/default/avatar.png";
+    this._img = data.image ? `/images/staff/${data.image}` : "/images/default/avatar.png";
     this._isEmailDisplayed = data.isEmailDisplayed ?? true;
     this._isNumberDisplayed = data.isNumberDisplayed ?? true;
   }

@@ -2,7 +2,7 @@
 import H1 from "@/components/H1";
 import Schedule from "@/components/Schedule";
 import { Container } from "@mui/material";
-import useFetchMatchs from "@/utils/hooks/fetchDatabase/useFetchMatchs";
+import useFetchMatchs from "@/utils/hooks/DBFetch/useFetchMatchs";
 import FetchFeedback from "@/components/FetchFeedback";
 import { SAISON_MONTH_ORDER } from "@/utils/magicNumber";
 

@@ -1,5 +1,5 @@
 "use client";
-import useFetchFAQ from "@/utils/hooks/fetchDatabase/useFetchFAQ";
+import useFetchFAQ from "@/utils/hooks/DBFetch/useFetchFAQ";
 import Feedback from "@/components/FetchFeedback";
 import Dropdown from "@/components/Dropdown";
 import { Box, Typography, Container, TextField, InputLabel, Button, TextareaAutosize, Paper } from "@mui/material";

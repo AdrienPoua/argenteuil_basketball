@@ -5,6 +5,7 @@ export namespace TDatabase {
   export type Club = z.infer<typeof SDatabase.Club>;
   export type Member = z.infer<typeof SDatabase.Member>;
   export type Match = z.infer<typeof SDatabase.Match>;
+  export type Staff = z.infer<typeof SDatabase.Staff>;
 }
 export namespace TNavbar {
   export type NavItem = {

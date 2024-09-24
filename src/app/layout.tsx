@@ -11,6 +11,7 @@ import "./globals.css";
 import store from "@/lib/redux/store";
 import { Provider as ReduxProvider } from "react-redux";
 import Modal from "@/components/Modal";
+import { AlertProvider } from "@utils/contexts/Alerts";
 const queryClient = new QueryClient();
 
 export default function RootLayout({
@@ -22,13 +23,15 @@ export default function RootLayout({
     <StyledEngineProvider injectFirst>
       <ReduxProvider store={store}>
         <SessionProvider>
-          <ThemeProvider theme={theme}>
+          <ThemeProvider theme={theme}> 
             <CssBaseline />
             <QueryClientProvider client={queryClient}>
               <App>
-                <ScrollToTopButton />
-                <Modal />
-                {children}
+                <AlertProvider >
+                  <ScrollToTopButton />
+                  <Modal />
+                  {children}
+                </AlertProvider>
               </App>
             </QueryClientProvider>
           </ThemeProvider>
