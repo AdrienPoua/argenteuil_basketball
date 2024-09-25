@@ -23,7 +23,7 @@ export default function Index({ matchs, isChecked, setSelectedMatch }: Readonly<
             const to = emails[i]
             const html = render(<Template match={match} isModif={isChecked} />);
             const subject = `Convocation pour le match n°${match.matchNumber} en ${match.division}`;
-            await sendEmail({ to, subject, html, bcc: match.division === "DM3" ? ["convocation@basket95.com", "sportive@basket95.com"] : ["convocation@basket95.com"] });
+            await sendEmail({ to, subject, html, bcc: match.division.toLocaleLowerCase() === "dm3" ? ["convocation@basket95.com", "sportive@basket95.com"] : ["convocation@basket95.com"] });
             setSelectedMatch([]);
         })
     }
