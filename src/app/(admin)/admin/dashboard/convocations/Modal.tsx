@@ -17,13 +17,13 @@ type PropsType = {
 export default function Index({ matchs, isChecked, setSelectedMatch }: Readonly<PropsType>): ReactElement {
     const { sendEmail, sending, sent } = useSendEmail();
     const { emails, isLoading } = useOpponentEmail(matchs)
-
+    
     const handleClick = async (): Promise<void> => {
         matchs.map(async (match, i) => {
             const to = emails[i]
             const html = render(<Template match={match} isModif={isChecked} />);
             const subject = `Convocation pour le match n°${match.matchNumber} en ${match.division}`;
-            await sendEmail({ to, subject, html, bcc: ["convocation@basket95.com", "sportive@basket95.com"] });
+            await sendEmail({ to, subject, html, bcc: match.division === "DM3" ? ["convocation@basket95.com", "sportive@basket95.com"] : ["convocation@basket95.com"] });
             setSelectedMatch([]);
         })
     }

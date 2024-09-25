@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect, useMemo } from "react";
-import { Match } from "@/utils/models";
-import { Club } from "@/utils/models";
+import { Match, Club } from "@/utils/models";
 import useFetchClubs from "@/utils/hooks/DBFetch/useFetchClubs";
 
 export default function useFindEmailFromMatch(matchs: Match[]) {

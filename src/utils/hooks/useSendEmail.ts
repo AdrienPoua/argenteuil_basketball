@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { send, PayloadType } from "@/lib/nodemailer/utils";
-import type {} from "@/lib/nodemailer/utils"; // Changed to 'import type' for better clarity
 
 export default function useSendEmail() {
   const [sending, setSending] = useState(false);

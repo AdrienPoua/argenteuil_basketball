@@ -20,11 +20,30 @@ export class SingleTargetHtmlPayload implements Transporter {
   }
 }
 
+export class MultipleTargetHtmlPayload implements Transporter {
+  private subject: string;
+  private bcc: string[];
+  private html: string;
+  constructor(payload: { bcc: string[]; subject: string; html: string }) {
+    this.bcc = payload.bcc;
+    this.subject = payload.subject;
+    this.html = payload.html;
+  }
+  async send(): Promise<SentMessageInfo> {
+    return await transporter.sendMail({
+      from: clubEmail,
+      bcc: this.bcc,
+      subject: this.subject,
+      html: this.html,
+    });
+  }
+}
 export class MultipleTargetPayload implements Transporter {
   private subject: string;
-  private text: string;
+  private text: string | undefined;
   private bcc: string[];
-  constructor(payload: { subject: string; text: string; bcc: string[] }) {
+
+  constructor(payload: { subject: string; text?: string; bcc: string[]}) {
     this.subject = payload.subject;
     this.text = payload.text;
     this.bcc = payload.bcc;

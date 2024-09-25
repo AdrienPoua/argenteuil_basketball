@@ -2,7 +2,7 @@ import { Table, TableCell, TableRow, TableBody, TableContainer, Paper, Box, Typo
 import { Match } from "@/utils/models"
 import Cell from './Cell'
 import { ReactElement } from 'react'
-import Underline from '../underline'
+import Underline from "@/components/Underline"
 
 type PropsType = {
     matchs: Match[]

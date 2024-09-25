@@ -1,6 +1,6 @@
 "use client";
 import H1 from "@/components/H1";
-import Schedule from "@/components/Schedule";
+import Schedule from "./Schedule";
 import { Container } from "@mui/material";
 import useFetchMatchs from "@/utils/hooks/DBFetch/useFetchMatchs";
 import FetchFeedback from "@/components/FetchFeedback";
