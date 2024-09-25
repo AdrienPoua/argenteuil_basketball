@@ -5,6 +5,8 @@ import SFBIMatch from "@/lib/zod/schemas/FBI/MatchSchema";
 import SDBMatch from "@/lib/zod/schemas/database/MatchSchema";
 import SDBFAQ from "@/lib/zod/schemas/database/FAQSchema";
 import SDBStaff from "@/lib/zod/schemas/database/StaffSchema";
+import SDBLeader from "@/lib/zod/schemas/database/LeaderSchema";
+import SDBCoach from "@/lib/zod/schemas/database/CoachSchema";
 
 // Namespace pour les schémas de base de données
 export namespace SDatabase {
@@ -13,6 +15,8 @@ export namespace SDatabase {
   export const Match = SDBMatch;
   export const FAQ = SDBFAQ;
   export const Staff = SDBStaff;
+  export const Leader = SDBLeader;
+  export const Coach = SDBCoach;
 }
 
 // Namespace pour les schémas issues de FBI

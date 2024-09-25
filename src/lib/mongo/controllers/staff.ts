@@ -5,33 +5,18 @@ import { create, read } from "@/lib/mongo/utils";
 import { ValidateWithZod } from "@/lib/zod/utils";
 import { SDatabase } from "@/lib/zod/schemas";
 
-type CreateStaffType = {
-  number: string;
-  name: string;
-  email: string;
-  teams?: string[];
-  isEmailDisplayed: boolean;
-  isNumberDisplayed: boolean;
-  job?: string;
-  image?: string;
-};
-
-type LeaderType = TDatabase.Staff & {
-  job: string;
-};
-type CoachType = TDatabase.Staff & {
-  teams: string[];
-};
-
-export async function createStaff(payload: CreateStaffType) {
+export async function createStaff(payload: TDatabase.Staff) {
   ValidateWithZod(payload, SDatabase.Staff);
   return await create({ payload, model: Staff });
 }
 
-export async function getLeaders(): Promise<LeaderType[]> {
-  return (await read({ model: Staff, filter: { job: { $ne: "" } } })) as Promise<LeaderType[]>;
+export async function getLeaders(): Promise<TDatabase.Leader[]> {
+  return (await read({ model: Staff, filter: { job: { $ne: "" } } })) as Promise<TDatabase.Leader[]>;
 }
 
-export async function getCoachs(): Promise<CoachType[]> {
-  return read({ model: Staff, filter: { teams: { $exists: true, $not: { $size: 0 } } } }) as Promise<CoachType[]>;
+export async function getCoachs(): Promise<TDatabase.Coach[]> {
+  const result = await read({ model: Staff, filter: { teams: { $exists: true, $not: { $size: 0 } } } });
+  console.log("🚀 ~ getCoachs ~ result:", result)
+  
+  return result;
 }

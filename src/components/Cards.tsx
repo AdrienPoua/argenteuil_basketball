@@ -46,7 +46,6 @@ export const PostCard = ({ small, post, isMobile }: { post: SanityDocument, smal
 
 
 export const StaffCard = ({ data }: { data: Coach | Leader }): ReactElement => {
-  console.log(data);
   return (
     <Card
       className="flex flex-col max-h-[500px] aspect-square overflow-hidden group" sx={{ bgcolor: 'transparent' }}>

@@ -3,19 +3,23 @@ import { useQuery } from "react-query";
 import { getLeaders } from "@/lib/mongo/controllers/staff";
 import { ValidateWithZod } from "@/lib/zod/utils/index";
 import { SDatabase } from "@/lib/zod/schemas";
-import { TDatabase } from "@/utils/types";
+import { useState, useEffect } from "react";
+import { Leader } from "@/utils/models";
 
-type LeaderType = TDatabase.Staff & {
-  job: string;
-};
-
-const fetchLeaders = async () : Promise<LeaderType[]> => {
-  const staff = await getLeaders();
-  ValidateWithZod(staff, SDatabase.Staff);
-  return staff;
+const fetchLeaders = async () => {
+  const leaders = await getLeaders();
+  ValidateWithZod(leaders, SDatabase.Leader);
+  return leaders;
 };
 
 export default function useFetchLeaders() {
+  const [leaders, setLeaders] = useState<Leader[]>();
   const { data, isLoading, error, isFetching } = useQuery(["leaders"], fetchLeaders);
-  return { data, isLoading, error, isFetching };
+  useEffect(() => {
+    if (data) {
+      setLeaders(data.map((leader) => new Leader(leader)));
+    }
+  }, [data]);
+
+  return { leaders, isLoading, error, isFetching };
 }

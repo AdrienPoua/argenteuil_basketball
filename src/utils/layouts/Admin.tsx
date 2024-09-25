@@ -53,8 +53,8 @@ const data = [
     icon: <SupervisorAccountIcon className="text-white" />,
   },
   {
-    title: "Coachs",
-    href: "/admin/dashboard/coachs",
+    title: "Staffs",
+    href: "/admin/dashboard/staffs",
     icon: <SchoolIcon className="text-white" />,
   },
   {

@@ -20,21 +20,12 @@ const StaffCard = dynamic(() =>
 
 
 export default function Index() {
-  const [leaders, setLeaders] = useState<Leader[]>([]);
-  const { data, isLoading, error } = useFetchLeaders();
-  console.log(data)
-
-  useEffect(() => {
-    if (data) {
-      setLeaders(data.map((leader) => new Leader(leader)));
-    }
-  }, [data]);
-
+  const { leaders, isLoading, error } = useFetchLeaders();
   return (
     <>
       <H1> Les membres du bureau </H1>
       <MainSection>
-        <FetchFeedback isLoading={isLoading} error={error} data={data}>
+        <FetchFeedback isLoading={isLoading} error={error} data={leaders}>
           <Box className="flex flex-wrap gap-10 justify-center items-center">
             {leaders?.map((leader: Leader) => (
               <motion.div
