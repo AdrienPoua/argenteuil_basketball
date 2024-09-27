@@ -1,14 +1,13 @@
 "use client";
-import { ReactElement, useState, useRef } from "react";
-import { teams } from "@/utils/services/dataProcessing";
-import { Box, Button } from "@mui/material";
-import Slider from "@/components/Slider";
+import { ReactElement, useRef } from "react";
+import { Box } from "@mui/material";
 import dynamic from 'next/dynamic';
 import H1 from '@/components/H1';
 import { MainSection } from "@/utils/layouts";
-import { Team } from "@/utils/models";
 import { motion } from "framer-motion";
 import useVisibility from "@/utils/hooks/useVisibility";
+import useFetchTeams from "@/utils/hooks/DBFetch/useFetchTeam";
+import FetchFeedBack from "@/components/FetchFeedback";
 
 // Dynamically import the LeaderCard component
 const TeamCard = dynamic(() =>
@@ -38,42 +37,22 @@ const AnimateCard = ({ children }: { children: ReactElement }): ReactElement => 
 }
 
 export default function TeamPage() {
-  const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
-  const filteredTeams = teams.filter((team) => selectedTeam === null || team.name === selectedTeam?.name);
-  const handleClick = (team: Team | null) => {
-    setSelectedTeam(team);
-  };
+  const { teams, isLoading, error } = useFetchTeams();
   return (
     <>
       <H1>Nos équipes 2024-2025</H1>
       <MainSection>
-        <Box className="flex flex-col items-center mb-20 gap-8">
-          <Button
-            size="large"
-            variant="contained"
-            className="mb-3"
-            onClick={() => handleClick(null)}>
-            Toutes les équipes
-          </Button>
-          <Slider>
-            {teams.map((team) => (
-              <Button
-                className="flex whitespace-nowrap"
-                variant={team.name === selectedTeam?.name ? "contained" : "outlined"}
-                key={team.id}
-                onClick={() => handleClick(team)}>
-                {team.name}
-              </Button>
+        <FetchFeedBack isLoading={isLoading} error={error} data={teams}>
+          <Box className="flex flex-col items-center mb-20 gap-8">
+            {teams?.map((team) => (
+              <AnimateCard key={team.id}>
+                <TeamCard
+                  data={team}
+                />
+              </AnimateCard>
             ))}
-          </Slider>
-          {filteredTeams.map((team) => (
-            <AnimateCard key={team.id}>
-              <TeamCard
-                data={team}
-              />
-            </AnimateCard>
-          ))}
-        </Box>
+          </Box>
+        </FetchFeedBack>
       </MainSection>
     </>
   );

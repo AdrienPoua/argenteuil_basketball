@@ -1,6 +1,5 @@
 import { ReactElement } from "react";
 import { Box, Link, Typography } from "@mui/material";
-import Underline from "./underline";
 
 export default function Index(): ReactElement {
   return (
@@ -8,7 +7,10 @@ export default function Index(): ReactElement {
       className="border-t-2 bg-black pt-4 pb-7 border-primary flex justify-center"
       component="footer">
       <Box className="flex justify-center relative">
-        <Underline />
+      <Box
+            className="after:bg-gradient-to-r from-primary to-white after:p-1 after:shadow-xl after:w-full after:rounded-lg after:filter after:absolute after:left-0 inline-block"
+            sx={{ "::after": { bottom: '-10px' } }}
+        />
         <Link
           href="https://www.linkedin.com/in/adrien-poua"
           target="_blank"

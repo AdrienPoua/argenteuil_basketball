@@ -1,4 +1,3 @@
-import { Coach } from '@/utils/models';
 import { z } from "zod";
 import { SDatabase, SFBI } from "@/lib/zod/schemas";
 
@@ -9,6 +8,7 @@ export namespace TDatabase {
   export type Staff = z.infer<typeof SDatabase.Staff>;
   export type Leader = z.infer<typeof SDatabase.Leader>;
   export type Coach = z.infer<typeof SDatabase.Coach>;
+  export type Team = z.infer<typeof SDatabase.Team>;
 }
 export namespace TNavbar {
   export type NavItem = {

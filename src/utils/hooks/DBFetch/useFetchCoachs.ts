@@ -1,5 +1,5 @@
-import { coachs } from '@/utils/services/dataProcessing';
 "use client";
+import { coachs } from '@/utils/services/dataProcessing';
 import { useQuery } from "react-query";
 import { getCoachs } from "@/lib/mongo/controllers/staff";
 import { ValidateWithZod } from "@/lib/zod/utils/index";

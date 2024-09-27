@@ -6,7 +6,6 @@ import FAQdata from "@/data/faq.json";
 import clubData from "@/data/club.json";
 import permanencesData from "@/data/permanences.json";
 import { Gym, Document, FAQ, Permanences, Leader, Coach } from "@/utils/models";
-import { ValidateWithZod } from "@/lib/zod/utils";
 import { TeamFactory } from "../models/Team";
 
 

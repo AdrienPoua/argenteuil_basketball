@@ -1,8 +1,7 @@
 import { Table, TableCell, TableRow, TableBody, TableContainer, Paper, Box, Typography } from '@mui/material'
-import { Match } from "@/utils/models"
+import { Match } from '@/utils/models'
 import Cell from './Cell'
 import { ReactElement } from 'react'
-import Underline from "@/components/Underline"
 
 type PropsType = {
     matchs: Match[]
@@ -16,7 +15,10 @@ export default function Schedule({ matchs, title }: Readonly<PropsType>): ReactE
         <Box className="flex flex-col gap-10 w-full">
             <Typography variant="h2" className="text-center relative ">
                 {title}
-                <Underline />
+                <Box
+            className="after:bg-gradient-to-r from-primary to-white after:p-1 after:shadow-xl after:w-full after:rounded-lg after:filter after:absolute after:left-0 inline-block"
+            sx={{ "::after": { bottom: '-10px' } }}
+        />
             </Typography>
             <TableContainer component={Paper}>
                 <Table className="bg-primary">

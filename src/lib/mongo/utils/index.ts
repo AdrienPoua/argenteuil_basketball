@@ -7,6 +7,9 @@ export const create = async ({ payload, model }: { payload: any; model: mongoose
   try {
     // Créer une instance du modèle
     const newDocument = new model(payload);
+    console.log("🚀 ~ create ~ payload:", payload)
+    console.log("🚀 ~ create ~ model:", model)
+    console.log("🚀 ~ create ~ newDocument:", newDocument)
 
     // Sauvegarder dans la base de données
     await newDocument.save();

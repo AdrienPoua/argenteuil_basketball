@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 type TeamConstructor = {
   name: string;
   trainings: Training[];
-  img?: string;
+  image?: string;
   id?: string;
   coach?: string;
 };
@@ -26,7 +26,7 @@ export default class Team {
   constructor(data: TeamConstructor) {
     this._name = data.name;
     this._coach = data.coach;
-    this._img = data.img ?? "/images/default/equipes.avif";
+    this._img = data.image ? data.image : "/images/default/equipes.avif";
     this._trainings = data.trainings;
     this._id = data.id ?? uuidv4(); // Generate UUID if no ID is provided
   }
@@ -56,14 +56,14 @@ export default class Team {
   }
 }
 
-type RankedTeamConstructor = TeamConstructor & { division?: string; championship: boolean };
+type RankedTeamConstructor = TeamConstructor & { division: string; championship: boolean };
 export class RankedTeam extends Team {
   private _division: string;
   private _championship: boolean;
 
   constructor(data: RankedTeamConstructor) {
     super(data);
-    this._division = data.division ?? "Départementale";
+    this._division = data.division
     this._championship = data.championship;
   }
   get division(): string {
@@ -77,9 +77,9 @@ export class RankedTeam extends Team {
 export class TeamFactory {
   static createTeam(data: TeamConstructor | RankedTeamConstructor): Team | RankedTeam {
     // Check if data has the properties necessary to create a RankedTeam
-    if ("championship" in data) {
-      return new RankedTeam(data as RankedTeamConstructor);
+    if ('division' in data) {
+      return new RankedTeam(data);
     }
-    return new Team(data as TeamConstructor);
+    return new Team(data);
   }
 }

@@ -1,5 +1,18 @@
-export default function page() {
+'use client'
+import Teams from './ManageTeams'
+import Form from './Form'
+
+export default function TeamForm() {
+
   return (
-    <div>page</div>
+    <>
+      <Form />
+      <Teams />
+    </>
   )
 }
+
+
+
+
+  
