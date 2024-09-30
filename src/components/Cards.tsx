@@ -118,7 +118,7 @@ export const TeamCard = ({ data }: { data: Team | RankedTeam }): ReactElement =>
                   <Typography className="md:text-lg lg:text-3xl mb-8 text-center">
                     {data instanceof RankedTeam
                       ? `Division ${data.division || "départementale"}`
-                      : "Equipe hors championnat"}
+                      : ""}
                   </Typography>
                 </Box>
                 <Box className="flex flex-col gap-5 justify-center grow basis-1/2">
