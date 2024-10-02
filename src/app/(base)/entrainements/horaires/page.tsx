@@ -1,111 +1,73 @@
 "use client";
-import { Grid, Paper, Typography, Box, Select, MenuItem, Button, FormControl, Input } from "@mui/material";
+
+import { useState } from "react";
 import { Gym } from "@/utils/models";
 import { gyms } from "@/utils/services/dataProcessing";
-import { motion } from "framer-motion";
-import useVisibility from "@/utils/hooks/useVisibility";
-import { useRef, useState } from "react";
 import H1 from "@/components/H1";
-import { MainSection } from "@/utils/layouts";
-import useIsMobile from "@/utils/hooks/useIsMobile";
+import MainSection from "@/components/layouts/MainSection";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Select, SelectTrigger, SelectContent, SelectItem } from "@/components/ui/select";
 import { MIN_BIRTH_YEAR_FOR_MEMBER, AT_THIS_YEAR_IAM_SENIOR } from "@/utils/magicNumber";
+import useIsMobile from "@/utils/hooks/useIsMobile";
 import categories from "@/data/categories.json";
 
 
-
-
-const ScheduleSlot = ({ slot, categoryResult }: {
-  slot: {
-    team?: string;
-    day: string;
-    start: string;
-    end: string;
-    gym: string;
-  }, categoryResult: string | null
-}) => {
+const ScheduleSlot = ({ slot, categoryResult }: { slot: any; categoryResult: string | null }) => {
   const isMobile = useIsMobile();
   const firstTeam = slot.team?.split("-")[0];
   const secondTeam = slot.team?.split("-")[1];
-  const isCategoryResult = categoryResult && (slot.team?.includes(categoryResult.split(" ")[0]) || slot.team?.includes(categoryResult.split(" ")[1]))
+  const isCategoryResult = categoryResult && (slot.team?.includes(categoryResult.split(" ")[0]) || slot.team?.includes(categoryResult.split(" ")[1]));
+
   return (
-    <Grid item xs={4} >
-      <Box component={Paper} className={`p-2  rounded shadow-md h-full ${isCategoryResult ? "transform animate-bounce bg-green-500" : ""}`}>
-        <Typography className="text-primary text-xs md:text-base text-center ">{!isMobile ? slot.team : firstTeam}<br />{isMobile && secondTeam}</Typography>
-        <Typography className="text-black text-xs md:text-base text-center">
+    <div className="w-1/3 p-2">
+      <div className={`p-2 rounded shadow-md h-full ${isCategoryResult ? "animate-bounce bg-green-500" : ""}`}>
+        <p className="text-primary text-xs md:text-base text-center">
+          {!isMobile ? slot.team : firstTeam}
+          <br />
+          {isMobile && secondTeam}
+        </p>
+        <p className="text-black text-xs md:text-base text-center">
           {slot.start} {!isMobile ? "-" : <br />} {slot.end}
-        </Typography>
-      </Box>
-    </Grid>
+        </p>
+      </div>
+    </div>
   );
 };
 
-const ScheduleDay = ({ day, slots, categoryResult }: {
-  day: string, slots: {
-    team?: string;
-    day: string;
-    start: string;
-    end: string;
-    gym: string;
-  }[], categoryResult: string | null
-}) => (
-  <Grid item xs={12}>
-    <Grid container spacing={1}>
-      <Grid item xs={3}>
-        <Paper className="h-full flex justify-center items-center">
-          <Typography className="text-black text-xs md:text-lg">
-            {day}
-          </Typography>
-        </Paper>
-      </Grid>
-      <Grid item xs={9}>
-        <Grid container spacing={1}>
-          {slots.map((slot) => (
-            <ScheduleSlot key={slot.day + slot.start + slot.end + slot.gym} slot={slot} categoryResult={categoryResult} />
-          ))}
-        </Grid>
-      </Grid>
-    </Grid>
-  </Grid>
+const ScheduleDay = ({ day, slots, categoryResult }: { day: string; slots: any[]; categoryResult: string | null }) => (
+  <div className="w-full">
+    <div className="flex space-x-1">
+      <div className="w-1/4 p-2 bg-gray-200 flex justify-center items-center">
+        <p className="text-black text-xs md:text-lg">{day}</p>
+      </div>
+      <div className="w-3/4 grid grid-cols-3 gap-1">
+        {slots.map((slot) => (
+          <ScheduleSlot key={slot.day + slot.start + slot.end + slot.gym} slot={slot} categoryResult={categoryResult} />
+        ))}
+      </div>
+    </div>
+  </div>
 );
 
-const Schedule = ({ data: gym, categoryResult }: { data: Gym, categoryResult: string | null }) => {
-  const cardRef = useRef(null);
-  const isVisible = useVisibility(cardRef);
-  const animation = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { type: "spring" } },
-  };
-
+const Schedule = ({ data: gym, categoryResult }: { data: Gym; categoryResult: string | null }) => {
   return (
-    <motion.div
-      ref={cardRef}
-      initial="hidden"
-      animate={isVisible ? "visible" : "hidden"}
-      variants={animation}
-      transition={{ duration: 0.5 }}
-    >
-      <Box className="flex flex-col border bg-primary p-2">
-        <Typography variant="h2" color="white" className="text-5xl text-center pb-2">
-          {gym.name}
-        </Typography>
-        <Grid container spacing={1}>
-          {gym.available.map((day) => {
-            const slotsForDay = gym.slots.filter((slot) => slot.day === day);
-            return <ScheduleDay key={day} day={day} slots={slotsForDay} categoryResult={categoryResult} />;
-          })}
-          <Grid item xs={12}>
-            <Paper className="h-full flex justify-center items-center">
-              <Typography className="p-2 text-black text-base lg:text-lg text-center">
-                {gym.address} {gym.zipcode}
-              </Typography>
-            </Paper>
-          </Grid>
-        </Grid>
-      </Box>
-    </motion.div>
+    <div className="flex flex-col border bg-primary p-4">
+      <h2 className="text-white text-3xl text-center pb-4">{gym.name}</h2>
+      <div className="grid grid-cols-1 gap-4">
+        {gym.available.map((day) => {
+          const slotsForDay = gym.slots.filter((slot) => slot.day === day);
+          return <ScheduleDay key={day} day={day} slots={slotsForDay} categoryResult={categoryResult} />;
+        })}
+        <div className="p-4 bg-white flex justify-center items-center">
+          <p className="text-black text-base lg:text-lg text-center">
+            {gym.address} {gym.zipcode}
+          </p>
+        </div>
+      </div>
+    </div>
   );
 };
-
 
 export default function SchedulePage() {
   const [categoryResult, setCategoryResult] = useState<string | null>(null);
@@ -114,118 +76,78 @@ export default function SchedulePage() {
       <H1>Plannings</H1>
       <MainSection>
         <Form className="mb-10" setCategoryResult={setCategoryResult} />
-        <Box className="flex flex-col gap-10">
+        <div className="flex flex-col gap-10">
           {gyms.map((gym) => (
             <Schedule categoryResult={categoryResult} key={gym.id} data={gym} />
           ))}
-        </Box>
+        </div>
       </MainSection>
     </>
   );
 }
 
-
-
-const Form = ({ className, setCategoryResult }: { className: string, setCategoryResult: (category: string | null) => void }) => {
+const Form = ({ className, setCategoryResult }: { className: string; setCategoryResult: (category: string | null) => void }) => {
   const [category, setCategory] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const getCategory = (age: number, sexe: string) => {
     const result = categories.find((category) => category.year.includes(age.toString()) && category.sexe.includes(sexe));
-    const seniorM = age <= AT_THIS_YEAR_IAM_SENIOR && sexe === "M"
-    const seniorF = age <= AT_THIS_YEAR_IAM_SENIOR && sexe === "F"
-
-    if (seniorM) {
-      return "Seniors équipe 1 ou 2 ou Loisirs";
-    }
-    if (seniorF) {
-      return "Loisirs filles";
-    }
-
+    if (age <= AT_THIS_YEAR_IAM_SENIOR) return sexe === "M" ? "Seniors équipe 1 ou 2 ou Loisirs" : "Loisirs filles";
     if (!result) {
       setError("Nous n'avons pas trouvé votre catégorie");
       return null;
     }
     return result.division.split(" ")[0] + sexe;
   };
-  const isValidInput = (birthYear: number, sexe: string) => {
-    const reset = () => {
-      setCategory(null);
-      setCategoryResult(null);
-    }
 
-    if (sexe === "X" && birthYear > MIN_BIRTH_YEAR_FOR_MEMBER) {
-      setError("Nous acceptons pas les tabourets de moins de 5 ans");
-      reset();
-      return
-    }
+  const isValidInput = (birthYear: number, sexe: string) => {
     if (sexe === "X") {
       setError("Nous acceptons pas les tabourets");
-      reset();
-      return
+      return false;
     }
     if (birthYear <= MIN_BIRTH_YEAR_FOR_MEMBER) return true;
     setError("Nous acceptons les enfants de 5 ans et plus");
-    reset();
     return false;
-  }
+  };
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
-    const birthYear = Number(formData.get("birthYear"))
-    const sexe = String(formData.get("sexe"))
-    setError(null);
-    setCategory(null);
-    if (!isValidInput(birthYear, sexe)) return;
-    setCategory(getCategory(birthYear, sexe));
-    setCategoryResult(getCategory(birthYear, sexe));
-  }
+    const birthYear = Number(formData.get("birthYear"));
+    const sexe = String(formData.get("sexe"));
 
+    if (!isValidInput(birthYear, sexe)) return;
+    const foundCategory = getCategory(birthYear, sexe);
+    setCategory(foundCategory);
+    setCategoryResult(foundCategory);
+  };
 
   return (
     <form className={className} onSubmit={onSubmit}>
-      <FormControl className="flex flex-row justify-center gap-5 w-full h-full">
+      <div className="flex flex-row justify-center gap-5 w-full">
         <Input
-          id="birthYear-input"
           name="birthYear"
           type="number"
           defaultValue={2010}
-          className="text-black bg-white"
           placeholder="Date de naissance"
-          inputProps={{
-            className: "text-black",
-          }}
+          className="w-1/3"
         />
-        <Select
-          labelId="sexe-label"
-          name="sexe"
-          defaultValue="M"
-          className="text-black bg-white min-w-20"
-          inputProps={{
-            className: "text-black",
-          }}
-        >
-          <MenuItem value="M" className="text-black">Homme</MenuItem>
-          <MenuItem value="F" className="text-black">Femme</MenuItem>
-          <MenuItem value="X" className="text-black">Tabouret</MenuItem>
+        <Select name="sexe" defaultValue="M" >
+          <SelectTrigger className="text-black" />
+          <SelectContent>
+            <SelectItem value="M">Homme</SelectItem>
+            <SelectItem value="F">Femme</SelectItem>
+            <SelectItem value="X">Tabouret</SelectItem>
+          </SelectContent>
         </Select>
-
-        <Button type="submit" variant="contained">Ma catégorie</Button>
-      </FormControl>
-      {error && (
-        <Box className="mt-4 text-center">
-          <Typography color="red">{error}</Typography>
-        </Box>
-      )}
+        <Button type="submit" className="w-1/3">Ma catégorie</Button>
+      </div>
+      {error && <div className="text-red-500 text-center mt-4">{error}</div>}
       {category && (
-        <Box className="mt-4 text-center">
+        <div className="text-center mt-4">
           <p>Votre catégorie est : <strong>{category}</strong></p>
-        </Box>
+        </div>
       )}
     </form>
   );
 };
-
-
-

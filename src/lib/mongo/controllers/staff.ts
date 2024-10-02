@@ -11,12 +11,16 @@ export async function createStaff(payload: TDatabase.Staff) {
 }
 
 export async function getLeaders(): Promise<TDatabase.Leader[]> {
-  return (await read({ model: Staff, filter: { job: { $ne: "" } } })) as Promise<TDatabase.Leader[]>;
+  return (await read({
+    model: Staff,
+    filter: { job: { $ne: "" } },
+  })) as Promise<TDatabase.Leader[]>;
 }
 
 export async function getCoachs(): Promise<TDatabase.Coach[]> {
-  const result = await read({ model: Staff, filter: { teams: { $exists: true, $not: { $size: 0 } } } });
-  console.log("🚀 ~ getCoachs ~ result:", result)
-  
+  const result = await read({
+    model: Staff,
+    filter: { teams: { $exists: true, $not: { $size: 0 } } },
+  });
   return result;
 }

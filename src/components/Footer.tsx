@@ -1,38 +1,24 @@
-import { ReactElement } from "react";
-import { Box, Link, Typography } from "@mui/material";
+import Link from "next/link";
+import Underline from "@/components/Underline";
 
-export default function Index(): ReactElement {
+export default function Footer() {
   return (
-    <Box
-      className="border-t-2 bg-black pt-4 pb-7 border-primary flex justify-center"
-      component="footer">
-      <Box className="flex justify-center relative">
-      <Box
-            className="after:bg-gradient-to-r from-primary to-white after:p-1 after:shadow-xl after:w-full after:rounded-lg after:filter after:absolute after:left-0 inline-block"
-            sx={{ "::after": { bottom: '-10px' } }}
-        />
+    <footer className="border-t-2 bg-black pt-4 pb-7 border-primary flex justify-center">
+      <div className="flex justify-center">
         <Link
           href="https://www.linkedin.com/in/adrien-poua"
           target="_blank"
-          className="text-gray-500 flex justify-center items-center no-underline">
-          <Typography
-            variant="body1"
-            sx={{ display: "flex", alignItems: "center" }}>
+          className="text-gray-500 flex justify-center items-center no-underline relative"
+        >
+          <Underline />
+          <p className="text-white">
             Made with
-            <Box
-              component="span"
-              className="text-primary mx-1">
-              ❤
-            </Box>
+            <span className="text-primary mx-1">❤</span>
             by
-            <Box
-              component="span"
-              className="ml-1 hover:text-primary ">
-              Adrien POUA
-            </Box>
-          </Typography>
+            <span className="ml-1 hover:text-primary">Adrien POUA</span>
+          </p>
         </Link>
-      </Box>
-    </Box>
+      </div>
+    </footer>
   );
 }

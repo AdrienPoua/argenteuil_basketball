@@ -1,51 +1,32 @@
 "use client";
-import { Box, Button } from "@mui/material";
+
+import { Button } from "@/components/ui/button";
 import { documents } from "@/utils/services/dataProcessing";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { CloudUpload } from "lucide-react";
 import H1 from "@/components/H1";
-import { MainSection } from "@/utils/layouts";
-import { motion } from "framer-motion";
-import { useRef } from "react";
-import useVisibility from "@/utils/hooks/useVisibility";
+import MainSection from "@/components/layouts/MainSection";
 
 
 export default function DocumentsPage() {
-  const animation = {
-    hidden: { opacity: 0, x: "-25vw" },
-    visible: { opacity: 1, x: 0 },
-    right: { opacity: 0, x: "25vw" },
-  };
-  const cardRef = useRef<HTMLDivElement>(null);
-  const isVisible = useVisibility(cardRef);
+
   return (
     <>
-      <H1> Les documents utiles </H1>
+      <H1>Les documents utiles</H1>
       <MainSection>
-        <Box className="flex flex-col items-center justify-center gap-5 w-fit m-auto">
+        <div className="flex flex-col items-center justify-center gap-5 w-fit m-auto">
           {documents.map((document, index) => (
-            <motion.div
-              ref={cardRef}
-              initial={index % 2 === 0 ? "hidden" : "right"}
-              animate={isVisible ? "visible" : "hidden"}
-              variants={animation}
+            <Button
               key={document.id}
-              transition={{ duration: 0.5 }}
-              className="flex items-center justify-center w-full"
+              className="size-full"
             >
-              <Button
-                component="a"
-                href={document.url}
-                download
-                variant="contained"
-                className="w-full"
-                endIcon={<CloudUploadIcon />}
-              >
+              <a href={document.url} download className="flex gap-2">
                 {document.title}
-              </Button>
-            </motion.div>
+                <CloudUpload className="w-5 h-5" />
+              </a>
+            </Button>
           ))}
-        </Box>
-      </MainSection >
+        </div>
+      </MainSection>
     </>
   );
 }

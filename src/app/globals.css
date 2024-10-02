@@ -14,21 +14,16 @@
   src: url("/fonts/Evogria.otf") format("opentype");
 }
 
-
-
 a:-webkit-any-link {
   text-decoration: none;
 }
-
-
-
 
 @layer base {
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 0 0% 100%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
     --primary: 221.2 83.2% 53.3%;
@@ -44,7 +39,7 @@ a:-webkit-any-link {
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 221.2 83.2% 53.3%;
-    --radius: 1rem;
+    --radius: 0.5rem;
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
@@ -80,8 +75,6 @@ a:-webkit-any-link {
   }
 }
 
-
-
 @layer base {
   * {
     @apply border-border;
@@ -90,6 +83,3 @@ a:-webkit-any-link {
     @apply bg-background text-foreground;
   }
 }
-
-
-

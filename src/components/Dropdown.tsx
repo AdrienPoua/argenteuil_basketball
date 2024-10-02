@@ -1,39 +1,21 @@
-import { useState, useEffect, ReactNode, useRef, ReactElement } from "react";
-import { Box } from "@mui/material";
-import Arrow from "@/components/Header/Arrow";
+import { ReactNode, ReactElement } from "react";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 
 type PropsType = {
-  header: ReactNode;
-  items: ReactNode;
+  title: string,
+  content: string,
 };
 
-export default function Index({ header, items }: Readonly<PropsType>): ReactElement {
-  const [open, setOpen] = useState(false);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const [contentHeight, setContentHeight] = useState(0);
-
-  useEffect(() => {
-    if (contentRef.current) {
-      setContentHeight(contentRef.current.scrollHeight);
-    }
-  }, []);
-
+export default function Index({ title, content }: Readonly<PropsType>): ReactElement {
   return (
-    <Box
-      className={`flex flex-col overflow-hidden grow transition-all w-full duration-300`}
-      onClick={() => setOpen((prev) => !prev)}
-    >
-      <Box className="flex items-center justify-between bg-primary p-4">
-        <Box className="flex grow">{header}</Box>
-        <Arrow open={open} />
-      </Box>
-      <Box
-        ref={contentRef}
-        style={{ maxHeight: open ? contentHeight : 0 }}
-        className="flex flex-col transition-max-height duration-300 ease-in-out"
-      >
-        {items}
-      </Box>
-    </Box>
+    <Accordion type="single" collapsible>
+      <AccordionItem value="item-1">
+        <AccordionTrigger>{title}</AccordionTrigger>
+        <AccordionContent>
+          Yes. It adheres to the WAI-ARIA design pattern.
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
   );
 };
+

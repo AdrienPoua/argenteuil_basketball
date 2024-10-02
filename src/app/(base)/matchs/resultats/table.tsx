@@ -1,4 +1,4 @@
-import { Table, TableBody, TableCell, TableContainer, TableRow, Paper } from "@mui/material";
+import { Table, TableBody, TableCell, TableHeader, TableRow } from "@/components/ui/table"; // Import des composants Shadcn UI pour le tableau
 import { Ranking } from "@/utils/models";
 import { ABB } from "@/utils/services/dataProcessing";
 
@@ -7,42 +7,40 @@ type TableProps = {
 };
 
 export default function ClassementTable({ ranking }: Readonly<TableProps>): JSX.Element {
-  const tableHeaders = [" ", "Equipe", "Pts", "Jo", "G", "P", "F", "Bp", "Bc", "Coeff"];
+  const tableHeaders = ["", "Equipe", "Pts", "Jo", "G", "P", "F", "Bp", "Bc", "Coeff"];
+
   return (
-    <TableContainer
-      className="w-100 "
-      component={Paper}>
-      <Table aria-label="simple table">
+    <div className="overflow-x-auto bg-white shadow-md">
+      <Table>
+        <TableHeader>
+          <TableRow className="bg-primary/20 text-white">
+            {tableHeaders.map((header) => (
+              <TableCell key={header} className="p-4 tracking-wider text-black">
+                {header}
+              </TableCell>
+            ))}
+          </TableRow>
+        </TableHeader>
         <TableBody>
-          {tableHeaders.map((header) => (
-            <TableCell key={header}>{header}</TableCell>
-          ))}
           {ranking.teams.map((team) => {
             const isABB = team.name.toLowerCase().includes(ABB.name.toLowerCase());
             return (
-              <TableRow
-                key={team.rank}
-                className={isABB ? "bg-primary" : ""}>
-                <TableCell
-                  component="th"
-                  scope="row"
-                  className="w-[1%] whitespace-nowrap font-bold">
-                  {team.rank}
-                </TableCell>
-                <TableCell>{team.name}</TableCell>
-                <TableCell>{Ranking.getPts(team)}</TableCell>
-                <TableCell>{Ranking.getJo(team)}</TableCell>
-                <TableCell>{Ranking.getG(team)}</TableCell>
-                <TableCell>{Ranking.getP(team)}</TableCell>
-                <TableCell>{Ranking.getF(team)}</TableCell>
-                <TableCell>{Ranking.getBp(team)}</TableCell>
-                <TableCell>{Ranking.getBc(team)}</TableCell>
-                <TableCell>{Ranking.getCoeff(team)}</TableCell>
+              <TableRow key={team.rank} className={isABB ? "bg-primary text-white" : "bg-white"}>
+                <TableCell className="p-4 font-bold">{team.rank}</TableCell>
+                <TableCell className="p-4">{team.name}</TableCell>
+                <TableCell className="p-4">{Ranking.getPts(team)}</TableCell>
+                <TableCell className="p-4">{Ranking.getJo(team)}</TableCell>
+                <TableCell className="p-4">{Ranking.getG(team)}</TableCell>
+                <TableCell className="p-4">{Ranking.getP(team)}</TableCell>
+                <TableCell className="p-4">{Ranking.getF(team)}</TableCell>
+                <TableCell className="p-4">{Ranking.getBp(team)}</TableCell>
+                <TableCell className="p-4">{Ranking.getBc(team)}</TableCell>
+                <TableCell className="p-4">{Ranking.getCoeff(team)}</TableCell>
               </TableRow>
             );
           })}
         </TableBody>
       </Table>
-    </TableContainer>
+    </div>
   );
 }

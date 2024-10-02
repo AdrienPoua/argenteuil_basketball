@@ -1,6 +1,4 @@
 import { useEffect, ReactElement } from "react";
-import { Box, Button, Drawer, List, Typography } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
 import Logo from "@/components/Logo";
 import { usePathname } from "next/navigation";
 import HeaderModal from "./Modal";
@@ -9,6 +7,8 @@ import { RootState } from "@/lib/redux/store";
 import { closeDrawer, openDrawer } from "@/lib/redux/slices/navbar";
 import { open, setContent } from "@/lib/redux/slices/modal";
 import MobileNavItem from "@/components/Header/MobileNavItem";
+import { Button } from "@/components/ui/button";
+import { Menu } from 'lucide-react';
 
 export default function Index(): ReactElement {
   const pathname = usePathname();
@@ -26,34 +26,20 @@ export default function Index(): ReactElement {
 
 
   return (
-    <Box className="flex items-center grow lg:hidden justify-between">
+    <div className="flex items-center grow lg:hidden justify-between">
       <Logo />
       <Button
-        variant="contained"
         onClick={handleClick}
         className="h-fit"
         color="primary">
-        <Typography
-          variant="body1"
+        <p
           className="">
           Contact
-        </Typography>
+        </p>
       </Button>
       <Button onClick={() => dispatch(openDrawer())}>
-        <MenuIcon />
+        <Menu />
       </Button>
-      <Drawer
-        anchor="right"
-        open={isDrawerOpen}
-        onClose={() => dispatch(closeDrawer())}>
-        <Box>
-          <List className="flex flex-col justify-end pt-0">
-            {navItems.map((item) =>
-              <MobileNavItem key={item.title} item={item} />
-            )}
-          </List>
-        </Box>
-      </Drawer>
-    </Box>
+    </div >
   );
 };

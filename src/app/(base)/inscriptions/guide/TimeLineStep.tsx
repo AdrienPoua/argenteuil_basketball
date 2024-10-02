@@ -1,13 +1,6 @@
-"use client"
-import { Box, Typography } from "@mui/material";
-import TimelineItem from "@mui/lab/TimelineItem";
-import TimelineSeparator from "@mui/lab/TimelineSeparator";
-import TimelineConnector from "@mui/lab/TimelineConnector";
-import TimelineContent from "@mui/lab/TimelineContent";
-import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent";
-import TimelineDot from "@mui/lab/TimelineDot";
-import { motion } from "framer-motion";
+"use client";
 import { ReactElement } from "react";
+import { cn } from "@/lib/utils"; // Shadcn utility for conditional classnames
 
 type PropsType = {
     left: React.ReactNode;
@@ -16,55 +9,35 @@ type PropsType = {
     index: number;
 };
 
-const animation = (index: number) => {
-    return {
-        hidden: { opacity: 0, y: 50 },
-        visible: { opacity: 1, y: 0, transition: { type: "spring", delay: index * 0.2 } },
-        hover: { backgroundColor: "#172554" },
-    };
-};
-
+// Remplacer les animations de Framer Motion par des classes Tailwind pour les transitions et animations
 export default function Index({ left, icon, right, index }: Readonly<PropsType>): ReactElement {
-
     return (
-        <motion.div
-            initial="hidden"
-            animate="visible"
-            whileHover="hover"
-            variants={animation(index)}
-            transition={{ duration: 0.3 }}
+        <div
+            className={cn(
+                "flex relative transition-all duration-300 ease-in-out transform",
+                index % 2 === 0 ? "hover:bg-blue-800" : "hover:bg-blue-600"
+            )}
         >
-            <TimelineItem className="flex relative">
-                <TimelineOppositeContent className="flex justify-end w-[45%]">
-                    <Box className="self-center text-white">{left}</Box>
-                </TimelineOppositeContent>
-                <TimelineSeparator className="self-center">
-                    <TimelineConnector className="min-h-10" />
-                    <TimelineDot color="primary" className="self-center">{icon}</TimelineDot>
-                    <TimelineConnector className="min-h-10" />
-                </TimelineSeparator>
-                <TimelineContent className="flex grow w-[45%]">
-                    <Box className="self-center text-white w-44">{right}</Box>
-                </TimelineContent>
-            </TimelineItem>
-        </motion.div>
+            <div className="flex justify-end w-[45%]">
+                <div className="self-center text-white">{left}</div>
+            </div>
+            <div className="flex flex-col items-center justify-center">
+                <div className="min-h-10 w-px bg-gray-200" />
+                <div className="p-2 bg-primary rounded-full">{icon}</div>
+                <div className="min-h-10 w-px bg-gray-200" />
+            </div>
+            <div className="flex grow w-[45%]">
+                <div className="self-center text-white w-44">{right}</div>
+            </div>
+        </div>
     );
-};
-
-
-export const TimeLineEnd = (): ReactElement => {
-    return (
-        <motion.div
-        initial="hidden"
-        animate="visible"
-        whileHover="hover"
-        variants={animation(0)}
-        transition={{ duration: 0.3 }}
-    >
-        <TimelineItem className="flex justify-center items-center">
-            <Typography className="self-center text-white">Vous êtes maintenant licencié</Typography>
-            </TimelineItem>
-        </motion.div>
-    )
 }
 
+// Composant de fin de Timeline sans animation Framer Motion
+export const TimeLineEnd = (): ReactElement => {
+    return (
+        <div className="flex justify-center items-center transition-all duration-300 ease-in-out transform hover:bg-blue-800">
+            <p className="self-center text-white">Vous êtes maintenant licencié</p>
+        </div>
+    );
+}

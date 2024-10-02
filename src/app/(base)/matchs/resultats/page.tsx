@@ -1,10 +1,10 @@
 "use client";
-import { Box, Button } from "@mui/material";
 import Table from "./table";
 import H1 from "@/components/H1";
-import { MainSection } from "@/utils/layouts";
+import MainSection from "@/components/layouts/MainSection";
 import Feedback from "@/components/FetchFeedback";
 import useScorenco from "@/utils/hooks/scorenco/useScorenco";
+import { Button } from "@/components/ui/button";
 
 export default function Index() {
   const { clubs, loadingClubs, errorClubs, ranking, selectedTeam, setSelectedTeam } = useScorenco();
@@ -17,26 +17,26 @@ export default function Index() {
           isLoading={loadingClubs}
           error={errorClubs}
         >
-          <Box
+          <div
             className="flex flex-col ">
-            <Box className="flex overflow-x-auto">
+            <div className="flex overflow-x-auto">
               {clubs?.teams.map((team: { competitions: { id: string }[]; shortName: string }) => {
                 const id = team.competitions[0].id.toString();
                 return (
                   <Button
                     key={team.shortName}
-                    className="grow flex-wrap"
-                    variant={selectedTeam === id ? "contained" : "outlined"}
+                    className="grow flex-wrap rounded-none"
+                    variant={selectedTeam === id ? "default" : "outline"}
                     onClick={() => setSelectedTeam(id)}>
                     {team.shortName}
                   </Button>
                 );
               })}
-            </Box>
-            <Box className="w-full">
+            </div>
+            <div className="w-full">
               {ranking && <Table ranking={ranking} />}
-            </Box>
-          </Box>
+            </div>
+          </div>
         </Feedback>
       </MainSection >
     </>

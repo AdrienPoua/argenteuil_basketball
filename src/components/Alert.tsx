@@ -1,10 +1,17 @@
 "use client";
 import { useAlert } from "@/utils/contexts/Alerts";
-import { Alert } from "@mui/material";
 import { useEffect } from "react";
+import { RocketIcon, ExclamationTriangleIcon } from "@radix-ui/react-icons"
+
+
+import {
+    Alert,
+    AlertDescription,
+    AlertTitle,
+} from "@/components/ui/alert"
 
 export function AlertComponent() {
-    const { open, setOpen, severity, message } = useAlert();
+    const { open, setOpen, message, variant } = useAlert();
 
     useEffect(() => {
         if (open) {
@@ -16,12 +23,16 @@ export function AlertComponent() {
     }, [open, setOpen]);
 
     return (
-        <div className="fixed bottom-20 left-0 right-0 flex flex-col items-center gap-4">
-            {open && (
-                <Alert severity={severity as "success" | "info" | "warning" | "error"} onClose={() => setOpen(false)}>
-                    {message}
-                </Alert>
-            )}
-        </div>
-    );
-}   
+        <Alert className={`bottom-20 left-1/2 transform -translate-x-1/2 w-fit ${!open ? 'hidden' : 'fixed'}`}>
+            {variant === "success" ?
+                <RocketIcon className="h-4 w-4" /> : <ExclamationTriangleIcon className="h-4 w-4" />}
+            <AlertTitle>
+                {variant === "success" ?
+                    "Bravo" : "Attention erreur"}
+            </AlertTitle>
+            <AlertDescription>
+                {message}
+            </AlertDescription>
+        </Alert>
+    )
+}

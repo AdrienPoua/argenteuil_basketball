@@ -5,7 +5,7 @@ import { ReactElement } from "react";
 import { Button } from "@mui/material";
 import { Convocation as Template } from '@/lib/react-email/templates';
 import { render } from '@react-email/components';
-import Layout from "@/utils/layouts/email";
+import Layout from "@/components/layouts/email";
 import useSendEmail from "@/utils/hooks/useSendEmail";
 import useOpponentEmail from "@/utils/hooks/useOpponentEmail";
 type PropsType = {

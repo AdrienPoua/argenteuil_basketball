@@ -1,21 +1,19 @@
 import React, { ReactElement } from 'react';
-import { Box } from '@mui/material';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { Triangle } from 'lucide-react';
 
 type PropsType = {
   className?: string;
   open?: boolean;
-  hidden?: boolean;
 };
 
-export default function Arrow({ open, hidden, className }: Readonly<PropsType>): ReactElement {
+export default function Arrow({ open, className }: Readonly<PropsType>): ReactElement {
   return (
-    <Box className={`${className} bg-transparent`}>
-      <ArrowDropDownIcon
-        className={`${open ? 'transform -rotate-90' : ''} transition-transform duration-300 ease-in-out text-black ${hidden ? 'text-transparent' : ''}`}
-        fontSize='large'
+    <div className={`flex justify-center items-center ${className}`}>
+      <Triangle
+        strokeWidth={0.1}
+        className={`${open ? 'rotate-180 text-primary' : 'rotate-90'} transition-transform duration-300 ease-in-out text-black fill-current`}
+        size={15}
       />
-    </Box>
-  )
+    </div>
+  );
 }
-

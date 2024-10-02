@@ -8,6 +8,7 @@ export const CoachSchema = z.object({
   isEmailDisplayed: z.boolean().optional(),
   isNumberDisplayed: z.boolean().optional(),
   image: z.string().optional(),
+  _id: z.string(),
 });
 
 export default CoachSchema;

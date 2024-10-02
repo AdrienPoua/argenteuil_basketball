@@ -1,7 +1,7 @@
 import { Box, Button, TextField, InputLabel } from "@mui/material";
 import { useState, ReactElement } from "react";
 import useSendEmail from "@/utils/hooks/useSendEmail";
-import Layout from "@/utils/layouts/email";
+import Layout from "@/components/layouts/email";
 import { TDatabase } from "@/utils/types";
 
 

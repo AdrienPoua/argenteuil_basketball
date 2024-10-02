@@ -1,58 +1,50 @@
 import { ReactElement } from "react";
-import { Box, Button, ListItem, Typography } from "@mui/material";
 import Link from "next/link";
-import Dropdown from "@/components/Dropdown";
 import { TNavbar } from "@/utils/types";
 import Arrow from "./Arrow";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+
 
 
 
 const DirectNavItem = ({ item }: { item: TNavbar.DirectNavItem }): ReactElement => {
     return (
-        <ListItem
+        <li
             key={item.href}
             className="flex bg-primary">
             <Link
                 href={item.href}
                 className="grow flex justify-end">
-                <Typography variant="body2">{item.title}</Typography>
+                <p>{item.title}</p>
             </Link>
             <Arrow hidden />
-        </ListItem>
+        </li>
     );
 };
 
 const ExpendableNavItem = ({ item }: { item: TNavbar.ExpendableNavItem }): ReactElement => {
     return (
-        <Dropdown
-            key={item.title}
-            header={
-                <Button className="grow w-full">
-                    <Typography
-                        variant="body2"
-                        className="text-end grow">
-                        {item.title}
-                    </Typography>
-                </Button>
-            }
-            items={
-                <Box className="flex flex-col">
+        <Accordion type="single" collapsible>
+            <AccordionItem value="item-1">
+                <AccordionTrigger>{item.title}</AccordionTrigger>
+                <AccordionContent>
                     {item.subItems?.map((subItem: TNavbar.SubItem) => (
-                        <ListItem
+                        <li
                             key={subItem.href}
                             className="flex me-9">
                             <Link
                                 href={subItem.href}
                                 className="grow flex justify-end me-5">
-                                <Typography variant="body2">{subItem.title}</Typography>
+                                <p >{subItem.title}</p>
                             </Link>
-                        </ListItem>
+                        </li>
                     ))}
-                </Box>
-            }
-        />
-    );
+                </AccordionContent>
+            </AccordionItem>
+        </Accordion>
+    )
 };
+
 
 export default function Factory({ item }: Readonly<{ item: TNavbar.NavItem }>): ReactElement {
     if ('href' in item) {

@@ -1,40 +1,48 @@
-"use client"
-import React, { ReactElement } from 'react';
-import { Fab, Zoom, useScrollTrigger } from '@mui/material';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import Box from '@mui/material/Box';
+"use client";
+import React, { useState, useEffect } from 'react';
+import { Button } from "@/components/ui/button";
+import { ArrowUpIcon } from 'lucide-react';
 
-const hasWindow = typeof window !== 'undefined';
+const ScrollToTop = () => {
+  const [isVisible, setIsVisible] = useState(false);
 
-export default function Index(): ReactElement {
-  const trigger = useScrollTrigger({
-    target: hasWindow ? window : undefined,
-    disableHysteresis: true,
-    threshold: 100,
-  });
-
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    const anchor = document.querySelector('#back-to-top-anchor');
-    if (anchor) {
-      anchor.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      });
+  // Afficher ou cacher le bouton en fonction du défilement
+  const toggleVisibility = () => {
+    if (window.scrollY > 300) {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
     }
   };
 
-  return (
-    <Zoom in={trigger}>
-      <Box
-        onClick={handleClick}
-        className="fixed bottom-4 right-4 z-50"
-        role="go top"
-      >
-        <Fab color="primary" size="large" aria-label="scroll back to top">
-          <KeyboardArrowUpIcon />
-        </Fab>
-      </Box>
-    </Zoom>
-  );
-}
+  // Fonction pour remonter en haut de la page
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
 
+  useEffect(() => {
+    window.addEventListener('scroll', toggleVisibility);
+    return () => {
+      window.removeEventListener('scroll', toggleVisibility);
+    };
+  }, []);
+
+  return (
+    <div className="fixed bottom-10 right-10">
+      {isVisible && (
+        <Button
+          onClick={scrollToTop}
+          className="w-20 h-20"
+          size="icon"
+        >
+          <ArrowUpIcon size={40} />
+        </Button>
+      )}
+    </div>
+  );
+};
+
+export default ScrollToTop;

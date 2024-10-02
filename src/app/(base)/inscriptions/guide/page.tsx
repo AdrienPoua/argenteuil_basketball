@@ -1,49 +1,48 @@
 "use client"
 import { ReactElement } from "react";
-import Timeline from "@mui/lab/Timeline";
-import ArticleIcon from "@mui/icons-material/Article";
-import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
-import MarkEmailUnreadIcon from "@mui/icons-material/MarkEmailUnread";
-import LaptopMacIcon from "@mui/icons-material/LaptopMac";
 import H1 from "@/components/H1";
-import { MainSection } from "@/utils/layouts";
-import EmailGuide from "./EmailGuide";
-import FormulaireGuide from "./FormulaireGuide";
-import InscriptionGuide from "./InscriptionGuide";
-import PermanencesGuide from "./PermanencesGuide";
-import ValidationGuide from "./ValidationGuide";
-import TimelineStep, { TimeLineEnd } from "./TimeLineStep";
-import ModalButton from "./ModalButton";
+import MainSection from "@/components/layouts/MainSection";
+import File from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogClose
+} from "@/components/ui/dialog"
 
 
-
-const steps = [
-  {
-    left: "Recuperez",
-    right: <ModalButton text="Formulaire" ModalContent={<FormulaireGuide />} />,
-    icon: <ArticleIcon />,
-  },
-  {
-    left: "Rendre",
-    right: <ModalButton text="Permanences" ModalContent={<PermanencesGuide />} />,
-    icon: <AssignmentTurnedInIcon />,
-  },
-  {
-    left: "Recevez",
-    right: <ModalButton text="Email" ModalContent={<EmailGuide />} />,
-    icon: <MarkEmailUnreadIcon />,
-  },
-  {
-    left: "Completez",
-    right: <ModalButton text="Inscription" ModalContent={<InscriptionGuide />} />,
-    icon: <LaptopMacIcon />,
-  },
-  {
-    left: "Verification",
-    right: <ModalButton text="Validation" ModalContent={<ValidationGuide />} />,
-    icon: <MarkEmailUnreadIcon />,
-  },
-];
+// const steps = [
+//   {
+//     left: "Recuperez",
+//     right: <ModalButton text="Formulaire" ModalContent={<FormulaireGuide />} />,
+//     icon: <ArticleIcon />,
+//   },
+//   {
+//     left: "Rendre",
+//     right: <ModalButton text="Permanences" ModalContent={<PermanencesGuide />} />,
+//     icon: <AssignmentTurnedInIcon />,
+//   },
+//   {
+//     left: "Recevez",
+//     right: <ModalButton text="Email" ModalContent={<EmailGuide />} />,
+//     icon: <MarkEmailUnreadIcon />,
+//   },
+//   {
+//     left: "Completez",
+//     right: <ModalButton text="Inscription" ModalContent={<InscriptionGuide />} />,
+//     icon: <LaptopMacIcon />,
+//   },
+//   {
+//     left: "Verification",
+//     right: <ModalButton text="Validation" ModalContent={<ValidationGuide />} />,
+//     icon: <MarkEmailUnreadIcon />,
+//   },
+// ];
 
 
 export default function Index(): ReactElement {
@@ -51,14 +50,64 @@ export default function Index(): ReactElement {
     <>
       <H1> Les étapes d&apos;inscription </H1>
       <MainSection>
-        <Timeline sx={{ mt: 0, "& .MuiTimelineItem-root:before": { display: "none" } }} >
-          {steps.map((step, index) => (
-            <TimelineStep key={step.left} {...step} index={index} />
-          ))}
-          <TimeLineEnd />
-        </Timeline>
+        <Step>
+          <Left>
+            <p> Récuperez </p>
+          </Left>
+          <Middle>
+            <div> test</div>
+          </Middle>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="outline">Formulaire</Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-md">
+              <DialogHeader>
+                <DialogTitle>Récuperez</DialogTitle>
+                <DialogDescription>
+                  Anyone who has this link will be able to view this.
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter className="sm:justify-start">
+                <DialogClose asChild>
+                  <Button type="button" variant="secondary">
+                    Close
+                  </Button>
+                </DialogClose>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+
+        </Step>
       </MainSection>
     </>
   );
 }
 
+
+const Step = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <div className="flex items-center justify-center hover:bg-primary/50">
+      {children}
+    </div>
+  )
+}
+
+
+const Middle = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <div className="flex flex-col items-center justify-center gap-10 ">
+      <div className="h-full p-1 bg-white" />
+      <div className="bg-primary rounded-full">{children}</div>
+      <div className="h-full p-1 bg-white" />
+    </div>
+  )
+}
+
+const Left = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <div className="flex flex-col items-center justify-center gap-10 ">
+      <p className="bg-primary rounded-full">{children}</p>
+    </div>
+  )
+}

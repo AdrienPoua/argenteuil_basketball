@@ -1,50 +1,76 @@
-import { TableCell, Box, Typography, Tooltip } from '@mui/material';
 import React, { ReactElement } from 'react';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"; // Import Tooltip from Shadcn UI
+import { TableCell } from "@/components/ui/table"; // Shadcn UI TableCell
+import { Button } from "@/components/ui/button";
 import { Match } from "@/utils/models";
+
 
 const typoClass = "text-black text-center";
 
+// Component for handling the content inside the table cell
 const InsideCell = ({ children }: { children: React.ReactNode }): ReactElement => {
     return (
-        <TableCell className="flex flex-col justify-center items-center grow basis-1 relative bg-white">
+        <TableCell className="flex flex-col justify-center items-center grow basis-1 relative bg-white p-4">
             {children}
         </TableCell>
     );
-
 }
 
+// Component for a cell with no match (exempt)
 const NoMatchCell = (): ReactElement => (
     <InsideCell>
-        <Typography className={typoClass}> EXEMPT </Typography>
-        <Tooltip title="Pas de match">
-            <Box className=" after:absolute after:top-0 after:right-0 after:content-['❌'] text-xl" />
-        </Tooltip>
+        <p className={typoClass}>EXEMPT</p>
+        <TooltipProvider>
+            <Tooltip>
+                <TooltipTrigger asChild>
+                    <Button variant="outline">❌</Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                    Pas de match
+                </TooltipContent>
+            </Tooltip>
+        </TooltipProvider>
     </InsideCell>
 );
 
+// Component for an away match
 const AwayMatchCell = ({ match }: { match: Match }): ReactElement => (
     <InsideCell>
-        <Typography className={typoClass}> Déplacement <br /> {match.teamA} </Typography>
-        {match.time !== "00:00" && <Typography className={typoClass}> {match.date} - {match.time} <br /> {match.gym}</Typography>}
-        <Box className="flex flex-col">
-            <Tooltip title="Match à l'exterieur">
-                <Box className=" after:absolute after:top-0 after:right-0 after:content-['🚗'] text-xl" />
+        <p className={typoClass}>Déplacement<br />{match.teamA}</p>
+        {match.time !== "00:00" && <p className={typoClass}>{match.date} - {match.time}<br />{match.gym}</p>}
+        <TooltipProvider>
+            <Tooltip>
+                <TooltipTrigger asChild>
+                    <Button variant="outline">🚗</Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                    Match à l&apos;exterieur
+                </TooltipContent>
             </Tooltip>
-        </Box>
-    </InsideCell >
-);
-
-const HomeMatchCell = ({ match }: { match: Match }): ReactElement => (
-    <InsideCell>
-        <Typography className={typoClass}>{match.teamA.replace(/ARGENTEUIL BB/i, "ABB")} vs {match.teamB}</Typography>
-        <Typography className={typoClass}>{match.date} - {match.time}</Typography>
-        <Typography className={typoClass}>{match.gym}</Typography>
-        <Tooltip title="Match à domicile">
-            <Box className=" after:absolute after:top-0 after:right-0 after:content-['🏠'] text-xl" />
-        </Tooltip>
+        </TooltipProvider>
     </InsideCell>
 );
 
+// Component for a home match
+const HomeMatchCell = ({ match }: { match: Match }): ReactElement => (
+    <InsideCell>
+        <p className={typoClass}>{match.teamA.replace(/ARGENTEUIL BB/i, "ABB")} vs {match.teamB}</p>
+        <p className={typoClass}>{match.date} - {match.time}</p>
+        <p className={typoClass}>{match.gym}</p>
+        <TooltipProvider>
+            <Tooltip>
+                <TooltipTrigger asChild>
+                    <Button variant="outline">🏠</Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                    Match à domicile
+                </TooltipContent>
+            </Tooltip>
+        </TooltipProvider>
+    </InsideCell>
+);
+
+// Main Cell component to render based on match data
 export default function Cell({ match }: Readonly<{ match: Match }>): ReactElement | null {
     if (!match || match.isExempt) {
         return <NoMatchCell />;

@@ -1,8 +1,8 @@
 "use client";
 import { createStaff } from "@/lib/mongo/controllers/staff";
-import { Button } from "@mui/material";
 import { useAlert } from "@/utils/contexts/Alerts";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 
 const initialState = {
@@ -37,7 +37,7 @@ export default function Page() {
   // Gestion de la soumission du formulaire
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const result = await createStaff({...payload, teams: payload.teams.split(" ")});
+    const result = await createStaff({ ...payload, teams: payload.teams.split(" ") });
     if (result) {
       setAlert(true, "success", "Votre demande a été envoyée avec succès !");
     } else {

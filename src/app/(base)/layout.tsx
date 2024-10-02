@@ -1,4 +1,4 @@
-import { HeaderAndFooter } from "@/utils/layouts";
+import HeaderAndFooter from "@/components/layouts/HeaderAndFooter";
 
 export default function Index({ children }: Readonly<{ children: React.ReactNode }>) {
     return (

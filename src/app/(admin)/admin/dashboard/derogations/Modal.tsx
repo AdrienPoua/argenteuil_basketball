@@ -5,7 +5,7 @@ import { render } from '@react-email/components';
 import { Match } from "@/utils/models";
 import { Derogation as Template } from '@/lib/react-email/templates';
 import useSendEmail from "@/utils/hooks/useSendEmail";
-import Layout from "@/utils/layouts/email";
+import Layout from "@/components/layouts/email";
 import { Button } from "@mui/material";
 import useOpponentEmail from "@/utils/hooks/useOpponentEmail";
 

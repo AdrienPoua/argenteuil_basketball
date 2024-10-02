@@ -1,30 +1,22 @@
-// SearchBar.js
 import React, { ReactElement } from 'react';
-import { TextField, InputAdornment } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-
+import { Input } from "@/components/ui/input";
+import { Search } from "lucide-react";
 type PropsType = {
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export default function Index({ value, onChange }: Readonly<PropsType>): ReactElement {
+export default function SearchBar({ value, onChange }: Readonly<PropsType>): ReactElement {
   return (
-    <TextField
-      variant="outlined"
-      value={value}
-      onChange={onChange}
-      className="bg-white"
-      fullWidth
-      placeholder='Inserez un mot-clé'
-      InputProps={{
-        endAdornment: (
-          <InputAdornment position="start">
-            <SearchIcon />
-          </InputAdornment>
-        ),
-      }}
-    />
+    <div className="relative w-full">
+      <Input
+        type="text"
+        value={value}
+        onChange={onChange}
+        className="bg-white pr-10 pl-4 py-2 border rounded-md"
+        placeholder="Insérez un mot-clé"
+      />
+      <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 " />
+    </div>
   );
-};
-
+}

@@ -1,20 +1,29 @@
 import { ReactElement } from 'react';
-import { CircularProgress, Typography, Box } from '@mui/material';
+import Loader from '@/components/Loader';
 
-export default function Feedback({ isLoading, error, data, children }: Readonly<{ isLoading: boolean, error: unknown, data: any, children: ReactElement }>): ReactElement {
+
+
+export default function FetchFeedBack({ isLoading, error, data, children }: Readonly<{ isLoading: boolean, error: unknown, data: any, children: ReactElement }>): ReactElement {
     if (isLoading) {
-        return <Box className="flex justify-center items-center size-full"><CircularProgress /></Box>;
+        return (
+            <div className="flex justify-center items-center size-full">
+                <Loader />
+            </div>
+        );
     }
-
     if (error) {
-        return <Typography variant="h1" color="error">Erreur du serveur, la base de données est inaccessible</Typography>;
+        return <h1>Erreur du serveur, la base de données est inaccessible</h1>;
     }
 
     if (!data) {
-        return <Typography variant="h1">Aucune donnée</Typography>;
+        return <h1>Aucune donnée</h1>;
     }
 
     return <>
         {children}
     </>
 }
+
+
+
+

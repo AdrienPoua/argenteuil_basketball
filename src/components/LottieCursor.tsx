@@ -1,8 +1,7 @@
 "use client";
 import Player from 'lottie-react';
-import animationData from '@/public/animations/basketball.json'; // Chemin vers votre animation Lottie
+import animationData from '@/public/animations/basketball.json';
 import useMousePosition from '@/utils/hooks/mouse/mousePosition';
-import { Box } from '@mui/material';
 import { useEffect, useState } from 'react';
 
 export default function LottieCursor({ containerRef }: { containerRef: React.RefObject<HTMLDivElement> }) {
@@ -12,9 +11,9 @@ export default function LottieCursor({ containerRef }: { containerRef: React.Ref
     // Vérifie si le curseur est à l'intérieur de l'élément référencé
     const disabled = !containerRef.current?.contains(document.elementFromPoint(position.x, position.y));
 
-
     useEffect(() => {
         if (disabled) return;
+
         const handleMouseClick = () => {
             setClicked(true);
             setTimeout(() => {
@@ -34,8 +33,8 @@ export default function LottieCursor({ containerRef }: { containerRef: React.Ref
     }
 
     return (
-        <Box
-            sx={{
+        <div
+            style={{
                 position: 'fixed',
                 top: position.y,
                 left: position.x,
@@ -48,8 +47,8 @@ export default function LottieCursor({ containerRef }: { containerRef: React.Ref
                 autoplay={!clicked}
                 loop={!clicked}
                 animationData={animationData}
-                className={`size-16 ${clicked ? 'scale-150' : ''} transition-all duration-300`}
+                className={`w-16 h-16 ${clicked ? 'scale-150' : ''} transition-transform duration-300`}
             />
-        </Box>
+        </div>
     );
 }

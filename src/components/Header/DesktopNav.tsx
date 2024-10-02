@@ -1,5 +1,4 @@
 import { ReactElement } from "react";
-import { Box, Button, Typography } from "@mui/material";
 import NavItem from "@/components/Header/DesktopNavItem";
 import SubBar from "@/components/Header/SubBar";
 import Logo from "@/components/Logo";
@@ -7,6 +6,7 @@ import HeaderModal from "./Modal";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/lib/redux/store";
 import { open, setContent } from "@/lib/redux/slices/modal";
+import { Button } from "@/components/ui/button";
 
 export default function Index(): ReactElement {
   const navItems = useSelector((state: RootState) => state.navbar.navItems);
@@ -17,13 +17,11 @@ export default function Index(): ReactElement {
   };
   return (
     <>
-      <Box className="lg:flex hidden relative">
+      <div className="lg:flex hidden relative">
         <Logo />
-        <Box
-          component="nav"
+        <nav
           className="flex grow items-center justify-center">
-          <Box
-            component="ul"
+          <ul
             className="flex">
             {navItems.map((item) => (
               <NavItem
@@ -31,20 +29,18 @@ export default function Index(): ReactElement {
                 item={item}
               />
             ))}
-          </Box>
-        </Box>
+          </ul>
+        </nav>
         <Button
           onClick={handleClick}
-          variant="contained"
           color="primary"
           className="h-fit self-center">
-          <Typography
-            variant="body1"
+          <p
             className="tracking-widest font-thin">
             Contact
-          </Typography>
+          </p>
         </Button>
-      </Box>
+      </div>
       <SubBar />
     </>
   );

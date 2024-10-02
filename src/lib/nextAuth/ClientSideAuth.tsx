@@ -1,7 +1,7 @@
 "use client";
 import { useSession } from "next-auth/react";
 import { ReactElement } from "react";
-import { CircularProgress, Box, Typography } from "@mui/material";
+import Loader from "@/components/Loader";
 
 type PropsType = {
     children: React.ReactNode;
@@ -12,9 +12,9 @@ export default function Index({ children }: Readonly<PropsType>): ReactElement {
 
     if (status === "loading") {
         return (
-            <Box className="flex justify-center items-center h-screen w-full">
-                <CircularProgress />
-            </Box>
+            <p className="flex justify-center items-center h-screen w-full">
+                <Loader />
+            </p>
         );
     }
 
@@ -23,8 +23,8 @@ export default function Index({ children }: Readonly<PropsType>): ReactElement {
     }
 
     return (
-        <Box className="flex justify-center items-center h-screen w-full">
-            <Typography className="text-black text-6xl">Access Denied</Typography>
-        </Box>
+        <div className="flex justify-center items-center h-screen w-full">
+            <p className="text-black text-6xl">Access Denied</p>
+        </div>
     );
 }

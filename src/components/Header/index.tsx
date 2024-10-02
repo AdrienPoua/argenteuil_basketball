@@ -1,31 +1,41 @@
-"use client";
-import { useEffect, ReactElement } from "react";
-import { Box, ClickAwayListener } from "@mui/material";
-import { usePathname } from "next/navigation";
-import DesktopNav from "@/components/Header/DesktopNav";
-import MobileNav from "@/components/Header/MobileNav";
-import { useDispatch } from "react-redux";
-import { hideSubBar, setCurrentNav } from "@/lib/redux/slices/navbar";
+"use client"
+import { useEffect, useRef } from "react"
+import { usePathname } from "next/navigation"
+import { useDispatch } from "react-redux"
+import { hideSubBar, setCurrentNav } from "@/lib/redux/slices/navbar"
+import DesktopNav from "@/components/Header/DesktopNav"
+import MobileNav from "@/components/Header/MobileNav"
 
+export default function Header() {
+  const dispatch = useDispatch()
+  const pathname = usePathname()
+  const headerRef = useRef<HTMLElement>(null)
 
-export default function Index(): ReactElement {
-  const dispatch = useDispatch();
-  const pathname = usePathname();
-  const handleClickAWay = () => {
-    dispatch(hideSubBar());
-  };
-  
   useEffect(() => {
-    dispatch(setCurrentNav(null));
-  }, [pathname, dispatch]);
+    dispatch(setCurrentNav(null))
+  }, [pathname, dispatch])
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (headerRef.current && !headerRef.current.contains(event.target as Node)) {
+        dispatch(hideSubBar())
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [dispatch])
 
   return (
-    <ClickAwayListener onClickAway={handleClickAWay}>
-      <Box component="header" className="flex flex-col flex-wrap px-6 py-2 bg-white" id="back-to-top-anchor">
-        <DesktopNav />
-        <MobileNav />
-      </Box>
-    </ClickAwayListener>
-  );
-};
-
+    <header 
+      ref={headerRef}
+      className="flex flex-col flex-wrap px-6 py-2 bg-background"
+      id="back-to-top-anchor"
+    >
+      <DesktopNav />
+      <MobileNav />
+    </header>
+  )
+}

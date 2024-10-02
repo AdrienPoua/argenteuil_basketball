@@ -1,18 +1,16 @@
-import { createContext, useState, useContext, Dispatch, SetStateAction } from "react";
+import { createContext, useState, useContext, useMemo } from "react";
 import { AlertComponent } from "@/components/Alert";
 
-interface AlertContextType {
+type setAlertType = {
+    setOpen: (open: boolean) => void;
+    setVariant: (variant: string) => void;
+    setMessage: (message: string) => void;
     open: boolean;
-    setOpen: Dispatch<SetStateAction<boolean>>;
-    severity: string;
+    variant: string;
     message: string;
-    setSeverity: Dispatch<SetStateAction<string>>;
-    setMessage: Dispatch<SetStateAction<string>>;
-    config: (open: boolean, severity: string, message: string) => void;
-    setAlert: (open: boolean, severity: string, message: string) => void;
-}
+};
 
-export const Context = createContext<AlertContextType | null>(null);
+export const Context = createContext<setAlertType | null>(null);
 
 export const useAlert = () => {
     const context = useContext(Context);
@@ -24,26 +22,10 @@ export const useAlert = () => {
 
 export function AlertProvider({ children }: Readonly<{ children: React.ReactNode }>) {
     const [open, setOpen] = useState(false);
-    const [severity, setSeverity] = useState("success");
-    const [message, setMessage] = useState("Votre action a été réalisée avec succès !");
-    const setAlert = (open: boolean, severity: string, message: string) => {
-        setSeverity(severity);
-        setMessage(message);
-        setOpen(open);
-    }
-    const config = (open: boolean, severity: string, message: string) => {
-        setAlert(open, severity, message);
-    }
-    const value = {
-        open,
-        setOpen,
-        severity,
-        setSeverity,
-        message,
-        setMessage,
-        setAlert,
-        config
-    }
+    const [variant, setVariant] = useState("error");
+    const [message, setMessage] = useState("Echec de votre action !");
+
+    const value = useMemo(() => ({ open, setOpen, variant, message, setVariant, setMessage }), [open, setOpen, variant, message, setVariant, setMessage]); // Add state setters to dependency array
 
     return (
         <Context.Provider value={value}>

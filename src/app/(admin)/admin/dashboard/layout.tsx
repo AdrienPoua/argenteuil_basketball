@@ -1,8 +1,7 @@
 "use client";
 import React, { ReactElement } from "react";
 import SecurisedPath from "@/lib/nextAuth/SecurisedPath";
-import { Box } from '@mui/material';
-import Sidebar from './Sidebar';
+import Sidebar from './components/Sidebar';
 
 
 type PropsType = {
@@ -12,12 +11,12 @@ type PropsType = {
 export default function Index({ children }: Readonly<PropsType>): ReactElement {
   return (
     <SecurisedPath>
-      <Box className="flex min-h-screen" sx={{ cursor: 'auto' }}>
+      <div className="flex min-h-screen">
         <Sidebar />
-        <Box className="flex-grow bg-background p-10">
+        <div className="flex-grow bg-background p-10">
           {children}
-        </Box>
-      </Box>
+        </div>
+      </div>
     </SecurisedPath>
   );
 }
