@@ -7,10 +7,12 @@ import H1 from "@/components/H1";
 import MainSection from "@/components/layouts/MainSection";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select, SelectTrigger, SelectContent, SelectItem } from "@/components/ui/select";
+import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 import { MIN_BIRTH_YEAR_FOR_MEMBER, AT_THIS_YEAR_IAM_SENIOR } from "@/utils/magicNumber";
 import useIsMobile from "@/utils/hooks/useIsMobile";
 import categories from "@/data/categories.json";
+import useFetchTeams from "@/utils/hooks/DBFetch/useFetchTeam";
+import FetchFeedBack from "@/components/FetchFeedback";
 
 
 const ScheduleSlot = ({ slot, categoryResult }: { slot: any; categoryResult: string | null }) => {
@@ -20,8 +22,8 @@ const ScheduleSlot = ({ slot, categoryResult }: { slot: any; categoryResult: str
   const isCategoryResult = categoryResult && (slot.team?.includes(categoryResult.split(" ")[0]) || slot.team?.includes(categoryResult.split(" ")[1]));
 
   return (
-    <div className="w-1/3 p-2">
-      <div className={`p-2 rounded shadow-md h-full ${isCategoryResult ? "animate-bounce bg-green-500" : ""}`}>
+    <div className="h-full ">
+      <div className={`p-2 rounded w-full bg-white shadow-md h-full ${isCategoryResult ? "animate-bounce bg-green-500" : ""}`}>
         <p className="text-primary text-xs md:text-base text-center">
           {!isMobile ? slot.team : firstTeam}
           <br />
@@ -38,7 +40,7 @@ const ScheduleSlot = ({ slot, categoryResult }: { slot: any; categoryResult: str
 const ScheduleDay = ({ day, slots, categoryResult }: { day: string; slots: any[]; categoryResult: string | null }) => (
   <div className="w-full">
     <div className="flex space-x-1">
-      <div className="w-1/4 p-2 bg-gray-200 flex justify-center items-center">
+      <div className="w-1/4 p-2 flex justify-center items-center bg-white rounded">
         <p className="text-black text-xs md:text-lg">{day}</p>
       </div>
       <div className="w-3/4 grid grid-cols-3 gap-1">
@@ -53,7 +55,7 @@ const ScheduleDay = ({ day, slots, categoryResult }: { day: string; slots: any[]
 const Schedule = ({ data: gym, categoryResult }: { data: Gym; categoryResult: string | null }) => {
   return (
     <div className="flex flex-col border bg-primary p-4">
-      <h2 className="text-white text-3xl text-center pb-4">{gym.name}</h2>
+      <h2 className="text-white text-5xl text-center pb-4">{gym.name}</h2>
       <div className="grid grid-cols-1 gap-4">
         {gym.available.map((day) => {
           const slotsForDay = gym.slots.filter((slot) => slot.day === day);
@@ -71,16 +73,24 @@ const Schedule = ({ data: gym, categoryResult }: { data: Gym; categoryResult: st
 
 export default function SchedulePage() {
   const [categoryResult, setCategoryResult] = useState<string | null>(null);
+  const { teams, error, isLoading } = useFetchTeams();
   return (
     <>
       <H1>Plannings</H1>
       <MainSection>
-        <Form className="mb-10" setCategoryResult={setCategoryResult} />
-        <div className="flex flex-col gap-10">
-          {gyms.map((gym) => (
-            <Schedule categoryResult={categoryResult} key={gym.id} data={gym} />
-          ))}
-        </div>
+        <FetchFeedBack data={teams} error={error} isLoading={isLoading}>
+          <>
+            <Form className="mb-10" setCategoryResult={setCategoryResult} />
+            <div className="flex flex-col gap-10 max-w-[80%] mx-auto">
+              {gyms.map((gym) => {
+                gym.slots = teams || [];
+                return (
+                  <Schedule categoryResult={categoryResult} key={gym.id} data={gym} />
+                );
+              })}
+            </div>
+          </>
+        </FetchFeedBack>
       </MainSection>
     </>
   );
@@ -89,6 +99,12 @@ export default function SchedulePage() {
 const Form = ({ className, setCategoryResult }: { className: string; setCategoryResult: (category: string | null) => void }) => {
   const [category, setCategory] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  const reset = () => {
+    setCategory(null)
+    setError(null)
+    setCategoryResult(null)
+  }
 
   const getCategory = (age: number, sexe: string) => {
     const result = categories.find((category) => category.year.includes(age.toString()) && category.sexe.includes(sexe));
@@ -112,6 +128,7 @@ const Form = ({ className, setCategoryResult }: { className: string; setCategory
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    reset()
     const formData = new FormData(e.target as HTMLFormElement);
     const birthYear = Number(formData.get("birthYear"));
     const sexe = String(formData.get("sexe"));
@@ -124,17 +141,19 @@ const Form = ({ className, setCategoryResult }: { className: string; setCategory
 
   return (
     <form className={className} onSubmit={onSubmit}>
-      <div className="flex flex-row justify-center gap-5 w-full">
+      <div className="flex flex-row justify-center gap-5 w-fit mx-auto">
         <Input
           name="birthYear"
           type="number"
           defaultValue={2010}
-          placeholder="Date de naissance"
-          className="w-1/3"
+          placeholder="1999"
+          className="bg-white px-5 text-background"
         />
-        <Select name="sexe" defaultValue="M" >
-          <SelectTrigger className="text-black" />
-          <SelectContent>
+        <Select name="sexe" defaultValue="M">
+          <SelectTrigger className="text-black bg-white">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent className="bg-white">
             <SelectItem value="M">Homme</SelectItem>
             <SelectItem value="F">Femme</SelectItem>
             <SelectItem value="X">Tabouret</SelectItem>
@@ -143,11 +162,13 @@ const Form = ({ className, setCategoryResult }: { className: string; setCategory
         <Button type="submit" className="w-1/3">Ma catégorie</Button>
       </div>
       {error && <div className="text-red-500 text-center mt-4">{error}</div>}
-      {category && (
-        <div className="text-center mt-4">
-          <p>Votre catégorie est : <strong>{category}</strong></p>
-        </div>
-      )}
-    </form>
+      {
+        category && (
+          <div className="text-center mt-4">
+            <p className="text-white">Votre catégorie est : {category}</p>
+          </div>
+        )
+      }
+    </form >
   );
 };

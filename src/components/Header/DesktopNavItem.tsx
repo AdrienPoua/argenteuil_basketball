@@ -13,7 +13,7 @@ const DirectNavItem = ({ item }: { item: TNavbar.DirectNavItem }): ReactElement 
   const url = usePathname();
   const isActive = url === item.href;
   return (
-    <li className="grow flex justify-center items-center">
+    <li className="grow flex justify-center items-center text-background">
       <Link href={item.href} passHref >
         <div className="grow flex justify-center items-center px-5 py-3">
           <p className={`flex text-lg ${isActive ? "text-primary" : ""}`}>
@@ -36,7 +36,7 @@ const ExpendableNavItem = ({ item }: { item: TNavbar.ExpendableNavItem }): React
   }
   return (
     <li className="grow flex justify-center items-center">
-      <Button onClick={handleClick} variant="ghost">
+      <Button onClick={handleClick} variant="ghostSecondary">
         <p className={`flex text-lg me-2 ${isSelected ? "text-primary" : ""}`}>
           {item.title}
         </p>

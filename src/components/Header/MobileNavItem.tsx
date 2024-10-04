@@ -9,16 +9,11 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/
 
 const DirectNavItem = ({ item }: { item: TNavbar.DirectNavItem }): ReactElement => {
     return (
-        <li
-            key={item.href}
-            className="flex bg-primary">
-            <Link
-                href={item.href}
-                className="grow flex justify-end">
-                <p>{item.title}</p>
-            </Link>
-            <Arrow hidden />
-        </li>
+        <Link
+            href={item.href}
+            className="grow flex ms-5 py-2">
+            <p>{item.title}</p>
+        </Link>
     );
 };
 
@@ -27,17 +22,14 @@ const ExpendableNavItem = ({ item }: { item: TNavbar.ExpendableNavItem }): React
         <Accordion type="single" collapsible>
             <AccordionItem value="item-1">
                 <AccordionTrigger>{item.title}</AccordionTrigger>
-                <AccordionContent>
+                <AccordionContent >
                     {item.subItems?.map((subItem: TNavbar.SubItem) => (
-                        <li
+                        <Link
+                            href={subItem.href}
                             key={subItem.href}
-                            className="flex me-9">
-                            <Link
-                                href={subItem.href}
-                                className="grow flex justify-end me-5">
-                                <p >{subItem.title}</p>
-                            </Link>
-                        </li>
+                            className="grow flex justify-end py-3">
+                            <p >{subItem.title}</p>
+                        </Link>
                     ))}
                 </AccordionContent>
             </AccordionItem>

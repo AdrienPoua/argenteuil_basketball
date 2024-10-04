@@ -1,6 +1,5 @@
 "use client";
 import { useParams } from "next/navigation";
-import { Container, Typography, Box } from "@mui/material";
 import { Utils } from "@/utils/models";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -11,37 +10,29 @@ import { PortableText } from "@portabletext/react";
 import { components } from "@/components/PortableText";
 import { useQuery } from "react-query";
 
+const PostContent = ({ data }: { data: SanityDocument }) => (
+  <div className="max-w-screen-xl mx-auto">
+    <div className="flex flex-col items-center w-full mb-10 ">
+      <p className="font-secondary text-gray-500 text-right w-full">
+        {`Publié le ${Utils.formatDate(new Date(data.publishedAt))}`}
+      </p>
+    </div>
+    <div className="flex flex-col gap-5">
+      <PortableText value={data.body} components={components} />
+    </div>
+  </div>
+);
 
 export default function Index() {
   const { slug } = useParams();
   const { data } = useQuery(['post', slug], () => sanityFetch<SanityDocument>({ query: POST_QUERY(slug as string) }));
+
   return (
     <>
       <Header />
-      <Container className="flex flex-col grow mb-20">
-        <Box className="flex flex-col items-center w-full mb-10">
-          {data && (
-            <Box className="flex items-center w-full flex-wrap mb-6" >
-              <Typography
-                variant="h1"
-                className="text-black text-center mb-5 grow">
-                {data.title}
-              </Typography>
-              <Typography className="font-secondary text-gray-500 text-right w-full">
-                {`Publié le ${Utils.formatDate(new Date(data.publishedAt))}`}
-              </Typography>
-            </Box>
-          )}
-        </Box>
-        <Container className="flex flex-col gap-5">
-          {data && data.body && (
-            <PortableText
-              value={data.body}
-              components={components}
-            />
-          )}
-        </Container>
-      </Container>
+      <div className="grow bg-foreground flex flex-col justify-center items-center">
+        {data && <PostContent data={data} />}
+      </div>
       <Footer />
     </>
   );

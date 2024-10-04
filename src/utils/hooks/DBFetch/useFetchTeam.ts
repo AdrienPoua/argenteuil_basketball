@@ -11,7 +11,10 @@ export default function useFetchTeams() {
 
   useEffect(() => {
     if (data) {
-      setTeams(data.map((team) => new Team({ ...team, trainings: team.training })));
+      setTeams(data
+        .sort((a, b) => (a.image ? -1 : 1))
+        .map((team) => new Team({ ...team, trainings: team.training }))
+      );
     }
   }, [data]);
 

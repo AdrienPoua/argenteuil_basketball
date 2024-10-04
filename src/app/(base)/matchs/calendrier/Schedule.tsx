@@ -2,6 +2,7 @@ import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"; /
 import { Match } from "@/utils/models";
 import Cell from "./Cell"; // Import your custom Cell component
 import { ReactElement } from "react";
+import Underline from "@/components/Underline";
 
 type PropsType = {
     matchs: Match[];
@@ -14,9 +15,9 @@ export default function Schedule({ matchs, title }: Readonly<PropsType>): ReactE
 
     return (
         <div className="flex flex-col gap-10 w-full">
-            <h2 className="text-center relative text-3xl font-semibold">
+            <h2 className="text-center relative text-5xl font-semibold">
                 {title}
-                <span className="block w-full h-1 mt-2 bg-gradient-to-r from-primary to-white shadow-xl rounded-lg" />
+                <Underline />
             </h2>
 
             <div className="bg-white shadow-md rounded-lg">
@@ -24,7 +25,7 @@ export default function Schedule({ matchs, title }: Readonly<PropsType>): ReactE
                     <TableBody>
                         {categories.map((category) => (
                             <TableRow key={category} className="flex">
-                                <TableCell className="shrink-0 flex justify-center items-center min-w-[80px] font-semibold">
+                                <TableCell className="shrink-0 flex justify-center items-center min-w-[80px] text-background bg-primary">
                                     {category}
                                 </TableCell>
                                 {weekends.map((weekend) => (

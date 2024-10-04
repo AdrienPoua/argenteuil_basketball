@@ -12,7 +12,7 @@ export default function Index() {
     <FetchFeedback isLoading={isLoading} error={error} data={plannings}>
       <>
         <H1>Calendrier des matchs</H1>
-        <div className="flex flex-col items-center gap-10">
+        <div className="flex flex-col items-center justify-center gap-10 w-full max-w-[80%] mx-auto">
           {plannings &&
             Object.keys(plannings)
               .sort((a, b) => SAISON_MONTH_ORDER.indexOf(a) - SAISON_MONTH_ORDER.indexOf(b))

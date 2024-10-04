@@ -15,13 +15,13 @@ type Constructor = {
 };
 
 export default class Match {
-  private _division: string;
-  private _matchNumber: string;
-  private _teamA: string;
-  private _teamB: string;
-  private _date: string;
-  private _time: string;
-  private _gym: string;
+  private readonly _division: string;
+  private readonly _matchNumber: string;
+  private readonly _teamA: string;
+  private readonly _teamB: string;
+  private readonly _date: string;
+  private readonly _time: string;
+  private readonly _gym: string;
   constructor(data: Constructor) {
     this._division = data.division;
     this._matchNumber = data.matchNumber;

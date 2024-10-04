@@ -13,7 +13,7 @@ export default function ClassementTable({ ranking }: Readonly<TableProps>): JSX.
     <div className="overflow-x-auto bg-white shadow-md">
       <Table>
         <TableHeader>
-          <TableRow className="bg-primary/20 text-white">
+          <TableRow className="bg-primary/10 ">
             {tableHeaders.map((header) => (
               <TableCell key={header} className="p-4 tracking-wider text-black">
                 {header}
@@ -26,16 +26,16 @@ export default function ClassementTable({ ranking }: Readonly<TableProps>): JSX.
             const isABB = team.name.toLowerCase().includes(ABB.name.toLowerCase());
             return (
               <TableRow key={team.rank} className={isABB ? "bg-primary text-white" : "bg-white"}>
-                <TableCell className="p-4 font-bold">{team.rank}</TableCell>
-                <TableCell className="p-4">{team.name}</TableCell>
-                <TableCell className="p-4">{Ranking.getPts(team)}</TableCell>
-                <TableCell className="p-4">{Ranking.getJo(team)}</TableCell>
-                <TableCell className="p-4">{Ranking.getG(team)}</TableCell>
-                <TableCell className="p-4">{Ranking.getP(team)}</TableCell>
-                <TableCell className="p-4">{Ranking.getF(team)}</TableCell>
-                <TableCell className="p-4">{Ranking.getBp(team)}</TableCell>
-                <TableCell className="p-4">{Ranking.getBc(team)}</TableCell>
-                <TableCell className="p-4">{Ranking.getCoeff(team)}</TableCell>
+                <TableCell className=" text-background p-4 font-bold">{team.rank}</TableCell>
+                <TableCell className=" text-background p-4">{team.name}</TableCell>
+                <TableCell className=" text-background p-4">{Ranking.getPts(team)}</TableCell>
+                <TableCell className=" text-background p-4">{Ranking.getJo(team)}</TableCell>
+                <TableCell className=" text-background p-4">{Ranking.getG(team)}</TableCell>
+                <TableCell className=" text-background p-4">{Ranking.getP(team)}</TableCell>
+                <TableCell className=" text-background p-4">{Ranking.getF(team)}</TableCell>
+                <TableCell className=" text-background p-4">{Ranking.getBp(team)}</TableCell>
+                <TableCell className=" text-background p-4">{Ranking.getBc(team)}</TableCell>
+                <TableCell className=" text-background p-4">{Ranking.getCoeff(team)}</TableCell>
               </TableRow>
             );
           })}

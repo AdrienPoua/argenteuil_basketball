@@ -35,10 +35,10 @@ const ScrollToTop = () => {
       {isVisible && (
         <Button
           onClick={scrollToTop}
-          className="w-20 h-20"
+          className="w-16 h-16"
           size="icon"
         >
-          <ArrowUpIcon size={40} />
+          <ArrowUpIcon size={30} />
         </Button>
       )}
     </div>

@@ -20,10 +20,10 @@ const InsideCell = ({ children }: { children: React.ReactNode }): ReactElement =
 const NoMatchCell = (): ReactElement => (
     <InsideCell>
         <p className={typoClass}>EXEMPT</p>
-        <TooltipProvider>
+        <TooltipProvider delayDuration={100}>
             <Tooltip>
-                <TooltipTrigger asChild>
-                    <Button variant="outline">❌</Button>
+                <TooltipTrigger asChild className="absolute top-0 right-0">
+                    <Button variant="ghost">❌</Button>
                 </TooltipTrigger>
                 <TooltipContent>
                     Pas de match
@@ -38,10 +38,10 @@ const AwayMatchCell = ({ match }: { match: Match }): ReactElement => (
     <InsideCell>
         <p className={typoClass}>Déplacement<br />{match.teamA}</p>
         {match.time !== "00:00" && <p className={typoClass}>{match.date} - {match.time}<br />{match.gym}</p>}
-        <TooltipProvider>
+        <TooltipProvider delayDuration={100}>
             <Tooltip>
-                <TooltipTrigger asChild>
-                    <Button variant="outline">🚗</Button>
+                <TooltipTrigger asChild className="absolute top-0 right-0">
+                    <Button variant="ghost">🚗</Button>
                 </TooltipTrigger>
                 <TooltipContent>
                     Match à l&apos;exterieur
@@ -57,10 +57,10 @@ const HomeMatchCell = ({ match }: { match: Match }): ReactElement => (
         <p className={typoClass}>{match.teamA.replace(/ARGENTEUIL BB/i, "ABB")} vs {match.teamB}</p>
         <p className={typoClass}>{match.date} - {match.time}</p>
         <p className={typoClass}>{match.gym}</p>
-        <TooltipProvider>
+        <TooltipProvider delayDuration={100}>
             <Tooltip>
-                <TooltipTrigger asChild>
-                    <Button variant="outline">🏠</Button>
+                <TooltipTrigger asChild className="absolute top-0 right-0">
+                    <Button variant="ghost">🏠</Button>
                 </TooltipTrigger>
                 <TooltipContent>
                     Match à domicile

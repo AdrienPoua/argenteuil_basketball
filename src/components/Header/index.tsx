@@ -31,7 +31,7 @@ export default function Header() {
   return (
     <header 
       ref={headerRef}
-      className="flex flex-col flex-wrap px-6 py-2 bg-background"
+      className="flex flex-col flex-wrap px-6 py-2 bg-foreground"
       id="back-to-top-anchor"
     >
       <DesktopNav />
