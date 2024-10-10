@@ -34,8 +34,8 @@ interface Constructor {
 }
 
 export default class Ranking {
-  private _data: Constructor;
-  private _teams: Team[];
+  private readonly _data: Constructor;
+  private readonly _teams: Team[];
 
   constructor(data: Constructor) {
     this._data = data;

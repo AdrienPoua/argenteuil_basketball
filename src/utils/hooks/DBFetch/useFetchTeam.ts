@@ -18,9 +18,9 @@ export default function useFetchTeams() {
     }
   }, [data]);
 
-  const refreshTeams = () => {
+  const refreshData = () => {
     queryClient.invalidateQueries(["teams"]);
   };
 
-  return { teams, data, isLoading, error, isFetching, refreshTeams };
+  return { teams, data, isLoading, error, isFetching, refreshData };
 }

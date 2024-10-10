@@ -1,34 +1,36 @@
-import { InputLabel, MenuItem, Select } from "@mui/material";
-import { useValidContext } from "@/utils/contexts/DashboardEmail";
 import { useState, useEffect } from "react";
+import { useValidContext } from "@/utils/contexts/DashboardEmail";
+import { Label } from "@/components/ui/label"; // ShadCN UI Label
+import { Select, SelectItem, SelectContent } from "@/components/ui/select"; // ShadCN UI Select and SelectItem
 
 export default function Index() {
-    const { setSelectedMembers, filterByYear, setFilteredByYearMembers, reset, year, setYear } = useValidContext();
+  const { setSelectedMembers, filterByYear, setFilteredByYearMembers, reset, year, setYear } = useValidContext();
 
-    const handleChange = ({ target: { value } }: { target: { value: string } }) => {
-        const filteredMembers = filterByYear(value);
-        setSelectedMembers(filteredMembers);
-        setFilteredByYearMembers(filteredMembers);
-        setYear(value);
-    };
+  const handleChange = (value: string) => {
+    const filteredMembers = filterByYear(value);
+    setSelectedMembers(filteredMembers);
+    setFilteredByYearMembers(filteredMembers);
+    setYear(value);
+  };
 
-    useEffect(() => {
-        setYear("2024");
-    }, [reset, setYear]);
+  // Reset year to 2024 when reset is triggered
+  useEffect(() => {
+    setYear("2024");
+  }, [reset, setYear]);
 
-    return (
-        <>
-            <InputLabel className="text-black">Year</InputLabel>
-            <Select
-                className="text-black w-full mb-10"
-                onChange={handleChange}
-                value={year}
-                label="Year"
-            >
-                <MenuItem className="text-black" value="2024">2024</MenuItem>
-                <MenuItem className="text-black" value="2023">2023</MenuItem>
-            </Select>
-        </>
-    )
+  return (
+    <>
+      {/* Year Label */}
+      <Label className="text-black">Year</Label>
+
+      {/* Year Select Dropdown */}
+
+      <Select value={year} onValueChange={handleChange} className="text-black w-full mb-10">
+        <SelectContent>
+          <SelectItem value="2024">2024</SelectItem>
+          <SelectItem value="2023">2023</SelectItem>
+        </SelectContent>
+      </Select>
+    </>
+  );
 }
-

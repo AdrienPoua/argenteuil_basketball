@@ -7,7 +7,7 @@ import App from "./App";
 import "./globals.css";
 import store from "@/lib/redux/store";
 import { Provider as ReduxProvider } from "react-redux";
-import { AlertProvider } from "@utils/contexts/Alerts";
+import { Toaster } from "@/components/ui/toaster"
 
 const queryClient = new QueryClient();
 
@@ -21,13 +21,12 @@ export default function RootLayout({
       <SessionProvider>
         <QueryClientProvider client={queryClient}>
           <App>
-            <AlertProvider >
-              <ScrollToTopButton />
-              {children}
-            </AlertProvider>
+            <Toaster />
+            <ScrollToTopButton />
+            {children}
           </App>
         </QueryClientProvider>
       </SessionProvider>
-    </ReduxProvider>
+    </ReduxProvider >
   );
 }

@@ -1,113 +1,125 @@
-"use client"
-import { ReactElement } from "react";
-import H1 from "@/components/H1";
-import MainSection from "@/components/layouts/MainSection";
-import File from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogClose
-} from "@/components/ui/dialog"
+'use client'
+
+import { useState } from 'react'
+import Image from 'next/image'
+import { Button } from "@/components/ui/button"
 
 
-// const steps = [
-//   {
-//     left: "Recuperez",
-//     right: <ModalButton text="Formulaire" ModalContent={<FormulaireGuide />} />,
-//     icon: <ArticleIcon />,
-//   },
-//   {
-//     left: "Rendre",
-//     right: <ModalButton text="Permanences" ModalContent={<PermanencesGuide />} />,
-//     icon: <AssignmentTurnedInIcon />,
-//   },
-//   {
-//     left: "Recevez",
-//     right: <ModalButton text="Email" ModalContent={<EmailGuide />} />,
-//     icon: <MarkEmailUnreadIcon />,
-//   },
-//   {
-//     left: "Completez",
-//     right: <ModalButton text="Inscription" ModalContent={<InscriptionGuide />} />,
-//     icon: <LaptopMacIcon />,
-//   },
-//   {
-//     left: "Verification",
-//     right: <ModalButton text="Validation" ModalContent={<ValidationGuide />} />,
-//     icon: <MarkEmailUnreadIcon />,
-//   },
-// ];
 
+export default function DynamicHero() {
+  const [activeContent, setActiveContent] = useState(1)
 
-export default function Index(): ReactElement {
+  return (
+    <section className="size-full">
+      <div className="container px-4 md:px-6 mx-auto">
+        <div className="flex flex-col items-center space-y-4 text-center">
+          <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
+            Inscrivez-vous
+          </h1>
+          <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
+            Suivez les étapes ci-dessous pour finaliser votre inscription.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Button size={'lg'} onClick={() => setActiveContent(1)}>1</Button>
+            <Button size={'lg'} onClick={() => setActiveContent(2)}>2</Button>
+            <Button size={'lg'} onClick={() => setActiveContent(3)}>3</Button>
+          </div>
+        </div>
+        <div className="mt-16 grid gap-2 sm:grid-cols-2 items-center">
+          {activeContent === 1 && <StepOne />}
+          {activeContent === 2 && <StepTwo />}
+          {activeContent === 3 && <StepThree />}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// Composant pour l'étape 1
+function StepOne() {
   return (
     <>
-      <H1> Les étapes d&apos;inscription </H1>
-      <MainSection>
-        <Step>
-          <Left>
-            <p> Récuperez </p>
-          </Left>
-          <Middle>
-            <div> test</div>
-          </Middle>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button variant="outline">Formulaire</Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-md">
-              <DialogHeader>
-                <DialogTitle>Récuperez</DialogTitle>
-                <DialogDescription>
-                  Anyone who has this link will be able to view this.
-                </DialogDescription>
-              </DialogHeader>
-              <DialogFooter className="sm:justify-start">
-                <DialogClose asChild>
-                  <Button type="button" variant="secondary">
-                    Close
-                  </Button>
-                </DialogClose>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-
-        </Step>
-      </MainSection>
+      <div className="flex justify-center items-center"><Image
+        src="/images/staff/adrien_poua.png"
+        alt="Le dossier"
+        width={400}
+        height={400}
+        className="rounded-lg object-cover"
+      /></div>
+      <div className="flex flex-col justify-center space-y-4">
+        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+          Le dossier
+        </h2>
+        <div className="text-muted-foreground md:text-xl">
+          <ul className="flex flex-col gap-2">
+            <li> - Une séance d&apos;essai est possible et fortement recommandée avant toute inscription.</li>
+            <li> - Récupérez le dossier d&apos;inscription
+              <a href={'/documents/2024-2025_demande_de_licence.pdf'} download className="mx-2 text-primary">
+                ici
+              </a>
+              ou directement sur place.
+            </li>
+            <li> - Remettez-le au gymnase Jean Guimier, du lundi au vendredi entre 17h00 et 20h00.</li>
+            <li> - Vous pouvez également le déposer le samedi matin, de 10h30 à 12h00.</li>
+          </ul>
+        </div>
+      </div>
     </>
-  );
-}
-
-
-const Step = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <div className="flex items-center justify-center hover:bg-primary/50">
-      {children}
-    </div>
   )
 }
 
-
-const Middle = ({ children }: { children: React.ReactNode }) => {
+// Composant pour l'étape 2
+function StepTwo() {
   return (
-    <div className="flex flex-col items-center justify-center gap-10 ">
-      <div className="h-full p-1 bg-white" />
-      <div className="bg-primary rounded-full">{children}</div>
-      <div className="h-full p-1 bg-white" />
-    </div>
+    <>
+      <div className="flex justify-center items-center"><Image
+        src="/images/staff/adrien_poua.png"
+        alt="Inscription informatique"
+        width={400}
+        height={400}
+        className="rounded-lg object-cover"
+      /></div>
+      <div className="flex flex-col justify-center space-y-4">
+        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+          Inscription informatique
+        </h2>
+        <div className="text-muted-foreground md:text-xl">
+          <ul className="flex flex-col gap-2">
+            <li> - Vous recevrez un lien par email.</li>
+            <li> - Pour les mineurs, il n&apos;y a pas besoin de certificat médical. Remplissez uniquement le questionnaire de santé.</li>
+            <li> - Assurez-vous que la photo soit récente, claire et sans couvre-chef.</li>
+            <li> - Choisissez l&apos;assurance A, qui est incluse dans le prix de la licence.</li>
+            <li> - Sélectionnez &quot;paiement au club&quot; comme type de paiement.</li>
+          </ul>
+        </div>
+      </div>
+    </>
   )
 }
 
-const Left = ({ children }: { children: React.ReactNode }) => {
+// Composant pour l'étape 3
+function StepThree() {
   return (
-    <div className="flex flex-col items-center justify-center gap-10 ">
-      <p className="bg-primary rounded-full">{children}</p>
-    </div>
+    <>
+      <div className="flex justify-center items-center"><Image
+        src="/images/staff/adrien_poua.png"
+        alt="Confirmation"
+        width={400}
+        height={400}
+        className="rounded-lg object-cover"
+      /></div>
+      <div className="flex flex-col justify-center space-y-4">
+        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+          Confirmation
+        </h2>
+        <div className="text-muted-foreground md:text-xl">
+          <ul className="flex flex-col gap-2">
+            <li> - Votre inscription a bien été reçue.</li>
+            <li> - Le comité validera votre dossier dans les plus brefs délais.</li>
+            <li> - Un email de confirmation vous sera envoyé une fois l&apos;inscription validée.</li>
+          </ul>
+        </div>
+      </div>
+    </>
   )
 }

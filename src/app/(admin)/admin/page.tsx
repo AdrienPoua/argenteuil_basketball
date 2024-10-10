@@ -1,65 +1,36 @@
-"use client";
-import { Container, Box, Button, CircularProgress } from "@mui/material";
-import Link from "next/link";
-import { signOut, useSession, signIn } from "next-auth/react";
-import User from "@/components/User";
+'use client'
 
+import { useSession, signIn } from "next-auth/react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import Loader from "@/components/Loader"
 
 export default function SignIn() {
-  const { data: session, status } = useSession();
-  if (status === "loading") return <CircularProgress />;
+  const { data: session, status } = useSession()
+
+  // Affichage d'un état de chargement si la session est en cours de vérification
+  if (status === "loading") {
+    return (
+      <Loader />
+    )
+  }
+
+  if(status === "authenticated"){
+    window.location.href = "/admin/dashboard";
+  }
+
   return (
-    <Container
-      maxWidth="sm"
-      className="flex flex-col items-center justify-center h-screen">
-      <Box className="w-full p-6 bg-white rounded-lg">
-        {!session && (
+    <div className="flex items-center justify-center h-screen bg-background">
+      <Card className="w-full max-w-sm m-0 p-0">
+        <CardContent className="m-0 p-0">
           <Button
-            variant="contained"
-            color="primary"
-            onClick={async () => {
-              await signIn("github");
-            }}
-            className="mb-3 w-full">
+            size="lg"
+            className="w-full"
+            onClick={async () => await signIn("github")}>
             Se connecter
           </Button>
-        )}
-        {session?.user && <User user={session.user} />}
-        {session && (
-          <>
-            <Link
-              href="/admin/dashboard"
-              passHref>
-              <Button
-                variant="contained"
-                color="primary"
-                fullWidth
-                className="mb-3">
-                Dashboard 🏠
-              </Button>
-            </Link>
-            <Link
-              href="/studio/structure"
-              passHref>
-              <Button
-                variant="contained"
-                color="primary"
-                fullWidth
-                className="mb-3">
-                Studio 🎥
-              </Button>
-            </Link>
-            <Button
-              variant="contained"
-              color="primary"
-              fullWidth
-              onClick={async () => signOut()}
-              className="mb-3">
-              Logout  🚪
-            </Button>
-          </>
-        )}
-      </Box>
-    </Container>
-  );
+        </CardContent>
+      </Card>
+    </div>
+  )
 }

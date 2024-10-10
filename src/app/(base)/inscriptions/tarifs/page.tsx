@@ -24,13 +24,13 @@ const TarifRow = ({ categorie }: TarifRowProps) => {
   return (
     <TableRow className="border-b">
       <TableCell className="p-4">
-        <span className="font-medium">{categorie.year.join(" - ")}</span>
+        <span className="font-medium text-background">{categorie.year.join(" - ")}</span>
       </TableCell>
       <TableCell className="p-4">
-        <span className="font-medium">{categorie.division}</span>
+        <span className="font-medium text-background">{categorie.division}</span>
       </TableCell>
       <TableCell className="p-4 text-right">
-        <span className="font-medium">{categorie.rate}€</span>
+        <span className="font-medium text-background">{categorie.rate}€</span>
       </TableCell>
     </TableRow>
   );

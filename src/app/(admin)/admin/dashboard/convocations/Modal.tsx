@@ -2,10 +2,9 @@
 
 import { Match } from "@/utils/models";
 import { ReactElement } from "react";
-import { Button } from "@mui/material";
+import { Button } from "@/components/ui/button"
 import { Convocation as Template } from '@/lib/react-email/templates';
 import { render } from '@react-email/components';
-import Layout from "@/components/layouts/email";
 import useSendEmail from "@/utils/hooks/useSendEmail";
 import useOpponentEmail from "@/utils/hooks/useOpponentEmail";
 type PropsType = {
@@ -17,7 +16,7 @@ type PropsType = {
 export default function Index({ matchs, isChecked, setSelectedMatch }: Readonly<PropsType>): ReactElement {
     const { sendEmail, sending, sent } = useSendEmail();
     const { emails, isLoading } = useOpponentEmail(matchs)
-    
+
     const handleClick = async (): Promise<void> => {
         matchs.map(async (match, i) => {
             const to = emails[i]
@@ -28,11 +27,9 @@ export default function Index({ matchs, isChecked, setSelectedMatch }: Readonly<
         })
     }
     return (
-        <Layout emails={emails} sending={sending} sent={sent} >
-            <Button variant="contained" onClick={handleClick} disabled={isLoading} >
-                Oui, je suis sûr
-            </Button>
-        </Layout>
+        <Button onClick={handleClick} disabled={isLoading} >
+            Oui, je suis sûr
+        </Button>
     )
 
 }

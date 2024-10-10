@@ -1,7 +1,6 @@
 "use client";
 import { ReactElement, useState } from 'react';
 import { useQuery } from 'react-query';
-import { Box } from '@mui/material';
 import { getMatchs } from '@/lib/mongo/controllers/matchs';
 import { ValidateWithZod } from '@/lib/zod/utils';
 import DBMatchschema from '@/lib/zod/schemas/database/MatchSchema';
@@ -25,10 +24,10 @@ export default function Index(): ReactElement {
     if (matchs?.length === 0) return <Info content="Aucun match dans la base de données" />
     return (
         <Feedback data={matchs} error={error} isLoading={isLoading}>
-            <Box className="w-full justify-center">
+            <div className="w-full justify-center">
                 <SelectMatch matchs={matchs as Match[]} setSelectedMatch={setSelectedMatch} />
                 <Preview selectedMatch={selectedMatch} setSelectedMatch={setSelectedMatch} matchs={matchs as Match[]} />
-            </Box>
+            </div>
         </Feedback>
     );
 }

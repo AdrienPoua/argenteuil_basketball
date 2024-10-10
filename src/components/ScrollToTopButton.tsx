@@ -31,7 +31,7 @@ const ScrollToTop = () => {
   }, []);
 
   return (
-    <div className="fixed bottom-10 right-10">
+    <div className="hidden md:fixed bottom-10 right-10">
       {isVisible && (
         <Button
           onClick={scrollToTop}

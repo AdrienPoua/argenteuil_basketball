@@ -5,8 +5,7 @@ import { render } from '@react-email/components';
 import { Match } from "@/utils/models";
 import { Derogation as Template } from '@/lib/react-email/templates';
 import useSendEmail from "@/utils/hooks/useSendEmail";
-import Layout from "@/components/layouts/email";
-import { Button } from "@mui/material";
+import { Button } from "@/components/ui/button";
 import useOpponentEmail from "@/utils/hooks/useOpponentEmail";
 
 
@@ -30,10 +29,8 @@ export default function Index({ match, reason, proposition, setSelectedMatch }: 
         setSelectedMatch(null);
     }
     return (
-        <Layout emails={emails} sending={sending} sent={sent} >
-            <Button variant="contained" onClick={handleClick} disabled={isLoading} >
-                Oui, je suis sûr
-            </Button>
-        </Layout>
+        <Button onClick={handleClick} disabled={isLoading} >
+            Oui, je suis sûr
+        </Button>
     )
 };

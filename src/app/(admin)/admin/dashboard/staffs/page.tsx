@@ -1,8 +1,8 @@
 "use client";
 import { createStaff } from "@/lib/mongo/controllers/staff";
-import { useAlert } from "@/utils/contexts/Alerts";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 
 
 const initialState = {
@@ -21,6 +21,7 @@ const initialState = {
 // Composant principal du formulaire
 export default function Page() {
   const [payload, setPayload] = useState(initialState);
+  const { toast } = useToast()
 
   // Gestion des changements dans les champs du formulaire
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,16 +33,21 @@ export default function Page() {
     }));
   };
 
-  const { config: setAlert } = useAlert();
 
   // Gestion de la soumission du formulaire
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const result = await createStaff({ ...payload, teams: payload.teams.split(" ") });
     if (result) {
-      setAlert(true, "success", "Votre demande a été envoyée avec succès !");
+      toast({
+        title: "Succès",
+        description: "Votre demande a été envoyée avec succès !",
+      });
     } else {
-      setAlert(true, "error", "Une erreur est survenue lors de la création de votre demande.");
+      toast({
+        title: "Echec",
+        description: "Echec",
+      })
     }
     setPayload(initialState);
   };

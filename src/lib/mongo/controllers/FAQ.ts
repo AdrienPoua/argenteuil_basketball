@@ -41,6 +41,7 @@ export async function updateRank(payload: { id: string; rank: number }): Promise
   await connectDB();
   try {
     await DBFAQ.findByIdAndUpdate(id, { rank });
+    
     console.log("FAQ mise à jour avec succès:", id, rank);
   } catch (error) {
     console.error("Erreur lors de la mise à jour de la FAQ:", error);

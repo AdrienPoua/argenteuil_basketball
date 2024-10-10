@@ -13,7 +13,7 @@ export default function Index({ children }: Readonly<PropsType>): ReactElement {
     <SecurisedPath>
       <div className="flex min-h-screen">
         <Sidebar />
-        <div className="flex-grow bg-background p-10">
+        <div className="flex-grow bg-foreground p-10">
           {children}
         </div>
       </div>
