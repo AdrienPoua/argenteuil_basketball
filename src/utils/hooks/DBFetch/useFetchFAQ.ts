@@ -12,13 +12,13 @@ const fetchFAQ = async () => {
 
 export default function useFetchFAQ() {
   const queryClient = useQueryClient();
+  const invalidateFAQQuery = () => {
+    queryClient.invalidateQueries(["faq"]);
+  };
   const { data, isLoading, error } = useQuery({
     queryKey: ["faq"],
     queryFn: fetchFAQ,
   });
-  const invalidateFAQQuery = () => {
-    queryClient.invalidateQueries(["faq"]);
-  };
 
   return { data, isLoading, error, invalidateFAQQuery };
 }

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Underline from "@/components/Underline";
+import Underline from "@/components/UnderlineDecorator";
 
 export default function Footer() {
   return (

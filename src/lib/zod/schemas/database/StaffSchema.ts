@@ -9,6 +9,7 @@ export const StaffSchema = z.object({
   isNumberDisplayed: z.boolean().optional(),
   job: z.string().optional(),
   image: z.string().optional(),
+  _id: z.string(),
 });
 
 export default StaffSchema;

@@ -25,7 +25,7 @@ export default function Index() {
 
       {/* Year Select Dropdown */}
 
-      <Select value={year} onValueChange={handleChange} className="text-black w-full mb-10">
+      <Select value={year} onValueChange={handleChange} >
         <SelectContent>
           <SelectItem value="2024">2024</SelectItem>
           <SelectItem value="2023">2023</SelectItem>

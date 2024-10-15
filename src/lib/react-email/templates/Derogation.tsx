@@ -1,7 +1,6 @@
 import { ReactElement } from 'react';
 import { Text, Section, Heading, Hr, Link } from '@react-email/components';
 import { Match, Coach } from '@/utils/models';
-import { coachs } from "@/utils/services/dataProcessing";
 import Layout from './Layout';
 
 
@@ -13,12 +12,11 @@ export type PropsType = {
 
 
 export default function Index({ match, reason, proposition }: Readonly<PropsType>): ReactElement {
-    const coach = coachs.find((coach) => coach.teams?.includes(match.division))
     return (
         <Layout>
             <>
                 <Header />
-                <Body match={match} reason={reason} proposition={proposition} coach={coach} />
+                <Body match={match} reason={reason} proposition={proposition} />
                 <Signature />
             </>
         </Layout>
@@ -33,7 +31,7 @@ const Header = (): ReactElement => {
     )
 }
 
-const Body = ({ match, reason, proposition, coach }: { match: Match, reason: string, proposition: string, coach: Coach | undefined }): ReactElement => {
+const Body = ({ match, reason, proposition }: { match: Match, reason: string, proposition: string }): ReactElement => {
     return (
         <Section>
             <Hr />
@@ -46,8 +44,7 @@ const Body = ({ match, reason, proposition, coach }: { match: Match, reason: str
                 <Text className="text-black "> Nous vous proposons la solution suivante</Text>
                 <Text className="text-white text-center">{proposition}</Text>
             </>}
-            {coach && <> <Text className="text-black"> L&apos;entraineur à l&apos;origine de cette demande est : </Text>
-                <Text className="text-white text-center"> {coach.name} {coach.number} </Text> </>}
+
             <Hr />
             <Text className="text-black mt-10"> Nous vous prions de bien vouloir nous donner suite à cette demande. </Text>
         </Section>

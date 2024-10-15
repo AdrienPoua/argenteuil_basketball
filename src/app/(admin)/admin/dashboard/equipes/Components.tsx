@@ -3,10 +3,14 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Trash2 } from 'lucide-react'
+import { Dispatch, SetStateAction, useState } from "react"
+import Underline from "@/components/UnderlineDecorator"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Edit2, Save, Trash2 } from 'lucide-react'
+import { TDatabase } from '@/utils/types'
+import Image from "next/image"
+import { updateTeam } from '@/lib/mongo/controllers/teams'
 import { TeamType } from "./page"
-import { Dispatch, SetStateAction } from "react"
-import Underline from "@/components/Underline"
 
 type TrainingSession = {
     day: string;
@@ -15,11 +19,15 @@ type TrainingSession = {
     gym: string;
 }
 
+type TeamInputsProps = {
+    team: TeamType,
+    setTeam: Dispatch<SetStateAction<TeamType>>
+}
+
 type TrainingSessionProps = { index: number, setTeam: Dispatch<SetStateAction<TeamType>>, team: TeamType }
 const days = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"]
 
 export function TrainingSession({ index, setTeam, team }: Readonly<TrainingSessionProps>) {
-
     const handleTrainingChange = (index: number, field: keyof TrainingSession, value: string) => {
         setTeam(prev => {
             const newTraining = [...prev.training]
@@ -95,23 +103,6 @@ export function TrainingSession({ index, setTeam, team }: Readonly<TrainingSessi
     </div>
 }
 
-type Team = {
-    name: string
-    image?: string
-    coach?: string
-    division?: string
-    training: {
-        day: string
-        start: string
-        end: string
-        gym: string
-    }[]
-}
-
-type TeamInputsProps = {
-    team: Team,
-    setTeam: Dispatch<SetStateAction<Team>>
-}
 export const TeamInputs = ({ setTeam, team }: TeamInputsProps) => {
     return (
         <>
@@ -155,3 +146,66 @@ export const TeamInputs = ({ setTeam, team }: TeamInputsProps) => {
         </>
     );
 };
+
+export const TeamCard = ({ data }: { data: TeamType }) => {
+    const [team, setTeam] = useState<TeamType>(data)
+    const [isEditing, setIsEditing] = useState(false)
+
+    const handleSave = async () => {
+        try {
+            console.log(team)
+            await updateTeam(team.id, { ...team, image: `/images/teams/${team.image}` })
+            setIsEditing(false)
+        } catch (error) {
+            console.error("Failed to update team:", error)
+        }
+    }
+
+    return (
+        <Card className="relative shadow-custom">
+            <CardHeader>
+                <CardTitle className="flex justify-between items-center text-black">
+                    <h3>{team.name}</h3>
+                    {isEditing ? (
+                        <div>
+                            <Button className="mr-2" onClick={handleSave}>
+                                <Save className="mr-2 h-4 w-4 text-black" /> Save
+                            </Button>
+                            <Button variant="destructive" onClick={() => setIsEditing(false)}>
+                                Cancel
+                            </Button>
+                        </div>
+                    ) : (
+                        <Button onClick={() => setIsEditing(true)}>
+                            <Edit2 className="mr-2 h-4 w-4 text-black" /> Edit
+                        </Button>
+                    )}
+                </CardTitle>
+            </CardHeader>
+            <CardContent>
+                {isEditing ? (
+                    <TeamInputs team={team} setTeam={setTeam} />
+                ) : (
+                    <NotEditingContentCard team={team} />
+                )}
+            </CardContent>
+        </Card>
+    )
+}
+
+const NotEditingContentCard = ({ team }: { team: TDatabase.Team }) => {
+    return (
+        <div className="space-y-2">
+            <p className="text-black"><strong>Coach:</strong> {team.coach}</p>
+            {team.image ? <Image src={team.image} alt="Equipe" width={200} height={200} /> : <p className="text-black"> pas d&apos;image </p>}
+            <h3 className="text-lg font-semibold mt-4 text-black">Training Sessions</h3>
+            <ul className="list-disc pl-5 text-black">
+                {team.training.map((session, index) => (
+                    <li key={`${session.day}-${index}`}>
+                        {session.day} from {session.start} to {session.end} at {session.gym}
+                    </li>
+                ))}
+            </ul>
+        </div>
+    )
+}

@@ -9,7 +9,6 @@ import Preview from './Preview';
 import { Match } from '@/utils/models';
 import Adapter from '@/utils/adapters/matchs/fromDBforModel';
 import Feedback from '@/components/FetchFeedback';
-import Info from '@/components/Info';
 
 const fetchAndProcess = async (): Promise<Match[]> => {
     const matchs = await getMatchs();
@@ -21,7 +20,6 @@ const fetchAndProcess = async (): Promise<Match[]> => {
 export default function Index(): ReactElement {
     const [selectedMatch, setSelectedMatch] = useState<Match[]>([]);
     const { data: matchs, isLoading, error } = useQuery('matchs', fetchAndProcess);
-    if (matchs?.length === 0) return <Info content="Aucun match dans la base de données" />
     return (
         <Feedback data={matchs} error={error} isLoading={isLoading}>
             <div className="w-full justify-center">

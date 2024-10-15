@@ -20,7 +20,7 @@ export default function useFetchCoachs() {
   );
   useEffect(() => {
     if (data) {
-      setCoachs(data.map((coach) => new Coach(coach)));
+      setCoachs(data.map((coach) => new Coach({ ...coach, id: coach._id })));
     }
   }, [data]);
 

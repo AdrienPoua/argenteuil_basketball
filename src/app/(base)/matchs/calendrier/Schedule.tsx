@@ -2,7 +2,7 @@ import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"; /
 import { Match } from "@/utils/models";
 import Cell from "./Cell"; // Import your custom Cell component
 import { ReactElement } from "react";
-import Underline from "@/components/Underline";
+import Underline from "@/components/UnderlineDecorator";
 
 type PropsType = {
     matchs: Match[];

@@ -5,7 +5,7 @@ export type Constructor = {
   image?: string;
   isEmailDisplayed?: boolean;
   isNumberDisplayed?: boolean;
-  _id: string;
+  id: string;
 };
 
 export default class Staff {
@@ -15,16 +15,16 @@ export default class Staff {
   private readonly _img: string;
   private readonly _isEmailDisplayed: boolean;
   private readonly _isNumberDisplayed: boolean;
-  private readonly _id : string;
+  private readonly _id: string;
 
   constructor(data: Constructor) {
     this._name = data.name;
     this._number = data.number;
     this._email = data.email;
-    this._img = data.image ? `/images/staff/${data.image}` : "/images/default/avatar.png";
+    this._img = data.image ? data.image : "/images/default/avatar.png";
     this._isEmailDisplayed = data.isEmailDisplayed ?? true;
     this._isNumberDisplayed = data.isNumberDisplayed ?? true;
-    this._id = data._id;
+    this._id = data.id;
   }
 
   // Getters
