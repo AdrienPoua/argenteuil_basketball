@@ -22,7 +22,7 @@ export async function createClub(payload: TDatabase.Club): Promise<void> {
 }
 
 export async function getClubs(): Promise<
-  TDatabase.Club[] & { _id: string }[]
+  { name: string; correspondant: { name: string; email: string; number: string }, _id : string }[]
 > {
   await connectDB();
   try {

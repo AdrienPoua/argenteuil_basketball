@@ -39,10 +39,9 @@ export default function ClubCard({ data }: Readonly<ClubCardProps>): ReactElemen
         <Card className="w-full p-6 border-2 border-primary rounded-lg relative font-secondary">
             <h3 className="text-center text-primary text-3xl font-bold">{data.name}</h3>
             <Separator className="my-4" />
-            <CardContent className="grid grid-cols-5 justify-center items-center gap-5">
+            <CardContent className="grid grid-cols-3 justify-center items-center gap-5">
                 {data.correspondant && (
                     <>
-                        <Button className="w-full">{data.correspondant.name}</Button>
                         {isEditing ? <EditingContent setIsEditing={setIsEditing} data={data} /> : <NotEditingContent correspondant={data.correspondant} />}
                     </>
                 )}
@@ -53,9 +52,10 @@ export default function ClubCard({ data }: Readonly<ClubCardProps>): ReactElemen
     );
 }
 
-const NotEditingContent = ({ correspondant }: { correspondant: { email: string; number: string } }) => {
+const NotEditingContent = ({ correspondant }: { correspondant: { email: string; number: string; name: string } }) => {
     return (
         <>
+            <Button className="w-full">{correspondant.name}</Button>
             <Button className="w-full">{correspondant.email}</Button>
             <Button className="w-full">{correspondant.number}</Button>
         </>
@@ -64,6 +64,7 @@ const NotEditingContent = ({ correspondant }: { correspondant: { email: string; 
 
 const EditingContent = ({ data, setIsEditing }: { data: TClub, setIsEditing: (x: boolean) => void }) => {
     const formSchema = z.object({
+        name: z.string().min(1, { message: "Le nom est requis." }),
         email: z.string().email({ message: "Email invalide." }),
         number: z.string().min(8, { message: "Le numéro est requis." }), // Champ obligatoire
     });
@@ -74,11 +75,12 @@ const EditingContent = ({ data, setIsEditing }: { data: TClub, setIsEditing: (x:
         defaultValues: {
             email: data.correspondant.email,
             number: data.correspondant.number,
+            name: data.correspondant.name,
         },
     });
     const onSubmit = async (formData: FormValues) => {
         try {
-            await updateClub({ ...data, correspondant: { ...formData, name: data.correspondant.name } })
+            await updateClub({ ...data, correspondant: { ...formData } })
             setIsEditing(false)
             queryClient.invalidateQueries('clubs')
         } catch (error) {
@@ -88,7 +90,17 @@ const EditingContent = ({ data, setIsEditing }: { data: TClub, setIsEditing: (x:
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="flex gap-5 items-center" >
+            <form onSubmit={form.handleSubmit(onSubmit)} className="flex gap-5 justify-between items-center " >
+                <FormField name="name" render={({ field }) => (
+                    <FormItem className="text-background min-w-fit">
+                        <FormLabel>Nom</FormLabel>
+                        <FormControl>
+                            <Input {...field} />
+                        </FormControl>
+                        <FormDescription>Modifier le nom</FormDescription>
+                        <FormMessage />
+                    </FormItem>
+                )} />
                 <FormField
                     name="email"
                     render={({ field }) => (

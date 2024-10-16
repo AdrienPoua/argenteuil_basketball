@@ -10,7 +10,9 @@ export default function Index(): ReactElement {
   return (
     <div className="flex flex-col gap-6 justify-center items-center size-fit">
       <Feedback data={clubs} error={error} isLoading={queryLoading}>
-        {clubs?.map((club) => <Card key={club._id} data={club} />)}
+        <>
+          {clubs && clubs.map((club) => <Card key={club._id} data={club} />)}
+        </>
       </Feedback>
     </div>
   );
