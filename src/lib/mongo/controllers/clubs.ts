@@ -11,6 +11,7 @@ const collection = "clubs";
 export async function createClub(payload: TDatabase.Club): Promise<void> {
   await connectDB();
   ValidateWithZod(payload, SDatabase.Club);
+
   const club = new Club(payload);
   try {
     await club.save();
@@ -20,7 +21,9 @@ export async function createClub(payload: TDatabase.Club): Promise<void> {
   }
 }
 
-export async function getClubs(): Promise<TDatabase.Club[]> {
+export async function getClubs(): Promise<
+  TDatabase.Club[] & { _id: string }[]
+> {
   await connectDB();
   try {
     const clubs = await Club.find();
@@ -28,6 +31,29 @@ export async function getClubs(): Promise<TDatabase.Club[]> {
   } catch (error) {
     console.error("Erreur lors de la récupération des membres:", error);
     return [];
+  }
+}
+export async function updateClub(payload: {
+  name: string;
+  _id: string;
+  correspondant: { name: string; email: string; number: string };
+}): Promise<void> {
+  await connectDB();
+  try {
+    const updatedClub = await Club.findOneAndUpdate(
+      { _id: payload._id },
+      payload,
+      {
+        new: true,
+      },
+    );
+    if (updatedClub) {
+      console.log("Club mis à jour avec succès:", payload);
+    } else {
+      console.error("Club non trouvé:", payload);
+    }
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour du club:", error);
   }
 }
 
