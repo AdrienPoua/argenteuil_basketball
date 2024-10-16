@@ -31,11 +31,6 @@ const data = [
         icon: <LayoutDashboard />,
     },
     {
-        title: "Emails",
-        href: "/admin/dashboard/emails",
-        icon: <Mail />,
-    },
-    {
         title: "Matchs",
         href: "/admin/dashboard/matchs",
         icon: <Trophy />,
