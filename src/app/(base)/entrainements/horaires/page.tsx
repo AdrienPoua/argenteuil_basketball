@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Gym } from "@/utils/models";
-import { gyms } from "@/utils/services/dataProcessing";
 import H1 from "@/components/H1";
 import MainSection from "@/components/layouts/MainSection";
 import { Button } from "@/components/ui/button";
@@ -10,10 +9,11 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 import { MIN_BIRTH_YEAR_FOR_MEMBER, AT_THIS_YEAR_IAM_SENIOR } from "@/utils/magicNumber";
 import useIsMobile from "@/utils/hooks/useIsMobile";
-import categories from "@/data/categories.json";
-import useFetchTeams from "@/utils/hooks/DBFetch/useFetchTeam";
+import Instructions from "@/components/Instructions";
 import FetchFeedBack from "@/components/FetchFeedback";
-
+import useFetchTeams from "@/utils/hooks/DBFetch/useFetchTeam";
+import categories from "@/data/categories.json"
+import { gyms } from "@/utils/services/dataProcessing";
 
 const ScheduleSlot = ({ slot, categoryResult }: { slot: any; categoryResult: string | null }) => {
   const isMobile = useIsMobile();
@@ -91,6 +91,30 @@ export default function SchedulePage() {
             </div>
           </>
         </FetchFeedBack>
+        <Instructions >
+          <div className="flex ">
+            <p className="grow">
+              U07 = 5/6 ans <br />
+              U09 = 7/8 ans <br />
+              U11 = 9/10 ans <br />
+              U13 = 11/12 ans <br />
+              U15 = 13/14 ans <br />
+              U17 = 15/16 ans <br />
+            </p>
+            <p className="grow">
+              &quot;F&quot; est une séction féminine <br />
+              &quot;M&quot; est une séction masculine <br />
+            </p>
+          </div>
+          <p>
+            Si je suis une fille née le 31 décembre 2010, je suis en U15F car j&apos;aurai 15 ans sur l&apos;année en cours
+          </p>
+        </Instructions>
+        <div className="flex flex-col gap-10">
+          {gyms.map((gym) => (
+            <Schedule key={gym.id} data={gym} categoryResult={categoryResult} />
+          ))}
+        </div>
       </MainSection>
     </>
   );
