@@ -40,7 +40,7 @@ function StepOne() {
   return (
     <>
       <div className="flex justify-center items-center"><Image
-        src="/images/staff/adrien_poua.png"
+        src="/images/divers/inscription_dossier.png"
         alt="Le dossier"
         width={400}
         height={400}
@@ -73,7 +73,7 @@ function StepTwo() {
   return (
     <>
       <div className="flex justify-center items-center"><Image
-        src="/images/staff/adrien_poua.png"
+        src="/images/divers/inscription_informatique.png"
         alt="Inscription informatique"
         width={400}
         height={400}
@@ -102,7 +102,7 @@ function StepThree() {
   return (
     <>
       <div className="flex justify-center items-center"><Image
-        src="/images/staff/adrien_poua.png"
+        src="/images/divers/inscription_confirmation.png"
         alt="Confirmation"
         width={400}
         height={400}

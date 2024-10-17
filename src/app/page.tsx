@@ -55,24 +55,24 @@ const HeroSection = () => {
 function PostsWrapper() {
   const { leftPostOnHomePage, rightPostOnHomePage, postsOnHomePage } = useSanity()
   return (
-    <div className="container mx-auto px-4">
+    <div className="px-4">
       <div className="flex flex-wrap -mx-4 mb-10">
         <div className="w-full md:w-1/2 px-4 mb-8 md:mb-0">
           {leftPostOnHomePage && (
-            <div className="sticky top-10 h-[700px]">
+            <div className="sticky top-10">
               <CustomCard post={leftPostOnHomePage} />
             </div>
           )}
         </div>
         <div className="w-full md:w-1/2 px-4">
-          <div className="mb-8 h-[700px] ">
+          <div className="mb-8 ">
             {rightPostOnHomePage && (
               <CustomCard post={rightPostOnHomePage} />
             )}
           </div>
           <div className="flex flex-wrap -mx-2 ">
             {postsOnHomePage?.slice(0, MAX_POSTS_ON_HOME_PAGE).map((post: SanityDocument) => (
-              <div key={post._id} className="w-full sm:w-1/2 px-2 mb-4 h-[400px]">
+              <div key={post._id} className="w-full sm:w-1/2 px-2 mb-4">
                 <CustomCard post={post} />
               </div>
             ))}
@@ -93,7 +93,7 @@ const CustomCard = ({ post }: { post: SanityDocument }): ReactElement => {
   });
 
   return (
-    <Link href={`/actualites/${slug.current}`} className="flex size-full">
+    <Link href={`/actualites/${slug.current}`} className="flex aspect-[10/12] ">
       <Card className="group rounded-3xl overflow-hidden flex flex-col grow border-none">
         <CardContent className="relative overflow-hidden grow">
           <Image

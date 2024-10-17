@@ -6,12 +6,12 @@ import Link from "next/link";
 export const components: PortableTextComponents = {
   types: {
     image: ({ value }) => (
-      <div className="relative h-[600px] w-[500px] overflow-hidden">
+      <div className="relative aspect-[10/12] overflow-hidden inline">
         <Image
           src={urlFor(value).url()}
           alt={value.alt || ""}
           objectFit="cover"
-          className="rounded-md size-full mb-5"
+          className="rounded-md mb-5"
           fill
         />
       </div>

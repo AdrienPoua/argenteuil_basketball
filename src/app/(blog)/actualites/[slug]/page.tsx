@@ -30,7 +30,7 @@ export default function Index() {
   return (
     <>
       <Header />
-      <div className="grow bg-foreground flex flex-col justify-center items-center">
+      <div className="grow bg-foreground flex flex-col justify-center items-center pb-12">
         {data && <PostContent data={data} />}
       </div>
       <Footer />

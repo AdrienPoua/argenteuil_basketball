@@ -21,7 +21,7 @@ export default function Schedule({ matchs, title }: Readonly<PropsType>): ReactE
             </h2>
 
             <div className="bg-white shadow-md rounded-lg">
-                <Table>
+                <Table className="overflow-x-auto">
                     <TableBody>
                         {categories.map((category) => (
                             <TableRow key={category} className="flex">

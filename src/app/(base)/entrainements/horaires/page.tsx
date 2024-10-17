@@ -80,6 +80,25 @@ export default function SchedulePage() {
       <MainSection>
         <FetchFeedBack data={teams} error={error} isLoading={isLoading}>
           <>
+            <Instructions >
+              <div className="flex space-between">
+                <p className="flex justify-center grow">
+                  U07 = 5/6 ans <br />
+                  U09 = 7/8 ans <br />
+                  U11 = 9/10 ans <br />
+                  U13 = 11/12 ans <br />
+                  U15 = 13/14 ans <br />
+                  U17 = 15/16 ans <br />
+                </p>
+                <p className="flex justify-center grow">
+                  &quot;F&quot; est une séction féminine <br />
+                  &quot;M&quot; est une séction masculine <br />
+                </p>
+              </div>
+              <p className="text-center">
+                Si je suis une fille née le 31 décembre 2010, je suis en U15F
+              </p>
+            </Instructions>
             <Form className="mb-10" setCategoryResult={setCategoryResult} />
             <div className="flex flex-col gap-10 max-w-[80%] mx-auto">
               {gyms.map((gym) => {
@@ -91,30 +110,7 @@ export default function SchedulePage() {
             </div>
           </>
         </FetchFeedBack>
-        <Instructions >
-          <div className="flex ">
-            <p className="grow">
-              U07 = 5/6 ans <br />
-              U09 = 7/8 ans <br />
-              U11 = 9/10 ans <br />
-              U13 = 11/12 ans <br />
-              U15 = 13/14 ans <br />
-              U17 = 15/16 ans <br />
-            </p>
-            <p className="grow">
-              &quot;F&quot; est une séction féminine <br />
-              &quot;M&quot; est une séction masculine <br />
-            </p>
-          </div>
-          <p>
-            Si je suis une fille née le 31 décembre 2010, je suis en U15F car j&apos;aurai 15 ans sur l&apos;année en cours
-          </p>
-        </Instructions>
-        <div className="flex flex-col gap-10">
-          {gyms.map((gym) => (
-            <Schedule key={gym.id} data={gym} categoryResult={categoryResult} />
-          ))}
-        </div>
+
       </MainSection>
     </>
   );
