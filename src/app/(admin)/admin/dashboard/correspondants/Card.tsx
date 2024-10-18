@@ -15,7 +15,7 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form";
-import { updateClub } from "@/lib/mongo/controllers/clubs";
+import { updateClub, deleteClub } from "@/lib/mongo/controllers/clubs";
 import { useQueryClient } from "react-query";
 
 
@@ -35,20 +35,23 @@ type TClub = {
 
 export default function ClubCard({ data }: Readonly<ClubCardProps>): ReactElement {
     const [isEditing, setIsEditing] = useState(false);
+    const queryClient = useQueryClient();
     return (
         <Card className="w-full p-6 border-2 border-primary rounded-lg relative font-secondary">
             <h3 className="text-center text-primary text-3xl font-bold">{data.name}</h3>
             <Separator className="my-4" />
-            <CardContent className="grid grid-cols-3 justify-center items-center gap-5">
+            <CardContent className="flex gap-5">
                 {data.correspondant && (
                     <>
                         {isEditing ? <EditingContent setIsEditing={setIsEditing} data={data} /> : <NotEditingContent correspondant={data.correspondant} />}
                     </>
                 )}
-                <Button size={"lg"} className="absolute top-5 right-5" onClick={() => setIsEditing((prev) => !prev)}> 📜 </Button>
-
-            </CardContent>
-        </Card>
+                <div className="absolute top-5 right-5 flex gap-5">
+                    <Button size={"lg"} onClick={() => setIsEditing((prev) => !prev)}> 📜 </Button>
+                    <Button size={"lg"} onClick={() => { deleteClub(data._id); queryClient.invalidateQueries('clubs'); }}> ❌ </Button>
+                </div>
+        </CardContent>
+        </Card >
     );
 }
 
@@ -90,46 +93,46 @@ const EditingContent = ({ data, setIsEditing }: { data: TClub, setIsEditing: (x:
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="flex gap-5 justify-between items-center " >
-                <FormField name="name" render={({ field }) => (
-                    <FormItem className="text-background min-w-fit">
-                        <FormLabel>Nom</FormLabel>
-                        <FormControl>
-                            <Input {...field} />
-                        </FormControl>
-                        <FormDescription>Modifier le nom</FormDescription>
-                        <FormMessage />
-                    </FormItem>
-                )} />
-                <FormField
-                    name="email"
-                    render={({ field }) => (
-                        <FormItem className="text-background min-w-fit">
-                            <FormLabel>Email</FormLabel>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col w-full gap-10" >
+                <div className="flex justify-around gap-5">
+                    <FormField name="name" render={({ field }) => (
+                        <FormItem className="text-background grow">
+                            <FormLabel>Nom</FormLabel>
                             <FormControl>
                                 <Input {...field} />
                             </FormControl>
-                            <FormDescription>Modifier l&apos;email</FormDescription>
+                            <FormDescription>Modifier le nom</FormDescription>
                             <FormMessage />
                         </FormItem>
-                    )}
-                />
-                <FormField
-                    name="number"
-                    render={({ field }) => (
-                        <FormItem className="text-background min-w-fit">
-                            <FormLabel>Numero</FormLabel>
-                            <FormControl>
-                                <Input {...field} />
-                            </FormControl>
-                            <FormDescription>Modifier le numéro</FormDescription>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <div className="w-full">
-                    <Button type="submit">Valider</Button>
+                    )} />
+                    <FormField
+                        name="email"
+                        render={({ field }) => (
+                            <FormItem className="text-background grow">
+                                <FormLabel>Email</FormLabel>
+                                <FormControl>
+                                    <Input {...field} />
+                                </FormControl>
+                                <FormDescription>Modifier l&apos;email</FormDescription>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        name="number"
+                        render={({ field }) => (
+                            <FormItem className="text-background grow">
+                                <FormLabel>Numero</FormLabel>
+                                <FormControl>
+                                    <Input {...field} />
+                                </FormControl>
+                                <FormDescription>Modifier le numéro</FormDescription>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
                 </div>
+                <Button type="submit">Valider</Button>
             </form>
         </Form>
 

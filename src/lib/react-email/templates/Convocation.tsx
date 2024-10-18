@@ -6,45 +6,26 @@ import Layout from './Layout';
 
 export type PropsType = {
     match: Match
-    isModif: boolean
-    isExemple?: boolean
 }
 
 
-export default function Index({ match, isModif, isExemple }: Readonly<PropsType>): ReactElement {
+export default function Index({ match }: Readonly<PropsType>): ReactElement {
     return (
         <Layout>
             <>
-                <Header isModif={isModif} />
-                <Body match={match} isExemple={isExemple} />
+                <Section >
+                    <Heading className="text-black text-center">  Convocation </Heading>
+                </Section>
+                <Body match={match} />
                 <Signature />
             </>
         </Layout>
     )
 }
 
-const Header = ({ isModif }: { isModif: boolean }): ReactElement => {
-    return (
-        <Section >
-            <Heading className="text-black text-center">  Convocation {isModif && "modificative"} </Heading>
-        </Section>
-    )
-}
-
-const Body = ({ match, isExemple }: { match: Match, isExemple?: boolean }): ReactElement => {
+const Body = ({ match }: { match: Match }): ReactElement => {
     const adresse = gyms.find(gym => match.gym.toLowerCase().search(gym.name.toLowerCase()))?.address;
-    if (isExemple) {
-        return (
-            <Section>
-                <Heading className="text-black text-center my-5 mb-10 underline-offset-4 underline" >Match n°XXX - ABB vs XXX</Heading>
-                <Text className="text-black"> 🏀 Catégorie : XXX</Text>
-                <Text className="text-black"> 🏀 Date: XXX</Text>
-                <Text className="text-black"> 🏀 Heure: XXX</Text>
-                <Text className="text-black"> 🏀 Lieu: XXX</Text>
-                <Text className="text-black"> 🏀 adresse : XXX </Text>
-            </Section>
-        )
-    }
+
     return (
         <Section>
             <Heading className="text-black text-center my-5 underline-offset-4 underline" >Match n°{match.matchNumber} - ABB vs {match.teamB}</Heading>

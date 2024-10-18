@@ -8,13 +8,11 @@ import Card from './Card'
 export default function Index(): ReactElement {
   const { data: clubs, error, isLoading: queryLoading } = useQuery(['clubs'], async () => await getClubs());
   return (
-    <div className="flex flex-col gap-6 justify-center items-center size-fit">
-      <Feedback data={clubs} error={error} isLoading={queryLoading}>
-        <>
-          {clubs && clubs.map((club) => <Card key={club._id} data={club} />)}
-        </>
-      </Feedback>
-    </div>
+    <Feedback data={clubs} error={error} isLoading={queryLoading}>
+      <div className="container mx-auto flex flex-col gap-5 ">
+        {clubs && clubs.map((club) => <Card key={club._id} data={club} />)}
+      </div>
+    </Feedback>
   );
 
 

@@ -36,19 +36,9 @@ const data = [
         icon: <Trophy />,
     },
     {
-        title: "Members",
-        href: "/admin/dashboard/members",
-        icon: <Users />,
-    },
-    {
         title: "Convocations",
         href: "/admin/dashboard/convocations",
         icon: <Calendar />,
-    },
-    {
-        title: "Derogations",
-        href: "/admin/dashboard/derogations",
-        icon: <Theater />,
     },
     {
         title: "Correspondants",

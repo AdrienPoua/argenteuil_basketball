@@ -46,14 +46,6 @@ export default class Match {
     return this.isHome ? this.teamB.toLowerCase() : this.teamA.toLowerCase();
   }
 
-  set correspondant(value: string) {
-    this.correspondant = value;
-  }
-
-  get correspondant(): string {
-    return this.correspondant;
-  }
-
   get teamA(): string {
     return this._teamA;
   }

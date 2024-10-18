@@ -2,27 +2,32 @@
 import connectDB from "@/lib/mongo/mongodb";
 import mongoose from "mongoose";
 
-export const create = async ({ payload, model }: { payload: any; model: mongoose.Model<any> }) => {
+export const create = async ({
+  payload,
+  model,
+}: {
+  payload: any;
+  model: mongoose.Model<any>;
+}) => {
   await connectDB();
   try {
     // Créer une instance du modèle
     const newDocument = new model(payload);
-    console.log("🚀 ~ create ~ payload:", payload)
-    console.log("🚀 ~ create ~ model:", model)
-    console.log("🚀 ~ create ~ newDocument:", newDocument)
-
     // Sauvegarder dans la base de données
     await newDocument.save();
-
     console.log("Document créé avec succès:", newDocument);
-    return true
   } catch (error) {
     console.error("Erreur lors de la création du document:", error);
-    return false
   }
 };
 
-export const read = async ({ model, filter = {} }: { model: mongoose.Model<any>; filter?: any }) => {
+export const read = async ({
+  model,
+  filter = {},
+}: {
+  model: mongoose.Model<any>;
+  filter?: any;
+}) => {
   await connectDB();
   try {
     const documents = await model.find(filter);
@@ -34,7 +39,15 @@ export const read = async ({ model, filter = {} }: { model: mongoose.Model<any>;
   }
 };
 
-export const update = async ({ filter, payload, model }: { filter: any; payload: any; model: mongoose.Model<any> }) => {
+export const update = async ({
+  filter,
+  payload,
+  model,
+}: {
+  filter: any;
+  payload: any;
+  model: mongoose.Model<any>;
+}) => {
   await connectDB();
   try {
     // Mise à jour du document
@@ -56,7 +69,13 @@ export const update = async ({ filter, payload, model }: { filter: any; payload:
   }
 };
 
-export const remove = async ({ filter, model }: { filter: any; model: mongoose.Model<any> }) => {
+export const remove = async ({
+  filter,
+  model,
+}: {
+  filter: any;
+  model: mongoose.Model<any>;
+}) => {
   await connectDB();
   try {
     const deletedDocument = await model.findOneAndDelete(filter);
