@@ -17,7 +17,6 @@ export default function useFetchLeaders() {
   const { data, isLoading, error, isFetching } = useQuery(["leaders"], fetchLeaders);
   useEffect(() => {
     if (data) {
-      console.log("🚀 ~ useEffect ~ data:", data)
       setLeaders(data.map((leader) => new Leader(leader)));
     }
   }, [data]);

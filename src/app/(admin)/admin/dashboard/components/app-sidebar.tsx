@@ -32,7 +32,7 @@ export function AppSidebar() {
   return (
     <Sidebar variant="inset" collapsible="icon">
       <SidebarHeader />
-      <SidebarContent className="flex flex-col justify-between">
+      <SidebarContent >
         <SidebarGroup>
           <SidebarGroupLabel>Application</SidebarGroupLabel>
           <SidebarGroupContent>
@@ -50,6 +50,8 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+      </SidebarContent>
+      <SidebarFooter >
         <SidebarGroup >
           <SidebarGroupLabel>Connexion</SidebarGroupLabel>
           <SidebarGroupContent>
@@ -75,8 +77,7 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-      </SidebarContent>
-      <SidebarFooter />
+      </SidebarFooter>
       <SidebarRail />
     </Sidebar>
   )

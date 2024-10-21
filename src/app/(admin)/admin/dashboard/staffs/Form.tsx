@@ -50,7 +50,6 @@ export default function ZodForm() {
         const imageUrl = await uploadImage(data.image as File)
         data.image = imageUrl
       }
-      console.log(data)
       await createStaff({ ...data, image: data.image as string, teams })
       resetForm()
     } catch (error) {

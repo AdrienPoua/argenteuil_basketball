@@ -1,23 +1,28 @@
-import { ConvocationEmail, Email } from "@/lib/nodemailer/class";
+"use server"; // Ensures this file is treated as a server component
+
 import { SentMessageInfo } from "nodemailer";
+import { Convocation, Email } from "@/lib/nodemailer/class"; // Assuming these imports are correct
 
 interface EmailPayload {
-  email: string;
+  to: string;
   subject: string;
   html: string;
+  division: string;
 }
 
-const sendConvocationEmail = async ({
-  email,
+export default async function sendConvocation({
+  to,
   subject,
   html,
-}: EmailPayload): Promise<SentMessageInfo> => {
-  const convocation = new ConvocationEmail({
-    to: email,
-    subject: subject,
-    html: html,
+  division,
+}: EmailPayload): Promise<SentMessageInfo> {
+  const convocation = new Convocation({
+    to,
+    subject,
+    html,
+    division,
   });
-  return await convocation.send();
-};
 
-export default sendConvocationEmail;
+  const email = new Email(convocation);
+  return await email.send();
+}

@@ -29,18 +29,17 @@ export default function MatchSelector({ matchs, setSelectedMatchs, selectedMatch
   const [open, setOpen] = useState(false)
 
   return (
-    <div className="w-full max-w-sm mx-auto mb-12">
+    <div className="w-full max-w-sm mx-auto mb-12 rounded-lg ">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
-            variant="outline"
             role="combobox"
             aria-expanded={open}
             className="w-full justify-between"
           >
             {selectedMatchs && selectedMatchs.length > 0
               ? `${selectedMatchs.length} matchs selected`
-              : "Select matchs..."}
+              : "Selectionne les matchs"}
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>

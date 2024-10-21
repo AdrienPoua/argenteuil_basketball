@@ -1,20 +1,20 @@
 import nodemailer from "nodemailer";
 
-const { EMAIL_USER, MAILGUN_API_KEY, EMAIL_PORT, EMAIL_HOST } = process.env;
+const { MAILGUN_API_KEY, EMAIL_PORT, EMAIL_HOST } = process.env;
 
-if (!EMAIL_USER || !MAILGUN_API_KEY || !EMAIL_PORT || !EMAIL_HOST) {
-  throw new Error("Veuillez configurer les variables d'environnement EMAIL_USER, MAILGUN_API_KEY, EMAIL_PORT et EMAIL_HOST");
+if (!MAILGUN_API_KEY || !EMAIL_PORT || !EMAIL_HOST) {
+  console.log(MAILGUN_API_KEY);
+  throw new Error(
+    "Veuillez configurer les variables d'environnement, MAILGUN_API_KEY, EMAIL_PORT et EMAIL_HOST",
+  );
 }
-export const clubEmail = EMAIL_USER;
 
 export const transporter = nodemailer.createTransport({
   host: EMAIL_HOST,
   port: parseInt(EMAIL_PORT, 10),
-  secure: parseInt(EMAIL_PORT, 10) === 465, // true for port 465, false for other ports
+  secure: false, // false pour TLS
   auth: {
-    user: EMAIL_USER,
+    user: "postmaster@email.argenteuilbasketball.com",
     pass: MAILGUN_API_KEY,
   },
 });
-
-

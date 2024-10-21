@@ -153,7 +153,6 @@ export const TeamCard = ({ data }: { data: TeamType }) => {
 
     const handleSave = async () => {
         try {
-            console.log(team)
             await updateTeam(team.id, { ...team, image: `/images/teams/${team.image}` })
             setIsEditing(false)
         } catch (error) {

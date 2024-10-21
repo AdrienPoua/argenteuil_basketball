@@ -6,8 +6,7 @@ export default function Layout({ children }: Readonly<{ children: React.ReactNod
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        <main className="p-16">
-          <SidebarTrigger />
+        <main className="p-16 size-full">
           {children}
         </main>
       </SidebarInset>
