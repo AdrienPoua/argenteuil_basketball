@@ -1,65 +1,30 @@
 import { SentMessageInfo } from "nodemailer";
 import { transporter, clubEmail } from "@/lib/nodemailer";
 
-export class SingleTargetHtmlPayload implements Transporter {
-  private to: string;
-  private subject: string;
-  private html: string;
-  constructor(payload: { to: string; subject: string; html: string }) {
-    this.to = payload.to;
-    this.subject = payload.subject;
-    this.html = payload.html;
-  }
-  async send(): Promise<SentMessageInfo> {
-    return await transporter.sendMail({
-      from: clubEmail,
-      to: this.to,
-      subject: this.subject,
-      html: this.html,
-    });
-  }
-}
-
-export class MultipleTargetHtmlPayload implements Transporter {
-  private subject: string;
-  private bcc: string[];
-  private html: string;
-  constructor(payload: { bcc: string[]; subject: string; html: string }) {
-    this.bcc = payload.bcc;
-    this.subject = payload.subject;
-    this.html = payload.html;
-  }
-  async send(): Promise<SentMessageInfo> {
-    return await transporter.sendMail({
-      from: clubEmail,
-      bcc: this.bcc,
-      subject: this.subject,
-      html: this.html,
-    });
-  }
-}
-export class MultipleTargetPayload implements Transporter {
-  private subject: string;
-  private text: string | undefined;
-  private bcc: string[];
-
-  constructor(payload: { subject: string; text?: string; bcc: string[]}) {
-    this.subject = payload.subject;
-    this.text = payload.text;
-    this.bcc = payload.bcc;
-  }
-  async send(): Promise<SentMessageInfo> {
-    return await transporter.sendMail({
-      from: clubEmail,
-      subject: this.subject,
-      text: this.text,
-      bcc: this.bcc,
-    });
-  }
-}
-
 interface Transporter {
   send(): Promise<SentMessageInfo>;
+}
+export class ConvocationEmail implements Transporter {
+  private readonly from: string;
+  private readonly to: string;
+  private readonly subject: string;
+  private readonly bcc: string[];
+  private readonly html: string;
+  constructor(payload: { subject: string; html: string; to: string }) {
+    this.from = "a remplir";
+    this.to = payload.to;
+    this.subject = payload.subject;
+    this.bcc = ["convocation@basket95.com"];
+    this.html = payload.html;
+  }
+  async send(): Promise<SentMessageInfo> {
+    return await transporter.sendMail({
+      from: clubEmail,
+      bcc: this.bcc,
+      subject: this.subject,
+      html: this.html,
+    });
+  }
 }
 
 export class Email implements Transporter {

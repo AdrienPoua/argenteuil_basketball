@@ -1,22 +1,16 @@
-"use client";
-import React, { ReactElement } from "react";
-import SecurisedPath from "@/lib/nextAuth/SecurisedPath";
-import Sidebar from './components/Sidebar';
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { AppSidebar } from "./components/app-sidebar"
 
-
-type PropsType = {
-  children: React.ReactNode;
-}
-
-export default function Index({ children }: Readonly<PropsType>): ReactElement {
+export default function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <SecurisedPath>
-      <div className="flex min-h-screen">
-        <Sidebar />
-        <div className="flex-grow bg-foreground p-10">
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset>
+        <main className="p-16">
+          <SidebarTrigger />
           {children}
-        </div>
-      </div>
-    </SecurisedPath>
-  );
+        </main>
+      </SidebarInset>
+    </SidebarProvider>
+  )
 }

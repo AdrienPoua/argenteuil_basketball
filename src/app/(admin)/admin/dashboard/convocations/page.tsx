@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/dialog";
 import useFetchClubs from '@/utils/hooks/DBFetch/useFetchClubs';
 import levenshtein from 'fast-levenshtein';
+import { sendConvocationEmail } from '@/lib/nodemailer/sendConvocationEmail';
 
 const fetchAndProcess = async (): Promise<Match[]> => {
     const matchs = await getMatchs();
@@ -96,7 +97,11 @@ export function ValidationDialog({ selectedMatchs }: Readonly<{ selectedMatchs: 
     }, [clubs, selectedMatchs])
 
     const handleSubmit = () => {
-        console.log(clubList)
+        clubList.map((club) => {
+            if (club.email) {
+                sendConvocationEmail(club.email);
+            }
+        });
     }
 
     return (

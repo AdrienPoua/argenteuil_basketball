@@ -23,6 +23,9 @@ import {
     LogOut
 } from 'lucide-react'
 import { signOut } from "next-auth/react"
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { AppSidebar } from "./app-sidebar"
+
 
 const data = [
     {
@@ -62,15 +65,17 @@ const data = [
     }
 ]
 
-export default function Component() {
+export default function Layout({ children }: { children: React.ReactNode }) {
     return (
-        <div className="relative">
-            <DesktopSidebar />
-            <MobileSidebar />
-        </div>
+        <SidebarProvider>
+            <AppSidebar />
+            <main>
+                <SidebarTrigger />
+                {children}
+            </main>
+        </SidebarProvider>
     )
 }
-
 const DesktopSidebar = () => {
     return (
         <aside className="h-screen sticky top-0 bot-0 z-50 hidden w-64 bg-primary text-primary-foreground lg:block py-10">

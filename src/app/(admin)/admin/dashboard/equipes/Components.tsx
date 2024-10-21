@@ -169,7 +169,7 @@ export const TeamCard = ({ data }: { data: TeamType }) => {
                     {isEditing ? (
                         <div>
                             <Button className="mr-2" onClick={handleSave}>
-                                <Save className="mr-2 h-4 w-4 text-black" /> Save
+                                <Save className="mr-2 h-4 w-4 font-semibold" /> Save
                             </Button>
                             <Button variant="destructive" onClick={() => setIsEditing(false)}>
                                 Cancel
@@ -177,7 +177,7 @@ export const TeamCard = ({ data }: { data: TeamType }) => {
                         </div>
                     ) : (
                         <Button onClick={() => setIsEditing(true)}>
-                            <Edit2 className="mr-2 h-4 w-4 text-black" /> Edit
+                            <Edit2 className="mr-2 h-4 w-4" /> Modifier
                         </Button>
                     )}
                 </CardTitle>

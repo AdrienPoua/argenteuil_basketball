@@ -79,37 +79,39 @@ function Form() {
     }
   }
   return (
-    <form onSubmit={handleSubmit} className="p-4 space-y-6 shadow-custom">
-      <Card className="shadow-xl">
-        <CardHeader className="flex justify-between items-center">
-          <CardTitle className='text-background text-4xl relative'>Rajoutez une équipe <Underline /> </CardTitle>
-        </CardHeader>
-        <CardContent >
-          <TeamInputs setTeam={setTeam as () => void} team={team} />
-        </CardContent>
-      </Card>
-      <Card className="shadow-xl">
-        <CardHeader>
-          <CardTitle className='text-black relative w-fit'> <Underline /> Horaires d&apos;entrainements</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          {team.training.map((session, index) => (
-            <TrainingSession
-              key={index + session.day}
-              index={index}
-              setTeam={setTeam}
-              team={team}
-            />
-          ))}
-          <Button type="button" onClick={() => setTeam(prev => ({
-            ...prev,
-            training: [...prev.training, { day: '', start: '', end: '', gym: '' }]
-          }))} className='text-black'>
-            Ajouter un entrainement
-          </Button>
-        </CardContent>
-      </Card>
-      <Button type="submit" className="w-full text-black">Créer</Button>
+    <form onSubmit={handleSubmit} className=" flex flex-col gap-5 w-fit mx-auto">
+      <div className="flex gap-5 mx-auto">
+        <Card className="shadow-xl">
+          <CardHeader className="flex justify-between items-center">
+            <CardTitle className='text-background text-4xl relative'>Rajoutez une équipe <Underline /> </CardTitle>
+          </CardHeader>
+          <CardContent >
+            <TeamInputs setTeam={setTeam as () => void} team={team} />
+          </CardContent>
+        </Card>
+        <Card className="shadow-xl">
+          <CardHeader>
+            <CardTitle className='text-black relative w-fit'> <Underline /> Horaires d&apos;entrainements</CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-5">
+            {team.training.map((session, index) => (
+              <TrainingSession
+                key={index + session.day}
+                index={index}
+                setTeam={setTeam}
+                team={team}
+              />
+            ))}
+            <Button type="button" onClick={() => setTeam(prev => ({
+              ...prev,
+              training: [...prev.training, { day: '', start: '', end: '', gym: '' }]
+            }))} >
+              Ajouter un entrainement
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+      <Button type="submit" >Créer</Button>
     </form>
   )
 }
