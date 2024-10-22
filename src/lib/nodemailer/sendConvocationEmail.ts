@@ -24,5 +24,5 @@ export default async function sendConvocation({
   });
 
   const email = new Email(convocation);
-  return await email.send();
+  await email.send();
 }

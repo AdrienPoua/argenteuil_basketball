@@ -1,5 +1,6 @@
 "use client";
-import { ReactElement, useState, useEffect } from 'react';
+import { ReactElement, useState, Dispatch, SetStateAction } from 'react';
+
 import { useQuery } from 'react-query';
 import { getMatchs } from '@/lib/mongo/controllers/matchs';
 import { ValidateWithZod } from '@/lib/zod/utils';
@@ -9,7 +10,6 @@ import { Match } from '@/utils/models';
 import Adapter from '@/utils/adapters/matchs/fromDBforModel';
 import Feedback from '@/components/FetchFeedback';
 import { Badge } from '@/components/ui/badge';
-import Preview from "@lib/react-email/templates/Convocation";
 import { Button } from '@/components/ui/button';
 import {
     Dialog,
@@ -17,11 +17,9 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
+    DialogClose
 } from "@/components/ui/dialog";
-import useFetchClubs from '@/utils/hooks/DBFetch/useFetchClubs';
-import levenshtein from 'fast-levenshtein';
-import sendConvocation from '@/lib/nodemailer/sendConvocationEmail';
-import { render } from '@react-email/components';
+import useConvocation from './use-convocation';
 import Convocation from '@/lib/react-email/templates/Convocation';
 
 
@@ -44,6 +42,7 @@ const MockedMatch = new Match({
 export default function Index(): ReactElement {
     const [selectedMatchs, setSelectedMatchs] = useState<Match[]>([]);
     const { data: matchs, isLoading, error } = useQuery('matchs', fetchAndProcess);
+
     return (
         <Feedback data={matchs} error={error} isLoading={isLoading}>
             <div className="size-full relative">
@@ -53,9 +52,9 @@ export default function Index(): ReactElement {
                         <div className=" flex flex-col grow justify-center items-center ">
                             <SelectMatch matchs={matchs} setSelectedMatchs={setSelectedMatchs} selectedMatchs={selectedMatchs} />
                             <div className="bg-primary size-fit mb-10">
-                                <Preview match={MockedMatch} />
+                                <Convocation match={MockedMatch} />
                             </div>
-                            <ValidationDialog selectedMatchs={selectedMatchs} />
+                            <ValidationDialog selectedMatchs={selectedMatchs} setSelectedMatchs={setSelectedMatchs} />
                         </div>
                     </div>
                 )}
@@ -80,47 +79,11 @@ const MatchPreview = ({ selectedMatchs }: Readonly<{ selectedMatchs: Match[] }>)
 }
 
 
-export function ValidationDialog({ selectedMatchs }: Readonly<{ selectedMatchs: Match[] }>) {
-    const { data: clubs, error, isLoading } = useFetchClubs()
-    const [isSending, setIsSending] = useState(false)
-    const [payload, setPayload] = useState<{ match: Match, club: string, email: string | undefined, matchNumber: string, division: string }[]>([])
 
-    useEffect(() => {
-        if (clubs) {
-            const currentPayload = selectedMatchs.map((match) => {
-                const email = clubs.find((club) => {
-                    const distance = levenshtein.get(club.name.split("-")[0].trim(), match.teamB)
-                    return distance < 10
-                })?.correspondant.email
-                return { club: match.teamB, email, matchNumber: match.matchNumber, division: match.division, match }
-            })
-            setPayload(currentPayload)
-        }
-    }, [clubs, selectedMatchs])
-
-    const handleSubmit = async () => {
-        setIsSending(true)
-        try {
-            for (const item of payload) {
-                if (item.email) {
-                    const convocation = render(<Convocation match={item.match} />);
-                    await sendConvocation({
-                        to: item.email,
-                        html: convocation,
-                        subject: `Convocation pour le match ${item.matchNumber} en ${item.division}`,
-                        division: item.division,
-                    });
-                }
-            }
-        } catch (error) {
-            console.error("Error sending convocation emails:", error);
-        } finally {
-            setIsSending(false)
-        }
-    }
-
+export function ValidationDialog({ selectedMatchs, setSelectedMatchs }: Readonly<{ selectedMatchs: Match[], setSelectedMatchs: Dispatch<SetStateAction<Match[]>> }>) {
+    const { data, error, isLoading, payload, isSending, handleSubmit } = useConvocation({ selectedMatchs })
     return (
-        <Feedback data={clubs} error={error} isLoading={isLoading}>
+        <Feedback data={data} error={error} isLoading={isLoading}>
             <Dialog>
                 <DialogTrigger asChild>
                     <Button disabled={selectedMatchs.length === 0}>  Envoyer </Button>
@@ -142,7 +105,9 @@ export function ValidationDialog({ selectedMatchs }: Readonly<{ selectedMatchs: 
                         ))}
                     </div>
                     <DialogFooter>
-                        <Button type="submit" disabled={payload.length === 0 || isSending} onClick={handleSubmit}>Envoyer</Button>
+                        <DialogClose asChild>
+                            <Button type="submit" disabled={payload.length === 0 || isSending} onClick={() => { handleSubmit(); setSelectedMatchs([]); }}>Envoyer</Button>
+                        </DialogClose>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>

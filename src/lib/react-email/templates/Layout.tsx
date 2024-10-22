@@ -7,12 +7,9 @@ export default function Index({ children }: Readonly<{ children: ReactElement }>
         <Tailwind
             config={config}
         >
-            <Container className="bg-primary p-10">
-                <div className="flex flex-col " style={{ padding: "60px" }}>
-                    {children}
-                </div>
+            <Container cellPadding={10} style={{ padding: "60px" }}>
+                {children}
             </Container>
-
         </Tailwind>
     )
 }
