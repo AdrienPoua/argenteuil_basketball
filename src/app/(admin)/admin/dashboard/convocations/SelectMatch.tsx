@@ -68,7 +68,7 @@ export default function MatchSelector({ matchs, setSelectedMatchs, selectedMatch
                         : "opacity-0"
                     )}
                   />
-                  {match.division} - {match.teamA} vs {match.teamB}
+                  {match.date} - {match.division} - {match.teamA} vs {match.teamB}
                 </CommandItem>
               ))}
             </CommandList>

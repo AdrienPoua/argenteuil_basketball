@@ -11,32 +11,45 @@ import Convocation from '@/lib/react-email/templates/Convocation';
 export default function useConvocation({ selectedMatchs }: Readonly<{ selectedMatchs: Match[] }>) {
     const { data: clubs, error, isLoading } = useFetchClubs()
     const [isSending, setIsSending] = useState(false)
-    const [payload, setPayload] = useState<{ match: Match, club: string, email: string | undefined, matchNumber: string, division: string }[]>([])
+    const [payload, setPayload] = useState<{
+        match: Match, club: {
+            name: string;
+            correspondant: {
+                name: string;
+                email: string;
+                number: string;
+            };
+            _id: string;
+        }
+    }[]>([])
 
     useEffect(() => {
         if (clubs) {
             const currentPayload = selectedMatchs.map((match) => {
-                const email = clubs.find((club) => {
-                    const distance = levenshtein.get(club.name.split("-")[0].trim(), match.teamB)
-                    return distance < 10
-                })?.correspondant.email
-                return { club: match.teamB, email, matchNumber: match.matchNumber, division: match.division, match }
+                const club = clubs.find((club) => {
+                    const a = club.name.split("-")[0].trim()
+                    const b = match.teamB.split("-")[0].toUpperCase().trim() === "IE" ? match.teamB.split("-")[1].trim() : match.teamB.split("-")[0].trim()
+                    const distance = levenshtein.get(a, b)
+                    return distance < 5
+                })
+                if(!club) throw new Error(String(error))
+                return { club, match }
             })
             setPayload(currentPayload)
         }
-    }, [clubs, selectedMatchs])
+    }, [clubs, selectedMatchs, error])
 
     const handleSubmit = async () => {
         setIsSending(true)
         try {
             for (const item of payload) {
-                if (item.email) {
+                if (item?.club?.correspondant?.email) {
                     const convocation = render(<Convocation match={item.match} />);
                     await sendConvocation({
-                        to: item.email,
+                        to: item.club.correspondant.email,
                         html: convocation,
-                        subject: `Convocation ${item.division} match n°${item.matchNumber}`,
-                        division: item.division,
+                        subject: `Convocation ${item.match.division} match n°${item.match.matchNumber}`,
+                        division: item.match.division,
                     });
                 }
             }

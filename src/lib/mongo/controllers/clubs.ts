@@ -22,7 +22,7 @@ export async function getClubs(): Promise<
 export async function updateClub(payload: {
   name: string;
   _id: string;
-  correspondant: { name: string; email: string; number: string };
+  correspondant?: { name?: string; email?: string; number?: string };
 }): Promise<void> {
   update({ filter: { _id: payload._id }, payload, model: Club });
 }
