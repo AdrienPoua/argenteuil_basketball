@@ -12,8 +12,10 @@ export const formSchema = z.object({
     .string()
     .min(1, { message: "Le numéro est requis." }), // Champ obligatoire
   teams: z
-    .string()
-    .optional(), // Champ optionnel, pas obligatoire
+    .array(z.object({
+      name: z.string().min(1, { message: "Le nom de l'équipe est requis." }), // Champ obligatoire pour le nom de l'équipe
+    }))
+    .optional(),
   job: z
     .enum(["Président", "Trésorier", "Correspondant", "Secrétaire Général", "Entraineur", ""]) // Correspond aux options du select
     .optional(), // Ce champ est optionnel

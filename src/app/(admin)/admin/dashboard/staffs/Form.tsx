@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { Dispatch, SetStateAction, useEffect } from 'react'
+import { useForm, useFieldArray } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { Button } from "@/components/ui/button"
@@ -11,57 +11,62 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { formSchema } from './formSchema'
 import uploadImage from '@/hooks/use-uploadImage'
-import { createStaff } from '@/lib/mongo/controllers/staff'
-import { useQueryClient } from "react-query";
+import { createStaff, updateStaff } from '@/lib/mongo/controllers/staff'
+import { useQueryClient } from "react-query"
 
 
 
 type FormValues = z.infer<typeof formSchema>
+interface ZodFormProps {
+  defaultValues?: Partial<Omit<FormValues, 'teams'>> & { id: string, teams: string[] }
+}
 
-export default function ZodForm() {
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [teams, setTeams] = useState<string[]>([])
+export default function ZodForm({ defaultValues }: Readonly<ZodFormProps>) {
   const queryClient = useQueryClient()
-  const resetForm = () => {
-    queryClient.invalidateQueries(["staff"]);
-    form.reset()
-    setTeams([])
-    setIsSubmitting(false)
-  }
-
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: '',
-      email: '',
-      number: '',
-      teams: '',
-      job: '',
-      image: undefined,
-      isEmailDisplayed: false,
-      isNumberDisplayed: false,
+      name: defaultValues?.name ?? 'salut',
+      email: defaultValues?.email ?? '',
+      number: defaultValues?.number ?? '',
+      teams: defaultValues?.teams?.map(team => ({ name: team })) ?? [],
+      job: defaultValues?.job ?? '',
+      image: defaultValues?.image ?? undefined,
+      isEmailDisplayed: defaultValues?.isEmailDisplayed ?? false,
+      isNumberDisplayed: defaultValues?.isNumberDisplayed ?? false,
     },
   })
 
+  const { fields, append, remove } = useFieldArray({
+    control: form.control,
+    name: 'teams'
+  });
+
+
+
+
   async function onSubmit(data: FormValues) {
-    setIsSubmitting(true)
     try {
-      if (data.image) {
-        const imageUrl = await uploadImage(data.image as File)
+      if (data.image && data.image instanceof File) {
+        const imageUrl: string | undefined = await uploadImage(data.image)
         data.image = imageUrl
       }
-      await createStaff({ ...data, image: data.image as string, teams })
-      resetForm()
+      if (defaultValues) {
+        await updateStaff(defaultValues.id, { ...data, image: data.image as string, teams: data?.teams?.map(team => team.name) })
+      } else {
+        await createStaff({ ...data, image: data.image as string, teams: data?.teams?.map(team => team.name) })
+      }
+      queryClient.invalidateQueries(["staff"]);
+      form.reset()
     } catch (error) {
       console.error(error)
-    } finally {
-      setIsSubmitting(false)
     }
   }
 
+
   return (
     <Form {...form} >
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 max-w-md mx-auto border border-primary/50 rounded-xl p-3 font-secondary ">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 max-w-md mx-auto bg-foreground border border-primary/50 rounded-xl p-3 font-secondary ">
         <FormField
           control={form.control}
           name="name"
@@ -104,43 +109,42 @@ export default function ZodForm() {
           )}
         />
 
-
         <FormField
           control={form.control}
           name="teams"
-          render={({ field }) => (
-            <FormItem className="text-background">
-              <FormLabel >Équipes</FormLabel>
-              {teams.map((team, index) => (
-                <div key={index} className="flex gap-3 items-center">
-                  <p className="text-primary">{team}</p>
-                  <Button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setTeams((prev) => prev.filter((_, i) => i !== index));
-                    }}>
-                    Supprimer
-                  </Button>
-                </div>
-              ))}
-              <div className="flex gap-3"> <FormControl>
-                <Input
-                  placeholder="U17M-1   U09F-2"
-                  {...field}
-
-                />
-              </FormControl>
-                <Button onClick={(e) => {
-                  e.preventDefault()
-                  setTeams((prev) => [...prev, field.value].filter((team): team is string => team !== undefined && team.length > 0));
-                  field.onChange('');
-                }}>Ajouter une équipe</Button> </div>
-              <FormDescription >Ce champ est optionnel</FormDescription>
+          render={() => (
+            <FormItem className="text-background flex flex-col gap-2">
+              <FormLabel>Équipes</FormLabel>
+              {fields.map((field, index) => {
+                return (
+                  <div key={field.id} className="flex gap-3 items-center">
+                    <FormControl>
+                      <Input
+                        defaultValue={field.name}
+                        placeholder={`Équipe ${index + 1}`}
+                        {...form.register(`teams.${index}.name`)}
+                      />
+                    </FormControl>
+                    <Button
+                      onClick={() => remove(index)}  // Remove team
+                      type="button"
+                    >
+                      Supprimer
+                    </Button>
+                  </div>
+                );
+              })}
+              <Button
+                onClick={() => append({ name: "" })}  // Add new team
+                type="button"
+              >
+                Ajouter une équipe
+              </Button>
+              <FormDescription>Ce champ est optionnel</FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
           name="job"
@@ -230,10 +234,14 @@ export default function ZodForm() {
           )}
         />
 
-        <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'Envoi en cours...' : 'Envoyer'}
+        <Button type="submit" disabled={form.formState.isSubmitting}>
+          {form.formState.isSubmitting
+            ? 'Envoi en cours...' : 'Envoyer'}
         </Button>
       </form>
     </Form >
   )
 }
+
+
+

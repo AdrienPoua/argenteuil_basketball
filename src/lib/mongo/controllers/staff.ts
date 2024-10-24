@@ -1,7 +1,7 @@
 "use server";
 import Staff from "@/lib/mongo/models/Staff";
 import { TDatabase } from "@/utils/types";
-import { create, read, remove } from "@/lib/mongo/utils";
+import { create, read, remove, update } from "@/lib/mongo/utils";
 import { ValidateWithZod } from "@/lib/zod/utils";
 
 import { z } from "zod";
@@ -22,6 +22,11 @@ type TPayload = z.infer<typeof PayloadSchema>;
 export async function createStaff(payload: TPayload) {
   ValidateWithZod(payload, PayloadSchema);
   return await create({ payload, model: Staff });
+}
+
+export async function updateStaff(id: string, payload: TPayload) {
+  ValidateWithZod(payload, PayloadSchema);
+  await update({ filter: { _id: id }, payload, model: Staff });
 }
 
 export async function getLeaders(): Promise<
