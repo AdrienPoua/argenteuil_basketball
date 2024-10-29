@@ -1,6 +1,5 @@
 'use client'
 
-import { Dispatch, SetStateAction, useEffect } from 'react'
 import { useForm, useFieldArray } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -18,7 +17,7 @@ import { useQueryClient } from "react-query"
 
 type FormValues = z.infer<typeof formSchema>
 interface ZodFormProps {
-  defaultValues?: Partial<Omit<FormValues, 'teams'>> & { id: string, teams: string[] }
+  defaultValues?: Partial<Omit<FormValues, 'teams'>> & { id: string, teams?: string[] }
 }
 
 export default function ZodForm({ defaultValues }: Readonly<ZodFormProps>) {
