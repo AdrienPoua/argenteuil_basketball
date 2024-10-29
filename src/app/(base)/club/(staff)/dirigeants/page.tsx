@@ -9,7 +9,7 @@ export default function Index() {
   const { leaders, isLoading, error } = useFetchLeaders();
   return (
     <>
-      <H1> Nos entraineurs </H1>
+      <H1> Nos dirigeants </H1>
       <MainSection>
         <FetchFeedback isLoading={isLoading} error={error} data={leaders}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 justify-center items-center place-items-center p-10">
