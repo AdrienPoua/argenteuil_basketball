@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
@@ -9,9 +13,9 @@
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
-    "jsx": "preserve", // ou "react-jsx"
+    "jsx": "preserve",
     "target": "ES2017",
     "incremental": true,
     "plugins": [
@@ -20,24 +24,31 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
-      "@/public/*" : ["./public/*"],
-      "@lib/*": ["./src/lib/*"],
-      "@utils/*": ["./src/utils/*"],
-      "@nextauth/*": ["./src/api/auth/[...nextauth]/routes.ts"],
+      "@/*": [
+        "./src/*"
+      ],
+      "@/public/*": [
+        "./public/*"
+      ],
+      "@lib/*": [
+        "./src/lib/*"
+      ],
+      "@utils/*": [
+        "./src/utils/*"
+      ],
+      "@nextauth/*": [
+        "./src/api/auth/[...nextauth]/routes.ts"
+      ]
     },
     "isolatedModules": true
   },
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "src/middleware.js",
-    "**/*.tsx",
+    "src",
     ".next/types/**/*.ts",
-    "tailwind.config.ts",
-    "src/**/*.tsx", // inclure tous les fichiers tsx dans src
-    "src/**/*.ts", // inclure tous les fichiers ts dans src
-    "src/app/api/auth/[...nextauth]/route.ts"
-, "src/utils/hooks/useVisibility.ts", "src/lib/zod/schemas/models/LeaderSchema.ts"  ],
-  "exclude": ["node_modules"]
+    "tailwind.config.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
