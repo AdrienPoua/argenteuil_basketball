@@ -9,7 +9,6 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 import { MIN_BIRTH_YEAR_FOR_MEMBER, AT_THIS_YEAR_IAM_SENIOR } from "@/utils/magicNumber";
 import useIsMobile from "@/utils/hooks/useIsMobile";
-import Instructions from "@/components/Instructions";
 import FetchFeedBack from "@/components/FetchFeedback";
 import useFetchTeams from "@/utils/hooks/DBFetch/useFetchTeam";
 import categories from "@/data/categories.json"
@@ -79,28 +78,30 @@ export default function SchedulePage() {
       <H1>Plannings</H1>
       <MainSection>
         <FetchFeedBack data={teams} error={error} isLoading={isLoading}>
-          <>
-            <Instructions >
-              <div className="flex space-between">
-                <p className="flex justify-center grow">
-                  U07 = 5/6 ans <br />
-                  U09 = 7/8 ans <br />
-                  U11 = 9/10 ans <br />
-                  U13 = 11/12 ans <br />
-                  U15 = 13/14 ans <br />
-                  U17 = 15/16 ans <br />
-                </p>
-                <p className="flex justify-center grow">
-                  &quot;F&quot; est une séction féminine <br />
-                  &quot;M&quot; est une séction masculine <br />
+          <div className="max-w-[80%] mx-auto">
+            <div className="border-2 border-primary border-dashed p-10 rounded-xl relative mb-10">
+              <div className="flex flex-col gap-4">
+                <div className="flex space-between">
+                  <p className="flex justify-center grow">
+                    U07 = 5/6 ans <br />
+                    U09 = 7/8 ans <br />
+                    U11 = 9/10 ans <br />
+                    U13 = 11/12 ans <br />
+                    U15 = 13/14 ans <br />
+                    U17 = 15/16 ans <br />
+                  </p>
+                  <p className="flex justify-center grow">
+                    &quot;F&quot; est une séction féminine <br />
+                    &quot;M&quot; est une séction masculine <br />
+                  </p>
+                </div>
+                <p className="text-center">
+                  Si je suis une fille née le 31 décembre 2010, je suis en U15F
                 </p>
               </div>
-              <p className="text-center">
-                Si je suis une fille née le 31 décembre 2010, je suis en U15F
-              </p>
-            </Instructions>
+            </div>
             <Form className="mb-10" setCategoryResult={setCategoryResult} />
-            <div className="flex flex-col gap-10 max-w-[80%] mx-auto">
+            <div className="flex flex-col gap-10">
               {gyms.map((gym) => {
                 gym.slots = teams || [];
                 return (
@@ -108,9 +109,8 @@ export default function SchedulePage() {
                 );
               })}
             </div>
-          </>
+          </div>
         </FetchFeedBack>
-
       </MainSection>
     </>
   );
