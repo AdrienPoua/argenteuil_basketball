@@ -17,8 +17,8 @@ export default function Index(): ReactElement {
           <ul
             className="flex">
             {navItems.map((item) => (
-              <NavItem
-                key={item.title}
+              <NavItem 
+              key={item.title}
                 item={item}
               />
             ))}

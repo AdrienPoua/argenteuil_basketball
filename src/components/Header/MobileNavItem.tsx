@@ -1,19 +1,21 @@
 import { ReactElement } from "react";
 import Link from "next/link";
 import { TNavbar } from "@/utils/types";
-import Arrow from "./Arrow";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import { DrawerClose } from "../ui/drawer";
 
 
 
 
 const DirectNavItem = ({ item }: { item: TNavbar.DirectNavItem }): ReactElement => {
     return (
-        <Link
-            href={item.href}
-            className="grow flex ms-5 py-2">
-            <p>{item.title}</p>
-        </Link>
+        <DrawerClose>
+            <Link
+                href={item.href}
+                className="grow flex ms-5 py-2 text-background">
+                {item.title}
+            </Link>
+        </DrawerClose>
     );
 };
 
@@ -22,14 +24,16 @@ const ExpendableNavItem = ({ item }: { item: TNavbar.ExpendableNavItem }): React
         <Accordion type="single" collapsible>
             <AccordionItem value="item-1">
                 <AccordionTrigger>{item.title}</AccordionTrigger>
-                <AccordionContent >
+                <AccordionContent className="flex flex-col">
                     {item.subItems?.map((subItem: TNavbar.SubItem) => (
-                        <Link
-                            href={subItem.href}
-                            key={subItem.href}
-                            className="grow flex justify-end py-3">
-                            <p >{subItem.title}</p>
-                        </Link>
+                        <DrawerClose key={subItem.href}
+                        >
+                            <Link
+                                href={subItem.href}
+                                className="grow flex justify-end py-3">
+                                <p >{subItem.title}</p>
+                            </Link>
+                        </DrawerClose >
                     ))}
                 </AccordionContent>
             </AccordionItem>
