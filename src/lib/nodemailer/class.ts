@@ -36,7 +36,8 @@ export class Convocation implements Transporter {
       cc: this.cc,
       subject: this.subject,
       html: this.html,
-      bcc : "argenteuilbasketball@hotmail.fr"
+      bcc: "argenteuilbasketball@hotmail.fr",
+      headers: { "X-Mailgun-Native-Send": "true" }
     });
   }
 }
