@@ -42,6 +42,7 @@ export default function StaffCard({
     }
 
     const { name, img, email, number, job, teams, isEmailDisplayed, isNumberDisplayed } = data;
+    console.log(job, data)
     if (isEditing) return (
         <div className="relative">
             <Form defaultValues={data} />

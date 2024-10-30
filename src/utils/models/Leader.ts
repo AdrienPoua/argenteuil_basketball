@@ -1,13 +1,12 @@
-import Staff from "@/utils/models/Staff";
-import { Constructor as ExtendingConstructor } from "@/utils/models/Staff";
+import Staff, { Constructor as ExtendingConstructor } from "@/utils/models/Staff";
 
 type Constructor = {
-  job: string;
+  job:  "Président" | "Trésorier" | "Correspondant" | "Secrétaire Général" | "Entraineur" | "",
   teams?: string[];
 } & ExtendingConstructor;
 export default class Leader extends Staff {
-  private _teams?: string[];
-  private _job: string;
+  private readonly _teams?: string[];
+  private readonly _job:  "Président" | "Trésorier" | "Correspondant" | "Secrétaire Général" | "Entraineur" | "";
   constructor(data: Constructor) {
     super(data);
     this._teams = data.teams;
@@ -18,7 +17,7 @@ export default class Leader extends Staff {
     return this._teams;
   }
 
-  get job(): string {
+  get job() {
     return this._job;
   }
 }

@@ -4,7 +4,7 @@ import { getStaff } from "@/lib/mongo/controllers/staff";
 import { ValidateWithZod } from "@/lib/zod/utils/index";
 import { SDatabase } from "@/lib/zod/schemas";
 import { useState, useEffect } from "react";
-import { Staff, Coach } from "@/utils/models";
+import { Coach, Leader } from "@/utils/models";
 
 const fetchStaff = async () => {
   const staff = await getStaff();
@@ -17,7 +17,7 @@ const fetchStaff = async () => {
 };
 
 export default function useFetchStaff() {
-  const [staff, setStaff] = useState<(Staff | Coach)[]>([]);
+  const [staff, setStaff] = useState<(Coach | Leader)[]>([]);
   const { data, isLoading, error, isFetching } = useQuery(
     ["staff"],
     fetchStaff,
@@ -27,12 +27,13 @@ export default function useFetchStaff() {
     if (data) {
       setStaff(
         data.map((person) => {
-          if ("teams" in person) {
-            return new Coach({...person, teams: person.teams ?? []})
-          } else {
-            return new Staff(person);
+          if (person?.teams && person.teams.length > 0) {
+            return new Coach({...person, teams: person.teams ?? []});
+          } else if(person.job){
+            return new Leader({...person, job : person.job as "Président" | "Trésorier" | "Correspondant" | "Secrétaire Général" | "Entraineur" | "",});
           }
-        }),
+          return null;
+        }).filter((person) => person !== null),
       );
     }
   }, [data]);
