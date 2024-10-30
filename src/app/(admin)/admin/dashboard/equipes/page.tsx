@@ -81,17 +81,17 @@ function Form() {
   return (
     <form onSubmit={handleSubmit} className=" flex flex-col gap-5 w-fit mx-auto">
       <div className="flex gap-5 mx-auto">
-        <Card className="shadow-xl">
-          <CardHeader className="flex justify-between items-center">
-            <CardTitle className='text-background text-4xl relative'>Rajoutez une équipe <Underline /> </CardTitle>
+        <Card className="shadow-xl p-5">
+          <CardHeader className="flex justify-between items-center  mb-5">
+            <CardTitle className='text-background text-4xl relative my-5'>Rajoutez une équipe <Underline /> </CardTitle>
           </CardHeader>
           <CardContent >
             <TeamInputs setTeam={setTeam as () => void} team={team} />
           </CardContent>
         </Card>
-        <Card className="shadow-xl">
-          <CardHeader>
-            <CardTitle className='text-black relative w-fit'> <Underline /> Horaires d&apos;entrainements</CardTitle>
+        <Card className="shadow-xl p-5">
+          <CardHeader className="mx-auto my-5">
+            <CardTitle className='text-black relative text-center'> <Underline /> Horaires d&apos;entrainements</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col gap-5">
             {team.training.map((session, index) => (

@@ -25,7 +25,7 @@ export default function ZodForm({ defaultValues }: Readonly<ZodFormProps>) {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: defaultValues?.name ?? 'salut',
+      name: defaultValues?.name ?? '',
       email: defaultValues?.email ?? '',
       number: defaultValues?.number ?? '',
       teams: defaultValues?.teams?.map(team => ({ name: team })) ?? [],
