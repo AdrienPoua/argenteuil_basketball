@@ -52,7 +52,7 @@ function StepOne() {
         </h2>
         <div className="text-muted-foreground md:text-xl">
           <ul className="flex flex-col gap-2">
-            <li> - Une séance d&apos;essai est possible et fortement recommandée avant toute inscription.</li>
+            <li> - Une séance d&apos;essai est possible et fortement recommandée avant toute inscription. Rendez-vous directement à l&apos;entrainement </li>
             <li> - Récupérez le dossier d&apos;inscription
               <a href={'/documents/2024-2025_demande_de_licence.pdf'} download className="mx-2 text-primary">
                 ici
