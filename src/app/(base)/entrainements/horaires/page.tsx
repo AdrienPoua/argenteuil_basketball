@@ -22,7 +22,7 @@ const ScheduleSlot = ({ slot, categoryResult }: { slot: any; categoryResult: str
 
   return (
     <div className="h-full ">
-      <div className={`p-2 rounded w-full bg-white shadow-md h-full ${isCategoryResult ? "animate-bounce bg-green-500" : ""}`}>
+      <div className={`p-2 rounded w-full  shadow-md h-full ${isCategoryResult ? "bg-green-500 animate-bounce " : "bg-white"} `}>
         <p className="text-primary text-xs md:text-base text-center">
           {!isMobile ? slot.team : firstTeam}
           <br />

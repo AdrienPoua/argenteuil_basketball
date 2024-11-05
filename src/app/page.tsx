@@ -59,20 +59,20 @@ function PostsWrapper() {
       <div className="flex flex-wrap -mx-4 mb-10">
         <div className="w-full md:w-1/2 px-4 mb-8 md:mb-0">
           {leftPostOnHomePage && (
-            <div className="sticky top-10">
+            <div className="sticky top-10 h-[1000px] max-h-[80vh]">
               <CustomCard post={leftPostOnHomePage} />
             </div>
           )}
         </div>
-        <div className="w-full md:w-1/2 px-4">
-          <div className="mb-8 ">
+        <div className="w-full md:w-1/2 px-4 ">
+          <div className="mb-8 h-[1000px] max-h-[80vh] ">
             {rightPostOnHomePage && (
               <CustomCard post={rightPostOnHomePage} />
             )}
           </div>
           <div className="flex flex-wrap -mx-2 ">
             {postsOnHomePage?.slice(0, MAX_POSTS_ON_HOME_PAGE).map((post: SanityDocument) => (
-              <div key={post._id} className="w-full sm:w-1/2 px-2 mb-4">
+              <div key={post._id} className="w-full sm:w-1/2 px-2 mb-4 h-96 max-h-[50vh]">
                 <CustomCard post={post} />
               </div>
             ))}
@@ -93,7 +93,7 @@ const CustomCard = ({ post }: { post: SanityDocument }): ReactElement => {
   });
 
   return (
-    <Link href={`/actualites/${slug.current}`} className="flex aspect-[10/12] ">
+    <Link href={`/actualites/${slug.current}`} className="flex size-full">
       <Card className="group rounded-3xl overflow-hidden flex flex-col grow border-none">
         <CardContent className="relative overflow-hidden grow">
           <Image
