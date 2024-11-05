@@ -7,7 +7,7 @@ export const LeaderSchema = z.object({
   number: z.string(),
   isEmailDisplayed: z.boolean().optional(),
   isNumberDisplayed: z.boolean().optional(),
-  job: z.string(),
+  job: z.enum(["Président", "Trésorier", "Correspondant", "Secrétaire Général", "Entraineur", ""]), // Correspond aux options du select
   image: z.string().optional(),
 });
 
