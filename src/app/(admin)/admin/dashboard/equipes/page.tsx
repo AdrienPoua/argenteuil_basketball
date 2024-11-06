@@ -1,30 +1,11 @@
 'use client'
 import useFetchTeams from '@/utils/hooks/DBFetch/useFetchTeam'
 import FetchFeedBack from '@/components/FetchFeedback'
-import { useState } from 'react'
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { TrainingSession, TeamInputs, TeamCard } from './Components'
-import { createTeam } from '@/lib/mongo/controllers/teams'
-import { useToast } from '@/hooks/use-toast'
-import Underline from '@/components/UnderlineDecorator'
-import useReset from '@/hooks/use-reset'
+import { TeamCard } from './TeamCard'
+import Form from './Form'
 
-export type TeamType = {
-  id: string,
-  name: string
-  image?: string
-  coach?: string
-  division?: string
-  training: {
-    day: string
-    start: string
-    end: string
-    gym: string
-  }[]
-}
 
-export default function TeamForm() {
+export default function Index() {
   const { data, isLoading, error } = useFetchTeams()
 
   return (
@@ -33,7 +14,7 @@ export default function TeamForm() {
       <div className="space-y-8">
         <FetchFeedBack isLoading={isLoading} error={error} data={data}>
           <div className="flex flex-col gap-4">
-            <h3 className="text-3xl mx-auto text-background my-10 text-center shadow-custom">Liste des équipes</h3>
+            <h3 className="text-3xl mx-auto text-background my-10 text-center shadow-custom bg-foreground p-5">Liste des équipes</h3>
             {data?.map((team) => (
               <TeamCard
                 key={team._id}
@@ -50,68 +31,3 @@ export default function TeamForm() {
 
 
 
-function Form() {
-  const { toast } = useToast()
-  const reset = useReset()
-  const [team, setTeam] = useState<TeamType>({
-    id: '',
-    name: '',
-    image: '',
-    coach: '',
-    division: '',
-    training: []
-  })
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (team.name) {
-      createTeam(team)
-      reset()
-      toast({
-        title: "success",
-        description: "Votre demande a été envoyée avec succès !",
-      })
-    } else {
-      toast({
-        title: "Erreur",
-        description: "Echec de votre demande",
-      })
-    }
-  }
-  return (
-    <form onSubmit={handleSubmit} className=" flex flex-col gap-5 w-fit mx-auto">
-      <div className="flex gap-5 mx-auto">
-        <Card className="shadow-xl p-5">
-          <CardHeader className="flex justify-between items-center  mb-5">
-            <CardTitle className='text-background text-4xl relative my-5'>Rajoutez une équipe <Underline /> </CardTitle>
-          </CardHeader>
-          <CardContent >
-            <TeamInputs setTeam={setTeam as () => void} team={team} />
-          </CardContent>
-        </Card>
-        <Card className="shadow-xl p-5">
-          <CardHeader className="mx-auto my-5">
-            <CardTitle className='text-black relative text-center'> <Underline /> Horaires d&apos;entrainements</CardTitle>
-          </CardHeader>
-          <CardContent className="flex flex-col gap-5">
-            {team.training.map((session, index) => (
-              <TrainingSession
-                key={index + session.day}
-                index={index}
-                setTeam={setTeam}
-                team={team}
-              />
-            ))}
-            <Button type="button" onClick={() => setTeam(prev => ({
-              ...prev,
-              training: [...prev.training, { day: '', start: '', end: '', gym: '' }]
-            }))} >
-              Ajouter un entrainement
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
-      <Button type="submit" >Créer</Button>
-    </form>
-  )
-}

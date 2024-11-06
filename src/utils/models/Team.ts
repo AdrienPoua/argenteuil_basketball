@@ -10,7 +10,7 @@ type TeamConstructor = {
 
 type Training = {
   team?: string;
-  day: string;
+  day: "Lundi" | "Mardi" | "Mercredi" | "Jeudi" | "Vendredi" | "Samedi";
   start: string;
   end: string;
   gym: string;

@@ -1,6 +1,6 @@
 "use server";
 import { TDatabase } from "@/utils/types";
-import { create } from "@/lib/mongo/utils";
+import { create, remove } from "@/lib/mongo/utils";
 import { ValidateWithZod } from "@/lib/zod/utils";
 import { SDatabase } from "@/lib/zod/schemas";
 import connectDB from "@/lib/mongo/mongodb";
@@ -29,4 +29,8 @@ export async function updateTeam(id: string, payload: TDatabase.Team) {
   } catch (error) {
     console.error("Erreur lors de la mise à jour de l'équipe:", error);
   }
+}
+
+export async function DeleteTeam(id: string) {
+  await remove({ filter: { _id: id }, model: Team });
 }
