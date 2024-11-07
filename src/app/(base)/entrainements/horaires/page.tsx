@@ -57,7 +57,7 @@ const Schedule = ({ data: gym, categoryResult }: { data: Gym; categoryResult: st
       <h2 className="text-white text-5xl text-center pb-4">{gym.name}</h2>
       <div className="grid grid-cols-1 gap-4">
         {gym.available.map((day) => {
-          const slotsForDay = gym.slots.filter((slot) => slot.day === day);
+          const slotsForDay = gym.slots.filter((slot) => slot.day === day).sort((a, b) => Number(a.end.split(":")[0]) - Number(b.end.split(":")[0]));
           return <ScheduleDay key={day} day={day} slots={slotsForDay} categoryResult={categoryResult} />;
         })}
         <div className="p-4 bg-white flex justify-center items-center">
@@ -69,7 +69,32 @@ const Schedule = ({ data: gym, categoryResult }: { data: Gym; categoryResult: st
     </div>
   );
 };
-
+[
+  {
+      "day": "Mardi",
+      "start": "18:45",
+      "end": "20:00",
+      "gym": "Jean Guimier",
+      "_id": "66f6bc32d7c6a5e298fd6e84",
+      "team": "U17M-1"
+  },
+  {
+      "day": "Mardi",
+      "start": "17:30",
+      "end": "18:45",
+      "gym": "Jean Guimier",
+      "_id": "66f68bbdd7c6a5e298fd6d9f",
+      "team": "U11F / U13F"
+  },
+  {
+      "day": "Mardi",
+      "start": "20:00",
+      "end": "22:00",
+      "gym": "Jean Guimier",
+      "_id": "66f6bd27d7c6a5e298fd6e96",
+      "team": "Seniors 1"
+  }
+]
 export default function SchedulePage() {
   const [categoryResult, setCategoryResult] = useState<string | null>(null);
   const { teams, error, isLoading } = useFetchTeams();
