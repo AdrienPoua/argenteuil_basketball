@@ -57,7 +57,7 @@ const Schedule = ({ data: gym, categoryResult }: { data: Gym; categoryResult: st
       <h2 className="text-white text-5xl text-center pb-4">{gym.name}</h2>
       <div className="grid grid-cols-1 gap-4">
         {gym.available.map((day) => {
-          const slotsForDay = gym.slots.filter((slot) => slot.day === day);
+          const slotsForDay = gym.slots.filter((slot) => slot.day === day).sort((a, b) => Number(a.end.split(":")[0]) - Number(b.end.split(":")[0]));
           return <ScheduleDay key={day} day={day} slots={slotsForDay} categoryResult={categoryResult} />;
         })}
         <div className="p-4 bg-white flex justify-center items-center">

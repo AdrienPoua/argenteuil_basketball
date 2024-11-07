@@ -31,9 +31,7 @@ const formSchema = z.object({
         gym: z.enum(["Jean Guimier", "Jesse Owens"]),
     })),
 });
-
 export type FormValues = z.infer<typeof formSchema>
-
 export interface ZodFormProps {
     defaultValues?: FormValues & { id: string }
     setIsEditing?: React.Dispatch<React.SetStateAction<boolean>>
@@ -68,10 +66,10 @@ export default function ZodForm({ defaultValues, setIsEditing }: Readonly<ZodFor
             if (data.image && data.image instanceof File) {
                 const imageUrl: string | undefined = await uploadImage(data.image)
                 data.image = imageUrl
-            } else {
-                data.image = defaultValues?.image as string
+            } else if (defaultValues?.image) {
+                data.image = defaultValues.image as string
             }
-            const payload = { ...data, image: data.image as string }
+            const payload = { ...data, image: data.image as string | undefined }
             //if there is an id it means it's a card with data so update the team, else create a new one
             if (defaultValues?.id) {
                 await updateTeam(defaultValues.id, payload)
