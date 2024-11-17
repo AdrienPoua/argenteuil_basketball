@@ -50,8 +50,8 @@ export default function ZodForm({ defaultValues, setIsEditing }: Readonly<ZodFor
             training: defaultValues?.training ?? [],
         },
     })
-    const [previewImage, setPreviewImage] = useState(
-        typeof defaultValues?.image === 'string' ? defaultValues.image : ''
+    const [previewImage, setPreviewImage] = useState<string | null>(
+        typeof defaultValues?.image === 'string' ? defaultValues.image : null
     );
 
 
@@ -61,6 +61,7 @@ export default function ZodForm({ defaultValues, setIsEditing }: Readonly<ZodFor
     });
 
     async function onSubmit(data: FormValues) {
+        console.log("🚀 ~ onSubmit ~ data:", data)
         try {
             // if there is a image, upload it and get the string
             if (data.image && data.image instanceof File) {
@@ -87,7 +88,8 @@ export default function ZodForm({ defaultValues, setIsEditing }: Readonly<ZodFor
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className=" flex flex-col gap-5 w-fit mx-auto">
+            <form onSubmit={form.handleSubmit(onSubmit)} encType="multipart/form-data"
+                className=" flex flex-col gap-5 w-fit mx-auto">
                 <div className="flex gap-5 mx-auto">
                     <Card className="shadow-xl p-5">
                         <CardHeader className="flex justify-between items-center mb-5">
@@ -123,7 +125,15 @@ export default function ZodForm({ defaultValues, setIsEditing }: Readonly<ZodFor
                                                 <Input
                                                     type="file"
                                                     accept="image/*"
-                                                    onChange={(e) => { field.onChange(e.target.files?.[0]) }}
+                                                    onChange={(e) => {
+                                                        const file = e.target.files?.[0];
+                                                        field.onChange(file);
+                                                        if (file) {
+                                                            // Générer une URL temporaire pour prévisualisation
+                                                            const preview = URL.createObjectURL(file);
+                                                            setPreviewImage(preview);
+                                                        }
+                                                    }}
                                                 />
                                             </>
                                         </FormControl>
