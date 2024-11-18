@@ -4,9 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import Underline from '@/components/UnderlineDecorator'
 import { useForm, useFieldArray } from 'react-hook-form'
-import { z } from "zod"
 import { zodResolver } from '@hookform/resolvers/zod'
-import uploadImage from '@/hooks/use-uploadImage'
 import { createTeam, updateTeam } from "@/lib/mongo/controllers/teams"
 import { useQueryClient } from "react-query"
 import { Input } from "@/components/ui/input"
@@ -15,28 +13,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Trash2 } from "lucide-react"
 import { useState } from "react"
 import Image from "next/image"
-
-const formSchema = z.object({
-    name: z.string().min(1, { message: "Le nom est requis." }),
-    image: z.union([
-        z.instanceof(File),
-        z.string().url(),
-    ]).optional(),
-    coach: z.string().optional(),
-    division: z.string().optional(),
-    training: z.array(z.object({
-        day: z.enum(["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"]),
-        start: z.string().min(1, { message: "Le début est requis." }),
-        end: z.string().min(1, { message: "La fin est requise." }),
-        gym: z.enum(["Jean Guimier", "Jesse Owens"]),
-    })),
-});
-export type FormValues = z.infer<typeof formSchema>
-export interface ZodFormProps {
-    defaultValues?: FormValues & { id: string }
-    setIsEditing?: React.Dispatch<React.SetStateAction<boolean>>
-}
-
+import { FormValues, ZodFormProps, formSchema, handleUpdateImage, stringSchema } from "./Utils"
 
 export default function ZodForm({ defaultValues, setIsEditing }: Readonly<ZodFormProps>) {
     const queryClient = useQueryClient()
@@ -50,8 +27,8 @@ export default function ZodForm({ defaultValues, setIsEditing }: Readonly<ZodFor
             training: defaultValues?.training ?? [],
         },
     })
-    const [previewImage, setPreviewImage] = useState<string | null>(
-        typeof defaultValues?.image === 'string' ? defaultValues.image : null
+    const [previewImage, setPreviewImage] = useState<string | undefined>(
+        defaultValues?.image
     );
 
 
@@ -60,22 +37,19 @@ export default function ZodForm({ defaultValues, setIsEditing }: Readonly<ZodFor
         name: 'training'
     });
 
+
     async function onSubmit(data: FormValues) {
-        console.log("🚀 ~ onSubmit ~ data:", data)
+        let imageUrl = defaultValues?.image
+
         try {
-            // if there is a image, upload it and get the string
-            if (data.image && data.image instanceof File) {
-                const imageUrl: string | undefined = await uploadImage(data.image)
-                data.image = imageUrl
-            } else if (defaultValues?.image) {
-                data.image = defaultValues.image as string
+            if (data.image instanceof File) {
+                imageUrl = await handleUpdateImage(data.image)
+                imageUrl = stringSchema.parse(imageUrl)
             }
-            const payload = { ...data, image: data.image as string | undefined }
-            //if there is an id it means it's a card with data so update the team, else create a new one
-            if (defaultValues?.id) {
-                await updateTeam(defaultValues.id, payload)
+            if (defaultValues) {
+                await updateTeam(defaultValues.id, { ...data, image: imageUrl })
             } else {
-                await createTeam(payload)
+                await createTeam({ ...data, image: imageUrl })
             }
             queryClient.invalidateQueries(["teams"]);
             form.reset()
@@ -125,13 +99,12 @@ export default function ZodForm({ defaultValues, setIsEditing }: Readonly<ZodFor
                                                 <Input
                                                     type="file"
                                                     accept="image/*"
-                                                    onChange={(e) => {
+                                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                                         const file = e.target.files?.[0];
-                                                        field.onChange(file);
                                                         if (file) {
-                                                            // Générer une URL temporaire pour prévisualisation
-                                                            const preview = URL.createObjectURL(file);
-                                                            setPreviewImage(preview);
+                                                            const url = URL.createObjectURL(file);
+                                                            field.onChange(file);
+                                                            setPreviewImage(url);
                                                         }
                                                     }}
                                                 />

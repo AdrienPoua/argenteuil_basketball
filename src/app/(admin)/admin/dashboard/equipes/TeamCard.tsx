@@ -4,7 +4,8 @@ import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Edit2, Trash2 } from 'lucide-react'
 import Image from "next/image"
-import Form, { FormValues } from './Form'
+import Form from './Form'
+import { FormValues } from "./Utils"
 import { useQueryClient } from "react-query"
 import { DeleteTeam } from "@/lib/mongo/controllers/teams"
 
@@ -25,7 +26,7 @@ export const TeamCard = ({ data }: { data: Omit<FormValues, 'image'> & { id: str
             <CardContent>
                 <div className="space-y-2">
                     <p className="text-black"><strong>Coach:</strong> {data.coach}</p>
-                    {data.image ? <Image src={data.image} alt="Equipe" width={200} height={200} /> : <p className="text-black"> pas d&apos;image </p>}
+                    {data.image ? <Image src={data.image} alt="Equipe" width={200} height={200} className="size-auto" /> : <p className="text-black"> pas d&apos;image </p>}
                     <h3 className="text-lg font-semibold mt-4 text-black">Training Sessions</h3>
                     <ul className="list-disc pl-5 text-black">
                         {data.training.map((session, index) => (

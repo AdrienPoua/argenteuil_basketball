@@ -2,25 +2,19 @@
 
 import { useForm, useFieldArray } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { formSchema } from './formSchema'
-import uploadImage from '@/hooks/use-uploadImage'
 import { createStaff, updateStaff } from '@/lib/mongo/controllers/staff'
 import { useQueryClient } from "react-query"
-
-
-
-type FormValues = z.infer<typeof formSchema>
-interface ZodFormProps {
-  defaultValues?: Partial<Omit<FormValues, 'teams'>> & { id: string, teams?: string[] }
-}
+import { useState } from 'react'
+import Image from 'next/image'
+import { stringSchema, ZodFormProps, FormValues, formSchema, handleUpdateImage } from './Utils'
 
 export default function ZodForm({ defaultValues }: Readonly<ZodFormProps>) {
+  const [previewImage, setPreviewImage] = useState<string | undefined>(defaultValues?.image);
   const queryClient = useQueryClient()
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -30,7 +24,7 @@ export default function ZodForm({ defaultValues }: Readonly<ZodFormProps>) {
       number: defaultValues?.number ?? '',
       teams: defaultValues?.teams?.map(team => ({ name: team })) ?? [],
       job: defaultValues?.job ?? '',
-      image: defaultValues?.image ?? undefined,
+      image: undefined,
       isEmailDisplayed: defaultValues?.isEmailDisplayed ?? false,
       isNumberDisplayed: defaultValues?.isNumberDisplayed ?? false,
     },
@@ -40,20 +34,18 @@ export default function ZodForm({ defaultValues }: Readonly<ZodFormProps>) {
     control: form.control,
     name: 'teams'
   });
-
-
-
-
+  
   async function onSubmit(data: FormValues) {
+    let imageUrl = defaultValues?.image
     try {
-      if (data.image && data.image instanceof File) {
-        const imageUrl: string | undefined = await uploadImage(data.image)
-        data.image = imageUrl
+      if (data.image instanceof File) {
+        imageUrl = await handleUpdateImage(data.image)
+        imageUrl = stringSchema.parse(imageUrl)
       }
       if (defaultValues) {
-        await updateStaff(defaultValues.id, { ...data, image: data.image as string, teams: data?.teams?.map(team => team.name) })
+        await updateStaff(defaultValues.id, { ...data, image: imageUrl, teams: data?.teams?.map(team => team.name) })
       } else {
-        await createStaff({ ...data, image: data.image as string, teams: data?.teams?.map(team => team.name) })
+        await createStaff({ ...data, image: imageUrl, teams: data?.teams?.map(team => team.name) })
       }
       queryClient.invalidateQueries(["staff"]);
       form.reset()
@@ -176,9 +168,23 @@ export default function ZodForm({ defaultValues }: Readonly<ZodFormProps>) {
           render={({ field }) => (
             <FormItem className="text-background">
               <FormLabel >Image</FormLabel>
-              <FormControl>
-                <Input type="file" accept="image/*" onChange={(e) => field.onChange(e.target.files?.[0])} />
-              </FormControl>
+              <>
+                {previewImage && (
+                  <Image src={previewImage} alt="Prévisualisation de l'image" className="mb-2 max-w-xs" width={200} height={200} />
+                )}
+                <Input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      const url = URL.createObjectURL(file);
+                      field.onChange(file);
+                      setPreviewImage(url);
+                    }
+                  }}
+                />
+              </>
               <FormDescription >Ce champ est optionnel</FormDescription>
               <FormMessage />
             </FormItem>

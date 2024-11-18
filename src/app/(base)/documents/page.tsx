@@ -8,8 +8,7 @@ import MainSection from "@/components/layouts/MainSection";
 
 
 export default function DocumentsPage() {
-
-  return (
+return (
     <>
       <H1>Les documents utiles</H1>
       <MainSection>
