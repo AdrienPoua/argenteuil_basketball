@@ -12,8 +12,6 @@ import { Badge } from '@/components/ui/badge';
 import Convocation from '@/lib/react-email/templates/Convocation';
 import Dialog from './dialog'
 
-
-
 const fetchAndProcess = async (): Promise<Match[]> => {
     const matchs = await getMatchs();
     ValidateWithZod(matchs, DBMatchschema);
@@ -33,7 +31,6 @@ const MockedMatch = new Match({
 export default function Index(): ReactElement {
     const [selectedMatchs, setSelectedMatchs] = useState<Match[]>([]);
     const { data: matchs, isLoading, error } = useQuery('matchs', fetchAndProcess);
-
     return (
         <Feedback data={matchs} error={error} isLoading={isLoading}>
             <div className="size-full relative">
