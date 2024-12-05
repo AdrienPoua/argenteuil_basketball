@@ -1,7 +1,7 @@
 "use client";
 import Import from '@/components/Admin/ImportFile';
 import { createMember } from '@/lib/mongo/controllers/members';
-import Instructions from '@/app/(admin)/admin/dashboard/components/Instructions';
+import Instructions from '@/app/(admin)/dashboard/components/Instructions';
 
 
 export default function Index() {

@@ -1,25 +1,24 @@
-import {
-    FFBB_SERVER_USERNAME,
-    FFBB_SERVER_PASSWORD,
-    FFBB_SERVER_API
-} from "@/config/env";
+const { FFBB_SERVER_USERNAME, FFBB_SERVER_PASSWORD } = process.env;
+if (!FFBB_SERVER_USERNAME || !FFBB_SERVER_PASSWORD) {
+  throw new Error("FFBB_SERVER_USERNAME, FFBB_SERVER_PASSWORD are not set");
+}
+
+const endpoint =
+  "https://ffbbserver3.ffbb.com/ffbbserver3/api/authentication.ws";
 
 export async function GET() {
   try {
-    const token = await fetch(
-      `${FFBB_SERVER_API}/authentication.ws`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json", // Indique que nous attendons une réponse JSON
-        },
-        body: JSON.stringify({
-          userName: FFBB_SERVER_USERNAME,
-          password: FFBB_SERVER_PASSWORD,
-        }),
+    const token = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
       },
-    );
+      body: JSON.stringify({
+        userName: FFBB_SERVER_USERNAME,
+        password: FFBB_SERVER_PASSWORD,
+      }),
+    });
 
     return token;
   } catch (err: any) {

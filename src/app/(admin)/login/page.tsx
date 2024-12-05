@@ -15,7 +15,7 @@ export default function SignIn() {
   }
 
   if (status === "authenticated") {
-    window.location.href = "/admin/dashboard";
+    window.location.href = "/dashboard";
   }
 
   return (

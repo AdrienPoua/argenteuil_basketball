@@ -1,7 +1,7 @@
 "use client";
 import { createMatch } from '@/lib/mongo/controllers/matchs';
 import Import from '@/components/Admin/ImportFile';
-import Instruction from '@/app/(admin)/admin/dashboard/components/Instructions';
+import Instruction from '@/app/(admin)/dashboard/components/Instructions';
 
 export default function Index() {
     return (
