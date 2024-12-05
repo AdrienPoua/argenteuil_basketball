@@ -8,19 +8,22 @@ const endpoint =
 
 export async function GET() {
   try {
-    const token = await fetch(endpoint, {
+    const rawToken = await fetch(endpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json",
+        "Accept": "text/plain", // l'API renvoie un texte, pas une réponse JSON
       },
       body: JSON.stringify({
         userName: FFBB_SERVER_USERNAME,
         password: FFBB_SERVER_PASSWORD,
       }),
     });
-
-    return token;
+    const token = await rawToken.text();
+    return  new Response(token, {
+      status: 200,
+      headers: { "Content-Type": "text/plain" },
+    });
   } catch (err: any) {
     console.error("🚀 Error fetching token:", err.message);
 

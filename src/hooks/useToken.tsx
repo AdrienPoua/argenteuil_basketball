@@ -27,11 +27,12 @@ export default function useToken() {
 
         const response = await fetch("/api/auth/ffbb/token");
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          const errorText = await response.text();
+          throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
         }
         const newToken = await response.text();
         console.log("🚀 ~ fetchToken ~ newToken:", newToken)
-        const expiresAt = Date.now() + 24 * 60 * 60 * 1000; // Token expires in 24 hours
+        const expiresAt = Date.now() + 1 * 60 * 60 * 1000; // Token expires in 1 hours
         const tokenData: TokenData = { token: newToken, expiresAt };
         localStorage.setItem("FFBB_TOKEN", JSON.stringify(tokenData));
         setToken(newToken);
