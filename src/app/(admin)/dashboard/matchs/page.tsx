@@ -1,5 +1,5 @@
 "use client";
-import { createMatch } from '@/lib/mongo/controllers/matchs';
+import { createMatch } from '@/database/controllers/matchs';
 import Import from '@/components/Admin/ImportFile';
 import Instruction from '@/app/(admin)/dashboard/components/Instructions';
 

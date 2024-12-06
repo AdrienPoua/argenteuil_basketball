@@ -1,6 +1,6 @@
 "use client";
 import { Dispatch, SetStateAction } from 'react';
-import { Match } from '@/utils/models';
+import { Match } from '@/models';
 import Feedback from '@/components/FetchFeedback';
 import { Button } from '@/components/ui/button';
 import {

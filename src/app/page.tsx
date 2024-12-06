@@ -1,13 +1,13 @@
 "use client";
 import Image from "next/image";
 import { ReactElement, useRef } from "react";
-import { useSanity } from "@/utils/hooks/sanity/useSanity";
+import { useSanity } from "@/hooks/useSanity";
 import { SanityDocument } from "next-sanity";
-import { MAX_POSTS_ON_HOME_PAGE } from "@/utils/magicNumber";
+import { MAX_POSTS_ON_HOME_PAGE } from "@/data/magicNumber";
 import LottieCursor from "@/components/LottieCursor";
 import HeaderAndFooter from "@/components/layouts/HeaderAndFooter";
 import Link from "next/link";
-import { urlFor } from "@/lib/sanity/image";
+import { urlFor } from "@/utils/sanity/image";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
 

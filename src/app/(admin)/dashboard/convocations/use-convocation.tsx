@@ -1,11 +1,11 @@
 "use client";
 import { useState, useEffect } from 'react';
-import { Match } from '@/utils/models';
-import useFetchClubs from '@/utils/hooks/DBFetch/useFetchClubs';
+import { Match } from '@/models';
+import useFetchClubs from '@/hooks/useFetchClubs';
 import levenshtein from 'fast-levenshtein';
-import sendConvocation from '@/lib/nodemailer/sendConvocationEmail';
 import { render } from '@react-email/components';
-import Convocation from '@/lib/react-email/templates/Convocation';
+import Template from "@/services/react-email/templates/Convocation";
+import { Convocation } from '@/services/nodemailer/convocation';
 
 
 export default function useConvocation({ selectedMatchs }: Readonly<{ selectedMatchs: Match[] }>) {
@@ -32,7 +32,7 @@ export default function useConvocation({ selectedMatchs }: Readonly<{ selectedMa
                     const distance = levenshtein.get(a, b)
                     return distance < 5
                 })
-                if(!club) throw new Error(String(error))
+                if (!club) throw new Error(String(error))
                 return { club, match }
             })
             setPayload(currentPayload)
@@ -44,13 +44,14 @@ export default function useConvocation({ selectedMatchs }: Readonly<{ selectedMa
         try {
             for (const item of payload) {
                 if (item?.club?.correspondant?.email) {
-                    const convocation = render(<Convocation match={item.match} />);
-                    await sendConvocation({
+                    const html = render(<Template match={item.match} />);
+                    const Email = new Convocation({
                         to: item.club.correspondant.email,
-                        html: convocation,
+                        html,
                         subject: `Convocation ${item.match.division} match n°${item.match.matchNumber}`,
                         division: item.match.division,
                     });
+                    await Email.send();
                 }
             }
         } catch (error) {

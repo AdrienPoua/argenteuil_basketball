@@ -1,18 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { Gym } from "@/utils/models";
+import { Gym } from "@/models";
 import H1 from "@/components/H1";
 import MainSection from "@/components/layouts/MainSection";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
-import { MIN_BIRTH_YEAR_FOR_MEMBER, AT_THIS_YEAR_IAM_SENIOR } from "@/utils/magicNumber";
-import useIsMobile from "@/utils/hooks/useIsMobile";
+import { MIN_BIRTH_YEAR_FOR_MEMBER, AT_THIS_YEAR_IAM_SENIOR } from "@/data/magicNumber";
+import useIsMobile from "@/hooks/use-mobile";
 import FetchFeedBack from "@/components/FetchFeedback";
-import useFetchTeams from "@/utils/hooks/DBFetch/useFetchTeam";
+import useFetchTeams from "@/hooks/useFetchTeam";
 import categories from "@/data/categories.json"
-import { gyms } from "@/utils/services/dataProcessing";
+import gymsData from "@/data/gyms.json";
+
+const gyms = gymsData.map((gymData) => new Gym(gymData));
 
 const ScheduleSlot = ({ slot, categoryResult }: { slot: any; categoryResult: string | null }) => {
   const isMobile = useIsMobile();

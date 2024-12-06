@@ -3,7 +3,7 @@ import Table from "./table";
 import H1 from "@/components/H1";
 import MainSection from "@/components/layouts/MainSection";
 import Feedback from "@/components/FetchFeedback";
-import useScorenco from "@/utils/hooks/scorenco/useScorenco";
+import useScorenco from "@/hooks/useScorenco";
 import { Button } from "@/components/ui/button";
 
 export default function Index() {

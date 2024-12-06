@@ -15,7 +15,7 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form";
-import { updateClub, deleteClub } from "@/lib/mongo/controllers/clubs";
+import { updateClub, deleteClub } from "@/database/controllers/clubs";
 import { useQueryClient } from "react-query";
 
 

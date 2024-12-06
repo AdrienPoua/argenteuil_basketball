@@ -1,15 +1,15 @@
 "use client";
 import { ReactElement, useState } from 'react';
 import { useQuery } from 'react-query';
-import { getMatchs } from '@/lib/mongo/controllers/matchs';
-import { ValidateWithZod } from '@/lib/zod/utils';
-import DBMatchschema from '@/lib/zod/schemas/database/MatchSchema';
+import { getMatchs } from '@/database/controllers/matchs';
+import { ValidateWithZod } from '@/utils/zod/utils';
+import DBMatchschema from '@/utils/zod/schemas/database/MatchSchema';
 import SelectMatch from './SelectMatch';
-import { Match } from '@/utils/models';
+import { Match } from '@/models';
 import Adapter from '@/utils/adapters/matchs/fromDBforModel';
 import Feedback from '@/components/FetchFeedback';
 import { Badge } from '@/components/ui/badge';
-import Convocation from '@/lib/react-email/templates/Convocation';
+import Convocation from '@/utils/react-email/templates/Convocation';
 import Dialog from './dialog'
 
 const fetchAndProcess = async (): Promise<Match[]> => {

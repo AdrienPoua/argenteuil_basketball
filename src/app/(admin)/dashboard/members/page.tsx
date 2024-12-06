@@ -1,6 +1,6 @@
 "use client";
 import Import from '@/components/Admin/ImportFile';
-import { createMember } from '@/lib/mongo/controllers/members';
+import { createMember } from '@/database/controllers/members';
 import Instructions from '@/app/(admin)/dashboard/components/Instructions';
 
 

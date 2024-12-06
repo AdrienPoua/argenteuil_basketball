@@ -2,13 +2,13 @@ import { useEffect, useState, ReactElement } from "react";
 import Logo from "@/components/Logo";
 import { usePathname } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { closeDrawer, openDrawer } from "@/lib/redux/slices/navbar";
+import { closeDrawer, openDrawer } from "@/utils/redux/slices/navbar";
 import { Button } from "@/components/ui/button";
 import { Menu } from 'lucide-react';
-import Dialog from "./Dialog";
+import Dialog from "./ContactDialog";
 import { Drawer, DrawerTrigger, DrawerContent } from "@/components/ui/drawer";
-import { RootState } from "@/lib/redux/store";
-import { open, setContent } from "@/lib/redux/slices/modal";
+import { RootState } from "@/utils/redux/store";
+import { open, setContent } from "@/utils/redux/slices/modal";
 import MobileNavItem from "@/components/Header/MobileNavItem";
 
 export default function Index(): ReactElement {

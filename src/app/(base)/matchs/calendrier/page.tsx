@@ -1,9 +1,9 @@
 "use client";
 import H1 from "@/components/H1";
 import Schedule from "./Schedule";
-import useFetchMatchs from "@/utils/hooks/DBFetch/useFetchMatchs";
+import useFetchMatchs from "@/hooks/useFetchMatchs";
 import FetchFeedback from "@/components/FetchFeedback";
-import { SAISON_MONTH_ORDER } from "@/utils/magicNumber";
+import { SAISON_MONTH_ORDER } from "@/data/magicNumber";
 
 export default function Index() {
   const { data: plannings, isLoading, error } = useFetchMatchs();

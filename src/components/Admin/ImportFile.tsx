@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button"; // ShadCN UI Button
 import { Input } from "@/components/ui/input"; // ShadCN UI Input
 import { Loader2 } from "lucide-react"; // ShadCN UI equivalent to CircularProgress
 import { useToast } from "@/hooks/use-toast"; // ShadCN UI Toast for notifications
-import { parseExcelToJson } from "@/lib/xlsx";
-import { TDatabase } from "@/utils/types";
+import { parseExcelToJson } from "@/utils/xlsx";
+import { TDatabase } from "@/types";
 
 type PropsType = {
   serverAction: (arg: any) => Promise<void>;

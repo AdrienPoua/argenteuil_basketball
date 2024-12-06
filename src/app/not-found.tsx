@@ -1,7 +1,11 @@
 "use client";
 import Link from 'next/link';
-import Lottie404 from '@/lib/lottie/404'
+import Lottie404 from '@/utils/lottie/404'
 import { MoveLeft } from "lucide-react";
+import Player from 'lottie-react';
+import animationData from '@/public/animations/404.json';
+
+
 
 export default function NotFound() {
     return (
@@ -11,7 +15,10 @@ export default function NotFound() {
             </Link>
             <h1 className="text-center max-w-[80%]" > Il n&apos;y a rien a voir ici, vas t&apos;entraîner !</h1>
             <Link href="/" className="h-[500px] w-[500px]">
-                <Lottie404 />
+                <Player
+                    autoplay
+                    loop
+                    animationData={animationData} />
             </Link>
         </div>
     );

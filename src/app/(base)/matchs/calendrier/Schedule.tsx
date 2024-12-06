@@ -1,5 +1,5 @@
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"; // Shadcn UI Table components
-import { Match } from "@/utils/models";
+import { Match } from "@/models";
 import Cell from "./Cell"; // Import your custom Cell component
 import { ReactElement } from "react";
 import Underline from "@/components/UnderlineDecorator";

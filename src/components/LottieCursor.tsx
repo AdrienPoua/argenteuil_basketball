@@ -1,7 +1,7 @@
 "use client";
 import Player from 'lottie-react';
 import animationData from '@/public/animations/basketball.json';
-import useMousePosition from '@/utils/hooks/mouse/mousePosition';
+import useMousePosition from '@/hooks/useMousePosition';
 import { useEffect, useState } from 'react';
 
 export default function LottieCursor({ containerRef }: { containerRef: React.RefObject<HTMLDivElement> }) {

@@ -2,10 +2,10 @@ import { ReactElement } from "react";
 import Arrow from "./Arrow";
 import { usePathname } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/lib/redux/store";
-import { TNavbar } from "@/utils/types";
+import { RootState } from "@/utils/redux/store";
+import { TNavbar } from "@/types";
 import Link from "next/link";
-import { setCurrentNav, showSubBar } from "@/lib/redux/slices/navbar";
+import { setCurrentNav, showSubBar } from "@/utils/redux/slices/navbar";
 import { Button } from "@/components/ui/button";
 
 
@@ -53,3 +53,4 @@ export default function Factory({ item }: Readonly<{ item: TNavbar.DirectNavItem
     return <ExpendableNavItem item={item} />;
   }
 };
+

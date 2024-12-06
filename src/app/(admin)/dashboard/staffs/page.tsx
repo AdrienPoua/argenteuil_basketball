@@ -1,7 +1,7 @@
 "use client";
 import Form from './Form';
 import StaffCard from "./Card";
-import useFetchStaff from "@/utils/hooks/DBFetch/useFetchStaff";
+import useFetchStaff from "@/hooks/useFetchStaff";
 import FetchFeedback from "@/components/FetchFeedback";
 
 

@@ -1,7 +1,7 @@
 "use client";
 import { ReactElement } from "react";
 import { useQuery } from "react-query";
-import { getClubs } from "@/lib/mongo/controllers/clubs";
+import { getClubs } from "@/database/controllers/clubs";
 import Feedback from "@/components/FetchFeedback";
 import Card from './Card'
 

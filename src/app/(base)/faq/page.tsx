@@ -3,7 +3,7 @@ import { useState, ReactElement } from "react";
 import SearchBar from "@/components/SearchBar";
 import H1 from "@/components/H1";
 import MainSection from "@/components/layouts/MainSection";
-import useFetchFAQ from "@/utils/hooks/DBFetch/useFetchFAQ";
+import useFetchFAQ from "@/hooks/useFetchFAQ";
 import Feedback from "@/components/FetchFeedback";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 

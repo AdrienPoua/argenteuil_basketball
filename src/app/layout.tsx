@@ -5,7 +5,7 @@ import { SessionProvider } from "next-auth/react";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 import App from "./App";
 import "./globals.css";
-import store from "@/lib/redux/store";
+import store from "@/utils/redux/store";
 import { Provider as ReduxProvider } from "react-redux";
 import { Toaster } from "@/components/ui/toaster"
 

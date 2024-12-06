@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 import Link from "next/link";
-import { TNavbar } from "@/utils/types";
+import { TNavbar } from "@/types";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { DrawerClose } from "../ui/drawer";
 

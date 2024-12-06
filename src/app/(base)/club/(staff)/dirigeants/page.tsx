@@ -3,7 +3,7 @@ import H1 from '@/components/H1';
 import MainSection from "@/components/layouts/MainSection";
 import FetchFeedback from "@/components/FetchFeedback";
 import StaffCard from "../StaffCard";
-import useFetchLeaders from '@/utils/hooks/DBFetch/useFetchLeaders';
+import useFetchLeaders from '@/hooks/useFetchLeaders';
 
 export default function Index() {
   const { leaders, isLoading, error } = useFetchLeaders();

@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useQueryClient } from "react-query";
-import { updateClub } from '@/lib/mongo/controllers/clubs';
+import { updateClub } from '@/database/controllers/clubs';
 
 
 type ConvocationProps = {

@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import Underline from '@/components/UnderlineDecorator'
 import { useForm, useFieldArray } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { createTeam, updateTeam } from "@/lib/mongo/controllers/teams"
+import { createTeam, updateTeam } from "@/database/controllers/teams"
 import { useQueryClient } from "react-query"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"

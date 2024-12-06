@@ -1,5 +1,5 @@
 'use client'
-import useFetchTeams from '@/utils/hooks/DBFetch/useFetchTeam'
+import useFetchTeams from '@/hooks/useFetchTeam'
 import FetchFeedBack from '@/components/FetchFeedback'
 import { TeamCard } from './TeamCard'
 import Form from './Form'

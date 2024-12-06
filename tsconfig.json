@@ -27,15 +27,6 @@
       "@/*": [
         "./src/*"
       ],
-      "@/public/*": [
-        "./public/*"
-      ],
-      "@lib/*": [
-        "./src/lib/*"
-      ],
-      "@utils/*": [
-        "./src/utils/*"
-      ],
       "@nextauth/*": [
         "./src/api/auth/[...nextauth]/routes.ts"
       ]

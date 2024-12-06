@@ -1,11 +1,11 @@
 "use client";
-import useFetchFAQ from "@/utils/hooks/DBFetch/useFetchFAQ";
+import useFetchFAQ from "@/hooks/useFetchFAQ";
 import Feedback from "@/components/FetchFeedback";
-import { useFAQ } from "@/utils/hooks/useFAQ";
+import { useFAQ } from "@/hooks/useFAQ";
 import { Button } from "@/components/ui/button"; // ShadCN UI Button
 import { Textarea } from "@/components/ui/textarea"; // ShadCN UI Textarea
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { deleteFAQ, updateRank } from "@/lib/mongo/controllers/FAQ";
+import { deleteFAQ, updateRank } from "@/database/controllers/FAQ";
 
 export default function Index() {
   const { data, error, isLoading, invalidateFAQQuery } = useFetchFAQ();

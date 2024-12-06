@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Team, RankedTeam } from "@/utils/models";
+import { Team, RankedTeam } from "@/models";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 

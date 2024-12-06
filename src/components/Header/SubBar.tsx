@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ReactElement } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "@/lib/redux/store";
+import { RootState } from "@/utils/redux/store";
 
 
 export default function Index(): ReactElement {

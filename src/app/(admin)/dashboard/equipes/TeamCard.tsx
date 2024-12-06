@@ -7,7 +7,7 @@ import Image from "next/image"
 import Form from './Form'
 import { FormValues } from "./Utils"
 import { useQueryClient } from "react-query"
-import { DeleteTeam } from "@/lib/mongo/controllers/teams"
+import { DeleteTeam } from "@/database/controllers/teams"
 
 
 export const TeamCard = ({ data }: { data: Omit<FormValues, 'image'> & { id: string, image?: string } }) => {

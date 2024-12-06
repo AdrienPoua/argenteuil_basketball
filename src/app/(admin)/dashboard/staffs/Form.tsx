@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { createStaff, updateStaff } from '@/lib/mongo/controllers/staff'
+import { createStaff, updateStaff } from '@/database/controllers/staff'
 import { useQueryClient } from "react-query"
 import { useState } from 'react'
 import Image from 'next/image'

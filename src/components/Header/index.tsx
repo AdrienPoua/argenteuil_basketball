@@ -2,7 +2,6 @@
 import { useEffect, useRef } from "react"
 import { usePathname } from "next/navigation"
 import { useDispatch } from "react-redux"
-import { hideSubBar, setCurrentNav } from "@/lib/redux/slices/navbar"
 import DesktopNav from "@/components/Header/DesktopNav"
 import MobileNav from "@/components/Header/MobileNav"
 
@@ -29,7 +28,7 @@ export default function Header() {
   }, [dispatch])
 
   return (
-    <header 
+    <header
       ref={headerRef}
       className="flex flex-col flex-wrap px-6 py-2 bg-foreground"
       id="back-to-top-anchor"

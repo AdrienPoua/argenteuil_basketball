@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"; // Import Tooltip from Shadcn UI
 import { TableCell } from "@/components/ui/table"; // Shadcn UI TableCell
 import { Button } from "@/components/ui/button";
-import { Match } from "@/utils/models";
+import { Match } from "@/models";
 
 
 const typoClass = "text-black text-center";

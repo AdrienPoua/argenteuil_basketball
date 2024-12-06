@@ -1,6 +1,6 @@
 "use client";
 import { useRef } from "react";
-import { ABB } from "@/utils/services/dataProcessing";
+import ABB from "@/data/club.json";
 import useVisibility from "@/utils/hooks/useVisibility";
 import allCategories from "@/data/categories.json";
 import H1 from "@/components/H1";
@@ -38,7 +38,6 @@ const TarifRow = ({ categorie }: TarifRowProps) => {
 
 export default function TarifsPage() {
   const cardRef = useRef(null);
-  const isVisible = useVisibility(cardRef);
 
   return (
     <>
@@ -46,9 +45,7 @@ export default function TarifsPage() {
       <MainSection>
         <div
           ref={cardRef}
-          className={`transition-opacity duration-500 ease-in-out transform ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
+          className={`transition-opacity duration-500 ease-in-out transform`}
         >
           <div className="overflow-x-auto bg-white rounded-lg shadow">
             <Table className="min-w-full table-auto">

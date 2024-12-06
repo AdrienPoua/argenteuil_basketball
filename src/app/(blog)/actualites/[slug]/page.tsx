@@ -3,12 +3,12 @@ import { useParams } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { SanityDocument } from "next-sanity";
-import { POST_QUERY } from "@/lib/sanity/queries";
-import { sanityFetch } from "@/lib/sanity/fetch";
+import { POST_QUERY } from "@/utils/sanity/queries";
+import { sanityFetch } from "@/utils/sanity/fetch";
 import { PortableText } from "@portabletext/react";
 import { components } from "@/components/PortableText";
 import { useQuery } from "react-query";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/utils";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 

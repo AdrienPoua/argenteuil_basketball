@@ -1,6 +1,6 @@
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "@/components/ui/table"; // Import des composants Shadcn UI pour le tableau
-import { Ranking } from "@/utils/models";
-import { ABB } from "@/utils/services/dataProcessing";
+import { Ranking } from "@/models";
+import ABB from "@/data/club.json";
 
 type TableProps = {
   ranking: Ranking;
