@@ -24,7 +24,7 @@ export default function DynamicHero() {
         <Tabs defaultValue="step-1" className="mt-8">
           <TabsList className="grid w-fit grid-cols-3 mx-auto mb-20">
             {steps.map((step) => (
-              <TabsTrigger key={step.value} value={step.value} className="w-52">
+              <TabsTrigger key={step.value} value={step.value} className="md:w-52">
                 {step.label}
               </TabsTrigger>
             ))}

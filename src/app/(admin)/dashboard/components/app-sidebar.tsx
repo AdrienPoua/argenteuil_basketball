@@ -87,37 +87,37 @@ export function AppSidebar() {
 const topItems = [
   {
     title: "Dashboard",
-    url: "/admin/dashboard",
+    url: "/dashboard",
     icon: LayoutDashboard,
   },
   {
     title: "Matchs",
-    url: "/admin/dashboard/matchs",
+    url: "/dashboard/matchs",
     icon: Trophy,
   },
   {
     title: "Convocations",
-    url: "/admin/dashboard/convocations",
+    url: "/dashboard/convocations",
     icon: Calendar,
   },
   {
     title: "Correspondants",
-    url: "/admin/dashboard/correspondants",
+    url: "/dashboard/correspondants",
     icon: UserCog,
   },
   {
     title: "Staffs",
-    url: "/admin/dashboard/staffs",
+    url: "/dashboard/staffs",
     icon: GraduationCap,
   },
   {
     title: "Equipes",
-    url: "/admin/dashboard/equipes",
+    url: "/dashboard/equipes",
     icon: UsersRound,
   },
   {
     title: "FAQ",
-    url: "/admin/dashboard/faq",
+    url: "/dashboard/faq",
     icon: HelpCircle,
   }
 ]

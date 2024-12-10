@@ -167,7 +167,7 @@ const Form = ({ className, setCategoryResult }: { className: string; setCategory
         <Input
           name="birthYear"
           type="number"
-          defaultValue={2010}
+          defaultValue={2012}
           placeholder="1999"
           className="bg-white px-5 text-background"
         />

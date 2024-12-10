@@ -1,11 +1,10 @@
 "use client";
 import useFetchFAQ from "@/hooks/useFetchFAQ";
 import Feedback from "@/components/FetchFeedback";
-import { useFAQ } from "@/hooks/useFAQ";
 import { Button } from "@/components/ui/button"; // ShadCN UI Button
-import { Textarea } from "@/components/ui/textarea"; // ShadCN UI Textarea
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { deleteFAQ, updateRank } from "@/database/controllers/FAQ";
+import Form from "./Form";
 
 export default function Index() {
   const { data, error, isLoading, invalidateFAQQuery } = useFetchFAQ();
@@ -42,42 +41,3 @@ export default function Index() {
     </Feedback>
   );
 }
-
-// Form Component for creating a new FAQ
-const Form = () => {
-  const { create } = useFAQ();
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    create(new FormData(e.target as HTMLFormElement));
-    (e.target as HTMLFormElement).reset();
-  };
-
-  return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex justify-center items-center w-[800px] mx-auto p-5 gap-3"
-    >
-      <div className="flex gap-3">
-        <div className="flex gap-3">
-          <Textarea
-            name="question"
-            id="question-input"
-            placeholder="Votre question ici"
-            className="placeholder-black"
-          />
-        </div>
-        <div>
-          <Textarea
-            name="answer"
-            id="answer-input"
-            placeholder="Votre réponse ici"
-            className="placeholder-black"
-          />
-        </div>
-      </div>
-      <Button type="submit" >
-        Envoyer
-      </Button>
-    </form>
-  );
-};

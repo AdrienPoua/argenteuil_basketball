@@ -12,10 +12,12 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
-import { Home, Menu, Trophy, UserCog, UserCheck, Users, Building, CircleHelp, Calendar, DollarSign, FileText, Dumbbell } from 'lucide-react'
+import { Home, Menu, Trophy, UserCog, UserCheck, Users, Building, CircleHelp, Calendar, DollarSign, FileText, Dumbbell, Mail, Phone } from 'lucide-react'
 import { cn } from "@/utils/cn"
 import Logo from "@/components/Logo"
-import { Dialog } from "@/components/ui/dialog"
+import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog"
+import Utils from "@/models/Utils"
+import ABB from "@/data/club.json"
 
 const navigationData = [
   {
@@ -76,7 +78,7 @@ export default function MobileNav() {
                   className="w-full justify-start"
                   onClick={() => setOpen(false)}
                 >
-                  <Link href="/entrainements" className="flex items-center">
+                  <Link href="/planning/entrainements" className="flex items-center">
                     <Dumbbell className="mr-2 h-4 w-4" />
                     entrainements
                   </Link>
@@ -97,7 +99,7 @@ export default function MobileNav() {
                   onClick={() => setOpen(false)}
                 >
                   <Link href="/documents" className="flex items-center">
-                    <FileText  className="mr-2 h-4 w-4" />
+                    <FileText className="mr-2 h-4 w-4" />
                     Documents
                   </Link>
                 </Button>
@@ -107,10 +109,32 @@ export default function MobileNav() {
                   onClick={() => setOpen(false)}
                 >
                   <Link href="/faq" className="flex items-center">
-                    <CircleHelp  className="mr-2 h-4 w-4" />
+                    <CircleHelp className="mr-2 h-4 w-4" />
                     FAQ
                   </Link>
                 </Button>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start"
+                    >
+                      Contact
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className=" max-w-xs sm:max-w-md bg-[url('/images/logo.png')] bg-center bg-no-repeat bg-cover bg-transparent border-none aspect-square flex flex-col items-center justify-center">
+                    <Button
+                      className="min-w-[130%] py-3 hover:none text-background"
+                      onClick={() => window.open(`mailto:${ABB.email}`)}>
+                      {ABB.email}  <span className="ms-2"><Mail /> </span>
+                    </Button>
+                    <Button
+                      className="min-w-[130%] py-3 hover:none text-background"
+                      onClick={() => { if (window.innerWidth < 768) window.open(`tel:${Utils.formatPhoneNumber(ABB.phone)}`); }}>
+                      {Utils.formatPhoneNumber(ABB.phone)} <span> <Phone /> </span>
+                    </Button>
+                  </DialogContent>
+                </Dialog >
               </div>
             </div>
           </ScrollArea>
@@ -131,13 +155,13 @@ export default function MobileNav() {
               <Menu className="h-6 w-6" />
             </Button>
           </SheetTrigger>
-          <Link href="/matchs/calendrier" className={cn("flex flex-col items-center", pathname.startsWith("/matchs/calendrier") && "text-primary")}>
+          <Link href="/plannings/matchs" className={cn("flex flex-col items-center", pathname.startsWith("/plannings/matchs") && "text-primary")}>
             <Calendar className="h-6 w-6" />
-            <span className="text-xs">Calendrier</span>
-          </Link>
-          <Link href="/matchs/resultats" className={cn("flex flex-col items-center", pathname.startsWith("/matchs/resultats") && "text-primary")}>
-            <Trophy className="h-6 w-6" />
             <span className="text-xs">Matchs</span>
+          </Link>
+          <Link href="/plannings/resultats" className={cn("flex flex-col items-center", pathname.startsWith("/plannings/resultats") && "text-primary")}>
+            <Trophy className="h-6 w-6" />
+            <span className="text-xs">Resultats</span>
           </Link>
         </nav>
       </div>

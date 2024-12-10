@@ -90,7 +90,7 @@ const CustomCard = ({ post, small }: { post: SanityDocument, small?: boolean }):
   });
 
   return (
-    <Link href={`/actualites/${slug.current}`} className="flex size-full">
+    <Link href={`/actualites/${slug.current}`} className="flex size-full ">
       <Card className="group rounded-3xl overflow-hidden flex flex-col grow border-none">
         <CardContent className={`relative overflow-hidden grow ${small ? "hidden md:block" : ""} `}>
           <Image

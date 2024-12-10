@@ -29,5 +29,5 @@ export const SAISON_MONTH_ORDER: string[] = [
 ];
 export const MAX_POSTS_ON_HOME_PAGE = 2;
 
-export const MIN_BIRTH_YEAR_FOR_MEMBER = 2019;
+export const MIN_BIRTH_YEAR_FOR_MEMBER = new Date().getFullYear() - 5;
 export const AT_THIS_YEAR_IAM_SENIOR = 2007;

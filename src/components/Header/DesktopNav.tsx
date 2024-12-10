@@ -10,11 +10,7 @@ import {
   Calendar,
   Award,
   BookOpen,
-  DollarSign,
-  Home,
-  ChevronDown,
-  Dumbbell,
-  CircleHelp
+  Euro, ChevronDown, CircleHelp
 } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { Button } from "@/components/ui/button";
@@ -28,21 +24,23 @@ const navigationData = [
       { label: "Dirigeants", href: "/club/dirigeants", icon: UserCog }, // Dirigeants, gestion
       { label: "Entraineurs", href: "/club/entraineurs", icon: UserCheck }, // Entraineur validé
       { label: "Equipes", href: "/club/equipes", icon: Users }, // Équipe représentée par un groupe
-      { label: "Gymnases", href: "/club/gymnases", icon: Building } // Bâtiment pour gymnases
+      { label: "Gymnases", href: "/club/gymnases", icon: Building }, // Bâtiment pour gymnases
+      { label: "Resultats", href: "/club/resultats", icon: Award } // Bâtiment pour gymnases
+
     ]
   },
   {
-    label: "Matchs",
+    label: "Plannings",
     dropdowns: [
-      { label: "Calendrier", href: "/matchs/calendrier", icon: Calendar }, // Calendrier pour les matchs
-      { label: "Résultats", href: "/matchs/resultats", icon: Award } // Résultats représentés par un prix
+      { label: "Matchs", href: "/plannings/matchs", icon: Calendar },
+      { label: "Entrainements", href: "/plannings/entrainements", icon: Calendar },
     ]
   },
   {
     label: "Inscriptions 2024",
     dropdowns: [
       { label: "Guide", href: "/inscriptions/guide", icon: BookOpen }, // Livre pour un guide
-      { label: "Tarifs", href: "/inscriptions/tarifs", icon: DollarSign } // Symbole dollar pour les tarifs
+      { label: "Tarifs", href: "/inscriptions/tarifs", icon: Euro } // Symbole dollar pour les tarifs
     ]
   },
 ];
@@ -60,7 +58,6 @@ export default function DesktopNav(): ReactElement {
           {navigationData.map((item) => (
             <DropdownNavItem key={item.label} label={item.label} dropdownItems={item.dropdowns} />
           ))}
-          <NavItem href="/entrainements" label="Entrainements" isActive={pathname === "/entrainements"} icon={<Dumbbell className="w-4 h-4" />} />
           <NavItem href="/documents" label="Documents" isActive={pathname === "/documents"} icon={<FileText className="w-4 h-4" />} />
           <NavItem href="/faq" label="FAQ" isActive={pathname === "/faq"} icon={<CircleHelp className="w-4 h-4" />} />
         </ul>
