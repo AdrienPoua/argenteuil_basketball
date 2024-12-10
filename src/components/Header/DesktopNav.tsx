@@ -6,13 +6,15 @@ import {
   UserCheck,
   Users,
   Building,
-  Clock,
+  FileText,
   Calendar,
   Award,
   BookOpen,
   DollarSign,
   Home,
-  ChevronDown
+  ChevronDown,
+  Dumbbell,
+  CircleHelp
 } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { Button } from "@/components/ui/button";
@@ -27,12 +29,6 @@ const navigationData = [
       { label: "Entraineurs", href: "/club/entraineurs", icon: UserCheck }, // Entraineur validé
       { label: "Equipes", href: "/club/equipes", icon: Users }, // Équipe représentée par un groupe
       { label: "Gymnases", href: "/club/gymnases", icon: Building } // Bâtiment pour gymnases
-    ]
-  },
-  {
-    label: "Entrainements 2024",
-    dropdowns: [
-      { label: "Horaires", href: "/entrainements/horaires", icon: Clock } // Horaires représentés par une horloge
     ]
   },
   {
@@ -64,8 +60,9 @@ export default function DesktopNav(): ReactElement {
           {navigationData.map((item) => (
             <DropdownNavItem key={item.label} label={item.label} dropdownItems={item.dropdowns} />
           ))}
-          <NavItem href="/documents" label="Documents" isActive={pathname === "/documents"} icon={<Home className="w-4 h-4" />} />
-          <NavItem href="/faq" label="FAQ" isActive={pathname === "/faq"} icon={<Home className="w-4 h-4" />} />
+          <NavItem href="/entrainements" label="Entrainements" isActive={pathname === "/entrainements"} icon={<Dumbbell className="w-4 h-4" />} />
+          <NavItem href="/documents" label="Documents" isActive={pathname === "/documents"} icon={<FileText className="w-4 h-4" />} />
+          <NavItem href="/faq" label="FAQ" isActive={pathname === "/faq"} icon={<CircleHelp className="w-4 h-4" />} />
         </ul>
       </nav>
       <ContactDialog />
@@ -76,7 +73,7 @@ const NavItem = ({ label, href, isActive, icon }: NavItemProps) => {
   return (
     <li>
       <Button variant={isActive ? "activeNav" : "nav"} asChild>
-        <Link href={href} className={cn("flex items-center gap-2 px-4 py-2")}>
+        <Link href={href} className={cn("flex items-center gap-2 px-4 py-2", "text-xl")}>
           {icon}
           {label}
         </Link>
@@ -97,7 +94,7 @@ const DropdownNavItem = ({ dropdownItems, label }: Readonly<DropdownNavItemProps
     >
       <Button
         variant="nav"
-        className={cn("flex items-center gap-1 px-4 py-2")}
+        className={cn("flex items-center gap-1 px-4 py-2", "text-lg")}
       >
         {label}
         <ChevronDown

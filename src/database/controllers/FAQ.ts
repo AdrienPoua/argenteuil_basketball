@@ -10,6 +10,7 @@ const faqSchema = z.object({
   question: z.string(),
   answer: z.string(),
   rank: z.number(),
+  _id : z.string(),
 });
 
 type TFAQ = z.infer<typeof faqSchema>;

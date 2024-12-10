@@ -22,7 +22,7 @@ const buttonVariants = cva(
           "text-black bg-white shadow-sm hover:bg-accent border-none shadow-none",
         link: "text-primary underline-offset-4 hover:underline",
         nav: "text-black hover:text-primary transition duration-300 ease-in-out",
-        activeNav: "text-primary hover:bg-primary hover:text-accent-foreground"
+        activeNav: "text-primary"
       },
       size: {
         default: "h-9 px-4 py-2",

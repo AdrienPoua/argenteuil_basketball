@@ -34,19 +34,17 @@ export async function updateStaff(id: string, staff: TStaff) {
 }
 
 // Récupérer les leaders
-export async function getLeaders(): Promise<
-  (TDatabase.Leader & { id: string })[]
-> {
+export async function getLeaders() {
   return await staffCrud.read({ job: { $ne: "" } });
 }
 
 // Récupérer les coachs
-export async function getCoachs(): Promise<TDatabase.Coach[]> {
+export async function getCoachs() {
   return await staffCrud.read({ teams: { $exists: true, $not: { $size: 0 } } });
 }
 
 // Récupérer tout le staff
-export async function getStaff(): Promise<TDatabase.Staff[]> {
+export async function getStaff() {
   return await staffCrud.read();
 }
 
