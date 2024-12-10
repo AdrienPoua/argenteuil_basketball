@@ -8,7 +8,8 @@ import { sanityFetch } from "@/utils/sanity/fetch";
 import { PortableText } from "@portabletext/react";
 import { components } from "@/components/PortableText";
 import { useQuery } from "react-query";
-import { cn } from "@/utils/utils";
+import { cn } from "@/utils/cn"
+;
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 

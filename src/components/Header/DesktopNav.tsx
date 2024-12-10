@@ -1,7 +1,19 @@
 import { ReactElement, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { ChevronDown, Home, Users, UserCircle, Layers, Building2, Clock, Calendar, Trophy, BookOpen, PiggyBank } from 'lucide-react';
+import {
+  UserCog,
+  UserCheck,
+  Users,
+  Building,
+  Clock,
+  Calendar,
+  Award,
+  BookOpen,
+  DollarSign,
+  Home,
+  ChevronDown
+} from "lucide-react";
 import { cn } from "@/utils/cn";
 import { Button } from "@/components/ui/button";
 import Logo from "@/components/Logo";
@@ -11,39 +23,41 @@ const navigationData = [
   {
     label: "Club",
     dropdowns: [
-      { label: "Dirigeants", href: "/club/dirigeants", icon: Users },
-      { label: "Entraineurs", href: "/club/entraineurs", icon: UserCircle },
-      { label: "Equipes", href: "/club/equipes", icon: Layers },
-      { label: "Gymnases", href: "/club/gymnases", icon: Building2 }
+      { label: "Dirigeants", href: "/club/dirigeants", icon: UserCog }, // Dirigeants, gestion
+      { label: "Entraineurs", href: "/club/entraineurs", icon: UserCheck }, // Entraineur validé
+      { label: "Equipes", href: "/club/equipes", icon: Users }, // Équipe représentée par un groupe
+      { label: "Gymnases", href: "/club/gymnases", icon: Building } // Bâtiment pour gymnases
     ]
   },
   {
     label: "Entrainements 2024",
     dropdowns: [
-      { label: "Horaires", href: "/entrainements/horaires", icon: Clock }
+      { label: "Horaires", href: "/entrainements/horaires", icon: Clock } // Horaires représentés par une horloge
     ]
   },
   {
     label: "Matchs",
     dropdowns: [
-      { label: "Calendrier", href: "/matchs/calendrier", icon: Calendar },
-      { label: "Résultats", href: "/matchs/resultats", icon: Trophy }
+      { label: "Calendrier", href: "/matchs/calendrier", icon: Calendar }, // Calendrier pour les matchs
+      { label: "Résultats", href: "/matchs/resultats", icon: Award } // Résultats représentés par un prix
     ]
   },
   {
     label: "Inscriptions 2024",
     dropdowns: [
-      { label: "Guide", href: "/inscriptions/guide", icon: BookOpen },
-      { label: "Tarifs", href: "/inscriptions/tarifs", icon: PiggyBank }
+      { label: "Guide", href: "/inscriptions/guide", icon: BookOpen }, // Livre pour un guide
+      { label: "Tarifs", href: "/inscriptions/tarifs", icon: DollarSign } // Symbole dollar pour les tarifs
     ]
   },
 ];
 
-export default function Header(): ReactElement {
+
+
+export default function DesktopNav(): ReactElement {
   const pathname = usePathname();
 
   return (
-    <header className="hidden lg:flex relative items-center">
+    <header className="hidden lg:flex relative items-center px-6 py-2 bg-foreground">
       <Logo />
       <nav className="flex grow items-center justify-center">
         <ul className="flex">
@@ -58,29 +72,21 @@ export default function Header(): ReactElement {
     </header>
   );
 }
-
-const NavItem = ({ label, href, isActive, icon }: NavItemProps) => (
-  <li>
-    <Button variant="ghost" asChild>
-      <Link
-        href={href}
-        className={cn(
-          "flex items-center gap-2 px-4 py-2",
-          "text-sm font-medium transition-colors",
-          isActive ? "text-primary" : "text-foreground",
-          "hover:text-primary"
-        )}
-      >
-        {icon}
-        {label}
-      </Link>
-    </Button>
-  </li>
-);
+const NavItem = ({ label, href, isActive, icon }: NavItemProps) => {
+  return (
+    <li>
+      <Button variant={isActive ? "activeNav" : "nav"} asChild>
+        <Link href={href} className={cn("flex items-center gap-2 px-4 py-2")}>
+          {icon}
+          {label}
+        </Link>
+      </Button>
+    </li>
+  );
+}
 
 
-
-const DropdownNavItem = ({ dropdownItems, label }: DropdownNavItemProps) => {
+const DropdownNavItem = ({ dropdownItems, label }: Readonly<DropdownNavItemProps>) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -90,12 +96,8 @@ const DropdownNavItem = ({ dropdownItems, label }: DropdownNavItemProps) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <Button
-        variant="ghost"
-        className={cn(
-          "flex items-center gap-1 px-4 py-2",
-          "text-sm font-medium transition-colors",
-          "hover:text-primary"
-        )}
+        variant="nav"
+        className={cn("flex items-center gap-1 px-4 py-2")}
       >
         {label}
         <ChevronDown
@@ -107,8 +109,8 @@ const DropdownNavItem = ({ dropdownItems, label }: DropdownNavItemProps) => {
       </Button>
 
       {isHovered && (
-        <div className="absolute left-0 w-48 pt-2 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-10">
-          <div className="bg-background border-border border rounded-md py-1">
+        <div className="absolute left-0 w-48 rounded-md shadow-lg ring-1 ring-primary ring-opacity-5 z-10">
+          <div className="bg-primary border-border border rounded-md">
             {dropdownItems.map((item) => (
               <Button key={item.label} variant="ghost" asChild className="w-full justify-start rounded-none">
                 <Link href={item.href} className="flex items-center px-4 py-2 text-sm">
@@ -122,7 +124,9 @@ const DropdownNavItem = ({ dropdownItems, label }: DropdownNavItemProps) => {
       )}
     </div>
   );
-};
+}
+
+
 
 interface NavItemProps {
   label: string;

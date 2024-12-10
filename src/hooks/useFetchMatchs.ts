@@ -1,13 +1,10 @@
 "use client";
 import { useQuery } from "react-query";
 import { getMatchs } from "@/database/controllers/matchs";
-import { ValidateWithZod } from "@/utils/zod/utils/index";
-import { SDatabase } from "@/utils/zod/schemas";
 import Match from "@/models/Match";
 
 const fetchMatchs = async () => {
   const matchs = await getMatchs();
-  ValidateWithZod(matchs, SDatabase.Match);
   return matchs;
 };
 

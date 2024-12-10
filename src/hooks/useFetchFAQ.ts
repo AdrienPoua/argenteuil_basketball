@@ -1,13 +1,20 @@
 "use client";
-import { ValidateWithZod } from "@/utils/zod/utils/index";
-import { SDatabase } from "@/utils/zod/schemas";
 import { getFAQ } from "@/database/controllers/FAQ";
 import { useQuery, useQueryClient } from "react-query";
+import { z } from "zod";
+
+const FAQSchema = z.object({  
+  question: z.string(),
+  answer: z.string()
+});
+
+type TSchema = {
+  FAQ: z.infer<typeof FAQSchema>;
+};
 
 const fetchFAQ = async () => {
   const faq = await getFAQ();
-  ValidateWithZod(faq, SDatabase.FAQ);
-  return faq;
+  return z.array(FAQSchema).parse(faq);
 };
 
 export default function useFetchFAQ() {

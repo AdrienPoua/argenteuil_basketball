@@ -2,7 +2,6 @@
 
 import Staff from "@/database/models/Staff";
 import CRUD from "@/database/crud";
-import { TDatabase } from "@/types";
 import { z } from "zod";
 
 // Schéma de validation Zod

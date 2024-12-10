@@ -1,5 +1,3 @@
-"use server";
-
 import mongoose, { Model, Document } from "mongoose";
 import connectDB from "@/database/connectdb";
 

@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import { SanityDocument } from "next-sanity";
-import { POST_HOME_LEFT_QUERY, POST_HOME_RIGHT_QUERY, POSTS_CLASSIC_QUERY } from "@/utils/sanity/queries";
-import { sanityFetch } from "@/utils/sanity/fetch";
+import { POST_HOME_LEFT_QUERY, POST_HOME_RIGHT_QUERY, POSTS_CLASSIC_QUERY } from "@/services/sanity/queries";
+import { sanityFetch } from "@/services/sanity/fetch";
 
 export const useSanity = () => {
   const { data: leftPostOnHomePage } = useQuery(["home", "left"], () => sanityFetch<SanityDocument>({ query: POST_HOME_LEFT_QUERY }));
