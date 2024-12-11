@@ -2,19 +2,15 @@
 import { ReactElement, useState } from 'react';
 import { useQuery } from 'react-query';
 import { getMatchs } from '@/database/controllers/matchs';
-import { ValidateWithZod } from '@/utils/zod/utils';
-import DBMatchschema from '@/utils/zod/schemas/database/MatchSchema';
 import SelectMatch from './SelectMatch';
 import { Match } from '@/models';
-import Adapter from '@/utils/adapters/matchs/fromDBforModel';
 import Feedback from '@/components/FetchFeedback';
 import { Badge } from '@/components/ui/badge';
-import Convocation from '@/utils/react-email/templates/Convocation';
+import Convocation from '@/services/react-email/templates/Convocation';
 import Dialog from './dialog'
 
 const fetchAndProcess = async (): Promise<Match[]> => {
     const matchs = await getMatchs();
-    ValidateWithZod(matchs, DBMatchschema);
     const MatchsModels = matchs.map((match) => new Match(Adapter(match)));
     return MatchsModels.filter((match) => match.isHome && match.teamB !== 'Exempt');
 }

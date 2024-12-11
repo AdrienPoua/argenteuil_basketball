@@ -74,7 +74,7 @@ export default function StaffCard({
                 {teams && teams.length > 0 && (
                     <div className="flex flex-wrap justify-center gap-2 mt-2">
                         {teams?.map((team) => (
-                            <Badge key={team} variant="secondary">
+                            <Badge key={team} variant="staffCard">
                                 {team}
                             </Badge>
                         ))}

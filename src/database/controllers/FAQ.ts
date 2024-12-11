@@ -1,4 +1,5 @@
 "use server";
+
 import FAQ from "@/database/models/FAQ";
 import CRUD from "@/database/crud";
 import { z } from "zod";
@@ -16,10 +17,10 @@ type TFAQ = z.infer<typeof faqSchema>;
 
 export async function createFAQ(faq: unknown): Promise<void> {
   const parsedFAQ = faqSchema.parse(faq);
-  return faqCrud.create(parsedFAQ);
+  faqCrud.create(parsedFAQ);
 }
 
-export async function getFAQ(): Promise<TFAQ[]> {
+export async function getFAQ(): Promise<(TFAQ & { _id: string })[]> {
   return faqCrud.read();
 }
 
@@ -27,7 +28,10 @@ export async function deleteFAQ(id: string): Promise<void> {
   return faqCrud.remove({ _id: id });
 }
 
-export async function updateRank(payload: { id: string; rank: number }): Promise<void> {
+export async function updateRank(payload: {
+  id: string;
+  rank: number;
+}): Promise<void> {
   const { id, rank } = payload;
   return faqCrud.update({ _id: id }, { rank });
 }

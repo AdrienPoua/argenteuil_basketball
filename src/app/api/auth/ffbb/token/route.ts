@@ -12,7 +12,8 @@ export async function GET() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Accept": "text/plain", // l'API renvoie un texte, pas une réponse JSON
+        Accept: "text/plain", // l'API renvoie un texte, pas une réponse JSON
+        "X-Custom-Request-ID": Date.now().toString(),
       },
       body: JSON.stringify({
         userName: FFBB_SERVER_USERNAME,
@@ -20,9 +21,13 @@ export async function GET() {
       }),
     });
     const token = await rawToken.text();
-    return  new Response(token, {
+    console.log("🚀 ~ GET ~ token: en json", token);
+    return new Response(token, {
       status: 200,
-      headers: { "Content-Type": "text/plain" },
+      headers: {
+        "Content-Type": "text/plain",
+        "Cache-Control": "no-store",
+      },
     });
   } catch (err: any) {
     console.error("🚀 Error fetching token:", err.message);

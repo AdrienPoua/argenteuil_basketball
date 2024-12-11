@@ -1,71 +1,29 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import FFBBTokenHelper from "@/models/FFBBToken";
 
-interface TokenData {
-  token: string;
-  expiresAt: number;
-}
 
 export default function useToken() {
   const [token, setToken] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
+  const FFBBToken = new FFBBTokenHelper();
 
   useEffect(() => {
-    const fetchToken = async () => {
+    const getToken = async () => {
       try {
-        const storedData = localStorage.getItem("FFBB_TOKEN");
-        if (storedData) {
-          const parsedData: TokenData = JSON.parse(storedData);
-          if (Date.now() < parsedData.expiresAt) {
-            setToken(parsedData.token);
-            setIsLoading(false);
-            return;
-          }
+        const localToken = FFBBToken.getToken();
+        if (localToken) {
+          setToken(localToken);
+        } else {
+          const token = await FFBBToken.fetchToken();
+          setToken(token);
         }
-
-        const response = await fetch("/api/auth/ffbb/token");
-        if (!response.ok) {
-          const errorText = await response.text();
-          throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
-        }
-        const newToken = await response.text();
-        console.log("🚀 ~ fetchToken ~ newToken:", newToken)
-        const expiresAt = Date.now() + 1 * 60 * 60 * 1000; // Token expires in 1 hours
-        const tokenData: TokenData = { token: newToken, expiresAt };
-        localStorage.setItem("FFBB_TOKEN", JSON.stringify(tokenData));
-        setToken(newToken);
-      } catch (err) {
-        setError(err instanceof Error ? err : new Error("An unknown error occurred"));
-      } finally {
-        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching token:", error);
       }
     };
-
-    fetchToken();
+    getToken();
   }, []);
 
-  const refreshToken = async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await fetch("/api/auth/ffbb/token");
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const newToken = await response.text();
-      const expiresAt = Date.now() + 24 * 60 * 60 * 1000; // Token expires in 24 hours
-      const tokenData: TokenData = { token: newToken, expiresAt };
-      localStorage.setItem("FFBB_TOKEN", JSON.stringify(tokenData));
-      setToken(newToken);
-    } catch (err) {
-      setError(err instanceof Error ? err : new Error("An unknown error occurred"));
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  return { token, isLoading, error, refreshToken };
+  return { token };
 }
-

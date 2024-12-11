@@ -13,7 +13,7 @@ export default function Index() {
       <div className="flex flex-col grow w-full gap-5">
         <Form />
         <div className="flex flex-col gap-3 w-[1000px] mx-auto">
-          {data?.map((faq: { _id: string; question: string; answer: string; rank: number }) => (
+          {data?.map((faq) => (
             <div className="flex" key={faq._id}>
               <Accordion type="single" collapsible className="w-full" >
                 <AccordionItem value={faq._id}>
