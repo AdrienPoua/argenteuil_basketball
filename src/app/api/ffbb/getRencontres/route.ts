@@ -1,33 +1,45 @@
 import { NextResponse } from "next/server";
-import FFBBAPI from "@/models/FFBBAPI";
-import organisme from "@/data/organisme.json";
+import HTTPRequest from "@/models/HTTPRequest";
 
-const idOrganisme = organisme[0].id;
-type body = {
-  ids: number[];
-};
+const idOrganisme = 11851;
+
 export async function POST(req: Request) {
-  const FFBBApi = new FFBBAPI(req);
   try {
-    const { ids } = (await req.json()) as body;
-    const responses = (await Promise.all(
-      ids.map(async (id) => {
-        return FFBBApi.getRencontresParPoules(id);
+    const ids: number[] = JSON.parse(await req.json());
+    const token = req.headers.get("Authorization")?.split(" ")[1];
+    if (!token) {
+      throw new Error("Missing Authorization header");
+    }
+
+    const responses: Rencontre[][] = await Promise.all(
+      ids.map((id) => {
+        const request = new HTTPRequest.Builder()
+          .setUrl(
+            `https://ffbbserver3.ffbb.com/ffbbserver3/api/competition/getRencontresParPoule.ws?idPoule=${id}`,
+          )
+          .addHeader("Authorization", `Bearer ${token}`)
+          .addHeader("Content-Type", "application/json")
+          .addHeader("Accept", "application/json")
+          .build();
+
+        return request.send();
       }),
-    )) as [Rencontre[]];
+    );
+
     const filteredResponses = responses
-      .flat()
+      .flat(1)
       .filter(
         (response) =>
           response.idOrganismeEquipe1 === idOrganisme ||
           response.idOrganismeEquipe2 === idOrganisme,
       );
+
     return NextResponse.json(filteredResponses, { status: 200 });
   } catch (error) {
-    console.error("Unexpected error in FFBB API route:", error);
+    console.error("Unexpected error in getRencontres API route:", error);
     return NextResponse.json(
       {
-        error: "Une erreur inattendue s'est produite",
+        error: "Unexpected error in getRencontres API route:",
         message: (error as Error).message,
       },
       { status: 500 },

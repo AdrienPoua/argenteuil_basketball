@@ -18,23 +18,31 @@ interface MatchData {
   validee: boolean
   joue: boolean
   remise: boolean
+  forfaitEquipe1: boolean,
+  forfaitEquipe2: boolean,
 }
 
 export default function MatchCard({ match }: Readonly<{ match: MatchData }>) {
-  const formattedDate = new Date(match.date).toLocaleDateString('fr-FR', {
+  const dateObj = new Date(match.date);
+
+  const formattedDate = dateObj.toLocaleDateString('fr-FR', {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
   })
 
-  const formattedTime = match.horaire ? 
-    new Date(0, 0, 0, Math.floor(match.horaire / 60), match.horaire % 60).toLocaleTimeString('fr-FR', {
-      hour: '2-digit',
-      minute: '2-digit'
-    }) : 'Heure non définie'
+  const horaireStr = String(match.horaire).padStart(4, '0'); // S'assurer qu'il a 4 chiffres
+  const hours = parseInt(horaireStr.slice(0, 2), 10); // "20" → 20
+  const minutes = parseInt(horaireStr.slice(-2), 10); // "00" → 0
+
+  dateObj.setHours(hours, minutes, 0, 0); // heures, minutes, secondes, millisecondes
+
+
+  const formattedTime = `${String(dateObj.getHours()).padStart(2, '0')}:${String(dateObj.getMinutes()).padStart(2, '0')}`;
+
 
   return (
-    <Card className="w-full max-w-md mx-auto text-black">
+    <Card className="p-5 text-black font-secondary">
       <CardHeader>
         <CardTitle className="text-lg font-bold text-center">
           Journée {match.numeroJournee} - Match n°{match.numero}
@@ -63,13 +71,12 @@ export default function MatchCard({ match }: Readonly<{ match: MatchData }>) {
         </div>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Badge variant={match.joue ? "default" : "outline"}>
+        <Badge variant="staffCard" className={match.joue ? "bg-green-500" : "bg-red-500"}>
           {match.joue ? "Joué" : "Non joué"}
         </Badge>
-        <Badge variant={match.validee ? "default" : "outline"}>
-          {match.validee ? "Validé" : "Non validé"}
-        </Badge>
         {match.remise && <Badge variant="destructive">Remis</Badge>}
+        {match.forfaitEquipe1 && <Badge variant="destructive">Forfait {match.nomEquipe1}</Badge>}
+        {match.forfaitEquipe2 && <Badge variant="destructive">Forfait {match.nomEquipe1}</Badge>}
       </CardFooter>
     </Card>
   )

@@ -95,5 +95,7 @@ a:-webkit-any-link {
   }
   body {
     @apply bg-background text-foreground;
+    @apply overflow-x-hidden;
   }
 }
+

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import FFBBAPI from "@/models/FFBBAPI";
+import FFBBAPI from "@/models/FFBBRequest";
 
 export async function GET(req: Request) {
   const FFBBApi = new FFBBAPI(req);

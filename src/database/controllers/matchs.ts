@@ -5,6 +5,7 @@ import CRUD from "@/database/crud";
 import { z } from "zod";
 
 const matchCrud = new CRUD(Match);
+
 const matchSchema = z.object({
   id: z.number(),
   numero: z.number(),
