@@ -37,7 +37,6 @@ export default function ConvocationForm({ club }: Readonly<ConvocationProps>) {
     });
 
     const onSubmit = async (formData: FormValues) => {
-        console.log("🚀 ~ onSubmit ~ formData:", formData)
         try {
             await updateClub({ _id: formData._id, name: formData.name });
             setIsEditing(false);

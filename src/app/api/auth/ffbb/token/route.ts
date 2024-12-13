@@ -21,7 +21,6 @@ export async function GET() {
       }),
     });
     const token = await rawToken.text();
-    console.log("🚀 ~ GET ~ token: en json", token);
     return new Response(token, {
       status: 200,
       headers: {

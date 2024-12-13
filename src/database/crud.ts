@@ -23,6 +23,7 @@ export default class CRUD<T extends Document> {
 
   async read(filter: mongoose.FilterQuery<T> = {}): Promise<T[]> {
     await connectDB();
+    console.log("filter");
     try {
       const documents = await this.model.find(filter);
       console.log("Documents retrieved successfully:", documents);

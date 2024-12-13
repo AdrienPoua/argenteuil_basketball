@@ -32,6 +32,7 @@ type Match = {
   creation: string; // ISO 8601
   modification: string; // ISO 8601
   classementPouleAssociee: number | null;
+  competition : string;
 };
 
 export default function MatchCard({ match }: Readonly<{ match: Match }>) {
@@ -49,6 +50,9 @@ export default function MatchCard({ match }: Readonly<{ match: Match }>) {
     <Card className="p-5 text-black font-secondary">
       <CardHeader>
         <CardTitle className="text-lg font-bold text-center">
+          <Badge className="w-full justify-center">
+           {match.competition}
+          </Badge>
           Journée {match.numeroJournee} - Match n°{match.numero}
         </CardTitle>
       </CardHeader>

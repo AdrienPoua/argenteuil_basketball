@@ -4,7 +4,6 @@ import Match from "@/database/models/Match";
 import CRUD from "@/database/crud";
 import { z } from "zod";
 
-
 const matchCrud = new CRUD(Match);
 
 const matchSchema = z.object({
@@ -35,6 +34,7 @@ const matchSchema = z.object({
   creation: z.string(),
   modification: z.string(),
   classementPouleAssociee: z.unknown().nullable(),
+  competition: z.string()
 });
 
 type TMatch = z.infer<typeof matchSchema>;
@@ -68,10 +68,7 @@ export async function updateMatch(match: TMatch) {
 }
 
 export async function getMatchs(): Promise<TMatch[]> {
-  const matchs = await matchCrud.read();
-  return matchs.toSorted(
-    (a, b) => parseInt(a.matchNumber) - parseInt(b.matchNumber),
-  );
+  return await matchCrud.read();
 }
 
 export async function deleteMatch(match: TMatch) {
