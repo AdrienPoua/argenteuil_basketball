@@ -4,6 +4,7 @@ import Match from "@/database/models/Match";
 import CRUD from "@/database/crud";
 import { z } from "zod";
 
+
 const matchCrud = new CRUD(Match);
 
 const matchSchema = z.object({
@@ -17,13 +18,8 @@ const matchSchema = z.object({
   nomEquipe2: z.string(),
   resultatEquipe1: z.number(),
   resultatEquipe2: z.number(),
-  date: z.string(),
-  horaire: z.number(),
-  salle: z.object({
-    id: z.number(),
-    numero: z.string(),
-    libelle: z.string(),
-  }),
+  date: z.date(),
+  salle: z.string(),
   penaliteEquipe1: z.boolean(),
   penaliteEquipe2: z.boolean(),
   forfaitEquipe1: z.boolean(),
@@ -40,10 +36,35 @@ const matchSchema = z.object({
   modification: z.string(),
   classementPouleAssociee: z.unknown().nullable(),
 });
+
 type TMatch = z.infer<typeof matchSchema>;
 
-export async function createMatch(match: TMatch): Promise<TMatch> {
-  return matchCrud.create(match);
+export async function CreateOrUpdate(match: TMatch): Promise<TMatch | void> {
+  const parsedMatch = matchSchema.parse(match);
+  const existingMatch = await matchCrud.findOne({ numero: parsedMatch.numero });
+  if (existingMatch) {
+    await matchCrud.update(
+      { numero: parsedMatch.numero },
+      {
+        joue: parsedMatch.joue,
+        remise: parsedMatch.remise,
+        forfaitEquipe1: parsedMatch.forfaitEquipe1,
+        forfaitEquipe2: parsedMatch.forfaitEquipe2,
+        resultatEquipe1: parsedMatch.resultatEquipe1,
+        resultatEquipe2: parsedMatch.resultatEquipe2,
+      },
+    );
+    return parsedMatch;
+  } else {
+    return matchCrud.create(parsedMatch);
+  }
+}
+
+export async function updateMatch(match: TMatch) {
+  return matchCrud.update(
+    { numero: match.numero },
+    { date: match.date, remise: match.remise, salle: match.salle },
+  );
 }
 
 export async function getMatchs(): Promise<TMatch[]> {
@@ -51,4 +72,8 @@ export async function getMatchs(): Promise<TMatch[]> {
   return matchs.toSorted(
     (a, b) => parseInt(a.matchNumber) - parseInt(b.matchNumber),
   );
+}
+
+export async function deleteMatch(match: TMatch) {
+  return matchCrud.remove({ numero: match.numero });
 }

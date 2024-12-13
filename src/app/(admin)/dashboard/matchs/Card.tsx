@@ -10,75 +10,83 @@ import { Switch } from "@/components/ui/switch"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { CalendarIcon, MapPinIcon, ClockIcon } from 'lucide-react'
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { deleteMatch, updateMatch } from "@/database/controllers/matchs";
 
-interface MatchData {
-    id: number
-    numero: number
-    numeroJournee: number
-    nomEquipe1: string
-    nomEquipe2: string
-    resultatEquipe1: number
-    resultatEquipe2: number
-    date: string
-    horaire: number
-    salle: {
-        libelle: string
-    }
-    validee: boolean
-    joue: boolean
-    remise: boolean
-    forfaitEquipe1: boolean
-    forfaitEquipe2: boolean
-}
+type Match = {
+    id: number;
+    numero: number;
+    numeroJournee: number;
+    idPoule: number;
+    idOrganismeEquipe1: number;
+    idOrganismeEquipe2: number;
+    nomEquipe1: string;
+    nomEquipe2: string;
+    idEngagementEquipe1: number;
+    idEngagementEquipe2: number;
+    resultatEquipe1: number;
+    resultatEquipe2: number;
+    date: Date;
+    salle: string
+    penaliteEquipe1: boolean;
+    penaliteEquipe2: boolean;
+    forfaitEquipe1: boolean;
+    forfaitEquipe2: boolean;
+    defautEquipe1: boolean;
+    defautEquipe2: boolean;
+    validee: boolean;
+    remise: boolean;
+    joue: boolean;
+    handicap1: number | null;
+    handicap2: number | null;
+    dateSaisieResultat: string; // ISO 8601
+    creation: string; // ISO 8601
+    modification: string; // ISO 8601
+    classementPouleAssociee: number | null;
+};
 
-export default function MatchCard({ match: initialMatch }: Readonly<{ match: MatchData }>) {
+
+export default function MatchCard({ match: initialMatch }: Readonly<{ match: Match }>) {
     const [isEditing, setIsEditing] = useState(false)
-    const [match, setMatch] = useState<MatchData>(initialMatch)
+    const [match, setMatch] = useState<Match>(initialMatch)
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
 
-    const dateObj = new Date(match.date)
-    const formattedDate = dateObj.toLocaleDateString('fr-FR', {
+    const formattedDate = match.date.toLocaleDateString('fr-FR', {
         year: 'numeric',
         month: 'long',
         day: 'numeric'
     })
+    const formattedTime = match.date.toLocaleTimeString('fr-FR', {
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: 'Europe/Paris'
+    })
 
-    const horaireStr = String(match.horaire).padStart(4, '0')
-    const hours = parseInt(horaireStr.slice(0, 2), 10)
-    const minutes = parseInt(horaireStr.slice(-2), 10)
-    dateObj.setHours(hours, minutes, 0, 0)
-    const formattedTime = `${String(dateObj.getHours()).padStart(2, '0')}:${String(dateObj.getMinutes()).padStart(2, '0')}`
-
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target
-        setMatch(prev => ({ ...prev, [name]: value }))
-    }
-
-    const handleSwitchChange = (name: string) => {
-        setMatch(prev => ({ ...prev, [name]: !prev[name as keyof MatchData] }))
-    }
-
-    const handleSalleChange = (value: string) => {
-        setMatch(prev => ({ ...prev, salle: { ...prev.salle, libelle: value } }))
-    }
+    const handleDateTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { value } = e.target;
+        const [datePart, timePart] = value.split('T');
+        const [year, month, day] = datePart.split('-').map(Number);
+        const [hours, minutes] = timePart.split(':').map(Number);
+        const newDate = new Date(year, month - 1, day, hours, minutes);
+        setMatch(prev => ({ ...prev, date: newDate }));
+    };
 
     const handleConfirm = () => {
-        console.log("Modifications confirmées:", match)
+        updateMatch(match)
         setIsEditing(false)
     }
 
     const handleDelete = () => {
-        console.log("supprimer")
+        deleteMatch(match)
         setIsDeleteDialogOpen(false)
     }
 
@@ -123,18 +131,20 @@ export default function MatchCard({ match: initialMatch }: Readonly<{ match: Mat
                             <div className="font-semibold text-md">Équipe B - {match.nomEquipe2} - {match.resultatEquipe2}</div>
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="date">Date</Label>
-                            <Input id="date" name="date" type="date" value={match.date} onChange={handleInputChange} />
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="horaire">Horaire</Label>
-                            <Input id="horaire" name="horaire" type="time" value={formattedTime} onChange={handleInputChange} />
+                            <Label htmlFor="datetime">Date et Heure</Label>
+                            <Input
+                                id="datetime"
+                                name="datetime"
+                                type="datetime-local"
+                                value={`${match.date.getFullYear()}-${String(match.date.getMonth() + 1).padStart(2, '0')}-${String(match.date.getDate()).padStart(2, '0')}T${String(match.date.getHours()).padStart(2, '0')}:${String(match.date.getMinutes()).padStart(2, '0')}`}
+                                onChange={handleDateTimeChange}
+                            />
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="salle">Salle</Label>
-                            <Select onValueChange={handleSalleChange} defaultValue={match.salle.libelle}>
+                            <Select onValueChange={(value) => setMatch(prev => ({ ...prev, salle: value }))} defaultValue={match.salle}>
                                 <SelectTrigger>
-                                    <SelectValue defaultValue={match.salle.libelle} placeholder={match.salle.libelle} />
+                                    <SelectValue placeholder={match.salle} />
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectItem value="Gymnase J. GUIMIER">Gymnase J. GUIMIER</SelectItem>
@@ -143,20 +153,8 @@ export default function MatchCard({ match: initialMatch }: Readonly<{ match: Mat
                             </Select>
                         </div>
                         <div className="flex items-center space-x-2">
-                            <Switch id="joue" checked={match.joue} onCheckedChange={() => handleSwitchChange('joue')} />
-                            <Label htmlFor="joue">Joué</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                            <Switch id="remise" checked={match.remise} onCheckedChange={() => handleSwitchChange('remise')} />
+                            <Switch id="remise" checked={match.remise} onCheckedChange={() => setMatch(prev => ({ ...prev, remise: !prev.remise }))} />
                             <Label htmlFor="remise">Remis</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                            <Switch id="forfaitEquipe1" checked={match.forfaitEquipe1} onCheckedChange={() => handleSwitchChange('forfaitEquipe1')} />
-                            <Label htmlFor="forfaitEquipe1">Forfait Équipe 1</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                            <Switch id="forfaitEquipe2" checked={match.forfaitEquipe2} onCheckedChange={() => handleSwitchChange('forfaitEquipe2')} />
-                            <Label htmlFor="forfaitEquipe2">Forfait Équipe 2</Label>
                         </div>
                     </>
                 ) : (
@@ -179,7 +177,7 @@ export default function MatchCard({ match: initialMatch }: Readonly<{ match: Mat
                         </div>
                         <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                             <MapPinIcon className="h-4 w-4" />
-                            <span>{match.salle?.libelle || 'Salle non définie'}</span>
+                            <span>{match.salle}</span>
                         </div>
                     </>
                 )}
@@ -189,7 +187,7 @@ export default function MatchCard({ match: initialMatch }: Readonly<{ match: Mat
                     <Button onClick={handleConfirm}>Confirmer</Button>
                 ) : (
                     <>
-                        <Badge variant={match.joue ? "default" : "secondary"}>
+                        <Badge className={match.joue ? "bg-green-500" : "bg-primary"}>
                             {match.joue ? "Joué" : "Non joué"}
                         </Badge>
                         {match.remise && <Badge variant="destructive">Remis</Badge>}

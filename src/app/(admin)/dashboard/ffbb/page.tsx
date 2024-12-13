@@ -6,7 +6,7 @@ import fetchPoules from "./fetchPoules";
 import fetchRencontresParPoules from './fetchRencontresParPoules';
 import useToken from "@/hooks/useToken";
 import { Button } from '@/components/ui/button';
-import { createMatch } from '@/database/controllers/matchs';
+import { CreateOrUpdate } from '@/database/controllers/matchs';
 import { useState } from 'react';
 
 
@@ -23,7 +23,7 @@ export default function Page() {
         try {
             setTransfering(true);
             await Promise.all(matchs.map(async (match) => {
-                await createMatch(match);
+                await CreateOrUpdate(match);
             }));
         } catch (err) {
             console.error('Error transferring matches:', err);
@@ -35,7 +35,7 @@ export default function Page() {
 
     return (
         <Tabs defaultValue={Object.keys(poules)[0]} className="size-full max-w-full overflow-x-hidden">
-            <Button onClick={transfertToDB} className="my-10 mx-auto flex" disabled={transfering}> {transfering ? 'Transfert en cours' : 'Transférer les matchs'} </Button>
+            <Button onClick={transfertToDB} className="my-10 mx-auto flex" disabled={transfering}> {transfering ? 'Transfert en cours' : 'Mettre à jour les matchs sur le site'} </Button>
             <TabsList className="flex size-fit mx-auto mb-10">
                 {Object.keys(poules).map((poule) => <TabsTrigger key={poule} value={poule}>{poule.slice(-4)}</TabsTrigger>)}
             </TabsList>

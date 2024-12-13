@@ -2,43 +2,47 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Badge } from "@/components/ui/badge"
 import { CalendarIcon, MapPinIcon, ClockIcon } from 'lucide-react'
 
-interface MatchData {
-  id: number
-  numero: number
-  numeroJournee: number
-  nomEquipe1: string
-  nomEquipe2: string
-  resultatEquipe1: number
-  resultatEquipe2: number
-  date: string
-  horaire: number
-  salle: {
-    libelle: string
-  }
-  validee: boolean
-  joue: boolean
-  remise: boolean
-  forfaitEquipe1: boolean,
-  forfaitEquipe2: boolean,
-}
+type Match = {
+  id: number;
+  numero: number;
+  numeroJournee: number;
+  idPoule: number;
+  idOrganismeEquipe1: number;
+  idOrganismeEquipe2: number;
+  nomEquipe1: string;
+  nomEquipe2: string;
+  idEngagementEquipe1: number;
+  idEngagementEquipe2: number;
+  resultatEquipe1: number;
+  resultatEquipe2: number;
+  date: Date;
+  salle: string
+  penaliteEquipe1: boolean;
+  penaliteEquipe2: boolean;
+  forfaitEquipe1: boolean;
+  forfaitEquipe2: boolean;
+  defautEquipe1: boolean;
+  defautEquipe2: boolean;
+  validee: boolean;
+  remise: boolean;
+  joue: boolean;
+  handicap1: number | null;
+  handicap2: number | null;
+  dateSaisieResultat: string; // ISO 8601
+  creation: string; // ISO 8601
+  modification: string; // ISO 8601
+  classementPouleAssociee: number | null;
+};
 
-export default function MatchCard({ match }: Readonly<{ match: MatchData }>) {
-  const dateObj = new Date(match.date);
+export default function MatchCard({ match }: Readonly<{ match: Match }>) {
 
-  const formattedDate = dateObj.toLocaleDateString('fr-FR', {
+  const formattedDate = match.date.toLocaleDateString('fr-FR', {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
   })
 
-  const horaireStr = String(match.horaire).padStart(4, '0'); // S'assurer qu'il a 4 chiffres
-  const hours = parseInt(horaireStr.slice(0, 2), 10); // "20" → 20
-  const minutes = parseInt(horaireStr.slice(-2), 10); // "00" → 0
-
-  dateObj.setHours(hours, minutes, 0, 0); // heures, minutes, secondes, millisecondes
-
-
-  const formattedTime = `${String(dateObj.getHours()).padStart(2, '0')}:${String(dateObj.getMinutes()).padStart(2, '0')}`;
+  const formattedTime = `${String(match.date.getHours()).padStart(2, '0')}:${String(match.date.getMinutes()).padStart(2, '0')}`;
 
 
   return (
@@ -67,11 +71,11 @@ export default function MatchCard({ match }: Readonly<{ match: MatchData }>) {
         </div>
         <div className="flex items-center space-x-2 text-sm text-muted-foreground">
           <MapPinIcon className="h-4 w-4" />
-          <span>{match.salle?.libelle || 'Salle non définie'}</span>
+          <span>{match.salle}</span>
         </div>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Badge variant="staffCard" className={match.joue ? "bg-green-500" : "bg-red-500"}>
+        <Badge variant="staffCard" className={match.joue ? "bg-green-500" : "bg-primary"}>
           {match.joue ? "Joué" : "Non joué"}
         </Badge>
         {match.remise && <Badge variant="destructive">Remis</Badge>}

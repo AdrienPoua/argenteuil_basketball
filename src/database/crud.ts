@@ -54,6 +54,54 @@ export default class CRUD<T extends Document> {
     }
   }
 
+  async findOne(filter: mongoose.FilterQuery<T>): Promise<T | null> {
+    await connectDB();
+    try {
+      const document = await this.model.findOne(filter);
+      if (document) {
+        console.log("Document found successfully:", document);
+        return document;
+      } else {
+        console.log("No document found with this filter:", filter);
+        return null;
+      }
+    } catch (error) {
+      console.error("Error finding document:", error);
+      throw error;
+    }
+  }
+
+  async upsert(
+    filter: mongoose.FilterQuery<T>,
+    payload: Partial<T>
+  ): Promise<T> {
+    await connectDB();
+    try {
+      const updatedOrCreatedDocument = await this.model.findOneAndUpdate(
+        filter,
+        payload,
+        {
+          new: true, // Retourne le document mis à jour ou créé
+          upsert: true, // Crée un nouveau document si aucun ne correspond au filtre
+          runValidators: true, // Applique les validateurs du schéma
+        }
+      );
+  
+      console.log(
+        updatedOrCreatedDocument
+          ? "Document updated or created successfully:"
+          : "Unexpected null document returned",
+        updatedOrCreatedDocument
+      );
+  
+      return updatedOrCreatedDocument;
+    } catch (error) {
+      console.error("Error during upsert operation:", error);
+      throw error;
+    }
+  }
+  
+
   async remove(filter: mongoose.FilterQuery<T>): Promise<T | null> {
     await connectDB();
     try {
