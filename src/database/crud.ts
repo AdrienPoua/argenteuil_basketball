@@ -14,7 +14,7 @@ export default class CRUD<T extends Document> {
       const newDocument = new this.model(payload);
       await newDocument.save();
       console.log("Document created successfully:", newDocument);
-      return newDocument;
+      return JSON.parse(JSON.stringify(newDocument));
     } catch (error) {
       console.error("Error creating document:", error);
       throw error;
@@ -26,7 +26,6 @@ export default class CRUD<T extends Document> {
     console.log("filter");
     try {
       const documents = await this.model.find(filter);
-      console.log("Documents retrieved successfully:", documents);
       return JSON.parse(JSON.stringify(documents));
     } catch (error) {
       console.error("Error retrieving documents:", error);
@@ -43,8 +42,7 @@ export default class CRUD<T extends Document> {
       });
 
       if (updatedDocument) {
-        console.log("Document updated successfully:", updatedDocument);
-        return updatedDocument;
+        return JSON.parse(JSON.stringify(updatedDocument));
       } else {
         console.log("No document found with this filter:", filter);
         return null;
@@ -60,8 +58,7 @@ export default class CRUD<T extends Document> {
     try {
       const document = await this.model.findOne(filter);
       if (document) {
-        console.log("Document found successfully:", document);
-        return document;
+        return JSON.parse(JSON.stringify(document));
       } else {
         console.log("No document found with this filter:", filter);
         return null;
@@ -95,7 +92,7 @@ export default class CRUD<T extends Document> {
         updatedOrCreatedDocument
       );
   
-      return updatedOrCreatedDocument;
+      return JSON.parse(JSON.stringify(updatedOrCreatedDocument));
     } catch (error) {
       console.error("Error during upsert operation:", error);
       throw error;
@@ -109,7 +106,7 @@ export default class CRUD<T extends Document> {
       const deletedDocument = await this.model.findOneAndDelete(filter);
       if (deletedDocument) {
         console.log("Document deleted successfully:", deletedDocument);
-        return deletedDocument;
+        return JSON.parse(JSON.stringify(deletedDocument));
       } else {
         console.log("No document found to delete with this filter:", filter);
         return null;

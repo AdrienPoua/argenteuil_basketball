@@ -67,7 +67,6 @@ type Rencontre = {
   resultatEquipe1: number;
   resultatEquipe2: number;
   date: string; // Format "YYYY-MM-DD"
-  horaire: number; // Format 24h (e.g., 2030 for 20:30)
   salle: Salle;
   penaliteEquipe1: boolean;
   penaliteEquipe2: boolean;

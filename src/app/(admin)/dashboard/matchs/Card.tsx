@@ -21,38 +21,41 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { deleteMatch, updateMatch } from "@/database/controllers/matchs";
+import { z } from "zod";
 
-type Match = {
-    id: number;
-    numero: number;
-    numeroJournee: number;
-    idPoule: number;
-    idOrganismeEquipe1: number;
-    idOrganismeEquipe2: number;
-    nomEquipe1: string;
-    nomEquipe2: string;
-    idEngagementEquipe1: number;
-    idEngagementEquipe2: number;
-    resultatEquipe1: number;
-    resultatEquipe2: number;
-    date: Date;
-    salle: string
-    penaliteEquipe1: boolean;
-    penaliteEquipe2: boolean;
-    forfaitEquipe1: boolean;
-    forfaitEquipe2: boolean;
-    defautEquipe1: boolean;
-    defautEquipe2: boolean;
-    validee: boolean;
-    remise: boolean;
-    joue: boolean;
-    handicap1: number | null;
-    handicap2: number | null;
-    dateSaisieResultat: string; // ISO 8601
-    creation: string; // ISO 8601
-    modification: string; // ISO 8601
-    classementPouleAssociee: number | null;
-};
+const matchSchema = z.object({
+    id: z.number(),
+    numero: z.number(),
+    numeroJournee: z.number(),
+    idPoule: z.number(),
+    idOrganismeEquipe1: z.number().nullable(),
+    idOrganismeEquipe2: z.number().nullable(),
+    nomEquipe1: z.string().nullable(),
+    nomEquipe2: z.string().nullable(),
+    resultatEquipe1: z.number().nullable(),
+    resultatEquipe2: z.number().nullable(),
+    date: z.date(),
+    salle: z.string(),
+    penaliteEquipe1: z.boolean(),
+    penaliteEquipe2: z.boolean(),
+    forfaitEquipe1: z.boolean(),
+    forfaitEquipe2: z.boolean(),
+    defautEquipe1: z.boolean(),
+    defautEquipe2: z.boolean(),
+    validee: z.boolean(),
+    remise: z.boolean(),
+    joue: z.boolean(),
+    handicap1: z.number().nullable(),
+    handicap2: z.number().nullable(),
+    dateSaisieResultat: z.string().nullable(),
+    creation: z.string(),
+    modification: z.string().nullable(),
+    classementPouleAssociee: z.number().nullable(),
+    competition: z.string(),
+});
+
+type Match = z.infer<typeof matchSchema>;
+
 
 
 export default function MatchCard({ match: initialMatch }: Readonly<{ match: Match }>) {
@@ -92,13 +95,16 @@ export default function MatchCard({ match: initialMatch }: Readonly<{ match: Mat
 
     return (
         <Card className="w-full max-w-md mx-auto text-black font-secondary p-3">
+                <Badge variant="match">
+                    {match.competition}
+                </Badge>
             <CardHeader className="flex flex-row items-center justify-between mb-3">
                 <CardTitle className="text-lg w-full text-center mb">
                     Journée {match.numeroJournee} - Match n°{match.numero}
                 </CardTitle>
                 {!isEditing && (
                     <div className="flex gap-2">
-                        <Button onClick={() => setIsEditing(true)}>
+                        <Button onClick={() => setIsEditing(true)} className={match.joue ? "hidden" : "bg-primary"}>
                             Modifier
                         </Button>
                         <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
@@ -191,8 +197,8 @@ export default function MatchCard({ match: initialMatch }: Readonly<{ match: Mat
                             {match.joue ? "Joué" : "Non joué"}
                         </Badge>
                         {match.remise && <Badge variant="destructive">Remis</Badge>}
-                        {match.forfaitEquipe1 && <Badge variant="destructive">Forfait {match.nomEquipe1}</Badge>}
-                        {match.forfaitEquipe2 && <Badge variant="destructive">Forfait {match.nomEquipe2}</Badge>}
+                        {match.forfaitEquipe1 && <Badge variant="match">Forfait {match.nomEquipe1}</Badge>}
+                        {match.forfaitEquipe2 && <Badge variant="match" className="bg-red-500">Forfait {match.nomEquipe2}</Badge>}
                     </>
                 )}
             </CardFooter>

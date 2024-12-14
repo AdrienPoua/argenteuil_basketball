@@ -15,8 +15,8 @@ const matchSchema = z.object({
   idOrganismeEquipe2: z.number(),
   nomEquipe1: z.string(),
   nomEquipe2: z.string(),
-  resultatEquipe1: z.number(),
-  resultatEquipe2: z.number(),
+  resultatEquipe1: z.number().nullable(),
+  resultatEquipe2: z.number().nullable(),
   date: z.date(),
   salle: z.string(),
   penaliteEquipe1: z.boolean(),
@@ -30,16 +30,16 @@ const matchSchema = z.object({
   joue: z.boolean(),
   handicap1: z.number().nullable(),
   handicap2: z.number().nullable(),
-  dateSaisieResultat: z.string(),
+  dateSaisieResultat: z.string().nullable(),
   creation: z.string(),
-  modification: z.string(),
-  classementPouleAssociee: z.unknown().nullable(),
-  competition: z.string()
+  modification: z.string().nullable(),
+  classementPouleAssociee: z.number().nullable(),
+  competition: z.string(),
 });
 
 type TMatch = z.infer<typeof matchSchema>;
 
-export async function CreateOrUpdate(match: TMatch): Promise<TMatch | void> {
+export async function CreateOrUpdate(match: unknown): Promise<TMatch | void> {
   const parsedMatch = matchSchema.parse(match);
   const existingMatch = await matchCrud.findOne({ numero: parsedMatch.numero });
   if (existingMatch) {
@@ -54,7 +54,7 @@ export async function CreateOrUpdate(match: TMatch): Promise<TMatch | void> {
         resultatEquipe2: parsedMatch.resultatEquipe2,
       },
     );
-    return parsedMatch;
+    return JSON.parse(JSON.stringify(parsedMatch));
   } else {
     return matchCrud.create(parsedMatch);
   }
@@ -67,7 +67,9 @@ export async function updateMatch(match: TMatch) {
   );
 }
 
-export async function getMatchs(): Promise<TMatch[]> {
+export async function getMatchs(): Promise<
+  Omit<TMatch, "date" & { date: string }>[]
+> {
   return await matchCrud.read();
 }
 

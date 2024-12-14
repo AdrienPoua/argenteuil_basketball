@@ -45,7 +45,7 @@ export default function Page() {
                 {competitions.map((compet) => <TabsTrigger key={compet.id} value={compet.id.toString()}>{compet.code}</TabsTrigger>)}
             </TabsList>
             {competitions.map((compet) =>
-                <TabsContent key={compet.id} value={compet.id.toString()} className="grid grid-cols-1 md:grid-cols-5 gap-5"
+                <TabsContent key={compet.id} value={compet.id.toString()} defaultValue={competitions[0].id.toString()} className="grid grid-cols-1 md:grid-cols-5 gap-5"
                 >
                     {matchs.filter((match) => compet.poules.some((poule) => poule.id === match.idPoule)).map((match) => <Card key={match.numero} match={{ ...match, competition: compet.code }} />)}
                 </TabsContent>

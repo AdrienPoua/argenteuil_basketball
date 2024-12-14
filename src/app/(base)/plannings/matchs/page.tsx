@@ -1,13 +1,13 @@
 "use client";
 
-import { useQuery } from 'react-query';
-import { getMatchs } from "@/database/controllers/matchs";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Card from "./Card";
-import { z } from "zod";
-import { match } from 'assert';
 import { Badge } from '@/components/ui/badge';
 import H1 from '@/components/H1';
+import { useQuery } from "react-query";
+import { getMatchs } from "@/database/controllers/matchs";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 const months = {
   8: "Septembre",
@@ -23,200 +23,81 @@ const months = {
 }
 
 export default function MatchsPage() {
+  const [filter, setFilter] = useState("all");
 
-  const groupedByCompetition = Object.groupBy(mockedMatchs, (match) => match.competition);
+  const { data: groupedMatchs } = useQuery(["clientsMatchs"], async () => {
+    const matchs = await getMatchs();
+    const datedMatchs = matchs.map(match => ({ ...match, date: new Date(match.date) }));
+    return Object.groupBy(datedMatchs, (match) => match.competition);
+  });
+  if (!groupedMatchs) return <div>Loading...</div>
+  const monthsString = Object.values(months)
 
   return (
     <div className="container mx-auto p-4">
       <H1>Calendrier des matchs</H1>
       <Tabs defaultValue={months[new Date().getMonth() as keyof typeof months]}>
-        <TabsList className="flex flex-wrap gap-2 size-fit mx-auto mb-10">
-          {Object.values(months).map((month) => (
-            <TabsTrigger key={month + month[0]} value={month} className="bg-foreground">
+        <TabsList className="flex flex-wrap gap-2 size-full mx-auto mb-10">
+          {monthsString.map((month) => (
+            <TabsTrigger key={month + month[0]} value={month} className="bg-foreground grow" onClick={() => setFilter("all")}>
               {month}
             </TabsTrigger>
           ))}
         </TabsList>
-        {Object.values(months).map((month, index) => (
+        <div className="flex justify-center gap-2 mb-10">
+          <Button onClick={() => setFilter("home")} >
+            Domiciles
+          </Button>
+          <Button onClick={() => setFilter("away")}>
+            Extérieurs
+          </Button>
+          <Button onClick={() => setFilter("all")}>
+            tous
+          </Button>
+        </div>
+        {monthsString.map((month, index) => (
           <TabsContent key={month} value={month}>
-            {Object.entries(groupedByCompetition).filter(([competition, matchs]) => matchs?.some((match) => match.date.getMonth() === (index + 2))).map(([competition, matches]) =>
-            (
-              <div key={competition} className="mb-5">
-                <div className="grid gap-4 grid-cols-1 md:grid-cols-5">
-                  <div className="grid-cols-1">
-                    <Badge className="flex justify-center items-center grow size-full text-3xl">
-                      {competition}
-                    </Badge>
-                  </div>
-                  {
-                    mockedMatchs.filter((match) => match.date.getMonth() === (index + 2) && match.competition === competition).map((match) => (
-                      <Card key={match.id} match={match} />
-                    ))
-                  }
-                </div>
-              </div>
-            )
-            )}
+            {Object.entries(groupedMatchs)
+              .filter(([competition, matchs]) => matchs?.some((match) => match.date.getMonth() === (index + 2)))
+              .map(([competition, matchs]) => {
+                const filteredMatchs = matchs?.filter((match) => match.date.getMonth() === (index + 2) && match.competition === competition);
+                const homeGames = filteredMatchs?.filter((match) => match.idOrganismeEquipe1 === 11851);
+                const awayGames = filteredMatchs?.filter((match) => match.idOrganismeEquipe1 !== 11851);
+                return (
+                  (
+                    <div key={competition} className="mb-5">
+                      <div className={`grid gap-4 grid-cols-1 md:grid-cols-5`}>
+                        <div className="">
+                          <Badge className="flex justify-center items-center grow size-full text-3xl">
+                            {competition}
+                          </Badge>
+                        </div>
+                        {
+                          filter === "home" ? (
+                            homeGames?.map((match, index) => (
+                              <Card key={match.id} match={match} />
+                            ))
+                          ) : filter === "away" ? (
+                            awayGames?.map((match, index) => (
+                              <Card key={match.id} match={match} />
+                            ))
+                          ) : (
+                            filteredMatchs?.map((match, index) => (
+                              <Card key={match.id} match={match} />
+                            ))
+                          )
+                        }
+                      </div>
+                    </div>
+                  )
+                )
+              }
+
+              )}
           </TabsContent>
         ))}
       </Tabs>
     </div>
   );
 }
-
-
-const mockedMatchs = [
-  {
-    id: 1,
-    numero: 99999,
-    numeroJournee: 1,
-    idPoule: 10,
-    idOrganismeEquipe1: 123,
-    idOrganismeEquipe2: 456,
-    nomEquipe1: "ABB",
-    nomEquipe2: "Domont B",
-    resultatEquipe1: 80,
-    resultatEquipe2: 75,
-    date: new Date("2024-12-21T20:30:00"),
-    salle: "Gymnase J. GUIMIER",
-    penaliteEquipe1: false,
-    penaliteEquipe2: false,
-    forfaitEquipe1: false,
-    forfaitEquipe2: false,
-    defautEquipe1: false,
-    defautEquipe2: false,
-    validee: true,
-    remise: false,
-    joue: true,
-    handicap1: null,
-    handicap2: null,
-    dateSaisieResultat: "2024-09-21T23:00:00",
-    creation: "2024-09-01T10:00:00",
-    modification: "2024-09-20T15:00:00",
-    classementPouleAssociee: null,
-    competition: "IDF0095019"
-  },
-  {
-    id: 1,
-    numero: 99999,
-    numeroJournee: 1,
-    idPoule: 10,
-    idOrganismeEquipe1: 123,
-    idOrganismeEquipe2: 456,
-    nomEquipe1: "ABB",
-    nomEquipe2: "Domont B",
-    resultatEquipe1: 80,
-    resultatEquipe2: 75,
-    date: new Date("2024-12-21T20:30:00"),
-    salle: "Gymnase J. GUIMIER",
-    penaliteEquipe1: false,
-    penaliteEquipe2: false,
-    forfaitEquipe1: false,
-    forfaitEquipe2: false,
-    defautEquipe1: false,
-    defautEquipe2: false,
-    validee: true,
-    remise: false,
-    joue: true,
-    handicap1: null,
-    handicap2: null,
-    dateSaisieResultat: "2024-09-21T23:00:00",
-    creation: "2024-09-01T10:00:00",
-    modification: "2024-09-20T15:00:00",
-    classementPouleAssociee: null,
-    competition: "DM3"
-  },
-  {
-    id: 1,
-    numero: 99999,
-    numeroJournee: 1,
-    idPoule: 10,
-    idOrganismeEquipe1: 123,
-    idOrganismeEquipe2: 456,
-    nomEquipe1: "ABB",
-    nomEquipe2: "Domont B",
-    resultatEquipe1: 80,
-    resultatEquipe2: 75,
-    date: new Date("2024-12-21T20:30:00"),
-    salle: "Gymnase J. GUIMIER",
-    penaliteEquipe1: false,
-    penaliteEquipe2: false,
-    forfaitEquipe1: false,
-    forfaitEquipe2: false,
-    defautEquipe1: false,
-    defautEquipe2: false,
-    validee: true,
-    remise: false,
-    joue: true,
-    handicap1: null,
-    handicap2: null,
-    dateSaisieResultat: "2024-09-21T23:00:00",
-    creation: "2024-09-01T10:00:00",
-    modification: "2024-09-20T15:00:00",
-    classementPouleAssociee: null,
-    competition: "U13"
-  },
-  {
-    id: 1,
-    numero: 99999,
-    numeroJournee: 1,
-    idPoule: 10,
-    idOrganismeEquipe1: 123,
-    idOrganismeEquipe2: 456,
-    nomEquipe1: "ABB",
-    nomEquipe2: "Domont B",
-    resultatEquipe1: 80,
-    resultatEquipe2: 75,
-    date: new Date("2024-12-21T20:30:00"),
-    salle: "Gymnase J. GUIMIER",
-    penaliteEquipe1: false,
-    penaliteEquipe2: false,
-    forfaitEquipe1: false,
-    forfaitEquipe2: false,
-    defautEquipe1: false,
-    defautEquipe2: false,
-    validee: true,
-    remise: false,
-    joue: true,
-    handicap1: null,
-    handicap2: null,
-    dateSaisieResultat: "2024-09-21T23:00:00",
-    creation: "2024-09-01T10:00:00",
-    modification: "2024-09-20T15:00:00",
-    classementPouleAssociee: null,
-    competition: "U15"
-  },
-  {
-    id: 1,
-    numero: 99999,
-    numeroJournee: 1,
-    idPoule: 10,
-    idOrganismeEquipe1: 123,
-    idOrganismeEquipe2: 456,
-    nomEquipe1: "ABB",
-    nomEquipe2: "Domont B",
-    resultatEquipe1: 80,
-    resultatEquipe2: 75,
-    date: new Date("2024-12-21T20:30:00"),
-    salle: "Gymnase J. GUIMIER",
-    penaliteEquipe1: false,
-    penaliteEquipe2: false,
-    forfaitEquipe1: false,
-    forfaitEquipe2: false,
-    defautEquipe1: false,
-    defautEquipe2: false,
-    validee: true,
-    remise: false,
-    joue: true,
-    handicap1: null,
-    handicap2: null,
-    dateSaisieResultat: "2024-09-21T23:00:00",
-    creation: "2024-09-01T10:00:00",
-    modification: "2024-09-20T15:00:00",
-    classementPouleAssociee: null,
-    competition: "IDF0095019"
-  },
-];
-
-
 
