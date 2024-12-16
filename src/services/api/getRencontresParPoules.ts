@@ -19,7 +19,6 @@ export default async function fetchRencontresParPoules(
     const hours = parseInt(horaireStr.slice(0, 2), 10);
     const minutes = parseInt(horaireStr.slice(-2), 10);
     date.setHours(hours, minutes, 0, 0);
-    console.log(match.salle);
     return {
       ...match,
       date: date,

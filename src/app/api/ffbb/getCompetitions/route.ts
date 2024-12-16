@@ -20,8 +20,6 @@ export async function GET(req: Request) {
       .build();
 
     const response = await request.send();
-    console.log("🚀 ~ GET ~ response:", response)
-
     return NextResponse.json(response, { status: 200 });
   } catch (error) {
     console.error("Unexpected error in getCompetitions API route:", error);

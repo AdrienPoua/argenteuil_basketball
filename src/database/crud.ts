@@ -33,13 +33,20 @@ export default class CRUD<T extends Document> {
     }
   }
 
-  async update(filter: mongoose.FilterQuery<T>, payload: Partial<T>): Promise<T | null> {
+  async update(
+    filter: mongoose.FilterQuery<T>,
+    payload: Partial<T>,
+  ): Promise<T | null> {
     await connectDB();
     try {
-      const updatedDocument = await this.model.findOneAndUpdate(filter, payload, {
-        new: true,
-        runValidators: true,
-      });
+      const updatedDocument = await this.model.findOneAndUpdate(
+        filter,
+        payload,
+        {
+          new: true,
+          runValidators: true,
+        },
+      );
 
       if (updatedDocument) {
         return JSON.parse(JSON.stringify(updatedDocument));
@@ -71,7 +78,7 @@ export default class CRUD<T extends Document> {
 
   async upsert(
     filter: mongoose.FilterQuery<T>,
-    payload: Partial<T>
+    payload: Partial<T>,
   ): Promise<T> {
     await connectDB();
     try {
@@ -82,23 +89,22 @@ export default class CRUD<T extends Document> {
           new: true, // Retourne le document mis à jour ou créé
           upsert: true, // Crée un nouveau document si aucun ne correspond au filtre
           runValidators: true, // Applique les validateurs du schéma
-        }
+        },
       );
-  
+
       console.log(
         updatedOrCreatedDocument
           ? "Document updated or created successfully:"
           : "Unexpected null document returned",
-        updatedOrCreatedDocument
+        updatedOrCreatedDocument,
       );
-  
+
       return JSON.parse(JSON.stringify(updatedOrCreatedDocument));
     } catch (error) {
       console.error("Error during upsert operation:", error);
       throw error;
     }
   }
-  
 
   async remove(filter: mongoose.FilterQuery<T>): Promise<T | null> {
     await connectDB();
@@ -117,15 +123,14 @@ export default class CRUD<T extends Document> {
     }
   }
 
-  static async drop(collection: string): Promise<void> {
+  async drop(): Promise<void> {
     await connectDB();
     try {
-      await mongoose.connection.db?.dropCollection(collection);
-      console.log("Collection dropped successfully:", collection);
+      await mongoose.connection.db?.dropCollection(this.model.collection.name);
+      console.log("Collection dropped successfully:", this.model.collection.name);
     } catch (error) {
       console.error("Error dropping collection:", error);
       throw error;
     }
   }
 }
-

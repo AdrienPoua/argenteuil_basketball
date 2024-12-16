@@ -1,6 +1,5 @@
 import HTTPRequest from "@/models/HTTPRequest";
 
-const codeOrganisme = "IDF0095019";
 
 export default async function getCompetitions(token: string) {
   const request = new HTTPRequest.Builder()
