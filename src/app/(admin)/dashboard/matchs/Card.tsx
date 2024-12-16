@@ -28,10 +28,10 @@ const matchSchema = z.object({
     numero: z.number(),
     numeroJournee: z.number(),
     idPoule: z.number(),
-    idOrganismeEquipe1: z.number().nullable(),
-    idOrganismeEquipe2: z.number().nullable(),
-    nomEquipe1: z.string().nullable(),
-    nomEquipe2: z.string().nullable(),
+    idOrganismeEquipe1: z.number(),
+    idOrganismeEquipe2: z.number(),
+    nomEquipe1: z.string(),
+    nomEquipe2: z.string(),
     resultatEquipe1: z.number().nullable(),
     resultatEquipe2: z.number().nullable(),
     date: z.date(),
@@ -95,9 +95,9 @@ export default function MatchCard({ match: initialMatch }: Readonly<{ match: Mat
 
     return (
         <Card className="w-full max-w-md mx-auto text-black font-secondary p-3">
-                <Badge variant="match">
-                    {match.competition}
-                </Badge>
+            <Badge variant="match">
+                {match.competition}
+            </Badge>
             <CardHeader className="flex flex-row items-center justify-between mb-3">
                 <CardTitle className="text-lg w-full text-center mb">
                     Journée {match.numeroJournee} - Match n°{match.numero}
@@ -148,15 +148,13 @@ export default function MatchCard({ match: initialMatch }: Readonly<{ match: Mat
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="salle">Salle</Label>
-                            <Select onValueChange={(value) => setMatch(prev => ({ ...prev, salle: value }))} defaultValue={match.salle}>
-                                <SelectTrigger>
-                                    <SelectValue placeholder={match.salle} />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="Gymnase J. GUIMIER">Gymnase J. GUIMIER</SelectItem>
-                                    <SelectItem value="Gymnase Jesse OWENS">Gymnase Jesse OWENS</SelectItem>
-                                </SelectContent>
-                            </Select>
+                            <Input
+                                id="salle"
+                                name="salle"
+                                type="text"
+                                value={match.salle}
+                                onChange={(e) => setMatch(prev => ({ ...prev, salle: e.target.value }))}
+                            />
                         </div>
                         <div className="flex items-center space-x-2">
                             <Switch id="remise" checked={match.remise} onCheckedChange={() => setMatch(prev => ({ ...prev, remise: !prev.remise }))} />

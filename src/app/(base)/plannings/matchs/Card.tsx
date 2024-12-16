@@ -4,6 +4,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Badge } from "@/components/ui/badge"
 import { CalendarIcon, MapPinIcon, ClockIcon, HomeIcon, PlaneIcon } from 'lucide-react'
 import { z } from "zod"
+import Image from "next/image"
 
 const matchSchema = z.object({
   id: z.number(),
@@ -50,8 +51,12 @@ export default function BasketMatchCard({ match, className }: Readonly<BasketMat
   const isHomeGame = match.idOrganismeEquipe1 === HOME_TEAM_ID
   const isDefaultMatch = formatTime(match.date) === DEFAULT_TIME
 
+
   return (
-    <Card className={`w-full max-w-md mx-auto text-black p-3 ${className} ${getBorderClass(isHomeGame)}`}>
+    <Card className={`w-full max-w-md mx-auto text-black p-3 ${className} ${getBorderClass(isHomeGame)} relative overflow-hidden`}>
+      {match.remise && (
+        <Image src="/images/divers/report.png" alt="Remise" className="object-cover absolute bottom-0 left-50 transform " width={1000} height={1000} />
+      )}
       <CardHeader className="pb-2">
         <CompetitionBadge competition={match.competition} />
         <LocationIndicator isHomeGame={isHomeGame} />
@@ -155,10 +160,9 @@ function MatchResult({ match }: Readonly<{ match: Match }>) {
 }
 
 function MatchStatus({ match }: Readonly<{ match: Match }>) {
-  if (match.remise) return <Badge variant="secondary">Remis</Badge>
   if (match.forfaitEquipe1) return <Badge variant="destructive">Forfait {match.nomEquipe1}</Badge>
   if (match.forfaitEquipe2) return <Badge variant="destructive">Forfait {match.nomEquipe2}</Badge>
-  if (!match.joue) return <Badge>À venir</Badge>
+  if (!match.joue && !match.remise) return <Badge>À venir</Badge>
   return null
 }
 

@@ -9,7 +9,7 @@ import { getMatchs } from "@/database/controllers/matchs";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
-const months = {
+const LIST_OF_MONTHS = {
   8: "Septembre",
   9: "Octobre",
   10: "Novembre",
@@ -19,7 +19,6 @@ const months = {
   2: "Mars",
   3: "Avril",
   4: "Mai",
-  5: "Juin"
 }
 
 export default function MatchsPage() {
@@ -31,16 +30,16 @@ export default function MatchsPage() {
     return Object.groupBy(datedMatchs, (match) => match.competition);
   });
   if (!groupedMatchs) return <div>Loading...</div>
-  const monthsString = Object.values(months)
+
 
   return (
     <div className="container mx-auto p-4">
       <H1>Calendrier des matchs</H1>
-      <Tabs defaultValue={months[new Date().getMonth() as keyof typeof months]}>
+      <Tabs defaultValue={String(new Date().getMonth())}>
         <TabsList className="flex flex-wrap gap-2 size-full mx-auto mb-10">
-          {monthsString.map((month) => (
-            <TabsTrigger key={month + month[0]} value={month} className="bg-foreground grow" onClick={() => setFilter("all")}>
-              {month}
+          {Object.entries(LIST_OF_MONTHS).map(([index, monthName]) => (
+            <TabsTrigger key={index} value={index} className={'bg-foreground grow'} onClick={() => setFilter("all")}>
+              {monthName}
             </TabsTrigger>
           ))}
         </TabsList>
@@ -55,14 +54,14 @@ export default function MatchsPage() {
             tous
           </Button>
         </div>
-        {monthsString.map((month, index) => (
-          <TabsContent key={month} value={month}>
+        {Object.entries(LIST_OF_MONTHS).map(([index, month]) => (
+          <TabsContent key={index} value={index}>
             {Object.entries(groupedMatchs)
-              .filter(([competition, matchs]) => matchs?.some((match) => match.date.getMonth() === (index + 2)))
+              .filter(([competition, matchs]) => matchs?.some((match) => match.date.getMonth() === Number(index)) ) // If there is no match for the category, it display no rows 
               .map(([competition, matchs]) => {
-                const filteredMatchs = matchs?.filter((match) => match.date.getMonth() === (index + 2) && match.competition === competition);
-                const homeGames = filteredMatchs?.filter((match) => match.idOrganismeEquipe1 === 11851);
-                const awayGames = filteredMatchs?.filter((match) => match.idOrganismeEquipe1 !== 11851);
+                const matchsByMonth = matchs?.filter((match) => match.date.getMonth() === Number(index) && match.competition === competition);
+                const homeGames = matchsByMonth?.filter((match) => match.idOrganismeEquipe1 === 11851);
+                const awayGames = matchsByMonth?.filter((match) => match.idOrganismeEquipe1 !== 11851);
                 return (
                   (
                     <div key={competition} className="mb-5">
@@ -82,7 +81,7 @@ export default function MatchsPage() {
                               <Card key={match.id} match={match} />
                             ))
                           ) : (
-                            filteredMatchs?.map((match, index) => (
+                            matchsByMonth?.map((match, index) => (
                               <Card key={match.id} match={match} />
                             ))
                           )
