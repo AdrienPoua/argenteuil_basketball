@@ -13,13 +13,14 @@ export async function GET(req: Request) {
     const request = new HTTPRequest.Builder()
       .setUrl(
         `https://ffbbserver3.ffbb.com/ffbbserver3/api/competition/getCompetitionParOrganisme.ws?codeOrganisme=IDF0095019`,
+        
       )
       .addHeader("Authorization", `Bearer ${token}`)
       .addHeader("Content-Type", "application/json")
       .addHeader("Accept", "application/json")
       .build();
 
-    const response = await request.send();
+    const response : Competition[] = await request.send();
     return NextResponse.json(response, { status: 200 });
   } catch (error) {
     console.error("Unexpected error in getCompetitions API route:", error);
