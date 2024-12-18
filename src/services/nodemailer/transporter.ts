@@ -1,9 +1,9 @@
+"use server";
 import nodemailer from "nodemailer";
 
 const { MAILGUN_API_KEY, EMAIL_PORT, EMAIL_HOST } = process.env;
 
 if (!MAILGUN_API_KEY || !EMAIL_PORT || !EMAIL_HOST) {
-  console.log(MAILGUN_API_KEY);
   throw new Error(
     "Veuillez configurer les variables d'environnement, MAILGUN_API_KEY, EMAIL_PORT et EMAIL_HOST",
   );
@@ -18,4 +18,3 @@ export const transporter = nodemailer.createTransport({
     pass: MAILGUN_API_KEY,
   },
 });
-
