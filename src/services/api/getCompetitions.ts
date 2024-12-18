@@ -18,7 +18,7 @@ type Competition = {
   sexe: "M" | "F" | "X"; // Masculin, Féminin ou Mixte
   categorie: {
     id: number;
-    code: string;
+    code?: string;
     libelle: string;
   };
   code: string;

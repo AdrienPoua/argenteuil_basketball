@@ -2,18 +2,23 @@
 
 import CompetitionResultsTabs from './table'
 import { useQuery } from 'react-query'
-import getCompetitions from '@/services/api/getCompetitionsDetails' // Assume this function fetches the competitions from your API
+import { getCompetitions } from "@/database/controllers/competitions";
+import H1 from "@/components/H1"
+import MainSection from "@/components/layouts/MainSection";
 
-export default function RankingPage() {
-  const { data: competitions, isLoading, error } = useQuery('competitions', () => getCompetitions())
-
-  if (isLoading) return <div>Loading...</div>
+export default function Page() {
+  const { data: competitions, isLoading, error } = useQuery('competitions', () => {
+    return getCompetitions()
+  })
+  if (!competitions) return <div>Loading...</div>
 
   return (
-    <div className="container mx-auto py-8">
-      <h1 className="text-2xl font-bold mb-4">Classements des compétitions</h1>
-      <CompetitionResultsTabs competitions={competitions} />
-    </div>
+    <>
+      <H1>Classements interpoules</H1>
+      <MainSection>
+        <CompetitionResultsTabs competitions={competitions} />
+      </MainSection>
+    </>
   )
 }
 

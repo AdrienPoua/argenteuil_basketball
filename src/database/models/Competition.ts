@@ -1,37 +1,36 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
-// Sous-schéma pour la catégorie
-const CategorieSchema = new mongoose.Schema({
+const CategorieSchema = new Schema({
   id: { type: Number, required: true },
   code: { type: String, required: true },
   libelle: { type: String, required: true },
 });
 
 // Sous-schéma pour la saison
-const SaisonSchema = new mongoose.Schema({
+const SaisonSchema = new Schema({
   id: { type: Number, required: true },
   code: { type: String, required: true },
   libelle: { type: String, required: true },
-  debut: { type: Date, required: true },
-  fin: { type: Date, required: true },
+  debut: { type: String, required: true }, // Stocké en format ISO string
+  fin: { type: String, required: true },   // Stocké en format ISO string
   actif: { type: Boolean, required: true },
 });
 
 // Sous-schéma pour l'organisme
-const OrganismeSchema = new mongoose.Schema({
+const OrganismeSchema = new Schema({
   id: { type: Number, required: true },
   libelle: { type: String, required: true },
-  code: { type: String, required: true },
+  code: { type: String },
 });
 
 // Sous-schéma pour les poules
-const PouleSchema = new mongoose.Schema({
+const PouleSchema = new Schema({
   id: { type: Number, required: true },
   nom: { type: String, required: true },
 });
 
 // Sous-schéma pour les classements
-const ClassementSchema = new mongoose.Schema({
+const ClassementSchema = new Schema({
   organisme: { type: OrganismeSchema, required: true },
   matchJoues: { type: Number, required: true },
   points: { type: Number, required: true },
@@ -40,27 +39,27 @@ const ClassementSchema = new mongoose.Schema({
   perdus: { type: Number, required: true },
   nuls: { type: Number, required: true },
   pointsInitiaux: { type: Number, default: null },
-  penalitesArbitrage: { type: Number, required: true },
-  penalitesEntraineur: { type: Number, required: true },
-  penalitesDiverses: { type: Number, required: true },
-  nombreForfaits: { type: Number, required: true },
-  nombreDefauts: { type: Number, required: true },
-  paniersMarques: { type: Number, required: true },
-  paniersEncaisses: { type: Number, required: true },
-  quotient: { type: Number, required: true },
-  difference: { type: Number, required: true },
-  horsClassement: { type: Boolean, required: true },
+  penalitesArbitrage: { type: Number },
+  penalitesEntraineur: { type: Number },
+  penalitesDiverses: { type: Number },
+  nombreForfaits: { type: Number },
+  nombreDefauts: { type: Number },
+  paniersMarques: { type: Number },
+  paniersEncaisses: { type: Number },
+  quotient: { type: Number },
+  difference: { type: Number },
+  horsClassement: { type: Boolean },
 });
 
 // Schéma principal pour la compétition
-const CompetitionSchema = new mongoose.Schema({
-  id: { type: Number, required: true },
+const CompetitionSchema = new Schema({
+  id: { type: Number, required: true, unique: true },
   idCompetitionPere: { type: Number, default: null },
   nom: { type: String, required: true },
   sexe: { type: String, required: true },
   categorie: { type: CategorieSchema, required: true },
   code: { type: String, required: true },
-  fils: { type: [mongoose.Schema.Types.Mixed], default: [] }, // Tableaux génériques
+  fils: { type: Array, default: [] }, // Tableau générique
   saison: { type: SaisonSchema, required: true },
   typeCompetition: { type: String, required: true },
   liveStat: { type: Boolean, required: true },
@@ -68,11 +67,11 @@ const CompetitionSchema = new mongoose.Schema({
   publicationInternet: { type: String, required: true },
   classification: { type: String, default: null },
   organisme: { type: OrganismeSchema, required: true },
-  creation: { type: Date, required: true },
-  modification: { type: Date, required: true },
-  etat: { type: String, required: true },
-  poules: { type: [PouleSchema], default: [] },
-  classements: { type: [ClassementSchema], default: [] },
+  creation: { type: String, default: null }, // ISO string or null
+  modification: { type: String, default: null },
+  etat: { type: String, default: null },
+  poules: { type: [PouleSchema], default: [] }, // Tableau de poules
+  classements: { type: [ClassementSchema], default: [] }, // Tableau de classements
 });
 
 const Competition =

@@ -1,23 +1,6 @@
-import HTTPRequest from "@/models/HTTPRequest";
 import { z } from "zod";
 
-export default async function getCompetitionsDetails(
-  token: string,
-  ids: number[],
-) {
-  const requests = ids.map((id) => {
-    return new HTTPRequest.Builder()
-      .setUrl("/api/ffbb/getCompetitionsDetails")
-      .setMethod("POST")
-      .addHeader("Content-Type", "application/json")
-      .addHeader("Authorization", `Bearer ${token}`)
-      .setBody(JSON.stringify(id))
-      .build();
-  });
-
-  return await Promise.all(requests.map((request) => request.send())) as Competition[];
-}
-
+export type TCompetition = z.infer<typeof CompetitionSchema>;
 
 const CategorieSchema = z.object({
   id: z.number(),
@@ -37,7 +20,7 @@ const SaisonSchema = z.object({
 const OrganismeSchema = z.object({
   id: z.number(),
   libelle: z.string(),
-  code: z.string(),
+  code: z.string().nullable(),
 });
 
 const PouleSchema = z.object({
@@ -53,20 +36,20 @@ const ClassementSchema = z.object({
   gagnes: z.number(),
   perdus: z.number(),
   nuls: z.number(),
-  pointsInitiaux: z.nullable(z.number()),
-  penalitesArbitrage: z.number(),
-  penalitesEntraineur: z.number(),
-  penalitesDiverses: z.number(),
-  nombreForfaits: z.number(),
-  nombreDefauts: z.number(),
-  paniersMarques: z.number(),
-  paniersEncaisses: z.number(),
-  quotient: z.number(),
-  difference: z.number(),
-  horsClassement: z.boolean(),
+  pointsInitiaux: z.nullable(z.number()).nullable(),
+  penalitesArbitrage: z.number().nullable(),
+  penalitesEntraineur: z.number().nullable(),
+  penalitesDiverses: z.number().nullable(),
+  nombreForfaits: z.number().nullable(),
+  nombreDefauts: z.number().nullable(),
+  paniersMarques: z.number().nullable(),
+  paniersEncaisses: z.number().nullable(),
+  quotient: z.number().nullable(),
+  difference: z.number().nullable(),
+  horsClassement: z.boolean().nullable(),
 });
 
-const CompetitionSchema = z.array(z.object({
+const CompetitionSchema = z.object({
   id: z.number(),
   idCompetitionPere: z.nullable(z.number()),
   nom: z.string(),
@@ -86,7 +69,5 @@ const CompetitionSchema = z.array(z.object({
   etat: z.string(),
   poules: z.array(PouleSchema),
   classements: z.array(ClassementSchema),
-}))
+});
 
-// Type inference
-type Competition = z.infer<typeof CompetitionSchema>;

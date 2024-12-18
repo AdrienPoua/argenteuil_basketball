@@ -25,18 +25,19 @@ export default function Page() {
         return <div>Loading...</div>
     }
 
-
     const findCompetition = (match: any) => competitions.find((competition) => competition.poules.find((poule) => poule.id === match.idPoule))
 
     const transfertToDB = async () => {
         try {
             setTransfering(true);
-            // await Promise.all(matchs.map(async (match) => {
-            //     const competition = findCompetition(match)
-            //     await CreateOrUpdate({ ...match, competition: competition?.code ?? "indefini" });
-            // }));
-            await Promise.all(competitions.map(async (competition) => {
-                upsert(competition);
+            await Promise.all(matchs.map(async (match) => {
+                const competition = findCompetition(match)
+                await CreateOrUpdate({ ...match, competition: competition?.code ?? "indefini" });
+            }));
+            await Promise.all(competitionsDetails.map(async (competition) => {
+                let competitionFromArray = competition[0];
+                if (competitionFromArray.code.includes("TB")) return;
+                upsert(competitionFromArray);
             }));
 
         } catch (err) {
@@ -48,7 +49,7 @@ export default function Page() {
     }
 
     return (
-        <Tabs defaultValue={competitions[0].code} className="size-full max-w-full overflow-x-hidden">
+        <Tabs defaultValue={competitions[0].id.toString()} className="size-full max-w-full overflow-x-hidden">
             <Button onClick={transfertToDB} className="my-10 mx-auto flex" disabled={transfering}> {transfering ? 'Transfert en cours' : 'Mettre à jour les matchs sur le site'} </Button>
             <TabsList className="flex flex-wrap size-fit mx-auto mb-10">
                 {competitions.map((compet) => <TabsTrigger key={compet.id} value={compet.id.toString()}>{compet.code}</TabsTrigger>)}
