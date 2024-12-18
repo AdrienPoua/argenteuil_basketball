@@ -1,4 +1,3 @@
-"use server";
 import nodemailer from "nodemailer";
 
 const { MAILGUN_API_KEY, EMAIL_PORT, EMAIL_HOST } = process.env;

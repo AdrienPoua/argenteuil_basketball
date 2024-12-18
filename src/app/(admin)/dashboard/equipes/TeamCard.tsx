@@ -7,7 +7,7 @@ import Image from "next/image"
 import Form from './Form'
 import { FormValues } from "./Utils"
 import { useQueryClient } from "react-query"
-import { DeleteTeam } from "@/database/controllers/teams"
+import { deleteTeam } from "@/database/controllers/teams"
 
 
 export const TeamCard = ({ data }: { data: Omit<FormValues, 'image'> & { id: string, image?: string } }) => {
@@ -44,7 +44,7 @@ export const TeamCard = ({ data }: { data: Omit<FormValues, 'image'> & { id: str
 const EditCard = ({ data, setIsEditing }: { data: Omit<FormValues, 'image'> & { id: string, image?: string }, setIsEditing: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const queryClient = useQueryClient()
     const HandleTrash = () => {
-        DeleteTeam(data.id)
+        deleteTeam(data.id)
         queryClient.invalidateQueries(["teams"])
         setIsEditing(false)
     }
