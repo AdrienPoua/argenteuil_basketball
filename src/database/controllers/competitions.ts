@@ -10,10 +10,12 @@ type TCompetition = z.infer<typeof CompetitionSchema>;
 export async function upsert(compet: unknown): Promise<TCompetition | void> {
   try {
     const parsedCompetitions = CompetitionSchema.parse(compet);
-      await competitionCRUD.upsert(
-        { id: parsedCompetitions.id },
-        parsedCompetitions,
-      );
+    const undesirable = parsedCompetitions.code.includes("TB") || parsedCompetitions.code.toLowerCase().includes("dfu13");
+    if (undesirable) return;
+    await competitionCRUD.upsert(
+      { id: parsedCompetitions.id },
+      parsedCompetitions,
+    );
   } catch (error) {
     console.error("Error parsing ranking:", error);
     throw error;

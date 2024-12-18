@@ -35,9 +35,7 @@ export default function Page() {
                 await CreateOrUpdate({ ...match, competition: competition?.code ?? "indefini" });
             }));
             await Promise.all(competitionsDetails.map(async (competition) => {
-                let competitionFromArray = competition[0];
-                if (competitionFromArray.code.includes("TB")) return;
-                upsert(competitionFromArray);
+                upsert(competition[0]);
             }));
 
         } catch (err) {
