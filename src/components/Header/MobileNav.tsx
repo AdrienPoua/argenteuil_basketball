@@ -159,7 +159,7 @@ export default function MobileNav() {
             <Calendar className="h-6 w-6" />
             <span className="text-xs">Matchs</span>
           </Link>
-          <Link href="/plannings/resultats" className={cn("flex flex-col items-center", pathname.startsWith("/plannings/resultats") && "text-primary")}>
+          <Link href="/club/resultats" className={cn("flex flex-col items-center", pathname.startsWith("/plannings/resultats") && "text-primary")}>
             <Trophy className="h-6 w-6" />
             <span className="text-xs">Resultats</span>
           </Link>
