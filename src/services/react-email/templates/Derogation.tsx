@@ -1,11 +1,10 @@
 import { ReactElement } from 'react';
 import { Text, Section, Heading, Hr, Link } from '@react-email/components';
-import { Match, Coach } from '@/models';
 import Layout from './Layout';
 
 
 export type PropsType = {
-    match: Match,
+    match: any,
     reason: string,
     proposition: string,
 }
@@ -31,7 +30,7 @@ const Header = (): ReactElement => {
     )
 }
 
-const Body = ({ match, reason, proposition }: { match: Match, reason: string, proposition: string }): ReactElement => {
+const Body = ({ match, reason, proposition }: { match: any , reason: string, proposition: string }): ReactElement => {
     return (
         <Section>
             <Hr />

@@ -1,10 +1,9 @@
 import { ReactElement } from 'react';
 import { Text, Section, Heading, Link } from '@react-email/components';
-import { Match } from '@/models';
 import Layout from './Layout';
 
 export type PropsType = {
-    match: Match
+    match: any
 }
 export default function Index({ match }: Readonly<PropsType>): ReactElement {
     const adresse = match.gym.toLowerCase().includes("guimier") ? "2 rue jean de la fontaine" : "120 rue de rochefort";

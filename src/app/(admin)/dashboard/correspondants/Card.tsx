@@ -1,4 +1,4 @@
-import { ReactElement, useState, Dispatch } from "react";
+import { ReactElement, useState } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card"; // For club cards
 import { Separator } from "@/components/ui/separator"; // For dividing content
 import { Button } from "@/components/ui/button"; // Import Button component
@@ -85,7 +85,7 @@ const CardEditionMode = ({ data, setIsEditing }: { data: TClub, setIsEditing: Re
     });
     const onSubmit = async (formData: FormValues) => {
         try {
-            await updateClub({ ...data, correspondant: { number: formData.number, email: formData.email, name: formData.name }, name: formData.club })
+            await updateClub({ id  : data._id , correspondant: { number: formData.number, email: formData.email, name: formData.name }, name: formData.club })
             setIsEditing(false)
             queryClient.invalidateQueries('clubs')
         } catch (error) {

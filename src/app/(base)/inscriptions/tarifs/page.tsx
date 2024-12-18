@@ -1,7 +1,6 @@
 "use client";
 import { useRef } from "react";
 import ABB from "@/data/club.json";
-import useVisibility from "@/utils/hooks/useVisibility";
 import allCategories from "@/data/categories.json";
 import H1 from "@/components/H1";
 import MainSection from "@/components/layouts/MainSection";

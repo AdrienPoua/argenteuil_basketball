@@ -25,20 +25,12 @@ export async function createClub(club: unknown): Promise<void> {
   return await clubCrud.create(parsedClub);
 }
 
-export async function getClubs(): Promise<TClub[]> {
+export async function getClubs() {
   return await clubCrud.read();
 }
 
-export async function updateClub({
-  id,
-  club,
-}: {
-  id: string;
-  club: Partial<TClub>;
-}): Promise<TClub> {
-  const parsedClub = clubSchema.parse(club);
-  const parsedId = stringSchema.parse(id);
-  return clubCrud.update({ _id: parsedId }, parsedClub );
+export async function updateClub(club : { id: string, name: string, correspondant?: { number?: string, name?: string, email?: string } }): Promise<TClub> {
+  return clubCrud.update({ _id : club.id }, club );
 }
 
 export async function deleteClub(id: string) {
