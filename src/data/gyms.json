@@ -1,20 +1,22 @@
 [
-    {
-      "id": "1",
-      "name": "Jean Guimier",
-      "address": "2 rue jean de la fontaine",
-      "city": "Argenteuil",
-      "zipcode": "95100",
-      "phone": "0139822313",
-      "available": ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"]
-    },
-    {
-      "id": "2",
-      "name": "Jesse Owens",
-      "address": "120 rue de rochefort",
-      "city": "Argenteuil",
-      "zipcode": "95100",
-      "phone": "0139807820",
-      "available": ["Lundi", "Mercredi", "Jeudi", "Vendredi"]
-    }
-  ]
+  {
+    "id": "1",
+    "name": "Jean Guimier",
+    "address": "2 rue jean de la fontaine",
+    "city": "Argenteuil",
+    "zipcode": "95100",
+    "phone": "0139822313",
+    "available": ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
+    "image": "/images/default/gymnase.avif"
+  },
+  {
+    "id": "2",
+    "name": "Jesse Owens",
+    "address": "120 rue de rochefort",
+    "city": "Argenteuil",
+    "zipcode": "95100",
+    "phone": "0139807820",
+    "available": ["Lundi", "Mercredi", "Jeudi", "Vendredi"],
+    "image": "/images/default/gymnase.avif"
+  }
+]

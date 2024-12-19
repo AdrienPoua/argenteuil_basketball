@@ -1,13 +1,12 @@
 "use client";
 import Image from "next/image";
-import { ReactElement, useRef } from "react";
-import { useSanity } from "@/utils/hooks/sanity/useSanity";
+import { ReactElement } from "react";
+import { useSanity } from "@/hooks/useSanity";
 import { SanityDocument } from "next-sanity";
-import { MAX_POSTS_ON_HOME_PAGE } from "@/utils/magicNumber";
-import LottieCursor from "@/components/LottieCursor";
+import { MAX_POSTS_ON_HOME_PAGE } from "@/data/magicNumber";
 import HeaderAndFooter from "@/components/layouts/HeaderAndFooter";
 import Link from "next/link";
-import { urlFor } from "@/lib/sanity/image";
+import { urlFor } from "@/services/sanity/image";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
 
@@ -30,11 +29,9 @@ export default function HomePage() {
 
 
 const HeroSection = () => {
-  const ref = useRef<HTMLDivElement>(null);
   return (
     <main className="flex flex-col grow -mt-16" >
-      <LottieCursor containerRef={ref} />
-      <div className="h-svh relative cursor-none " ref={ref} >
+      <div className="h-svh relative"  >
         <div className="absolute h-96 inset-x-0 bottom-0 w-full bg-gradient-to-t marker: from-black from-20%"></div>
         <h1 className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2  text-center text-6xl text-white">
           Argenteuil Basketball
@@ -93,7 +90,7 @@ const CustomCard = ({ post, small }: { post: SanityDocument, small?: boolean }):
   });
 
   return (
-    <Link href={`/actualites/${slug.current}`} className="flex size-full">
+    <Link href={`/actualites/${slug.current}`} className="flex size-full ">
       <Card className="group rounded-3xl overflow-hidden flex flex-col grow border-none">
         <CardContent className={`relative overflow-hidden grow ${small ? "hidden md:block" : ""} `}>
           <Image

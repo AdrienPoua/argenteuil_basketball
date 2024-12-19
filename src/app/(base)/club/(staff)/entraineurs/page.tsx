@@ -1,7 +1,7 @@
 "use client";
 import H1 from '@/components/H1';
 import MainSection from "@/components/layouts/MainSection";
-import useFetchCoachs from "@/utils/hooks/DBFetch/useFetchCoachs";
+import useFetchCoachs from "@/hooks/useFetchCoachs";
 import FetchFeedback from "@/components/FetchFeedback";
 import StaffCard from "../StaffCard";
 
