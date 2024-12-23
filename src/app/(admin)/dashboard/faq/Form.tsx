@@ -5,7 +5,7 @@ import * as z from "zod"
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Textarea } from "@/components/ui/textarea"
-import { createFAQ } from "@/database/controllers/FAQ"
+import { createFAQ } from "@/database/services/FAQ"
 
 const formSchema = z.object({
     question: z.string().min(1, "La question est requise"),

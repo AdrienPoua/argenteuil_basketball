@@ -1,6 +1,6 @@
 "use client";
 import { useQuery } from "react-query";
-import { getClubs } from "@/database/controllers/clubs";
+import { getClubs } from "@/database/services/Club";
 import { z } from "zod";
 
 

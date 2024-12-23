@@ -20,7 +20,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { deleteMatch, updateMatch } from "@/database/controllers/matchs";
+import { deleteMatch, updateMatch } from "@/database/services/matchs";
 import { z } from "zod";
 
 const matchSchema = z.object({

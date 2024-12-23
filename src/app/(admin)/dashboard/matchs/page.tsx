@@ -1,7 +1,7 @@
 "use client";
 import Card from "./Card"
 import { useQuery } from 'react-query';
-import { getMatchs } from "@/database/controllers/matchs";
+import { getMatchs } from "@/database/services/matchs";
 
 export default function Page() {
     const { data: matchs } = useQuery(["matchs"], () => getMatchs().then((matchs) => matchs.map(match => ({...match, date: new Date(match.date)}))));

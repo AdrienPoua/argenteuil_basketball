@@ -9,16 +9,16 @@ import { Badge } from "@/components/ui/badge";
 
 type StaffCardProps = {
     data: {
-        name: string,
-        img: string,
-        email: string,
-        number: string,
-        job?: "Président" | "Trésorier" | "Correspondant" | "Secrétaire Général" | "Entraineur" | "",
-        teams?: string[],
-        isEmailDisplayed: boolean,
-        isNumberDisplayed: boolean,
-        id: string
-    }
+  number: string;
+  name: string;
+  email: string;
+  teams?: string[]; // Optionnel
+  isEmailDisplayed: boolean;
+  isNumberDisplayed: boolean;
+  job?: "Président" | "Trésorier" | "Correspondant" | "Secrétaire Général" | "Entraineur" | ""; // Enumération des valeurs possibles
+  image?: string; // Optionnel
+  _id : string,
+};
 };
 
 export default function StaffCard({
@@ -41,8 +41,7 @@ export default function StaffCard({
         }
     }
 
-    const { name, img, email, number, job, teams, isEmailDisplayed, isNumberDisplayed } = data;
-    console.log(job, data)
+    const { name, image, email, number, job, teams, isEmailDisplayed, isNumberDisplayed } = data;
     if (isEditing) return (
         <div className="relative">
             <Form defaultValues={data} />
@@ -61,7 +60,7 @@ export default function StaffCard({
             <CardHeader className="p-0">
                 <div className="relative aspect-square overflow-hidden">
                     <Image
-                        src={img}
+                        src={image ?? "/images/default/avatar.png"}
                         alt={name}
                         fill
                         className="object-cover object-top"

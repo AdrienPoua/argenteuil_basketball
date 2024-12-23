@@ -1,5 +1,5 @@
 "use client";
-import { getFAQ } from "@/database/controllers/FAQ";
+import { getFAQ } from "@/database/services/FAQ";
 import { useQuery, useQueryClient } from "react-query";
 
 export default function useFetchFAQ() {

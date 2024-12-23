@@ -7,7 +7,7 @@ import Image from "next/image"
 import Form from './Form'
 import { FormValues } from "./Utils"
 import { useQueryClient } from "react-query"
-import { deleteTeam } from "@/database/controllers/teams"
+import { deleteTeam } from "@/database/services/Team"
 
 
 export const TeamCard = ({ data }: { data: Omit<FormValues, 'image'> & { id: string, image?: string } }) => {

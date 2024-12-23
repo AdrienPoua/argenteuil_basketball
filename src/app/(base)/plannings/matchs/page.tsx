@@ -5,7 +5,7 @@ import Card from "./Card";
 import { Badge } from '@/components/ui/badge';
 import H1 from '@/components/H1';
 import { useQuery } from "react-query";
-import { getMatchs } from "@/database/controllers/matchs";
+import { getMatchs } from "@/database/services/matchs";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 

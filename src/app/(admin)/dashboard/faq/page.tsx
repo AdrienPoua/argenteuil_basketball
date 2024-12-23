@@ -3,7 +3,7 @@ import useFetchFAQ from "@/hooks/useFetchFAQ";
 import Feedback from "@/components/FetchFeedback";
 import { Button } from "@/components/ui/button"; // ShadCN UI Button
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { deleteFAQ, updateRank } from "@/database/controllers/FAQ";
+import { deleteFAQ, updateRank } from "@/database/services/FAQ";
 import Form from "./Form";
 
 export default function Index() {

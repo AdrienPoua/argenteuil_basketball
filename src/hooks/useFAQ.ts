@@ -1,6 +1,6 @@
 "use client";
 import { useQueryClient } from "react-query";
-import { deleteFAQ, updateRank, createFAQ } from "@/database/controllers/FAQ";
+import { deleteFAQ, updateRank, createFAQ } from "@/database/services/FAQ";
 
 
 export function useFAQ() {

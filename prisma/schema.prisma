@@ -1,0 +1,222 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Team {
+  id       String                  @id @default(auto()) @map("_id") @db.ObjectId
+  name     String                  @unique
+  image    String?
+  division String?
+  sessions AssignedTeamOnSession[]
+  coach    Coach?                  @relation(fields: [coachId], references: [id])
+  coachId  String?                 @db.ObjectId
+}
+
+model Session {
+  id            String                  @id @default(auto()) @map("_id") @db.ObjectId
+  day           Day
+  start         String
+  end           String
+  gym           Gymnases
+  assignedTeams AssignedTeamOnSession[]
+}
+
+model AssignedTeamOnSession {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  team      Team    @relation(fields: [teamId], references: [id])
+  teamId    String  @db.ObjectId
+  session   Session @relation(fields: [sessionId], references: [id])
+  sessionId String  @db.ObjectId
+}
+
+model Leader {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  name              String
+  email             String
+  number            String
+  isEmailDisplayed  Boolean
+  isNumberDisplayed Boolean
+  image             String?
+  role              Role
+  type              String
+}
+
+enum Role {
+  Trésorier
+  Président
+  Correspondant
+  Secrétaire_Général
+}
+
+model Coach {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  name              String
+  email             String
+  number            String
+  isEmailDisplayed  Boolean
+  isNumberDisplayed Boolean
+  teams             Team[]
+  image             String?
+  type              String
+}
+
+enum Day {
+  Lundi
+  Mardi
+  Mercredi
+  Jeudi
+  Vendredi
+  Samedi
+  Dimanche
+}
+
+enum Gymnases {
+  Jean_Guimier
+  Jesse_Owens
+}
+
+model Match {
+  id                      String   @id @default(auto()) @map("_id") @db.ObjectId
+  numero                  Int
+  numeroJournee           Int
+  idPoule                 Int
+  idOrganismeEquipe1      Int
+  idOrganismeEquipe2      Int
+  nomEquipe1              String
+  nomEquipe2              String
+  resultatEquipe1         Int?
+  resultatEquipe2         Int?
+  date                    DateTime
+  salle                   String?
+  penaliteEquipe1         Boolean?
+  penaliteEquipe2         Boolean?
+  forfaitEquipe1          Boolean?
+  forfaitEquipe2          Boolean?
+  defautEquipe1           Boolean?
+  defautEquipe2           Boolean?
+  validee                 Boolean
+  remise                  Boolean
+  joue                    Boolean
+  handicap1               Int?
+  handicap2               Int?
+  dateSaisieResultat      String?
+  creation                String?
+  modification            String?
+  classementPouleAssociee Int?
+  competition             String?
+}
+
+model FAQ {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  question String
+  answer   String
+  position Int
+}
+
+model Competition {
+  id                  String       @id @default(auto()) @map("_id") @db.ObjectId
+  idCompetitionPere   Int?
+  nom                 String
+  sexe                String
+  categorie           Categorie    @relation(fields: [categorieId], references: [id])
+  categorieId         String       @db.ObjectId
+  code                String
+  fils                Json?
+  saison              Saison       @relation(fields: [saisonId], references: [id])
+  saisonId            String       @db.ObjectId
+  typeCompetition     String
+  liveStat            Boolean
+  creationEnCours     Boolean
+  publicationInternet String
+  classification      String?
+  organisme           Organisme    @relation(fields: [organismeId], references: [id])
+  organismeId         String       @db.ObjectId
+  creation            String?
+  modification        String?
+  etat                String?
+  poules              Poule[]
+  classements         Classement[]
+}
+
+model Categorie {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  code         String
+  libelle      String
+  competitions Competition[]
+}
+
+model Saison {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  code         String
+  libelle      String
+  debut        String
+  fin          String
+  actif        Boolean
+  competitions Competition[]
+}
+
+model Organisme {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  libelle      String
+  code         String?
+  classements  Classement[]
+  competitions Competition[]
+}
+
+model Poule {
+  id            String       @id @default(auto()) @map("_id") @db.ObjectId
+  nom           String
+  competition   Competition? @relation(fields: [competitionId], references: [id])
+  competitionId String?      @db.ObjectId
+}
+
+model Classement {
+  id                  String       @id @default(auto()) @map("_id") @db.ObjectId
+  organisme           Organisme    @relation(fields: [organismeId], references: [id])
+  organismeId         String       @db.ObjectId
+  matchJoues          Int
+  points              Int
+  position            Int
+  gagnes              Int
+  perdus              Int
+  nuls                Int
+  pointsInitiaux      Int?
+  penalitesArbitrage  Int?
+  penalitesEntraineur Int?
+  penalitesDiverses   Int?
+  nombreForfaits      Int?
+  nombreDefauts       Int?
+  paniersMarques      Int?
+  paniersEncaisses    Int?
+  quotient            Int?
+  difference          Int?
+  horsClassement      Boolean?
+  competition         Competition? @relation(fields: [competitionId], references: [id])
+  competitionId       String?      @db.ObjectId
+}
+
+model Club {
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  contacts Contact[]
+}
+
+model Contact {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  name   String
+  email  String
+  number String
+  club   Club   @relation(fields: [clubId], references: [id])
+  clubId String @db.ObjectId
+}

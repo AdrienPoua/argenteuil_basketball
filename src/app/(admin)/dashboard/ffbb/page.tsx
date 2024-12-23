@@ -6,11 +6,9 @@ import getPoules from "@/services/api/getPoules";
 import getRencontresParPoules from "@/services/api/getRencontresParPoules";
 import useToken from "@/hooks/useToken";
 import { Button } from '@/components/ui/button';
-import { CreateOrUpdate } from '@/database/controllers/matchs';
 import { useState } from 'react';
 import getCompetitions from '@/services/api/getCompetitions';
 import getCompetitionsDetails from '@/services/api/getCompetitionsDetails';
-import { upsert } from '@/database/controllers/competitions';
 
 
 export default function Page() {
@@ -34,10 +32,6 @@ export default function Page() {
                 const competition = findCompetition(match)
                 await CreateOrUpdate({ ...match, competition: competition?.code ?? "indefini" });
             }));
-            await Promise.all(competitionsDetails.map(async (competition) => {
-                upsert(competition[0]);
-            }));
-
         } catch (err) {
             console.error('Error transferring matches:', err);
         }

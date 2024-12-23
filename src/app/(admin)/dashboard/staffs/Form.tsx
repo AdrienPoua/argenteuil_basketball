@@ -7,13 +7,26 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { createStaff, updateStaff } from '@/database/controllers/staff'
+import { createStaff, updateStaff } from '@/database/services/Members'
 import { useQueryClient } from "react-query"
 import { useState } from 'react'
 import Image from 'next/image'
 import { stringSchema, ZodFormProps, FormValues, formSchema, handleUpdateImage } from './Utils'
 
-export default function ZodForm({ defaultValues }: Readonly<ZodFormProps>) {
+type PropsType = {
+  defaultValues?: {
+    number: string;
+    name: string;
+    email: string;
+    teams?: string[]; // Optionnel
+    isEmailDisplayed: boolean;
+    isNumberDisplayed: boolean;
+    job?: "Président" | "Trésorier" | "Correspondant" | "Secrétaire Général" | "Entraineur" | "";
+    image?: string; // Optionnel
+    _id: string,
+  };
+}
+export default function ZodForm({ defaultValues }: Readonly<PropsType>) {
   const [previewImage, setPreviewImage] = useState<string | undefined>(defaultValues?.image);
   const queryClient = useQueryClient()
   const form = useForm<FormValues>({
@@ -34,7 +47,7 @@ export default function ZodForm({ defaultValues }: Readonly<ZodFormProps>) {
     control: form.control,
     name: 'teams'
   });
-  
+
   async function onSubmit(data: FormValues) {
     let imageUrl = defaultValues?.image
     try {
@@ -43,7 +56,7 @@ export default function ZodForm({ defaultValues }: Readonly<ZodFormProps>) {
         imageUrl = stringSchema.parse(imageUrl)
       }
       if (defaultValues) {
-        await updateStaff(defaultValues.id, { ...data, image: imageUrl, teams: data?.teams?.map(team => team.name) })
+        await updateStaff({ ...defaultValues, image: imageUrl, teams: data?.teams?.map(team => team.name) })
       } else {
         await createStaff({ ...data, image: imageUrl, teams: data?.teams?.map(team => team.name) })
       }

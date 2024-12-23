@@ -1,6 +1,6 @@
 "use client";
 import { useQuery } from "react-query";
-import { getLeaders } from "@/database/controllers/staff";
+import { getLeaders } from "@/database/services/Members";
 import { useState, useEffect } from "react";
 import { Leader } from "@/models";
 

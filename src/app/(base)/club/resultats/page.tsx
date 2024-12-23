@@ -2,7 +2,7 @@
 
 import CompetitionResultsTabs from './table'
 import { useQuery } from 'react-query'
-import { getCompetitions } from "@/database/controllers/competitions";
+import { getCompetitions } from "@/database/services/Competitions";
 import H1 from "@/components/H1"
 import MainSection from "@/components/layouts/MainSection";
 

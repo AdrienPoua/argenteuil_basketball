@@ -1,6 +1,6 @@
 "use client";
 import { useQuery, useQueryClient } from "react-query";
-import { getTeams } from "@/database/controllers/teams";
+import { getTeams } from "@/database/services/Team";
 import { useState, useEffect } from "react";
 import { Team } from "@/models";
 
