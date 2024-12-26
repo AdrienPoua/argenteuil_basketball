@@ -1,29 +1,30 @@
+"use server"
 import { z } from "zod"
+
+
+
 
 export const formSchema = z.object({
   name: z
-    .string()
-    .min(1, { message: "Le nom est requis." }), // Champ obligatoire
+    .string(),
   email: z
     .string()
-    .email({ message: "Email invalide." })
-    .min(1, { message: "L'email est requis." }), // Champ obligatoire avec format email
-  number: z
-    .string()
-    .min(1, { message: "Le numéro est requis." }), // Champ obligatoire
+    .email({ message: "Email invalide." }),
+  number: z.string(),
+  image: z.instanceof(File).optional(),
+  isEmailDisplayed: z
+    .boolean(),
+  isNumberDisplayed: z
+    .boolean(),
   teams: z
     .array(z.object({
-      name: z.string().min(1, { message: "Le nom de l'équipe est requis." }), // Champ obligatoire pour le nom de l'équipe
+      id: z.string()
     }))
     .optional(),
-  job: z
-    .enum(["Président", "Trésorier", "Correspondant", "Secrétaire Général", "Entraineur", ""]) // Correspond aux options du select
-    .optional(), // Ce champ est optionnel
-    image: z.instanceof(File).optional(),
-    isEmailDisplayed: z
-    .boolean(), // Checkbox pour cacher l'email, booléen
-  isNumberDisplayed: z
-    .boolean(), // Checkbox pour cacher le numéro, booléen
+  type: z.enum(["coach", "leader"]),
+  role: z
+    .enum(["Président", "Trésorier", "Correspondant", "Secrétaire Général", "Entraineur", ""])
+    .optional(),
 });
 
 export const handleUpdateImage = async (file: File): Promise<string> => {
@@ -45,4 +46,5 @@ export interface ZodFormProps {
   defaultValues?: Omit<FormValues, 'image' | 'teams'> & { id: string, teams?: string[], image?: string }
 }
 export const stringSchema = z.string();
+
 

@@ -1,20 +1,22 @@
 import Staff, {
-  Constructor as ExtentedConstructor,
+  ConstructorType as ExtentedConstructor,
 } from "@/models/Staff";
+import { TeamWithIdSchema } from "@/database/schemas/Team";
+import { z } from "zod";
 
-type Constructor = {
-  teams: string[];
+type ConstructorType = {
+  teams: Omit<z.infer<typeof TeamWithIdSchema>, 'sessions'>[];
 } & ExtentedConstructor;
 
 export default class Coach extends Staff {
-  private readonly _teams: string[];
+  private readonly _teams: z.infer<typeof TeamWithIdSchema>[];
 
-  constructor(data: Constructor) {
+  constructor(data: ConstructorType) {
     super(data);
     this._teams = data.teams;
   }
 
-  get teams(): string[] {
+  get teams(): z.infer<typeof TeamWithIdSchema>[] {
     return this._teams;
   }
 }

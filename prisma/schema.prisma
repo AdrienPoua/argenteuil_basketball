@@ -13,26 +13,62 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+/**
+ * ****************************************
+ * SECTION : MEMBERS     *
+ * ****************************************
+ */
+
+model Member {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  email       String
+  publicEmail Boolean
+  phone       String
+  publicPhone Boolean
+  leader      Boolean
+  type        Roles[]
+  image       String?
+  coach       Coach?
+}
+
+model Coach {
+  id       String        @id @default(auto()) @map("_id") @db.ObjectId
+  teams    TeamOnCoach[]
+  member   Member        @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  memberId String        @unique @db.ObjectId
+}
+
+/**
+ * ****************************************
+ * SECTION : TEAMS     *
+ * ****************************************
+ */
 model Team {
-  id       String                  @id @default(auto()) @map("_id") @db.ObjectId
-  name     String                  @unique
+  id       String          @id @default(auto()) @map("_id") @db.ObjectId
+  name     String          @unique
   image    String?
-  division String?
-  sessions AssignedTeamOnSession[]
-  coach    Coach?                  @relation(fields: [coachId], references: [id])
-  coachId  String?                 @db.ObjectId
+  level    String
+  sessions TeamOnSession[]
+  coachs   TeamOnCoach[]
 }
 
 model Session {
-  id            String                  @id @default(auto()) @map("_id") @db.ObjectId
-  day           Day
-  start         String
-  end           String
-  gym           Gymnases
-  assignedTeams AssignedTeamOnSession[]
+  id    String          @id @default(auto()) @map("_id") @db.ObjectId
+  day   Day
+  start String
+  end   String
+  gym   Gymnases
+  teams TeamOnSession[]
 }
 
-model AssignedTeamOnSession {
+/**
+ * ****************************************
+ * SECTION : MANY_TO_MANY     *
+ * ****************************************
+ */
+
+model TeamOnSession {
   id        String  @id @default(auto()) @map("_id") @db.ObjectId
   team      Team    @relation(fields: [teamId], references: [id])
   teamId    String  @db.ObjectId
@@ -40,36 +76,19 @@ model AssignedTeamOnSession {
   sessionId String  @db.ObjectId
 }
 
-model Leader {
-  id                String  @id @default(auto()) @map("_id") @db.ObjectId
-  name              String
-  email             String
-  number            String
-  isEmailDisplayed  Boolean
-  isNumberDisplayed Boolean
-  image             String?
-  role              Role
-  type              String
+model TeamOnCoach {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  team    Team   @relation(fields: [teamId], references: [id])
+  teamId  String @db.ObjectId
+  coach   Coach  @relation(fields: [coachId], references: [id])
+  coachId String @db.ObjectId
 }
 
-enum Role {
-  Trésorier
-  Président
-  Correspondant
-  Secrétaire_Général
-}
-
-model Coach {
-  id                String  @id @default(auto()) @map("_id") @db.ObjectId
-  name              String
-  email             String
-  number            String
-  isEmailDisplayed  Boolean
-  isNumberDisplayed Boolean
-  teams             Team[]
-  image             String?
-  type              String
-}
+/**
+ * ****************************************
+ * SECTION : ENUM     *
+ * ****************************************
+ */
 
 enum Day {
   Lundi
@@ -86,6 +105,20 @@ enum Gymnases {
   Jesse_Owens
 }
 
+enum Roles {
+  Trésorier
+  Président
+  Correspondant
+  Secrétaire_Général
+  Entraineur
+  Webmaster
+}
+
+/**
+ * ****************************************
+ * SECTION : MATCH     *
+ * ****************************************
+ */
 model Match {
   id                      String   @id @default(auto()) @map("_id") @db.ObjectId
   numero                  Int
@@ -117,106 +150,21 @@ model Match {
   competition             String?
 }
 
+/**
+ * ****************************************
+ * SECTION : Others     *
+ * ****************************************
+ */
+model Club {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  name  String
+  email String
+  phone String
+}
+
 model FAQ {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   question String
   answer   String
   position Int
-}
-
-model Competition {
-  id                  String       @id @default(auto()) @map("_id") @db.ObjectId
-  idCompetitionPere   Int?
-  nom                 String
-  sexe                String
-  categorie           Categorie    @relation(fields: [categorieId], references: [id])
-  categorieId         String       @db.ObjectId
-  code                String
-  fils                Json?
-  saison              Saison       @relation(fields: [saisonId], references: [id])
-  saisonId            String       @db.ObjectId
-  typeCompetition     String
-  liveStat            Boolean
-  creationEnCours     Boolean
-  publicationInternet String
-  classification      String?
-  organisme           Organisme    @relation(fields: [organismeId], references: [id])
-  organismeId         String       @db.ObjectId
-  creation            String?
-  modification        String?
-  etat                String?
-  poules              Poule[]
-  classements         Classement[]
-}
-
-model Categorie {
-  id           String        @id @default(auto()) @map("_id") @db.ObjectId
-  code         String
-  libelle      String
-  competitions Competition[]
-}
-
-model Saison {
-  id           String        @id @default(auto()) @map("_id") @db.ObjectId
-  code         String
-  libelle      String
-  debut        String
-  fin          String
-  actif        Boolean
-  competitions Competition[]
-}
-
-model Organisme {
-  id           String        @id @default(auto()) @map("_id") @db.ObjectId
-  libelle      String
-  code         String?
-  classements  Classement[]
-  competitions Competition[]
-}
-
-model Poule {
-  id            String       @id @default(auto()) @map("_id") @db.ObjectId
-  nom           String
-  competition   Competition? @relation(fields: [competitionId], references: [id])
-  competitionId String?      @db.ObjectId
-}
-
-model Classement {
-  id                  String       @id @default(auto()) @map("_id") @db.ObjectId
-  organisme           Organisme    @relation(fields: [organismeId], references: [id])
-  organismeId         String       @db.ObjectId
-  matchJoues          Int
-  points              Int
-  position            Int
-  gagnes              Int
-  perdus              Int
-  nuls                Int
-  pointsInitiaux      Int?
-  penalitesArbitrage  Int?
-  penalitesEntraineur Int?
-  penalitesDiverses   Int?
-  nombreForfaits      Int?
-  nombreDefauts       Int?
-  paniersMarques      Int?
-  paniersEncaisses    Int?
-  quotient            Int?
-  difference          Int?
-  horsClassement      Boolean?
-  competition         Competition? @relation(fields: [competitionId], references: [id])
-  competitionId       String?      @db.ObjectId
-}
-
-model Club {
-  id          String        @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  contacts Contact[]
-}
-
-model Contact {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
-  name   String
-  email  String
-  number String
-  club   Club   @relation(fields: [clubId], references: [id])
-  clubId String @db.ObjectId
 }

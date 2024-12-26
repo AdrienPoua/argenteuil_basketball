@@ -1,23 +1,25 @@
-import Staff, { Constructor as ExtendingConstructor } from "@/models/Staff";
+import Staff, { ConstructorType as ExtendingConstructor } from "@/models/Staff";
 
-type Constructor = {
-  job:  "Président" | "Trésorier" | "Correspondant" | "Secrétaire Général" | "Entraineur" | "",
-  teams?: string[];
+type RoleType =
+  | "Président"
+  | "Trésorier"
+  | "Correspondant"
+  | "Secrétaire_Général"
+  | "Entraineur";
+
+type ConstructorType = {
+  role: RoleType;
 } & ExtendingConstructor;
+
 export default class Leader extends Staff {
-  private readonly _teams?: string[];
-  private readonly _job:  "Président" | "Trésorier" | "Correspondant" | "Secrétaire Général" | "Entraineur" | "";
-  constructor(data: Constructor) {
+  private readonly _role: RoleType;
+
+  constructor(data: ConstructorType) {
     super(data);
-    this._teams = data.teams;
-    this._job = data.job;
+    this._role = data.role;
   }
 
-  get teams(): string[] | undefined {
-    return this._teams;
-  }
-
-  get job() {
-    return this._job;
+  get role() {
+    return this._role.replace("_", " ");
   }
 }

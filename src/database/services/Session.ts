@@ -1,22 +1,18 @@
-import {
-  SessionSchema,
-  ExistingSessionSchema,
-} from "@/database/schemas/Session";
+import { SessionSchema } from "@/database/schemas/Session";
 import prisma from "@/database/prisma";
 import { z } from "zod";
 
 export class SessionService {
   private readonly SessionSchema = SessionSchema;
-  private readonly ExistingSessionSchema = ExistingSessionSchema;
 
   async createSession(data: z.infer<typeof this.SessionSchema>) {
-    const { assignedTeams, ...session } = this.SessionSchema.parse(data);
+    const { teams, ...session } = this.SessionSchema.parse(data);
     try {
       return await prisma.session.create({
         data: {
           ...session,
-          assignedTeams: {
-            connect: assignedTeams.map((team) => ({
+          teams: {
+            connect: teams.map((team) => ({
               id: team.id,
             })),
           },
@@ -28,31 +24,18 @@ export class SessionService {
     }
   }
 
-  // Récupération de toutes les équipes
-  async getSessions() {
-    try {
-      return await prisma.session.findMany({});
-    } catch (error) {
-      console.error("Erreur lors de la récupération des sessions :", error);
-      throw error;
-    }
-  }
-
-  async updateSession(data: z.infer<typeof this.ExistingSessionSchema>) {
-    const { assignedTeams, ...session } = this.ExistingSessionSchema.parse(data);
+  async updateSession(data: z.infer<typeof this.SessionSchema> & { id: string }) {
+    const { teams, ...session } = this.SessionSchema.extend({ id: z.string() }).parse(data);
     try {
       return await prisma.session.update({
         where: { id: session.id },
         data: {
           ...session,
-          assignedTeams: {
-            set: assignedTeams.map((team: { id: string }) => ({
+          teams: {
+            set: teams.map((team: { id: string }) => ({
               id: team.id,
             })),
           },
-        },
-        include: {
-          assignedTeams: true,
         },
       });
     } catch (error) {
@@ -63,8 +46,11 @@ export class SessionService {
 
   async deleteSession(id: string) {
     try {
-      return await prisma.session.delete({
+      await prisma.session.delete({
         where: { id: id },
+      });
+      await prisma.teamOnSession.deleteMany({
+        where: { sessionId: id },
       });
     } catch (error) {
       console.error("Erreur lors de la suppression du session :", error);

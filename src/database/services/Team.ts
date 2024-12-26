@@ -1,27 +1,34 @@
-import { BaseTeamSchema, ExistingTeamSchema } from "@/database/schemas/Team";
+import { TeamSchema } from "@/database/schemas/Team";
+import { SessionSchema } from "@/database/schemas/Session";
 import prisma from "@/database/prisma";
 import { z } from "zod";
+import { SessionService } from "./Session";
 
 export class TeamService {
-  private readonly BaseTeamSchema = BaseTeamSchema;
-  private readonly ExistingTeamSchema = ExistingTeamSchema;
-
+  private readonly SessionService = new SessionService();
+  private readonly TeamSchema = TeamSchema;
+  private readonly createTeamSchema = TeamSchema.extend({
+    sessions: z.array(SessionSchema),
+  });
   // Création d'une équipe
-  async createTeam(data: z.infer<typeof this.BaseTeamSchema>) {
+  async createTeam(data: z.infer<typeof this.createTeamSchema>) {
     try {
-      // Valider les données avec Zod
-      const parsedTeam = this.BaseTeamSchema.parse(data);
-      const { sessions, coach, ...team } = parsedTeam;
+      const parsedTeam = this.createTeamSchema.parse(data);
+      const { sessions, coachs, ...team } = parsedTeam;
+
+      const createdSessions = await Promise.all(sessions.map((session) => this.SessionService.createSession(session)));
 
       // Créer l'équipe avec les sessions associées
-      return await prisma.team.create({
+      await prisma.team.create({
         data: {
           ...team,
-          coach: {
-            connect: { id: coach?.id },
+          coachs: {
+            connect: coachs.map((coach) => ({
+              id: coach.id,
+            })),
           },
           sessions: {
-            connect: sessions.map((session) => ({
+            connect: createdSessions.map((session) => ({
               id: session.id,
             })),
           },
@@ -39,6 +46,7 @@ export class TeamService {
       return await prisma.team.findMany({
         include: {
           sessions: true,
+          coachs: true,
         },
       });
     } catch (error) {
@@ -47,17 +55,13 @@ export class TeamService {
     }
   }
 
-  async updateTeam(data: z.infer<typeof this.ExistingTeamSchema>) {
-    const parsedTeam = this.ExistingTeamSchema.parse(data);
-    const { sessions, coach, ...team } = parsedTeam;
+  async updateTeam(data: z.infer<typeof this.TeamSchema> & { id: string }) {
+    const parsedTeam = this.TeamSchema.extend({ id: z.string() }).parse(data);
+    const { sessions, coachs, ...team } = parsedTeam;
 
     try {
       return await prisma.team.update({
         where: { id: parsedTeam.id },
-        include: {
-          sessions: true,
-          coach: true,
-        },
         data: {
           ...team,
           sessions: {
@@ -65,8 +69,10 @@ export class TeamService {
               id: session.id,
             })),
           },
-          coach: {
-            connect: { id: coach?.id },
+          coachs: {
+            set: coachs.map((coach) => ({
+              id: coach.id,
+            })),
           },
         },
       });

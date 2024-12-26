@@ -1,29 +1,22 @@
+"use client"
 import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useState } from "react";
-import Form from "./Form";
+import { BaseForm } from "./Form";
 import { Ban, Mail, Phone, PhoneOff } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Badge } from "@/components/ui/badge";
+import { z } from "zod";
+import { ExistingLeaderSchema } from "@/database/schemas/Leader";
+import { CoachWithTeamsSchema } from "@/database/schemas/Coach";
 
-type StaffCardProps = {
-    data: {
-  number: string;
-  name: string;
-  email: string;
-  teams?: string[]; // Optionnel
-  isEmailDisplayed: boolean;
-  isNumberDisplayed: boolean;
-  job?: "Président" | "Trésorier" | "Correspondant" | "Secrétaire Général" | "Entraineur" | ""; // Enumération des valeurs possibles
-  image?: string; // Optionnel
-  _id : string,
-};
-};
 
-export default function StaffCard({
-    data
-}: Readonly<StaffCardProps>): React.ReactElement {
+type coachType = Omit<z.infer<typeof CoachWithTeamsSchema>, 'image'> & { image: string };
+type leaderType = Omit<z.infer<typeof ExistingLeaderSchema>, 'image'> & { image: string };
+export type DataProps = leaderType | coachType;
+
+export default function CustomCard({ data }: Readonly<{ data: DataProps }>): React.ReactElement {
     const [isEditing, setIsEditing] = useState(false);
     const [isNumberVisible, setIsNumberVisible] = useState(false)
 
@@ -41,10 +34,10 @@ export default function StaffCard({
         }
     }
 
-    const { name, image, email, number, job, teams, isEmailDisplayed, isNumberDisplayed } = data;
+    const { name, image, email, number, isEmailDisplayed, isNumberDisplayed } = data;
     if (isEditing) return (
         <div className="relative">
-            <Form defaultValues={data} />
+            <BaseForm />
             <Button onClick={() => setIsEditing(false)} className="absolute top-0 right-0">
                 📜
             </Button>
@@ -69,17 +62,15 @@ export default function StaffCard({
             </CardHeader>
             <CardContent className="p-4">
                 <h3 className="text-2xl font-semibold text-center">{name}</h3>
-                {job && <p className="text-center text-muted-foreground">{job}</p>}
-                {teams && teams.length > 0 && (
-                    <div className="flex flex-wrap justify-center gap-2 mt-2">
-                        {teams?.map((team) => (
-                            <Badge key={team} variant="staffCard">
-                                {team}
-                            </Badge>
-                        ))}
-                    </div>
-                )}
             </CardContent>
+            <CardFooter className="flex justify-around p-4 bg-transparent">
+                {'role' in data && <p className="text-center text-muted-foreground"><Badge key={data.role} variant="staffCard">
+                    {data.role}
+                </Badge></p>}
+                {'teams' in data && <p className="text-center text-muted-foreground"><Badge key={data.name} variant="staffCard">
+                    {data.teams.map((team) => team.name).join(" - ")}
+                </Badge></p>}
+            </CardFooter>
             <CardFooter className="flex justify-around p-4 bg-transparent">
                 <TooltipProvider>
                     <Tooltip>

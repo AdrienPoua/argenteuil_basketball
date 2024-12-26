@@ -111,8 +111,8 @@ const topItems = [
     icon: UserCog,
   },
   {
-    title: "Staffs",
-    url: "/dashboard/staffs",
+    title: "Membres",
+    url: "/dashboard/membres",
     icon: GraduationCap,
   },
   {
