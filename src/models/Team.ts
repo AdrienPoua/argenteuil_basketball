@@ -1,85 +1,55 @@
 import { v4 as uuidv4 } from "uuid";
+import { z } from "zod";
+import { daySchema, gymSchema } from "../database/schemas/Session";
+import Member from "./Member";
 
-type TeamConstructor = {
+type ConstructorType = {
+  id: string;
   name: string;
-  trainings: Training[];
-  image?: string;
-  id?: string;
-  coach?: string;
+  image: string | null;
+  level: string;
+  sessions: SessionType[];
+  coachs: ConstructorParameters<typeof Member>[];
 };
 
-type Training = {
-  team?: string;
-  day: "Lundi" | "Mardi" | "Mercredi" | "Jeudi" | "Vendredi" | "Samedi";
+type SessionType = {
   start: string;
   end: string;
-  gym: string;
+  day: z.infer<typeof daySchema>;
+  gym: z.infer<typeof gymSchema>;
 };
 
 export default class Team {
-  private _name: string;
-  private _id: string;
-  private _coach?: string;
-  private _img: string;
-  private _trainings: Training[];
+  private readonly _id: string;
+  private readonly _name: string;
+  private readonly _coachs: Member[];
+  private readonly _image: string | null;
+  private readonly _sessions: SessionType[];
 
-  constructor(data: TeamConstructor) {
+  constructor(data: ConstructorType) {
     this._name = data.name;
-    this._coach = data.coach;
-    this._img = data.image ? data.image : "/images/default/equipes.avif";
-    this._trainings = data.trainings;
-    this._id = data.id ?? uuidv4(); // Generate UUID if no ID is provided
+    this._coachs = data.coachs.map((coach) => new Member(...coach));
+    this._image = data.image;
+    this._id = data.id;
+    this._sessions = data.sessions;
+  }
+
+  get id() {
+    return this._id;
   }
   get name(): string {
     return this._name;
   }
 
-  get trainings(): Training[] {
-    return this._trainings;
+  get sessions() {
+    return this._sessions;
   }
 
-  get img(): string {
-    return this._img;
+  get image() {
+    return this._image ?? "/images/default/equipes.avif";
   }
-  get isTeamImage() {
-    return this._img !== "/images/default/equipes.avif";
-  }
-
-  get id(): string {
-    return this._id;
-  }
-  get coach(): string | undefined {
-    return this._coach;
-  }
-  set coach(name: string) {
-    this._coach = name;
+  get coachs() {
+    return this._coachs;
   }
 }
 
-type RankedTeamConstructor = TeamConstructor & { division: string; championship: boolean };
-export class RankedTeam extends Team {
-  private _division: string;
-  private _championship: boolean;
-
-  constructor(data: RankedTeamConstructor) {
-    super(data);
-    this._division = data.division
-    this._championship = data.championship;
-  }
-  get division(): string {
-    return this._division;
-  }
-  get championship(): boolean {
-    return this._championship;
-  }
-}
-
-export class TeamFactory {
-  static createTeam(data: TeamConstructor | RankedTeamConstructor): Team | RankedTeam {
-    // Check if data has the properties necessary to create a RankedTeam
-    if ('division' in data) {
-      return new RankedTeam(data);
-    }
-    return new Team(data);
-  }
-}

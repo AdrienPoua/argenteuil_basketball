@@ -23,10 +23,10 @@ model Member {
   id          String  @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   email       String
-  publicEmail Boolean
+  isPublicEmail Boolean
   phone       String
-  publicPhone Boolean
-  leader      Boolean
+  isPublicPhone Boolean
+  isLeader      Boolean
   type        Roles[]
   image       String?
   coach       Coach?

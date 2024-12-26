@@ -1,17 +1,21 @@
 import { z } from "zod";
 
+export const daySchema = z.enum([
+  "Lundi",
+  "Mardi",
+  "Mercredi",
+  "Jeudi",
+  "Vendredi",
+  "Samedi",
+  "Dimanche",
+]);
+
+export const gymSchema = z.enum(["Jean_Guimier", "Jesse_Owens"]);
+
 export const SessionSchema = z.object({
-  day: z.enum([
-    "Lundi",
-    "Mardi",
-    "Mercredi",
-    "Jeudi",
-    "Vendredi",
-    "Samedi",
-    "Dimanche",
-  ]),
+  day: daySchema,
   start: z.string(),
   end: z.string(),
-  gym: z.enum(["Jean_Guimier", "Jesse_Owens"]),
+  gym: gymSchema,
   teams: z.array(z.object({ id: z.string() })),
 });

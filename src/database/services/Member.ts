@@ -49,7 +49,7 @@ export class MemberService {
 
   async getLeaders() {
     return await prisma.member.findMany({
-      where: { leader: true },
+      where: { isLeader: true },
     });
   }
 
