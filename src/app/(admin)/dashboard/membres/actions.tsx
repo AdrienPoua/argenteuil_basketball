@@ -1,27 +1,17 @@
 "use server"
+import { MemberService } from "@/database/services/Member"
 import { z } from "zod"
-import { CoachSchema } from "@/database/schemas/Coach"
-import { LeaderSchema } from "@/database/schemas/Leader"
-import { CoachService } from "@/database/services/Coach"
-import { LeaderService } from "@/database/services/Leader"
-import { TeamService } from "@/database/services/Team"
+import { FormSchema } from "./Form"
 
-const coachService = new CoachService()
-const leaderService = new LeaderService()
-const teamService = new TeamService()
+const memberService = new MemberService()
 
-export const createCoach = async (data: z.infer<typeof CoachSchema>) => {
-    await coachService.createCoach(data)
+export const createMember = async (data: z.infer<typeof FormSchema>) => {
+    const result = await memberService.createMember(data)
+    console.log("🚀 ~ createMember ~ result:", result)
 }
 
-export const createLeader = async (data: z.infer<typeof LeaderSchema>) => {
-    await leaderService.createLeader(data)
+export const updateMember = async (data: z.infer<typeof FormSchema>) => {
+    await memberService.updateMember(data)
 }
-export const getTeams = async () => {
-    const teams = await teamService.getTeams()
-    return teams
-}
-
-
 
 

@@ -1,325 +1,84 @@
-'use client'
-
-import { useForm, useFieldArray } from 'react-hook-form'
-
-import { zodResolver } from '@hookform/resolvers/zod'
+"use client"
+import { z } from "zod"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Roles, Prisma } from "@prisma/client"
 import { Button } from "@/components/ui/button"
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { useQueryClient } from "react-query"
-import { useState } from 'react'
-import Image from 'next/image'
-import { formSchema, handleUpdateImage, FormValues } from './Utils'
-import { createCoach, createLeader } from './actions'
-import { DataProps } from './Card'
-import TeamInput from './TeamInput'
+import { MultiSelect } from "@/components/ui/multi-select"
+import { useState } from "react"
+import { createMember } from "./actions"
+import { TeamSchema } from "@/database/schemas/Team"
+import { IdSchema } from "@/database/schemas/Id"
+import { SessionSchema } from "@/database/schemas/Session"
 
-export function BaseForm() {
-  const [previewImage, setPreviewImage] = useState<string | undefined>();
-  const form = useForm<FormValues>({
-    resolver: zodResolver(formSchema)
-  })
-
-  const { fields, append, remove } = useFieldArray({
-    control: form.control,
-    name: 'teams'
-  });
-
-
-  async function onSubmit(data: FormValues) {
-    let imageUrl = ""
-    const handleCreate = async () => {
-      switch (data.type) {
-        case 'coach':
-          await createCoach({
-            ...data,
-            image: imageUrl,
-            teams: [{ id: "1" }, { id: "2" }],
-          });
-          break;
-        case 'leader':
-          await createLeader({
-            ...data,
-            image: imageUrl,
-            teams: ["1", "2"],
-          });
-          break;
-        default:
-          throw new Error("Invalid type");
-      }
-    };
-
-    try {
-      if (data.image) {
-        imageUrl = await handleUpdateImage(data.image);
-      }
-      await handleCreate();
-      form.reset();
-    } catch (error) {
-      console.error(error);
-    }
-  }
+export const FormSchema = z.object({
+  name: z.string(),
+  phone: z.string(),
+  email: z.string(),
+  image: z.string().nullable(),
+  isPublicEmail: z.boolean(),
+  isPublicPhone: z.boolean(),
+  isLeader: z.boolean(),
+  role: z.array(z.nativeEnum(Roles)),
+  teams: z.array(TeamSchema.merge(IdSchema).extend({ sessions: z.array(SessionSchema.merge(IdSchema)) })),
+})
 
 
-  return (
-    <Form {...form} >
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 max-w-md mx-auto bg-foreground border border-primary/50 rounded-xl p-3 font-secondary ">
-        <FormField
-          control={form.control}
-          name="type"
-          render={({ field }) => (
-            <FormItem className="text-background">
-              <FormLabel>Type</FormLabel>
-              <FormControl>
-                <Select onValueChange={field.onChange} defaultValue="coach">
-                  <SelectTrigger>
-                    <SelectValue placeholder="Coach" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="coach">Coach</SelectItem>
-                    <SelectItem value="leader">Leader</SelectItem>
-                  </SelectContent>
-                </Select>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        {
-          form.watch('type') === 'coach' && <TeamInput form={form} />
-        }
-        {
-          form.watch('type') === 'leader' && (
-            <FormField
-              control={form.control}
-              name="role"
-              render={({ field }) => (
-                <FormItem className="text-background">
-                  <FormLabel >Role</FormLabel>
-                  <FormControl>
-                    <Select onValueChange={field.onChange} defaultValue="Président">
-                      <SelectTrigger>
-                        <SelectValue placeholder="Role" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Président">Président</SelectItem>
-                        <SelectItem value="Trésorier">Trésorier</SelectItem>
-                        <SelectItem value="Correspondant">Correspondant</SelectItem>
-                        <SelectItem value="Secrétaire_Général">Secrétaire Général</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          )
-        }
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem className="text-background">
-              <FormLabel >Email</FormLabel>
-              <FormControl>
-                <Input type="email" placeholder="votre@email.com" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+export default function CustomForm({ teams }: Readonly<{ teams: Prisma.TeamGetPayload<{ include: { coach: true } }>[] }>) {
 
-        <FormField
-          control={form.control}
-          name="number"
-          render={({ field }) => (
-            <FormItem className="text-background">
-              <FormLabel >Numéro</FormLabel>
-              <FormControl>
-                <Input type="tel" placeholder="Votre numéro" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        {<FormField
-          control={form.control}
-          name="teams"
-          render={() => (
-            <FormItem className="text-background flex flex-col gap-2">
-              <FormLabel>Équipes</FormLabel>
-              {fields.map((field, index) => {
-                return (
-                  <div key={field.id} className="flex gap-3 items-center">
-                    <FormControl>
-                      <Input
-                        defaultValue={field.name}
-                        placeholder={`Équipe ${index + 1}`}
-                        {...form.register(`teams.${index}.name`)}
-                      />
-                    </FormControl>
-                    <Button
-                      onClick={() => remove(index)}  // Remove team
-                      type="button"
-                    >
-                      Supprimer
-                    </Button>
-                  </div>
-                );
-              })}
-              <Button
-                onClick={() => append({ name: "" })}  // Add new team
-                type="button"
-              >
-                Ajouter une équipe
-              </Button>
-              <FormDescription>Ce champ est optionnel</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />}
-
-        <FormField
-          control={form.control}
-          name="image"
-          render={({ field }) => (
-            <FormItem className="text-background">
-              <FormLabel >Image</FormLabel>
-              <>
-                {previewImage && (
-                  <Image src={previewImage} alt="Prévisualisation de l'image" className="mb-2 max-w-xs" width={200} height={200} />
-                )}
-                <Input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    const file = e.target.files?.[0];
-                    if (file) {
-                      const url = URL.createObjectURL(file);
-                      field.onChange(file);
-                      setPreviewImage(url);
-                    }
-                  }}
-                />
-              </>
-              <FormDescription >Ce champ est optionnel</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="isEmailDisplayed"
-          render={({ field }) => (
-            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-              <FormControl>
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-
-                />
-              </FormControl>
-              <div className="space-y-1 leading-none">
-                <FormLabel >
-                  Afficher l&apos;email
-                </FormLabel>
-                <FormDescription >
-                  Cochez cette case pour afficher votre email publiquement
-                </FormDescription>
-              </div>
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="isNumberDisplayed"
-          render={({ field }) => (
-            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-              <FormControl>
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-
-                />
-              </FormControl>
-              <div className="space-y-1 leading-none">
-                <FormLabel >
-                  Afficher le numéro
-                </FormLabel>
-                <FormDescription >
-                  Cochez cette case pour afficher votre numéro publiquement
-                </FormDescription>
-              </div>
-            </FormItem>
-          )}
-        />
-
-        <Button type="submit" disabled={form.formState.isSubmitting}>
-          {form.formState.isSubmitting
-            ? 'Envoi en cours...' : 'Envoyer'}
-        </Button>
-      </form>
-    </Form >
-  )
-}
-export function EditForm({ defaultValues }: Readonly<{ defaultValues?: DataProps }>) {
-  const [previewImage, setPreviewImage] = useState<string | undefined>(defaultValues?.image);
-  const queryClient = useQueryClient()
-  const form = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
     defaultValues: {
-      name: defaultValues?.name ?? '',
-      email: defaultValues?.email ?? '',
-      number: defaultValues?.number ?? '',
-      teams: defaultValues?.teams?.map(team => ({ name: team })) ?? [],
-      role: defaultValues?.role ?? '',
-      image: undefined,
-      isEmailDisplayed: defaultValues?.isEmailDisplayed ?? false,
-      isNumberDisplayed: defaultValues?.isNumberDisplayed ?? false,
+      name: "",
+      phone: "",
+      email: "",
+      image: null,
+      isPublicEmail: false,
+      isPublicPhone: false,
+      isLeader: false,
+      role: [],
+      teams: [],
     },
   })
 
-  const { fields, append, remove } = useFieldArray({
-    control: form.control,
-    name: 'teams'
-  });
+  const [selectedRoles, setSelectedRoles] = useState<Roles[]>([])
 
-  async function onSubmit(data: FormValues) {
-    let imageUrl = defaultValues?.image
-    try {
-      if (data.image instanceof File) {
-        imageUrl = await handleUpdateImage(data.image)
-        imageUrl = stringSchema.parse(imageUrl)
-      }
-      if (defaultValues) {
-        await updateStaff({ ...defaultValues, image: imageUrl, teams: data?.teams?.map(team => team.name) })
-      } else {
-        await createStaff({ ...data, image: imageUrl, teams: data?.teams?.map(team => team.name) })
-      }
-      queryClient.invalidateQueries(["staff"]);
-      form.reset()
-    } catch (error) {
-      console.error(error)
-    }
+  const roleOptions = Object.values(Roles).map(role => ({
+    label: role.replace("_", " "),
+    value: role,
+  }))
+
+  const teamOptions = teams.map(team => ({
+    label: team.name,
+    value: team.id,
+  }))
+
+  const onSubmit = async (data: z.infer<typeof FormSchema>) => {
+    await createMember(data)
   }
 
-
   return (
-    <Form {...form} >
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 max-w-md mx-auto bg-foreground border border-primary/50 rounded-xl p-3 font-secondary ">
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3 size-fit w-full bg-foreground p-10 rounded-md font-secondary mx-auto ">
         <FormField
           control={form.control}
           name="name"
           render={({ field }) => (
-            <FormItem className="text-background">
-              <FormLabel >Nom</FormLabel>
+            <FormItem>
+              <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="Votre nom" {...field} />
+                <Input placeholder="Michael Jordan" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -330,10 +89,10 @@ export function EditForm({ defaultValues }: Readonly<{ defaultValues?: DataProps
           control={form.control}
           name="email"
           render={({ field }) => (
-            <FormItem className="text-background">
-              <FormLabel >Email</FormLabel>
+            <FormItem>
+              <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input type="email" placeholder="votre@email.com" {...field} />
+                <Input placeholder="john@example.com" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -342,12 +101,97 @@ export function EditForm({ defaultValues }: Readonly<{ defaultValues?: DataProps
 
         <FormField
           control={form.control}
-          name="number"
+          name="phone"
           render={({ field }) => (
-            <FormItem className="text-background">
-              <FormLabel >Numéro</FormLabel>
+            <FormItem>
+              <FormLabel>Phone</FormLabel>
               <FormControl>
-                <Input type="tel" placeholder="Votre numéro" {...field} />
+                <Input placeholder="+33612345678" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="isPublicEmail"
+          render={({ field }) => (
+            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <div className="space-y-1 leading-none">
+                <FormLabel>Email public</FormLabel>
+                <FormDescription>
+                  L&apos;email sera visible sur le site web
+                </FormDescription>
+              </div>
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="isPublicPhone"
+          render={({ field }) => (
+            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <div className="space-y-1 leading-none">
+                <FormLabel>Téléphone public</FormLabel>
+                <FormDescription>
+                  Le téléphone sera visible sur le site web
+                </FormDescription>
+              </div>
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="isLeader"
+          render={({ field }) => (
+            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <div className="space-y-1 leading-none">
+                <FormLabel>Dirigeant</FormLabel>
+                <FormDescription>
+                  Ce membre est un dirigeant
+                </FormDescription>
+              </div>
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="role"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Roles</FormLabel>
+              <FormControl>
+                <MultiSelect
+                  options={roleOptions}
+                  selected={field.value}
+                  onChange={(values) => {
+                    setSelectedRoles(values as Roles[])
+                    field.onChange(values)
+                  }}
+                  placeholder="Selectionne un role"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -357,151 +201,24 @@ export function EditForm({ defaultValues }: Readonly<{ defaultValues?: DataProps
         <FormField
           control={form.control}
           name="teams"
-          render={() => (
-            <FormItem className="text-background flex flex-col gap-2">
-              <FormLabel>Équipes</FormLabel>
-              {fields.map((field, index) => {
-                return (
-                  <div key={field.id} className="flex gap-3 items-center">
-                    <FormControl>
-                      <Input
-                        defaultValue={field.name}
-                        placeholder={`Équipe ${index + 1}`}
-                        {...form.register(`teams.${index}.name`)}
-                      />
-                    </FormControl>
-                    <Button
-                      onClick={() => remove(index)}  // Remove team
-                      type="button"
-                    >
-                      Supprimer
-                    </Button>
-                  </div>
-                );
-              })}
-              <Button
-                onClick={() => append({ name: "" })}  // Add new team
-                type="button"
-              >
-                Ajouter une équipe
-              </Button>
-              <FormDescription>Ce champ est optionnel</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="job"
           render={({ field }) => (
-            <FormItem className="text-background">
-              <FormLabel >Poste</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger >
-                    <SelectValue placeholder="Sélectionnez un poste" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="Entraineur">Entraineur</SelectItem>
-                  <SelectItem value="Président">Président</SelectItem>
-                  <SelectItem value="Trésorier">Trésorier</SelectItem>
-                  <SelectItem value="Correspondant">Correspondant</SelectItem>
-                  <SelectItem value="Secrétaire Général">Secrétaire Général</SelectItem>
-                </SelectContent>
-              </Select>
-              <FormDescription >Ce champ est optionnel</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="image"
-          render={({ field }) => (
-            <FormItem className="text-background">
-              <FormLabel >Image</FormLabel>
-              <>
-                {previewImage && (
-                  <Image src={previewImage} alt="Prévisualisation de l'image" className="mb-2 max-w-xs" width={200} height={200} />
-                )}
-                <Input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    const file = e.target.files?.[0];
-                    if (file) {
-                      const url = URL.createObjectURL(file);
-                      field.onChange(file);
-                      setPreviewImage(url);
-                    }
-                  }}
-                />
-              </>
-              <FormDescription >Ce champ est optionnel</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="isEmailDisplayed"
-          render={({ field }) => (
-            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+            <FormItem>
+              <FormLabel>Equipes</FormLabel>
               <FormControl>
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-
+                <MultiSelect
+                  options={teamOptions}
+                  selected={field.value.map(team => team.id)}
+                  onChange={field.onChange}
+                  placeholder="Selectionne des équipes"
                 />
               </FormControl>
-              <div className="space-y-1 leading-none">
-                <FormLabel >
-                  Afficher l&apos;email
-                </FormLabel>
-                <FormDescription >
-                  Cochez cette case pour afficher votre email publiquement
-                </FormDescription>
-              </div>
+              <FormMessage />
             </FormItem>
           )}
         />
 
-        <FormField
-          control={form.control}
-          name="isNumberDisplayed"
-          render={({ field }) => (
-            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-              <FormControl>
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-
-                />
-              </FormControl>
-              <div className="space-y-1 leading-none">
-                <FormLabel >
-                  Afficher le numéro
-                </FormLabel>
-                <FormDescription >
-                  Cochez cette case pour afficher votre numéro publiquement
-                </FormDescription>
-              </div>
-            </FormItem>
-          )}
-        />
-
-        <Button type="submit" disabled={form.formState.isSubmitting}>
-          {form.formState.isSubmitting
-            ? 'Envoi en cours...' : 'Envoyer'}
-        </Button>
+        <Button type="submit">Submit</Button>
       </form>
-    </Form >
+    </Form>
   )
 }
-
-
-
-

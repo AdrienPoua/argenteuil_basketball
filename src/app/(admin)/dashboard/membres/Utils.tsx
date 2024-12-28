@@ -1,6 +1,7 @@
 "use server"
 import { z } from "zod"
-
+import { TeamSchema } from "@/database/schemas/Team"
+import { IdSchema } from "@/database/schemas/Id"
 
 
 
@@ -9,22 +10,20 @@ export const formSchema = z.object({
     .string(),
   email: z
     .string()
-    .email({ message: "Email invalide." }),
-  number: z.string(),
+    .email(),
+  phone: z.string(),
   image: z.instanceof(File).optional(),
-  isEmailDisplayed: z
+  isPublicEmail: z
     .boolean(),
-  isNumberDisplayed: z
+  isPublicPhone: z
     .boolean(),
   teams: z
-    .array(z.object({
-      id: z.string()
-    }))
+    .array(TeamSchema.merge(IdSchema))
     .optional(),
-  type: z.enum(["coach", "leader"]),
+  isLeader: z
+    .boolean(),
   role: z
-    .enum(["Président", "Trésorier", "Correspondant", "Secrétaire Général", "Entraineur", ""])
-    .optional(),
+    .enum(["Président", "Trésorier", "Correspondant", "Secrétaire Général", "Entraineur", "Webmaster"])
 });
 
 export const handleUpdateImage = async (file: File): Promise<string> => {

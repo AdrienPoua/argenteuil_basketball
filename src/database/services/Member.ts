@@ -1,113 +1,58 @@
 import { MemberSchema } from "@/database/schemas/Member";
+import { TeamSchema } from "@/database/schemas/Team";
+import { IdSchema } from "@/database/schemas/Id";
 import prisma from "@/database/prisma";
 import { z } from "zod";
 
 export class MemberService {
-  private readonly MemberSchema = MemberSchema;
+  private readonly MemberSchema = MemberSchema.extend({
+    teams: z.array(TeamSchema.merge(IdSchema)),
+  });
 
-  async createMember(data: z.infer<typeof this.MemberSchema>) {
-    const member = this.MemberSchema.parse(data);
+  async createMember(data: z.infer<typeof MemberSchema>) {
+    const { teams, ...member } = this.MemberSchema.parse(data);
+
     try {
-      if (data.teams.length > 0) {
-        return await prisma.member.create({
-          data: {
-            ...member,
-            coach: {
-              create: {
-                teams: {
-                  connect: data.teams.map((team: { id: string }) => ({
-                    id: team.id,
-                  })),
-                },
-              },
-            },
+      return await prisma.member.create({
+        data: {
+          ...member,
+          teams: {
+            connect: teams.map((team) => ({
+              id: team.id,
+            })),
           },
-        });
-      } else {
-        return await prisma.member.create({
-          data: member,
-        });
-      }
+        },
+      });
     } catch (error) {
       console.error("Erreur lors de la création du membre :", error);
       throw error;
     }
   }
-  async getCoachs() {
-    try {
-      return await prisma.coach.findMany({
-        include: {
-          teams: true,
-          member: true,
-        },
-      });
-    } catch (error) {
-      console.error("Erreur lors de la récupération des coachs :", error);
-      throw error;
-    }
-  }
 
-  async getLeaders() {
+  async getMembers() {
     return await prisma.member.findMany({
-      where: { isLeader: true },
+      include: {
+        teams: true,
+      },
     });
   }
 
-  async updateMember(data: z.infer<typeof this.MemberSchema> & { id: string }) {
-    const member = this.MemberSchema.extend({
+  async updateMember(data: z.infer<typeof MemberSchema>) {
+    const { id, teams, ...member } = this.MemberSchema.extend({
       id: z.string(),
-      coachId: z.string().nullable(),
     }).parse(data);
 
-    const { id, teams, coachId, ...memberData } = member; // Nettoie les champs inutiles
-
-    if (teams.length > 0) {
-      if (!coachId) {
-        // Créer un Coach et associer des équipes
-        return await prisma.member.update({
-          where: { id },
-          data: {
-            ...memberData,
-            coach: {
-              create: {
-                teams: {
-                  connect: teams.map((team: { id: string }) => ({
-                    id: team.id,
-                  })),
-                },
-              },
-            },
-          },
-        });
-      } else {
-        // Mettre à jour les équipes d'un Coach existant
-        return await prisma.member.update({
-          where: { id },
-          data: {
-            ...memberData,
-            coach: {
-              update: {
-                teams: {
-                  set: teams.map((team: { id: string }) => ({ id: team.id })),
-                },
-              },
-            },
-          },
-        });
-      }
-    } else {
-      if (coachId) {
-        // Supprime le Coach si aucune équipe n'est associée
-        await prisma.coach.delete({
-          where: { id: coachId },
-        });
-      }
-      // Met à jour uniquement le Member
-      return await prisma.member.update({
-        where: { id },
-        data: memberData,
-      });
-    }
+    return await prisma.member.update({
+      where: { id },
+      data: {
+        ...member,
+        teams: {
+          set: teams.map((team) => ({
+            id: team.id,
+          })),
+        },
+      },
+    });
   }
 
   async deleteMember(id: string) {

@@ -1,27 +1,8 @@
-import { z } from "zod";
-import Team from "./Team";
-import { typeSchema } from "@/database/schemas/Member";
+import { Prisma, Roles, Team } from "@prisma/client";
 
-export type ConstructorType = {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  isPublicEmail: boolean;
-  isPublicPhone: boolean;
-  isLeader: boolean;
-  type: Array<z.infer<typeof typeSchema>>;
-  image: string | null;
-  teams: ConstructorParameters<typeof Team>;
-};
-
-export const TeamSchema = z.object({
-  name: z.string(),
-  image: z.string().nullable(),
-  level: z.string().default("Departemental"),
-  sessions: z.array(z.object({ id: z.string() })),
-  coachs: z.array(z.object({ id: z.string() })),
-});
+type ConstructorType = Prisma.MemberGetPayload<{
+  include: { teams: true };
+}>;
 
 
 export default class Member {
@@ -33,8 +14,8 @@ export default class Member {
   private readonly _isPublicEmail: boolean;
   private readonly _isPublicPhone: boolean;
   private readonly _isLeader: boolean;
-  private readonly _type: Array<z.infer<typeof typeSchema>>;
-  private readonly _teams: Team[];
+  private readonly _role: Array<Roles>;
+  private readonly _teams: Array<Team>;
 
   constructor(data: ConstructorType) {
     this._id = data.id;
@@ -45,8 +26,8 @@ export default class Member {
     this._isPublicEmail = data.isPublicEmail;
     this._isPublicPhone = data.isPublicPhone;
     this._isLeader = data.isLeader;
-    this._type = data.type;
-    this._teams = data.teams.map((team) => new Team(team));
+    this._role = data.role;
+    this._teams = data.teams;
   }
 
   // Getters
@@ -70,14 +51,14 @@ export default class Member {
     return this._image ?? "/images/default/avatar.png";
   }
   get teams() {
-    return this._teams;
+    return this._teams
   }
 
   get isLeader() {
     return this._isLeader;
   }
 
-  get type() {
-    return this._type.map((type) => type.replace("_", " "));
+  get role() {
+    return this._role.map((role) => role.replace("_", " "));
   }
 }

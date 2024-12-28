@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const typeSchema = z.enum([
+export const roleSchema = z.enum([
   "Trésorier",
   "Président",
   "Correspondant",
@@ -17,8 +17,7 @@ export const MemberSchema = z
     isPublicEmail: z.boolean().default(false),
     isPublicPhone: z.boolean().default(false),
     isLeader: z.boolean().default(false),
-    type: z.array(typeSchema),
+    role: z.array(roleSchema),
     image: z.string().nullable(),
-    teams: z.array(z.object({ id: z.string() })),
   })
   .strict();

@@ -20,23 +20,16 @@ datasource db {
  */
 
 model Member {
-  id          String  @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  email       String
+  id            String  @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  email         String
   isPublicEmail Boolean
-  phone       String
+  phone         String
   isPublicPhone Boolean
   isLeader      Boolean
-  type        Roles[]
-  image       String?
-  coach       Coach?
-}
-
-model Coach {
-  id       String        @id @default(auto()) @map("_id") @db.ObjectId
-  teams    TeamOnCoach[]
-  member   Member        @relation(fields: [memberId], references: [id], onDelete: Cascade)
-  memberId String        @unique @db.ObjectId
+  role          Roles[]
+  image         String?
+  teams         Team[]
 }
 
 /**
@@ -50,7 +43,8 @@ model Team {
   image    String?
   level    String
   sessions TeamOnSession[]
-  coachs   TeamOnCoach[]
+  coach    Member          @relation(fields: [memberId], references: [id])
+  memberId String          @db.ObjectId
 }
 
 model Session {
@@ -74,14 +68,6 @@ model TeamOnSession {
   teamId    String  @db.ObjectId
   session   Session @relation(fields: [sessionId], references: [id])
   sessionId String  @db.ObjectId
-}
-
-model TeamOnCoach {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
-  team    Team   @relation(fields: [teamId], references: [id])
-  teamId  String @db.ObjectId
-  coach   Coach  @relation(fields: [coachId], references: [id])
-  coachId String @db.ObjectId
 }
 
 /**
