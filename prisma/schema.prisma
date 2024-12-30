@@ -42,33 +42,12 @@ model Team {
   name     String          @unique
   image    String?
   level    String
-  sessions TeamOnSession[]
-  coach    Member          @relation(fields: [memberId], references: [id])
+  sessions Json
+  coach    Member?         @relation(fields: [memberId], references: [id])
   memberId String          @db.ObjectId
 }
 
-model Session {
-  id    String          @id @default(auto()) @map("_id") @db.ObjectId
-  day   Day
-  start String
-  end   String
-  gym   Gymnases
-  teams TeamOnSession[]
-}
 
-/**
- * ****************************************
- * SECTION : MANY_TO_MANY     *
- * ****************************************
- */
-
-model TeamOnSession {
-  id        String  @id @default(auto()) @map("_id") @db.ObjectId
-  team      Team    @relation(fields: [teamId], references: [id])
-  teamId    String  @db.ObjectId
-  session   Session @relation(fields: [sessionId], references: [id])
-  sessionId String  @db.ObjectId
-}
 
 /**
  * ****************************************
@@ -76,7 +55,7 @@ model TeamOnSession {
  * ****************************************
  */
 
-enum Day {
+enum Days {
   Lundi
   Mardi
   Mercredi
@@ -86,10 +65,7 @@ enum Day {
   Dimanche
 }
 
-enum Gymnases {
-  Jean_Guimier
-  Jesse_Owens
-}
+
 
 enum Roles {
   Trésorier

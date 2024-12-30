@@ -5,59 +5,53 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import Underline from '@/components/UnderlineDecorator'
 import { useForm, useFieldArray } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { createTeam, updateTeam } from "@/database/services/Team"
-import { useQueryClient } from "react-query"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Trash2 } from "lucide-react"
 import { useState } from "react"
 import Image from "next/image"
-import { FormValues, ZodFormProps, formSchema, handleUpdateImage, stringSchema } from "./Utils"
+import { z } from "zod"
+import Member from "@/models/Member"
+import { SessionSchema, Gymnases, Days } from "@/database/schemas/Team"
+import { createTeam } from "../actions/server.actions"
+import { getImageUrl } from "../actions/client.actions"
 
-export default function ZodForm({ defaultValues, setIsEditing }: Readonly<ZodFormProps>) {
-    const queryClient = useQueryClient()
-    const form = useForm<FormValues>({
+export const formSchema = z.object({
+    name: z.string(),
+    image: z.instanceof(File).optional(),
+    level: z.string(),
+    sessions: z.array(SessionSchema),
+    coach: z.string().optional()
+});
+
+type PropsType = {
+    members: ReturnType<Member["toPlainObject"]>[]
+}
+
+export default function ZodForm({ members }: Readonly<PropsType>) {
+    const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            name: defaultValues?.name ?? '',
+            sessions: [],
+            name: "",
             image: undefined,
-            coach: defaultValues?.coach ?? '',
-            division: defaultValues?.division ?? '',
-            training: defaultValues?.training ?? [],
+            level: "",
+            coach: undefined
         },
-    })
-    const [previewImage, setPreviewImage] = useState<string | undefined>(
-        defaultValues?.image
-    );
-
-
-    const { fields, append, remove, replace } = useFieldArray({
-        control: form.control,
-        name: 'training'
     });
 
+    const [previewImage, setPreviewImage] = useState<string | null>(null)
 
-    async function onSubmit(data: FormValues) {
-        let imageUrl = defaultValues?.image
+    const { fields, append, remove } = useFieldArray({
+        control: form.control,
+        name: 'sessions'
+    });
 
-        try {
-            if (data.image instanceof File) {
-                imageUrl = await handleUpdateImage(data.image)
-                imageUrl = stringSchema.parse(imageUrl)
-            }
-            if (defaultValues) {
-                await updateTeam(defaultValues.id, { ...data, image: imageUrl })
-            } else {
-                await createTeam({ ...data, image: imageUrl })
-            }
-            queryClient.invalidateQueries(["teams"]);
-            form.reset()
-            replace([])
-            setIsEditing?.(false)
-        } catch (error) {
-            console.error(error)
-        }
+    async function onSubmit(data: z.infer<typeof formSchema>) {
+        const imageUrl = data.image && await getImageUrl(data.image);
+        await createTeam({ ...data, image: imageUrl })
+        form.reset()
     }
 
     return (
@@ -90,7 +84,7 @@ export default function ZodForm({ defaultValues, setIsEditing }: Readonly<ZodFor
                                 name="image"
                                 render={({ field }) => (
                                     <FormItem className="text-background">
-                                        <FormLabel>Image</FormLabel>
+                                        <FormLabel htmlFor="team-image">Image</FormLabel>
                                         <FormControl>
                                             <>
                                                 {previewImage && (
@@ -115,25 +109,41 @@ export default function ZodForm({ defaultValues, setIsEditing }: Readonly<ZodFor
                                 )}
                             />
 
+
                             <FormField
                                 control={form.control}
                                 name="coach"
                                 render={({ field }) => (
-                                    <FormItem className="text-background">
-                                        <FormLabel>Coach</FormLabel>
+                                    <FormItem>
+                                        <FormLabel>Entraineur</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="Popovich" {...field} />
+                                            <Select
+                                                value={field.value}
+                                                onValueChange={(value) => field.onChange(value)}
+                                            >
+                                                <SelectTrigger className="text-background">
+                                                    <SelectValue placeholder="Selectionne un entraineur" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    {members.map(member => (
+                                                        <SelectItem key={member.id} value={member.id} className="text-background">
+                                                            {member.name}
+                                                        </SelectItem>
+                                                    ))}
+                                                </SelectContent>
+                                            </Select>
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}
                             />
+
                             <FormField
                                 control={form.control}
-                                name="division"
+                                name="level"
                                 render={({ field }) => (
                                     <FormItem className="text-background">
-                                        <FormLabel>Division</FormLabel>
+                                        <FormLabel>Niveau</FormLabel>
                                         <FormControl>
                                             <Input placeholder="Départementale" {...field} />
                                         </FormControl>
@@ -156,19 +166,13 @@ export default function ZodForm({ defaultValues, setIsEditing }: Readonly<ZodFor
                                         <FormLabel htmlFor={`day-${index}`}>Jour</FormLabel>
                                         <FormControl>
                                             <Select
-                                                defaultValue={field.day}
-                                                onValueChange={value => form.setValue(`training.${index}.day`, value as "Lundi" | "Mardi" | "Mercredi" | "Jeudi" | "Vendredi" | "Samedi")}
+                                                onValueChange={(value: Days) => form.setValue(`sessions.${index}.day`, value)}
                                             >
                                                 <SelectTrigger id={`day-${index}`} className="text-background">
-                                                    <SelectValue placeholder={`Jour ${index + 1}`} />
+                                                    <SelectValue placeholder="Selectionne un jour" />
                                                 </SelectTrigger>
                                                 <SelectContent>
-                                                    <SelectItem value="Lundi">Lundi</SelectItem>
-                                                    <SelectItem value="Mardi">Mardi</SelectItem>
-                                                    <SelectItem value="Mercredi">Mercredi</SelectItem>
-                                                    <SelectItem value="Jeudi">Jeudi</SelectItem>
-                                                    <SelectItem value="Vendredi">Vendredi</SelectItem>
-                                                    <SelectItem value="Samedi">Samedi</SelectItem>
+                                                    {["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"].map((day) => <SelectItem key={day} value={day}>{day}</SelectItem>)}
                                                 </SelectContent>
                                             </Select>
                                         </FormControl>
@@ -179,8 +183,8 @@ export default function ZodForm({ defaultValues, setIsEditing }: Readonly<ZodFor
                                             <Input
                                                 type="time"
                                                 id={`start-${index}`}
-                                                value={form.watch(`training.${index}.start`)}
-                                                onChange={(e) => form.setValue(`training.${index}.start`, e.target.value)}
+                                                value={form.watch(`sessions.${index}.start`)}
+                                                onChange={(e) => form.setValue(`sessions.${index}.start`, e.target.value)}
                                                 required
                                                 className="text-black w-full"
                                             />
@@ -192,8 +196,8 @@ export default function ZodForm({ defaultValues, setIsEditing }: Readonly<ZodFor
                                             <Input
                                                 type="time"
                                                 id={`end-${index}`}
-                                                value={form.watch(`training.${index}.end`)}
-                                                onChange={(e) => form.setValue(`training.${index}.end`, e.target.value)}
+                                                value={form.watch(`sessions.${index}.end`)}
+                                                onChange={(e) => form.setValue(`sessions.${index}.end`, e.target.value)}
                                                 required
                                                 className="text-black w-full"
                                             />
@@ -203,15 +207,14 @@ export default function ZodForm({ defaultValues, setIsEditing }: Readonly<ZodFor
                                         <FormLabel htmlFor={`gym-${index}`}>Gymnase</FormLabel>
                                         <FormControl>
                                             <Select
-                                                defaultValue={field.gym}
-                                                onValueChange={value => form.setValue(`training.${index}.gym`, value as "Jean Guimier" | "Jesse Owens")}
+                                                onValueChange={(value: Gymnases) => form.setValue(`sessions.${index}.gymnase`, value)}
                                             >
                                                 <SelectTrigger className="text-background" id={`gym-${index}`}>
-                                                    <SelectValue placeholder={`Gymnase ${index + 1}`} />
+                                                    <SelectValue />
                                                 </SelectTrigger>
                                                 <SelectContent >
-                                                    <SelectItem value="Jean Guimier">Jean Guimier</SelectItem>
-                                                    <SelectItem value="Jesse Owens">Jesse Owens</SelectItem>
+                                                    <SelectItem value="Jean_Guimier">Jean Guimier</SelectItem>
+                                                    <SelectItem value="Jesse_Owens">Jesse Owens</SelectItem>
                                                 </SelectContent>
                                             </Select>
                                         </FormControl>
@@ -221,16 +224,16 @@ export default function ZodForm({ defaultValues, setIsEditing }: Readonly<ZodFor
                                     </Button>
                                 </div>
                             ))}
-                            <Button onClick={() => append({ day: 'Lundi', start: '', end: '', gym: 'Jean Guimier' })}>
+                            <Button onClick={() => append({ day: 'Lundi', start: '', end: '', gymnase: "Jean_Guimier" })}>
                                 Ajouter un entrainement
                             </Button>
                         </CardContent>
                     </Card>
                 </div>
                 <Button type="submit" disabled={form.formState.isSubmitting}>
-                    {defaultValues ? "Modifier" : "Créer"}
+                    {form.formState.isSubmitting ? "Envoi..." : "Envoyer"}
                 </Button>
             </form>
-        </Form>
+        </Form >
     )
 }

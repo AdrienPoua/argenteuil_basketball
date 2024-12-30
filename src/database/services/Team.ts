@@ -1,35 +1,25 @@
 import { TeamSchema } from "@/database/schemas/Team";
 import prisma from "@/database/prisma";
 import { Prisma } from "@prisma/client";
-import { SessionService } from "./Session";
-import { IdSchema } from "@/database/schemas/Id";
 import { z } from "zod";
 
 export class TeamService {
-  private readonly SessionService = new SessionService();
-  private readonly TeamSchema = TeamSchema.merge(IdSchema);
+  private readonly createTeamSchema = TeamSchema.extend({
+    coach: z.string().optional(),
+  });
+  private readonly updateDataSchema = TeamSchema.extend({
+    coach: z.string().optional(),
+    id: z.string(),
+  });
   // Création d'une équipe
-  async createTeam(data: z.infer<typeof TeamSchema>) {
+  async createTeam(data: z.infer<typeof this.createTeamSchema>) {
     try {
-      const parsedTeam = this.TeamSchema.parse(data);
-      const { sessions, coach, ...team } = parsedTeam;
-
-      const createdSessions = await Promise.all(
-        sessions.map((session) => this.SessionService.createSession(session)),
-      );
-
-      // Créer l'équipe avec les sessions associées
+      const { coach, ...team } = this.createTeamSchema.parse(data);
+      console.log("🚀 ~ TeamService ~ createTeam ~ data:", data);
       await prisma.team.create({
         data: {
           ...team,
-          sessions: {
-            connect: createdSessions.map((session) => ({
-              id: session.id,
-            })),
-          },
-          coach: {
-            connect: { id: coach?.id },
-          },
+          coach: coach ? { connect: { id: coach } } : undefined,
         },
       });
     } catch (error) {
@@ -43,11 +33,6 @@ export class TeamService {
     try {
       return await prisma.team.findMany({
         include: {
-          sessions: {
-            include: {
-              session: true,
-            },
-          },
           coach: true,
         },
       });
@@ -58,7 +43,7 @@ export class TeamService {
   }
 
   async updateTeam(data: Prisma.TeamUpdateInput) {
-    const parsedTeam = this.TeamSchema.parse(data);
+    const parsedTeam = this.updateDataSchema.parse(data);
     const { sessions, coach, id, ...team } = parsedTeam;
 
     try {
@@ -66,13 +51,8 @@ export class TeamService {
         where: { id },
         data: {
           ...team,
-          sessions: {
-            connect: sessions.map((session) => ({
-              id: session.id,
-            })),
-          },
           coach: {
-            connect: { id: coach?.id },
+            connect: { id: coach },
           },
         },
       });

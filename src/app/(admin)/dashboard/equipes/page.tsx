@@ -1,33 +1,29 @@
-'use client'
-import useFetchTeams from '@/hooks/useFetchTeam'
-import FetchFeedBack from '@/components/FetchFeedback'
-import { TeamCard } from './TeamCard'
-import Form from './Form'
+"use server"
+import Card from "./components/Card";
+import { MemberService } from '@/database/services/Member';
+import { TeamService } from '@/database/services/Team';
+import Member from '@/models/Member';
+import Team from '@/models/Team';
+import Form from "./components/Form";
 
 
-export default function Index() {
-  const { data, isLoading, error } = useFetchTeams()
-
+export default async function Page() {
+  const members = await new MemberService().getMembers().then((members) => members.map((member) => new Member(member))).then((members) => members.map((member) => member.toPlainObject()))
+  const teams = await new TeamService().getTeams().then((teams) => teams.map((team) => new Team(team))).then((teams) => teams.map((team) => team.toPlainObject()))
   return (
-    <div className="flex flex-col gap-4">
-      <Form />
-      <div className="space-y-8">
-        <FetchFeedBack isLoading={isLoading} error={error} data={data}>
-          <div className="flex flex-col gap-4">
-            <h3 className="text-3xl mx-auto text-background my-10 text-center shadow-custom bg-foreground p-5">Liste des équipes</h3>
-            {data?.map((team) => (
-              <TeamCard
-                key={team._id}
-                data={{ ...team, id: team._id }}
-              />
-            ))}
-          </div>
-        </FetchFeedBack>
-      </div>
-    </div>
-  )
+    <>
+      <Form members={members} />
+      {
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 justify-center items-center place-items-center p-10">
+          {teams.map((team) => (
+            <Card
+              key={team.id}
+              data={team}
+            />
+          ))}
+        </div>
+      }
+    </>
+  );
 }
-
-
-
 

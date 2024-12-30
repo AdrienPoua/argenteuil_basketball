@@ -1,8 +1,6 @@
 "use client"
 import { z } from "zod"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Roles, Prisma } from "@prisma/client"
+import { Roles } from "@prisma/client"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -17,55 +15,27 @@ import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
 import { MultiSelect } from "@/components/ui/multi-select"
 import { useState } from "react"
-import { createMember } from "./actions"
-import { TeamSchema } from "@/database/schemas/Team"
-import { IdSchema } from "@/database/schemas/Id"
-import { SessionSchema } from "@/database/schemas/Session"
-
-export const FormSchema = z.object({
-  name: z.string(),
-  phone: z.string(),
-  email: z.string(),
-  image: z.string().nullable(),
-  isPublicEmail: z.boolean(),
-  isPublicPhone: z.boolean(),
-  isLeader: z.boolean(),
-  role: z.array(z.nativeEnum(Roles)),
-  teams: z.array(TeamSchema.merge(IdSchema).extend({ sessions: z.array(SessionSchema.merge(IdSchema)) })),
-})
+import Image from "next/image"
+import { handleSubmit, useMemberForm } from "../actions/client.actions"
+import { FormSchema } from "../schemas/form.schema"
+import { PropsType } from "../types/form.types"
 
 
-export default function CustomForm({ teams }: Readonly<{ teams: Prisma.TeamGetPayload<{ include: { coach: true } }>[] }>) {
 
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-    defaultValues: {
-      name: "",
-      phone: "",
-      email: "",
-      image: null,
-      isPublicEmail: false,
-      isPublicPhone: false,
-      isLeader: false,
-      role: [],
-      teams: [],
-    },
-  })
+export default function Index({ teams, defaultValues, setIsEditing }: Readonly<PropsType>) {
+  const [previewImage, setPreviewImage] = useState<string | undefined>(undefined)
 
-  const [selectedRoles, setSelectedRoles] = useState<Roles[]>([])
-
-  const roleOptions = Object.values(Roles).map(role => ({
-    label: role.replace("_", " "),
-    value: role,
-  }))
-
-  const teamOptions = teams.map(team => ({
-    label: team.name,
-    value: team.id,
-  }))
-
+  const form = useMemberForm(defaultValues)
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
-    await createMember(data)
+    console.log("🚀 ~ onSubmit ~ data:", data)
+    try {
+      await handleSubmit(data, defaultValues)
+      setIsEditing && setIsEditing(false)
+      setPreviewImage(undefined)
+      form.reset()
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (
@@ -112,7 +82,35 @@ export default function CustomForm({ teams }: Readonly<{ teams: Prisma.TeamGetPa
             </FormItem>
           )}
         />
-
+        <FormField
+          control={form.control}
+          name="image"
+          render={({ field }) => (
+            <FormItem className="text-background">
+              <FormLabel htmlFor="team-image">Image</FormLabel>
+              <FormControl>
+                <>
+                  {previewImage && (
+                    <Image src={previewImage} alt="Prévisualisation de l'image" className="mb-2 max-w-xs" width={200} height={200} />
+                  )}
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        const url = URL.createObjectURL(file);
+                        field.onChange(file);
+                        setPreviewImage(url);
+                      }
+                    }}
+                  />
+                </>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="isPublicEmail"
@@ -184,10 +182,12 @@ export default function CustomForm({ teams }: Readonly<{ teams: Prisma.TeamGetPa
               <FormLabel>Roles</FormLabel>
               <FormControl>
                 <MultiSelect
-                  options={roleOptions}
+                  options={Object.values(Roles).map(role => ({
+                    label: role.replace("_", " "),
+                    value: role,
+                  }))}
                   selected={field.value}
                   onChange={(values) => {
-                    setSelectedRoles(values as Roles[])
                     field.onChange(values)
                   }}
                   placeholder="Selectionne un role"
@@ -206,7 +206,10 @@ export default function CustomForm({ teams }: Readonly<{ teams: Prisma.TeamGetPa
               <FormLabel>Equipes</FormLabel>
               <FormControl>
                 <MultiSelect
-                  options={teamOptions}
+                  options={teams.map(team => ({
+                    label: team.name,
+                    value: team.id,
+                  }))}
                   selected={field.value.map(team => team.id)}
                   onChange={field.onChange}
                   placeholder="Selectionne des équipes"
@@ -217,7 +220,7 @@ export default function CustomForm({ teams }: Readonly<{ teams: Prisma.TeamGetPa
           )}
         />
 
-        <Button type="submit">Submit</Button>
+        <Button type="submit" className="w-full">{defaultValues ? "Modifier" : "Créer"}</Button>
       </form>
     </Form>
   )
