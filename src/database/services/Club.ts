@@ -28,9 +28,9 @@ export class ClubService {
   }
 
   async updateClub(data: z.infer<typeof this.ClubSchema> & { id: string }) {
-    const club = this.ClubSchema.extend({ id: z.string() }).parse(data);
+    const { id, ...club } = this.ClubSchema.extend({ id: z.string() }).parse(data);
     return await prisma.club.update({
-      where: { id: club.id },
+      where: { id: id },
       data: club,
     });
   }

@@ -1,18 +1,19 @@
-"use client";
-import { ReactElement } from "react";
-import { useQuery } from "react-query";
-import { getClubs } from "@/database/services/Club";
-import Feedback from "@/components/FetchFeedback";
-import Card from './Card'
+"use ";
+import Card from './components/Card'
+import { ClubService } from "@/database/services/Club";
+import Club from "@/models/Club";
+import Form from "./components/Form";
 
-export default function Index(): ReactElement {
-  const { data: clubs, error, isLoading: queryLoading } = useQuery(['clubs'], async () => await getClubs());
+export default async function Index() {
+  const clubs = await new ClubService().getClubs().then(clubs => clubs.map(club => new Club(club).toPlainObject()));
+  console.log("🚀 ~ Index ~ clubs:", clubs)
   return (
-    <Feedback data={clubs} error={error} isLoading={queryLoading}>
-      <div className="container mx-auto flex flex-col gap-5 ">
-        {clubs && clubs.map((club) => <Card key={club._id} data={club} />)}
+    <div className="container mx-auto flex flex-col gap-5 ">
+      <Form />
+      <div className="flex flex-wrap justify-center gap-5">
+        {clubs?.map((club) => <Card key={club.id} data={club} />)}
       </div>
-    </Feedback>
+    </div>
   );
 
 

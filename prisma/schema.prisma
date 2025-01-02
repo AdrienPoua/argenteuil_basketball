@@ -121,8 +121,8 @@ model Match {
 model Club {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
   name  String
-  email String
-  phone String
+  email String?
+  phone String?
 }
 
 model FAQ {
