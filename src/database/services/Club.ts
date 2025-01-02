@@ -27,6 +27,16 @@ export class ClubService {
     }
   }
 
+  async upsert(data: z.infer<typeof this.ClubSchema>) {
+    const { id, ...club } = this.ClubSchema.parse(data);
+    console.log("🚀 ~ ClubService ~ upsert ~ club:", club)
+    return await prisma.club.upsert({
+      where: { id: id },
+      update: { ...club },
+      create: { ...club, id: id },
+    });
+  }
+
   async updateClub(data: z.infer<typeof this.ClubSchema> & { id: string }) {
     const { id, ...club } = this.ClubSchema.extend({ id: z.string() }).parse(data);
     return await prisma.club.update({
@@ -44,5 +54,9 @@ export class ClubService {
       console.error("Erreur lors de la suppression du club :", error);
       throw error;
     }
+  }
+
+  async deleteAll() {
+    return await prisma.club.deleteMany()
   }
 }

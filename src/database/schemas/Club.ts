@@ -1,9 +1,12 @@
 import { z } from "zod";
 
 export const ClubSchema = z.object({
-  name: z.string(),
-  email: z.string().optional(),
+  id: z.string(),
+  code: z.string(),
+  libelle: z.string(),
   phone: z.string().optional(),
+  email: z.string().optional(),
 });
+
 
 

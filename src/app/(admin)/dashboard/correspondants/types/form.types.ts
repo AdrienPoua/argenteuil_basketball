@@ -5,6 +5,6 @@ import Club from "@/models/Club";
 export type FormValues = z.infer<typeof formSchema>;
 
 export type PropsType = {
-  defaultValues?: ReturnType<Club["toPlainObject"]>;
-  setIsEditing?: (isEditing: boolean) => void;
+  defaultValues: ReturnType<Club["toPlainObject"]>;
+  setIsEditing: (isEditing: boolean) => void;
 };

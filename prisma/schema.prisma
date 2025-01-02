@@ -21,10 +21,10 @@ datasource db {
 
 model Member {
   id            String  @id @default(auto()) @map("_id") @db.ObjectId
-  name          String @unique
+  name          String  @unique
   email         String
   isPublicEmail Boolean
-  phone         String @unique
+  phone         String  @unique
   isPublicPhone Boolean
   isLeader      Boolean
   role          Roles[]
@@ -38,17 +38,15 @@ model Member {
  * ****************************************
  */
 model Team {
-  id       String          @id @default(auto()) @map("_id") @db.ObjectId
-  name     String          @unique
-  image    String?
-  level    String
-  sessions Json
-  coach    Member?         @relation(fields: [memberId], references: [id])
-  memberId String?          @db.ObjectId
+  id            String  @id @default(auto()) @map("_id") @db.ObjectId
+  name          String  @unique
+  image         String?
+  level         String
+  sessions      Json
+  coach         Member? @relation(fields: [memberId], references: [id])
+  memberId      String? @db.ObjectId
   isCompetition Boolean
 }
-
-
 
 /**
  * ****************************************
@@ -66,8 +64,6 @@ enum Days {
   Dimanche
 }
 
-
-
 enum Roles {
   Trésorier
   Président
@@ -83,7 +79,7 @@ enum Roles {
  * ****************************************
  */
 model Match {
-  id                      String   @id @default(auto()) @map("_id") @db.ObjectId
+  id                      String  @id @map("_id")
   numero                  Int
   numeroJournee           Int
   idPoule                 Int
@@ -119,10 +115,11 @@ model Match {
  * ****************************************
  */
 model Club {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  name  String
-  email String?
-  phone String?
+  id      String  @id @map("_id")
+  code    String
+  libelle String
+  email   String?
+  phone   String?
 }
 
 model FAQ {

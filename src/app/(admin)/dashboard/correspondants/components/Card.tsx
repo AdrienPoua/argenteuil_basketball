@@ -21,14 +21,14 @@ export function ClubCard({ data, setIsEditing }: Readonly<CardPropsType>) {
         <Card className="w-full max-w-md p-5 font-secondary hover:shadow-lg transition-shadow text-muted-foreground">
             <CardHeader className="flex flex-col gap-2 mb-5 relative">
                 <CardTitle className="text-xl uppercase w-full bg-primary text-primary-foreground py-2 px-4 rounded-md text-center shadow-sm">
-                    {data.name}
+                    {data.libelle}
                 </CardTitle>
                 <div className="absolute top-0 right-0 flex gap-2">
                     <Button
                         variant="destructive"
                         size="icon"
                         onClick={() => deleteClub(data.id)}
-                        aria-label={`Supprimer le club ${data.name}`}
+                        aria-label={`Supprimer le club ${data.libelle}`}
                     >
                         <Trash2 className="h-4 w-4" />
                     </Button>
@@ -36,7 +36,7 @@ export function ClubCard({ data, setIsEditing }: Readonly<CardPropsType>) {
                         variant="outline"
                         size="icon"
                         onClick={() => setIsEditing(true)}
-                        aria-label={`Modifier le club ${data.name}`}
+                        aria-label={`Modifier le club ${data.libelle}`}
                     >
                         <Pencil className="h-4 w-4" />
                     </Button>

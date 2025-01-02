@@ -27,14 +27,6 @@ export const BaseMatchSchema = z.object({
     creation: z.string(),
     modification: z.string().nullable(),
     classementPouleAssociee: z.number().nullable(),
-    competition: z.string(),
+    competition: z.string().nullable(),
   });
-
-export const upsertMatchSchema = BaseMatchSchema.extend({
-  id: z.string().optional(),
-});
-
-export const ExistingMatchSchema = BaseMatchSchema.extend({
-  id: z.string(),
-});
 

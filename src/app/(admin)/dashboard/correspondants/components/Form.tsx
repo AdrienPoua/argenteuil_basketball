@@ -9,25 +9,18 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { createClub, updateClub } from "../actions/server.actions"
+import { updateClub } from "../actions/server.actions"
 import { FormValues, PropsType } from "../types/form.types"
 import { useClubForm } from "../actions/client.actions"
 
 export default function ClubForm({ defaultValues, setIsEditing }: Readonly<PropsType>) {
+    console.log("🚀 ~ ClubForm ~ defaultValues:", defaultValues)
     const form = useClubForm(defaultValues)
     async function onSubmit(data: FormValues) {
         try {
-            if (defaultValues) {
-                await updateClub({
-                    ...data,
-                    id: defaultValues.id,
-                })
-                setIsEditing?.(false)
-                form.reset()
-            } else {
-                await createClub(data)
-                form.reset()
-            }
+            await updateClub(data)
+            setIsEditing(false)
+            form.reset()
         } catch (error) {
             console.error("Erreur lors de la création du club :", error);
         }
@@ -35,32 +28,15 @@ export default function ClubForm({ defaultValues, setIsEditing }: Readonly<Props
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 bg-foreground p-5 rounded-md">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 bg-foreground p-5 rounded-md font-secondary">
                 <FormField
                     control={form.control}
-                    name="name"
+                    name="libelle"
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>Nom du club</FormLabel>
                             <FormControl>
-                                <Input placeholder="Cergy" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Email</FormLabel>
-                            <FormControl>
-                                <Input
-                                    type="email"
-                                    placeholder="contact@cergy.fr"
-                                    {...field}
-                                />
+                                <Input className="font-secondary" placeholder="Cergy" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -76,6 +52,23 @@ export default function ClubForm({ defaultValues, setIsEditing }: Readonly<Props
                                 <Input
                                     type="tel"
                                     placeholder="06 12 34 56 78"
+                                    {...field}
+                                />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                        name="email"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Email</FormLabel>
+                            <FormControl>
+                                <Input
+                                    type="email"
+                                    placeholder="contact@cergy.fr"
                                     {...field}
                                 />
                             </FormControl>
