@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button"
 import {
   Command,
   CommandEmpty,
-  CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
@@ -57,8 +56,8 @@ export function MultiSelect({
         >
           <div className="flex flex-wrap gap-1">
             {selected.length > 0 ? (
-              selected.map((value) => (
-                <Badge key={value} className="mr-1">
+              selected.map((value, index) => (
+                <Badge key={value + index} className="mr-1">
                   {options.find((option) => option.value === value)?.label}
                 </Badge>
               ))

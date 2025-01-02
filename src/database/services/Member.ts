@@ -1,16 +1,13 @@
-import {
-  MemberSchema,
-} from "@/database/schemas/Member";
+import { MemberSchema } from "@/database/schemas/Member";
 import prisma from "@/database/prisma";
 import { z } from "zod";
-import { TeamSchema } from "@/database/schemas/Team";
 export class MemberService {
   private readonly createDataSchema = MemberSchema.extend({
-    teams: z.array(TeamSchema.merge(z.object({ id: z.string() }))),
+    teams: z.array(z.string()),
   });
   private readonly updateDataSchema = MemberSchema.extend({
     id: z.string(),
-    teams: z.array(TeamSchema.merge(z.object({ id: z.string() }))),
+    teams: z.array(z.string()),
   });
 
   async createMember(data: z.infer<typeof this.createDataSchema>) {
@@ -21,8 +18,8 @@ export class MemberService {
         data: {
           ...member,
           teams: {
-            connect: teams.map((team) => ({
-              id: team.id,
+            connect: teams.map((id) => ({
+              id: id,
             })),
           },
         },
@@ -49,8 +46,8 @@ export class MemberService {
       data: {
         ...member,
         teams: {
-          set: teams.map((team) => ({
-            id: team.id
+          set: teams.map((id) => ({
+            id: id,
           })),
         },
       },

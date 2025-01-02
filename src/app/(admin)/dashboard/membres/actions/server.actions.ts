@@ -2,7 +2,7 @@
 import { MemberService } from "@/database/services/Member"
 import { z } from "zod"
 import { revalidatePath } from "next/cache"
-import { FormSchema } from "../schemas/form.schema"
+import { FormSchema } from "../schemas/form.schemas"
 
 const memberService = new MemberService()
 const createMemberSchema = FormSchema.extend({

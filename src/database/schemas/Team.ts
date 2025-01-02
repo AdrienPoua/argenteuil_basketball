@@ -22,7 +22,8 @@ export const SessionSchema = z.object({
 
 export const TeamSchema = z.object({
   name: z.string(),
-  image: z.string().optional(),
-  level: z.string().default("Departemental"),
+  image: z.string().nullable(),
+  level: z.string(),
   sessions: z.array(SessionSchema),
+  isCompetition: z.boolean().default(false),
 });

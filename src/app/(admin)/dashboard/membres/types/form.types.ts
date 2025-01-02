@@ -1,6 +1,6 @@
 import Team from "@/models/Team";
 import Member from "@/models/Member";
-import { FormSchema } from "../schemas/form.schema";
+import { FormSchema } from "../schemas/form.schemas";
 import { z } from "zod";
 
 export type PropsType = {

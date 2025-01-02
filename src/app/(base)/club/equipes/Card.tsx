@@ -1,10 +1,14 @@
 "use client";
 import { useState } from "react";
-import { Team, RankedTeam } from "@/models";
+import Team from "@/models/Team";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 
-export default function TeamCard({ data }: Readonly<{ data: Team | RankedTeam }>) {
+type PropsType = {
+    data: ReturnType<Team['toPlainObject']>
+}
+
+export default function TeamCard({ data }: Readonly<PropsType>) {
     const [isClicked, setIsClicked] = useState(false);
 
     return (
@@ -14,7 +18,7 @@ export default function TeamCard({ data }: Readonly<{ data: Team | RankedTeam }>
         >
             <div className={`absolute inset-0 bg-black ${isClicked ? "bg-opacity-75" : "bg-opacity-10"} transition-opacity duration-300 z-10`} />
             <Image
-                src={data.img}
+                src={data.image}
                 alt={`Les membres de l'équipe ${data.name}`}
                 className="object-cover w-full h-full absolute inset-0"
                 layout="fill"
@@ -29,22 +33,22 @@ export default function TeamCard({ data }: Readonly<{ data: Team | RankedTeam }>
                             <div className="flex flex-col gap-5 justify-center grow basis-1/2">
                                 {data.coach && (
                                     <p className="md:text-lg lg:text-3xl mb-8 text-center">
-                                        Coach <span className="text-primary">{data.coach}</span>
+                                        Coach <span className="text-primary">{data.coach.name}</span>
                                     </p>
                                 )}
                                 <p className="md:text-lg lg:text-3xl mb-8 text-center">
-                                    {data instanceof RankedTeam ? `Division ${data.division || "départementale"}` : ""}
+                                    {data.isCompetition ? "Championnat" : "Départemental"}
                                 </p>
                             </div>
                             <div className="flex flex-col gap-5 justify-center grow basis-1/2">
                                 <p className="text-base md:text-lg lg:text-3xl text-center text-primary">Entrainements</p>
-                                {data.trainings.map((training) => (
-                                    <p key={training.day + training.start + training.end + training.gym} className="text-center text-xs md:text-lg lg:text-3xl">
-                                        {`${training.day} ${training.start} - ${training.end} ${training.gym}`}
+                                {data.sessions.map((session) => (
+                                    <p key={session.day + session.start + session.end + session.gymnase} className="text-center text-xs md:text-lg lg:text-3xl">
+                                        {`${session.day} ${session.start} - ${session.end} ${session.gymnase}`}
                                     </p>
                                 ))}
+                                </div>
                             </div>
-                        </div>
                     </div>
                 )}
             </CardContent>

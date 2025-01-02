@@ -17,7 +17,7 @@ import { MultiSelect } from "@/components/ui/multi-select"
 import { useState } from "react"
 import Image from "next/image"
 import { handleSubmit, useMemberForm } from "../actions/client.actions"
-import { FormSchema } from "../schemas/form.schema"
+import { FormSchema } from "../schemas/form.schemas"
 import { PropsType } from "../types/form.types"
 
 
@@ -37,7 +37,8 @@ export default function Index({ teams, defaultValues, setIsEditing }: Readonly<P
       console.error(error)
     }
   }
-
+  const watchedTeams = form.watch("teams"); 
+  console.log("🚀 ~ Index ~ watchedTeams:", watchedTeams)
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3 size-fit w-full bg-foreground p-10 rounded-md font-secondary mx-auto ">
@@ -210,7 +211,7 @@ export default function Index({ teams, defaultValues, setIsEditing }: Readonly<P
                     label: team.name,
                     value: team.id,
                   }))}
-                  selected={field.value.map(team => team.id)}
+                  selected={field.value}
                   onChange={field.onChange}
                   placeholder="Selectionne des équipes"
                 />

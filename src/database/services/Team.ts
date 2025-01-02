@@ -42,7 +42,7 @@ export class TeamService {
     }
   }
 
-  async updateTeam(data: Prisma.TeamUpdateInput) {
+  async updateTeam(data: z.infer<typeof this.updateDataSchema>) {
     const parsedTeam = this.updateDataSchema.parse(data);
     const { sessions, coach, id, ...team } = parsedTeam;
 

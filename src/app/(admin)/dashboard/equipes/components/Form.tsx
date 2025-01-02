@@ -3,43 +3,22 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import Underline from '@/components/UnderlineDecorator'
-import { useForm, useFieldArray } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { useFieldArray } from 'react-hook-form'
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Trash2 } from "lucide-react"
 import { useState } from "react"
 import Image from "next/image"
-import { z } from "zod"
-import Member from "@/models/Member"
-import { SessionSchema, Gymnases, Days } from "@/database/schemas/Team"
-import { createTeam } from "../actions/server.actions"
-import { getImageUrl } from "../actions/client.actions"
+import { Gymnases, Days } from "@/database/schemas/Team"
+import { createTeam, updateTeam } from "../actions/server.actions"
+import { getImageUrl, useTeamForm } from "../actions/client.actions"
+import { FormSchemaType, PropsType } from "../types/form.types"
+import { Checkbox } from "@/components/ui/checkbox"
 
-export const formSchema = z.object({
-    name: z.string(),
-    image: z.instanceof(File).optional(),
-    level: z.string(),
-    sessions: z.array(SessionSchema),
-    coach: z.string().optional()
-});
+export default function ZodForm({ members, defaultValues, setIsEditing }: Readonly<PropsType>) {
 
-type PropsType = {
-    members: ReturnType<Member["toPlainObject"]>[]
-}
-
-export default function ZodForm({ members }: Readonly<PropsType>) {
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-        defaultValues: {
-            sessions: [],
-            name: "",
-            image: undefined,
-            level: "",
-            coach: undefined
-        },
-    });
+    const form = useTeamForm(defaultValues)
 
     const [previewImage, setPreviewImage] = useState<string | null>(null)
 
@@ -48,16 +27,23 @@ export default function ZodForm({ members }: Readonly<PropsType>) {
         name: 'sessions'
     });
 
-    async function onSubmit(data: z.infer<typeof formSchema>) {
-        const imageUrl = data.image && await getImageUrl(data.image);
-        await createTeam({ ...data, image: imageUrl })
+    async function onSubmit(data: FormSchemaType) {
+        console.log("🚀 ~ onSubmit ~ data:", data)
+        const imageUrl = (data.image && await getImageUrl(data.image)) ?? null;
+        console.log("🚀 ~ onSubmit ~ imageUrl:", imageUrl)
+        if (defaultValues) {
+            await updateTeam({ ...data, image: imageUrl, id: defaultValues.id })
+        } else {
+            await createTeam({ ...data, image: imageUrl })
+        }
         form.reset()
+        setIsEditing && setIsEditing(false)
     }
 
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} encType="multipart/form-data"
-                className=" flex flex-col gap-5 w-fit mx-auto">
+                className="flex flex-col gap-5 w-fit mx-auto text-background grid-cols-2">
                 <div className="flex gap-5 mx-auto">
                     <Card className="shadow-xl p-5">
                         <CardHeader className="flex justify-between items-center mb-5">
@@ -125,11 +111,13 @@ export default function ZodForm({ members }: Readonly<PropsType>) {
                                                     <SelectValue placeholder="Selectionne un entraineur" />
                                                 </SelectTrigger>
                                                 <SelectContent>
-                                                    {members.map(member => (
-                                                        <SelectItem key={member.id} value={member.id} className="text-background">
-                                                            {member.name}
-                                                        </SelectItem>
-                                                    ))}
+                                                    {members
+                                                        .toSorted((a, b) => a.name.localeCompare(b.name))
+                                                        .map(member => (
+                                                            <SelectItem key={member.id} value={member.id} className="text-background">
+                                                                {member.name}
+                                                            </SelectItem>
+                                                        ))}
                                                 </SelectContent>
                                             </Select>
                                         </FormControl>
@@ -146,6 +134,22 @@ export default function ZodForm({ members }: Readonly<PropsType>) {
                                         <FormLabel>Niveau</FormLabel>
                                         <FormControl>
                                             <Input placeholder="Départementale" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="isCompetition"
+                                render={({ field }) => (
+                                    <FormItem className="text-background">
+                                        <FormLabel className="me-5">Compétition</FormLabel>
+                                        <FormControl>
+                                            <Checkbox
+                                                checked={field.value}
+                                                onCheckedChange={(checked) => field.onChange(checked)}
+                                            />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -208,6 +212,7 @@ export default function ZodForm({ members }: Readonly<PropsType>) {
                                         <FormControl>
                                             <Select
                                                 onValueChange={(value: Gymnases) => form.setValue(`sessions.${index}.gymnase`, value)}
+                                                defaultValue="Jean_Guimier"
                                             >
                                                 <SelectTrigger className="text-background" id={`gym-${index}`}>
                                                     <SelectValue />

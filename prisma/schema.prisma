@@ -21,10 +21,10 @@ datasource db {
 
 model Member {
   id            String  @id @default(auto()) @map("_id") @db.ObjectId
-  name          String
+  name          String @unique
   email         String
   isPublicEmail Boolean
-  phone         String
+  phone         String @unique
   isPublicPhone Boolean
   isLeader      Boolean
   role          Roles[]
@@ -44,7 +44,8 @@ model Team {
   level    String
   sessions Json
   coach    Member?         @relation(fields: [memberId], references: [id])
-  memberId String          @db.ObjectId
+  memberId String?          @db.ObjectId
+  isCompetition Boolean
 }
 
 

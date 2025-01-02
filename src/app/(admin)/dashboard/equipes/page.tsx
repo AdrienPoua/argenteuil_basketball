@@ -11,19 +11,20 @@ export default async function Page() {
   const members = await new MemberService().getMembers().then((members) => members.map((member) => new Member(member))).then((members) => members.map((member) => member.toPlainObject()))
   const teams = await new TeamService().getTeams().then((teams) => teams.map((team) => new Team(team))).then((teams) => teams.map((team) => team.toPlainObject()))
   return (
-    <>
+    <div className="flex gap-10 flex-wrap">
       <Form members={members} />
       {
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 justify-center items-center place-items-center p-10">
+        <div className="flex gap-10 flex-wrap">
           {teams.map((team) => (
             <Card
               key={team.id}
               data={team}
+              members={members}
             />
           ))}
         </div>
       }
-    </>
+    </div>
   );
 }
 

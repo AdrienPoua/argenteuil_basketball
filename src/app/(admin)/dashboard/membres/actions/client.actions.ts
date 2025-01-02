@@ -4,7 +4,7 @@ import { createMember, updateMember } from "./server.actions";
 import { FormSchemaType, PropsType } from "../types/form.types";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormSchema } from "../schemas/form.schema";
+import { FormSchema } from "../schemas/form.schemas";
 import { Roles } from "@prisma/client";
 
 export const getImageUrl = async (file: File) => {
@@ -57,7 +57,7 @@ export const useMemberForm = (defaultValues?: PropsType["defaultValues"]) => {
           isPublicPhone: !!defaultValues.phone,
           isLeader: defaultValues.isLeader,
           role: defaultValues.role as Roles[],
-          teams: defaultValues.teams ?? [],
+          teams: defaultValues.teams.map((team) => team.id) ?? [],
         }
       : {
           teams: [],

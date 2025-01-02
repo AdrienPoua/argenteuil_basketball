@@ -11,13 +11,16 @@ export default class Team {
   private readonly _coach: Prisma.MemberGetPayload<{}> | null;
   private readonly _image: string | null;
   private readonly _sessions: Prisma.JsonValue;
-
+  private readonly _level: string;
+  private readonly _isCompetition: boolean;
   constructor(data: ConstructorType) {
     this._name = data.name;
     this._coach = data.coach;
     this._image = data.image;
     this._id = data.id;
     this._sessions = data.sessions;
+    this._level = data.level;
+    this._isCompetition = data.isCompetition ;
   }
 
   get id() {
@@ -33,13 +36,19 @@ export default class Team {
       : [];
   }
 
-  
+  get isCompetition() {
+    return this._isCompetition;
+  }
+
+  get level() {
+    return this._level;
+  }
 
   get image() {
     return this._image ?? "/images/default/equipes.avif";
   }
   get coach() {
-    return this._coach;
+    return this._coach || undefined;
   }
 
   toPlainObject() {
@@ -49,6 +58,8 @@ export default class Team {
       image: this.image,
       coach: this.coach,
       sessions: this.sessions,
+      level: this.level,
+      isCompetition: this.isCompetition,
     };
   }
 }

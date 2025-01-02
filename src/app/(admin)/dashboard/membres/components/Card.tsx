@@ -7,20 +7,20 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Pencil, Trash, X } from "lucide-react";
 import { deleteMember } from "../actions/server.actions";
 import Form from "./Form";
-import { PropsType, CardPropsType } from "../types/card.types";
+import { PropsType, BaseCardPropsType, EditingCardPropsType } from "../types/card.types";
 
 export default function Index({ data, teams }: Readonly<PropsType>): React.ReactElement {
     const [isEditing, setIsEditing] = useState(false)
     if (isEditing) {
         return <EditingCard data={data} setIsEditing={setIsEditing} teams={teams} />
     } else {
-        return <BaseCard data={data} teams={teams} setIsEditing={setIsEditing} />
+        return <BaseCard data={data}  setIsEditing={setIsEditing} />
     }
 }
 
 
 
-export function BaseCard({ data, teams, setIsEditing }: Readonly<CardPropsType>) {
+export function BaseCard({ data, setIsEditing }: Readonly<BaseCardPropsType>) {
     return (
         <Card className="w-full text-background p-5 font-secondary">
             <CardHeader className="flex flex-row justify-between">
@@ -70,7 +70,7 @@ export function BaseCard({ data, teams, setIsEditing }: Readonly<CardPropsType>)
 }
 
 
-const EditingCard = ({ data, setIsEditing, teams }: Readonly<CardPropsType>) => {
+const EditingCard = ({ data, setIsEditing, teams }: Readonly<EditingCardPropsType>) => {
     return (
         <div className="relative col-span-2">
             <Button onClick={() => setIsEditing(false)} variant="destructive" className="size-fit p-2 absolute top-0 right-0">
