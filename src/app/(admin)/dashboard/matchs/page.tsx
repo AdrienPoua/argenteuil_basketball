@@ -8,7 +8,7 @@ export default async function Page() {
         <div>
             <h1 className="text-2xl font-bold mb-4">Dashboard des matchs</h1>
             <div className="grid grid-cols-4 gap-3">
-                {matchs && matchs.map((match) => <Card key={match.matchNumber} match={match} />)}
+                {matchs.map((match, index) => <Card key={match.matchNumber + index} match={match} />)}
             </div>
         </div>
     )

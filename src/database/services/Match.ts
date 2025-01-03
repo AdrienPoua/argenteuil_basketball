@@ -1,8 +1,7 @@
 import { z } from "zod";
-import {
-  BaseMatchSchema,
-} from "@/database/schemas/Match";
+import { BaseMatchSchema } from "@/database/schemas/Match";
 import prisma from "@/database/prisma";
+import { Prisma } from "@prisma/client";
 
 export class MatchService {
   private readonly upsertMatchSchema = BaseMatchSchema.extend({
@@ -19,10 +18,11 @@ export class MatchService {
     }
   }
 
-  async updateMatch(match: Match) {
+  async updateMatch(match: Prisma.MatchUpdateInput & { id: string }) {
+    const { id, date, salle } = match;
     return await prisma.match.update({
-      where: { id: match.id },
-      data: match,
+      where: { id },
+      data: { date, salle },
     });
   }
 
@@ -45,7 +45,7 @@ export class MatchService {
         id: match.id,
       },
     });
-    console.log("🚀 ~ MatchService ~ upsert ~ result:", result)
+    console.log("🚀 ~ MatchService ~ upsert ~ result:", result);
     return result;
   }
 

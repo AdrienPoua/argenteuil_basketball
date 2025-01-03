@@ -14,6 +14,7 @@ import {
 import { useMatchForm } from "../actions/client.action"
 import { Badge } from "@/components/ui/badge"
 import { CardHeader, CardTitle } from "@/components/ui/card"
+import { updateMatch } from "../actions/server.actions"
 
 export default function MatchForm({ match, setIsEditing }: Readonly<PropsType>) {
     console.log("🚀 ~ MatchForm ~ match:", match)
@@ -21,8 +22,10 @@ export default function MatchForm({ match, setIsEditing }: Readonly<PropsType>) 
 
 
     const onSubmit = async (data: FormValues) => {
-        console.log("🚀 ~ onSubmit ~ data:", data)
+        const nothingChanged = match.formatedDate === data.date && match.formatedTime === data.time && match.salle === data.salle 
+        if (nothingChanged) return;
         try {
+            await updateMatch({ ...data, id: match.id });
             setIsEditing(false);
         } catch (error) {
             console.error(error)
