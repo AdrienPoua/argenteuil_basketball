@@ -19,6 +19,13 @@ export class MatchService {
     }
   }
 
+  async updateMatch(match: Match) {
+    return await prisma.match.update({
+      where: { id: match.id },
+      data: match,
+    });
+  }
+
   async upsert(data: unknown) {
     const { success, data: match } = this.upsertMatchSchema.safeParse(data);
     if (!success) return;
