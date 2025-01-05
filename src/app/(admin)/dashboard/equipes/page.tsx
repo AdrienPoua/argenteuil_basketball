@@ -10,6 +10,7 @@ import Form from "./components/Form";
 export default async function Page() {
   const members = await new MemberService().getMembers().then((members) => members.map((member) => new Member(member))).then((members) => members.map((member) => member.toPlainObject()))
   const teams = await new TeamService().getTeams().then((teams) => teams.map((team) => new Team(team))).then((teams) => teams.map((team) => team.toPlainObject()))
+  
   return (
     <div className="flex gap-10 flex-wrap">
       <Form members={members} />

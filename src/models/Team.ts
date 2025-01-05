@@ -13,6 +13,7 @@ export default class Team {
   private readonly _sessions: Prisma.JsonValue;
   private readonly _level: string;
   private readonly _isCompetition: boolean;
+  private readonly _championnats: string[];
   constructor(data: ConstructorType) {
     this._name = data.name;
     this._coach = data.coach;
@@ -21,6 +22,7 @@ export default class Team {
     this._sessions = data.sessions;
     this._level = data.level;
     this._isCompetition = data.isCompetition ;
+    this._championnats = data.championnats;
   }
 
   get id() {
@@ -29,7 +31,9 @@ export default class Team {
   get name(): string {
     return this._name;
   }
-
+  get championnats() {
+    return this._championnats;
+  }
   get sessions() {
     return Array.isArray(this._sessions)
       ? this._sessions.map((session) => SessionSchema.parse(session))
@@ -60,6 +64,7 @@ export default class Team {
       sessions: this.sessions,
       level: this.level,
       isCompetition: this.isCompetition,
+      championnats: this.championnats,
     };
   }
 }

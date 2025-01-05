@@ -17,7 +17,7 @@ export const SessionSchema = z.object({
   day: DaysSchema,
   start: z.string(),
   end: z.string(),
-  gymnase: GymnasesSchema
+  gymnase: GymnasesSchema,
 });
 
 export const TeamSchema = z.object({
@@ -26,4 +26,5 @@ export const TeamSchema = z.object({
   level: z.string(),
   sessions: z.array(SessionSchema),
   isCompetition: z.boolean().default(false),
+  championnats: z.array(z.string()).default([]),
 });

@@ -17,12 +17,13 @@ import { CardHeader, CardTitle } from "@/components/ui/card"
 import { updateMatch } from "../actions/server.actions"
 
 export default function MatchForm({ match, setIsEditing }: Readonly<PropsType>) {
-    console.log("🚀 ~ MatchForm ~ match:", match)
+    console.log("🚀 ISO", match.ISOdate)
+    console.log("🚀date", match.date)
     const form = useMatchForm(match);
 
 
     const onSubmit = async (data: FormValues) => {
-        const nothingChanged = match.formatedDate === data.date && match.formatedTime === data.time && match.salle === data.salle 
+        const nothingChanged = match.formatedDate === data.date && match.formatedTime === data.time && match.salle === data.salle
         if (nothingChanged) return;
         try {
             await updateMatch({ ...data, id: match.id });
@@ -43,11 +44,6 @@ export default function MatchForm({ match, setIsEditing }: Readonly<PropsType>) 
                         <CardTitle className="text-lg w-full text-center mb">
                             Journée {match.matchNumberJournee} - Match n°{match.matchNumber}
                         </CardTitle>
-                        <div className="flex gap-2">
-                            <Button onClick={() => setIsEditing(true)}>
-                                Modifier
-                            </Button>
-                        </div>
                     </CardHeader>
                 </div>
                 <div className="grid gap-4 md:grid-cols-2">

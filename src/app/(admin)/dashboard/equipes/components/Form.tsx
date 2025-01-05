@@ -12,25 +12,25 @@ import { useState } from "react"
 import Image from "next/image"
 import { Gymnases, Days } from "@/database/schemas/Team"
 import { createTeam, updateTeam } from "../actions/server.actions"
-import { getImageUrl, useTeamForm } from "../actions/client.actions"
+import { getImageUrl, useCompetitions, useTeamForm } from "../actions/client.actions"
 import { FormSchemaType, PropsType } from "../types/form.types"
 import { Checkbox } from "@/components/ui/checkbox"
+import { MultiSelect } from "@/components/ui/multi-select"
 
 export default function ZodForm({ members, defaultValues, setIsEditing }: Readonly<PropsType>) {
 
     const form = useTeamForm(defaultValues)
-
+    const championnats = useCompetitions()
     const [previewImage, setPreviewImage] = useState<string | null>(null)
-
     const { fields, append, remove } = useFieldArray({
         control: form.control,
         name: 'sessions'
     });
 
+    if (!championnats) return <div>Loading...</div>
     async function onSubmit(data: FormSchemaType) {
-        console.log("🚀 ~ onSubmit ~ data:", data)
-        const imageUrl = (data.image && await getImageUrl(data.image)) ?? null;
-        console.log("🚀 ~ onSubmit ~ imageUrl:", imageUrl)
+        const imageDidntChange = defaultValues?.image && data.image?.name === defaultValues.image
+        const imageUrl = imageDidntChange ? defaultValues?.image : (data.image && await getImageUrl(data.image)) ?? null;
         if (defaultValues) {
             await updateTeam({ ...data, image: imageUrl, id: defaultValues.id })
         } else {
@@ -156,6 +156,33 @@ export default function ZodForm({ members, defaultValues, setIsEditing }: Readon
                                 )}
                             />
                         </CardContent>
+
+                        {
+
+                            <FormField
+                                control={form.control}
+                                name="championnats"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel className="text-background">Championnats</FormLabel>
+                                        <FormControl>
+                                            <MultiSelect
+                                                options={championnats.map(championnat => ({
+                                                    label: championnat,
+                                                    value: championnat,
+                                                }))}
+                                                selected={field.value}
+                                                onChange={(values) => {
+                                                    field.onChange(values)
+                                                }}
+                                                placeholder="Selectionne un championnat"
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        }
                     </Card>
                     <Card className="shadow-xl p-5">
                         <CardHeader className="mx-auto my-5">

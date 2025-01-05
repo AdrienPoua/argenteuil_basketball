@@ -28,5 +28,7 @@ export const BaseMatchSchema = z.object({
     modification: z.string().nullable(),
     classementPouleAssociee: z.number().nullable(),
     competition: z.string().nullable(),
+    correspondant: z.string().nullable(),
+    convocationIsSent: z.boolean().default(false),
   });
 

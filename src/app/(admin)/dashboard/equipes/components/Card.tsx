@@ -12,7 +12,7 @@ import Form from "./Form"
 export default function Index({ data, members }: Readonly<PropsType>) {
     const [isEditing, setIsEditing] = useState(false)
     if (isEditing) {
-        return <EditCard data={data} members={members} setIsEditing={setIsEditing} />
+        return <EditCard data={data} members={members} setIsEditing={setIsEditing}/>
     }
     return <TeamCard data={data} setIsEditing={setIsEditing} />
 }
@@ -52,6 +52,16 @@ export function TeamCard({ data, setIsEditing }: Readonly<BaseCardPropsType>) {
                             </Badge>
                             <p className="text-sm font-medium">
                                 {data.coach.name}
+                            </p>
+                        </div>
+                    )}
+                    {data.championnats.length > 0 && (
+                        <div className="flex items-center gap-3 p-2 bg-muted/50 rounded-md">
+                            <Badge className="whitespace-nowrap">
+                                Championnats
+                            </Badge>
+                            <p className="text-sm font-medium">
+                                {data.championnats.join(", ")}
                             </p>
                         </div>
                     )}

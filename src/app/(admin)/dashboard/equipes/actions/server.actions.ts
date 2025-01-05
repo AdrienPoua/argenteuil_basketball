@@ -21,6 +21,7 @@ export const createTeam = async (data: z.infer<typeof createTeamSchema>) => {
 };
 
 export const updateTeam = async (data: z.infer<typeof updateTeamSchema>) => {
+  console.log("🚀 ~ updateTeam ~ data:", data)
   await teamService.updateTeam({ ...data, image: data.image });
   revalidatePath("/dashboard/equipes");
 };

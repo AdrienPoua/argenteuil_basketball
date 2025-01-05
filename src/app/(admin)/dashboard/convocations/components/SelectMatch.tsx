@@ -1,7 +1,6 @@
 'use client'
 
-import { Dispatch, SetStateAction, useState } from "react";
-import Match from '@/models/Match';
+import { useState } from "react";
 import { Check, ChevronsUpDown } from 'lucide-react';
 import { cn } from '@/utils/cn';
 import { Button } from '@/components/ui/button';
@@ -16,12 +15,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-
-type PropsType = {
-  matchs: ReturnType<Match["toPlainObject"]>[]
-  selectedMatchs: ReturnType<Match["toPlainObject"]>[]
-  setSelectedMatchs: Dispatch<SetStateAction<ReturnType<Match["toPlainObject"]>[]>>,
-}
+import { PropsType } from '../types/selectMatch.types';
 
 export default function MatchSelector({ matchs, setSelectedMatchs, selectedMatchs }: Readonly<PropsType>) {
   const [open, setOpen] = useState(false);
@@ -65,7 +59,7 @@ export default function MatchSelector({ matchs, setSelectedMatchs, selectedMatch
                         : "opacity-0"
                     )}
                   />
-                  {match.date} - {match.division} - {match.teamA} vs {match.teamB}
+                  {match.date} - {match.competition} - {match.nomEquipe1} vs {match.nomEquipe2}
                 </CommandItem>
               ))}
             </CommandList>

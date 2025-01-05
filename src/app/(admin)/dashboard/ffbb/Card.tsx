@@ -1,41 +1,9 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { CalendarIcon, MapPinIcon, ClockIcon } from 'lucide-react'
+import { CalendarIcon, MapPinIcon, ClockIcon, UserIcon } from 'lucide-react'
+import { PropsType } from "./types/card.types"
 
-type Match = {
-  id: number;
-  numero: number;
-  numeroJournee: number;
-  idPoule: number;
-  idOrganismeEquipe1: number;
-  idOrganismeEquipe2: number;
-  nomEquipe1: string;
-  nomEquipe2: string;
-  idEngagementEquipe1: number;
-  idEngagementEquipe2: number;
-  resultatEquipe1: number;
-  resultatEquipe2: number;
-  date: Date;
-  salle: string
-  penaliteEquipe1: boolean;
-  penaliteEquipe2: boolean;
-  forfaitEquipe1: boolean;
-  forfaitEquipe2: boolean;
-  defautEquipe1: boolean;
-  defautEquipe2: boolean;
-  validee: boolean;
-  remise: boolean;
-  joue: boolean;
-  handicap1: number | null;
-  handicap2: number | null;
-  dateSaisieResultat: string; // ISO 8601
-  creation: string; // ISO 8601
-  modification: string; // ISO 8601
-  classementPouleAssociee: number | null;
-  competition : string;
-};
-
-export default function MatchCard({ match }: Readonly<{ match: Match }>) {
+export default function MatchCard({ match }: Readonly<PropsType>) {
 
   const formattedDate = match.date.toLocaleDateString('fr-FR', {
     year: 'numeric',
@@ -51,7 +19,7 @@ export default function MatchCard({ match }: Readonly<{ match: Match }>) {
       <CardHeader>
         <CardTitle className="text-lg font-bold text-center">
           <Badge className="w-full justify-center">
-           {match.competition}
+            {match.competition}
           </Badge>
           Journée {match.numeroJournee} - Match n°{match.numero}
         </CardTitle>

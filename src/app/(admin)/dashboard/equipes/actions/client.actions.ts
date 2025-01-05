@@ -4,6 +4,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchema } from "../schemas/form.schemas";
 import { FormSchemaType, PropsType } from "../types/form.types";
+import useToken from "@/hooks/useToken";
+import { useQuery } from "react-query";
+import getCompetitions from "@/services/api/getCompetitions";
 
 export const getImageUrl = async (file: File) => {
   if (!file) return;
@@ -11,6 +14,7 @@ export const getImageUrl = async (file: File) => {
   const formData = new FormData();
   formData.append("file", file); // Fichier brut
   formData.append("fileName", file.name);
+  
   const response = await fetch("/api/auth/imagekit", {
     method: "POST",
     body: formData,
@@ -21,6 +25,7 @@ export const getImageUrl = async (file: File) => {
 };
 
 export const useTeamForm = (defaultValues?: PropsType["defaultValues"]) => {
+  
   const baseDefaultValues = {
     sessions: [],
     image: undefined,
@@ -28,6 +33,7 @@ export const useTeamForm = (defaultValues?: PropsType["defaultValues"]) => {
     isCompetition: false,
     level: "",
     coach: "",
+    championnats: [],
   };
   const defaultValuesFromProps = {
     ...defaultValues,
@@ -38,4 +44,14 @@ export const useTeamForm = (defaultValues?: PropsType["defaultValues"]) => {
     resolver: zodResolver(formSchema),
     defaultValues: defaultValues ? defaultValuesFromProps : baseDefaultValues,
   });
+};
+
+export const useCompetitions = () => {
+  const { token } = useToken();
+  const { data: competitions } = useQuery(
+    ["competitions", token],
+    () => getCompetitions(token as string),
+    { enabled: !!token },
+  );
+  return competitions?.map((competition) => competition.code);
 };

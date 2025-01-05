@@ -38,14 +38,15 @@ model Member {
  * ****************************************
  */
 model Team {
-  id            String  @id @default(auto()) @map("_id") @db.ObjectId
-  name          String  @unique
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  name          String   @unique
   image         String?
   level         String
   sessions      Json
-  coach         Member? @relation(fields: [memberId], references: [id])
-  memberId      String? @db.ObjectId
+  coach         Member?  @relation(fields: [memberId], references: [id])
+  memberId      String?  @db.ObjectId
   isCompetition Boolean
+  championnats  String[]
 }
 
 /**
@@ -79,7 +80,7 @@ enum Roles {
  * ****************************************
  */
 model Match {
-  id                      String  @id @map("_id")
+  id                      String   @id @map("_id")
   numero                  Int
   numeroJournee           Int
   idPoule                 Int
@@ -107,6 +108,8 @@ model Match {
   modification            String?
   classementPouleAssociee Int?
   competition             String?
+  correspondant           String?
+  convocationIsSent       Boolean?
 }
 
 /**

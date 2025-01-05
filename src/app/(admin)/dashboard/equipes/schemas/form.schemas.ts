@@ -7,5 +7,6 @@ export const formSchema = z.object({
     level: z.string(),
     sessions: z.array(SessionSchema),
     coach: z.string().optional(),
-    isCompetition: z.boolean().default(false)
+    isCompetition: z.boolean().default(false),
+    championnats: z.array(z.string())
 });

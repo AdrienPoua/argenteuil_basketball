@@ -36,6 +36,8 @@ export class MatchService {
       forfaitEquipe2: match.forfaitEquipe2,
       resultatEquipe1: match.resultatEquipe1,
       resultatEquipe2: match.resultatEquipe2,
+      correspondant: match.correspondant,
+      convocationIsSent: match.convocationIsSent,
     };
     const result = await prisma.match.upsert({
       where: { id: match.id },
@@ -45,7 +47,6 @@ export class MatchService {
         id: match.id,
       },
     });
-    console.log("🚀 ~ MatchService ~ upsert ~ result:", result);
     return result;
   }
 
@@ -59,4 +60,5 @@ export class MatchService {
       throw error;
     }
   }
+
 }

@@ -23,7 +23,9 @@ export default class Match {
   private readonly _joue: boolean;
   private readonly _modification: string | null;
   private readonly _competition: string | null;
-
+  private readonly _clubId: number = 11851;
+  private readonly _correspondant?: string;
+  private readonly _convocationIsSent: boolean;
   constructor(data: ConstructorType) {
     this._id = data.id;
     this._numero = data.numero;
@@ -46,6 +48,8 @@ export default class Match {
     this._joue = data.joue;
     this._modification = data.modification;
     this._competition = data.competition ?? null;
+    this._correspondant = data.correspondant ?? undefined;
+    this._convocationIsSent = data.convocationIsSent ?? false;
   }
   get formatedDate() {
     return this._date.toLocaleDateString("fr-FR", {
@@ -62,6 +66,10 @@ export default class Match {
     return this._numero;
   }
 
+  get correspondant() {
+    return this._correspondant;
+  }
+
   get numeroJournee() {
     return this._numeroJournee;
   }
@@ -75,12 +83,17 @@ export default class Match {
   }
 
   get ISOdate() {
-    return this._date.toISOString().split('T')[0];
+    return this._date.toLocaleDateString("fr-CA");
   }
 
   get idOrganismeEquipe2() {
     return this._idOrganismeEquipe2;
   }
+
+  get heure() {
+    return this._date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+  
 
   get nomEquipe1() {
     return this._nomEquipe1;
@@ -98,8 +111,12 @@ export default class Match {
     return this._resultatEquipe2;
   }
 
+  get isHome() {
+    return this._idOrganismeEquipe1 === this._clubId;
+  }
+
   get salle() {
-    return this._salle;
+    return this._salle ?? "";
   }
 
   get forfaitEquipe1() {
@@ -121,12 +138,20 @@ export default class Match {
     return this._date;
   }
 
+  get id() {
+    return this._id;
+  }
+
   get validee() {
     return this._validee;
   }
 
   get remise() {
     return this._remise;
+  }
+
+  get convocationIsSent() {
+    return this._convocationIsSent;
   }
 
   get joue() {
@@ -141,33 +166,47 @@ export default class Match {
     return this._competition;
   }
 
+  get coach() {
+    return this._coach;
+  }
+
   toPlainObject() {
     return {
       id: this._id,
       matchNumber: this._numero,
-      nomEquipe1: this._nomEquipe1,
-      nomEquipe2: this._nomEquipe2,
-      competition: this._competition,
+      nomEquipe1: this.nomEquipe1,
+      nomEquipe2: this.nomEquipe2,
+      competition: this.competition,
       formatedDate: this.formatedDate,
       formatedTime: this.formatedTime,
       date: this.date,
       ISOdate: this.ISOdate,
-      matchId: this._id,
-      matchNumberJournee: this._numeroJournee,
-      idPoule: this._idPoule,
-      idOrganismeEquipe1: this._idOrganismeEquipe1,
-      idOrganismeEquipe2: this._idOrganismeEquipe2,
-      resultatEquipe1: this._resultatEquipe1,
-      resultatEquipe2: this._resultatEquipe2,
-      salle: this._salle,
-      forfaitEquipe1: this._forfaitEquipe1,
-      forfaitEquipe2: this._forfaitEquipe2,
-      defautEquipe1: this._defautEquipe1,
-      defautEquipe2: this._defautEquipe2,
-      validee: this._validee,
-      remise: this._remise,
-      joue: this._joue,
-      modification: this._modification,
+      matchId: this.id,
+      matchNumberJournee: this.numeroJournee,
+      idPoule: this.idPoule,
+      idOrganismeEquipe1: this.idOrganismeEquipe1,
+      idOrganismeEquipe2: this.idOrganismeEquipe2,
+      resultatEquipe1: this.resultatEquipe1,
+      resultatEquipe2: this.resultatEquipe2,
+      heure: this.heure,
+      coach: this.coach,
+      salle: this.salle,
+      forfaitEquipe1: this.forfaitEquipe1,
+      forfaitEquipe2: this.forfaitEquipe2,
+      defautEquipe1: this.defautEquipe1,
+      defautEquipe2: this.defautEquipe2,
+      validee: this.validee,
+      remise: this.remise,
+      joue: this.joue,
+      isHome: this.isHome,
+      modification: this.modification,
+      correspondant: this.correspondant,
+      convocationIsSent: this.convocationIsSent,
     };
   }
+
+  static async sendConvocation(match: ReturnType<Match["toPlainObject"]>) {
+    console.log("convocation sent");
+  }
 }
+

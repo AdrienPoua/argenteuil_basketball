@@ -13,8 +13,6 @@ export default function Page() {
     if (!matchs || !poulesIDS || !competitions || !competitionsDetails) {
         return <div>Loading...</div>
     }
-
-
     const clubsUpdate = async () => {
         try {
             setTransfering(true)

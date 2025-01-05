@@ -1,12 +1,17 @@
 "use server";
 import { ClubService } from "@/database/services/Club";
-import getCompetitions from "@/services/api/getCompetitions";
 import getCompetitionsDetails from "@/services/api/getCompetitionsDetails";
-import getRencontresParPoules from "@/services/api/getRencontresParPoules";
 import { MatchService } from "@/database/services/Match";
+import {
+  MatchType,
+  CompetitionType,
+  ClubType,
+} from "../types/serverActions.types";
+import argenteuil from "@/data/club.json";
 
 const clubService = new ClubService();
 const matchService = new MatchService();
+const clubs = await clubService.getClubs();
 
 export const upsertClub = async (club: {
   code: string;
@@ -38,25 +43,40 @@ export const updateClubs = async (
 };
 
 export const updateMatchs = async (
-  matchs: Awaited<ReturnType<typeof getRencontresParPoules>>,
-  competitions: Awaited<ReturnType<typeof getCompetitions>>,
+  matchs: MatchType[],
+  competitions: CompetitionType[],
 ) => {
-  const findCompetition = (match: any) => {
-    const competition = competitions.find((competition) =>
-      competition.poules.find((poule) => poule.id === match.idPoule),
-    );
-    return competition ?? null;
-  };
-
   await Promise.all(
     matchs.map(async (match) => {
-      const competition = findCompetition(match);
+      const competition = findCompetition(match, competitions);
+      const opponentClub = findOpponentClub(match, clubs);
       const payload = {
         ...match,
         id: match.id.toString(),
         competition: competition?.code ?? null,
+        correspondant: opponentClub?.email ?? null,
       };
       await matchService.upsert(payload);
     }),
   );
+};
+
+const findCompetition = (match: MatchType, competitions: CompetitionType[]) => {
+  const competition = competitions.find((competition) =>
+    competition.poules.find((poule) => poule.id === match.idPoule),
+  );
+  return competition ?? null;
+};
+
+const findOpponentClub = (match: MatchType, clubs: ClubType[]) => {
+  const homeGame = match.idOrganismeEquipe1 === argenteuil.id;
+  if (homeGame) {
+    return clubs.find(
+      (club) => club.id === match.idOrganismeEquipe2.toString(),
+    );
+  } else {
+    return clubs.find(
+      (club) => club.id === match.idOrganismeEquipe1.toString(),
+    );
+  }
 };

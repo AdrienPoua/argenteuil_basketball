@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
-import { Text, Section, Heading, Hr, Link } from '@react-email/components';
-import Layout from './Layout';
+import { Text, Section, Heading, Hr, Link, Container, Tailwind } from '@react-email/components';
+import config from '../../../../tailwind.config';
 
 
 export type PropsType = {
@@ -12,13 +12,17 @@ export type PropsType = {
 
 export default function Index({ match, reason, proposition }: Readonly<PropsType>): ReactElement {
     return (
-        <Layout>
-            <>
-                <Header />
-                <Body match={match} reason={reason} proposition={proposition} />
-                <Signature />
-            </>
-        </Layout>
+        <Tailwind
+            config={config}
+        >
+            <Container cellPadding={10} style={{ padding: "60px" }}>
+                <>
+                    <Header />
+                    <Body match={match} reason={reason} proposition={proposition} />
+                    <Signature />
+                </>
+            </Container>
+        </Tailwind>
     )
 }
 
@@ -30,7 +34,7 @@ const Header = (): ReactElement => {
     )
 }
 
-const Body = ({ match, reason, proposition }: { match: any , reason: string, proposition: string }): ReactElement => {
+const Body = ({ match, reason, proposition }: { match: any, reason: string, proposition: string }): ReactElement => {
     return (
         <Section>
             <Hr />
