@@ -10,10 +10,8 @@ export class ConvocationService {
   }
 
   get to() {
-    return "argenteuilbasketball@hotmail.fr";
+    return this._match.correspondant;
   }
-
-
 
   get subject() {
     return (
@@ -45,6 +43,7 @@ export class ConvocationService {
       return await transporter.sendMail({
         from: "convocation@argenteuilbasketball.com",
         to: this.to,
+        cc: this.cc,
         subject: this.subject,
         html: html,
         bcc: "argenteuilbasketball@hotmail.fr",

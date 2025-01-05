@@ -1,13 +1,12 @@
 import {
   BaseFAQSchema,
-  ExistingFAQSchema,
 } from "@/database/schemas/FAQ";
 import prisma from "@/database/prisma";
 import { z } from "zod";
 
 export class FAQService {
   private readonly BaseFAQSchema = BaseFAQSchema;
-  private readonly ExistingFAQSchema = ExistingFAQSchema;
+  private readonly ExistingFAQSchema = BaseFAQSchema.extend({ id: z.string() });
 
   async createFaq(data: z.infer<typeof this.BaseFAQSchema>) {
     const parsedFAQ = this.BaseFAQSchema.parse(data);
@@ -42,6 +41,22 @@ export class FAQService {
       console.error("Erreur lors de la mise à jour du faq :", error);
       throw error;
     }
+  }
+
+  async pushRank(data: z.infer<typeof this.ExistingFAQSchema>) {
+    const parsedFAQ = this.ExistingFAQSchema.parse(data);
+    return await prisma.fAQ.update({
+      where: { id: parsedFAQ.id },
+      data: { position: parsedFAQ.position + 1 }
+    });
+  }
+
+  async downRank(data: z.infer<typeof this.ExistingFAQSchema>) {
+    const parsedFAQ = this.ExistingFAQSchema.parse(data);
+    return await prisma.fAQ.update({
+      where: { id: parsedFAQ.id },
+      data: { position: parsedFAQ.position - 1 }
+    });
   }
 
   async deleteFaq(id: string) {

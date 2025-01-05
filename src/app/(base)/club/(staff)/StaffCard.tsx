@@ -7,38 +7,23 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { Badge } from "@/components/ui/badge"
+import Member from "@/models/Member"
 
-type StaffCardProps = {
-  name: string
-  img: string
-  email: string
-  number: string
-  job?: string
-  teams?: string[]
-  isEmailDisplayed: boolean
-  isNumberDisplayed: boolean
+type PropsType = {
+  data: Readonly<ReturnType<Member['toPlainObject']>>
 }
 
-export default function StaffCard({
-  name,
-  img,
-  email,
-  number,
-  job,
-  teams = [],
-  isEmailDisplayed,
-  isNumberDisplayed,
-}: Readonly<StaffCardProps>) {
-  const [isNumberVisible, setIsNumberVisible] = useState(false)
+export default function Index({ data }: Readonly<PropsType>) {
+    const [isNumberVisible, setIsNumberVisible] = useState(false)
 
   const handleEmailClick = () => {
-    if (isEmailDisplayed) window.open(`mailto:${email}`)
+    if (data.email) window.open(`mailto:${data.email}`)
   }
 
   const handlePhoneClick = () => {
-    if (isNumberDisplayed) {
+    if (data.phone) {
       if (typeof window !== 'undefined' && 'ontouchstart' in window) {
-        window.open(`tel:${number}`)
+        window.open(`tel:${data.phone}`)
       } else {
         setIsNumberVisible((prev) => !prev)
       }
@@ -50,21 +35,21 @@ export default function StaffCard({
       <CardHeader className="p-0">
         <div className="relative aspect-square overflow-hidden">
           <Image
-            src={img}
-            alt={name}
+            src={data.image}
+            alt={data.name}
             fill
             className="object-cover object-top"
           />
         </div>
       </CardHeader>
       <CardContent className="p-4">
-        <h3 className="text-2xl font-semibold text-center">{name}</h3>
-        {job && <p className="text-center text-muted-foreground">{job}</p>}
-        {teams.length > 0 && (
+        <h3 className="text-2xl font-semibold text-center">{data.name}</h3>
+        {data.role && <p className="text-center text-muted-foreground">{data.role}</p>}
+        {data.teams.length > 0 && (
           <div className="flex flex-wrap justify-center gap-2 mt-2">
-            {teams.map((team) => (
-              <Badge key={team} variant="staffCard">
-                {team}
+            {data.teams.map((team) => (
+              <Badge key={team.id} variant="staffCard">
+                {team.name}
               </Badge>
             ))}
           </div>
@@ -78,13 +63,13 @@ export default function StaffCard({
                 variant="ghost"
                 size="icon"
                 onClick={handleEmailClick}
-                disabled={!isEmailDisplayed}
+                disabled={!data.email}
               >
-                {isEmailDisplayed ? <Mail className="h-5 w-5" /> : <Ban className="h-5 w-5" />}
+                {data.email ? <Mail className="h-5 w-5" /> : <Ban className="h-5 w-5" />}
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              {isEmailDisplayed ? 'Envoyer un email' : 'Email not available'}
+              {data.email ? 'Envoyer un email' : 'Email not available'}
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -95,12 +80,12 @@ export default function StaffCard({
               <Button
                 variant="ghost"
                 size={isNumberVisible ? undefined : "icon"}
-                onClick={handlePhoneClick}
-                disabled={!isNumberDisplayed}
+                  onClick={handlePhoneClick}
+                  disabled={!data.phone}
               >
-                {isNumberDisplayed ? (
+                {data.phone ? (
                   isNumberVisible ? (
-                    <span className="text-sm font-medium p-3">{number}</span>
+                    <span className="text-sm font-medium p-3">{data.phone}</span>
                   ) : (
                     <Phone className="h-5 w-5" />
                   )
@@ -110,7 +95,7 @@ export default function StaffCard({
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              {isNumberDisplayed
+              {data.phone
                 ? isNumberVisible
                   ? 'Hide Number'
                   : 'Voir le numéro'

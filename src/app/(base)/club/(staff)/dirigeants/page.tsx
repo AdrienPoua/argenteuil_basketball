@@ -1,32 +1,23 @@
-"use client";
 import H1 from '@/components/H1';
 import MainSection from "@/components/layouts/MainSection";
-import FetchFeedback from "@/components/FetchFeedback";
-import StaffCard from "../StaffCard";
-import useFetchLeaders from '@/hooks/useFetchLeaders';
+import Card from "../StaffCard";
+import { MemberService } from '@/database/services/Member';
+import Member from '@/models/Member';
 
-export default function Index() {
-  const { leaders, isLoading, error } = useFetchLeaders();
+export default async function Index() {
+  const leaders = await new MemberService().getLeaders().then((leader) => leader.map((l) => new Member(l).toPlainObject()));
   return (
     <>
       <H1> Nos dirigeants </H1>
       <MainSection>
-        <FetchFeedback isLoading={isLoading} error={error} data={leaders}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 justify-center items-center place-items-center p-10">
-            {leaders?.map((leader) => (
-              <StaffCard
-                key={leader.id}
-                name={leader.name}
-                img={leader.img}
-                email={leader.email}
-                number={leader.number}
-                isEmailDisplayed={leader.isEmailDisplayed}
-                isNumberDisplayed={leader.isNumberDisplayed}
-                job={leader.job}
-              />
-            ))}
-          </div>
-        </FetchFeedback>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 justify-center items-center place-items-center p-10">
+          {leaders.map((leader) => (
+            <Card
+              key={leader.id}
+              data={leader}
+            />
+          ))}
+        </div>
       </MainSection>
     </>
   );

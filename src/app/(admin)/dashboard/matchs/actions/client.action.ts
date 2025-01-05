@@ -23,7 +23,7 @@ export const useCardFilter = (matchs: GridPropsType["matchs"]) => {
   const [place, setPlace] = useState("all")
 
   const competitions = useMemo(() => {
-    return Array.from(new Set(matchs.map((match) => match.competition ?? "Unknown")))
+    return Array.from(new Set(matchs.map((match) => match.championnat ?? "Unknown")))
   }, [matchs])
 
   const sortedMatches = useMemo(() => {
@@ -35,7 +35,7 @@ export const useCardFilter = (matchs: GridPropsType["matchs"]) => {
   const filteredByCompetition = useMemo(() => {
     return sortedMatches.filter(
       (match) =>
-        match.competition === selectedCompetition || selectedCompetition === "ALL"
+        match.championnat === selectedCompetition || selectedCompetition === "ALL"
     )
   }, [sortedMatches, selectedCompetition])
 

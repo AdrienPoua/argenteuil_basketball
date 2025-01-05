@@ -101,11 +101,6 @@ const topItems = [
     icon: Trophy,
   },
   {
-    title: "Convocations",
-    url: "/dashboard/convocations",
-    icon: Calendar,
-  },
-  {
     title: "Correspondants",
     url: "/dashboard/correspondants",
     icon: UserCog,

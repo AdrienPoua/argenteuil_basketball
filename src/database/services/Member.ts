@@ -38,6 +38,31 @@ export class MemberService {
     });
   }
 
+  async getCoachs() {
+    return await prisma.member.findMany({
+      where: {
+        teams: {
+          some: {},
+        },
+      },
+      include: {
+        teams: true, 
+      },
+    });
+  }
+  
+
+  async getLeaders() {
+    return await prisma.member.findMany({
+      where: {
+        isLeader: true,
+      },
+      include: {
+        teams: true,
+      },
+    });
+  }
+
   async updateMember(data: z.infer<typeof this.updateDataSchema>) {
     const { id, teams, ...member } = this.updateDataSchema.parse(data);
 

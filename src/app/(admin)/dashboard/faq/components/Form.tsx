@@ -1,32 +1,21 @@
+"use client"
 import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Textarea } from "@/components/ui/textarea"
-import { createFAQ } from "@/database/services/FAQ"
-
-const formSchema = z.object({
-    question: z.string().min(1, "La question est requise"),
-    answer: z.string().min(1, "La réponse est requise"),
-})
-
+import { createFAQ } from "../actions/server.actions"
+import { formSchema } from "../schemas/form.schema"
+import { useFAQForm } from "../actions/client.action"
 export default function FAQForm() {
     const [isSubmitting, setIsSubmitting] = useState(false)
-
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-        defaultValues: {
-            question: "",
-            answer: "",
-        },
-    })
-
-    async function onSubmit(values: z.infer<typeof formSchema>) {
+    const form = useFAQForm()
+    
+    async function onSubmit(data: z.infer<typeof formSchema>) {
+        console.log("🚀 ~ onSubmit ~ data:", data)
         setIsSubmitting(true)
         try {
-            await createFAQ({...values, rank: 0})   
+            await createFAQ(data)
             form.reset()
         } catch (error) {
             console.error("Error creating FAQ:", error)

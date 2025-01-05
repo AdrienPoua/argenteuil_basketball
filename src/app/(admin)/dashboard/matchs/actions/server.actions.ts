@@ -32,7 +32,6 @@ export async function sendConvocation(
 ) {
   const convocation = new ConvocationService(match);
   const result = await convocation.send();
-  console.log("🚀 ~ result:", result)
   if (result) {
     await matchService.updateMatch({ id: match.id, convocationIsSent: true });
     revalidatePath("/dashboard/matchs");

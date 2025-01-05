@@ -1,3 +1,6 @@
-import { Prisma } from "@prisma/client";
+import getRencontresParPoules from "@/services/api/getRencontresParPoules";
 
-export type PropsType = { match: Prisma.MatchGetPayload<{}> };
+export type PropsType = {
+  match: Awaited<ReturnType<typeof getRencontresParPoules>> & { competition: string };
+};
+

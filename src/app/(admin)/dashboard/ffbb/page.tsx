@@ -36,6 +36,7 @@ export default function Page() {
         }
     }
 
+
     return (
         <Tabs defaultValue={competitions[0].id.toString()} className="size-full max-w-full overflow-x-hidden">
             <Button onClick={() => clubsUpdate()} className="my-10 mx-auto flex" disabled={transfering} > Mettre a jour les clubs</Button>
@@ -43,12 +44,16 @@ export default function Page() {
             <TabsList className="flex flex-wrap size-fit mx-auto mb-10">
                 {competitions.map((compet) => <TabsTrigger key={compet.id} value={compet.id.toString()}>{compet.code}</TabsTrigger>)}
             </TabsList>
-            {competitions.map((compet) =>
-                <TabsContent key={compet.id} value={compet.id.toString()} defaultValue={competitions[0].id.toString()} className="grid grid-cols-1 md:grid-cols-5 gap-5"
-                >
-                    {matchs.filter((match) => compet.poules.some((poule) => poule.id === match.idPoule)).map((match) => <Card key={match.numero} match={{ ...match, competition: compet.code }} />)}
-                </TabsContent>
-            )}
+            {competitions?.map((compet) => {
+                const filteredMatchs = matchs?.filter((match) => compet.poules.some((poule) => poule.id === match.idPoule)) || [];
+                return (
+                    <TabsContent key={compet.id} value={compet.id.toString()} className="grid grid-cols-1 md:grid-cols-5 gap-5">
+                        {filteredMatchs.map((match) => (
+                            <Card key={match.numero} match={{ ...match, competition: compet.code }} />
+                        ))}
+                    </TabsContent>
+                );
+            })}
         </Tabs>
     )
 }
