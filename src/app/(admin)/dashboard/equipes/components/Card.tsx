@@ -1,13 +1,14 @@
 "use client"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { CalendarDays, Clock, Pencil, Trash2, X } from 'lucide-react'
+import { CalendarDays, Clock, Pencil, X } from 'lucide-react'
 import Image from 'next/image'
 import { Button } from "@/components/ui/button"
 import { deleteTeam } from "../actions/server.actions"
 import { BaseCardPropsType, EditingCardPropsType, PropsType } from "../types/card.types"
 import { useState } from "react"
 import Form from "./Form"
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogFooter, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 
 export default function Index({ data, members }: Readonly<PropsType>) {
     const [isEditing, setIsEditing] = useState(false)
@@ -18,6 +19,13 @@ export default function Index({ data, members }: Readonly<PropsType>) {
 }
 
 export function TeamCard({ data, setIsEditing }: Readonly<BaseCardPropsType>) {
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+    const handleDelete = async () => {
+        await deleteTeam(data.id);
+        setIsDialogOpen(false);
+    };
+
     return (
         <Card className="w-full max-w-md p-5 font-secondary hover:shadow-lg transition-shadow text-muted-foreground">
             <CardHeader className="flex flex-col gap-2 mb-5 relative">
@@ -25,13 +33,36 @@ export function TeamCard({ data, setIsEditing }: Readonly<BaseCardPropsType>) {
                     {data.name}
                 </CardTitle>
                 <div className="absolute top-0 right-0 flex gap-2">
+                    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                        <DialogTrigger asChild>
+                            <Button variant="destructive" className="size-fit p-2 absolute top-0 right-0">
+                                <X />
+                            </Button>
+                        </DialogTrigger>
+                        <DialogContent>
+                            <DialogHeader>
+                                <DialogTitle>Confirmation</DialogTitle>
+                                <DialogDescription>
+                                    Tu es sur le point de supprimer l&apos;équipe {data.name}
+                                </DialogDescription>
+                            </DialogHeader>
+                            <DialogFooter>
+                                <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
+                                    Annuler
+                                </Button>
+                                <Button variant="destructive" onClick={handleDelete}>
+                                    Confirmer
+                                </Button>
+                            </DialogFooter>
+                        </DialogContent>
+                    </Dialog>
                     <Button
-                        variant="destructive"
+                        variant="outline"
                         size="icon"
-                        onClick={() => deleteTeam(data.id)}
-                        aria-label={`Supprimer l'équipe ${data.name}`}
+                        onClick={() => setIsEditing(true)}
+                        aria-label={`Modifier l'équipe ${data.name}`}
                     >
-                        <Trash2 className="h-4 w-4" />
+                        <Pencil className="h-4 w-4" />
                     </Button>
                     <Button
                         variant="outline"

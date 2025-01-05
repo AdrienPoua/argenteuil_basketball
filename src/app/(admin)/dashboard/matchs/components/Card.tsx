@@ -24,7 +24,7 @@ const BaseCard = ({ match, setIsEditing }: Readonly<EditingCardPropsType>) => {
     return (
         <Card className="w-full max-w-md mx-auto text-black font-secondary p-3">
             <Badge variant="match">
-                {match.competition}
+                {match.championnat}
             </Badge>
             <Badge variant="match" className={match.isHome ? "bg-primary" : "bg-green-500"}>{match.isHome ? "DOMICILE" : "VISITEUR"}</Badge>
             <CardHeader className="flex flex-row items-center justify-between mb-3">
@@ -62,13 +62,17 @@ const BaseCard = ({ match, setIsEditing }: Readonly<EditingCardPropsType>) => {
                     <UserIcon className="h-4 w-4" />
                     <span>{match.correspondant}</span>
                 </div>
-                {match.isHome && <Badge variant="match" className={match.convocationIsSent ? "bg-green-500 text-sm" : "bg-red-500 text-sm"}>{match.convocationIsSent ? " ✅Convocation ✅" : "❌ Convocation ❌"}</Badge>}
-                <Button className="w-full" onClick={() => {
-                    sendConvocation(match)
-                }}>
-                    <Mail className="h-4 w-4" />
-                    <span>Envoyer convocation</span>
-                </Button>
+                {match.isHome && (
+                    <>
+                        <Badge variant="match" className={match.convocationIsSent ? "bg-green-500 text-sm cursor-pointer" : "bg-red-500 text-sm cursor-pointer"}>{match.convocationIsSent ? " ✅Convocation ✅" : "❌ Convocation ❌"}</Badge>
+                        <Button className="w-full" onClick={() => {
+                            sendConvocation(match)
+                        }}>
+                            <Mail className="h-4 w-4" />
+                            <span>Envoyer convocation</span>
+                        </Button>
+                    </>
+                )}
             </CardContent>
             <CardFooter className="flex flex-wrap justify-between gap-2">
                 {match.remise && <Badge variant="destructive">Remis</Badge>}

@@ -22,7 +22,7 @@ export default class Match {
   private readonly _remise: boolean;
   private readonly _joue: boolean;
   private readonly _modification: string | null;
-  private readonly _competition: string | null;
+  private readonly _competition: string;
   private readonly _clubId: number = 11851;
   private readonly _correspondant?: string;
   private readonly _convocationIsSent: boolean;
@@ -47,7 +47,7 @@ export default class Match {
     this._remise = data.remise;
     this._joue = data.joue;
     this._modification = data.modification;
-    this._competition = data.competition ?? null;
+    this._competition = data.competition ?? "";
     this._correspondant = data.correspondant ?? undefined;
     this._convocationIsSent = data.convocationIsSent ?? false;
   }
@@ -91,9 +91,11 @@ export default class Match {
   }
 
   get heure() {
-    return this._date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    return this._date.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
   }
-  
 
   get nomEquipe1() {
     return this._nomEquipe1;
@@ -162,12 +164,8 @@ export default class Match {
     return this._modification;
   }
 
-  get competition() {
+  get championnat() {
     return this._competition;
-  }
-
-  get coach() {
-    return this._coach;
   }
 
   toPlainObject() {
@@ -176,7 +174,7 @@ export default class Match {
       matchNumber: this._numero,
       nomEquipe1: this.nomEquipe1,
       nomEquipe2: this.nomEquipe2,
-      competition: this.competition,
+      championnat: this.championnat,
       formatedDate: this.formatedDate,
       formatedTime: this.formatedTime,
       date: this.date,
@@ -189,7 +187,6 @@ export default class Match {
       resultatEquipe1: this.resultatEquipe1,
       resultatEquipe2: this.resultatEquipe2,
       heure: this.heure,
-      coach: this.coach,
       salle: this.salle,
       forfaitEquipe1: this.forfaitEquipe1,
       forfaitEquipe2: this.forfaitEquipe2,
@@ -204,9 +201,4 @@ export default class Match {
       convocationIsSent: this.convocationIsSent,
     };
   }
-
-  static async sendConvocation(match: ReturnType<Match["toPlainObject"]>) {
-    console.log("convocation sent");
-  }
 }
-

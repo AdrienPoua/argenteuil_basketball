@@ -1,14 +1,20 @@
 "use server";
 import { MatchService } from "@/database/services/Match";
+import { TeamService } from "@/database/services/Team";
 import { FormValues } from "../types/form.types";
 import { revalidatePath } from "next/cache";
-import { PropsType as MatchType } from "../types/card.types";
+import { ConvocationService } from "@/services/nodemailer/services/convocation";
 import Match from "@/models/Match";
 
 const matchService = new MatchService();
+const teamService = new TeamService();
 
 export async function getMatchs() {
   return await matchService.getMatchs();
+}
+
+export async function getTeams() {
+  return await teamService.getTeams();
 }
 
 export async function deleteMatch(matchId: string) {
@@ -21,6 +27,14 @@ export async function updateMatch(match: FormValues & { id: string }) {
   revalidatePath("/dashboard/matchs");
 }
 
-export async function sendConvocation(match : MatchType["match"]) {
-  return await Match.sendConvocation(match);
+export async function sendConvocation(
+  match: ReturnType<Match["toPlainObject"]>,
+) {
+  const convocation = new ConvocationService(match);
+  const result = await convocation.send();
+  console.log("🚀 ~ result:", result)
+  if (result) {
+    await matchService.updateMatch({ id: match.id, convocationIsSent: true });
+    revalidatePath("/dashboard/matchs");
+  }
 }
