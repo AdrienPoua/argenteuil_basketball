@@ -8,8 +8,15 @@ import { CalendarIcon, MapPinIcon, ClockIcon, UserIcon, Mail } from 'lucide-reac
 import { PropsType, EditingCardPropsType } from "../types/card.types"
 import Form from "./Form"
 import { sendConvocation } from "../actions/server.actions"
-
-
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
 
 export default function Index({ match }: Readonly<PropsType>) {
     const [isEditing, setIsEditing] = useState(false)
@@ -21,6 +28,13 @@ export default function Index({ match }: Readonly<PropsType>) {
 }
 
 const BaseCard = ({ match, setIsEditing }: Readonly<EditingCardPropsType>) => {
+    const [isDialogOpen, setIsDialogOpen] = useState(false)
+
+    const handleSendConvocation = () => {
+        setIsDialogOpen(false)
+        sendConvocation(match)
+    }
+
     return (
         <Card className="w-full max-w-md mx-auto text-black font-secondary p-3">
             <Badge variant="match">
@@ -64,13 +78,41 @@ const BaseCard = ({ match, setIsEditing }: Readonly<EditingCardPropsType>) => {
                 </div>
                 {match.isHome && (
                     <>
-                        <Badge variant="match" className={match.convocationIsSent ? "bg-green-500 text-sm cursor-pointer" : "bg-red-500 text-sm cursor-pointer"}>{match.convocationIsSent ? " ✅Convocation ✅" : "❌ Convocation ❌"}</Badge>
-                        <Button className="w-full" onClick={() => {
-                            sendConvocation(match)
-                        }}>
-                            <Mail className="h-4 w-4" />
-                            <span>Envoyer convocation</span>
-                        </Button>
+                        <Badge variant="match" className={match.convocationIsSent ? "bg-green-500 text-sm cursor-pointer" : "bg-red-500 text-sm cursor-pointer"}>
+                            {match.convocationIsSent ? " ✅Convocation ✅" : "❌ Convocation ❌"}
+                        </Badge>
+                        
+                        {match.convocationIsSent ? (
+                            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                                <DialogTrigger asChild>
+                                    <Button className="w-full">
+                                        <Mail className="h-4 w-4 mr-2" />
+                                        <span>Envoyer convocation</span>
+                                    </Button>
+                                </DialogTrigger>
+                                <DialogContent>
+                                    <DialogHeader>
+                                        <DialogTitle>Confirmer l&apos;envoi</DialogTitle>
+                                        <DialogDescription>
+                                            Une convocation a déjà été envoyée pour ce match. Voulez-vous en envoyer une nouvelle ?
+                                        </DialogDescription>
+                                    </DialogHeader>
+                                    <DialogFooter className="flex gap-2">
+                                        <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
+                                            Annuler
+                                        </Button>
+                                        <Button onClick={handleSendConvocation}>
+                                            Confirmer l&apos;envoi
+                                        </Button>
+                                    </DialogFooter>
+                                </DialogContent>
+                            </Dialog>
+                        ) : (
+                            <Button className="w-full" onClick={() => sendConvocation(match)}>
+                                <Mail className="h-4 w-4 mr-2" />
+                                <span>Envoyer convocation</span>
+                            </Button>
+                        )}
                     </>
                 )}
             </CardContent>
@@ -79,9 +121,11 @@ const BaseCard = ({ match, setIsEditing }: Readonly<EditingCardPropsType>) => {
                 {match.forfaitEquipe1 && <Badge variant="destructive">Forfait {match.nomEquipe1}</Badge>}
                 {match.forfaitEquipe2 && <Badge variant="destructive">Forfait {match.nomEquipe2}</Badge>}
             </CardFooter>
-        </Card >
+        </Card>
     )
 }
+
+
 
 const EditingCard = ({ match, setIsEditing }: Readonly<EditingCardPropsType>) => {
     return (
