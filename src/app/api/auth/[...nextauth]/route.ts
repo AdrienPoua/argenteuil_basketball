@@ -1,4 +1,4 @@
 "use server";
-import { GET, POST } from "@/lib/nextAuth/auth";
+import { GET, POST } from "@/services/nextAuth/auth";
 
 export { GET, POST };

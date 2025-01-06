@@ -37,10 +37,14 @@ export async function POST(req: Request): Promise<Response> {
       image: file,
       name: fileName,
     });
+    console.log("🚀 ~ POST ~ name:", name)
+    console.log("🚀 ~ POST ~ image:", image)
 
     // Convertir le fichier en buffer
     const arrayBuffer = await image.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
+    console.log("🚀 ~ POST ~ arrayBuffer:", arrayBuffer)
+    console.log("🚀 ~ POST ~ buffer:", buffer)
 
     // Upload avec ImageKit
     const result = await imagekit.upload({

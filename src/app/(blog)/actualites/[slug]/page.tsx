@@ -1,48 +1,36 @@
-"use client";
-import { useParams } from "next/navigation";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import { SanityDocument } from "next-sanity";
-import { POST_QUERY } from "@/lib/sanity/queries";
-import { sanityFetch } from "@/lib/sanity/fetch";
-import { PortableText } from "@portabletext/react";
-import { components } from "@/components/PortableText";
-import { useQuery } from "react-query";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { Suspense } from "react"
+import { notFound } from "next/navigation"
+import Header from "@/components/Header"
+import Footer from "@/components/Footer"
+import { PostContent } from "./PostContent"
+import { sanityFetch } from "@/services/sanity/fetch"
+import { POST_QUERY } from "@/services/sanity/queries"
+import { SanityDocument } from "next-sanity"
+import { cn } from "@/utils/cn"
 
-const PostContent = ({ data }: { data: SanityDocument }) => (
-  <div className={cn("flex flex-col justify-center items-center", "container mx-auto")}>
-    <h1 className={cn("text-4xl font-bold text-background underline underline-offset-8", "relative w-full text-center mb-16")}>
-      {data.title}
-      <span className={cn("text-muted-foreground text-xl font-light", "absolute bottom-0 right-0")}> Publié le {new Date(data.publishedAt).toLocaleDateString()}</span>
-      <Button
-        onClick={() => window.history.back()}
-        className={cn("absolute top-0 left-0", "text-background underline underline-offset-8 text-xl ")}
-        variant="link"
-      >
-        <ArrowLeft className="w-6 h-6 mr-2" />
-        Retour
-      </Button>
-    </h1>
-    <div className={cn("flex flex-col", "gap-5", "border-2 border-primary rounded-lg p-5")}>
-      <PortableText value={data.body} components={components} />
-    </div>
-  </div>
-);
+async function getPost(slug: string) {
+  const post = await sanityFetch<SanityDocument>({ query: POST_QUERY(slug) })
+  if (!post) notFound()
+  return post
+}
 
-export default function Index() {
-  const { slug } = useParams();
-  const { data } = useQuery(['post', slug], () => sanityFetch<SanityDocument>({ query: POST_QUERY(slug as string) }));
+interface PageProps {
+  params: { slug: string }
+}
+
+export default async function BlogPostPage({ params }: Readonly<PageProps>) {
+  const post = await getPost(params.slug)
 
   return (
     <>
       <Header />
-      <div className={cn("grow bg-foreground flex flex-col items-center", "pb-12 pt-10")}>
-        {data && <PostContent data={data} />}
-      </div>
+      <main className={cn("grow bg-foreground flex flex-col items-center", "pb-12 pt-10")}>
+        <Suspense fallback={<div>Loading...</div>}>
+          <PostContent data={post} />
+        </Suspense>
+      </main>
       <Footer />
     </>
-  );
+  )
 }
+

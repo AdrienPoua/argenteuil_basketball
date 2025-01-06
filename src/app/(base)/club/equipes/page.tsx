@@ -1,26 +1,23 @@
-"use client";
 import H1 from '@/components/H1';
 import MainSection from "@/components/layouts/MainSection";
-import useFetchTeams from "@/utils/hooks/DBFetch/useFetchTeam";
-import FetchFeedBack from "@/components/FetchFeedback";
-import Card from "./Card"
+import Card from "./Card";
+import { TeamService } from '@/database/services/Team';
+import Team from '@/models/Team';
 
-export default function TeamPage() {
-  const { teams, isLoading, error } = useFetchTeams();
+export default async function TeamPage() {
+  const teams = await new TeamService().getTeams().then((teams) => teams.map((team) => new Team(team))).then((teams) => teams.map((team) => team.toPlainObject()))
   return (
     <>
       <H1>Nos équipes 2024-2025</H1>
       <MainSection>
-        <FetchFeedBack isLoading={isLoading} error={error} data={teams}>
-          <div className="flex flex-col items-center mb-20 gap-8">
-            {teams?.map((team) => (
-              <Card
-                key={team.id}
-                data={team}
-              />
-            ))}
-          </div>
-        </FetchFeedBack>
+        <div className="flex flex-col items-center mb-20 gap-8">
+          {teams.toSorted((a, b) => b.image.localeCompare(a.image)).map((team) => (
+            <Card
+              key={team.id}
+              data={team}
+            />
+          ))}
+        </div>
       </MainSection>
     </>
   );

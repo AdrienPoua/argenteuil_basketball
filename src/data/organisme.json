@@ -1,0 +1,354 @@
+[
+  {
+    "_comment": "Ce fichier est généré à partir de https://ffbbserver3.ffbb.com/ffbbserver3/api/organisme/getOrganisme.ws?id=11851",
+    "id": 11851,
+    "idOrganismePere": 2118,
+    "code": "IDF0095019",
+    "nom": "ARGENTEUIL BB",
+    "type": "G",
+    "adresse": "82 BD Général Leclerc",
+    "telephone": "01 39 80 60 45",
+    "mail": "argenteuilbasketball@hotmail.fr",
+    "commune": {
+      "id": 36391,
+      "libelle": "ARGENTEUIL",
+      "codePostal": "95100"
+    },
+    "typeAssociation": {
+      "id": 5,
+      "libelle": "Club ",
+      "code": "K"
+    },
+    "salle": {
+      "id": 12001000071,
+      "numero": null,
+      "libelle": "Gymnase J. GUIMIER"
+    },
+    "nomClubPro": "",
+    "adresseClubPro": null,
+    "communeClubPro": null,
+    "salleClubPro": null,
+    "urlSiteWeb": "https://argenteuilbasketball.com",
+    "participationOBE": null,
+    "typeSpecifique": {
+      "omnisport": false,
+      "handibasket": false,
+      "entreprise": false,
+      "horsAssociation": false
+    },
+    "membres": [
+      {
+        "id": 144128,
+        "nom": "POUA",
+        "prenom": "Adrien",
+        "idLicence": 200000003070624,
+        "adresse1": "8 RUE DES PEUPLIERS",
+        "adresse2": null,
+        "codePostal": "95100",
+        "ville": "ARGENTEUIL",
+        "mail": "argenteuilbasketball@hotmail.fr",
+        "telephoneFixe": null,
+        "telephonePortable": "0651261379",
+        "codeFonction": "CP",
+        "libelleFonction": "Correspondant principal",
+        "accordDiffusionSiteWeb": true
+      },
+      {
+        "id": 144129,
+        "nom": "BOUCHERIT",
+        "prenom": "Hakim",
+        "idLicence": 74490,
+        "adresse1": "82 bd du Général Leclerc",
+        "adresse2": null,
+        "codePostal": "95100",
+        "ville": "ARGENTEUIL",
+        "mail": "argenteuilbasketball@hotmail.fr",
+        "telephoneFixe": null,
+        "telephonePortable": "0613817772",
+        "codeFonction": "PRES",
+        "libelleFonction": "Président(e)",
+        "accordDiffusionSiteWeb": true
+      },
+      {
+        "id": 144130,
+        "nom": "DIME",
+        "prenom": "Bassirou",
+        "idLicence": 178147,
+        "adresse1": "12 RUE DES PEUPLIERS",
+        "adresse2": null,
+        "codePostal": "95100",
+        "ville": "ARGENTEUIL",
+        "mail": "bass.dime@hotmail.fr",
+        "telephoneFixe": null,
+        "telephonePortable": "0670222238",
+        "codeFonction": "SG",
+        "libelleFonction": "Secrétaire Général (e)",
+        "accordDiffusionSiteWeb": true
+      },
+      {
+        "id": 144131,
+        "nom": "LASSERY",
+        "prenom": "Sylvain",
+        "idLicence": 321304,
+        "adresse1": "42 RUE CHANCONNET",
+        "adresse2": null,
+        "codePostal": "95100",
+        "ville": "ARGENTEUIL",
+        "mail": "slassery@gmail.com",
+        "telephoneFixe": "0139470358",
+        "telephonePortable": "0648327222",
+        "codeFonction": "TRES",
+        "libelleFonction": "Trésorier",
+        "accordDiffusionSiteWeb": false
+      }
+    ],
+    "organismeFils": [],
+    "offresPratique": [
+      {
+        "id": 310888,
+        "typePratique": "C",
+        "categoriePratique": "5x5"
+      },
+      {
+        "id": 310889,
+        "typePratique": "C",
+        "categoriePratique": "MIN"
+      },
+      {
+        "id": 310890,
+        "typePratique": "L",
+        "categoriePratique": "5x5"
+      },
+      {
+        "id": 373511,
+        "typePratique": "C",
+        "categoriePratique": "5x5"
+      },
+      {
+        "id": 373512,
+        "typePratique": "C",
+        "categoriePratique": "MIN"
+      },
+      {
+        "id": 373513,
+        "typePratique": "L",
+        "categoriePratique": "5x5"
+      }
+    ],
+    "labellisation": [],
+    "cartographie": {
+      "latitude": 48.93744,
+      "longitude": 2.22734,
+      "title": "",
+      "adress": "Boulevard du Général Leclerc",
+      "codePostal": "95100",
+      "ville": "Argenteuil"
+    },
+    "dateAffiliation": "2024-07-01",
+    "creation": "2011-07-04T00:00:00",
+    "modification": "2024-10-25T10:52:30.356169",
+    "historique": [
+      {
+        "dateAffiliation": "2011-07-04",
+        "dateReaffiliation": "2014-07-01",
+        "cessation": null,
+        "saison": {
+          "id": 1020,
+          "code": "14-15",
+          "libelle": "Saison 2014-2015",
+          "debut": "2014-07-01",
+          "fin": "2015-06-30",
+          "actif": "false"
+        },
+        "creation": "2020-01-16T00:00:00",
+        "typeAssociation": {
+          "id": 5,
+          "libelle": "Club ",
+          "code": "K"
+        }
+      },
+      {
+        "dateAffiliation": "2011-07-04",
+        "dateReaffiliation": "2015-09-01",
+        "cessation": null,
+        "saison": {
+          "id": 1021,
+          "code": "15-16",
+          "libelle": "Saison 2015-2016",
+          "debut": "2015-07-01",
+          "fin": "2016-06-30",
+          "actif": "false"
+        },
+        "creation": "2020-01-16T00:00:00",
+        "typeAssociation": {
+          "id": 5,
+          "libelle": "Club ",
+          "code": "K"
+        }
+      },
+      {
+        "dateAffiliation": "2011-07-04",
+        "dateReaffiliation": "2016-09-01",
+        "cessation": null,
+        "saison": {
+          "id": 1022,
+          "code": "16-17",
+          "libelle": "Saison 2016-2017",
+          "debut": "2016-07-01",
+          "fin": "2017-06-30",
+          "actif": "false"
+        },
+        "creation": "2016-09-01T00:00:00",
+        "typeAssociation": null
+      },
+      {
+        "dateAffiliation": "2011-07-04",
+        "dateReaffiliation": "2017-07-12",
+        "cessation": null,
+        "saison": {
+          "id": 1023,
+          "code": "17-18",
+          "libelle": "Saison 2017-2018",
+          "debut": "2017-07-01",
+          "fin": "2018-06-30",
+          "actif": "false"
+        },
+        "creation": "2017-07-13T00:00:00",
+        "typeAssociation": null
+      },
+      {
+        "dateAffiliation": "2011-07-04",
+        "dateReaffiliation": "2018-07-02",
+        "cessation": null,
+        "saison": {
+          "id": 1024,
+          "code": "18-19",
+          "libelle": "Saison 2018-2019",
+          "debut": "2018-07-01",
+          "fin": "2019-06-30",
+          "actif": "false"
+        },
+        "creation": "2018-07-02T15:27:14.098",
+        "typeAssociation": {
+          "id": 5,
+          "libelle": "Club ",
+          "code": "K"
+        }
+      },
+      {
+        "dateAffiliation": "2011-07-04",
+        "dateReaffiliation": "2019-07-02",
+        "cessation": null,
+        "saison": {
+          "id": 1025,
+          "code": "19-20",
+          "libelle": "Saison 2019-2020",
+          "debut": "2019-07-01",
+          "fin": "2020-06-30",
+          "actif": "false"
+        },
+        "creation": "2019-08-26T10:31:41.898",
+        "typeAssociation": {
+          "id": 5,
+          "libelle": "Club ",
+          "code": "K"
+        }
+      },
+      {
+        "dateAffiliation": "2011-07-04",
+        "dateReaffiliation": "2020-07-01",
+        "cessation": null,
+        "saison": {
+          "id": 1026,
+          "code": "20-21",
+          "libelle": "Saison 2020-2021",
+          "debut": "2020-07-01",
+          "fin": "2021-06-30",
+          "actif": "false"
+        },
+        "creation": "2020-06-30T20:10:05.623",
+        "typeAssociation": {
+          "id": 5,
+          "libelle": "Club ",
+          "code": "K"
+        }
+      },
+      {
+        "dateAffiliation": "2011-07-04",
+        "dateReaffiliation": "2021-07-01",
+        "cessation": null,
+        "saison": {
+          "id": 1027,
+          "code": "21-22",
+          "libelle": "Saison 2021-2022",
+          "debut": "2021-07-01",
+          "fin": "2022-06-30",
+          "actif": "false"
+        },
+        "creation": "2021-07-01T12:08:24.21",
+        "typeAssociation": {
+          "id": 5,
+          "libelle": "Club ",
+          "code": "K"
+        }
+      },
+      {
+        "dateAffiliation": "2011-07-04",
+        "dateReaffiliation": "2022-07-01",
+        "cessation": null,
+        "saison": {
+          "id": 1030,
+          "code": "22-23",
+          "libelle": "Saison 2022-2023",
+          "debut": "2022-07-01",
+          "fin": "2023-06-30",
+          "actif": "false"
+        },
+        "creation": "2022-07-01T09:13:00.23",
+        "typeAssociation": {
+          "id": 5,
+          "libelle": "Club ",
+          "code": "K"
+        }
+      },
+      {
+        "dateAffiliation": "2011-07-04",
+        "dateReaffiliation": "2023-07-01",
+        "cessation": null,
+        "saison": {
+          "id": 1031,
+          "code": "23-24",
+          "libelle": "Saison 2023-2024",
+          "debut": "2023-07-01",
+          "fin": "2024-06-30",
+          "actif": "false"
+        },
+        "creation": "2023-07-01T01:09:21.9",
+        "typeAssociation": {
+          "id": 5,
+          "libelle": "Club ",
+          "code": "K"
+        }
+      },
+      {
+        "dateAffiliation": "2011-07-04",
+        "dateReaffiliation": "2024-07-01",
+        "cessation": null,
+        "saison": {
+          "id": 1035,
+          "code": "24-25",
+          "libelle": "Saison 2024-2025",
+          "debut": "2024-07-01",
+          "fin": "2025-06-30",
+          "actif": "true"
+        },
+        "creation": "2024-07-01T03:23:37.5",
+        "typeAssociation": {
+          "id": 5,
+          "libelle": "Club ",
+          "code": "K"
+        }
+      }
+    ]
+  }
+]

@@ -1,0 +1,133 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+/**
+ * ****************************************
+ * SECTION : MEMBERS     *
+ * ****************************************
+ */
+
+model Member {
+  id            String  @id @default(auto()) @map("_id") @db.ObjectId
+  name          String  @unique
+  email         String
+  isPublicEmail Boolean
+  phone         String  @unique
+  isPublicPhone Boolean
+  isLeader      Boolean
+  role          Roles[]
+  image         String?
+  teams         Team[]
+}
+
+/**
+ * ****************************************
+ * SECTION : TEAMS     *
+ * ****************************************
+ */
+model Team {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  name          String   @unique
+  image         String?
+  level         String
+  sessions      Json
+  coach         Member?  @relation(fields: [memberId], references: [id])
+  memberId      String?  @db.ObjectId
+  isCompetition Boolean
+  championnats  String[]
+}
+
+/**
+ * ****************************************
+ * SECTION : ENUM     *
+ * ****************************************
+ */
+
+enum Days {
+  Lundi
+  Mardi
+  Mercredi
+  Jeudi
+  Vendredi
+  Samedi
+  Dimanche
+}
+
+enum Roles {
+  Trésorier
+  Président
+  Correspondant
+  Secrétaire_Général
+  Entraineur
+  Webmaster
+}
+
+/**
+ * ****************************************
+ * SECTION : MATCH     *
+ * ****************************************
+ */
+model Match {
+  id                      String   @id @map("_id")
+  numero                  Int
+  numeroJournee           Int
+  idPoule                 Int
+  idOrganismeEquipe1      Int
+  idOrganismeEquipe2      Int
+  nomEquipe1              String
+  nomEquipe2              String
+  resultatEquipe1         Int?
+  resultatEquipe2         Int?
+  date                    DateTime
+  salle                   String?
+  penaliteEquipe1         Boolean?
+  penaliteEquipe2         Boolean?
+  forfaitEquipe1          Boolean?
+  forfaitEquipe2          Boolean?
+  defautEquipe1           Boolean?
+  defautEquipe2           Boolean?
+  validee                 Boolean
+  remise                  Boolean
+  joue                    Boolean
+  handicap1               Int?
+  handicap2               Int?
+  dateSaisieResultat      String?
+  creation                String?
+  modification            String?
+  classementPouleAssociee Int?
+  competition             String?
+  correspondant           String?
+  convocationIsSent       Boolean?
+}
+
+/**
+ * ****************************************
+ * SECTION : Others     *
+ * ****************************************
+ */
+model Club {
+  id      String  @id @map("_id")
+  code    String
+  libelle String
+  email   String?
+  phone   String?
+}
+
+model FAQ {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  question String @unique
+  answer   String @unique
+  position Int
+}
