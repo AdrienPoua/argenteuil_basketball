@@ -8,7 +8,6 @@ import {
   Building,
   FileText,
   Calendar,
-  Award,
   BookOpen,
   Euro, ChevronDown, CircleHelp
 } from "lucide-react";
@@ -25,8 +24,6 @@ const navigationData = [
       { label: "Entraineurs", href: "/club/entraineurs", icon: UserCheck }, // Entraineur validé
       { label: "Equipes", href: "/club/equipes", icon: Users }, // Équipe représentée par un groupe
       { label: "Gymnases", href: "/club/gymnases", icon: Building }, // Bâtiment pour gymnases
-      { label: "Resultats", href: "/club/resultats", icon: Award } // Bâtiment pour gymnases
-
     ]
   },
   {
