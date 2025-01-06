@@ -58,9 +58,6 @@ export default class Match {
       day: "numeric",
     });
   }
-  get formatedTime() {
-    return `${String(this._date.getHours()).padStart(2, "0")}:${String(this._date.getMinutes()).padStart(2, "0")}`;
-  }
 
   get numero() {
     return this._numero;
@@ -176,7 +173,6 @@ export default class Match {
       nomEquipe2: this.nomEquipe2,
       championnat: this.championnat,
       formatedDate: this.formatedDate,
-      formatedTime: this.formatedTime,
       date: this.date,
       ISOdate: this.ISOdate,
       matchId: this.id,

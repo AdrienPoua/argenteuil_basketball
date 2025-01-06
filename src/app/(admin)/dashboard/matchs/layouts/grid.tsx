@@ -35,7 +35,7 @@ export default function Grid({ matchs }: Readonly<PropsType>) {
             Domicile
           </SelectItem>
           <SelectItem key="away" value="away" className="font-secondary text-sm">
-            Exterieur
+            Déplacement
           </SelectItem>
         </SelectContent>
       </Select>

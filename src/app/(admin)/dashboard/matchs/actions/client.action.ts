@@ -12,7 +12,7 @@ export const useMatchForm = (match: PropsType["match"]) => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       date: match.ISOdate,
-      time: match.formatedTime,
+      time: match.heure,
       salle: match.salle,
     },
   });

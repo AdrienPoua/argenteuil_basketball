@@ -52,7 +52,7 @@ const BaseCard = ({ match, setIsEditing }: Readonly<EditingCardPropsType>) => {
                 </div>
                 <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                     <ClockIcon className="h-4 w-4" />
-                    <span>{match.formatedTime}</span>
+                    <span>{match.heure}</span>
                 </div>
                 <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                     <MapPinIcon className="h-4 w-4" />

@@ -12,7 +12,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
-import { Home, Menu, Trophy, UserCog, UserCheck, Users, Building, CircleHelp, Calendar, DollarSign, FileText, Dumbbell, Mail, Phone } from 'lucide-react'
+import { Home, Menu, UserCog, UserCheck, Users, Building, CircleHelp, Calendar, DollarSign, FileText, Dumbbell, Mail, Phone } from 'lucide-react'
 import { cn } from "@/utils/cn"
 import Logo from "@/components/Logo"
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog"
