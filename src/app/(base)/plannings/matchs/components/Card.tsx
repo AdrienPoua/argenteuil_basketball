@@ -31,7 +31,7 @@ export default function BasketMatchCard({ match }: Readonly<PropsType>) {
         <div className="flex flex-col space-y-2">
           <div className="flex items-center space-x-2">
             <CalendarIcon className="h-4 w-4 text-muted-foreground" />
-            <span className="text-sm">{match.ISOdate}</span>
+            <span className="text-sm">{match.formatedDate}</span>
           </div>
           <div className="flex items-center space-x-2">
             <ClockIcon className="h-4 w-4 text-muted-foreground" />
