@@ -78,7 +78,7 @@ export default function MobileNav() {
                   className="w-full justify-start"
                   onClick={() => setOpen(false)}
                 >
-                  <Link href="/planning/entrainements" className="flex items-center">
+                  <Link href="/plannings/entrainements" className="flex items-center">
                     <Dumbbell className="mr-2 h-4 w-4" />
                     entrainements
                   </Link>
@@ -158,6 +158,10 @@ export default function MobileNav() {
           <Link href="/plannings/matchs" className={cn("flex flex-col items-center", pathname.startsWith("/plannings/matchs") && "text-primary")}>
             <Calendar className="h-6 w-6" />
             <span className="text-xs">Matchs</span>
+          </Link>
+          <Link href="/plannings/entrainements" className={cn("flex flex-col items-center", pathname.startsWith("/plannings/entrainements") && "text-primary")}>
+            <Dumbbell className="h-6 w-6" />
+            <span className="text-xs">Entrainements</span>
           </Link>
         </nav>
       </div>
