@@ -20,7 +20,8 @@ export default function MatchForm({ match, setIsEditing }: Readonly<PropsType>) 
     const form = useMatchForm(match);
 
     const onSubmit = async (data: FormValues) => {
-        const nothingChanged = match.formatedDate === data.date && match.formatedTime === data.time && match.salle === data.salle
+        const nothingChanged = match.ISOdate === data.date && match.heure === data.time && match.salle === data.salle
+
         if (nothingChanged) return;
         try {
             await updateMatch({ ...data, id: match.id });
@@ -29,7 +30,6 @@ export default function MatchForm({ match, setIsEditing }: Readonly<PropsType>) 
             console.error(error)
         }
     };
-
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">

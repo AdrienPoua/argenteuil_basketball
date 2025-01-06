@@ -88,12 +88,13 @@ export default class Match {
   }
 
   get heure() {
-    return this._date.toLocaleTimeString([], {
+    return this._date.toLocaleTimeString("fr-FR", {
       hour: "2-digit",
       minute: "2-digit",
+      timeZone: "Europe/Paris",
     });
   }
-
+  
   get nomEquipe1() {
     return this._nomEquipe1;
   }

@@ -24,7 +24,7 @@ export function Convocation({ match, teams }: Readonly<{ match: ReturnType<Match
                         <Heading className=" text-center my-5 underline-offset-4 underline"> ABB vs {match.nomEquipe2}</Heading>
                         <Text >🏀 Championnat : {match.championnat}</Text>
                         <Text >🏀 Date: {match.formatedDate}</Text>
-                        <Text >🏀 Heure: {match.formatedTime}</Text>
+                        <Text >🏀 Heure: {match.heure}</Text>
                         <Text >🏀 Lieu: {match.salle}</Text>
                         <Text >🏀 Adresse : {adresse}, 95100 Argenteuil</Text>
                         <Text >🏀 Entraineur : {coach?.name} - {coach?.email}</Text>
