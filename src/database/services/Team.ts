@@ -15,7 +15,6 @@ export class TeamService {
   async createTeam(data: z.infer<typeof this.createTeamSchema>) {
     try {
       const { coach, ...team } = this.createTeamSchema.parse(data);
-      console.log("🚀 ~ TeamService ~ createTeam ~ data:", data);
       await prisma.team.create({
         data: {
           ...team,
@@ -40,6 +39,19 @@ export class TeamService {
       console.error("Erreur lors de la récupération des équipes :", error);
       throw error;
     }
+  }
+
+  async getTeamByChampionnat(championnat: string) {
+    return await prisma.team.findFirst({
+      where: {
+        championnats: {
+          has: championnat,
+        },
+      },
+      include: {
+        coach: true,
+      },
+    });
   }
 
   async updateTeam(data: z.infer<typeof this.updateDataSchema>) {

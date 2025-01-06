@@ -30,7 +30,8 @@ export async function updateMatch(match: FormValues & { id: string }) {
 export async function sendConvocation(
   match: ReturnType<Match["toPlainObject"]>,
 ) {
-  const convocation = new ConvocationService(match);
+  const team = await teamService.getTeamByChampionnat(match.championnat);
+  const convocation = new ConvocationService(match, team?.coach?.email);
   const result = await convocation.send();
   if (result) {
     await matchService.updateMatch({ id: match.id, convocationIsSent: true });

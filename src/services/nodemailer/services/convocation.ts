@@ -2,11 +2,13 @@ import { transporter } from "../transporter";
 import Match from "@/models/Match";
 import { getHtml } from "@/services/react-email/templates/Convocation";
 
-type ConstructorType = ReturnType<Match["toPlainObject"]>;
+type MatchType = ReturnType<Match["toPlainObject"]> 
 export class ConvocationService {
-  private readonly _match: ConstructorType;
-  constructor(match: ConstructorType) {
+  private readonly _match: MatchType;
+  private readonly _coachEmail: string | undefined;
+  constructor(match: MatchType, coachEmail: string | undefined) {
     this._match = match;
+    this._coachEmail = coachEmail;
   }
 
   get to() {
@@ -29,6 +31,9 @@ export class ConvocationService {
     ];
     if (this._match.championnat.toLowerCase().includes("dm3")) {
       array.push("convocation@basket95.com");
+    }
+    if (this._coachEmail) {
+      array.push(this._coachEmail);
     }
     return array;
   }
