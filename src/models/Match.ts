@@ -66,14 +66,6 @@ export default class Match {
     return this._numero;
   }
 
-  get matchNumber() {
-    return this._matchNumber;
-  }
-
-  get matchNumberJournee() {
-    return this._matchNumberJournee;
-  }
-
   get correspondant() {
     return this._correspondant;
   }

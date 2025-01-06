@@ -1,7 +1,7 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { CalendarIcon, MapPinIcon, ClockIcon } from 'lucide-react'
-import { PropsType } from "./types/card.types"
+import { PropsType } from "../types/card.types"
 
 export default function MatchCard({ match }: Readonly<PropsType>) {
 

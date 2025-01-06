@@ -36,7 +36,11 @@ export default class Team {
   }
   get sessions() {
     return Array.isArray(this._sessions)
-      ? this._sessions.map((session) => SessionSchema.parse(session))
+      ? this._sessions.map((session) => {
+        const parsedSession = SessionSchema.parse(session)
+        return {...parsedSession, gymnase: parsedSession.gymnase.replace('_', ' ')}
+      
+      })
       : [];
   }
 

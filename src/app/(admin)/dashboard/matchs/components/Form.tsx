@@ -17,10 +17,7 @@ import { CardHeader, CardTitle } from "@/components/ui/card"
 import { updateMatch } from "../actions/server.actions"
 
 export default function MatchForm({ match, setIsEditing }: Readonly<PropsType>) {
-    console.log("🚀 ISO", match.ISOdate)
-    console.log("🚀date", match.date)
     const form = useMatchForm(match);
-
 
     const onSubmit = async (data: FormValues) => {
         const nothingChanged = match.formatedDate === data.date && match.formatedTime === data.time && match.salle === data.salle
@@ -38,7 +35,7 @@ export default function MatchForm({ match, setIsEditing }: Readonly<PropsType>) 
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <div>
                     <Badge variant="match">
-                        {match.competition}
+                        {match.championnat}
                     </Badge>
                     <CardHeader className="flex flex-row items-center justify-between mb-3">
                         <CardTitle className="text-lg w-full text-center mb">

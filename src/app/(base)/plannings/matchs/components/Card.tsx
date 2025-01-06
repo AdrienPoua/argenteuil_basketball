@@ -19,12 +19,9 @@ export default function BasketMatchCard({ match }: Readonly<PropsType>) {
         <Badge className="w-full justify-center mb-2">
           {match.championnat}
         </Badge>
-        <div className={`flex items-center justify-center mb-2 ${match.isHome ? "border-l-4 border-l-blue-500" : "border-l-4 border-l-green-500"}`}>
-          {match.isHome ? <HomeIcon /> : <PlaneIcon />}
+        <CardTitle className={`flex items-center justify-center mb-2 `}>
+          {match.isHome ? <HomeIcon className="mr-2 " /> : <PlaneIcon className="mr-2" />}
           <span className="font-semibold">{match.isHome ? match.nomEquipe2 : match.nomEquipe1}</span>
-        </div>
-        <CardTitle className="text-lg font-bold text-center">
-          {match.isHome ? match.nomEquipe2 : match.nomEquipe1}
         </CardTitle>
         <div className="text-sm text-center text-muted-foreground">
           Journée {match.matchNumberJournee} - Match n°{match.matchNumber}
@@ -52,8 +49,8 @@ export default function BasketMatchCard({ match }: Readonly<PropsType>) {
         </div>
       </CardContent>
       <CardFooter className="pt-2 flex flex-wrap gap-2 justify-center">
-        if (match.forfaitEquipe1) return <Badge variant="destructive">Forfait {match.nomEquipe1}</Badge>
-        if (match.forfaitEquipe2) return <Badge variant="destructive">Forfait {match.nomEquipe2}</Badge>
+        {match.forfaitEquipe1 && <Badge variant="destructive">Forfait {match.nomEquipe1}</Badge>}
+        {match.forfaitEquipe2 && <Badge variant="destructive">Forfait {match.nomEquipe2}</Badge>}
       </CardFooter>
     </Card>
   )

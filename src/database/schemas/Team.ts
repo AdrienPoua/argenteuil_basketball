@@ -1,7 +1,7 @@
 import { z } from "zod";
 
-const GymnasesSchema = z.enum(["Jean_Guimier", "Jesse_Owens"]);
-const DaysSchema = z.enum([
+export const GymnasesSchema = z.enum(["Jean_Guimier", "Jesse_Owens"]);
+export const DaysSchema = z.enum([
   "Lundi",
   "Mardi",
   "Mercredi",
