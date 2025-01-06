@@ -1,6 +1,9 @@
 import getRencontresParPoules from "@/services/api/getRencontresParPoules";
 
+type ArrayOfMatch = Awaited<ReturnType<typeof getRencontresParPoules>>;
+type Match = ArrayOfMatch[number];
+
 export type PropsType = {
-  match: Awaited<ReturnType<typeof getRencontresParPoules>> & { competition: string };
+  match: Match & { competition: string };
 };
 

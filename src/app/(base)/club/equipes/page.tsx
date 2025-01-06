@@ -11,7 +11,7 @@ export default async function TeamPage() {
       <H1>Nos équipes 2024-2025</H1>
       <MainSection>
         <div className="flex flex-col items-center mb-20 gap-8">
-          {teams?.map((team) => (
+          {teams.toSorted((a, b) => b.image.localeCompare(a.image)).map((team) => (
             <Card
               key={team.id}
               data={team}

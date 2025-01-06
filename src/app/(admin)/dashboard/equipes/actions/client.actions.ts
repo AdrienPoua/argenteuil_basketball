@@ -39,6 +39,10 @@ export const useTeamForm = (defaultValues?: PropsType["defaultValues"]) => {
     ...defaultValues,
     image: defaultValues?.image ? new File([], defaultValues.image) : undefined,
     coach: defaultValues?.coach ? defaultValues.coach.id : "",
+    sessions: defaultValues?.sessions ? defaultValues.sessions.map((session) => ({
+      ...session,
+      gymnase: session.gymnase.replace(" ", "_") as "Jean_Guimier" | "Jesse_Owens",
+    })) : [],
   };
   return useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),

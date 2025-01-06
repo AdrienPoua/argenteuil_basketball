@@ -6,7 +6,7 @@ import useToken from "@/hooks/useToken";
 import getCompetitions from "@/services/api/getCompetitions";
 import getCompetitionsDetails from "@/services/api/getCompetitionsDetails";
 
-export default function useFFBB() {
+export function useFFBB() {
   const { token } = useToken();
   const { data: poulesIDS } = useQuery(
     ["poulesID", token],

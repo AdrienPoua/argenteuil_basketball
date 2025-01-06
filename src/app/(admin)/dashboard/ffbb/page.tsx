@@ -1,11 +1,10 @@
 "use client";
-import Card from "./Card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { updateClubs, updateMatchs } from './actions/server.actions';
-import useFFBB from './actions/client.server';
-
+import { useFFBB } from './actions/client.server';
+import Card from './components/Card';
 
 export default function Page() {
     const [transfering, setTransfering] = useState(false);

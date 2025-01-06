@@ -11,7 +11,6 @@ import argenteuil from "@/data/club.json";
 
 const clubService = new ClubService();
 const matchService = new MatchService();
-const clubs = await clubService.getClubs();
 
 export const upsertClub = async (club: {
   code: string;
@@ -46,6 +45,7 @@ export const updateMatchs = async (
   matchs: MatchType[],
   competitions: CompetitionType[],
 ) => {
+  const clubs = await clubService.getClubs();
   await Promise.all(
     matchs.map(async (match) => {
       const competition = findCompetition(match, competitions);

@@ -44,7 +44,9 @@ export default function Index({ data }: Readonly<PropsType>) {
       </CardHeader>
       <CardContent className="p-4">
         <h3 className="text-2xl font-semibold text-center">{data.name}</h3>
-        {data.role && <p className="text-center text-muted-foreground">{data.role}</p>}
+        {data.role.map((role, i) => (
+          <p className="text-center text-muted-foreground" key={role+i}>{role}</p>
+        ))}
         {data.teams.length > 0 && (
           <div className="flex flex-wrap justify-center gap-2 mt-2">
             {data.teams.map((team) => (

@@ -127,7 +127,7 @@ model Club {
 
 model FAQ {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
-  question String
-  answer   String
+  question String @unique
+  answer   String @unique
   position Int
 }
