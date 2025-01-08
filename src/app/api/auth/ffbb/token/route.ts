@@ -12,7 +12,7 @@ export async function GET() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Accept: "text/plain", // l'API renvoie un texte, pas une réponse JSON
+        Accept: "text/plain",
         "X-Custom-Request-ID": Date.now().toString(),
       },
       body: JSON.stringify({
