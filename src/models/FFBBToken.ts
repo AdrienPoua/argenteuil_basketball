@@ -21,7 +21,11 @@ export default class FFBBTokenUtils {
   }
 
   async fetchToken() {
-    const response = await fetch(endpoint);
+    const response = await fetch(endpoint, {
+      headers: {
+        "X-Custom-Request-ID": Date.now().toString(),
+      },
+    });
 
     if (!response.ok) {
       const errorText = await response.text();

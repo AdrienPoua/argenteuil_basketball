@@ -3,12 +3,15 @@ import HTTPRequest from "@/models/HTTPRequest";
 
 export default async function getCompetitions(token: string) {
   const request = new HTTPRequest.Builder()
-    .setUrl("/api/ffbb/getCompetitions")
-    .addHeader("Content-Type", "application/json")
-    .addHeader("Authorization", `Bearer ${token}`)
-    .build();
-
-  return await request.send() as Competition[];
+  .setUrl("/api/ffbb/getCompetitions")
+  .addHeader("Content-Type", "application/json")
+  .addHeader("Authorization", `Bearer ${token}`)
+  .build();
+  
+  console.log("🚀 ~ getCompetitions ~ request:", request)
+  const response = await request.send() as Competition[];
+  console.log("🚀 ~ getCompetitions ~ response:", response)
+  return response;
 }
 
 type Competition = {
