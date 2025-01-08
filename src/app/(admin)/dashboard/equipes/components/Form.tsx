@@ -7,7 +7,7 @@ import { useFieldArray } from 'react-hook-form'
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Trash2 } from "lucide-react"
+import { Trash2, Plus, Upload } from 'lucide-react'
 import { useState } from "react"
 import Image from "next/image"
 import { Gymnases, Days } from "@/database/schemas/Team"
@@ -17,17 +17,17 @@ import { FormSchemaType, PropsType } from "../types/form.types"
 import { Checkbox } from "@/components/ui/checkbox"
 import { MultiSelect } from "@/components/ui/multi-select"
 
-export default function ZodForm({ members, defaultValues, setIsEditing }: Readonly<PropsType>) {
-
+export default function EnhancedForm({ members, defaultValues, setIsEditing }: Readonly<PropsType>) {
     const form = useTeamForm(defaultValues)
     const championnats = useCompetitions()
-    const [previewImage, setPreviewImage] = useState<string | null>(null)
+    const [previewImage, setPreviewImage] = useState<string | null>(defaultValues?.image ?? null)
     const { fields, append, remove } = useFieldArray({
         control: form.control,
         name: 'sessions'
     });
 
-    if (!championnats) return <div>Loading...</div>
+    if (!championnats) return <div>Chargement...</div>
+
     async function onSubmit(data: FormSchemaType) {
         const imageDidntChange = defaultValues?.image && data.image?.name === defaultValues.image
         const imageUrl = imageDidntChange ? defaultValues?.image : (data.image && await getImageUrl(data.image)) ?? null;
@@ -43,22 +43,22 @@ export default function ZodForm({ members, defaultValues, setIsEditing }: Readon
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} encType="multipart/form-data"
-                className="flex flex-col gap-5 w-fit mx-auto text-background grid-cols-2">
-                <div className="flex gap-5 mx-auto">
-                    <Card className="shadow-xl p-5">
-                        <CardHeader className="flex justify-between items-center mb-5">
-                            <CardTitle className="text-background text-4xl relative my-5">
-                                Rajoutez une équipe <Underline />
+                className="max-w-4xl mx-auto p-6 bg-background rounded-lg shadow-xl">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <Card className="shadow-md">
+                        <CardHeader>
+                            <CardTitle className="text-2xl font-bold text-primary">
+                                Informations de l&apos;équipe <Underline />
                             </CardTitle>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="space-y-6">
                             <FormField
                                 control={form.control}
                                 name="name"
                                 render={({ field }) => (
-                                    <FormItem className="text-background">
+                                    <FormItem >
                                         <FormLabel>Nom de l&apos;équipe</FormLabel>
-                                        <FormControl>
+                                        <FormControl >
                                             <Input placeholder="U20" {...field} />
                                         </FormControl>
                                         <FormMessage />
@@ -69,69 +69,81 @@ export default function ZodForm({ members, defaultValues, setIsEditing }: Readon
                                 control={form.control}
                                 name="image"
                                 render={({ field }) => (
-                                    <FormItem className="text-background">
-                                        <FormLabel htmlFor="team-image">Image</FormLabel>
+                                    <FormItem>
+                                        <FormLabel className="text-background">Image de l&apos;équipe</FormLabel>
                                         <FormControl>
-                                            <>
+                                            <div className="flex flex-col items-center space-y-4">
                                                 {previewImage && (
-                                                    <Image src={previewImage} alt="Prévisualisation de l'image" className="mb-2 max-w-xs" width={200} height={200} />
+                                                    <div className="relative w-full h-48 rounded-md overflow-hidden">
+                                                        <Image src={previewImage} alt="Prévisualisation" layout="fill" objectFit="cover" />
+                                                    </div>
                                                 )}
-                                                <Input
-                                                    type="file"
-                                                    accept="image/*"
-                                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                                        const file = e.target.files?.[0];
-                                                        if (file) {
-                                                            const url = URL.createObjectURL(file);
-                                                            field.onChange(file);
-                                                            setPreviewImage(url);
-                                                        }
-                                                    }}
-                                                />
-                                            </>
+                                                <label className="w-full">
+                                                    <div className="flex items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-primary transition-colors">
+                                                        <div className="space-y-1 text-center">
+                                                            <Upload className="mx-auto h-12 w-12 text-gray-400" />
+                                                            <div className="flex text-sm text-gray-600">
+                                                                <span className="relative font-medium text-primary hover:underline focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary">
+                                                                    Télécharger une image
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <Input
+                                                            type="file"
+                                                            className="hidden"
+                                                            accept="image/*"
+                                                            onChange={(e) => {
+                                                                const file = e.target.files?.[0];
+                                                                if (file) {
+                                                                    const url = URL.createObjectURL(file);
+                                                                    field.onChange(file);
+                                                                    setPreviewImage(url);
+                                                                }
+                                                            }}
+                                                        />
+                                                    </div>
+                                                </label>
+                                            </div>
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}
                             />
-
-
                             <FormField
                                 control={form.control}
                                 name="coach"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Entraineur</FormLabel>
-                                        <FormControl>
-                                            <Select
-                                                value={field.value}
-                                                onValueChange={(value) => field.onChange(value)}
-                                            >
-                                                <SelectTrigger className="text-background">
-                                                    <SelectValue placeholder="Selectionne un entraineur" />
+                                        <FormLabel className="text-background">Entraineur</FormLabel>
+                                        <Select
+                                            value={field.value}
+                                            onValueChange={(value) => field.onChange(value)}
+                                        >
+                                            <FormControl  className="text-background">
+                                                <SelectTrigger>
+                                                    <SelectValue placeholder="Sélectionner un entraineur" />
                                                 </SelectTrigger>
-                                                <SelectContent>
-                                                    {members
-                                                        .toSorted((a, b) => a.name.localeCompare(b.name))
-                                                        .map(member => (
-                                                            <SelectItem key={member.id} value={member.id} className="text-background">
-                                                                {member.name}
-                                                            </SelectItem>
-                                                        ))}
-                                                </SelectContent>
-                                            </Select>
-                                        </FormControl>
+                                            </FormControl>
+                                            <SelectContent>
+                                                {members
+                                                    .toSorted((a, b) => a.name.localeCompare(b.name))
+                                                    .map(member => (
+                                                        <SelectItem key={member.id} value={member.id} className="text-background">
+                                                            {member.name}
+                                                        </SelectItem>
+                                                    ))}
+                                            </SelectContent>
+                                        </Select>
                                         <FormMessage />
                                     </FormItem>
                                 )}
                             />
-
                             <FormField
                                 control={form.control}
                                 name="level"
                                 render={({ field }) => (
-                                    <FormItem className="text-background">
-                                        <FormLabel>Niveau</FormLabel>
+                                    <FormItem>
+                                        <FormLabel className="text-background">Niveau</FormLabel>
                                         <FormControl>
                                             <Input placeholder="Départementale" {...field} />
                                         </FormControl>
@@ -143,28 +155,27 @@ export default function ZodForm({ members, defaultValues, setIsEditing }: Readon
                                 control={form.control}
                                 name="isCompetition"
                                 render={({ field }) => (
-                                    <FormItem className="text-background">
-                                        <FormLabel className="me-5">Compétition</FormLabel>
+                                    <FormItem className="flex flex-row items-start space-x-3 space-y-0">
                                         <FormControl>
                                             <Checkbox
                                                 checked={field.value}
                                                 onCheckedChange={(checked) => field.onChange(checked)}
                                             />
                                         </FormControl>
-                                        <FormMessage />
+                                        <div className="space-y-1 leading-none">
+                                            <FormLabel className="text-background">
+                                                Équipe en compétition
+                                            </FormLabel>
+                                        </div>
                                     </FormItem>
                                 )}
                             />
-                        </CardContent>
-
-                        {
-
                             <FormField
                                 control={form.control}
                                 name="championnats"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel className="text-background">Championnats</FormLabel>
+                                        <FormLabel>Championnats</FormLabel>
                                         <FormControl>
                                             <MultiSelect
                                                 options={championnats.map(championnat => ({
@@ -175,97 +186,114 @@ export default function ZodForm({ members, defaultValues, setIsEditing }: Readon
                                                 onChange={(values) => {
                                                     field.onChange(values)
                                                 }}
-                                                placeholder="Selectionne un championnat"
+                                                placeholder="Sélectionner les championnats"
                                             />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}
                             />
-                        }
+                        </CardContent>
                     </Card>
-                    <Card className="shadow-xl p-5">
-                        <CardHeader className="mx-auto my-5">
-                            <CardTitle className="text-black relative text-center">
-                                <Underline /> Horaires d&apos;entrainements
+                    <Card className="shadow-md">
+                        <CardHeader>
+                            <CardTitle className="text-2xl font-bold text-primary text-center mb-5">
+                                Horaires d&apos;entrainements <Underline />
                             </CardTitle>
                         </CardHeader>
-                        <CardContent className="flex flex-col gap-5">
+                        <CardContent className="space-y-6">
                             {fields.map((field, index) => (
-                                <div key={field.id} className="flex gap-3 items-center justify-center">
-                                    <FormItem className="flex flex-col gap-3">
-                                        <FormLabel htmlFor={`day-${index}`}>Jour</FormLabel>
-                                        <FormControl>
+                                <div key={field.id} className="p-4 bg-muted rounded-lg space-y-4">
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <FormItem>
+                                            <FormLabel htmlFor={`day-${index}`} className="text-background">Jour</FormLabel>
                                             <Select
                                                 onValueChange={(value: Days) => form.setValue(`sessions.${index}.day`, value)}
                                             >
-                                                <SelectTrigger id={`day-${index}`} className="text-background">
-                                                    <SelectValue placeholder="Selectionne un jour" />
-                                                </SelectTrigger>
+                                                <FormControl>
+                                                    <SelectTrigger id={`day-${index}`}>
+                                                        <SelectValue placeholder="Sélectionner un jour" />
+                                                    </SelectTrigger>
+                                                </FormControl>
                                                 <SelectContent>
-                                                    {["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"].map((day) => <SelectItem key={day} value={day}>{day}</SelectItem>)}
+                                                    {["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"].map((day) => (
+                                                        <SelectItem key={day} value={day}>{day}</SelectItem>
+                                                    ))}
                                                 </SelectContent>
                                             </Select>
-                                        </FormControl>
-                                    </FormItem>
-                                    <FormItem className="flex flex-col gap-3">
-                                        <FormLabel htmlFor={`start-${index}`}>Début</FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                type="time"
-                                                id={`start-${index}`}
-                                                value={form.watch(`sessions.${index}.start`)}
-                                                onChange={(e) => form.setValue(`sessions.${index}.start`, e.target.value)}
-                                                required
-                                                className="text-black w-full"
-                                            />
-                                        </FormControl>
-                                    </FormItem>
-                                    <FormItem className="flex flex-col gap-3">
-                                        <FormLabel htmlFor={`end-${index}`}>Fin</FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                type="time"
-                                                id={`end-${index}`}
-                                                value={form.watch(`sessions.${index}.end`)}
-                                                onChange={(e) => form.setValue(`sessions.${index}.end`, e.target.value)}
-                                                required
-                                                className="text-black w-full"
-                                            />
-                                        </FormControl>
-                                    </FormItem>
-                                    <FormItem className="flex flex-col gap-3">
-                                        <FormLabel htmlFor={`gym-${index}`}>Gymnase</FormLabel>
-                                        <FormControl>
+                                        </FormItem>
+                                        <FormItem>
+                                            <FormLabel htmlFor={`gym-${index}`} className="text-background">Gymnase</FormLabel>
                                             <Select
                                                 onValueChange={(value: Gymnases) => form.setValue(`sessions.${index}.gymnase`, value)}
                                                 defaultValue="Jean_Guimier"
                                             >
-                                                <SelectTrigger className="text-background" id={`gym-${index}`}>
-                                                    <SelectValue />
-                                                </SelectTrigger>
-                                                <SelectContent >
+                                                <FormControl>
+                                                    <SelectTrigger id={`gym-${index}`}>
+                                                        <SelectValue placeholder="Sélectionner un gymnase"  />
+                                                    </SelectTrigger>
+                                                </FormControl>
+                                                <SelectContent>
                                                     <SelectItem value="Jean_Guimier">Jean Guimier</SelectItem>
                                                     <SelectItem value="Jesse_Owens">Jesse Owens</SelectItem>
                                                 </SelectContent>
                                             </Select>
-                                        </FormControl>
-                                    </FormItem>
-                                    <Button onClick={() => remove(index)} type="button" variant="destructive" size="icon">
-                                        <Trash2 className="h-4 w-4 text-black" />
+                                        </FormItem>
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <FormItem>
+                                            <FormLabel htmlFor={`start-${index}`}>Début</FormLabel>
+                                            <FormControl>
+                                                <Input
+                                                    type="time"
+                                                    id={`start-${index}`}
+                                                    value={form.watch(`sessions.${index}.start`)}
+                                                    onChange={(e) => form.setValue(`sessions.${index}.start`, e.target.value)}
+                                                    required
+                                                />
+                                            </FormControl>
+                                        </FormItem>
+                                        <FormItem>
+                                            <FormLabel htmlFor={`end-${index}`}>Fin</FormLabel>
+                                            <FormControl>
+                                                <Input
+                                                    type="time"
+                                                    id={`end-${index}`}
+                                                    value={form.watch(`sessions.${index}.end`)}
+                                                    onChange={(e) => form.setValue(`sessions.${index}.end`, e.target.value)}
+                                                    required
+                                                />
+                                            </FormControl>
+                                        </FormItem>
+                                    </div>
+                                    <Button
+                                        onClick={() => remove(index)}
+                                        type="button"
+                                        variant="destructive"
+                                        size="sm"
+                                        className="w-full mt-2"
+                                    >
+                                        <Trash2 className="h-4 w-4 mr-2" />
+                                        Supprimer cette session
                                     </Button>
                                 </div>
                             ))}
-                            <Button onClick={() => append({ day: 'Lundi', start: '', end: '', gymnase: "Jean_Guimier" })}>
+                            <Button
+                                onClick={() => append({ day: 'Lundi', start: '', end: '', gymnase: "Jean_Guimier" })}
+                                type="button"
+                                className="w-full"
+                            >
+                                <Plus className="h-4 w-4 mr-2" />
                                 Ajouter un entrainement
                             </Button>
                         </CardContent>
                     </Card>
                 </div>
-                <Button type="submit" disabled={form.formState.isSubmitting}>
-                    {form.formState.isSubmitting ? "Envoi..." : "Envoyer"}
+                <Button type="submit" className="w-full mt-8" disabled={form.formState.isSubmitting}>
+                    {form.formState.isSubmitting ? "Envoi en cours..." : "Enregistrer l'équipe"}
                 </Button>
             </form>
-        </Form >
+        </Form>
     )
 }
+
