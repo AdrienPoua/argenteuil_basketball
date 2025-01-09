@@ -19,6 +19,12 @@ import Image from "next/image"
 import { handleSubmit, useMemberForm } from "../actions/client.actions"
 import { FormSchema } from "../schemas/form.schemas"
 import { PropsType } from "../types/form.types"
+<<<<<<< Updated upstream
+=======
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Upload, Mail, Phone, User } from 'lucide-react'
+>>>>>>> Stashed changes
 
 
 
@@ -41,6 +47,7 @@ export default function Index({ teams, defaultValues, setIsEditing }: Readonly<P
   console.log("🚀 ~ Index ~ watchedTeams:", watchedTeams)
   return (
     <Form {...form}>
+<<<<<<< Updated upstream
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3 size-fit w-full bg-foreground p-10 rounded-md font-secondary mx-auto ">
         <FormField
           control={form.control}
@@ -55,6 +62,57 @@ export default function Index({ teams, defaultValues, setIsEditing }: Readonly<P
             </FormItem>
           )}
         />
+=======
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 max-w-2xl mx-auto">
+        <Card className="text-background">
+          <CardHeader>
+            <CardTitle className="text-2xl font-bold text-background text-center py-4">
+              {defaultValues ? "Modifier le membre" : "Créer un nouveau membre"}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="flex items-center space-x-4">
+              <Avatar className="w-24 h-24 border-2 border-primary">
+                <AvatarImage src={previewImage} />
+                <AvatarFallback>{defaultValues?.name?.charAt(0) || 'M'}</AvatarFallback>
+              </Avatar>
+              <FormField
+                control={form.control}
+                name="image"
+                render={({ field }) => (
+                  <FormItem className="flex-1">
+                    <FormLabel htmlFor="member-image">Photo de profil</FormLabel>
+                    <FormControl>
+                      <div className="flex items-center">
+                        <Input
+                          id="member-image"
+                          type="file"
+                          accept="image/*"
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                              const url = URL.createObjectURL(file);
+                              field.onChange(file);
+                              setPreviewImage(url);
+                            }
+                          }}
+                          className="hidden"
+                        />
+                        <label
+                          htmlFor="member-image"
+                          className="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 cursor-pointer"
+                        >
+                          <Upload className="w-5 h-5 mr-2" />
+                          Choisir une image
+                        </label>
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+>>>>>>> Stashed changes
 
         <FormField
           control={form.control}

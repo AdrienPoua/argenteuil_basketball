@@ -22,6 +22,7 @@ export default function Index({ data, teams }: Readonly<PropsType>): React.React
 
 export function BaseCard({ data, setIsEditing }: Readonly<BaseCardPropsType>) {
     return (
+<<<<<<< Updated upstream
         <Card className="w-full text-background p-5 font-secondary">
             <CardHeader className="flex flex-row justify-between">
                 <CardTitle className="text-2xl flex gap-5">
@@ -37,6 +38,54 @@ export function BaseCard({ data, setIsEditing }: Readonly<BaseCardPropsType>) {
                     <Button onClick={() => deleteMember(data.id)} variant="destructive" className="size-fit p-2">
                         <Trash />
                     </Button>
+=======
+        <Card className="w-full max-w-md font-secondary hover:shadow-lg transition-all duration-300 text-muted-foreground">
+            <CardHeader className="relative p-6 pb-0">
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-4">
+                        <Avatar className="h-16 w-16 border-2 border-primary">
+                            <AvatarImage src={data.image} alt={data.name} />
+                            <AvatarFallback>{data.name.charAt(0)}</AvatarFallback>
+                        </Avatar>
+                        <div>
+                            <CardTitle className="text-2xl font-bold text-background">
+                                {data.name}
+                            </CardTitle>
+                            {data.isLeader && (
+                                <Badge variant="destructive" className="mt-1">Leader</Badge>
+                            )}
+                        </div>
+                    </div>
+                    <div className="flex gap-2">
+                        <Button
+                            size="icon"
+                            onClick={() => setIsEditing(true)}
+                            aria-label={`Modifier ${data.name}`}
+                            className="bg-primary text-primary-foreground hover:bg-primary/90"
+                        >
+                            <Pencil className="h-4 w-4" />
+                        </Button>
+                        <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                                <Button variant="destructive" size="icon">
+                                    <Trash className="h-4 w-4" />
+                                </Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                                <AlertDialogHeader>
+                                    <AlertDialogTitle>Êtes-vous absolument sûr ?</AlertDialogTitle>
+                                    <AlertDialogDescription>
+                                        Cette action ne peut pas être annulée. Cela supprimera définitivement le membre {data.name} et toutes les données associées.
+                                    </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                    <AlertDialogCancel>Annuler</AlertDialogCancel>
+                                    <AlertDialogAction onClick={handleDelete}>Confirmer la suppression</AlertDialogAction>
+                                </AlertDialogFooter>
+                            </AlertDialogContent>
+                        </AlertDialog>
+                    </div>
+>>>>>>> Stashed changes
                 </div>
             </CardHeader>
             <CardContent className="p-0">

@@ -20,6 +20,7 @@ export class MatchService {
 
   async updateMatch(match: Prisma.MatchUpdateInput & { id: string }) {
     const { id, date, salle, convocationIsSent } = match;
+    console.log("🚀 ~ MatchService ~ updateMatch ~ date:", date)
     return await prisma.match.update({
       where: { id },
       data: { date, salle, convocationIsSent },
