@@ -14,12 +14,10 @@ export class ConvocationService {
   }
 
   get subject() {
-    return (
-      "Convocation - Match n°" +
-      this._match.matchNumber +
-      " - " +
-      this._match.championnat
-    );
+    const division = this._match.championnat.split;
+    const firstConvocation = `Convocation ${division} - Match n°${this._match.matchNumber}`
+    const secondConvocation = `Convocation MODIFICATIVE - ANNULE ET REMPLACE - ${division} - Match n°${this._match.matchNumber}`
+    return this._match.convocationIsSent ? firstConvocation : secondConvocation;
   }
 
   get cc() {
