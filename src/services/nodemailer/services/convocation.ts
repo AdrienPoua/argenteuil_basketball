@@ -16,12 +16,10 @@ export class ConvocationService {
   }
 
   get subject() {
-    return (
-      "Convocation - Match n°" +
-      this._match.matchNumber +
-      " - " +
-      this._match.championnat
-    );
+    const division = this._match.championnat
+    const firstConvocation = `Convocation ${division} - Match n°${this._match.matchNumber}`
+    const secondConvocation = `Convocation MODIFICATIVE - ANNULE ET REMPLACE - ${division} - Match n°${this._match.matchNumber}`
+    return this._match.convocationIsSent ? firstConvocation : secondConvocation;
   }
 
   get cc() {
@@ -34,6 +32,9 @@ export class ConvocationService {
     }
     if (this._coachEmail) {
       array.push(this._coachEmail);
+    }
+    if (this._match.convocationIsSent) {
+      array.push("rcassandra640@gmail.com");
     }
     return array;
   }
