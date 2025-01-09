@@ -211,13 +211,15 @@ export default function EnhancedForm({ members, defaultValues, setIsEditing }: R
                                                 onValueChange={(value: Days) => form.setValue(`sessions.${index}.day`, value)}
                                             >
                                                 <FormControl>
-                                                    <SelectTrigger id={`day-${index}`}>
-                                                        <SelectValue placeholder="Sélectionner un jour" />
+                                                    <SelectTrigger id={`day-${index}`} className="text-background">
+                                                        <SelectValue placeholder="Sélectionner un jour"  />
                                                     </SelectTrigger>
                                                 </FormControl>
                                                 <SelectContent>
                                                     {["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"].map((day) => (
-                                                        <SelectItem key={day} value={day}>{day}</SelectItem>
+                                                        <SelectItem key={day} value={day} className="text-background">
+                                                            {day}
+                                                        </SelectItem>
                                                     ))}
                                                 </SelectContent>
                                             </Select>
@@ -229,7 +231,7 @@ export default function EnhancedForm({ members, defaultValues, setIsEditing }: R
                                                 defaultValue="Jean_Guimier"
                                             >
                                                 <FormControl>
-                                                    <SelectTrigger id={`gym-${index}`}>
+                                                    <SelectTrigger id={`gym-${index}`} className="text-background">
                                                         <SelectValue placeholder="Sélectionner un gymnase"  />
                                                     </SelectTrigger>
                                                 </FormControl>

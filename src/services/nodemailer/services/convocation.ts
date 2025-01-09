@@ -19,7 +19,7 @@ export class ConvocationService {
     const division = this._match.championnat
     const firstConvocation = `Convocation ${division} - Match n°${this._match.matchNumber}`
     const secondConvocation = `Convocation MODIFICATIVE - ANNULE ET REMPLACE - ${division} - Match n°${this._match.matchNumber}`
-    return this._match.convocationIsSent ? firstConvocation : secondConvocation;
+    return !this._match.convocationIsSent ? firstConvocation : secondConvocation;
   }
 
   get cc() {
