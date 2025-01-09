@@ -6,17 +6,18 @@ import Match from "@/models/Match";
 import { useState } from "react";
 import Card from "./Card";
 
-const LIST_OF_MONTHS = {
-    8: "Septembre",
-    9: "Octobre",
-    10: "Novembre",
-    11: "Décembre",
-    0: "Janvier",
-    1: "Février",
-    2: "Mars",
-    3: "Avril",
-    4: "Mai",
-}
+const LIST_OF_MONTHS = [
+    { month: 8, name: "Septembre" },
+    { month: 9, name: "Octobre" },
+    { month: 10, name: "Novembre" },
+    { month: 11, name: "Décembre" },
+    { month: 0, name: "Janvier" },
+    { month: 1, name: "Février" },
+    { month: 2, name: "Mars" },
+    { month: 3, name: "Avril" },
+    { month: 4, name: "Mai" }
+];
+
 
 type PropsType = { matchs: ReturnType<Match["toPlainObject"]>[] }
 
@@ -27,9 +28,14 @@ export default function MatchTabs({ matchs }: Readonly<PropsType>) {
     return (
         <Tabs defaultValue={String(new Date().getMonth())}>
             <TabsList className="flex flex-wrap gap-2 size-full mx-auto mb-10">
-                {Object.entries(LIST_OF_MONTHS).map(([index, monthName]) => (
-                    <TabsTrigger key={index} value={index} className={'bg-foreground grow'} onClick={() => setFilter("all")}>
-                        {monthName}
+                {LIST_OF_MONTHS.map(({ month, name }) => (
+                    <TabsTrigger
+                        key={month}
+                        value={String(month)}
+                        className="bg-foreground grow"
+                        onClick={() => setFilter("all")}
+                    >
+                        {name}
                     </TabsTrigger>
                 ))}
             </TabsList>
@@ -44,29 +50,29 @@ export default function MatchTabs({ matchs }: Readonly<PropsType>) {
                     tous
                 </Button>
             </div>
-            {Object.entries(LIST_OF_MONTHS).map(([index, month]) => (
-                <TabsContent key={index} value={index}>
+            {LIST_OF_MONTHS.map(({ month, name }) => (
+                <TabsContent key={month} value={String(month)}>
                     {championnats.map((championnat) => {
-                            const matchsByMonth = matchs.filter((match) => match.date.getMonth() === Number(index) && match.championnat === championnat);
-                            const homeGames = matchsByMonth.filter((match) => match.isHome);    
-                            const awayGames = matchsByMonth.filter((match) => !match.isHome);
-                            const displayedGames = filter === "home" ? homeGames : filter === "away" ? awayGames : matchsByMonth;
-                            if(!displayedGames.some((match) => match.championnat === championnat)) return null;
-                            return (
-                                <div key={championnat} className="mb-5">
-                                    <div className={`grid gap-4 grid-cols-1 md:grid-cols-5`}>
-                                        <div className="">
-                                            <Badge className="flex justify-center items-center grow size-full text-3xl">
-                                                {championnat}
-                                            </Badge>
-                                        </div>
-                                        {displayedGames.sort((a, b) => a.date.getTime() - b.date.getTime()).map((match) => (
-                                            <Card key={match.id} match={match} />
-                                        ))}
+                        const matchsByMonth = matchs.filter((match) => match.date.getMonth() === month && match.championnat === championnat);
+                        const homeGames = matchsByMonth.filter((match) => match.isHome);
+                        const awayGames = matchsByMonth.filter((match) => !match.isHome);
+                        const displayedGames = filter === "home" ? homeGames : filter === "away" ? awayGames : matchsByMonth;
+                        if (!displayedGames.some((match) => match.championnat === championnat)) return null;
+                        return (
+                            <div key={championnat} className="mb-5">
+                                <div className={`grid gap-4 grid-cols-1 md:grid-cols-5`}>
+                                    <div className="">
+                                        <Badge className="flex justify-center items-center grow size-full text-3xl">
+                                            {championnat}
+                                        </Badge>
                                     </div>
+                                    {displayedGames.sort((a, b) => a.date.getTime() - b.date.getTime()).map((match) => (
+                                        <Card key={match.id} match={match} />
+                                    ))}
                                 </div>
-                            )
-                        })}
+                            </div>
+                        )
+                    })}
                 </TabsContent>
             ))}
         </Tabs>
