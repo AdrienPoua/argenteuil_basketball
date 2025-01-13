@@ -2,35 +2,49 @@
 import { useQuery } from "react-query";
 import getPoules from "@/services/api/getPoules";
 import getRencontresParPoules from "@/services/api/getRencontresParPoules";
-import useToken from "@/hooks/useToken";
 import getCompetitions from "@/services/api/getCompetitions";
 import getCompetitionsDetails from "@/services/api/getCompetitionsDetails";
+import useToken from "@/hooks/useToken";
 
 export function useFFBB() {
-  const { token } = useToken();
+  const token = useToken();
+
+  // Requête pour les poules
   const { data: poulesIDS } = useQuery(
     ["poulesID", token],
-    () => getPoules(token as string),
-    { enabled: !!token },
+    () => getPoules(token!),
+    { enabled: !!token }, // Exécute uniquement si le token est disponible
   );
+
+  // Requête pour les compétitions
   const { data: competitions } = useQuery(
     ["competitions", token],
-    () => getCompetitions(token as string),
+    () => getCompetitions(token!),
     { enabled: !!token },
   );
+
+  // Requête pour les rencontres par poules
   const { data: matchs } = useQuery(
-    ["rencontres", token],
-    () => getRencontresParPoules(token as string, poulesIDS as number[]),
-    { enabled: !!poulesIDS },
+    ["rencontres", token, poulesIDS],
+    () => getRencontresParPoules(token!, poulesIDS as number[]),
+    { enabled: !!token && !!poulesIDS },
   );
+
+  // Requête pour les détails des compétitions
   const { data: competitionsDetails } = useQuery(
-    ["competitionsDetails", token],
+    ["competitionsDetails", token, competitions],
     () =>
       getCompetitionsDetails(
-        token as string,
+        token!,
         competitions?.map((compet) => compet.id) ?? [],
       ),
-    { enabled: !!competitions },
+    { enabled: !!token && !!competitions },
   );
-  return { poulesIDS, competitions, matchs, competitionsDetails };
+
+  return {
+    poulesIDS,
+    competitions,
+    matchs,
+    competitionsDetails,
+  };
 }

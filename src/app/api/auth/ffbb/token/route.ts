@@ -14,13 +14,17 @@ export async function GET() {
         "Content-Type": "application/json",
         Accept: "text/plain",
         "X-Custom-Request-ID": Date.now().toString(),
+        "Cache-Control": "no-store"
       },
       body: JSON.stringify({
         userName: FFBB_SERVER_USERNAME,
         password: FFBB_SERVER_PASSWORD,
       }),
+      next: { revalidate: 3600 }
     });
+    console.log("🚀 ~ GET ~ rawToken:", rawToken)
     const token = await rawToken.text();
+    console.log("🚀 ~ GET ~ token:", token)
     return new Response(token, {
       status: 200,
       headers: {

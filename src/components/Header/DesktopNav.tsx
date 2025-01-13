@@ -103,7 +103,7 @@ const DropdownNavItem = ({ dropdownItems, label }: Readonly<DropdownNavItemProps
         <div className="absolute left-0 w-48 rounded-md shadow-lg ring-1 ring-primary ring-opacity-5 z-10">
           <div className="bg-primary border-border border rounded-md">
             {dropdownItems.map((item) => (
-              <Button key={item.label} variant="ghost" asChild className="w-full justify-start rounded-none">
+              <Button key={item.label} variant="outline" asChild className="w-full justify-start rounded-none">
                 <Link href={item.href} className="flex items-center px-4 py-2 text-sm">
                   <item.icon className="w-4 h-4 mr-2" />
                   {item.label}

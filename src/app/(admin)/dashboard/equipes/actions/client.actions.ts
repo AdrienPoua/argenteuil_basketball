@@ -4,9 +4,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchema } from "../schemas/form.schemas";
 import { FormSchemaType, PropsType } from "../types/form.types";
-import useToken from "@/hooks/useToken";
 import { useQuery } from "react-query";
 import getCompetitions from "@/services/api/getCompetitions";
+import useToken from "@/hooks/useToken";
 
 export const getImageUrl = async (file: File) => {
   if (!file) return;
@@ -51,11 +51,13 @@ export const useTeamForm = (defaultValues?: PropsType["defaultValues"]) => {
 };
 
 export const useCompetitions = () => {
-  const { token } = useToken();
-  const { data: competitions } = useQuery(
-    ["competitions", token],
-    () => getCompetitions(token as string),
-    { enabled: !!token },
+  const token = useToken();
+  const { data: competitions} = useQuery(
+    "competitions",
+    async () => {
+      return getCompetitions(token!);
+    },
+    { enabled: !!token }
   );
   return competitions?.map((competition) => competition.code);
 };

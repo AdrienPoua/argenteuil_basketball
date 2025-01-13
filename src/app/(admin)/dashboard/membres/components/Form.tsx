@@ -21,7 +21,7 @@ import { FormSchema } from "../schemas/form.schemas"
 import { PropsType } from "../types/form.types"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Upload, Mail, Phone, User, Users, Shield } from 'lucide-react'
+import { Upload, Mail, Phone, User } from 'lucide-react'
 
 export default function MemberForm({ teams, defaultValues, setIsEditing }: Readonly<PropsType>) {
   const [previewImage, setPreviewImage] = useState<string | undefined>(defaultValues?.image)

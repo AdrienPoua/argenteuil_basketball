@@ -21,7 +21,8 @@ export default function TeamCard({ data }: Readonly<PropsType>) {
                 src={data.image}
                 alt={`Les membres de l'équipe ${data.name}`}
                 className="object-cover w-full h-full absolute inset-0"
-                layout="fill"
+                height={1000}
+                width={1000}
             />
             <CardContent className="relative flex flex-col items-center justify-center z-20 size-full ">
                 {!isClicked ? (
