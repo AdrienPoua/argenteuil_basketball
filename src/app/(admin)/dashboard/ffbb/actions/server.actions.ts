@@ -47,9 +47,22 @@ export const updateMatchs = async (
 ) => {
   const clubs = await clubService.getClubs();
   await Promise.all(
-    matchs.map(async (match) => {
-      const competition = findCompetition(match, competitions);
-      const opponentClub = findOpponentClub(match, clubs);
+    matchs.map(async (data) => {
+      // Check is the match is valid (idOrganismeEquipe1 and idOrganismeEquipe2 are not null for exemple)
+      const match = await matchService.validateMatchBeforeUpsert(data);
+      if (!match) return; // if the match is not valid, return
+
+      const competition = competitions.find((competition) =>
+        competition.poules.find((poule) => poule.id === match.idPoule),
+      );
+
+      const opponentId =
+        match.idOrganismeEquipe1 === argenteuil.id
+          ? match.idOrganismeEquipe2.toString()
+          : match.idOrganismeEquipe1.toString();
+
+      const opponentClub = clubs.find((club) => club.id === opponentId);
+
       const payload = {
         ...match,
         id: match.id.toString(),
@@ -59,24 +72,4 @@ export const updateMatchs = async (
       await matchService.upsert(payload);
     }),
   );
-};
-
-const findCompetition = (match: MatchType, competitions: CompetitionType[]) => {
-  const competition = competitions.find((competition) =>
-    competition.poules.find((poule) => poule.id === match.idPoule),
-  );
-  return competition ?? null;
-};
-
-const findOpponentClub = (match: MatchType, clubs: ClubType[]) => {
-  const homeGame = match.idOrganismeEquipe1 === argenteuil.id;
-  if (homeGame) {
-    return clubs.find(
-      (club) => club.id === match.idOrganismeEquipe2.toString(),
-    );
-  } else {
-    return clubs.find(
-      (club) => club.id === match.idOrganismeEquipe1.toString(),
-    );
-  }
 };

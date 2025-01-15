@@ -18,6 +18,17 @@ export class MatchService {
     }
   }
 
+  async validateMatchBeforeUpsert(data: unknown) {
+    const { success, data: match } = BaseMatchSchema.extend({
+      id: z.number(),
+      competition: z.string().optional(),
+      correspondant: z.string().optional(),
+    }).safeParse(data);
+
+    if (!success) return null
+    return match;
+  }
+
   async updateMatch(match: Prisma.MatchUpdateInput & { id: string }) {
     const { id, date, salle, convocationIsSent } = match;
     return await prisma.match.update({
@@ -27,8 +38,7 @@ export class MatchService {
   }
 
   async upsert(data: unknown) {
-    const { success, data: match } = this.upsertMatchSchema.safeParse(data);
-    if (!success) return;
+    const match = this.upsertMatchSchema.parse(data);
     const updatePayload = {
       joue: match.joue,
       remise: match.remise,
@@ -60,5 +70,4 @@ export class MatchService {
       throw error;
     }
   }
-
 }
