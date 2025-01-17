@@ -11,8 +11,8 @@ export const useMatchForm = (match: PropsType["match"]) => {
   return useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      date: match.date,
-      time: match.heure,
+      date: match.date.toISOString().split("T")[0],
+      time: match.date.toLocaleTimeString(),
       salle: match.salle,
     },
   });

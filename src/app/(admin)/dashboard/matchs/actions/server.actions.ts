@@ -21,10 +21,7 @@ export async function deleteMatch(matchId: string) {
   return await matchService.deleteMatch(matchId);
 }
 
-export async function updateMatch(match: FormValues & { id: string }) {
-  const hours = match.time.split(":")[0]
-  const minutes = match.time.split(":")[1]
-  match.date.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+export async function updateMatch(match: { date : Date, salle: string } & { id: string }) {
   console.log(match.date)
   await matchService.updateMatch({ date : match.date, salle: match.salle, id: match.id });
   revalidatePath("/dashboard/matchs");
