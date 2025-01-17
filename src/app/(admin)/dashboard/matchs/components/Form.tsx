@@ -20,9 +20,6 @@ export default function MatchForm({ match, setIsEditing }: Readonly<PropsType>) 
     const form = useMatchForm(match);
 
     const onSubmit = async (data: FormValues) => {
-        const nothingChanged = match.ISOdate === data.date && match.heure === data.time && match.salle === data.salle
-
-        if (nothingChanged) return;
         try {
             await updateMatch({ ...data, id: match.id });
             setIsEditing(false);
@@ -54,6 +51,13 @@ export default function MatchForm({ match, setIsEditing }: Readonly<PropsType>) 
                                     <Input
                                         type="date"
                                         {...field}
+                                        value={field.value.toISOString().split('T')[0]}
+                                        onChange={(e) => {
+                                            const newDate = new Date(e.target.value);
+                                            console.log("🚀 ~ MatchForm ~ newDate:", newDate)
+                                            
+                                            field.onChange(newDate);
+                                        }}
                                     />
                                 </FormControl>
                                 <FormMessage />

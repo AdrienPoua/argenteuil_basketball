@@ -79,10 +79,6 @@ export default class Match {
     return this._idOrganismeEquipe1;
   }
 
-  get ISOdate() {
-    return this._date.toLocaleDateString("fr-CA");
-  }
-
   get idOrganismeEquipe2() {
     return this._idOrganismeEquipe2;
   }
@@ -175,7 +171,6 @@ export default class Match {
       championnat: this.championnat,
       formatedDate: this.formatedDate,
       date: this.date,
-      ISOdate: this.ISOdate,
       matchId: this.id,
       matchNumberJournee: this.numeroJournee,
       idPoule: this.idPoule,
