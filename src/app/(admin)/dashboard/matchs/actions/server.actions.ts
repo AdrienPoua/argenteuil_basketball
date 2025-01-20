@@ -22,7 +22,7 @@ export async function deleteMatch(matchId: string) {
 }
 
 export async function updateMatch(match: { date : Date, salle: string } & { id: string }) {
-  console.log(match.date)
+  console.log("🚀 ~ updateMatch ~ match:", match)
   await matchService.updateMatch({ date : match.date, salle: match.salle, id: match.id });
   revalidatePath("/dashboard/matchs");
 }

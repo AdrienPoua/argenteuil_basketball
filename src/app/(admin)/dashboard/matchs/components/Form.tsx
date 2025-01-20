@@ -21,8 +21,8 @@ export default function MatchForm({ match, setIsEditing }: Readonly<PropsType>) 
 
     const onSubmit = async (data: FormValues) => {
         const date = new Date(`${data.date}T${data.time}`);
-        console.log("🚀 ~ onSubmit ~ date:", date)
         try {
+            console.log("🚀 ~ onSubmit ~ date:", date)
             await updateMatch({ id: match.id, date, salle: data.salle });
             setIsEditing(false);
         } catch (error) {

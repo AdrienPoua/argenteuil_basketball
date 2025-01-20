@@ -35,6 +35,10 @@ const BaseCard = ({ match, setIsEditing }: Readonly<EditingCardPropsType>) => {
         sendConvocation(match)
     }
 
+    if (match.matchNumber === 80308) {
+        console.log(match)
+    }
+
     return (
         <Card className="w-full max-w-md mx-auto text-black font-secondary p-3">
             <Badge variant="match">

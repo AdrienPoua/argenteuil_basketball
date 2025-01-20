@@ -51,13 +51,16 @@ export default class Match {
     this._correspondant = data.correspondant ?? undefined;
     this._convocationIsSent = data.convocationIsSent ?? false;
   }
+  
   get formatedDate() {
-    return this._date.toLocaleDateString("fr-FR", {
+    return new Intl.DateTimeFormat("fr-FR", {
       year: "numeric",
       month: "long",
       day: "numeric",
-    });
+      timeZone: "Europe/Paris" // Forcer le fuseau horaire
+    }).format(this._date);
   }
+  
 
   get numero() {
     return this._numero;
