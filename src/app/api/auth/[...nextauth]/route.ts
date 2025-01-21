@@ -1,4 +1,3 @@
-"use server";
-import { GET, POST } from "@/services/nextAuth/auth";
+import handler from "@/services/nextAuth/auth";
 
-export { GET, POST };
+export { handler as GET, handler as POST };

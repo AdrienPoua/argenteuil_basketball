@@ -1,6 +1,8 @@
 import ImageKit from "imagekit";
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/services/nextAuth/auth";
 
 const envSchema = z.object({
   publicKey: z.string(),
@@ -26,6 +28,15 @@ const fileSchema = z.object({
 });
 
 export async function POST(req: Request): Promise<Response> {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    return new Response(JSON.stringify({ error: "Unauthorized" }), {
+      status: 401,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
   try {
     // Récupérer le fichier depuis FormData
     const formData = await req.formData();

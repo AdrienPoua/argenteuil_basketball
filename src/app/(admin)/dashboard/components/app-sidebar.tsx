@@ -15,9 +15,7 @@ import {
 import { signOut } from "next-auth/react"
 import {
   Trophy,
-  LayoutDashboard,
-  Calendar,
-  UserCog,
+  LayoutDashboard, UserCog,
   GraduationCap,
   UsersRound,
   HelpCircle,

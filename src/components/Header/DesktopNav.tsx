@@ -9,7 +9,8 @@ import {
   FileText,
   Calendar,
   BookOpen,
-  Euro, ChevronDown, CircleHelp
+  Euro, ChevronDown, CircleHelp,
+  UserIcon
 } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { Button } from "@/components/ui/button";
@@ -59,7 +60,14 @@ export default function DesktopNav(): ReactElement {
           <NavItem href="/faq" label="FAQ" isActive={pathname === "/faq"} icon={<CircleHelp className="w-4 h-4" />} />
         </ul>
       </nav>
-      <ContactDialog />
+      <div className="flex items-center gap-2">
+        <Button variant="nav" asChild>
+          <Link href="/login">
+            <UserIcon />
+          </Link>
+        </Button>
+          <ContactDialog />
+      </div>
     </header>
   );
 }

@@ -38,7 +38,7 @@
     "src",
     ".next/types/**/*.ts",
     "tailwind.config.ts"
-  ],
+, "middleware.js"  ],
   "exclude": [
     "node_modules"
   ]

@@ -17,6 +17,7 @@ export class ClubService {
     }
   }
 
+
   // Récupération de toutes les équipes
   async getClubs() {
     try {

@@ -1,10 +1,10 @@
-"use server";
 import GithubProvider from "next-auth/providers/github";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import { z } from "zod";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import prisma from "@/database/prisma";
 
 const { GITHUB_ID, GITHUB_SECRET, ADMIN_GITHUB_EMAIL } = process.env;
-
 
 const envSchema = z.object({
   GITHUB_ID: z.string(),
@@ -18,8 +18,9 @@ const env = envSchema.parse({
   ADMIN_GITHUB_EMAIL,
 });
 
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
+  adapter: PrismaAdapter(prisma),
   providers: [
     GithubProvider({
       clientId: env.GITHUB_ID,
@@ -30,8 +31,16 @@ const authOptions: NextAuthOptions = {
     async signIn({ profile }) {
       return profile?.email === ADMIN_GITHUB_EMAIL;
     },
-    async redirect() {
-      return "/admin";
+    async redirect({ url, baseUrl }) {
+      if (url.startsWith(`${baseUrl}/dashboard`)) {
+        return baseUrl;
+      }
+      return "/dashboard";
+    },
+  },
+  events: {
+    async signIn(message) {
+      console.log("User signed in:", message);
     },
   },
   session: {
@@ -41,4 +50,4 @@ const authOptions: NextAuthOptions = {
 
 const handler = NextAuth(authOptions);
 
-export { handler as GET, handler as POST };
+export default handler;

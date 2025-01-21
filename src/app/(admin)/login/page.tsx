@@ -1,31 +1,21 @@
 'use client'
 
-import { useSession, signIn } from "next-auth/react"
-import { Button } from "@/components/ui/button"
-import Loader from "@/components/Loader"
+import { LoginForm } from "@/components/ui/login-form"
+import { useSession } from "next-auth/react"
+import { redirect } from "next/navigation"
 
 export default function SignIn() {
-  const { status } = useSession()
+  const { data: session } = useSession();
 
-  // Affichage d'un état de chargement si la session est en cours de vérification
-  if (status === "loading") {
-    return (
-      <Loader />
-    )
+  if (session) {
+    return redirect("/dashboard");
   }
-
-  if (status === "authenticated") {
-    window.location.href = "/dashboard";
-  }
-
+  
   return (
-    <div className="flex items-center justify-center h-screen bg-background">
-      <Button
-        size="lg"
-        className="overflow-hidden"
-        onClick={async () => await signIn("github")}>
-        Se connecter
-      </Button>
-    </div >
+    <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
+      <div className="w-full max-w-sm">
+        <LoginForm />
+      </div>
+    </div>
   )
 }

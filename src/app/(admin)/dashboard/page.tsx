@@ -1,7 +1,7 @@
-import React from 'react'
-
-export default function page() {
+export default function Page() {
   return (
-    <div className="flex justify-center items-center size-full text-background"> salut</div>
+    <div>
+      <h1>Dashboard</h1>
+    </div>
   )
 }

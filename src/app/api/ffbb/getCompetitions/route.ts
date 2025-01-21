@@ -1,9 +1,19 @@
 import { NextResponse } from "next/server";
 import HTTPRequest from "@/models/HTTPRequest";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/services/nextAuth/auth";
 
 const codeOrganisme = 11851;
 
 export async function GET(req: Request) {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    return new Response(JSON.stringify({ error: "Unauthorized" }), {
+      status: 401,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
   try {
     const token = req.headers.get("Authorization")?.split(" ")[1];
     if (!token) {
