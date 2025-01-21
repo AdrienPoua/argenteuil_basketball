@@ -10,9 +10,8 @@ import { useFAQForm } from "../actions/client.action"
 export default function FAQForm() {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const form = useFAQForm()
-    
+
     async function onSubmit(data: z.infer<typeof formSchema>) {
-        console.log("🚀 ~ onSubmit ~ data:", data)
         setIsSubmitting(true)
         try {
             await createFAQ(data)
@@ -26,7 +25,7 @@ export default function FAQForm() {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 max-w-2xl mx-auto p-5">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 max-w-2xl w-full mx-auto p-5">
                 <FormField
                     control={form.control}
                     name="question"
@@ -36,7 +35,6 @@ export default function FAQForm() {
                             <FormControl>
                                 <Textarea
                                     placeholder="Votre question ici"
-                                    className="resize-none"
                                     {...field}
                                 />
                             </FormControl>

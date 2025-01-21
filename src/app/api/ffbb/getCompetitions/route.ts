@@ -7,7 +7,6 @@ const codeOrganisme = 11851;
 
 export async function GET(req: Request) {
   const session = await getServerSession(authOptions);
-
   if (!session) {
     return new Response(JSON.stringify({ error: "Unauthorized" }), {
       status: 401,
