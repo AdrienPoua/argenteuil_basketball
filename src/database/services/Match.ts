@@ -25,7 +25,7 @@ export class MatchService {
       correspondant: z.string().optional(),
     }).safeParse(data);
 
-    if (!success) return null
+    if (!success) return null;
     return match;
   }
 
@@ -47,8 +47,8 @@ export class MatchService {
       resultatEquipe1: match.resultatEquipe1,
       resultatEquipe2: match.resultatEquipe2,
       correspondant: match.correspondant,
-      convocationIsSent: match.convocationIsSent,
     };
+
     const result = await prisma.match.upsert({
       where: { id: match.id },
       update: updatePayload,
