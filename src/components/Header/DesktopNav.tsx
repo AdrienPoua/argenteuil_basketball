@@ -1,146 +1,180 @@
-import { ReactElement, useState } from "react";
-import { usePathname } from "next/navigation";
+"use client"
+
+import { ReactElement } from "react";
 import Link from "next/link";
 import {
-  UserCog,
-  UserCheck,
+  UserIcon,
   Users,
-  Building,
+  Crown,
+  Dumbbell,
+  Building2,
+  CalendarDays,
+  GraduationCap,
+  Euro,
   FileText,
-  Calendar,
-  BookOpen,
-  Euro, ChevronDown, CircleHelp,
-  UserIcon
+  HelpCircle
 } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { Button } from "@/components/ui/button";
 import Logo from "@/components/Logo";
 import ContactDialog from "./ContactDialog";
-
-const navigationData = [
-  {
-    label: "Club",
-    dropdowns: [
-      { label: "Dirigeants", href: "/club/dirigeants", icon: UserCog }, // Dirigeants, gestion
-      { label: "Entraineurs", href: "/club/entraineurs", icon: UserCheck }, // Entraineur validé
-      { label: "Equipes", href: "/club/equipes", icon: Users }, // Équipe représentée par un groupe
-      { label: "Gymnases", href: "/club/gymnases", icon: Building }, // Bâtiment pour gymnases
-    ]
-  },
-  {
-    label: "Plannings",
-    dropdowns: [
-      { label: "Matchs", href: "/plannings/matchs", icon: Calendar },
-      { label: "Entrainements", href: "/plannings/entrainements", icon: Calendar },
-    ]
-  },
-  {
-    label: "Inscriptions 2024",
-    dropdowns: [
-      { label: "Guide", href: "/inscriptions/guide", icon: BookOpen }, // Livre pour un guide
-      { label: "Tarifs", href: "/inscriptions/tarifs", icon: Euro } // Symbole dollar pour les tarifs
-    ]
-  },
-];
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
+import Image from "next/image";
 
 
 
 export default function DesktopNav(): ReactElement {
-  const pathname = usePathname();
-
   return (
-    <header className="hidden lg:flex relative items-center px-6 py-2 bg-foreground">
+    <header className="hidden lg:flex relative items-center px-6 py-2 bg-foreground justify-between">
       <Logo />
-      <nav className="flex grow items-center justify-center">
-        <ul className="flex">
-          {navigationData.map((item) => (
-            <DropdownNavItem key={item.label} label={item.label} dropdownItems={item.dropdowns} />
-          ))}
-          <NavItem href="/documents" label="Documents" isActive={pathname === "/documents"} icon={<FileText className="w-4 h-4" />} />
-          <NavItem href="/faq" label="FAQ" isActive={pathname === "/faq"} icon={<CircleHelp className="w-4 h-4" />} />
-        </ul>
-      </nav>
+      <NavigationMenu className="flex grow justify-center">
+        <NavigationMenuList>
+          <ClubItem />
+          <ScheduleItem />
+          <GuideItem />
+          <NavigationMenuItem>
+            <Link href="/documents" legacyBehavior passHref>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                <span className="flex items-center gap-2">
+                  <FileText className="h-4 w-4" />
+                  Documents
+                </span>
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <Link href="/faq" legacyBehavior passHref>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                <span className="flex items-center gap-2">
+                  <HelpCircle className="h-4 w-4" />
+                  FAQ
+                </span>
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu >
       <div className="flex items-center gap-2">
         <Button variant="nav" asChild>
           <Link href="/login">
             <UserIcon />
           </Link>
         </Button>
-          <ContactDialog />
+        <ContactDialog />
       </div>
     </header>
   );
 }
-const NavItem = ({ label, href, isActive, icon }: NavItemProps) => {
+
+
+const ClubItem = () => {
+  return (
+    <NavigationMenuItem>
+      <NavigationMenuTrigger>Le club</NavigationMenuTrigger>
+      <NavigationMenuContent>
+        <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+          <li className="row-span-3 ">
+            <NavigationMenuLink asChild>
+              <Link
+                className="flex h-full w-full select-none flex-col justify-end p-6 no-underline outline-none focus:shadow-md relative z-10 border-2 border-transparent hover:border-primary rounded-md overflow-hidden"
+                href="/club/equipes"
+              >
+                <Image src="/images/divers/teams.avif" alt="Nos équipes" width={500} height={500} className="w-full h-full object-cover absolute inset-0 -z-10" />
+                <Users className="h-6 w-6 text-foreground" />
+                <div className="mb-2 mt-4 text-lg font-medium text-foreground">
+                  Nos équipes
+                </div>
+                <p className="text-sm leading-tight text-foreground">
+                  Découvrez nos équipes
+                </p>
+              </Link>
+            </NavigationMenuLink>
+          </li>
+          <ListItem href="/club/dirigeants" title="Nos dirigeants" icon={<Crown className="h-4 w-4" />}>
+            L&apos;équipe qui fait vivre le club au quotidien
+          </ListItem>
+          <ListItem href="/club/entraineurs" title="Nos entraineurs" icon={<Dumbbell className="h-4 w-4" />}>
+            Les coachs qui forment nos joueurs
+          </ListItem>
+          <ListItem href="/club/gymnases" title="Nos gymnases" icon={<Building2 className="h-4 w-4" />}>
+            Les lieux où se déroulent nos activités
+          </ListItem>
+        </ul>
+      </NavigationMenuContent>
+    </NavigationMenuItem>
+  )
+}
+
+const ScheduleItem = () => {
+  return (
+    <NavigationMenuItem>
+      <NavigationMenuTrigger>Plannings</NavigationMenuTrigger>
+      <NavigationMenuContent>
+        <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-1">
+          <ListItem href="/plannings/matchs" title="Les matchs" icon={<CalendarDays className="h-4 w-4" />}>
+            Consultez le calendrier des rencontres à venir
+          </ListItem>
+          <ListItem href="/plannings/entrainements" title="Les entrainements" icon={<CalendarDays className="h-4 w-4" />}>
+            Horaires et lieux des séances d&apos;entraînement
+          </ListItem>
+        </ul>
+      </NavigationMenuContent>
+    </NavigationMenuItem>
+  )
+}
+
+const GuideItem = () => {
+  return (
+    <NavigationMenuItem>
+      <NavigationMenuTrigger>Les inscriptions</NavigationMenuTrigger>
+      <NavigationMenuContent>
+        <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-1">
+          <ListItem href="/inscriptions/guide" title="Les inscriptions" icon={<GraduationCap className="h-4 w-4" />}>
+            Comment s&apos;inscrire au club pour la saison
+          </ListItem>
+          <ListItem href="/inscriptions/tarifs" title="Les tarifs" icon={<Euro className="h-4 w-4" />}>
+            Détails des cotisations et modalités de paiement
+          </ListItem>
+        </ul>
+      </NavigationMenuContent>
+    </NavigationMenuItem>
+  )
+}
+
+const ListItem = ({ className, title, children, href, icon }: {
+  className?: string,
+  title: string,
+  children: React.ReactNode,
+  href: string,
+  icon: React.ReactNode
+}) => {
   return (
     <li>
-      <Button variant={isActive ? "activeNav" : "nav"} asChild>
-        <Link href={href} className={cn("flex items-center gap-2 px-4 py-2", "text-xl")}>
-          {icon}
-          {label}
-        </Link>
-      </Button>
-    </li>
-  );
-}
-
-
-const DropdownNavItem = ({ dropdownItems, label }: Readonly<DropdownNavItemProps>) => {
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <div
-      className="relative inline-block text-foreground"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <Button
-        variant="nav"
-        className={cn("flex items-center gap-1 px-4 py-2", "text-lg")}
-      >
-        {label}
-        <ChevronDown
+      <NavigationMenuLink asChild>
+        <Link
+          href={href}
           className={cn(
-            "h-4 w-4 transition-transform duration-200",
-            isHovered ? "rotate-180" : "rotate-0"
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:border-primary border-2 border-transparent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            className
           )}
-        />
-      </Button>
-
-      {isHovered && (
-        <div className="absolute left-0 w-48 rounded-md shadow-lg ring-1 ring-primary ring-opacity-5 z-10">
-          <div className="bg-primary border-border border rounded-md">
-            {dropdownItems.map((item) => (
-              <Button key={item.label} variant="outline" asChild className="w-full justify-start rounded-none">
-                <Link href={item.href} className="flex items-center px-4 py-2 text-sm">
-                  <item.icon className="w-4 h-4 mr-2" />
-                  {item.label}
-                </Link>
-              </Button>
-            ))}
+        >
+          <div className="text-sm font-medium leading-none flex items-center gap-2">
+            {icon}
+            {title}
           </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-
-
-interface NavItemProps {
-  label: string;
-  href: string;
-  isActive: boolean;
-  icon?: React.ReactNode;
-}
-
-interface DropdownItem {
-  label: string;
-  href: string;
-  icon: React.ElementType;
-}
-
-interface DropdownNavItemProps {
-  label: string;
-  dropdownItems: DropdownItem[];
+          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+            {children}
+          </p>
+        </Link>
+      </NavigationMenuLink>
+    </li>
+  )
 }
