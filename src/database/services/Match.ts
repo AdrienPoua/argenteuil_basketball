@@ -1,7 +1,7 @@
-import { z } from "zod";
-import { BaseMatchSchema } from "@/database/schemas/Match";
-import prisma from "@/database/prisma";
-import { Prisma } from "@prisma/client";
+import { z } from 'zod';
+import { BaseMatchSchema } from '@/database/schemas/Match';
+import prisma from '@/database/prisma';
+import { Prisma } from '@prisma/client';
 
 export class MatchService {
   private readonly upsertMatchSchema = BaseMatchSchema.extend({
@@ -13,7 +13,7 @@ export class MatchService {
     try {
       return await prisma.match.findMany();
     } catch (error) {
-      console.error("Erreur lors de la récupération des équipes :", error);
+      console.error('Erreur lors de la récupération des équipes :', error);
       throw error;
     }
   }
@@ -66,7 +66,7 @@ export class MatchService {
         where: { id: matchId },
       });
     } catch (error) {
-      console.error("Erreur lors de la suppression du match :", error);
+      console.error('Erreur lors de la suppression du match :', error);
       throw error;
     }
   }

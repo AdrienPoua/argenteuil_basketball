@@ -1,11 +1,11 @@
-import HTTPRequest from "@/models/HTTPRequest";
+import HTTPRequest from '@/models/HTTPRequest';
 
 export default async function fetchRanking(token: string, pouleIDS: number[]) {
   const request = new HTTPRequest.Builder()
-    .setMethod("POST")
-    .setUrl("/api/ffbb/getRanking")
-    .addHeader("Content-Type", "application/json")
-    .addHeader("Authorization", `Bearer ${token}`)
+    .setMethod('POST')
+    .setUrl('/api/ffbb/getRanking')
+    .addHeader('Content-Type', 'application/json')
+    .addHeader('Authorization', `Bearer ${token}`)
     .setBody(JSON.stringify(pouleIDS))
     .build();
 

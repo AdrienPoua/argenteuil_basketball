@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { QueryClient, QueryClientProvider } from "react-query";
-import { SessionProvider } from "next-auth/react";
-import App from "./App";
-import "./globals.css";
-import { Toaster } from "@/components/ui/toaster"
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { SessionProvider } from 'next-auth/react';
+import App from './App';
+import './globals.css';
+import { Toaster } from '@/components/ui/toaster';
 
 const queryClient = new QueryClient();
 

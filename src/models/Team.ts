@@ -1,5 +1,5 @@
-import { Prisma } from "@prisma/client";
-import { SessionSchema } from "@/database/schemas/Team";
+import { Prisma } from '@prisma/client';
+import { SessionSchema } from '@/database/schemas/Team';
 
 type ConstructorType = Prisma.TeamGetPayload<{
   include: { coach: true };
@@ -21,7 +21,7 @@ export default class Team {
     this._id = data.id;
     this._sessions = data.sessions;
     this._level = data.level;
-    this._isCompetition = data.isCompetition ;
+    this._isCompetition = data.isCompetition;
     this._championnats = data.championnats;
   }
 
@@ -37,10 +37,12 @@ export default class Team {
   get sessions() {
     return Array.isArray(this._sessions)
       ? this._sessions.map((session) => {
-        const parsedSession = SessionSchema.parse(session)
-        return {...parsedSession, gymnase: parsedSession.gymnase.replace('_', ' ')}
-      
-      })
+          const parsedSession = SessionSchema.parse(session);
+          return {
+            ...parsedSession,
+            gymnase: parsedSession.gymnase.replace('_', ' '),
+          };
+        })
       : [];
   }
 
@@ -53,7 +55,7 @@ export default class Team {
   }
 
   get image() {
-    return this._image ?? "/images/default/equipes.avif";
+    return this._image ?? '/images/default/equipes.avif';
   }
   get coach() {
     return this._coach || undefined;

@@ -1,6 +1,5 @@
-
 export default function Underline() {
-    return (
-        <div className="after:bg-gradient-to-r from-primary to-white after:p-1 after:shadow-xl after:w-full after:rounded-lg after:filter after:absolute after:left-0 inline-block after:-bottom-3" />
-    );
+  return (
+    <div className='inline-block from-primary to-white after:absolute after:-bottom-3 after:left-0 after:w-full after:rounded-lg after:bg-gradient-to-r after:p-1 after:shadow-xl after:filter' />
+  );
 }

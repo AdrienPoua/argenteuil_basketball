@@ -1,12 +1,12 @@
 module.exports = {
-  siteUrl: "https://argenteuilbasketball.com",
+  siteUrl: 'https://argenteuilbasketball.com',
   generateRobotsTxt: true,
   robotsTxtOptions: {
     policies: [
       {
-        userAgent: "*",
-        allow: "/",
-        disallow: ["/admin"],
+        userAgent: '*',
+        allow: '/',
+        disallow: ['/admin'],
       },
     ],
   },

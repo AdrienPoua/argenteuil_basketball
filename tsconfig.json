@@ -1,10 +1,6 @@
 {
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
@@ -24,22 +20,11 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@nextauth/*": [
-        "./src/api/auth/[...nextauth]/routes.ts"
-      ]
+      "@/*": ["./src/*"],
+      "@nextauth/*": ["./src/api/auth/[...nextauth]/routes.ts"]
     },
     "isolatedModules": true
   },
-  "include": [
-    "next-env.d.ts",
-    "src",
-    ".next/types/**/*.ts",
-    "tailwind.config.ts"
-, "middleware.js"  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "src", ".next/types/**/*.ts", "tailwind.config.ts", "middleware.js"],
+  "exclude": ["node_modules"]
 }

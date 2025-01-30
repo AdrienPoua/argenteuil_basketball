@@ -1,34 +1,34 @@
-"use server";
+'use server';
 
-import { z } from "zod";
-import { FAQService } from "@/database/services/FAQ";
-import { formSchema } from "../schemas/form.schema";
-import { Prisma } from "@prisma/client";
-import { revalidatePath } from "next/cache";
+import { z } from 'zod';
+import { FAQService } from '@/database/services/FAQ';
+import { formSchema } from '../schemas/form.schema';
+import { Prisma } from '@prisma/client';
+import { revalidatePath } from 'next/cache';
 
 const faqService = new FAQService();
 
 export async function createFAQ(data: z.infer<typeof formSchema>) {
   await faqService.createFaq(data);
-  revalidatePath("/dashboard/faq");
+  revalidatePath('/dashboard/faq');
 }
 
 export async function pushRank(faq: Prisma.FAQGetPayload<{}>) {
   await faqService.pushRank(faq);
-  revalidatePath("/dashboard/faq");
+  revalidatePath('/dashboard/faq');
 }
 
 export async function deleteFAQ(id: string) {
   await faqService.deleteFaq(id);
-  revalidatePath("/dashboard/faq");
+  revalidatePath('/dashboard/faq');
 }
 
 export async function downRank(faq: Prisma.FAQGetPayload<{}>) {
   await faqService.downRank(faq);
-  revalidatePath("/dashboard/faq");
+  revalidatePath('/dashboard/faq');
 }
 
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema } from 'mongoose';
 
 const FAQSchema = new Schema({
   question: { type: String, required: true },
@@ -36,4 +36,4 @@ const FAQSchema = new Schema({
   rank: { type: Number, required: true },
 });
 
-const FAQ = mongoose.models.FAQ || mongoose.model("FAQ", FAQSchema);
+const FAQ = mongoose.models.FAQ || mongoose.model('FAQ', FAQSchema);

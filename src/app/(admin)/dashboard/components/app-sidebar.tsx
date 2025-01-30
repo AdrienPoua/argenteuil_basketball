@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import {
   Sidebar,
   SidebarContent,
@@ -10,27 +10,27 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarRail
-} from "@/components/ui/sidebar"
-import { signOut } from "next-auth/react"
+  SidebarRail,
+} from '@/components/ui/sidebar';
+import { signOut } from 'next-auth/react';
 import {
   Trophy,
-  LayoutDashboard, UserCog,
+  LayoutDashboard,
+  UserCog,
   GraduationCap,
   UsersRound,
   HelpCircle,
   LogOut,
   Camera,
-  Home
-} from "lucide-react"
-import Link from "next/link"
-
+  Home,
+} from 'lucide-react';
+import Link from 'next/link';
 
 export function AppSidebar() {
   return (
-    <Sidebar variant="inset" collapsible="icon">
+    <Sidebar variant='inset' collapsible='icon'>
       <SidebarHeader />
-      <SidebarContent >
+      <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Application</SidebarGroupLabel>
           <SidebarGroupContent>
@@ -49,8 +49,8 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter >
-        <SidebarGroup >
+      <SidebarFooter>
+        <SidebarGroup>
           <SidebarGroupLabel>Connexion</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
@@ -64,9 +64,12 @@ export function AppSidebar() {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
-              <SidebarMenuItem >
+              <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <SidebarMenuButton className="bg-primary text-primary-foreground hover:bg-primary/90 hover:text-foreground" onClick={() => signOut()}>
+                  <SidebarMenuButton
+                    className='bg-primary text-primary-foreground hover:bg-primary/90 hover:text-foreground'
+                    onClick={() => signOut()}
+                  >
                     <LogOut />
                     <span>Déconnexion</span>
                   </SidebarMenuButton>
@@ -78,57 +81,56 @@ export function AppSidebar() {
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }
-
 
 const topItems = [
   {
-    title: "Dashboard",
-    url: "/dashboard",
+    title: 'Dashboard',
+    url: '/dashboard',
     icon: LayoutDashboard,
   },
   {
-    title: "FFBB",
-    url: "/dashboard/ffbb",
+    title: 'FFBB',
+    url: '/dashboard/ffbb',
     icon: Trophy,
   },
   {
-    title: "Matchs",
-    url: "/dashboard/matchs",
+    title: 'Matchs',
+    url: '/dashboard/matchs',
     icon: Trophy,
   },
   {
-    title: "Correspondants",
-    url: "/dashboard/correspondants",
+    title: 'Correspondants',
+    url: '/dashboard/correspondants',
     icon: UserCog,
   },
   {
-    title: "Membres",
-    url: "/dashboard/membres",
+    title: 'Membres',
+    url: '/dashboard/membres',
     icon: GraduationCap,
   },
   {
-    title: "Equipes",
-    url: "/dashboard/equipes",
+    title: 'Equipes',
+    url: '/dashboard/equipes',
     icon: UsersRound,
   },
   {
-    title: "FAQ",
-    url: "/dashboard/faq",
+    title: 'FAQ',
+    url: '/dashboard/faq',
     icon: HelpCircle,
-  }
-]
+  },
+];
 
 const bottomItems = [
   {
-    title: "Blog",
-    url: "/studio/structure",
-    icon: Camera
+    title: 'Blog',
+    url: '/studio/structure',
+    icon: Camera,
   },
   {
-    title: "Acceuil",
-    url: "/",
+    title: 'Acceuil',
+    url: '/',
     icon: Home,
-  }
-]
+  },
+];

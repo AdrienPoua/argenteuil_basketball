@@ -1,7 +1,7 @@
-import { TeamSchema } from "@/database/schemas/Team";
-import prisma from "@/database/prisma";
-import { Prisma } from "@prisma/client";
-import { z } from "zod";
+import { TeamSchema } from '@/database/schemas/Team';
+import prisma from '@/database/prisma';
+import { Prisma } from '@prisma/client';
+import { z } from 'zod';
 
 export class TeamService {
   private readonly createTeamSchema = TeamSchema.extend({
@@ -36,7 +36,7 @@ export class TeamService {
         },
       });
     } catch (error) {
-      console.error("Erreur lors de la récupération des équipes :", error);
+      console.error('Erreur lors de la récupération des équipes :', error);
       throw error;
     }
   }

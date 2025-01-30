@@ -1,9 +1,9 @@
-"use server";
-import type { ClientPerspective, QueryParams } from "next-sanity";
-import { draftMode } from "next/headers";
+'use server';
+import type { ClientPerspective, QueryParams } from 'next-sanity';
+import { draftMode } from 'next/headers';
 
-import { client } from "./client";
-import { token } from "./token";
+import { client } from './client';
+import { token } from './token';
 
 /**
  * Used to fetch data in Server Components, it has built in support for handling Draft Mode and perspectives.
@@ -14,24 +14,23 @@ import { token } from "./token";
 export async function sanityFetch<QueryResponse>({
   query,
   params = {},
-  perspective = draftMode().isEnabled ? "previewDrafts" : "published",
+  perspective = draftMode().isEnabled ? 'previewDrafts' : 'published',
   /**
    * Stega embedded Content Source Maps are used by Visual Editing by both the Sanity Presentation Tool and Vercel Visual Editing.
    * The Sanity Presentation Tool will enable Draft Mode when loading up the live preview, and we use it as a signal for when to embed source maps.
    * When outside of the Sanity Studio we also support the Vercel Toolbar Visual Editing feature, which is only enabled in production when it's a Vercel Preview Deployment.
    */
-  stega = perspective === "previewDrafts" ||
-    process.env.VERCEL_ENV === "preview",
+  stega = perspective === 'previewDrafts' || process.env.VERCEL_ENV === 'preview',
 }: {
   query: string;
   params?: QueryParams;
-  perspective?: Omit<ClientPerspective, "raw">;
+  perspective?: Omit<ClientPerspective, 'raw'>;
   stega?: boolean;
 }) {
-  if (perspective === "previewDrafts") {
+  if (perspective === 'previewDrafts') {
     return client.fetch<QueryResponse>(query, params, {
       stega,
-      perspective: "previewDrafts",
+      perspective: 'previewDrafts',
       // The token is required to fetch draft content
       token,
       // The `previewDrafts` perspective isn't available on the API CDN
@@ -42,7 +41,7 @@ export async function sanityFetch<QueryResponse>({
   }
   return client.fetch<QueryResponse>(query, params, {
     stega,
-    perspective: "published",
+    perspective: 'published',
     // The `published` perspective is available on the API CDN
     useCdn: true,
     // Only enable Stega in production if it's a Vercel Preview Deployment, as the Vercel Toolbar supports Visual Editing

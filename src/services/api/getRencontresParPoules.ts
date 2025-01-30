@@ -1,28 +1,25 @@
-import HTTPRequest from "@/models/HTTPRequest";
+import HTTPRequest from '@/models/HTTPRequest';
 
-export default async function fetchRencontresParPoules(
-  token: string,
-  pouleIDS: number[],
-): Promise<MatchTransformed[]> {
+export default async function fetchRencontresParPoules(token: string, pouleIDS: number[]): Promise<MatchTransformed[]> {
   const request = new HTTPRequest.Builder()
-    .setUrl("/api/ffbb/getRencontres")
-    .setMethod("POST")
-    .addHeader("Content-Type", "application/json")
-    .addHeader("Authorization", `Bearer ${token}`)
+    .setUrl('/api/ffbb/getRencontres')
+    .setMethod('POST')
+    .addHeader('Content-Type', 'application/json')
+    .addHeader('Authorization', `Bearer ${token}`)
     .setBody(JSON.stringify(pouleIDS))
     .build();
 
   const data = await request.send();
   return data.map((match: Match) => {
     const date = new Date(match.date);
-    const horaireStr = String(match.horaire).padStart(4, "0");
+    const horaireStr = String(match.horaire).padStart(4, '0');
     const hours = parseInt(horaireStr.slice(0, 2), 10);
     const minutes = parseInt(horaireStr.slice(-2), 10);
     date.setHours(hours, minutes, 0, 0);
     return {
       ...match,
       date: date,
-      salle: match.salle?.libelle || "Salle non définie",
+      salle: match.salle?.libelle || 'Salle non définie',
     };
   });
 }
@@ -60,5 +57,4 @@ type Match = {
   classementPouleAssociee: number | null;
 };
 
-type MatchTransformed = Omit<Match, "horaire" | "salle"> & { salle: string };
-
+type MatchTransformed = Omit<Match, 'horaire' | 'salle'> & { salle: string };
