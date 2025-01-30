@@ -1,12 +1,11 @@
 {
-    "id": 11851,
-    "name": "Argenteuil BB",
-    "city": "Argenteuil",
-    "address": "82 bd du general leclerc",
-    "zipcode": "95100",
-    "email" : "argenteuilbasketball@hotmail.fr",
-    "phone": "0670222238",
-    "logo" : "/images/logo.png",
-    "saison": "2024-2025"
-  }
-  
+  "id": 11851,
+  "name": "Argenteuil BB",
+  "city": "Argenteuil",
+  "address": "82 bd du general leclerc",
+  "zipcode": "95100",
+  "email": "argenteuilbasketball@hotmail.fr",
+  "phone": "0670222238",
+  "logo": "/images/logo.png",
+  "saison": "2024-2025"
+}

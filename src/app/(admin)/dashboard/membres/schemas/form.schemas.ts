@@ -1,6 +1,5 @@
-
-import { Roles } from "@prisma/client";
-import { z } from "zod";
+import { Roles } from '@prisma/client';
+import { z } from 'zod';
 
 export const FormSchema = z.object({
   id: z.string().optional(),

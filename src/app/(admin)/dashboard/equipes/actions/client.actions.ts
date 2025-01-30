@@ -1,22 +1,22 @@
-"use client";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { formSchema } from "../schemas/form.schemas";
-import { FormSchemaType, PropsType } from "../types/form.types";
-import { useQuery } from "react-query";
-import getCompetitions from "@/services/api/getCompetitions";
-import useToken from "@/hooks/useToken";
+'use client';
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { formSchema } from '../schemas/form.schemas';
+import { FormSchemaType, PropsType } from '../types/form.types';
+import { useQuery } from 'react-query';
+import getCompetitions from '@/services/api/getCompetitions';
+import useToken from '@/hooks/useToken';
 
 export const getImageUrl = async (file: File) => {
   if (!file) return;
   const urlSchema = z.string();
   const formData = new FormData();
-  formData.append("file", file); // Fichier brut
-  formData.append("fileName", file.name);
-  
-  const response = await fetch("/api/auth/imagekit", {
-    method: "POST",
+  formData.append('file', file); // Fichier brut
+  formData.append('fileName', file.name);
+
+  const response = await fetch('/api/auth/imagekit', {
+    method: 'POST',
     body: formData,
   });
   const { url } = await response.json();
@@ -24,25 +24,26 @@ export const getImageUrl = async (file: File) => {
   return validatedUrl;
 };
 
-export const useTeamForm = (defaultValues?: PropsType["defaultValues"]) => {
-  
+export const useTeamForm = (defaultValues?: PropsType['defaultValues']) => {
   const baseDefaultValues = {
     sessions: [],
     image: undefined,
-    name: "",
+    name: '',
     isCompetition: false,
-    level: "",
-    coach: "",
+    level: '',
+    coach: '',
     championnats: [],
   };
   const defaultValuesFromProps = {
     ...defaultValues,
     image: defaultValues?.image ? new File([], defaultValues.image) : undefined,
-    coach: defaultValues?.coach ? defaultValues.coach.id : "",
-    sessions: defaultValues?.sessions ? defaultValues.sessions.map((session) => ({
-      ...session,
-      gymnase: session.gymnase.replace(" ", "_") as "Jean_Guimier" | "Jesse_Owens",
-    })) : [],
+    coach: defaultValues?.coach ? defaultValues.coach.id : '',
+    sessions: defaultValues?.sessions
+      ? defaultValues.sessions.map((session) => ({
+          ...session,
+          gymnase: session.gymnase.replace(' ', '_') as 'Jean_Guimier' | 'Jesse_Owens',
+        }))
+      : [],
   };
   return useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
@@ -52,12 +53,12 @@ export const useTeamForm = (defaultValues?: PropsType["defaultValues"]) => {
 
 export const useCompetitions = () => {
   const token = useToken();
-  const { data: competitions} = useQuery(
-    "competitions",
+  const { data: competitions } = useQuery(
+    'competitions',
     async () => {
       return getCompetitions(token!);
     },
-    { enabled: !!token }
+    { enabled: !!token },
   );
   return competitions?.map((competition) => competition.code);
 };

@@ -1,8 +1,8 @@
-import GithubProvider from "next-auth/providers/github";
-import NextAuth, { NextAuthOptions } from "next-auth";
-import { z } from "zod";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import prisma from "@/database/prisma";
+import GithubProvider from 'next-auth/providers/github';
+import NextAuth, { NextAuthOptions } from 'next-auth';
+import { z } from 'zod';
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import prisma from '@/database/prisma';
 
 const { GITHUB_ID, GITHUB_SECRET, ADMIN_GITHUB_EMAIL } = process.env;
 
@@ -35,16 +35,16 @@ export const authOptions: NextAuthOptions = {
       if (url.startsWith(`${baseUrl}/dashboard`)) {
         return baseUrl;
       }
-      return "/dashboard";
+      return '/dashboard';
     },
   },
   events: {
     async signIn(message) {
-      console.log("User signed in:", message);
+      console.log('User signed in:', message);
     },
   },
   session: {
-    strategy: "jwt",
+    strategy: 'jwt',
   },
 };
 

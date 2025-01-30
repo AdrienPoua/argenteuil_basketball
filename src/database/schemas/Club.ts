@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 export const ClubSchema = z.object({
   id: z.string(),
@@ -7,6 +7,3 @@ export const ClubSchema = z.object({
   phone: z.string().optional(),
   email: z.string().optional(),
 });
-
-
-

@@ -1,6 +1,6 @@
-import { Prisma, Roles, Team } from "@prisma/client";
-import { TeamSchema } from "@/database/schemas/Team";
-import { IdSchema } from "@/database/schemas/Id";
+import { Prisma, Roles, Team } from '@prisma/client';
+import { TeamSchema } from '@/database/schemas/Team';
+import { IdSchema } from '@/database/schemas/Id';
 
 type ConstructorType = Prisma.MemberGetPayload<{
   include: { teams: true };
@@ -57,7 +57,7 @@ export default class Member {
   }
 
   get image() {
-    return this._image ?? "/images/default/avatar.png";
+    return this._image ?? '/images/default/avatar.png';
   }
   get teams() {
     return this._teams.map((team) => TeamSchema.merge(IdSchema).parse(team));
@@ -68,7 +68,7 @@ export default class Member {
   }
 
   get role() {
-    return this._role.map((role) => role.replace("_", " "));
+    return this._role.map((role) => role.replace('_', ' '));
   }
 
   toPlainObject() {
@@ -86,4 +86,3 @@ export default class Member {
     };
   }
 }
-

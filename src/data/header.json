@@ -2,31 +2,66 @@
   {
     "title": "Club",
     "subItems": [
-      { "title": "Dirigeants", "href": "/club/dirigeants", "img": "/images/header/dirigeants.avif" },
-      { "title": "Entraineurs", "href": "/club/entraineurs", "img": "/images/header/entraineurs.avif" },
-      { "title": "Equipes", "href": "/club/equipes", "img": "/images/header/equipes.avif" },
-      { "title": "Gymnases", "href": "/club/gymnases", "img": "/images/header/gymnases.avif" }
-
+      {
+        "title": "Dirigeants",
+        "href": "/club/dirigeants",
+        "img": "/images/header/dirigeants.avif"
+      },
+      {
+        "title": "Entraineurs",
+        "href": "/club/entraineurs",
+        "img": "/images/header/entraineurs.avif"
+      },
+      {
+        "title": "Equipes",
+        "href": "/club/equipes",
+        "img": "/images/header/equipes.avif"
+      },
+      {
+        "title": "Gymnases",
+        "href": "/club/gymnases",
+        "img": "/images/header/gymnases.avif"
+      }
     ]
   },
   {
     "title": "Entrainements 2024",
     "subItems": [
-      { "title": "Horaires ", "href": "/entrainements/horaires", "img": "/images/header/horaires.avif" }
+      {
+        "title": "Horaires ",
+        "href": "/entrainements/horaires",
+        "img": "/images/header/horaires.avif"
+      }
     ]
   },
   {
     "title": "Matchs",
     "subItems": [
-      { "title": "Calendrier", "href": "/matchs/calendrier", "img": "/images/header/calendrier.avif" },
-      { "title": "Résultats", "href": "/matchs/resultats", "img": "/images/header/classement.avif" }
+      {
+        "title": "Calendrier",
+        "href": "/matchs/calendrier",
+        "img": "/images/header/calendrier.avif"
+      },
+      {
+        "title": "Résultats",
+        "href": "/matchs/resultats",
+        "img": "/images/header/classement.avif"
+      }
     ]
   },
   {
     "title": "Inscriptions 2024",
     "subItems": [
-      { "title": "Guide", "href": "/inscriptions/guide", "img": "/images/header/guide.avif" },
-      { "title": "Tarifs", "href": "/inscriptions/tarifs", "img": "/images/header/tarifs.avif" }
+      {
+        "title": "Guide",
+        "href": "/inscriptions/guide",
+        "img": "/images/header/guide.avif"
+      },
+      {
+        "title": "Tarifs",
+        "href": "/inscriptions/tarifs",
+        "img": "/images/header/tarifs.avif"
+      }
     ]
   },
   {

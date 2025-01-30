@@ -1,4 +1,4 @@
-import Transporter from "@/models/NodemailerTransporter";
+import Transporter from '@/models/NodemailerTransporter';
 const { MAILGUN_API_KEY, EMAIL_PORT, EMAIL_HOST } = process.env;
 
 if (!MAILGUN_API_KEY?.trim() || !EMAIL_PORT?.trim() || !EMAIL_HOST?.trim()) {
@@ -11,7 +11,7 @@ export const transporter = new Transporter.Builder()
   .setHost(EMAIL_HOST)
   .setPort(Number(EMAIL_PORT))
   .setAuth({
-    user: "postmaster@email.argenteuilbasketball.com",
+    user: 'postmaster@email.argenteuilbasketball.com',
     pass: MAILGUN_API_KEY,
   })
   .build()

@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from '@prisma/client';
 
 type ConstructorType = Prisma.MatchGetPayload<{}>;
 export default class Match {
@@ -47,20 +47,19 @@ export default class Match {
     this._remise = data.remise;
     this._joue = data.joue;
     this._modification = data.modification;
-    this._competition = data.competition ?? "";
+    this._competition = data.competition ?? '';
     this._correspondant = data.correspondant ?? undefined;
     this._convocationIsSent = data.convocationIsSent ?? false;
   }
-  
+
   get formatedDate() {
-    return new Intl.DateTimeFormat("fr-FR", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      timeZone: "Europe/Paris" // Forcer le fuseau horaire
+    return new Intl.DateTimeFormat('fr-FR', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      timeZone: 'Europe/Paris', // Forcer le fuseau horaire
     }).format(this._date);
   }
-  
 
   get numero() {
     return this._numero;
@@ -87,13 +86,13 @@ export default class Match {
   }
 
   get heure() {
-    return this._date.toLocaleTimeString("fr-FR", {
-      hour: "2-digit",
-      minute: "2-digit",
-      timeZone: "Europe/Paris",
+    return this._date.toLocaleTimeString('fr-FR', {
+      hour: '2-digit',
+      minute: '2-digit',
+      timeZone: 'Europe/Paris',
     });
   }
-  
+
   get nomEquipe1() {
     return this._nomEquipe1;
   }
@@ -115,7 +114,7 @@ export default class Match {
   }
 
   get salle() {
-    return this._salle ?? "";
+    return this._salle ?? '';
   }
 
   get forfaitEquipe1() {

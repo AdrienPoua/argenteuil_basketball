@@ -1,6 +1,6 @@
-import { MemberSchema } from "@/database/schemas/Member";
-import prisma from "@/database/prisma";
-import { z } from "zod";
+import { MemberSchema } from '@/database/schemas/Member';
+import prisma from '@/database/prisma';
+import { z } from 'zod';
 export class MemberService {
   private readonly createDataSchema = MemberSchema.extend({
     teams: z.array(z.string()),
@@ -25,7 +25,7 @@ export class MemberService {
         },
       });
     } catch (error) {
-      console.error("Erreur lors de la création du membre :", error);
+      console.error('Erreur lors de la création du membre :', error);
       throw error;
     }
   }
@@ -46,11 +46,10 @@ export class MemberService {
         },
       },
       include: {
-        teams: true, 
+        teams: true,
       },
     });
   }
-  
 
   async getLeaders() {
     return await prisma.member.findMany({
@@ -85,7 +84,7 @@ export class MemberService {
         where: { id: id },
       });
     } catch (error) {
-      console.error("Erreur lors de la suppression du membre :", error);
+      console.error('Erreur lors de la suppression du membre :', error);
       throw error;
     }
   }

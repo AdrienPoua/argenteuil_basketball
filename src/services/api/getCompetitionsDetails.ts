@@ -1,23 +1,19 @@
-import HTTPRequest from "@/models/HTTPRequest";
-import { z } from "zod";
+import HTTPRequest from '@/models/HTTPRequest';
+import { z } from 'zod';
 
-export default async function getCompetitionsDetails(
-  token: string,
-  ids: number[],
-) {
+export default async function getCompetitionsDetails(token: string, ids: number[]) {
   const requests = ids.map((id) => {
     return new HTTPRequest.Builder()
-      .setUrl("/api/ffbb/getCompetitionsDetails")
-      .setMethod("POST")
-      .addHeader("Content-Type", "application/json")
-      .addHeader("Authorization", `Bearer ${token}`)
+      .setUrl('/api/ffbb/getCompetitionsDetails')
+      .setMethod('POST')
+      .addHeader('Content-Type', 'application/json')
+      .addHeader('Authorization', `Bearer ${token}`)
       .setBody(JSON.stringify(id))
       .build();
   });
 
-  return await Promise.all(requests.map((request) => request.send())) as Competition[];
+  return (await Promise.all(requests.map((request) => request.send()))) as Competition[];
 }
-
 
 const CategorieSchema = z.object({
   id: z.number(),
@@ -66,27 +62,29 @@ const ClassementSchema = z.object({
   horsClassement: z.boolean(),
 });
 
-const CompetitionSchema = z.array(z.object({
-  id: z.number(),
-  idCompetitionPere: z.nullable(z.number()),
-  nom: z.string(),
-  sexe: z.string(),
-  categorie: CategorieSchema,
-  code: z.string(),
-  fils: z.array(z.unknown()),
-  saison: SaisonSchema,
-  typeCompetition: z.string(),
-  liveStat: z.boolean(),
-  creationEnCours: z.boolean(),
-  publicationInternet: z.string(),
-  classification: z.nullable(z.string()),
-  organisme: OrganismeSchema,
-  creation: z.string(),
-  modification: z.string(),
-  etat: z.string(),
-  poules: z.array(PouleSchema),
-  classements: z.array(ClassementSchema),
-}))
+const CompetitionSchema = z.array(
+  z.object({
+    id: z.number(),
+    idCompetitionPere: z.nullable(z.number()),
+    nom: z.string(),
+    sexe: z.string(),
+    categorie: CategorieSchema,
+    code: z.string(),
+    fils: z.array(z.unknown()),
+    saison: SaisonSchema,
+    typeCompetition: z.string(),
+    liveStat: z.boolean(),
+    creationEnCours: z.boolean(),
+    publicationInternet: z.string(),
+    classification: z.nullable(z.string()),
+    organisme: OrganismeSchema,
+    creation: z.string(),
+    modification: z.string(),
+    etat: z.string(),
+    poules: z.array(PouleSchema),
+    classements: z.array(ClassementSchema),
+  }),
+);
 
 // Type inference
 type Competition = z.infer<typeof CompetitionSchema>;

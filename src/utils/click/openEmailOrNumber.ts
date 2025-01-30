@@ -1,8 +1,9 @@
-"use client";
-import useIsMobile from "@/hooks/use-mobile";
+'use client';
+import useIsMobile from '@/hooks/use-mobile';
 
-const isEmail = (text: string) => text.includes("@");
-const isPhone = (text: string) => text.startsWith("06") || text.startsWith("07") || text.startsWith("+33") || text.startsWith("0033");
+const isEmail = (text: string) => text.includes('@');
+const isPhone = (text: string) =>
+  text.startsWith('06') || text.startsWith('07') || text.startsWith('+33') || text.startsWith('0033');
 const openMail = (to: string) => {
   window.location.href = `mailto:${to}`;
 };
@@ -18,7 +19,7 @@ const useHandleClick = () => {
     } else if (isMobile && isPhone(text)) {
       openPhone(text);
     } else if (!isMobile && isPhone(text)) {
-      return
+      return;
     }
   };
 };

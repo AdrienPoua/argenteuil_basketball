@@ -41,8 +41,8 @@ export default class HTTPRequest {
       body: any;
 
       constructor() {
-        this.url = "";
-        this.method = "GET";
+        this.url = '';
+        this.method = 'GET';
         this.headers = {};
         this.body = null;
       }

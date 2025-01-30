@@ -1,5 +1,5 @@
-import Match from "@/models/Match";
+import Match from '@/models/Match';
 
 export type PropsType = {
-    matchs: ReturnType<Match["toPlainObject"]>[]
-}
+  matchs: ReturnType<Match['toPlainObject']>[];
+};

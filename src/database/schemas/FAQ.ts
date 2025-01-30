@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 export const BaseFAQSchema = z.object({
   question: z.string(),

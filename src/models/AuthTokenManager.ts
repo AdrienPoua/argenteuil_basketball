@@ -1,10 +1,10 @@
-const extranetTokenEndpoint = "/api/auth/ffbb/token";
+const extranetTokenEndpoint = '/api/auth/ffbb/token';
 
 class AuthTokenManager {
   async fetchExtranetToken() {
     const response = await fetch(extranetTokenEndpoint, {
       headers: {
-        "X-Custom-Request-ID": Date.now().toString(),
+        'X-Custom-Request-ID': Date.now().toString(),
       },
     });
 
@@ -14,7 +14,7 @@ class AuthTokenManager {
     }
 
     const token = await response.text();
-    localStorage.setItem("FFBB_TOKEN", token);
+    localStorage.setItem('FFBB_TOKEN', token);
     return token;
   }
 }

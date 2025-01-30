@@ -5,6 +5,7 @@ Bienvenue sur le site officiel du club de basketball d'Argenteuil. Ce site a ét
 ## Description
 
 Argenteuil Basketball permet de :
+
 - Découvrir les membres dirigeants et entraineurs du club.
 - Découvrir les équipes.
 - Voir les plannings des matchs et des entraînements.
@@ -42,11 +43,7 @@ Ce site a été développé par votre serviteur, moi-même.
 
 ![image](https://github.com/AdrienPoua/argenteuil_basketball/assets/73964028/a58dd254-b048-4837-a171-d2305c6a3846)
 
-
-
 ![image](https://github.com/AdrienPoua/argenteuil_basketball/assets/73964028/1c09f6eb-c982-4f34-b05e-d5592afe1b5c)
-
-
 
 ---
 

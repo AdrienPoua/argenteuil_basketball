@@ -1,8 +1,6 @@
-import {
-  BaseFAQSchema,
-} from "@/database/schemas/FAQ";
-import prisma from "@/database/prisma";
-import { z } from "zod";
+import { BaseFAQSchema } from '@/database/schemas/FAQ';
+import prisma from '@/database/prisma';
+import { z } from 'zod';
 
 export class FAQService {
   private readonly BaseFAQSchema = BaseFAQSchema;
@@ -15,7 +13,7 @@ export class FAQService {
         data: parsedFAQ,
       });
     } catch (error) {
-      console.error("Erreur lors de la création du faq :", error);
+      console.error('Erreur lors de la création du faq :', error);
       throw error;
     }
   }
@@ -25,7 +23,7 @@ export class FAQService {
     try {
       return await prisma.fAQ.findMany({});
     } catch (error) {
-      console.error("Erreur lors de la récupération des faqs :", error);
+      console.error('Erreur lors de la récupération des faqs :', error);
       throw error;
     }
   }
@@ -38,7 +36,7 @@ export class FAQService {
         data: parsedFAQ,
       });
     } catch (error) {
-      console.error("Erreur lors de la mise à jour du faq :", error);
+      console.error('Erreur lors de la mise à jour du faq :', error);
       throw error;
     }
   }
@@ -47,7 +45,7 @@ export class FAQService {
     const parsedFAQ = this.ExistingFAQSchema.parse(data);
     return await prisma.fAQ.update({
       where: { id: parsedFAQ.id },
-      data: { position: parsedFAQ.position + 1 }
+      data: { position: parsedFAQ.position + 1 },
     });
   }
 
@@ -55,7 +53,7 @@ export class FAQService {
     const parsedFAQ = this.ExistingFAQSchema.parse(data);
     return await prisma.fAQ.update({
       where: { id: parsedFAQ.id },
-      data: { position: parsedFAQ.position - 1 }
+      data: { position: parsedFAQ.position - 1 },
     });
   }
 
@@ -65,7 +63,7 @@ export class FAQService {
         where: { id: id },
       });
     } catch (error) {
-      console.error("Erreur lors de la suppression du faq :", error);
+      console.error('Erreur lors de la suppression du faq :', error);
       throw error;
     }
   }

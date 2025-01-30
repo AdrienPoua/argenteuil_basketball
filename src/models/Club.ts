@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from '@prisma/client';
 
 type ConstructorType = Prisma.ClubGetPayload<{}>;
 export default class ClubService {
@@ -22,13 +22,13 @@ export default class ClubService {
     return this._code;
   }
   get libelle(): string {
-    return this._libelle.split("-")[0];
+    return this._libelle.split('-')[0];
   }
   get email(): string {
     return this._email ?? "Pas d'email";
   }
   get phone(): string {
-    return this._phone ?? "Pas de numéro";
+    return this._phone ?? 'Pas de numéro';
   }
 
   toPlainObject() {

@@ -1,16 +1,15 @@
-import HTTPRequest from "@/models/HTTPRequest";
-
+import HTTPRequest from '@/models/HTTPRequest';
 
 export default async function getCompetitions(token: string) {
   const request = new HTTPRequest.Builder()
-  .setUrl("/api/ffbb/getCompetitions")
-  .addHeader("Content-Type", "application/json")
-  .addHeader("Authorization", `Bearer ${token}`)
-  .build();
-  
-  console.log("🚀 ~ getCompetitions ~ request:", request)
-  const response = await request.send() as Competition[];
-  console.log("🚀 ~ getCompetitions ~ response:", response)
+    .setUrl('/api/ffbb/getCompetitions')
+    .addHeader('Content-Type', 'application/json')
+    .addHeader('Authorization', `Bearer ${token}`)
+    .build();
+
+  console.log('🚀 ~ getCompetitions ~ request:', request);
+  const response = (await request.send()) as Competition[];
+  console.log('🚀 ~ getCompetitions ~ response:', response);
   return response;
 }
 
@@ -18,7 +17,7 @@ type Competition = {
   id: number;
   idCompetitionPere: number | null;
   nom: string;
-  sexe: "M" | "F" | "X"; // Masculin, Féminin ou Mixte
+  sexe: 'M' | 'F' | 'X'; // Masculin, Féminin ou Mixte
   categorie: {
     id: number;
     code?: string;
@@ -32,7 +31,7 @@ type Competition = {
     libelle: string;
     debut: string; // Format "JJ/MM/AAAA"
     fin: string; // Format "JJ/MM/AAAA"
-    actif: "true" | "false";
+    actif: 'true' | 'false';
   };
   typeCompetition: string; // Exemple : "DIV" ou "PLAT"
   liveStat: boolean;

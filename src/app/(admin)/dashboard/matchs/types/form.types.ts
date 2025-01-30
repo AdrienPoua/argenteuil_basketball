@@ -1,9 +1,9 @@
-import Match from "@/models/Match";
-import { z } from "zod";
-import { formSchema } from "../schemas/form.schema";
+import Match from '@/models/Match';
+import { z } from 'zod';
+import { formSchema } from '../schemas/form.schema';
 
 export type PropsType = {
-  match: ReturnType<Match["toPlainObject"]>;
+  match: ReturnType<Match['toPlainObject']>;
   setIsEditing: (isEditing: boolean) => void;
 };
 

@@ -1,70 +1,62 @@
-"use client"
+'use client';
 
-import { z } from "zod"
-import { Roles } from "@prisma/client"
-import { Button } from "@/components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Checkbox } from "@/components/ui/checkbox"
-import { MultiSelect } from "@/components/ui/multi-select"
-import { useState } from "react"
-import { handleSubmit, useMemberForm } from "../actions/client.actions"
-import { FormSchema } from "../schemas/form.schemas"
-import { PropsType } from "../types/form.types"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Upload, Mail, Phone, User } from 'lucide-react'
+import { z } from 'zod';
+import { Roles } from '@prisma/client';
+import { Button } from '@/components/ui/button';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Checkbox } from '@/components/ui/checkbox';
+import { MultiSelect } from '@/components/ui/multi-select';
+import { useState } from 'react';
+import { handleSubmit, useMemberForm } from '../actions/client.actions';
+import { FormSchema } from '../schemas/form.schemas';
+import { PropsType } from '../types/form.types';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Upload, Mail, Phone, User } from 'lucide-react';
 
 export default function MemberForm({ teams, defaultValues, setIsEditing }: Readonly<PropsType>) {
-  const [previewImage, setPreviewImage] = useState<string | undefined>(defaultValues?.image)
-  const form = useMemberForm(defaultValues)
+  const [previewImage, setPreviewImage] = useState<string | undefined>(defaultValues?.image);
+  const form = useMemberForm(defaultValues);
 
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     try {
-      await handleSubmit(data, defaultValues)
-      setIsEditing && setIsEditing(false)
-      setPreviewImage(undefined)
-      form.reset()
+      await handleSubmit(data, defaultValues);
+      setIsEditing && setIsEditing(false);
+      setPreviewImage(undefined);
+      form.reset();
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 max-w-2xl mx-auto">
-        <Card className="text-background">
+      <form onSubmit={form.handleSubmit(onSubmit)} className='mx-auto max-w-2xl space-y-6'>
+        <Card className='text-background'>
           <CardHeader>
-            <CardTitle className="text-2xl font-bold text-background text-center py-4">
-              {defaultValues ? "Modifier le membre" : "Créer un nouveau membre"}
+            <CardTitle className='py-4 text-center text-2xl font-bold text-background'>
+              {defaultValues ? 'Modifier le membre' : 'Créer un nouveau membre'}
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="flex items-center space-x-4">
-              <Avatar className="w-24 h-24">
+          <CardContent className='space-y-6'>
+            <div className='flex items-center space-x-4'>
+              <Avatar className='h-24 w-24'>
                 <AvatarImage src={previewImage} />
                 <AvatarFallback>{defaultValues?.name?.charAt(0) || 'M'}</AvatarFallback>
               </Avatar>
               <FormField
                 control={form.control}
-                name="image"
+                name='image'
                 render={({ field }) => (
-                  <FormItem className="flex-1">
-                    <FormLabel htmlFor="member-image">Photo de profil</FormLabel>
+                  <FormItem className='flex-1'>
+                    <FormLabel htmlFor='member-image'>Photo de profil</FormLabel>
                     <FormControl>
-                      <div className="flex items-center">
+                      <div className='flex items-center'>
                         <Input
-                          id="member-image"
-                          type="file"
-                          accept="image/*"
+                          id='member-image'
+                          type='file'
+                          accept='image/*'
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                             const file = e.target.files?.[0];
                             if (file) {
@@ -73,13 +65,13 @@ export default function MemberForm({ teams, defaultValues, setIsEditing }: Reado
                               setPreviewImage(url);
                             }
                           }}
-                          className="hidden"
+                          className='hidden'
                         />
                         <label
-                          htmlFor="member-image"
-                          className="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 cursor-pointer"
+                          htmlFor='member-image'
+                          className='flex cursor-pointer items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50'
                         >
-                          <Upload className="w-5 h-5 mr-2" />
+                          <Upload className='mr-2 h-5 w-5' />
                           Choisir une image
                         </label>
                       </div>
@@ -90,17 +82,17 @@ export default function MemberForm({ teams, defaultValues, setIsEditing }: Reado
               />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
               <FormField
                 control={form.control}
-                name="name"
+                name='name'
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Nom</FormLabel>
                     <FormControl>
-                      <div className="relative">
-                        <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                        <Input placeholder="Michael Jordan" {...field} className="pl-10" />
+                      <div className='relative'>
+                        <User className='absolute left-3 top-1/2 -translate-y-1/2 transform text-gray-400' />
+                        <Input placeholder='Michael Jordan' {...field} className='pl-10' />
                       </div>
                     </FormControl>
                     <FormMessage />
@@ -110,14 +102,14 @@ export default function MemberForm({ teams, defaultValues, setIsEditing }: Reado
 
               <FormField
                 control={form.control}
-                name="email"
+                name='email'
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <div className="relative">
-                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                        <Input placeholder="john@example.com" {...field} className="pl-10" />
+                      <div className='relative'>
+                        <Mail className='absolute left-3 top-1/2 -translate-y-1/2 transform text-gray-400' />
+                        <Input placeholder='john@example.com' {...field} className='pl-10' />
                       </div>
                     </FormControl>
                     <FormMessage />
@@ -127,14 +119,14 @@ export default function MemberForm({ teams, defaultValues, setIsEditing }: Reado
 
               <FormField
                 control={form.control}
-                name="phone"
+                name='phone'
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Téléphone</FormLabel>
                     <FormControl>
-                      <div className="relative">
-                        <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                        <Input placeholder="+33612345678" {...field} className="pl-10" />
+                      <div className='relative'>
+                        <Phone className='absolute left-3 top-1/2 -translate-y-1/2 transform text-gray-400' />
+                        <Input placeholder='+33612345678' {...field} className='pl-10' />
                       </div>
                     </FormControl>
                     <FormMessage />
@@ -143,23 +135,18 @@ export default function MemberForm({ teams, defaultValues, setIsEditing }: Reado
               />
             </div>
 
-            <div className="space-y-4">
+            <div className='space-y-4'>
               <FormField
                 control={form.control}
-                name="isPublicEmail"
+                name='isPublicEmail'
                 render={({ field }) => (
-                  <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                  <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
                     <FormControl>
-                      <Checkbox
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
+                      <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                     </FormControl>
-                    <div className="space-y-1 leading-none">
+                    <div className='space-y-1 leading-none'>
                       <FormLabel>Email public</FormLabel>
-                      <FormDescription>
-                        L&apos;email sera visible sur le site web
-                      </FormDescription>
+                      <FormDescription>L&apos;email sera visible sur le site web</FormDescription>
                     </div>
                   </FormItem>
                 )}
@@ -167,20 +154,15 @@ export default function MemberForm({ teams, defaultValues, setIsEditing }: Reado
 
               <FormField
                 control={form.control}
-                name="isPublicPhone"
+                name='isPublicPhone'
                 render={({ field }) => (
-                  <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                  <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
                     <FormControl>
-                      <Checkbox
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
+                      <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                     </FormControl>
-                    <div className="space-y-1 leading-none">
+                    <div className='space-y-1 leading-none'>
                       <FormLabel>Téléphone public</FormLabel>
-                      <FormDescription>
-                        Le téléphone sera visible sur le site web
-                      </FormDescription>
+                      <FormDescription>Le téléphone sera visible sur le site web</FormDescription>
                     </div>
                   </FormItem>
                 )}
@@ -188,20 +170,15 @@ export default function MemberForm({ teams, defaultValues, setIsEditing }: Reado
 
               <FormField
                 control={form.control}
-                name="isLeader"
+                name='isLeader'
                 render={({ field }) => (
-                  <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                  <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
                     <FormControl>
-                      <Checkbox
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
+                      <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                     </FormControl>
-                    <div className="space-y-1 leading-none">
+                    <div className='space-y-1 leading-none'>
                       <FormLabel>Dirigeant</FormLabel>
-                      <FormDescription>
-                        Ce membre est un dirigeant
-                      </FormDescription>
+                      <FormDescription>Ce membre est un dirigeant</FormDescription>
                     </div>
                   </FormItem>
                 )}
@@ -210,22 +187,22 @@ export default function MemberForm({ teams, defaultValues, setIsEditing }: Reado
 
             <FormField
               control={form.control}
-              name="role"
+              name='role'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Rôles</FormLabel>
                   <FormControl>
-                    <div className="relative">
+                    <div className='relative'>
                       <MultiSelect
-                        options={Object.values(Roles).map(role => ({
-                          label: role.replace("_", " "),
+                        options={Object.values(Roles).map((role) => ({
+                          label: role.replace('_', ' '),
                           value: role,
                         }))}
                         selected={field.value}
                         onChange={(values) => {
-                          field.onChange(values)
+                          field.onChange(values);
                         }}
-                        placeholder="Sélectionner un ou plusieurs rôles"
+                        placeholder='Sélectionner un ou plusieurs rôles'
                       />
                     </div>
                   </FormControl>
@@ -236,20 +213,20 @@ export default function MemberForm({ teams, defaultValues, setIsEditing }: Reado
 
             <FormField
               control={form.control}
-              name="teams"
+              name='teams'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Équipes</FormLabel>
                   <FormControl>
-                    <div className="relative">
+                    <div className='relative'>
                       <MultiSelect
-                        options={teams.map(team => ({
+                        options={teams.map((team) => ({
                           label: team.name,
                           value: team.id,
                         }))}
                         selected={field.value}
                         onChange={field.onChange}
-                        placeholder="Sélectionner une ou plusieurs équipes"
+                        placeholder='Sélectionner une ou plusieurs équipes'
                       />
                     </div>
                   </FormControl>
@@ -258,13 +235,12 @@ export default function MemberForm({ teams, defaultValues, setIsEditing }: Reado
               )}
             />
 
-            <Button type="submit" className="w-full">
-              {defaultValues ? "Modifier" : "Créer"}
+            <Button type='submit' className='w-full'>
+              {defaultValues ? 'Modifier' : 'Créer'}
             </Button>
           </CardContent>
         </Card>
       </form>
     </Form>
-  )
+  );
 }
-

@@ -1,4 +1,4 @@
-import nodemailer from "nodemailer";
+import nodemailer from 'nodemailer';
 
 type TransporterBuilder = {
   host: string;
@@ -21,10 +21,8 @@ export default class Transporter {
     try {
       return nodemailer.createTransport(this);
     } catch (error) {
-      console.error("Error creating transporter:", error);
-      throw new Error(
-        "Failed to create transporter. Check your configuration.",
-      );
+      console.error('Error creating transporter:', error);
+      throw new Error('Failed to create transporter. Check your configuration.');
     }
   }
 

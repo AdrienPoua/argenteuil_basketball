@@ -1,14 +1,14 @@
-import { z } from "zod";
-import { TeamSchema } from "@/database/schemas/Team";
-import { IdSchema } from "@/database/schemas/Id";
+import { z } from 'zod';
+import { TeamSchema } from '@/database/schemas/Team';
+import { IdSchema } from '@/database/schemas/Id';
 
 export const roleSchema = z.enum([
-  "Trésorier",
-  "Président",
-  "Correspondant",
-  "Secrétaire_Général",
-  "Entraineur",
-  "Webmaster",
+  'Trésorier',
+  'Président',
+  'Correspondant',
+  'Secrétaire_Général',
+  'Entraineur',
+  'Webmaster',
 ]);
 
 export const MemberSchema = z.object({
@@ -21,4 +21,3 @@ export const MemberSchema = z.object({
   role: z.array(roleSchema),
   image: z.string().optional(),
 });
-

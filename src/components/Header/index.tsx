@@ -1,14 +1,12 @@
-"use client"
-import DesktopNav from "@/components/Header/DesktopNav"
-import MobileNav from "@/components/Header/MobileNav"
+'use client';
+import DesktopNav from '@/components/Header/DesktopNav';
+import MobileNav from '@/components/Header/MobileNav';
 
 export default function Header() {
-
   return (
-    <header
-    >
+    <header>
       <DesktopNav />
       <MobileNav />
     </header>
-  )
+  );
 }

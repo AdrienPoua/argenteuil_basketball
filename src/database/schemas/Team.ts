@@ -1,15 +1,7 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-export const GymnasesSchema = z.enum(["Jean_Guimier", "Jesse_Owens"]);
-export const DaysSchema = z.enum([
-  "Lundi",
-  "Mardi",
-  "Mercredi",
-  "Jeudi",
-  "Vendredi",
-  "Samedi",
-  "Dimanche",
-]);
+export const GymnasesSchema = z.enum(['Jean_Guimier', 'Jesse_Owens']);
+export const DaysSchema = z.enum(['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']);
 export type Gymnases = z.infer<typeof GymnasesSchema>;
 export type Days = z.infer<typeof DaysSchema>;
 
