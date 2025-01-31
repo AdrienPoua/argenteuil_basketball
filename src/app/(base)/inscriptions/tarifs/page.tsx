@@ -1,10 +1,17 @@
-'use client';
-import { useRef } from 'react';
 import ABB from '@/data/club.json';
 import allCategories from '@/data/categories.json';
 import H1 from '@/components/H1';
 import MainSection from '@/components/layouts/MainSection';
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '@/components/ui/table';
+
+export const metadata = {
+  title: 'Tarifs | Argenteuil Basketball',
+  description: "Découvrez les tarifs pour les adhérents du club de basket d'Argenteuil.",
+  openGraph: {
+    title: 'Tarifs - Argenteuil Basketball',
+    description: "Toutes les infos sur les tarifs pour les adhérents du club de basket d'Argenteuil.",
+  },
+};
 
 // Row Component
 type TarifRowProps = {
@@ -14,6 +21,8 @@ type TarifRowProps = {
     rate: number;
   };
 };
+
+
 
 const TarifRow = ({ categorie }: TarifRowProps) => {
   return (
@@ -32,13 +41,11 @@ const TarifRow = ({ categorie }: TarifRowProps) => {
 };
 
 export default function TarifsPage() {
-  const cardRef = useRef(null);
-
   return (
     <>
       <H1>{`Tarifs saison ${ABB.saison}`}</H1>
       <MainSection>
-        <div ref={cardRef} className={`transform transition-opacity duration-500 ease-in-out`}>
+        <div className={`transform transition-opacity duration-500 ease-in-out`}>
           <div className='overflow-x-auto rounded-lg bg-white shadow'>
             <Table className='min-w-full table-auto'>
               <TableHeader>

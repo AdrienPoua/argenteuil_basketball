@@ -7,7 +7,7 @@ interface WeeklyPlanningProps {
   teams: ReturnType<Team['toPlainObject']>[];
 }
 
-export function WeeklyPlanning({ teams }: WeeklyPlanningProps) {
+export function WeeklyPlanning({ teams }: Readonly<WeeklyPlanningProps>) {
   const days = DaysSchema.options;
 
   return (

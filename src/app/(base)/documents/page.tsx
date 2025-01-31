@@ -1,5 +1,3 @@
-'use client';
-
 import { Button } from '@/components/ui/button';
 import documents from '@/data/documents.json';
 import { CloudUpload } from 'lucide-react';

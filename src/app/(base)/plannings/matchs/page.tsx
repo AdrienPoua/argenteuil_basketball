@@ -3,6 +3,15 @@ import { getMatchs } from './actions/server.actions';
 import MatchTabs from './components/Tabs';
 import Match from '@/models/Match';
 
+export const metadata = {
+  title: 'Matchs | Argenteuil Basketball',
+  description: "Découvrez le calendrier des matchs du club de basket d'Argenteuil.",
+  openGraph: {
+    title: 'Matchs - Argenteuil Basketball',
+    description: "Toutes les infos sur le calendrier des matchs du club de basket d'Argenteuil.",
+  },
+};
+
 export default async function MatchsPage() {
   const matchs = await getMatchs()
     .then((match) => match.map((match) => new Match(match)))

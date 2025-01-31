@@ -1,6 +1,5 @@
 import { TeamSchema } from '@/database/schemas/Team';
 import prisma from '@/database/prisma';
-import { Prisma } from '@prisma/client';
 import { z } from 'zod';
 
 export class TeamService {

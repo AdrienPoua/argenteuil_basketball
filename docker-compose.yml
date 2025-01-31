@@ -7,7 +7,7 @@ services:
       - .env
     environment:
       - NODE_ENV=development
+      - DATABASE_URL=${DATABASE_URL}
     volumes:
       - .:/app
       - /app/node_modules
-    command: ['pnpm', 'run', 'dev']

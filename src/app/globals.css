@@ -10,6 +10,12 @@
 @font-face {
   font-family: 'Evogria';
   src: url('/fonts/Evogria.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'Evogria', sans-serif;
 }
 
 a:-webkit-any-link {
@@ -24,7 +30,7 @@ a:-webkit-any-link {
     --card-foreground: 0 0% 100%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
+    --primary: 221.2 83.2% 53.3%; /* # */
     --primary-foreground: 210 40% 98%;
     --secondary: 35 100% 50%;
     --secondary-foreground: 35 100% 50%;

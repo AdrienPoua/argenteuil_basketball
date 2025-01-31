@@ -8,7 +8,7 @@ RUN corepack enable && corepack prepare pnpm@latest --activate
 WORKDIR /app
 
 # Installer pnpm et les dépendances
-RUN corepack enable && corepack prepare pnpm@latest --activate
+
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 
@@ -16,6 +16,9 @@ RUN pnpm install --frozen-lockfile
 COPY . .
 # Exposer le port utilisé par Next.js
 EXPOSE 3000
+
+# Générer le client Prisma avant de démarrer l'app
+RUN npx prisma generate
 
 # Démarrer l’application
 CMD ["pnpm", "run", "dev"]

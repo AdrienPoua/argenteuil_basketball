@@ -8,6 +8,15 @@ import { POST_QUERY } from '@/services/sanity/queries';
 import { SanityDocument } from 'next-sanity';
 import { cn } from '@/utils/cn';
 
+export const metadata = {
+  title: 'Actualités | Argenteuil Basketball',
+  description: "Découvrez les actualités du club de basket d'Argenteuil.",
+  openGraph: {
+    title: 'Actualités - Argenteuil Basketball',
+    description: "Toutes les infos sur les actualités du club de basket d'Argenteuil.",
+  },
+};
+
 async function getPost(slug: string) {
   const post = await sanityFetch<SanityDocument>({ query: POST_QUERY(slug) });
   if (!post) notFound();

@@ -4,6 +4,16 @@ import Card from '../StaffCard';
 import { MemberService } from '@/database/services/Member';
 import Member from '@/models/Member';
 
+export const metadata = {
+  title: "Entraineurs | Argenteuil Basketball",
+  description: "Découvrez les entraineurs du club de basket d'Argenteuil.",
+  openGraph: {
+    title: "Entraineurs - Argenteuil Basketball",
+    description: "Toutes les infos sur les entraineurs du club de basket d'Argenteuil.",
+  },
+};
+
+
 export default async function Index() {
   const coachs = await new MemberService().getCoachs().then((coach) => coach.map((c) => new Member(c).toPlainObject()));
   return (

@@ -3,6 +3,15 @@ import MainSection from '@/components/layouts/MainSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { FAQService } from '@/database/services/FAQ';
 
+export const metadata = {
+  title: 'FAQ | Argenteuil Basketball',
+  description: 'Découvrez les questions fréquemment posées par nos adhérents.',
+  openGraph: {
+    title: 'FAQ - Argenteuil Basketball',
+    description: 'Toutes les infos sur les questions fréquemment posées par nos adhérents.',
+  },
+};
+
 export default async function Index() {
   const faq = await new FAQService().getFaqs();
   return (

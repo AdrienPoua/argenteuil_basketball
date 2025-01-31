@@ -4,8 +4,17 @@ import Team from '@/models/Team';
 import { TeamService } from '@/database/services/Team';
 import { WeeklyPlanning } from './components/WeeklyPlanning';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { TeamSchedules } from './components/TeamShedules';
+
+export const metadata = {
+  title: 'Plannings | Argenteuil Basketball',
+  description: "Découvrez les plannings des entrainements du club de basket d'Argenteuil.",
+  openGraph: {
+    title: 'Plannings - Argenteuil Basketball',
+    description: "Toutes les infos sur les plannings des entrainements du club de basket d'Argenteuil.",
+  },
+};
 
 export default async function SchedulePage() {
   const teams = await new TeamService()

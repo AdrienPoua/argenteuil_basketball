@@ -1,7 +1,14 @@
-'use client';
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { StepOne, StepTwo, StepThree } from './Steps';
+
+export const metadata = {
+  title: 'Inscriptions | Argenteuil Basketball',
+  description: "Découvrez les étapes pour vous inscrire au club de basket d'Argenteuil.",
+  openGraph: {
+    title: 'Inscriptions - Argenteuil Basketball',
+    description: "Toutes les infos sur les étapes pour vous inscrire au club de basket d'Argenteuil.",
+  },
+};
 
 const steps = [
   { component: StepOne, label: 'Étape 1', value: 'step-1' },
