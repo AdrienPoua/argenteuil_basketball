@@ -1,4 +1,6 @@
 import './globals.css';
+import Script from 'next/script';
+
 import ClientLayout from './ClientLayout';
 import { Viewport } from 'next';
 
@@ -7,6 +9,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang='fr'>
       <body>
         <ClientLayout>{children}</ClientLayout>
+        <Script
+          type="application/ld+json"
+          id="jsonld"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(JSONLD) }}
+        />
       </body>
     </html>
   );
@@ -56,3 +63,33 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
 };
+
+const JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "SportsTeam",
+  "name": "Argenteuil Basketball",
+  "url": "https://argenteuilbasketball.com",
+  "logo": "https://argenteuilbasketball.com/images/logo.png",
+  "description": "Club officiel de basketball d'Argenteuil. Suivez les équipes, les résultats et les événements du club.",
+  "sport": "Basketball",
+  "memberOf": {
+    "@type": "SportsOrganization",
+    "name": "Fédération Française de Basketball",
+    "url": "https://www.ffbb.com/"
+  },
+  "location": {
+    "@type": "SportsActivityLocation",
+    "name": "Gymnase Jean Guimier",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "2 rue jean de la fontaine",
+      "addressLocality": "Argenteuil",
+      "postalCode": "95100",
+      "addressCountry": "FR"
+    }
+  },
+  "sameAs": [
+    "https://www.facebook.com/ABB95100/",
+  ]
+}
+
