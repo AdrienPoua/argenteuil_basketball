@@ -36,12 +36,12 @@ const Card = ({
         <div className='flex items-center space-x-4'>
           {isHome ? <Home className='text-blue-500' size={24} /> : <Plane className='text-green-500' size={24} />}
           <div>
-            <p className='text-lg font-semibold'>{format(new Date(date), 'EEEE d MMMM', { locale: fr })}</p>
+            <p className='text-lg'>{format(new Date(date), 'EEEE d MMMM', { locale: fr })}</p>
             <p className='text-muted-foreground group-hover:text-foreground'>{heure}</p>
           </div>
         </div>
         <div className='text-right'>
-          <p className='font-bold'>
+          <p className=''>
             {nomEquipe1} vs {nomEquipe2}
           </p>
           <p className='text-sm text-muted-foreground group-hover:text-foreground'>{salle}</p>
