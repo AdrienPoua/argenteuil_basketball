@@ -5,14 +5,13 @@ import Member from '@/models/Member';
 import { AnimatedTestimonials } from '@/components/ui/animated-testimonials';
 
 export const metadata = {
-  title: "Dirigeants | Argenteuil Basketball",
+  title: 'Dirigeants | Argenteuil Basketball',
   description: "Découvrez les dirigeants du club de basket d'Argenteuil.",
   openGraph: {
-    title: "Dirigeants - Argenteuil Basketball",
+    title: 'Dirigeants - Argenteuil Basketball',
     description: "Toutes les infos sur les dirigeants du club de basket d'Argenteuil.",
   },
 };
-
 
 export default async function Index() {
   const leaders = await new MemberService()

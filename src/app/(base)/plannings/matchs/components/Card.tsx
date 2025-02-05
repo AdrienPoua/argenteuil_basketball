@@ -12,7 +12,7 @@ export default function BasketMatchCard({ match }: Readonly<PropsType>) {
   const isDefaultMatch = match.heure === '00:00';
   return (
     <Card
-      className={`mx-auto w-full max-w-md p-3 text-black ${match.isHome ? 'border-l-4 border-l-blue-500' : 'border-l-4 border-l-green-500'} relative overflow-hidden`}
+      className={`mx-auto size-full p-3 text-black ${match.isHome ? 'border-l-4 border-l-blue-500' : 'border-l-4 border-l-green-500'} relative overflow-hidden`}
     >
       {match.remise && (
         <Image

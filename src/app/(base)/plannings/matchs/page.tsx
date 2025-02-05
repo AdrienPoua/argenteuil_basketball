@@ -1,7 +1,8 @@
 import H1 from '@/components/H1';
 import { getMatchs } from './actions/server.actions';
-import MatchTabs from './components/Tabs';
 import Match from '@/models/Match';
+import ViewTab from './components/ViewTab';
+import MainSection from '@/components/layouts/MainSection';
 
 export const metadata = {
   title: 'Matchs | Argenteuil Basketball',
@@ -15,11 +16,14 @@ export const metadata = {
 export default async function MatchsPage() {
   const matchs = await getMatchs()
     .then((match) => match.map((match) => new Match(match)))
-    .then((match) => match.map((m) => m.toPlainObject()));
+    .then((match) => match.map((m) => m.toPlainObject()))
+    .then((match) => match.toSorted((a, b) => a.date.getTime() - b.date.getTime()));
   return (
-    <div className='container mx-auto p-4'>
+    <div className='mx-auto'>
       <H1>Calendrier des matchs</H1>
-      <MatchTabs matchs={matchs} />
+      <MainSection>
+        <ViewTab matchs={matchs} />
+      </MainSection>
     </div>
   );
 }

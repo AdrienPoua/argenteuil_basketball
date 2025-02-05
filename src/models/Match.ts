@@ -86,11 +86,12 @@ export default class Match {
   }
 
   get heure() {
-    return this._date.toLocaleTimeString('fr-FR', {
+    const heure = this._date.toLocaleTimeString('fr-FR', {
       hour: '2-digit',
       minute: '2-digit',
       timeZone: 'Europe/Paris',
     });
+    return heure === '00:00' ? 'Voir convocation' : heure;
   }
 
   get nomEquipe1() {

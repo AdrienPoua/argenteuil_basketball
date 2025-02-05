@@ -22,8 +22,6 @@ type TarifRowProps = {
   };
 };
 
-
-
 const TarifRow = ({ categorie }: TarifRowProps) => {
   return (
     <TableRow className='border-b'>
