@@ -5,10 +5,10 @@ import { TeamService } from '@/database/services/Team';
 import Team from '@/models/Team';
 
 export const metadata = {
-  title: "Equipes | Argenteuil Basketball",
+  title: 'Equipes | Argenteuil Basketball',
   description: "Découvrez les équipes du club de basket d'Argenteuil.",
   openGraph: {
-    title: "Equipes - Argenteuil Basketball",
+    title: 'Equipes - Argenteuil Basketball',
     description: "Toutes les infos sur les équipes du club de basket d'Argenteuil.",
   },
 };

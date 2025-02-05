@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { SessionProvider } from 'next-auth/react';
@@ -15,8 +15,8 @@ export default function ClientLayout({
   return (
     <SessionProvider>
       <QueryClientProvider client={queryClient}>
-          <Toaster />
-          {children}
+        <Toaster />
+        {children}
         <GoogleAnalytics gaId='G-M6VWBLM3QV' />
       </QueryClientProvider>
     </SessionProvider>
