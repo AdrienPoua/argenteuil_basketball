@@ -41,7 +41,7 @@ export function TeamSchedules({ teams }: Readonly<TeamSchedulesProps>) {
                   <strong className='block text-primary'>Entrainements:</strong>
                   <ul className='list-none space-y-2'>
                     {team.sessions.map((session, index) => (
-                      <li key={index} className='flex items-center gap-2 text-gray-100'>
+                      <li key={index + session.start} className='flex items-center gap-2 text-gray-100'>
                         <span className='text-primary'>•</span>
                         {session.day}: {session.start} - {session.end}
                         <span className='text-primary'>{session.gymnase}</span>

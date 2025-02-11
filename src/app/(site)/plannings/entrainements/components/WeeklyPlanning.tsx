@@ -33,7 +33,7 @@ export function WeeklyPlanning({ teams }: Readonly<WeeklyPlanningProps>) {
                     {team.sessions
                       .filter((session) => session.day === day)
                       .map((session, index) => (
-                        <Badge key={index}>
+                        <Badge key={index + session.start}>
                           {session.start}-{session.end} - {session.gymnase}
                         </Badge>
                       ))}

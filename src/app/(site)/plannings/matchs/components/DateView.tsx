@@ -1,10 +1,8 @@
 'use client';
 
-import { useState } from 'react';
 import type Match from '@/models/Match';
 import { useMatchs } from '../actions/client.actions';
-import { motion } from 'framer-motion';
-import { Home, Car, Trophy, MapPin, Plane } from 'lucide-react';
+import { Home, Plane } from 'lucide-react';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import NoMatch from './NoMatch';

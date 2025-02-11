@@ -75,19 +75,18 @@ export default function Index({ data }: Readonly<PropsType>) {
                 onClick={handlePhoneClick}
                 disabled={!data.phone}
               >
-                {data.phone ? (
-                  isNumberVisible ? (
+                {data.phone &&
+                  (isNumberVisible ? (
                     <span className='p-3 text-sm font-medium'>{data.phone}</span>
                   ) : (
                     <Phone className='h-5 w-5' />
-                  )
-                ) : (
-                  <PhoneOff className='h-5 w-5' />
-                )}
+                  ))}
+                {!data.phone && <PhoneOff className='h-5 w-5' />}
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              {data.phone ? (isNumberVisible ? 'Hide Number' : 'Voir le numéro') : 'Phone not available'}
+              {data.phone && (isNumberVisible ? 'Masquer le numéro' : 'Voir le numéro')}
+              {!data.phone && 'Numéro de téléphone non disponible'}
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
