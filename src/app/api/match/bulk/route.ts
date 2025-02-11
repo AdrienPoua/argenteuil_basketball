@@ -1,0 +1,31 @@
+import { NextResponse, NextRequest } from 'next/server';
+import MatchService from '@/services/Match';
+import { MatchSchema } from '@/lib/validation/Match';
+import { getToken } from 'next-auth/jwt';
+import { z } from 'zod';
+
+export async function PUT(req: NextRequest) {
+  // Check if the user is authenticated with the token in the cookie
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  if (!token) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
+  try {
+    const body = await req.json();
+    const matchs = z.array(MatchSchema).parse(body);
+
+    matchs.forEach(async (match) => {
+      const upsertedMatch = await MatchService.upsert(match);
+      console.log('🚀 ~ PUT ~ upsertedMatch:', upsertedMatch);
+    });
+
+    return NextResponse.json({ message: 'Matches upserted' }, { status: 200 });
+  } catch (error) {
+    console.log('🚀 ~ PUT ~ error:', error);
+    return NextResponse.json(
+      {
+        error: `Unexpected error in matchs API route: ${(error as Error).message}`,
+      },
+      { status: 500 },
+    );
+  }
+}

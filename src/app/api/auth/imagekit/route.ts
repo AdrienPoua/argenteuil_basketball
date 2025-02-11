@@ -2,7 +2,7 @@ import ImageKit from 'imagekit';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/services/nextAuth/auth';
+import { authOptions } from '@/integrations/nextAuth/auth';
 
 const envSchema = z.object({
   publicKey: z.string(),

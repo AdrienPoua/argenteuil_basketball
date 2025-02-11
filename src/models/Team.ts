@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client';
-import { SessionSchema } from '@/database/schemas/Team';
+import { SessionSchema } from '@/lib/validation/Team';
 
 type ConstructorType = Prisma.TeamGetPayload<{
   include: { coach: true };
@@ -74,3 +74,4 @@ export default class Team {
     };
   }
 }
+

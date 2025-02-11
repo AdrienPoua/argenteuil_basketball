@@ -14,7 +14,6 @@ import {
   FileText,
   HelpCircle,
 } from 'lucide-react';
-import { cn } from '@/utils/cn';
 import { Button } from '@/components/ui/button';
 import Logo from '@/components/Logo';
 import ContactDialog from './ContactDialog';
@@ -28,11 +27,19 @@ import {
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 import Image from 'next/image';
+import { cn } from '@/utils/cn';
 
 export default function DesktopNav(): ReactElement {
   return (
-    <header className='relative hidden items-center justify-between bg-foreground px-6 py-2 lg:flex'>
-      <Logo />
+    <div
+      className={cn(
+        'fixed top-10 left-96 right-96 rounded-3xl',
+        'hidden lg:flex justify-between',
+        'z-50 bg-opacity-90 backdrop-blur-sm bg-foreground',
+        'py-2 px-20',
+      )}
+    >
+      <Logo  />
       <NavigationMenu className='flex grow justify-center'>
         <NavigationMenuList>
           <ClubItem />
@@ -68,7 +75,7 @@ export default function DesktopNav(): ReactElement {
         </Button>
         <ContactDialog />
       </div>
-    </header>
+    </div>
   );
 }
 

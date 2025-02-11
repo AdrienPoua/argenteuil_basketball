@@ -3,8 +3,8 @@ import { notFound } from 'next/navigation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { PostContent } from './PostContent';
-import { sanityFetch } from '@/services/sanity/fetch';
-import { POST_QUERY } from '@/services/sanity/queries';
+import { sanityFetch } from '@/integrations/sanity/fetch';
+import { POST_QUERY } from '@/integrations/sanity/queries';
 import { SanityDocument } from 'next-sanity';
 import { cn } from '@/utils/cn';
 
