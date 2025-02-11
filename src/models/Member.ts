@@ -1,6 +1,6 @@
 import { Prisma, Roles, Team } from '@prisma/client';
-import { TeamSchema } from '@/database/schemas/Team';
-import { IdSchema } from '@/database/schemas/Id';
+import { TeamSchema } from '@/lib/validation/Team';
+import { IdSchema } from '@/lib/validation/Id';
 
 type ConstructorType = Prisma.MemberGetPayload<{
   include: { teams: true };

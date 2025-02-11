@@ -6,7 +6,7 @@ import { SanityDocument } from 'next-sanity';
 import { MAX_POSTS_ON_HOME_PAGE } from '@/data/magicNumber';
 import HeaderAndFooter from '@/components/layouts/HeaderAndFooter';
 import Link from 'next/link';
-import { urlFor } from '@/services/sanity/image';
+import { urlFor } from '@/integrations/sanity/image';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 
 export default function HomePage() {
