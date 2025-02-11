@@ -55,7 +55,7 @@ export function Convocation({
 }
 
 export async function getHtml(match: ReturnType<Match['toPlainObject']>) {
-  const teams = await new TeamService().getTeams();
+  const teams = await TeamService.getTeams();
   const html = render(<Convocation match={match} teams={teams} />);
   return html;
 }

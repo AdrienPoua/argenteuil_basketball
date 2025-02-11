@@ -1,6 +1,4 @@
 import { z } from 'zod';
-import { TeamSchema } from '@/lib/database/schemas/Team';
-import { IdSchema } from '@/lib/database/schemas/Id';
 
 export const roleSchema = z.enum([
   'Trésorier',
