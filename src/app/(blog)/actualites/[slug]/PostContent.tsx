@@ -2,12 +2,12 @@
 import { SanityDocument } from 'next-sanity';
 import { PortableText } from '@portabletext/react';
 import { components } from './PortableText';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils/cn';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Calendar, Clock } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'motion/react';
-import { estimateReadingTime } from '@/utils/estimateReadingTime';
+import { estimateReadingTime } from '@/lib/utils/estimateReadingTime';
 
 interface PostContentProps {
   data: SanityDocument;

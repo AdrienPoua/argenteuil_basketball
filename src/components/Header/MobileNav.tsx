@@ -22,7 +22,7 @@ import {
   Mail,
   Phone,
 } from 'lucide-react';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils/cn';
 import Logo from '@/components/Logo';
 import { Dialog, DialogTrigger, DialogContent } from '@/components/ui/dialog';
 import Utils from '@/models/Utils';

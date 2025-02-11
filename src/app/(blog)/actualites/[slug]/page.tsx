@@ -6,7 +6,7 @@ import { PostContent } from './PostContent';
 import { sanityFetch } from '@/integrations/sanity/fetch';
 import { POST_QUERY } from '@/integrations/sanity/queries';
 import { SanityDocument } from 'next-sanity';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils/cn';
 
 export const metadata = {
   title: 'Actualités | Argenteuil Basketball',

@@ -27,7 +27,7 @@ import {
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 import Image from 'next/image';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils/cn';
 
 export default function DesktopNav(): ReactElement {
   return (

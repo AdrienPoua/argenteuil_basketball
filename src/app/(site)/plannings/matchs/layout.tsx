@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Calendar, ChevronLeft, ChevronRight, Users, Home, Plane, LayoutGrid } from 'lucide-react';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils/cn';
 import MatchProvider, { useMatchContext } from './context';
 import { motion } from 'framer-motion';
 import type React from 'react'; // Added import for React
