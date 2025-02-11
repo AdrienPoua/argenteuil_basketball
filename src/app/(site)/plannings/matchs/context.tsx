@@ -1,13 +1,15 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode, useMemo } from 'react';
 
 const MatchContext = createContext<{
   currentMonth: number;
   setCurrentMonth: React.Dispatch<React.SetStateAction<number>>;
-  currentFilter: 'tous' | 'domicile' | 'extérieur';
-  setCurrentFilter: React.Dispatch<React.SetStateAction<'tous' | 'domicile' | 'extérieur'>>;
+  currentFilter: FilterType;
+  setCurrentFilter: React.Dispatch<React.SetStateAction<FilterType>>;
   currentView: 'équipe' | 'date';
   setCurrentView: React.Dispatch<React.SetStateAction<'équipe' | 'date'>>;
 } | null>(null);
+
+type FilterType = 'tous' | 'domicile' | 'extérieur';
 
 export function useMatchContext() {
   const context = useContext(MatchContext);
@@ -17,12 +19,23 @@ export function useMatchContext() {
 
 export default function MatchProvider({ children }: Readonly<{ children: ReactNode }>) {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
-  const [currentFilter, setCurrentFilter] = useState<'tous' | 'domicile' | 'extérieur'>('tous');
+  const [currentFilter, setCurrentFilter] = useState<FilterType>('tous');
   const [currentView, setCurrentView] = useState<'équipe' | 'date'>('équipe');
+
+  const value = useMemo(
+    () => ({
+      currentMonth,
+      setCurrentMonth,
+      currentFilter,
+      setCurrentFilter,
+      currentView,
+      setCurrentView,
+    }),
+    [currentMonth, currentFilter, currentView]
+  );
+
   return (
-    <MatchContext.Provider
-      value={{ currentMonth, setCurrentMonth, currentFilter, setCurrentFilter, currentView, setCurrentView }}
-    >
+    <MatchContext.Provider value={value}>
       {children}
     </MatchContext.Provider>
   );

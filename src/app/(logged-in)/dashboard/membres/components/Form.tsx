@@ -22,7 +22,7 @@ export default function MemberForm({ teams, defaultValues, setIsEditing }: Reado
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     try {
       await handleSubmit(data, defaultValues);
-      setIsEditing && setIsEditing(false);
+      setIsEditing?.(false);
       setPreviewImage(undefined);
       form.reset();
     } catch (error) {
@@ -43,7 +43,7 @@ export default function MemberForm({ teams, defaultValues, setIsEditing }: Reado
             <div className='flex items-center space-x-4'>
               <Avatar className='h-24 w-24'>
                 <AvatarImage src={previewImage} />
-                <AvatarFallback>{defaultValues?.name?.charAt(0) || 'M'}</AvatarFallback>
+                <AvatarFallback>{defaultValues?.name?.charAt(0) ?? 'M'}</AvatarFallback>
               </Avatar>
               <FormField
                 control={form.control}
