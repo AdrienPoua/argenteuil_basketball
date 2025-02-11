@@ -4,7 +4,7 @@ import MobileNav from '@/components/Header/MobileNav';
 
 export default function Header() {
   return (
-    <header>
+    <header className=''>
       <DesktopNav />
       <MobileNav />
     </header>

@@ -33,13 +33,14 @@ export default function DesktopNav(): ReactElement {
   return (
     <div
       className={cn(
-        'fixed top-10 left-96 right-96 rounded-3xl',
-        'hidden lg:flex justify-between',
-        'z-50 bg-opacity-90 backdrop-blur-sm bg-foreground',
-        'py-2 px-20',
+        'fixed left-0 right-0 top-10',
+        'hidden justify-between lg:flex',
+        'z-50 bg-foreground bg-opacity-90 backdrop-blur-sm',
+        'rounded-3xl px-6 py-2',
+        'mx-auto max-w-screen-xl',
       )}
     >
-      <Logo  />
+      <Logo />
       <NavigationMenu className='flex grow justify-center'>
         <NavigationMenuList>
           <ClubItem />
