@@ -7,12 +7,10 @@ import Team from '@/models/Team';
 import Form from './components/Form';
 
 export default async function Page() {
-  const members = await MemberService
-    .getMembers()
+  const members = await MemberService.getMembers()
     .then((members) => members.map((member) => new Member(member)))
     .then((members) => members.map((member) => member.toPlainObject()));
-  const teams = await TeamService
-    .getTeams()
+  const teams = await TeamService.getTeams()
     .then((teams) => teams.map((team) => new Team(team)))
     .then((teams) => teams.map((team) => team.toPlainObject()));
   return (

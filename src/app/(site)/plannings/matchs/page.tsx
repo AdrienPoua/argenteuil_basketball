@@ -2,8 +2,7 @@ import H1 from '@/components/H1';
 import Match from '@/models/Match';
 import ViewTab from './components/ViewTab';
 import MainSection from '@/components/layouts/MainSection';
-import MatchService  from '@/services/Match';
-
+import MatchService from '@/services/Match';
 
 export const metadata = {
   title: 'Matchs | Argenteuil Basketball',

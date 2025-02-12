@@ -5,7 +5,8 @@ import { z } from 'zod';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import prisma from '@/database/prisma';
 
-const { GITHUB_ID, GITHUB_SECRET, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, ADMIN_GITHUB_EMAIL, ADMIN_GOOGLE_EMAIL } = process.env;
+const { GITHUB_ID, GITHUB_SECRET, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, ADMIN_GITHUB_EMAIL, ADMIN_GOOGLE_EMAIL } =
+  process.env;
 
 const envSchema = z.object({
   GITHUB_ID: z.string(),

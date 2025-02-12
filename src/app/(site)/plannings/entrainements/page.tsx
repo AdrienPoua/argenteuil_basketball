@@ -17,8 +17,7 @@ export const metadata = {
 };
 
 export default async function SchedulePage() {
-  const teams = await TeamService
-    .getTeams()
+  const teams = await TeamService.getTeams()
     .then((teams) => teams.map((team) => new Team(team)))
     .then((teams) => teams.map((team) => team.toPlainObject()));
   return (

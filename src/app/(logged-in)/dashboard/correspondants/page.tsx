@@ -1,6 +1,6 @@
 'use ';
 import Card from './components/Card';
-import  clubService  from '@/services/Club';
+import clubService from '@/services/Club';
 import Club from '@/models/Club';
 
 export default async function Index() {

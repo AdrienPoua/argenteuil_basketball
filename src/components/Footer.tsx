@@ -12,9 +12,7 @@ export default function Footer() {
         >
           <Underline />
           <p className='text-white'>
-            Made with{' '}
-            <span className='mx-1 text-primary'>❤</span>{' '}
-            by
+            Made with <span className='mx-1 text-primary'>❤</span> by
             <span className='ml-1 hover:text-primary'>Adrien POUA</span>
           </p>
         </Link>

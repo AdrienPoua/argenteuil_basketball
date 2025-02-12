@@ -60,7 +60,7 @@ export const useCompetitions = () => {
         },
       });
       const competitions: { id: number; label: string }[] = await res.json();
-      console.log("🚀 ~ queryFn: ~ competitions:", competitions)
+      console.log('🚀 ~ queryFn: ~ competitions:', competitions);
       return competitions.map((competition) => competition.label);
     },
   });

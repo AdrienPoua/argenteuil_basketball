@@ -35,7 +35,7 @@ export const fetchMatchs = async (matchs: Match[], competitions: Competition[]) 
       id: match.id.toString(),
       competition: competition?.label ?? null,
       correspondant: opponentClub?.email ?? null,
-      salle: match.salle?.libelle ?? "Salle inconnue",
+      salle: match.salle?.libelle ?? 'Salle inconnue',
     };
     return payload;
   });
