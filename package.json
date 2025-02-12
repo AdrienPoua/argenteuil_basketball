@@ -6,8 +6,8 @@
     "dev": "next dev --turbo",
     "build": "prisma generate && next build && next-sitemap",
     "start": "next start",
-    "lint": "next lint",
-    "format": "prettier --write ."
+    "fix": "next lint --fix && prettier --write .",
+    "prepare": "husky"
   },
   "dependencies": {
     "@auth/core": "^0.37.4",
@@ -40,6 +40,7 @@
     "@sanity/client": "^6.21.3",
     "@sanity/image-url": "^1.0.2",
     "@sanity/vision": "^3.55.0",
+    "@sentry/nextjs": "^8.54.0",
     "@tabler/icons-react": "^3.29.0",
     "autoprefixer": "^10.4.20",
     "class-variance-authority": "^0.7.0",
@@ -79,6 +80,8 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.7.1",
+    "@commitlint/config-conventional": "^19.7.1",
     "@types/fast-levenshtein": "^0.0.4",
     "@types/formidable": "^3.4.5",
     "@types/mongoose": "^5.11.97",
@@ -89,6 +92,7 @@
     "@types/uuid": "^9.0.8",
     "eslint": "^8.57.0",
     "eslint-config-next": "14.2.2",
+    "husky": "^9.1.7",
     "postcss": "^8.4.41",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.8",

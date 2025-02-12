@@ -16,7 +16,6 @@ export const useActions = () => {
     } finally {
       setIsTransfering(false);
     }
-
   };
 
   const updateMatch = async () => {

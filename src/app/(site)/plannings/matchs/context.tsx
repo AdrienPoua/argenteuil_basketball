@@ -31,12 +31,8 @@ export default function MatchProvider({ children }: Readonly<{ children: ReactNo
       currentView,
       setCurrentView,
     }),
-    [currentMonth, currentFilter, currentView]
+    [currentMonth, currentFilter, currentView],
   );
 
-  return (
-    <MatchContext.Provider value={value}>
-      {children}
-    </MatchContext.Provider>
-  );
+  return <MatchContext.Provider value={value}>{children}</MatchContext.Provider>;
 }

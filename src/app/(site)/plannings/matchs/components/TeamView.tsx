@@ -12,12 +12,12 @@ export default function TeamView({ matchs }: Readonly<PropsType>) {
   const { currentMonth } = useMatchContext();
   if (currentMonth === 5 || currentMonth === 6 || currentMonth === 7) return <NoMatch />;
   return (
-    <div className='flex flex-col gap-8 container mx-auto'>
+    <div className='container mx-auto flex flex-col gap-8'>
       {matchsByChampionnat.map((matchs) => {
         if (matchs.length === 0) return null;
         return (
           <div key={matchs[0].championnat} className='space-y-4'>
-            <div className='flex flex-col md:flex-row gap-4 '>
+            <div className='flex flex-col gap-4 md:flex-row'>
               <Item>
                 <h3 className='flex size-full items-center justify-center bg-primary'>{matchs[0].championnat}</h3>
               </Item>
@@ -35,5 +35,5 @@ export default function TeamView({ matchs }: Readonly<PropsType>) {
 }
 
 const Item = ({ children }: Readonly<{ children: React.ReactNode }>) => {
-  return <div className='size-full md:size-64 md:min-h-64 md:min-w-64 overflow-hidden rounded-lg'>{children}</div>;
+  return <div className='size-full overflow-hidden rounded-lg md:size-64 md:min-h-64 md:min-w-64'>{children}</div>;
 };

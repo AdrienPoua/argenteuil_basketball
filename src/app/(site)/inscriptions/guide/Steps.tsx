@@ -33,14 +33,14 @@ export const StepOne = () => (
           à l&apos;entrainement
         </li>
         <li>
-          Récupérez le dossier d&apos;inscription
+          Récupérez le dossier d&apos;inscription{' '}
           <a
             href={'/documents/2024-2025_demande_de_licence.pdf'}
             download
             className='mx-2 text-primary hover:underline focus:outline-none focus:ring-2 focus:ring-primary'
           >
             ici
-          </a>
+          </a>{' '}
           ou directement sur place.
         </li>
         <li>Remettez-le au gymnase Jean Guimier, du lundi au vendredi entre 17h00 et 20h00.</li>

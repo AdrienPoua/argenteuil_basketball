@@ -17,7 +17,7 @@ import { FormSchemaType, PropsType } from '../types/form.types';
 import { Checkbox } from '@/components/ui/checkbox';
 import { MultiSelect } from '@/components/ui/multi-select';
 
-export default function EnhancedForm({ members, defaultValues, setIsEditing, }: Readonly<PropsType>) {
+export default function EnhancedForm({ members, defaultValues, setIsEditing }: Readonly<PropsType>) {
   const form = useTeamForm(defaultValues);
   const [previewImage, setPreviewImage] = useState<string | null>(defaultValues?.image ?? null);
   const { fields, append, remove } = useFieldArray({
@@ -173,10 +173,12 @@ export default function EnhancedForm({ members, defaultValues, setIsEditing, }: 
                     <FormLabel>Championnats</FormLabel>
                     <FormControl>
                       <MultiSelect
-                        options={competitions?.map((competition) => ({
-                          label: competition,
-                          value: competition,
-                        })) ?? []}
+                        options={
+                          competitions?.map((competition) => ({
+                            label: competition,
+                            value: competition,
+                          })) ?? []
+                        }
                         selected={field.value}
                         onChange={(values) => {
                           field.onChange(values);

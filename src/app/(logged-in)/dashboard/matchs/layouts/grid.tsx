@@ -6,7 +6,7 @@ import { useCardFilter } from '../actions/client.action';
 
 export default function Grid({ matchs }: Readonly<PropsType>) {
   const { setSelectedCompetition, setPlace, displayedGames, competitions } = useCardFilter(matchs);
-  console.log("🚀 ~ Grid ~ competitions:", competitions)
+  console.log('🚀 ~ Grid ~ competitions:', competitions);
   return (
     <div className='flex flex-col gap-3'>
       <Select onValueChange={setSelectedCompetition} defaultValue='ALL'>
