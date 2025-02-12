@@ -1,4 +1,4 @@
-import H1 from '@/components/H1';
+import H1 from '@/components/ui/H1';
 import MainSection from '@/components/layouts/MainSection';
 import MemberService from '@/services/Member';
 import Member from '@/models/Member';

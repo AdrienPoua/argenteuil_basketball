@@ -1,4 +1,4 @@
-import H1 from '@/components/H1';
+import H1 from '@/components/ui/H1';
 import MainSection from '@/components/layouts/MainSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import FAQService from '@/services/FAQ';

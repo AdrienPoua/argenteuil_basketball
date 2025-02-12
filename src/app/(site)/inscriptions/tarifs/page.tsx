@@ -1,6 +1,6 @@
 import ABB from '@/data/club.json';
 import allCategories from '@/data/categories.json';
-import H1 from '@/components/H1';
+import H1 from '@/components/ui/H1';
 import MainSection from '@/components/layouts/MainSection';
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '@/components/ui/table';
 

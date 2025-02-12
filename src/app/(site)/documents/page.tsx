@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import documents from '@/data/documents.json';
 import { CloudUpload } from 'lucide-react';
-import H1 from '@/components/H1';
+import H1 from '@/components/ui/H1';
 import MainSection from '@/components/layouts/MainSection';
 
 export default function DocumentsPage() {
