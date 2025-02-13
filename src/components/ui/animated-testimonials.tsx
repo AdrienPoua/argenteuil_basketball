@@ -62,21 +62,21 @@ export const AnimatedTestimonials = ({
                 initial={{
                   opacity: 0,
                   scale: 0.9,
-                  z: -100,
+                  z: -10,
                   rotate: randomRotateY(),
                 }}
                 animate={{
                   opacity: isActive(index) ? 1 : 0.7,
                   scale: isActive(index) ? 1 : 0.95,
-                  z: isActive(index) ? 0 : -100,
+                  z: isActive(index) ? 0 : -10,
                   rotate: isActive(index) ? 0 : randomRotateY(),
-                  zIndex: isActive(index) ? 999 : testimonials.length + 2 - index,
+                  zIndex: isActive(index) ? 10 : testimonials.length + 2 - index,
                   y: isActive(index) ? [0, -80, 0] : 0,
                 }}
                 exit={{
                   opacity: 0,
                   scale: 0.9,
-                  z: 100,
+                  z: 10,
                   rotate: randomRotateY(),
                 }}
                 transition={{
@@ -217,7 +217,7 @@ export const AnimatedTestimonials = ({
 };
 
 const description = {
-  président: 'Dirige et représente le club',
+  président: "Vous m'avez surement jamais vu, mais je suis le président du club et oui, j'existe. J'endosse la responsabilité de l'association",
   'secrétaire général':
     "Vous m'avez sûrement déjà vu, surtout si vous avez un retard de paiement. Je m'occupe de la gestion de l'association et de son bon fonctionnement. Je coordonne les activités et les événements du club, je résous les problèmes et m'assure que tout se passe bien.",
   webmaster:

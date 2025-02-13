@@ -19,7 +19,7 @@ export default function VideoTitle({
 }: Readonly<PropsType>): ReactElement {
   return (
     <AppearFromLeft className={cn('mb-20 mt-1', className)}>
-      <div className='relative mx-auto h-full w-fit'>
+      <div className='relative mx-auto h-full w-full md:w-fit'>
         <video className='absolute inset-0 size-full object-cover' autoPlay muted loop playsInline>
           <source src={video} type='video/mp4' />
         </video>
@@ -32,7 +32,7 @@ export default function VideoTitle({
           {type === 'h2' && (
             <h2
               className={cn(
-                'border-2 border-primary px-10 font-bold uppercase',
+                'border-2 border-primary px-10 font-bold uppercase w-full',
                 'text-4xl font-bold uppercase md:text-6xl lg:text-8xl',
               )}
             >

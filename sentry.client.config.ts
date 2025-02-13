@@ -4,7 +4,7 @@
 
 import * as Sentry from '@sentry/nextjs';
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production' || process.env.VERCEL_ENV !== 'production') {
   console.log('Sentry désactivé en développement pour éviter les bugs avec --turbo');
 } else {
   Sentry.init({

@@ -5,7 +5,6 @@ import { Calendar, ChevronLeft, ChevronRight, Users, Home, Plane, LayoutGrid } f
 import { cn } from '@/lib/utils/cn';
 import MatchProvider, { useMatchContext } from './context';
 import { motion } from 'framer-motion';
-import type React from 'react'; // Added import for React
 
 export default function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
@@ -34,7 +33,7 @@ function LayoutContent({ children }: Readonly<{ children: React.ReactNode }>) {
   ];
 
   return (
-    <div className='relative min-h-screen bg-background'>
+    <div className={cn('relative  min-h-screen bg-background',' md:mb-24 mb-44')}>
       {children}
       <motion.div
         initial={{ y: 100, opacity: 0 }}
