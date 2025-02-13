@@ -5,7 +5,6 @@ import { Match } from '@/app/api/ffbb/matchs/[id]/route';
 import { argenteuilIdOrganisme } from '@/lib/constants/argenteuil-id-organisme';
 import { ReturnedCompetition as Competition } from '@/app/api/ffbb/competitions/route';
 import { cookies } from 'next/headers';
-import MatchService from '@/services/Match';
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 const nextAuthCookie = cookies().get('next-auth.session-token');
 

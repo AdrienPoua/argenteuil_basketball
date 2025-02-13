@@ -217,7 +217,8 @@ export const AnimatedTestimonials = ({
 };
 
 const description = {
-  président: "Vous m'avez surement jamais vu, mais je suis le président du club et oui, j'existe. J'endosse la responsabilité de l'association",
+  président:
+    "Vous m'avez surement jamais vu, mais je suis le président du club et oui, j'existe. J'endosse la responsabilité de l'association",
   'secrétaire général':
     "Vous m'avez sûrement déjà vu, surtout si vous avez un retard de paiement. Je m'occupe de la gestion de l'association et de son bon fonctionnement. Je coordonne les activités et les événements du club, je résous les problèmes et m'assure que tout se passe bien.",
   webmaster:

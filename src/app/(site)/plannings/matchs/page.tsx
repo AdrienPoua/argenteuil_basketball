@@ -1,4 +1,3 @@
-import H1 from '@/components/ui/H1';
 import Match from '@/models/Match';
 import ViewTab from './components/ViewTab';
 import MainSection from '@/components/layouts/MainSection';

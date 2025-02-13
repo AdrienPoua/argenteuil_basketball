@@ -33,7 +33,7 @@ function LayoutContent({ children }: Readonly<{ children: React.ReactNode }>) {
   ];
 
   return (
-    <div className={cn('relative  min-h-screen bg-background',' md:mb-24 mb-44')}>
+    <div className={cn('relative min-h-screen bg-background', 'mb-44 md:mb-24')}>
       {children}
       <motion.div
         initial={{ y: 100, opacity: 0 }}

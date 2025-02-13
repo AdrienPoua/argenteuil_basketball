@@ -5,7 +5,6 @@ import { Badge } from '@/components/ui/badge';
 import { CalendarIcon, MapPinIcon, ClockIcon, HomeIcon, PlaneIcon } from 'lucide-react';
 import Image from 'next/image';
 import Match from '@/models/Match';
-import { useIsClient } from '@/hooks/useIsClient';
 import { Skeleton } from '@/components/ui/skeleton';
 
 type PropsType = { match: ReturnType<Match['toPlainObject']> };
