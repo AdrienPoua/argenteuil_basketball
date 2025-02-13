@@ -6,7 +6,7 @@ import { WeeklyPlanning } from './components/WeeklyPlanning';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
 import { TeamSchedules } from './components/TeamShedules';
-
+import VideoTitle from '@/components/ui/video-title';
 export const metadata = {
   title: 'Plannings | Argenteuil Basketball',
   description: "Découvrez les plannings des entrainements du club de basket d'Argenteuil.",
@@ -22,9 +22,11 @@ export default async function SchedulePage() {
     .then((teams) => teams.map((team) => team.toPlainObject()));
   return (
     <>
-      <H1>Plannings</H1>
+      <VideoTitle type='h1' video='/videos/entrainements.mp4'>
+        Plannings
+      </VideoTitle>
       <MainSection>
-        <Tabs defaultValue='weekly' className='w-full'>
+        <Tabs defaultValue='team' className='w-full'>
           <TabsList className='grid w-full grid-cols-2'>
             <TabsTrigger value='weekly'>Vue hebdo</TabsTrigger>
             <TabsTrigger value='team'>Vue par équipe</TabsTrigger>
@@ -38,7 +40,7 @@ export default async function SchedulePage() {
           </TabsContent>
           <TabsContent value='team'>
             <Card>
-              <CardContent>
+              <CardContent className='p-0'>
                 <TeamSchedules teams={teams} />
               </CardContent>
             </Card>

@@ -33,7 +33,7 @@ export default async function BlogPostPage({ params }: Readonly<PageProps>) {
   return (
     <>
       <Header />
-      <main className={cn('flex grow flex-col items-center bg-foreground', 'pb-12 pt-10')}>
+      <main className={cn('flex grow flex-col items-center bg-foreground', 'pt-32')}>
         <Suspense fallback={<div>Loading...</div>}>
           <PostContent data={post} />
         </Suspense>

@@ -3,6 +3,7 @@ import allCategories from '@/data/categories.json';
 import H1 from '@/components/ui/H1';
 import MainSection from '@/components/layouts/MainSection';
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '@/components/ui/table';
+import VideoTitle from '@/components/ui/video-title';
 
 export const metadata = {
   title: 'Tarifs | Argenteuil Basketball',
@@ -41,7 +42,9 @@ const TarifRow = ({ categorie }: TarifRowProps) => {
 export default function TarifsPage() {
   return (
     <>
-      <H1>{`Tarifs saison ${ABB.saison}`}</H1>
+      <VideoTitle type='h1' video='/videos/argent.mp4'>
+        Tarifs saison {ABB.saison}
+      </VideoTitle>
       <MainSection>
         <div className={`transform transition-opacity duration-500 ease-in-out`}>
           <div className='overflow-x-auto rounded-lg bg-white shadow'>

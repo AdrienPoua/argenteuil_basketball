@@ -1,7 +1,7 @@
 import gyms from '@/data/gyms.json';
-import H1 from '@/components/ui/H1';
 import MainSection from '@/components/layouts/MainSection';
 import Card from './Cards';
+import VideoTitle from '@/components/ui/video-title';
 
 export const metadata = {
   title: 'Gymnases | Argenteuil Basketball',
@@ -15,7 +15,9 @@ export const metadata = {
 export default function Page() {
   return (
     <>
-      <H1> Nos gymnases </H1>
+      <VideoTitle type='h1' video='/videos/gymnases.mp4'>
+        Nos gymnases
+      </VideoTitle>
       <MainSection>
         <div className='flex flex-col gap-16'>
           {gyms.map((gym) => (

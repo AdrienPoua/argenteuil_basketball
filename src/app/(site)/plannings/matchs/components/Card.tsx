@@ -5,6 +5,8 @@ import { Badge } from '@/components/ui/badge';
 import { CalendarIcon, MapPinIcon, ClockIcon, HomeIcon, PlaneIcon } from 'lucide-react';
 import Image from 'next/image';
 import Match from '@/models/Match';
+import { useIsClient } from '@/hooks/useIsClient';
+import { Skeleton } from '@/components/ui/skeleton';
 
 type PropsType = { match: ReturnType<Match['toPlainObject']> };
 
@@ -57,6 +59,36 @@ export default function BasketMatchCard({ match }: Readonly<PropsType>) {
       <CardFooter className='flex flex-wrap justify-center gap-2 pt-2'>
         {match.forfaitEquipe1 && <Badge variant='destructive'>Forfait {match.nomEquipe1}</Badge>}
         {match.forfaitEquipe2 && <Badge variant='destructive'>Forfait {match.nomEquipe2}</Badge>}
+      </CardFooter>
+    </Card>
+  );
+}
+
+export function SkeletonCard() {
+  return (
+    <Card className='relative mx-auto size-full overflow-hidden p-3'>
+      <CardHeader className='pb-2'>
+        <Skeleton className='mb-2 h-6 w-full' />
+        <Skeleton className='mx-auto mb-2 h-6 w-3/4' />
+        <Skeleton className='mx-auto h-4 w-1/2' />
+      </CardHeader>
+      <CardContent className='pb-2'>
+        <div className='flex flex-col space-y-2'>
+          {[1, 2, 3].map((i) => (
+            <div key={i} className='flex items-center space-x-2'>
+              <Skeleton className='h-4 w-4' />
+              <Skeleton className='h-4 w-32' />
+            </div>
+          ))}
+
+          <div className='mt-2 text-center'>
+            <Skeleton className='mx-auto h-6 w-24' />
+          </div>
+        </div>
+      </CardContent>
+
+      <CardFooter className='flex justify-center gap-2 pt-2'>
+        <Skeleton className='h-5 w-24' />
       </CardFooter>
     </Card>
   );

@@ -104,3 +104,8 @@ a:-webkit-any-link {
     @apply overflow-x-hidden;
   }
 }
+
+.mask-text {
+  -webkit-mask: url(#mask);
+  mask: url(#mask);
+}

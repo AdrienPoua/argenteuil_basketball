@@ -35,7 +35,7 @@ export default function DesktopNav(): ReactElement {
       className={cn(
         'fixed left-0 right-0 top-10',
         'hidden justify-between lg:flex',
-        'z-50 bg-foreground bg-opacity-90 backdrop-blur-sm',
+        'z-50 border-2 border-primary bg-foreground',
         'rounded-3xl px-6 py-2',
         'mx-auto max-w-screen-xl',
       )}

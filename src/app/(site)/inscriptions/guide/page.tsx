@@ -1,5 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { StepOne, StepTwo, StepThree } from './Steps';
+import VideoTitle from '@/components/ui/video-title';
 
 export const metadata = {
   title: 'Inscriptions | Argenteuil Basketball',
@@ -20,13 +21,10 @@ export default function DynamicHero() {
   return (
     <section>
       <div className='container mx-auto px-4 md:px-6'>
-        <div className='flex flex-col items-center space-y-4 text-center'>
-          <h1 className='text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none'>Inscriptions</h1>
-          <p className='mx-auto max-w-[700px] text-muted-foreground md:text-xl'>
-            Suivez les étapes ci-dessous pour finaliser votre inscription.
-          </p>
-        </div>
-        <Tabs defaultValue='step-1' className='mt-8'>
+        <VideoTitle type='h1' video='/videos/inscriptions.mp4'>
+          Inscriptions
+        </VideoTitle>
+        <Tabs defaultValue='step-1'>
           <TabsList className='mx-auto mb-20 grid w-fit grid-cols-3'>
             {steps.map((step) => (
               <TabsTrigger key={step.value} value={step.value} className='md:w-52'>

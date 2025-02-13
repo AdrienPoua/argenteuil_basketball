@@ -1,16 +1,18 @@
 'use client';
 
 import type Match from '@/models/Match';
-import Card from './Card';
+import Card, { SkeletonCard } from './Card';
 import { useMatchs } from '../actions/client.actions';
 import { useMatchContext } from '../context';
 import NoMatch from './NoMatch';
+import { ClientOnly } from '@/components/utils/ClientOnly';
 type PropsType = { matchs: ReturnType<Match['toPlainObject']>[] };
 
 export default function TeamView({ matchs }: Readonly<PropsType>) {
   const { matchsByChampionnat } = useMatchs({ matchs });
   const { currentMonth } = useMatchContext();
-  if (currentMonth === 5 || currentMonth === 6 || currentMonth === 7) return <NoMatch />;
+  const monthsNotDisplayed = [5, 6, 7];
+  if (monthsNotDisplayed.includes(currentMonth)) return <NoMatch />;
   return (
     <div className='container mx-auto flex flex-col gap-8'>
       {matchsByChampionnat.map((matchs) => {
@@ -22,9 +24,11 @@ export default function TeamView({ matchs }: Readonly<PropsType>) {
                 <h3 className='flex size-full items-center justify-center bg-primary'>{matchs[0].championnat}</h3>
               </Item>
               {matchs.map((match) => (
-                <Item key={match.id}>
-                  <Card match={match} />
-                </Item>
+                <ClientOnly fallback={<SkeletonCard />} key={match.id}>
+                  <Item key={match.id}>
+                    <Card match={match} />
+                  </Item>
+                </ClientOnly>
               ))}
             </div>
           </div>

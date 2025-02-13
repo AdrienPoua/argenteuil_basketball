@@ -3,6 +3,7 @@ import Match from '@/models/Match';
 import ViewTab from './components/ViewTab';
 import MainSection from '@/components/layouts/MainSection';
 import MatchService from '@/services/Match';
+import VideoTitle from '@/components/ui/video-title';
 
 export const metadata = {
   title: 'Matchs | Argenteuil Basketball',
@@ -20,7 +21,9 @@ export default async function MatchsPage() {
     .then((match) => match.toSorted((a, b) => a.date.getTime() - b.date.getTime()));
   return (
     <div className='mx-auto'>
-      <H1>Calendrier des matchs</H1>
+      <VideoTitle type='h1' video='/videos/matchs.mp4'>
+        Calendrier des matchs
+      </VideoTitle>
       <MainSection>
         <ViewTab matchs={matchs} />
       </MainSection>

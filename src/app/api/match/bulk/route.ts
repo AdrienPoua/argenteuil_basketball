@@ -14,8 +14,7 @@ export async function PUT(req: NextRequest) {
     const matchs = z.array(MatchSchema).parse(body);
 
     matchs.forEach(async (match) => {
-      const upsertedMatch = await MatchService.upsert(match);
-      console.log('🚀 ~ PUT ~ upsertedMatch:', upsertedMatch);
+      await MatchService.upsert(match);
     });
 
     return NextResponse.json({ message: 'Matches upserted' }, { status: 200 });

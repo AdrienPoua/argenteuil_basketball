@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/integrations/nextAuth/auth';
 import { cookies } from 'next/headers';
+import { argenteuilIdOrganisme } from '@/lib/constants/argenteuil-id-organisme';
 
 const endpoint = 'https://ffbbserver3.ffbb.com/ffbbserver3/api/competition/getRencontresParPoule.ws?idPoule=';
 
@@ -28,7 +29,7 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
     }
 
     const data: Match[] = await response.json();
-    const plannedMatchs = data.filter(isMatchReallyPlanned);
+    const plannedMatchs = data.filter((match) => isMatchReallyPlanned(match) && isABBPlaying(match));
     const datedMatchs = plannedMatchs.map((match) => {
       return addDateToMatch(match);
     });
@@ -46,6 +47,10 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
 
 const isMatchReallyPlanned = (match: Match) => {
   return match.idOrganismeEquipe1 && match.idOrganismeEquipe2;
+};
+
+const isABBPlaying = (match: Match) => {
+  return match.idOrganismeEquipe1 === argenteuilIdOrganisme || match.idOrganismeEquipe2 === argenteuilIdOrganisme;
 };
 
 const addDateToMatch = (match: Match) => {

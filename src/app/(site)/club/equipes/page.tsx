@@ -1,8 +1,8 @@
-import H1 from '@/components/ui/H1';
 import MainSection from '@/components/layouts/MainSection';
-import Card from './Card';
 import TeamService from '@/services/Team';
 import Team from '@/models/Team';
+import VideoTitle from '@/components/ui/video-title';
+import CardsWrapper from './CardsWrapper';
 
 export const metadata = {
   title: 'Equipes | Argenteuil Basketball',
@@ -19,15 +19,11 @@ export default async function TeamPage() {
     .then((teams) => teams.map((team) => team.toPlainObject()));
   return (
     <>
-      <H1>Nos équipes 2024-2025</H1>
+      <VideoTitle type='h1' video='/videos/equipes.mp4'>
+        Nos équipes 2024-2025
+      </VideoTitle>
       <MainSection>
-        <div className='mb-20 flex flex-col items-center gap-8'>
-          {teams
-            .toSorted((a, b) => b.image.localeCompare(a.image))
-            .map((team) => (
-              <Card key={team.id} data={team} />
-            ))}
-        </div>
+        <CardsWrapper teams={teams} />
       </MainSection>
     </>
   );
