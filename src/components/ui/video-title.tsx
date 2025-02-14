@@ -33,7 +33,7 @@ export default function VideoTitle({
             <h2
               className={cn(
                 'w-full border-2 border-primary px-10 font-bold uppercase',
-                'text-4xl font-bold uppercase md:text-6xl lg:text-8xl',
+                'text-5xl md:text-6xl lg:text-8xl',
               )}
             >
               {children}

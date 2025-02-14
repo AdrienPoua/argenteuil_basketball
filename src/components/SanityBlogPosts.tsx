@@ -18,7 +18,7 @@ interface PropsType {
 export default function PostsWrapper() {
   const { leftPostOnHomePage, rightPostOnHomePage, postsOnHomePage } = useSanity();
   return (
-    <div className='container mx-auto mb-20 grid grid-cols-1 gap-6 px-24 md:grid-cols-2'>
+    <div className='container mx-auto mb-20 grid grid-cols-1 gap-6 md:px-24 md:grid-cols-2'>
       <div className='top-32 aspect-[9/10] w-full md:sticky'>
         {leftPostOnHomePage ? <SanityCard post={leftPostOnHomePage} /> : <SkeletonCard />}
       </div>
@@ -26,11 +26,11 @@ export default function PostsWrapper() {
         <div className='mb-8 aspect-[9/10]'>
           {rightPostOnHomePage ? <SanityCard post={rightPostOnHomePage} /> : <SkeletonCard />}
         </div>
-        <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
+        <div className='grid grid-cols-1 md:gap-6 md:grid-cols-2'>
           {postsOnHomePage ? (
             postsOnHomePage.slice(0, MAX_POSTS_ON_HOME_PAGE).map((post: SanityDocument, index: number) => (
-              <ScaleFromBottom key={post._id} className='mb-4 aspect-[9/10]'>
-                <SanityCard post={post} />
+              <ScaleFromBottom key={post._id} className='mb-4 md:aspect-[9/10]'>
+                <SanityCard post={post} small/>
               </ScaleFromBottom>
             ))
           ) : (
@@ -59,7 +59,7 @@ function SanityCard({ post, small }: Readonly<PropsType>): ReactElement {
         className={cn(
           'flex grow flex-col overflow-hidden rounded-3xl border-none',
           'group:hover:border-2 group:hover:border-primary',
-          small ? 'aspect-[9/10]' : 'aspect-[16/9]',
+          small ? 'h-fit' : 'aspect-[16/9]',
         )}
       >
         <CardContent className={`relative grow overflow-hidden p-0 ${small ? 'hidden md:block' : ''} `}>
