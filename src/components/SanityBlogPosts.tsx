@@ -29,7 +29,7 @@ export default function PostsWrapper() {
         <div className='grid grid-cols-1 md:grid-cols-2 md:gap-6'>
           {postsOnHomePage ? (
             postsOnHomePage.slice(0, MAX_POSTS_ON_HOME_PAGE).map((post: SanityDocument, index: number) => (
-              <ScaleFromBottom key={post._id} className='mb-4'>
+              <ScaleFromBottom key={post._id} className='mb-4 max-h-[30rem]'>
                 <SanityCard post={post} small />
               </ScaleFromBottom>
             ))
@@ -57,19 +57,18 @@ function SanityCard({ post, small }: Readonly<PropsType>): ReactElement {
     <Link href={`/actualites/${slug.current}`} className='group flex size-full'>
       <Card
         className={cn(
-          'flex grow flex-col overflow-hidden rounded-3xl border-none',
+          'flex grow size-full flex-col overflow-hidden rounded-3xl border-none',
           'group:hover:border-2 group:hover:border-primary',
-          small && 'h-fit',
         )}
       >
-        <CardContent className={`relative grow overflow-hidden p-0 ${small ? 'hidden md:block' : ''} `}>
+        <CardContent className={`relative grow overflow-hidden p-0 h-full ${small ? 'hidden md:block' : ''} `}>
           <Image
             src={urlFor(postImage).url()}
             alt={title}
             width={1000}
             height={1000}
             objectFit='cover'
-            className='transition-transform duration-300 group-hover:scale-105 group-hover:brightness-110'
+            className='transition-transform duration-300 group-hover:scale-105 group-hover:brightness-110 h-full'
           />
           <div className='absolute inset-0 bg-black bg-opacity-50' />
         </CardContent>
