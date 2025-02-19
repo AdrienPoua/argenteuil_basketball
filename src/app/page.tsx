@@ -1,9 +1,8 @@
-'use client';
 import HeaderAndFooter from '@/components/layouts/HeaderAndFooter';
 import PostsWrapper from '@/components/SanityBlogPosts';
 import VideoTitle from '@/components/ui/video-title';
 import DisapearOnScroll from '@/components/motion/DisapearOnScroll';
-
+import WeeklyMatch from '@/components/WeeklyMatch';
 export default function HomePage() {
   return (
     <HeaderAndFooter>
@@ -13,6 +12,10 @@ export default function HomePage() {
         </VideoTitle>
       </DisapearOnScroll>
       <div className='relative'>
+        <VideoTitle type='h2' video='/videos/semaine.mp4'>
+          Cette semaine
+        </VideoTitle>
+        <WeeklyMatch />
         <VideoTitle type='h2' video='/videos/news.mp4'>
           Informations
         </VideoTitle>

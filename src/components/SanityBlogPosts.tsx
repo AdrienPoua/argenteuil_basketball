@@ -57,18 +57,18 @@ function SanityCard({ post, small }: Readonly<PropsType>): ReactElement {
     <Link href={`/actualites/${slug.current}`} className='group flex size-full'>
       <Card
         className={cn(
-          'flex grow size-full flex-col overflow-hidden rounded-3xl border-none',
+          'flex size-full grow flex-col overflow-hidden rounded-3xl border-none',
           'group:hover:border-2 group:hover:border-primary',
         )}
       >
-        <CardContent className={`relative grow overflow-hidden p-0 h-full ${small ? 'hidden md:block' : ''} `}>
+        <CardContent className={`relative h-full grow overflow-hidden p-0 ${small ? 'hidden md:block' : ''} `}>
           <Image
             src={urlFor(postImage).url()}
             alt={title}
             width={1000}
             height={1000}
             objectFit='cover'
-            className='transition-transform duration-300 group-hover:scale-105 group-hover:brightness-110 h-full'
+            className='h-full transition-transform duration-300 group-hover:scale-105 group-hover:brightness-110'
           />
           <div className='absolute inset-0 bg-black bg-opacity-50' />
         </CardContent>

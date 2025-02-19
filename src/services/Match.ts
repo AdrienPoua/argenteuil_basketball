@@ -1,6 +1,6 @@
 import prisma from '@/database/prisma';
 import { Prisma } from '@prisma/client';
-
+import { argenteuilIdOrganisme } from '@/lib/constants/argenteuil-id-organisme';
 class MatchService {
   // Récupération de toutes les matchs
   async getMatchs() {
@@ -10,6 +10,25 @@ class MatchService {
       console.error('Erreur lors de la récupération des équipes :', error);
       throw error;
     }
+  }
+
+  async getWeeklyHomeMatch() {
+    const today = new Date();
+    const startOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - (today.getDay() || 7) + 1);
+    startOfWeek.setHours(0, 0, 0, 0);
+
+    const endOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay() + 7);
+    endOfWeek.setHours(23, 59, 59, 999);
+
+    return await prisma.match.findMany({
+      where: {
+        date: {
+          gte: startOfWeek,
+          lte: endOfWeek,
+        },
+        idOrganismeEquipe1: argenteuilIdOrganisme,
+      },
+    });
   }
 
   async updateMatch(match: Prisma.MatchUpdateInput & { id: string }) {

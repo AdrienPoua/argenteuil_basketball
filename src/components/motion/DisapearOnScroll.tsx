@@ -1,3 +1,4 @@
+'use client';
 import { cn } from '@/lib/utils/cn';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
