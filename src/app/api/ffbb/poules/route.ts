@@ -2,6 +2,7 @@ import { NextResponse, NextRequest } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/integrations/nextAuth/auth';
 import { cookies } from 'next/headers';
+import { errorHandler } from '@/lib/utils/handleApiError';
 
 const endpoint =
   'https://ffbbserver3.ffbb.com/ffbbserver3/api/competition/getEngagementsParOrganisme.ws?idOrganisme=11851';
@@ -31,13 +32,7 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json(ids);
   } catch (error) {
-    console.error('Unexpected error in poules API route:', error);
-    return NextResponse.json(
-      {
-        error: `Unexpected error in poules API route: ${(error as Error).message}`,
-      },
-      { status: 500 },
-    );
+    return errorHandler(error);
   }
 }
 

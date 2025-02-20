@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/integrations/nextAuth/auth';
 import MatchService from '@/services/Match';
 import { MatchSchema } from '@/lib/validation/Match';
+import { errorHandler } from '@/lib/utils/handleApiError';
 
 export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
   // Check if the user is authenticated
@@ -31,11 +32,6 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
     const deletedMatch = await MatchService.deleteMatch(params.id);
     return NextResponse.json(deletedMatch);
   } catch (error) {
-    return NextResponse.json(
-      {
-        error: `Unexpected error in clubs API route: ${(error as Error).message}`,
-      },
-      { status: 500 },
-    );
+    return errorHandler(error);
   }
 }

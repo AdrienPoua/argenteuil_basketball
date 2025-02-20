@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/integrations/nextAuth/auth';
-
+import { errorHandler } from '@/lib/utils/handleApiError';
 const envSchema = z.object({
   publicKey: z.string(),
   privateKey: z.string(),
@@ -59,7 +59,6 @@ export async function POST(req: Request): Promise<Response> {
 
     return NextResponse.json(result);
   } catch (error: any) {
-    console.error("Erreur lors de l'upload :", error.message);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return errorHandler(error);
   }
 }

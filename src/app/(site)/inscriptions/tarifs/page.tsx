@@ -44,24 +44,24 @@ export default function TarifsPage() {
       <VideoTitle type='h1' video='/videos/argent.mp4'>
         Tarifs saison {ABB.saison}
       </VideoTitle>
-        <div className={`transform transition-opacity duration-500 ease-in-out`}>
-          <div className='overflow-x-auto rounded-lg bg-white shadow'>
-            <Table className='min-w-full table-auto'>
-              <TableHeader>
-                <TableRow className='bg-primary text-white'>
-                  <TableCell className='p-4 text-left tracking-wider'>Je suis né(e) en</TableCell>
-                  <TableCell className='p-4 text-left tracking-wider'>Ma catégorie</TableCell>
-                  <TableCell className='p-4 text-right tracking-wider'>Tarif</TableCell>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {allCategories.map((categorie) => (
-                  <TarifRow key={categorie.division} categorie={categorie} />
-                ))}
-              </TableBody>
-            </Table>
-          </div>
+      <div className={`transform transition-opacity duration-500 ease-in-out`}>
+        <div className='overflow-x-auto rounded-lg bg-white shadow'>
+          <Table className='min-w-full table-auto'>
+            <TableHeader>
+              <TableRow className='bg-primary text-white'>
+                <TableCell className='p-4 text-left tracking-wider'>Je suis né(e) en</TableCell>
+                <TableCell className='p-4 text-left tracking-wider'>Ma catégorie</TableCell>
+                <TableCell className='p-4 text-right tracking-wider'>Tarif</TableCell>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {allCategories.map((categorie) => (
+                <TarifRow key={categorie.division} categorie={categorie} />
+              ))}
+            </TableBody>
+          </Table>
         </div>
-      </MainSection>
+      </div>
+    </MainSection>
   );
 }

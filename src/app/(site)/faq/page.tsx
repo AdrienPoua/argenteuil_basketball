@@ -19,19 +19,19 @@ export default async function Index() {
       <VideoTitle type='h1' video='/videos/questions.mp4'>
         Vos questions
       </VideoTitle>
-        <div className='mx-auto mb-10 flex max-w-[800px] justify-center'></div>
-        <div className='mx-auto flex max-w-[800px] flex-col gap-5'>
-          {faq.map((item) => (
-            <Accordion type='single' collapsible className='w-full' key={item.id}>
-              <AccordionItem value={item.id}>
-                <AccordionTrigger>{item.question}</AccordionTrigger>
-                <AccordionContent className='bg-foreground p-5 text-background'>
-                  <p>{item.answer}</p>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          ))}
-        </div>
-      </MainSection>
+      <div className='mx-auto mb-10 flex max-w-[800px] justify-center'></div>
+      <div className='mx-auto flex max-w-[800px] flex-col gap-5'>
+        {faq.map((item) => (
+          <Accordion type='single' collapsible className='w-full' key={item.id}>
+            <AccordionItem value={item.id}>
+              <AccordionTrigger>{item.question}</AccordionTrigger>
+              <AccordionContent className='bg-foreground p-5 text-background'>
+                <p>{item.answer}</p>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        ))}
+      </div>
+    </MainSection>
   );
 }

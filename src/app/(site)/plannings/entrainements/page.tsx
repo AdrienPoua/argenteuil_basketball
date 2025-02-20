@@ -24,26 +24,26 @@ export default async function SchedulePage() {
       <VideoTitle type='h1' video='/videos/entrainements.mp4'>
         Plannings
       </VideoTitle>
-        <Tabs defaultValue='team' className='w-full'>
-          <TabsList className='grid w-full grid-cols-2'>
-            <TabsTrigger value='weekly'>Vue hebdo</TabsTrigger>
-            <TabsTrigger value='team'>Vue par équipe</TabsTrigger>
-          </TabsList>
-          <TabsContent value='weekly'>
-            <Card>
-              <CardContent>
-                <WeeklyPlanning teams={teams} />
-              </CardContent>
-            </Card>
-          </TabsContent>
-          <TabsContent value='team'>
-            <Card>
-              <CardContent className='p-0'>
-                <TeamSchedules teams={teams} />
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
-      </MainSection>
+      <Tabs defaultValue='team' className='w-full'>
+        <TabsList className='grid w-full grid-cols-2'>
+          <TabsTrigger value='weekly'>Vue hebdo</TabsTrigger>
+          <TabsTrigger value='team'>Vue par équipe</TabsTrigger>
+        </TabsList>
+        <TabsContent value='weekly'>
+          <Card>
+            <CardContent>
+              <WeeklyPlanning teams={teams} />
+            </CardContent>
+          </Card>
+        </TabsContent>
+        <TabsContent value='team'>
+          <Card>
+            <CardContent className='p-0'>
+              <TeamSchedules teams={teams} />
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
+    </MainSection>
   );
 }

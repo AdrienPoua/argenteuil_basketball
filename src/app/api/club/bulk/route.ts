@@ -2,7 +2,8 @@ import { getToken } from 'next-auth/jwt';
 import { NextResponse, NextRequest } from 'next/server';
 import ClubService from '@/services/Club';
 import { ClubSchema } from '@/lib/validation/Club';
-
+import { errorHandler } from '@/lib/utils/handleApiError'; 
+ 
 export async function PUT(req: NextRequest) {
   // Check if the user is authenticated
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
@@ -18,11 +19,6 @@ export async function PUT(req: NextRequest) {
     );
     return NextResponse.json(updatedClubs);
   } catch (error) {
-    return NextResponse.json(
-      {
-        error: `Unexpected error in clubs API route: ${(error as Error).message}`,
-      },
-      { status: 500 },
-    );
+    return errorHandler(error);
   }
 }

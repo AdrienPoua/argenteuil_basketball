@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/integrations/nextAuth/auth';
 import { cookies } from 'next/headers';
 import { argenteuilIdOrganisme } from '@/lib/constants/argenteuil-id-organisme';
-
+import { errorHandler } from '@/lib/utils/handleApiError';
 const endpoint = 'https://ffbbserver3.ffbb.com/ffbbserver3/api/competition/getRencontresParPoule.ws?idPoule=';
 
 export async function GET(req: Request, { params }: { params: { id: string } }) {
@@ -35,13 +35,7 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
     });
     return NextResponse.json(datedMatchs, { status: 200 });
   } catch (error) {
-    console.error('Unexpected error in matchs API route:', error);
-    return NextResponse.json(
-      {
-        error: `Unexpected error in matchs API route: ${(error as Error).message}`,
-      },
-      { status: 500 },
-    );
+    return errorHandler(error);
   }
 }
 

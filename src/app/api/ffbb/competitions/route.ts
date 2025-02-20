@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/integrations/nextAuth/auth';
 import { cookies } from 'next/headers';
-
+import { errorHandler } from '@/lib/utils/handleApiError';  
 const endpoint =
   'https://ffbbserver3.ffbb.com/ffbbserver3/api/competition/getCompetitionParOrganisme.ws?codeOrganisme=IDF0095019';
 
@@ -34,14 +34,7 @@ export async function GET(req: Request) {
 
     return NextResponse.json(competitions, { status: 200 });
   } catch (error) {
-    console.error('Unexpected error in getCompetitions API route:', error);
-    return NextResponse.json(
-      {
-        error: 'Unexpected error in competitions API route:',
-        message: (error as Error).message,
-      },
-      { status: 500 },
-    );
+    return errorHandler(error);
   }
 }
 

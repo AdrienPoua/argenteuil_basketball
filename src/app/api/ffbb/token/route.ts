@@ -2,6 +2,7 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/integrations/nextAuth/auth';
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
+import { errorHandler } from '@/lib/utils/handleApiError';
 
 // Check if the environment variables are set
 const { FFBB_SERVER_USERNAME, FFBB_SERVER_PASSWORD } = process.env;
@@ -39,8 +40,7 @@ export async function GET() {
 
     const response = NextResponse.json({ token }, { status: 200 });
     return response;
-  } catch (err: any) {
-    console.error('🚀 Error fetching token:', err.message);
-    return NextResponse.json({ error: err.message }, { status: 500 });
+  } catch (err) {
+    return errorHandler(err);
   }
 }

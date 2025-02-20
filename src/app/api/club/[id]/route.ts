@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/integrations/nextAuth/auth';
 import ClubService from '@/services/Club';
 import { ClubSchema } from '@/lib/validation/Club';
-
+import { errorHandler } from '@/lib/utils/handleApiError';
 export async function PUT(req: NextRequest) {
   // Check if the user is authenticated
   const session = await getServerSession(authOptions);
@@ -14,12 +14,7 @@ export async function PUT(req: NextRequest) {
     const updatedClub = await ClubService.updateClub(club);
     return NextResponse.json(updatedClub);
   } catch (error) {
-    return NextResponse.json(
-      {
-        error: `Unexpected error in clubs API route: ${(error as Error).message}`,
-      },
-      { status: 500 },
-    );
+    return errorHandler(error);
   }
 }
 
@@ -31,11 +26,6 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
     const deletedClub = await ClubService.deleteClub(params.id);
     return NextResponse.json(deletedClub);
   } catch (error) {
-    return NextResponse.json(
-      {
-        error: `Unexpected error in clubs API route: ${(error as Error).message}`,
-      },
-      { status: 500 },
-    );
+    return errorHandler(error);
   }
 }

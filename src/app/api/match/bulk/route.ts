@@ -3,7 +3,7 @@ import MatchService from '@/services/Match';
 import { MatchSchema } from '@/lib/validation/Match';
 import { getToken } from 'next-auth/jwt';
 import { z } from 'zod';
-
+import { errorHandler } from '@/lib/utils/handleApiError';
 export async function PUT(req: NextRequest) {
   // Check if the user is authenticated with the token in the cookie
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
@@ -19,12 +19,6 @@ export async function PUT(req: NextRequest) {
 
     return NextResponse.json({ message: 'Matches upserted' }, { status: 200 });
   } catch (error) {
-    console.log('🚀 ~ PUT ~ error:', error);
-    return NextResponse.json(
-      {
-        error: `Unexpected error in matchs API route: ${(error as Error).message}`,
-      },
-      { status: 500 },
-    );
+    return errorHandler(error);
   }
 }

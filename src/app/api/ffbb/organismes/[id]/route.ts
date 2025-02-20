@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/integrations/nextAuth/auth';
 import { cookies } from 'next/headers';
 import { Competition } from '../../competitions/route';
-
+import { errorHandler } from '@/lib/utils/handleApiError';
 const endpoint = 'https://ffbbserver3.ffbb.com/ffbbserver3/api/competition/getCompetition.ws?id=';
 
 export async function GET(req: Request, { params }: { params: { id: string } }) {
@@ -39,14 +39,7 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
     );
     return NextResponse.json(filteredOrganisme);
   } catch (error) {
-    console.error('Unexpected error in organismes API route:', error);
-    return NextResponse.json(
-      {
-        error: 'Unexpected error in organismes API route:',
-        message: (error as Error).message,
-      },
-      { status: 500 },
-    );
+    return errorHandler(error); 
   }
 }
 
