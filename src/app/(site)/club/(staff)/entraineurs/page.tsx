@@ -15,15 +15,13 @@ export const metadata = {
 export default async function Index() {
   const coachs = await MemberService.getCoachs().then((coach) => coach.map((c) => new Member(c).toPlainObject()));
   return (
-    <>
+    <MainSection>
       <VideoTitle type='h1' video='/videos/entraineurs.mp4'>
         Nos entraineurs
       </VideoTitle>
-      <MainSection>
-        <div className='grid grid-cols-1 place-items-center items-center justify-center gap-10 p-10 md:grid-cols-3'>
-          {coachs?.map((coach) => <Card key={coach.id} data={coach} />)}
-        </div>
-      </MainSection>
-    </>
+      <div className='grid grid-cols-1 place-items-center items-center justify-center gap-10 p-10 md:grid-cols-3'>
+        {coachs?.map((coach) => <Card key={coach.id} data={coach} />)}
+      </div>
+    </MainSection>
   );
 }

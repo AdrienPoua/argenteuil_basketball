@@ -10,7 +10,7 @@ export default async function WeeklyMatch() {
     .then((match) => match.map((m) => m.toPlainObject()));
 
   return (
-    <div className='flex min-h-96 flex-col items-center justify-center mb-20'>
+    <div className='mb-20 flex min-h-96 flex-col items-center justify-center'>
       <div className='container flex flex-col gap-10'>
         {weeklyMatchs.length > 0 ? (
           weeklyMatchs.map((match) => <Card key={match.id} match={match} />)

@@ -18,13 +18,11 @@ export default async function TeamPage() {
     .then((teams) => teams.map((team) => new Team(team)))
     .then((teams) => teams.map((team) => team.toPlainObject()));
   return (
-    <>
+    <MainSection>
       <VideoTitle type='h1' video='/videos/equipes.mp4'>
         Nos équipes 2024-2025
       </VideoTitle>
-      <MainSection>
-        <CardsWrapper teams={teams} />
-      </MainSection>
-    </>
+      <CardsWrapper teams={teams} />
+    </MainSection>
   );
 }

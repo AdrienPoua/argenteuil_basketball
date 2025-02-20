@@ -20,11 +20,10 @@ export default async function SchedulePage() {
     .then((teams) => teams.map((team) => new Team(team)))
     .then((teams) => teams.map((team) => team.toPlainObject()));
   return (
-    <>
+    <MainSection>
       <VideoTitle type='h1' video='/videos/entrainements.mp4'>
         Plannings
       </VideoTitle>
-      <MainSection>
         <Tabs defaultValue='team' className='w-full'>
           <TabsList className='grid w-full grid-cols-2'>
             <TabsTrigger value='weekly'>Vue hebdo</TabsTrigger>
@@ -46,6 +45,5 @@ export default async function SchedulePage() {
           </TabsContent>
         </Tabs>
       </MainSection>
-    </>
   );
 }

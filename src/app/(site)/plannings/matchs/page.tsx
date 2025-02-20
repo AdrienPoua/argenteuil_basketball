@@ -20,10 +20,10 @@ export default async function MatchsPage() {
     .then((match) => match.toSorted((a, b) => a.date.getTime() - b.date.getTime()));
   return (
     <div className='mx-auto'>
-      <VideoTitle type='h1' video='/videos/matchs.mp4'>
-        Calendrier des matchs
-      </VideoTitle>
       <MainSection>
+        <VideoTitle type='h1' video='/videos/matchs.mp4'>
+          Calendrier des matchs
+        </VideoTitle>
         <ViewTab matchs={matchs} />
       </MainSection>
     </div>

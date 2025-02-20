@@ -16,13 +16,11 @@ export const metadata = {
 export default async function Index() {
   const leaders = await MemberService.getLeaders().then((leader) => leader.map((l) => new Member(l).toPlainObject()));
   return (
-    <>
+      <MainSection>
       <VideoTitle type='h1' video='/videos/dirigeants.mp4'>
         Nos dirigeants
       </VideoTitle>
-      <MainSection>
         <AnimatedTestimonials testimonials={leaders} />
       </MainSection>
-    </>
   );
 }

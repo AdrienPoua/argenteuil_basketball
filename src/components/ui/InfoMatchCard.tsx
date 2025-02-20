@@ -17,26 +17,28 @@ export default function InfoMatchCard({
       className={cn(
         'mx-auto flex w-full max-w-4xl flex-col items-center justify-center gap-4 p-4',
         'overflow-hidden rounded-lg border border-primary bg-background shadow-md',
-        'transition-all duration-200 hover:scale-102 hover:border-foreground hover:bg-primary/5',
+        'hover:scale-102 transition-all duration-200 hover:border-foreground hover:bg-primary/5',
         'group cursor-pointer',
       )}
     >
       <div className='w-full rounded-md bg-foreground p-3 text-center text-lg font-medium text-background'>
         {format(new Date(date), 'EEEE d MMMM', { locale: fr })} • {heure}
       </div>
-      
+
       <div className='grid grid-cols-3 px-8'>
         <TeamSquare>{nomEquipe1}</TeamSquare>
-        <div className='flex flex-col items-center gap-2 grow'>
-          <Badge variant="staffCard" className='font-semibold uppercase tracking-wide text-xl'>{championnat}</Badge>
-          <p className='text-xl font-bold '>VS</p>
+        <div className='flex grow flex-col items-center gap-2'>
+          <Badge variant='staffCard' className='text-xl font-semibold uppercase tracking-wide'>
+            {championnat}
+          </Badge>
+          <p className='text-xl font-bold'>VS</p>
         </div>
         <TeamSquare>{nomEquipe2}</TeamSquare>
       </div>
 
       {salle && (
         <div className='mt-2 text-center'>
-          <p className='text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors'>
+          <p className='text-sm font-medium text-muted-foreground transition-colors group-hover:text-foreground'>
             📍 {salle}
           </p>
         </div>

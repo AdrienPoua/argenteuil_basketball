@@ -40,11 +40,10 @@ const TarifRow = ({ categorie }: TarifRowProps) => {
 
 export default function TarifsPage() {
   return (
-    <>
+    <MainSection>
       <VideoTitle type='h1' video='/videos/argent.mp4'>
         Tarifs saison {ABB.saison}
       </VideoTitle>
-      <MainSection>
         <div className={`transform transition-opacity duration-500 ease-in-out`}>
           <div className='overflow-x-auto rounded-lg bg-white shadow'>
             <Table className='min-w-full table-auto'>
@@ -64,6 +63,5 @@ export default function TarifsPage() {
           </div>
         </div>
       </MainSection>
-    </>
   );
 }

@@ -14,17 +14,15 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <>
+    <MainSection>
       <VideoTitle type='h1' video='/videos/gymnases.mp4'>
         Nos gymnases
       </VideoTitle>
-      <MainSection>
-        <div className='flex flex-col gap-16'>
-          {gyms.map((gym) => (
-            <Card key={gym.id} image={gym.image} name={gym.name} adress={gym.address} city={gym.city} />
-          ))}
-        </div>
-      </MainSection>
-    </>
+      <div className='flex flex-col gap-16'>
+        {gyms.map((gym) => (
+          <Card key={gym.id} image={gym.image} name={gym.name} adress={gym.address} city={gym.city} />
+        ))}
+      </div>
+    </MainSection>
   );
 }

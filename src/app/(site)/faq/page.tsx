@@ -15,11 +15,10 @@ export const metadata = {
 export default async function Index() {
   const faq = await FAQService.getFaqs();
   return (
-    <>
+    <MainSection>
       <VideoTitle type='h1' video='/videos/questions.mp4'>
         Vos questions
       </VideoTitle>
-      <MainSection>
         <div className='mx-auto mb-10 flex max-w-[800px] justify-center'></div>
         <div className='mx-auto flex max-w-[800px] flex-col gap-5'>
           {faq.map((item) => (
@@ -34,6 +33,5 @@ export default async function Index() {
           ))}
         </div>
       </MainSection>
-    </>
   );
 }
