@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { CalendarIcon, MapPinIcon, ClockIcon, UserIcon, Mail } from 'lucide-react';
 import { PropsType, EditingCardPropsType } from '../types/card.types';
 import Form from './Form';
-import { sendConvocation } from '../actions/server.actions';
+import { askConvocation, sendConvocation } from '../actions/server.actions';
 import {
   Dialog,
   DialogContent,
@@ -29,10 +29,18 @@ export default function Index({ match }: Readonly<PropsType>) {
 
 const BaseCard = ({ match, setIsEditing }: Readonly<EditingCardPropsType>) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [convocationAsked, setConvocationAsked] = useState(false);
 
   const handleSendConvocation = () => {
     setIsDialogOpen(false);
     sendConvocation(match);
+  };
+
+  const handleAskConvocation = () => {
+    if (!convocationAsked) {
+      askConvocation(match);
+      setConvocationAsked(true);
+    }
   };
 
   if (match.matchNumber === 80308) {
@@ -119,6 +127,30 @@ const BaseCard = ({ match, setIsEditing }: Readonly<EditingCardPropsType>) => {
               </Button>
             )}
           </>
+        )}
+        {!match.isHome && (
+              <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+              <DialogTrigger asChild>
+                <Button className='w-full'>
+                  <Mail className='mr-2 h-4 w-4' />
+                  <span>Demander la convocation</span>
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Confirmer l&apos;envoi</DialogTitle>
+                  <DialogDescription>
+                    Voulez-vous demander la convocation pour ce match ?
+                  </DialogDescription>
+                </DialogHeader>
+                <DialogFooter className='flex gap-2'>
+                  <Button variant='outline' onClick={() => setIsDialogOpen(false)}>
+                    Annuler
+                  </Button>
+                  <Button onClick={handleAskConvocation}>Confirmer l&apos;envoi</Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
         )}
       </CardContent>
       <CardFooter className='flex flex-wrap justify-between gap-2'>

@@ -14,5 +14,5 @@ export async function GET() {
     return NextResponse.json(matchs);
   } catch (error) {
     return errorHandler(error);
-  } 
+  }
 }

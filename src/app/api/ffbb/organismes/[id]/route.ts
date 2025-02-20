@@ -39,7 +39,7 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
     );
     return NextResponse.json(filteredOrganisme);
   } catch (error) {
-    return errorHandler(error); 
+    return errorHandler(error);
   }
 }
 

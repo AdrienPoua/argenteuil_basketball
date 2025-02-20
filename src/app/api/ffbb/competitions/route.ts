@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/integrations/nextAuth/auth';
 import { cookies } from 'next/headers';
-import { errorHandler } from '@/lib/utils/handleApiError';  
+import { errorHandler } from '@/lib/utils/handleApiError';
 const endpoint =
   'https://ffbbserver3.ffbb.com/ffbbserver3/api/competition/getCompetitionParOrganisme.ws?codeOrganisme=IDF0095019';
 

@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/integrations/nextAuth/auth';
 import ClubService from '@/services/Club';
 import { ClubSchema } from '@/lib/validation/Club';
-import { errorHandler } from '@/lib/utils/handleApiError';    
+import { errorHandler } from '@/lib/utils/handleApiError';
 export async function GET(req: NextRequest) {
   // Check if the user is authenticated
   const session = await getServerSession(authOptions);
