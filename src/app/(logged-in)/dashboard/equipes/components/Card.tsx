@@ -2,38 +2,27 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Clock, Pencil, X, ChevronDown, ChevronUp } from 'lucide-react';
+import { Clock, ChevronDown, ChevronUp } from 'lucide-react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { deleteTeam } from '../actions/server.actions';
-import { BaseCardPropsType, EditingCardPropsType, PropsType } from '../types/card.types';
 import { useState } from 'react';
-import Form from './Form';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
+import UpdateModal from './UpdateModal';
+import Team from '@/models/Team';
+import Member from '@/models/Member';
+import DeleteDialog from '@/components/ui/delete-dialog';
 
-export default function Index({ data, members }: Readonly<PropsType>) {
-  const [isEditing, setIsEditing] = useState(false);
-  if (isEditing) {
-    return <EditCard data={data} members={members} setIsEditing={setIsEditing} />;
-  }
-  return <TeamCard data={data} setIsEditing={setIsEditing} />;
-}
+export type PropsType = {
+  data: ReturnType<Team['toPlainObject']>;
+  members: ReturnType<Member['toPlainObject']>[];
+};
 
-export function TeamCard({ data, setIsEditing }: Readonly<BaseCardPropsType>) {
+export default function TeamCard({ data, members }: Readonly<PropsType>) {
   const [isSessionsExpanded, setIsSessionsExpanded] = useState(false);
 
   const handleDelete = async () => {
-    await deleteTeam(data.id);
+    fetch(`/api/teams/${data.id}`, {
+      method: 'DELETE',
+    });
   };
 
   return (
@@ -51,34 +40,8 @@ export function TeamCard({ data, setIsEditing }: Readonly<BaseCardPropsType>) {
           <CardTitle className='absolute bottom-4 left-4 z-10 text-3xl font-bold text-white'>{data.name}</CardTitle>
         </div>
         <div className='absolute right-2 top-2 z-20 flex gap-2'>
-          <Button
-            size='icon'
-            onClick={() => setIsEditing(true)}
-            aria-label={`Modifier l'équipe ${data.name}`}
-            className='bg-white/80 hover:bg-white'
-          >
-            <Pencil className='h-4 w-4 text-primary' />
-          </Button>
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button variant='destructive' size='icon' className='bg-red-500/80 hover:bg-red-500'>
-                <X className='h-4 w-4' />
-              </Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Êtes-vous absolument sûr ?</AlertDialogTitle>
-                <AlertDialogDescription>
-                  Cette action ne peut pas être annulée. Cela supprimera définitivement l&apos;équipe {data.name} et
-                  toutes les données associées.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Annuler</AlertDialogCancel>
-                <AlertDialogAction onClick={handleDelete}>Confirmer la suppression</AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+          <UpdateModal members={members} data={data} />
+          <DeleteDialog handleDelete={handleDelete} />
         </div>
       </CardHeader>
       <CardContent className='space-y-6 p-6'>
@@ -128,18 +91,3 @@ export function TeamCard({ data, setIsEditing }: Readonly<BaseCardPropsType>) {
     </Card>
   );
 }
-
-const EditCard = ({ data, members, setIsEditing }: Readonly<EditingCardPropsType>) => {
-  return (
-    <div className='relative col-span-2'>
-      <Button
-        onClick={() => setIsEditing(false)}
-        variant='destructive'
-        className='absolute right-0 top-0 z-10 size-fit p-2'
-      >
-        <X />
-      </Button>
-      <Form defaultValues={data} members={members} setIsEditing={setIsEditing} />
-    </div>
-  );
-};

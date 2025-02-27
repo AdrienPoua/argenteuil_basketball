@@ -3,16 +3,10 @@ import prisma from '@/database/prisma';
 import { z } from 'zod';
 
 class MemberService {
-  private readonly createDataSchema = MemberSchema.extend({
-    teams: z.array(z.string()),
-  });
-  private readonly updateDataSchema = MemberSchema.extend({
-    id: z.string(),
-    teams: z.array(z.string()),
-  });
+  private readonly createDataSchema = MemberSchema.omit({ id: true });
 
   async createMember(data: z.infer<typeof this.createDataSchema>) {
-    const { teams, ...member } = this.createDataSchema.parse(data);
+    const { teams, ...member } = data;
 
     try {
       return await prisma.member.create({
@@ -63,11 +57,11 @@ class MemberService {
     });
   }
 
-  async updateMember(data: z.infer<typeof this.updateDataSchema>) {
-    const { id, teams, ...member } = this.updateDataSchema.parse(data);
+  async updateMember(data: z.infer<typeof MemberSchema>) {
+    const { id, teams, ...member } = data;
 
     return await prisma.member.update({
-      where: { id },
+      where: { id: id },
       data: {
         ...member,
         teams: {

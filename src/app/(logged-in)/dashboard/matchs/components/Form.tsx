@@ -7,21 +7,27 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { useMatchForm } from '../actions/client.action';
 import { Badge } from '@/components/ui/badge';
 import { CardHeader, CardTitle } from '@/components/ui/card';
-import { updateMatch } from '../actions/server.actions';
-
+import { useRouter } from 'next/navigation';
 export default function MatchForm({ match, setIsEditing }: Readonly<PropsType>) {
   const form = useMatchForm(match);
-
+  const router = useRouter();
   const onSubmit = async (data: FormValues) => {
     const date = new Date(`${data.date}T${data.time}`);
     try {
-      console.log('🚀 ~ onSubmit ~ date:', date);
-      await updateMatch({ id: match.id, date, salle: data.salle });
+      const response = await fetch(`/api/matchs/${match.id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ date, salle: data.salle }),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to update match');
+      }
+      router.refresh();
       setIsEditing(false);
     } catch (error) {
       console.error(error);
     }
   };
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>

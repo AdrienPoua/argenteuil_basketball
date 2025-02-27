@@ -3,20 +3,27 @@
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { updateClub } from '../actions/server.actions';
 import { FormValues, PropsType } from '../types/form.types';
 import { useClubForm } from '../actions/client.actions';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Building2, Mail, Phone } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 export default function ClubForm({ defaultValues, setIsEditing }: Readonly<PropsType>) {
   const form = useClubForm(defaultValues);
-
+  const router = useRouter();
   async function onSubmit(data: FormValues) {
     try {
-      await updateClub(data);
+      const response = await fetch(`/api/clubs/${defaultValues.id}`, {
+        method: 'PUT',
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to update club');
+      }
       setIsEditing(false);
       form.reset();
+      router.refresh();
     } catch (error) {
       console.error('Erreur lors de la création du club :', error);
     }

@@ -10,6 +10,7 @@ export const roleSchema = z.enum([
 ]);
 
 export const MemberSchema = z.object({
+  id: z.string(),
   name: z.string(),
   email: z.string().email(),
   phone: z.string().min(8),
@@ -18,4 +19,5 @@ export const MemberSchema = z.object({
   isLeader: z.boolean().default(false),
   role: z.array(roleSchema),
   image: z.string().optional(),
+  teams: z.array(z.string()),
 });

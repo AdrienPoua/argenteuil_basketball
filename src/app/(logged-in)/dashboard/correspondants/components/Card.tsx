@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Pencil, Trash2, X, Mail, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { deleteClub } from '../actions/server.actions';
 import { CardPropsType, PropsType } from '../types/card.types';
 import { useState } from 'react';
 import Form from './Form';
@@ -19,7 +18,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-
+import { useRouter } from 'next/navigation';
 export default function Index({ data }: Readonly<PropsType>) {
   const [isEditing, setIsEditing] = useState(false);
   if (isEditing) {
@@ -29,8 +28,15 @@ export default function Index({ data }: Readonly<PropsType>) {
 }
 
 export function ClubCard({ data, setIsEditing }: Readonly<CardPropsType>) {
+  const router = useRouter();
   const handleDelete = async () => {
-    await deleteClub(data.id);
+    const response = await fetch(`/api/clubs/${data.id}`, {
+      method: 'DELETE',
+    });
+    if (!response.ok) {
+      throw new Error('Failed to delete club');
+    }
+    router.refresh();
   };
 
   return (

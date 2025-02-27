@@ -4,7 +4,7 @@ import { SessionSchema } from '@/lib/validation/Team';
 export const formSchema = z.object({
   name: z.string(),
   image: z.instanceof(File).optional(),
-  level: z.string(),
+  level: z.string().default('Départemental'),
   sessions: z.array(SessionSchema),
   coach: z.string().optional(),
   isCompetition: z.boolean().default(false),

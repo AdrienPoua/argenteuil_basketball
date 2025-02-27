@@ -7,39 +7,70 @@ import { useFieldArray } from 'react-hook-form';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Trash2, Plus, Upload } from 'lucide-react';
+import { Trash2, Plus, Upload, Pencil } from 'lucide-react';
 import { useState } from 'react';
 import Image from 'next/image';
 import { Gymnases, Days } from '@/lib/validation/Team';
-import { createTeam, updateTeam } from '../actions/server.actions';
-import { getImageUrl, useTeamForm, useCompetitions } from '../actions/client.actions';
-import { FormSchemaType, PropsType } from '../types/form.types';
+import { getImageUrl, useCompetitions } from '../actions/client.actions';
 import { Checkbox } from '@/components/ui/checkbox';
 import { MultiSelect } from '@/components/ui/multi-select';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { formSchema } from '../schemas/form.schemas';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import Member from '@/models/Member';
+import Team from '@/models/Team';
+import { z } from 'zod';
+import { PropsType } from './Card';
 
-export default function EnhancedForm({ members, defaultValues, setIsEditing }: Readonly<PropsType>) {
-  const form = useTeamForm(defaultValues);
-  const [previewImage, setPreviewImage] = useState<string | null>(defaultValues?.image ?? null);
+export default function FormModal({ members, data }: Readonly<PropsType>) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button className='gap-2'>
+          <Pencil size={20} />
+        </Button>
+      </DialogTrigger>
+      <DialogContent className='max-h-[90vh] overflow-y-auto sm:max-w-[900px]'>
+        <CustomForm members={members} data={data} setOpen={setOpen} />
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+function CustomForm({ members, data: team, setOpen }: Readonly<PropsType & { setOpen: (open: boolean) => void }>) {
+  const { data: competitions } = useCompetitions();
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      ...team,
+      coach: team?.coach?.id,
+      image: team?.image ? new File([team.image], team.image, { type: 'image/jpeg' }) : undefined,
+    },
+  });
+
+  const [previewImage, setPreviewImage] = useState<string | null>(team?.image ?? null);
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: 'sessions',
   });
 
-  const { data: competitions } = useCompetitions();
-  async function onSubmit(data: FormSchemaType) {
-    const imageDidntChange = defaultValues?.image && data.image?.name === defaultValues.image;
-    const imageUrl = imageDidntChange
-      ? defaultValues?.image
-      : ((data.image && (await getImageUrl(data.image))) ?? null);
-    if (defaultValues) {
-      await updateTeam({ ...data, image: imageUrl, id: defaultValues.id });
-    } else {
-      await createTeam({ ...data, image: imageUrl });
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    const imageDidntChange = team?.image && data.image?.name === team.image;
+    const imageUrl = imageDidntChange ? team?.image : ((data.image && (await getImageUrl(data.image))) ?? null);
+
+    const res = await fetch(`/api/teams/${team.id}`, {
+      method: 'PUT',
+      body: JSON.stringify({ ...data, image: imageUrl }),
+    });
+    if (!res.ok) {
+      throw new Error('Failed to update team');
     }
     form.reset();
-    setIsEditing && setIsEditing(false);
   }
-
+  console.log('🚀 ~ EnhancedForm ~ competitions:', competitions);
   return (
     <Form {...form}>
       <form
@@ -73,7 +104,7 @@ export default function EnhancedForm({ members, defaultValues, setIsEditing }: R
                 name='image'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className='text-background'>Image de l&apos;équipe</FormLabel>
+                    <FormLabel>Image de l&apos;équipe</FormLabel>
                     <FormControl>
                       <div className='flex flex-col items-center space-y-4'>
                         {previewImage && (
@@ -81,31 +112,31 @@ export default function EnhancedForm({ members, defaultValues, setIsEditing }: R
                             <Image src={previewImage} alt='Prévisualisation' layout='fill' objectFit='cover' />
                           </div>
                         )}
-                        <div className='w-full'>
-                          <div className='flex h-32 w-full cursor-pointer items-center justify-center rounded-lg border-2 border-dashed border-gray-300 transition-colors hover:border-primary'>
+                        <label className='w-full cursor-pointer'>
+                          <div className='flex h-32 w-full items-center justify-center rounded-lg border-2 border-dashed border-gray-300 transition-colors hover:border-primary'>
                             <div className='space-y-1 text-center'>
                               <Upload className='mx-auto h-12 w-12 text-gray-400' />
-                              <div className='flex text-sm text-gray-600'>
-                                <span className='relative font-medium text-primary focus-within:outline-none focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 hover:underline'>
+                              <div className='text-sm text-gray-600'>
+                                <span className='relative font-medium text-primary hover:underline'>
                                   Télécharger une image
                                 </span>
                               </div>
                             </div>
-                            <Input
-                              type='file'
-                              className='hidden'
-                              accept='image/*'
-                              onChange={(e) => {
-                                const file = e.target.files?.[0];
-                                if (file) {
-                                  const url = URL.createObjectURL(file);
-                                  field.onChange(file);
-                                  setPreviewImage(url);
-                                }
-                              }}
-                            />
                           </div>
-                        </div>
+                          <Input
+                            type='file'
+                            className='hidden'
+                            accept='image/*'
+                            onChange={(e) => {
+                              const file = e.target.files?.[0];
+                              if (file) {
+                                const url = URL.createObjectURL(file);
+                                field.onChange(file);
+                                setPreviewImage(url);
+                              }
+                            }}
+                          />
+                        </label>
                       </div>
                     </FormControl>
                     <FormMessage />
@@ -179,8 +210,8 @@ export default function EnhancedForm({ members, defaultValues, setIsEditing }: R
                             value: competition,
                           })) ?? []
                         }
-                        selected={field.value}
-                        onChange={(values) => {
+                        value={field.value}
+                        onValueChange={(values) => {
                           field.onChange(values);
                         }}
                         placeholder='Sélectionner les championnats'

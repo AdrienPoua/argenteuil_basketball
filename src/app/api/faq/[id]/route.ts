@@ -1,8 +1,8 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/integrations/nextAuth/auth';
-import MatchService from '@/services/Match';
-import { MatchSchema } from '@/lib/validation/Match';
+import FaqService from '@/services/FAQ';
+import { FAQSchema } from '@/lib/validation/FAQ';
 import { errorHandler } from '@/lib/utils/handleApiError';
 
 export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
@@ -11,16 +11,11 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   try {
     const body = await req.json();
-    const match = MatchSchema.parse(body);
-    const updatedMatch = await MatchService.upsert({ ...match, id: params.id });
-    return NextResponse.json(updatedMatch);
+    const faq = FAQSchema.parse(body);
+    const updatedFaq = await FaqService.updateFaq({ ...faq, id: params.id });
+    return NextResponse.json(updatedFaq);
   } catch (error) {
-    return NextResponse.json(
-      {
-        error: `Unexpected error in match API route: ${(error as Error).message}`,
-      },
-      { status: 500 },
-    );
+    return errorHandler(error);
   }
 }
 
@@ -29,8 +24,8 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
   const session = await getServerSession(authOptions);
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   try {
-    const deletedMatch = await MatchService.deleteMatch(params.id);
-    return NextResponse.json(deletedMatch);
+    const deletedFaq = await FaqService.deleteFaq(params.id);
+    return NextResponse.json(deletedFaq);
   } catch (error) {
     return errorHandler(error);
   }

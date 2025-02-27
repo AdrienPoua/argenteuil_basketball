@@ -12,6 +12,17 @@ class MatchService {
     }
   }
 
+  async createMatch(match: Prisma.MatchCreateInput) {
+    try {
+      return await prisma.match.create({
+        data: match,
+      });
+    } catch (error) {
+      console.error('Erreur lors de la création du match :', error);
+      throw error;
+    }
+  }
+
   async getWeeklyHomeMatch() {
     const today = new Date();
     const startOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - (today.getDay() || 7) + 1);
@@ -32,10 +43,10 @@ class MatchService {
   }
 
   async updateMatch(match: Prisma.MatchUpdateInput & { id: string }) {
-    const { id, date, salle, convocationIsSent } = match;
+    const { id, ...rest } = match;
     return await prisma.match.update({
       where: { id },
-      data: { date, salle, convocationIsSent },
+      data: rest,
     });
   }
 

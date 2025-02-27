@@ -1,16 +1,14 @@
-import { BaseFAQSchema } from '@/lib/validation/FAQ';
+import { FAQSchema } from '@/lib/validation/FAQ';
 import prisma from '@/database/prisma';
 import { z } from 'zod';
 
 class FAQService {
-  private readonly BaseFAQSchema = BaseFAQSchema;
-  private readonly ExistingFAQSchema = BaseFAQSchema.extend({ id: z.string() });
+  private readonly createDataSchema = FAQSchema.omit({ id: true });
 
-  async createFaq(data: z.infer<typeof this.BaseFAQSchema>) {
-    const parsedFAQ = this.BaseFAQSchema.parse(data);
+  async createFaq(data: z.infer<typeof this.createDataSchema>) {
     try {
       return await prisma.fAQ.create({
-        data: parsedFAQ,
+        data,
       });
     } catch (error) {
       console.error('Erreur lors de la création du faq :', error);
@@ -28,12 +26,11 @@ class FAQService {
     }
   }
 
-  async updateFaq(data: z.infer<typeof this.ExistingFAQSchema>) {
-    const parsedFAQ = this.ExistingFAQSchema.parse(data);
+  async updateFaq(data: z.infer<typeof FAQSchema>) {
     try {
       return await prisma.fAQ.update({
-        where: { id: parsedFAQ.id },
-        data: parsedFAQ,
+        where: { id: data.id },
+        data,
       });
     } catch (error) {
       console.error('Erreur lors de la mise à jour du faq :', error);
@@ -41,19 +38,17 @@ class FAQService {
     }
   }
 
-  async pushRank(data: z.infer<typeof this.ExistingFAQSchema>) {
-    const parsedFAQ = this.ExistingFAQSchema.parse(data);
+  async pushRank(data: z.infer<typeof FAQSchema>) {
     return await prisma.fAQ.update({
-      where: { id: parsedFAQ.id },
-      data: { position: parsedFAQ.position + 1 },
+      where: { id: data.id },
+      data: { position: data.position + 1 },
     });
   }
 
-  async downRank(data: z.infer<typeof this.ExistingFAQSchema>) {
-    const parsedFAQ = this.ExistingFAQSchema.parse(data);
+  async downRank(data: z.infer<typeof FAQSchema>) {
     return await prisma.fAQ.update({
-      where: { id: parsedFAQ.id },
-      data: { position: parsedFAQ.position - 1 },
+      where: { id: data.id },
+      data: { position: data.position - 1 },
     });
   }
 

@@ -14,17 +14,19 @@ import { PropsType } from '../types/form.types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Upload, Mail, Phone, User } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 export default function MemberForm({ teams, defaultValues, setIsEditing }: Readonly<PropsType>) {
   const [previewImage, setPreviewImage] = useState<string | undefined>(defaultValues?.image);
   const form = useMemberForm(defaultValues);
-
+  const router = useRouter();
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     try {
       await handleSubmit(data, defaultValues);
       setIsEditing?.(false);
       setPreviewImage(undefined);
       form.reset();
+      router.refresh();
     } catch (error) {
       console.error(error);
     }

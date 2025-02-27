@@ -4,9 +4,7 @@ import MemberService from '@/services/Member';
 import TeamService from '@/services/Team';
 import Member from '@/models/Member';
 import Team from '@/models/Team';
-import Form from './components/Form';
-
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+import FormModal from './components/Modal';
 
 export default async function Page() {
   const members = await MemberService.getMembers()
@@ -18,7 +16,7 @@ export default async function Page() {
 
   return (
     <div className='flex flex-wrap gap-10'>
-      <Form members={members} />
+      <FormModal members={members} />
       {
         <div className='flex flex-wrap gap-10'>
           {teams.map((team) => (

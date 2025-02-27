@@ -1,12 +1,10 @@
 'use client';
 import { z } from 'zod';
-import { createMember, updateMember } from './server.actions';
 import { FormSchemaType, PropsType } from '../types/form.types';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormSchema } from '../schemas/form.schemas';
 import { Roles } from '@prisma/client';
-
 export const getImageUrl = async (file: File) => {
   if (!file) return;
   const urlSchema = z.string();
@@ -29,9 +27,21 @@ export const handleSubmit = async (data: FormSchemaType, defaultValues: PropsTyp
     imageUrl = imageDidntChange ? defaultValues.image : await getImageUrl(data.image);
   }
   if (defaultValues) {
-    await updateMember({ ...data, image: imageUrl, id: defaultValues.id });
+    const res = await fetch(`/api/members/${defaultValues.id}`, {
+      method: 'PUT',
+      body: JSON.stringify({ ...data, image: imageUrl }),
+    });
+    if (!res.ok) {
+      throw new Error('Failed to update member');
+    }
   } else {
-    await createMember({ ...data, image: imageUrl });
+    const res = await fetch('/api/members', {
+      method: 'POST',
+      body: JSON.stringify({ ...data, image: imageUrl }),
+    });
+    if (!res.ok) {
+      throw new Error('Failed to create member');
+    }
   }
 };
 

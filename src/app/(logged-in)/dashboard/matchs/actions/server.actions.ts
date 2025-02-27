@@ -14,20 +14,6 @@ export async function getTeams() {
   return await TeamService.getTeams();
 }
 
-export async function deleteMatch(matchId: string) {
-  return await MatchService.deleteMatch(matchId);
-}
-
-export async function updateMatch(match: { date: Date; salle: string } & { id: string }) {
-  console.log('🚀 ~ updateMatch ~ match:', match);
-  await MatchService.updateMatch({
-    date: match.date,
-    salle: match.salle,
-    id: match.id,
-  });
-  revalidatePath('/dashboard/matchs');
-}
-
 export async function sendConvocation(match: ReturnType<Match['toPlainObject']>) {
   const team = await TeamService.getTeamByChampionnat(match.championnat);
   const convocation = new ConvocationService(match, team?.coach?.email);

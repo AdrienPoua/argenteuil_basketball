@@ -129,28 +129,26 @@ const BaseCard = ({ match, setIsEditing }: Readonly<EditingCardPropsType>) => {
           </>
         )}
         {!match.isHome && (
-              <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-              <DialogTrigger asChild>
-                <Button className='w-full'>
-                  <Mail className='mr-2 h-4 w-4' />
-                  <span>Demander la convocation</span>
+          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+            <DialogTrigger asChild>
+              <Button className='w-full'>
+                <Mail className='mr-2 h-4 w-4' />
+                <span>Demander la convocation</span>
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Confirmer l&apos;envoi</DialogTitle>
+                <DialogDescription>Voulez-vous demander la convocation pour ce match ?</DialogDescription>
+              </DialogHeader>
+              <DialogFooter className='flex gap-2'>
+                <Button variant='outline' onClick={() => setIsDialogOpen(false)}>
+                  Annuler
                 </Button>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Confirmer l&apos;envoi</DialogTitle>
-                  <DialogDescription>
-                    Voulez-vous demander la convocation pour ce match ?
-                  </DialogDescription>
-                </DialogHeader>
-                <DialogFooter className='flex gap-2'>
-                  <Button variant='outline' onClick={() => setIsDialogOpen(false)}>
-                    Annuler
-                  </Button>
-                  <Button onClick={handleAskConvocation}>Confirmer l&apos;envoi</Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
+                <Button onClick={handleAskConvocation}>Confirmer l&apos;envoi</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         )}
       </CardContent>
       <CardFooter className='flex flex-wrap justify-between gap-2'>

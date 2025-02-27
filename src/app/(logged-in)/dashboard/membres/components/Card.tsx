@@ -6,7 +6,6 @@ import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Pencil, Trash, X, Mail, Phone } from 'lucide-react';
-import { deleteMember } from '../actions/server.actions';
 import Form from './Form';
 import { PropsType, BaseCardPropsType, EditingCardPropsType } from '../types/card.types';
 import {
@@ -20,7 +19,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-
+import { useRouter } from 'next/navigation';
 export default function Index({ data, teams }: Readonly<PropsType>): React.ReactElement {
   const [isEditing, setIsEditing] = useState(false);
   if (isEditing) {
@@ -31,8 +30,15 @@ export default function Index({ data, teams }: Readonly<PropsType>): React.React
 }
 
 export function BaseCard({ data, setIsEditing }: Readonly<BaseCardPropsType>) {
+  const router = useRouter();
   const handleDelete = async () => {
-    await deleteMember(data.id);
+    const res = await fetch(`/api/members/${data.id}`, {
+      method: 'DELETE',
+    });
+    if (!res.ok) {
+      throw new Error('Failed to delete member');
+    }
+    router.refresh();
   };
 
   return (

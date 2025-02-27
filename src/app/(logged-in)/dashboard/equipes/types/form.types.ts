@@ -5,8 +5,5 @@ import { z } from 'zod';
 
 export type PropsType = {
   members: ReturnType<Member['toPlainObject']>[];
-  defaultValues?: ReturnType<Team['toPlainObject']>;
-  setIsEditing?: (isEditing: boolean) => void;
+  defaultValues: ReturnType<Team['toPlainObject']>;
 };
-
-export type FormSchemaType = z.infer<typeof formSchema>;

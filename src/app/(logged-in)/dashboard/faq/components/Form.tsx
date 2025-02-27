@@ -4,18 +4,27 @@ import * as z from 'zod';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
-import { createFAQ } from '../actions/server.actions';
+import { useRouter } from 'next/navigation';
 import { formSchema } from '../schemas/form.schema';
-import { useFAQForm } from '../actions/client.action';
+import { useCustomForm } from '../actions/client.action';
+
 export default function FAQForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const form = useFAQForm();
+  const form = useCustomForm();
+  const router = useRouter();
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
     try {
-      await createFAQ(data);
+      const response = await fetch('/api/faq', {
+        method: 'POST',
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to create FAQ');
+      }
       form.reset();
+      router.refresh();
     } catch (error) {
       console.error('Error creating FAQ:', error);
     } finally {

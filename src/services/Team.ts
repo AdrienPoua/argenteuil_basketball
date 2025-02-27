@@ -1,32 +1,11 @@
-import { TeamSchema } from '@/lib/validation/Team';
 import prisma from '@/database/prisma';
 import { z } from 'zod';
+import { TeamSchema } from '@/lib/validation/Team';
 
 class TeamService {
-  private readonly createTeamSchema = TeamSchema.extend({
+  private readonly createTeamSchema = TeamSchema.omit({ id: true, coach: true }).extend({
     coach: z.string().optional(),
   });
-  private readonly updateDataSchema = TeamSchema.extend({
-    coach: z.string().optional(),
-    id: z.string(),
-  });
-  // Création d'une équipe
-  async createTeam(data: z.infer<typeof this.createTeamSchema>) {
-    try {
-      const { coach, ...team } = this.createTeamSchema.parse(data);
-      await prisma.team.create({
-        data: {
-          ...team,
-          coach: coach ? { connect: { id: coach } } : undefined,
-        },
-      });
-    } catch (error) {
-      console.error("Erreur lors de la création de l'équipe :", error);
-      throw error;
-    }
-  }
-
-  // Récupération de toutes les équipes
   async getTeams() {
     try {
       return await prisma.team.findMany({
@@ -40,30 +19,30 @@ class TeamService {
     }
   }
 
-  async getTeamByChampionnat(championnat: string) {
-    return await prisma.team.findFirst({
-      where: {
-        championnats: {
-          has: championnat,
-        },
-      },
-      include: {
-        coach: true,
-      },
-    });
-  }
-
-  async updateTeam(data: z.infer<typeof this.updateDataSchema>) {
-    const parsedTeam = this.updateDataSchema.parse(data);
-    const { sessions, coach, id, ...team } = parsedTeam;
-
+  async createTeam(data: z.infer<typeof this.createTeamSchema>) {
+    const { coach, ...team } = data;
     try {
-      return await prisma.team.update({
-        where: { id },
+      return await prisma.team.create({
         data: {
           ...team,
+          coach: coach ? { connect: { id: coach } } : undefined,
+        },
+      });
+    } catch (error) {
+      console.error("Erreur lors de la création de l'équipe :", error);
+      throw error;
+    }
+  }
+
+  async updateTeam(team: z.infer<typeof TeamSchema>) {
+    const { coach, ...teamData } = team;
+    try {
+      return await prisma.team.update({
+        where: { id: team.id },
+        data: {
+          ...teamData,
           coach: {
-            connect: { id: coach },
+            connect: { id: coach?.id },
           },
         },
       });
@@ -82,6 +61,19 @@ class TeamService {
       console.error("Erreur lors de la suppression de l'équipe :", error);
       throw error;
     }
+  }
+
+  async getTeamByChampionnat(championnat: string) {
+    return await prisma.team.findFirst({
+      where: {
+        championnats: {
+          has: championnat,
+        },
+      },
+      include: {
+        coach: true,
+      },
+    });
   }
 }
 
