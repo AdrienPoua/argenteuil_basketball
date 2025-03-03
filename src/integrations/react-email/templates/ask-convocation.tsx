@@ -24,7 +24,7 @@ export function Convocation({
             <Heading className='text-center'>Demande de convocation - Match n°{match.matchNumber}</Heading>
           </Section>
           <Section>
-            <Heading className='my-5 text-center underline underline-offset-4'> {match.nomEquipe2} vs ABB </Heading>
+            <Heading className='my-5 text-center underline underline-offset-4'> {match.nomEquipe1} vs ABB </Heading>
             <Text>🏀 Championnat : {match.championnat}</Text>
             <Text>🏀 Sauf erreur de ma part, je n&apos;ai pas reçu de convocation pour ce match.</Text>
             <Text>

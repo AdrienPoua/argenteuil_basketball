@@ -189,6 +189,7 @@ model Match {
   competition             String?
   correspondant           String?
   convocationIsSent       Boolean?
+  convocationIsAsked      Boolean?
 }
 
 /**
@@ -209,4 +210,17 @@ model FAQ {
   question String @unique
   answer   String @unique
   position Int
+}
+
+/**
+ * ****************************************
+ * SECTION : Rate Limiting     *
+ * ****************************************
+ */
+model ConvocationRateLimit {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  matchId   String
+  lastCalled DateTime @default(now())
+
+  @@unique([matchId])
 }

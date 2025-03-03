@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { CalendarIcon, MapPinIcon, ClockIcon, UserIcon, Mail } from 'lucide-react';
+import { CalendarIcon, MapPinIcon, ClockIcon, UserIcon, Mail, Trash2 } from 'lucide-react';
 import { PropsType, EditingCardPropsType } from '../types/card.types';
 import Form from './Form';
 import { askConvocation, sendConvocation } from '../actions/server.actions';
@@ -17,6 +17,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { useRouter } from 'next/navigation';
 
 export default function Index({ match }: Readonly<PropsType>) {
   const [isEditing, setIsEditing] = useState(false);
@@ -29,7 +30,6 @@ export default function Index({ match }: Readonly<PropsType>) {
 
 const BaseCard = ({ match, setIsEditing }: Readonly<EditingCardPropsType>) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [convocationAsked, setConvocationAsked] = useState(false);
 
   const handleSendConvocation = () => {
     setIsDialogOpen(false);
@@ -37,10 +37,8 @@ const BaseCard = ({ match, setIsEditing }: Readonly<EditingCardPropsType>) => {
   };
 
   const handleAskConvocation = () => {
-    if (!convocationAsked) {
-      askConvocation(match);
-      setConvocationAsked(true);
-    }
+    askConvocation(match);
+    setIsDialogOpen(false);
   };
 
   if (match.matchNumber === 80308) {
@@ -145,7 +143,13 @@ const BaseCard = ({ match, setIsEditing }: Readonly<EditingCardPropsType>) => {
                 <Button variant='outline' onClick={() => setIsDialogOpen(false)}>
                   Annuler
                 </Button>
-                <Button onClick={handleAskConvocation}>Confirmer l&apos;envoi</Button>
+                {match.convocationIsAsked ? (
+                  <Badge variant='match' className='bg-green-500'>
+                    Convocation demandée
+                  </Badge>
+                ) : (
+                  <Button onClick={handleAskConvocation}>Demander la convocation</Button>
+                )}
               </DialogFooter>
             </DialogContent>
           </Dialog>
@@ -161,8 +165,58 @@ const BaseCard = ({ match, setIsEditing }: Readonly<EditingCardPropsType>) => {
 };
 
 const EditingCard = ({ match, setIsEditing }: Readonly<EditingCardPropsType>) => {
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const router = useRouter();
+
+  const handleDeleteMatch = async () => {
+    setIsDeleting(true);
+    try {
+      const response = await fetch(`/api/matchs/${match.id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Impossible de supprimer le match');
+      }
+
+      // Fermez la boîte de dialogue et rafraîchissez la page
+      setIsDeleteDialogOpen(false);
+      router.refresh();
+    } catch (error) {
+      console.error('Erreur lors de la suppression du match :', error);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
   return (
     <Card className='mx-auto w-full max-w-md p-3 font-secondary text-black'>
+      <div className='mb-2 flex justify-end'>
+        <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+          <DialogTrigger asChild>
+            <Button variant='destructive' size='icon'>
+              <Trash2 className='h-4 w-4' />
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Confirmer la suppression</DialogTitle>
+              <DialogDescription>
+                Êtes-vous sûr de vouloir supprimer ce match ? Cette action est irréversible.
+              </DialogDescription>
+            </DialogHeader>
+            <DialogFooter className='mt-4 flex gap-2'>
+              <Button variant='outline' onClick={() => setIsDeleteDialogOpen(false)}>
+                Annuler
+              </Button>
+              <Button variant='destructive' onClick={handleDeleteMatch} disabled={isDeleting}>
+                {isDeleting ? 'Suppression...' : 'Supprimer'}
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      </div>
       <Form match={match} setIsEditing={setIsEditing} />
     </Card>
   );

@@ -26,6 +26,7 @@ export default class Match {
   private readonly _clubId: number = 11851;
   private readonly _correspondant?: string;
   private readonly _convocationIsSent: boolean;
+  private readonly _convocationIsAsked: boolean;
   constructor(data: ConstructorType) {
     this._id = data.id;
     this._numero = data.numero;
@@ -50,6 +51,7 @@ export default class Match {
     this._competition = data.competition ?? '';
     this._correspondant = data.correspondant ?? undefined;
     this._convocationIsSent = data.convocationIsSent ?? false;
+    this._convocationIsAsked = data.convocationIsAsked ?? false;
   }
 
   get formatedDate() {
@@ -67,6 +69,10 @@ export default class Match {
 
   get correspondant() {
     return this._correspondant;
+  }
+
+  get convocationIsAsked() {
+    return this._convocationIsAsked;
   }
 
   get numeroJournee() {
@@ -194,6 +200,7 @@ export default class Match {
       modification: this.modification,
       correspondant: this.correspondant,
       convocationIsSent: this.convocationIsSent,
+      convocationIsAsked: this.convocationIsAsked,
     };
   }
 }

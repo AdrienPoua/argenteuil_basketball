@@ -20,6 +20,7 @@ const buttonVariants = cva(
         activeNav: 'text-primary',
         matchNav: 'bg-background hover:bg-foreground  transition duration-300 ease-in-out',
         connexion: 'bg-background text-white font-secondary',
+        check: 'bg-green-500',
       },
       size: {
         default: 'h-9 px-4 py-2',

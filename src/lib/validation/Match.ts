@@ -34,4 +34,5 @@ export const MatchSchema = z.object({
   competition: z.string().nullable(),
   correspondant: z.string().nullable(),
   convocationIsSent: z.boolean().default(false),
+  convocationIsAsked: z.boolean().default(false),
 });

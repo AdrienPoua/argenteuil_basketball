@@ -39,6 +39,9 @@ class MatchService {
         },
         idOrganismeEquipe1: argenteuilIdOrganisme,
       },
+      orderBy: {
+        date: 'asc'
+      }
     });
   }
 

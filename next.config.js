@@ -67,7 +67,7 @@ module.exports = withSentryConfig(module.exports, {
 
   // Add sourcemaps configuration
   sourcemaps: {
-    deleteSourcemapsAfterUpload: true
+    deleteSourcemapsAfterUpload: true,
   },
 
   // Enables automatic instrumentation of Vercel Cron Monitors. (Does not yet work with App Router route handlers.)
