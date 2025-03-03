@@ -46,7 +46,7 @@ export default function CreateMatchForm() {
         resultatEquipe1: null,
         resultatEquipe2: null,
         date,
-        salle: data.salle || null,
+        salle: data.salle ?? null,
         penaliteEquipe1: false,
         penaliteEquipe2: false,
         forfaitEquipe1: false,

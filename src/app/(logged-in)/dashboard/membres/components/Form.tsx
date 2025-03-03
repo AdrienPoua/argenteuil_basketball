@@ -200,8 +200,8 @@ export default function MemberForm({ teams, defaultValues, setIsEditing }: Reado
                           label: role.replace('_', ' '),
                           value: role,
                         }))}
-                        selected={field.value}
-                        onChange={(values) => {
+                        defaultValue={field.value}
+                        onValueChange={(values) => {
                           field.onChange(values);
                         }}
                         placeholder='Sélectionner un ou plusieurs rôles'
@@ -226,8 +226,8 @@ export default function MemberForm({ teams, defaultValues, setIsEditing }: Reado
                           label: team.name,
                           value: team.id,
                         }))}
-                        selected={field.value}
-                        onChange={field.onChange}
+                        defaultValue={field.value}
+                        onValueChange={field.onChange}
                         placeholder='Sélectionner une ou plusieurs équipes'
                       />
                     </div>
