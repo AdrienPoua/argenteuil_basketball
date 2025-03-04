@@ -39,7 +39,7 @@ export default function MemberForm({ teams, defaultValues, setIsEditing, onSucce
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className={`space-y-6 mx-auto max-w-2xl`}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className={`mx-auto max-w-2xl space-y-6`}>
         <Card className='font-secondary text-background'>
           <CardHeader>
             <CardTitle className='py-4 text-center font-secondary text-2xl font-bold'>

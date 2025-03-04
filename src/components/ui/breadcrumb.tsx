@@ -1,7 +1,7 @@
-import * as React from "react";
-import { ChevronRight, Home } from "lucide-react";
-import Link from "next/link";
-import { cn } from "@/lib/utils/cn";
+import * as React from 'react';
+import { ChevronRight, Home } from 'lucide-react';
+import Link from 'next/link';
+import { cn } from '@/lib/utils/cn';
 
 interface BreadcrumbProps extends React.HTMLAttributes<HTMLDivElement> {
   segments: {
@@ -14,23 +14,17 @@ interface BreadcrumbProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export function Breadcrumb({
   segments,
-  separator = <ChevronRight className="h-4 w-4" />,
+  separator = <ChevronRight className='h-4 w-4' />,
   home = true,
   className,
   ...props
 }: Readonly<BreadcrumbProps>) {
   return (
-    <div
-      className={cn("flex items-center space-x-2 text-sm font-secondary", className)}
-      {...props}
-    >
+    <div className={cn('flex items-center space-x-2 font-secondary text-sm', className)} {...props}>
       {home && (
         <>
-          <Link
-            href="/dashboard"
-            className="flex items-center opacity-80 hover:opacity-100"
-          >
-            <Home className="h-4 w-4" />
+          <Link href='/dashboard' className='flex items-center opacity-80 hover:opacity-100'>
+            <Home className='h-4 w-4' />
           </Link>
           {separator}
         </>
@@ -41,17 +35,15 @@ export function Breadcrumb({
           <Link
             href={segment.href}
             className={cn(
-              "hover:underline",
-              index === segments.length - 1
-                ? "font-semibold text-foreground"
-                : "opacity-80 hover:opacity-100"
+              'hover:underline',
+              index === segments.length - 1 ? 'font-semibold text-foreground' : 'opacity-80 hover:opacity-100',
             )}
           >
             {segment.name}
           </Link>
-          {index < segments.length - 1 && <div className="opacity-60">{separator}</div>}
+          {index < segments.length - 1 && <div className='opacity-60'>{separator}</div>}
         </React.Fragment>
       ))}
     </div>
   );
-} 
+}

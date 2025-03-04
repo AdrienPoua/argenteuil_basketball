@@ -7,10 +7,7 @@ import { ClubSchema } from '@/lib/validation/Club';
 import { errorHandler } from '@/lib/utils/handleApiError';
 
 // GET /api/clubs/[id]
-export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
+export async function GET(request: Request, { params }: { params: { id: string } }) {
   const session = await getServerSession(authOptions);
   if (!session) return NextResponse.json({ error: 'Non autorisé' }, { status: 401 });
 
@@ -26,10 +23,7 @@ export async function GET(
 }
 
 // PUT /api/clubs/[id]
-export async function PUT(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
+export async function PUT(request: Request, { params }: { params: { id: string } }) {
   const session = await getServerSession(authOptions);
   if (!session) return NextResponse.json({ error: 'Non autorisé' }, { status: 401 });
 
@@ -44,10 +38,7 @@ export async function PUT(
 }
 
 // DELETE /api/clubs/[id]
-export async function DELETE(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
+export async function DELETE(request: Request, { params }: { params: { id: string } }) {
   const session = await getServerSession(authOptions);
   if (!session) return NextResponse.json({ error: 'Non autorisé' }, { status: 401 });
 

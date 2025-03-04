@@ -28,7 +28,7 @@ export function AddMemberModal({ teams }: Readonly<AddMemberModalProps>) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="blackAndWhite">
+        <Button variant='blackAndWhite'>
           <PlusIcon className='h-4 w-4' />
           Ajouter un membre
         </Button>

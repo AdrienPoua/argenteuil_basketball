@@ -25,9 +25,9 @@ async function getToken() {
       password: FFBB_SERVER_PASSWORD,
     }),
     // Très important: cache avec revalidation en arrière-plan
-    next: { 
+    next: {
       revalidate: 3300, // Revalider après 55 minutes (avant expiration)
-      tags: ['ffbb-token'] // Tag pour invalidation manuelle si nécessaire
+      tags: ['ffbb-token'], // Tag pour invalidation manuelle si nécessaire
     },
   });
 
@@ -45,11 +45,11 @@ export async function GET() {
   try {
     // Obtenir le token (mis en cache)
     const token = await getToken();
-    
+
     if (!token) {
-      throw new Error('Token invalide reçu de l\'API FFBB');
+      throw new Error("Token invalide reçu de l'API FFBB");
     }
-    
+
     // Configurer le cookie
     cookies().set('ffbb_token', token, {
       sameSite: 'strict',

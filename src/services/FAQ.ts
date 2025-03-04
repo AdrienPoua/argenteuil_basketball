@@ -27,10 +27,11 @@ class FAQService {
   }
 
   async updateFaq(data: z.infer<typeof FAQSchema>) {
+    const { id, ...payload } = data
     try {
       return await prisma.fAQ.update({
         where: { id: data.id },
-        data,
+        data: payload,
       });
     } catch (error) {
       console.error('Erreur lors de la mise à jour du faq :', error);

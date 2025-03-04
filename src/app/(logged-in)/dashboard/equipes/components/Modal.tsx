@@ -34,7 +34,7 @@ export default function FormModal({ members }: Readonly<Readonly<ModalProps>>) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant='outline' className='flex items-center justify-end gap-2 bg-foreground ml-auto'>
+        <Button variant='outline' className='ml-auto flex items-center justify-end gap-2 bg-foreground'>
           <PlusIcon className='h-4 w-4' />
           Ajouter une équipe
         </Button>

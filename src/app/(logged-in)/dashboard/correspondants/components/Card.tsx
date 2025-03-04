@@ -32,7 +32,7 @@ export function ClubCard({ data }: Readonly<PropsType>) {
   const { toast } = useToast();
   const [hoveredCard, setHoveredCard] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
-  
+
   const handleDelete = async () => {
     try {
       const response = await fetch(`/api/clubs/${data.id}`, {
@@ -43,16 +43,16 @@ export function ClubCard({ data }: Readonly<PropsType>) {
       }
       router.refresh();
       toast({
-        title: "Correspondant supprimé",
+        title: 'Correspondant supprimé',
         description: `Le club ${data.libelle} a été supprimé avec succès.`,
-        variant: "success",
+        variant: 'success',
       });
     } catch (error) {
       console.error('Erreur lors de la suppression:', error);
       toast({
-        title: "Erreur",
-        description: "Une erreur est survenue lors de la suppression du club.",
-        variant: "destructive",
+        title: 'Erreur',
+        description: 'Une erreur est survenue lors de la suppression du club.',
+        variant: 'destructive',
       });
     }
   };
@@ -60,9 +60,9 @@ export function ClubCard({ data }: Readonly<PropsType>) {
   const copyToClipboard = (text: string, type: string) => {
     navigator.clipboard.writeText(text);
     toast({
-      title: "Copié !",
+      title: 'Copié !',
       description: `${type} copié dans le presse-papier.`,
-      variant: "success",
+      variant: 'success',
     });
   };
 
@@ -71,21 +71,21 @@ export function ClubCard({ data }: Readonly<PropsType>) {
       window.open(`mailto:${data.email}`);
     } else {
       toast({
-        title: "Information manquante",
+        title: 'Information manquante',
         description: "Ce correspondant n'a pas d'adresse email renseignée.",
-        variant: "destructive",
+        variant: 'destructive',
       });
     }
   };
 
   const callPhone = () => {
-    if (data.phone && data.phone !== "Pas de numéro") {
+    if (data.phone && data.phone !== 'Pas de numéro') {
       window.open(`tel:${data.phone}`);
     } else {
       toast({
-        title: "Information manquante",
+        title: 'Information manquante',
         description: "Ce correspondant n'a pas de numéro de téléphone renseigné.",
-        variant: "destructive",
+        variant: 'destructive',
       });
     }
   };
@@ -93,36 +93,34 @@ export function ClubCard({ data }: Readonly<PropsType>) {
   const onFormSubmitSuccess = () => {
     setEditModalOpen(false);
     toast({
-      title: "Correspondant modifié",
-      description: "Les informations du correspondant ont été mises à jour avec succès.",
-      variant: "success",
+      title: 'Correspondant modifié',
+      description: 'Les informations du correspondant ont été mises à jour avec succès.',
+      variant: 'success',
     });
   };
 
   return (
-    <Card 
+    <Card
       className='w-full max-w-md font-secondary text-primary-foreground shadow-md transition-all duration-300 hover:shadow-lg'
       onMouseEnter={() => setHoveredCard(true)}
       onMouseLeave={() => setHoveredCard(false)}
     >
-      <CardHeader className='relative bg-gradient-to-r from-primary/90 to-primary p-6 rounded-t-lg'>
+      <CardHeader className='relative rounded-t-lg bg-gradient-to-r from-primary/90 to-primary p-6'>
         <div className='flex flex-col items-start'>
-          <Badge className="mb-2 font-mono bg-white/90 text-primary hover:bg-white">{data.code}</Badge>
-          <CardTitle className='text-2xl font-bold text-white group flex items-center gap-2'>
-            {data.libelle}
-          </CardTitle>
+          <Badge className='mb-2 bg-white/90 font-mono text-primary hover:bg-white'>{data.code}</Badge>
+          <CardTitle className='group flex items-center gap-2 text-2xl font-bold text-white'>{data.libelle}</CardTitle>
         </div>
         <div className='absolute right-4 top-6 flex gap-2'>
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button 
-                  variant="outline" 
-                  size="icon" 
+                <Button
+                  variant='outline'
+                  size='icon'
                   aria-label={`Modifier le club ${data.libelle}`}
                   onClick={() => setEditModalOpen(true)}
                 >
-                  <Pencil className="h-4 w-4" />
+                  <Pencil className='h-4 w-4' />
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
@@ -136,7 +134,12 @@ export function ClubCard({ data }: Readonly<PropsType>) {
               <TooltipTrigger asChild>
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
-                    <Button variant='destructive' size='icon' className="opacity-90 hover:opacity-100" aria-label={`Supprimer le club ${data.libelle}`}>
+                    <Button
+                      variant='destructive'
+                      size='icon'
+                      className='opacity-90 hover:opacity-100'
+                      aria-label={`Supprimer le club ${data.libelle}`}
+                    >
                       <Trash2 className='h-4 w-4' />
                     </Button>
                   </AlertDialogTrigger>
@@ -165,21 +168,21 @@ export function ClubCard({ data }: Readonly<PropsType>) {
 
       <CardContent className='space-y-4 p-6'>
         <div className={`flex items-center rounded-md border p-3 transition-all ${hoveredCard ? 'bg-primary/5' : ''}`}>
-          <div className='flex items-center gap-3 flex-1'>
-            <Badge className="bg-primary">
+          <div className='flex flex-1 items-center gap-3'>
+            <Badge className='bg-primary'>
               <Mail className='mr-2 h-4 w-4' />
               Email
             </Badge>
-            <p className='text-sm font-medium truncate'>{data.email}</p>
+            <p className='truncate text-sm font-medium'>{data.email}</p>
           </div>
           <div className='flex gap-1'>
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button 
-                    variant='ghost' 
-                    size='icon' 
-                    className='h-7 w-7' 
+                  <Button
+                    variant='ghost'
+                    size='icon'
+                    className='h-7 w-7'
                     onClick={() => copyToClipboard(data.email, 'Email')}
                     disabled={data.email === "Pas d'email"}
                   >
@@ -191,14 +194,14 @@ export function ClubCard({ data }: Readonly<PropsType>) {
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
-            
+
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button 
-                    variant='ghost' 
-                    size='icon' 
-                    className='h-7 w-7' 
+                  <Button
+                    variant='ghost'
+                    size='icon'
+                    className='h-7 w-7'
                     onClick={sendEmail}
                     disabled={data.email === "Pas d'email"}
                   >
@@ -214,23 +217,23 @@ export function ClubCard({ data }: Readonly<PropsType>) {
         </div>
 
         <div className={`flex items-center rounded-md border p-3 transition-all ${hoveredCard ? 'bg-primary/5' : ''}`}>
-          <div className='flex items-center gap-3 flex-1'>
-            <Badge variant='outline' className="border-primary text-primary">
+          <div className='flex flex-1 items-center gap-3'>
+            <Badge variant='outline' className='border-primary text-primary'>
               <Phone className='mr-2 h-4 w-4' />
               Téléphone
             </Badge>
-            <p className='text-sm font-medium truncate'>{data.phone}</p>
+            <p className='truncate text-sm font-medium'>{data.phone}</p>
           </div>
           <div className='flex gap-1'>
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button 
-                    variant='ghost' 
-                    size='icon' 
-                    className='h-7 w-7' 
+                  <Button
+                    variant='ghost'
+                    size='icon'
+                    className='h-7 w-7'
                     onClick={() => copyToClipboard(data.phone, 'Téléphone')}
-                    disabled={data.phone === "Pas de numéro"}
+                    disabled={data.phone === 'Pas de numéro'}
                   >
                     <Copy className='h-3.5 w-3.5' />
                   </Button>
@@ -240,16 +243,16 @@ export function ClubCard({ data }: Readonly<PropsType>) {
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
-            
+
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button 
-                    variant='ghost' 
-                    size='icon' 
-                    className='h-7 w-7' 
+                  <Button
+                    variant='ghost'
+                    size='icon'
+                    className='h-7 w-7'
                     onClick={callPhone}
-                    disabled={data.phone === "Pas de numéro"}
+                    disabled={data.phone === 'Pas de numéro'}
                   >
                     <ExternalLink className='h-3.5 w-3.5' />
                   </Button>
@@ -264,14 +267,11 @@ export function ClubCard({ data }: Readonly<PropsType>) {
       </CardContent>
 
       <Dialog open={editModalOpen} onOpenChange={setEditModalOpen}>
-        <DialogContent className="max-w-3xl">
+        <DialogContent className='max-w-3xl'>
           <DialogHeader>
-            <DialogTitle className="text-xl font-bold font-secondary">Modifier le correspondant</DialogTitle>
+            <DialogTitle className='font-secondary text-xl font-bold'>Modifier le correspondant</DialogTitle>
           </DialogHeader>
-          <ClubForm
-            defaultValues={data}
-            onSuccess={onFormSubmitSuccess}
-          />
+          <ClubForm defaultValues={data} onSuccess={onFormSubmitSuccess} />
         </DialogContent>
       </Dialog>
     </Card>

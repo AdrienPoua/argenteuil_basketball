@@ -35,7 +35,7 @@ export function PageHeader({ className }: PageHeaderProps) {
   return (
     <div className={cn('mb-6', className)}>
       <Breadcrumb segments={segments} className='mb-2 text-foreground' />
-      <h1 className='w-fit border-2 border-foreground text-center font-secondary text-5xl font-bold px-10 py-2 mx-auto text-foreground rounded-lg'>
+      <h1 className='mx-auto w-fit rounded-lg border-2 border-foreground px-10 py-2 text-center font-secondary text-5xl font-bold text-foreground'>
         {segments.length > 0 ? segments[segments.length - 1].name : 'Dashboard'}
       </h1>
     </div>

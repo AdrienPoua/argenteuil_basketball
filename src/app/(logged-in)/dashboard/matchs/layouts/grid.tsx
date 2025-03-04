@@ -10,14 +10,7 @@ import { PlusIcon } from '@radix-ui/react-icons';
 import { CalendarIcon } from 'lucide-react';
 
 export default function Grid({ matchs }: Readonly<PropsType>) {
-  const { 
-    setSelectedCompetition, 
-    setPlace, 
-    setMonth, 
-    displayedGames, 
-    competitions,
-    months 
-  } = useCardFilter(matchs);
+  const { setSelectedCompetition, setPlace, setMonth, displayedGames, competitions, months } = useCardFilter(matchs);
 
   return (
     <div className='flex flex-col gap-4 p-4'>
@@ -56,8 +49,8 @@ export default function Grid({ matchs }: Readonly<PropsType>) {
           </Select>
           <Select onValueChange={setMonth} defaultValue='all'>
             <SelectTrigger className='w-full min-w-[180px] bg-foreground font-secondary text-sm shadow-sm transition-colors hover:bg-foreground/90'>
-              <div className="flex items-center">
-                <CalendarIcon className="mr-2 h-4 w-4" />
+              <div className='flex items-center'>
+                <CalendarIcon className='mr-2 h-4 w-4' />
                 <SelectValue placeholder='Filtrer par mois' />
               </div>
             </SelectTrigger>
@@ -76,7 +69,7 @@ export default function Grid({ matchs }: Readonly<PropsType>) {
 
         <Dialog>
           <DialogTrigger asChild>
-            <Button className='w-full bg-primary font-medium shadow-md transition-all hover:bg-primary/90 hover:scale-[1.02] active:scale-[0.98] sm:w-auto'>
+            <Button className='w-full bg-primary font-medium shadow-md transition-all hover:scale-[1.02] hover:bg-primary/90 active:scale-[0.98] sm:w-auto'>
               <PlusIcon className='mr-2 h-4 w-4' />
               Ajouter un match
             </Button>

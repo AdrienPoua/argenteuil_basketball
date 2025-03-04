@@ -53,7 +53,7 @@ export function BaseCard({ data, setIsEditing, teams }: Readonly<BaseCardPropsTy
               <AvatarFallback>{data.name.charAt(0)}</AvatarFallback>
             </Avatar>
             <div>
-              <CardTitle className='text-2xl font-bold font-secondary'>{data.name}</CardTitle>
+              <CardTitle className='font-secondary text-2xl font-bold'>{data.name}</CardTitle>
               {data.isLeader && (
                 <Badge variant='destructive' className='mt-1'>
                   Leader
@@ -71,8 +71,8 @@ export function BaseCard({ data, setIsEditing, teams }: Readonly<BaseCardPropsTy
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
-                  <AlertDialogTitle className="font-secondary">Êtes-vous absolument sûr ?</AlertDialogTitle>
-                  <AlertDialogDescription className="font-secondary">
+                  <AlertDialogTitle className='font-secondary'>Êtes-vous absolument sûr ?</AlertDialogTitle>
+                  <AlertDialogDescription className='font-secondary'>
                     Cette action ne peut pas être annulée. Cela supprimera définitivement le membre {data.name} et
                     toutes les données associées.
                   </AlertDialogDescription>
@@ -89,13 +89,13 @@ export function BaseCard({ data, setIsEditing, teams }: Readonly<BaseCardPropsTy
       <CardContent className='space-y-4 p-6'>
         <div className='space-y-2'>
           {data.email && (
-            <div className='flex items-center space-x-2 text-sm font-secondary'>
+            <div className='flex items-center space-x-2 font-secondary text-sm'>
               <Mail className='h-4 w-4 font-secondary' />
               <span>{data.email}</span>
             </div>
           )}
           {data.phone && (
-            <div className='flex items-center space-x-2 text-sm font-secondary'>
+            <div className='flex items-center space-x-2 font-secondary text-sm'>
               <Phone className='h-4 w-4 font-secondary' />
               <span>{data.phone}</span>
             </div>

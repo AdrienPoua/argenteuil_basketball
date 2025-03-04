@@ -21,9 +21,9 @@ export function EditMemberModal({ member, teams }: Readonly<EditMemberModalProps
   const onFormSubmitSuccess = () => {
     setOpen(false);
     toast({
-      title: "Membre modifié",
+      title: 'Membre modifié',
       description: `Les informations de ${member.name} ont été mises à jour avec succès.`,
-      variant: "success",
+      variant: 'success',
     });
   };
 
@@ -38,14 +38,9 @@ export function EditMemberModal({ member, teams }: Readonly<EditMemberModalProps
           <Pencil className='h-4 w-4' />
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-3xl">
-        <Form 
-          teams={teams} 
-          defaultValues={member} 
-          isModal={true} 
-          onSuccess={onFormSubmitSuccess}
-        />
+      <DialogContent className='max-w-3xl'>
+        <Form teams={teams} defaultValues={member} isModal={true} onSuccess={onFormSubmitSuccess} />
       </DialogContent>
     </Dialog>
   );
-} 
+}

@@ -10,10 +10,8 @@ export default async function Index() {
       <div className='mb-6 flex justify-end'>
         <AddCorrespondantModal />
       </div>
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-        {clubs?.toSorted((a, b) => a.code.localeCompare(b.code)).map((club) => (
-          <Card key={club.id} data={club} />
-        ))}
+      <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
+        {clubs?.toSorted((a, b) => a.code.localeCompare(b.code)).map((club) => <Card key={club.id} data={club} />)}
       </div>
     </div>
   );

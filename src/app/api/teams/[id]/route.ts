@@ -5,7 +5,7 @@ import TeamService from '@/services/Team';
 import { errorHandler } from '@/lib/utils/handleApiError';
 import { Prisma } from '@prisma/client';
 import { TeamSchema } from '@/lib/validation/Team';
-
+import { z } from 'zod';
 export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
   // Check if the user is authenticated
   const session = await getServerSession(authOptions);
@@ -13,7 +13,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 
   try {
     const body = await req.json();
-    const team = TeamSchema.parse(body);
+    const team = TeamSchema.omit({ coach: true }).extend({ coach: z.string().optional() }).parse(body);
     // update match
     const teamUpdate = await TeamService.updateTeam({ ...team, id: params.id });
     console.log('Team updated', teamUpdate);

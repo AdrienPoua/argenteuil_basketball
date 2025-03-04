@@ -28,11 +28,11 @@ export const handleSubmit = async (data: FormValues, defaultValues?: ReturnType<
       },
       body: JSON.stringify(data),
     });
-    
+
     if (!response.ok) {
       throw new Error('Erreur lors de la mise à jour du club');
     }
-    
+
     return await response.json();
   } else {
     // Création d'un nouveau club
@@ -46,11 +46,11 @@ export const handleSubmit = async (data: FormValues, defaultValues?: ReturnType<
         id: crypto.randomUUID(),
       }),
     });
-    
+
     if (!response.ok) {
       throw new Error('Erreur lors de la création du club');
     }
-    
+
     return await response.json();
   }
 };

@@ -62,20 +62,23 @@ export const useCardFilter = (matchs: GridPropsType['matchs']) => {
   }, [month, filteredByPlace]);
 
   // Liste des mois de l'année
-  const months = useMemo(() => [
-    { value: '0', label: 'Janvier' },
-    { value: '1', label: 'Février' },
-    { value: '2', label: 'Mars' },
-    { value: '3', label: 'Avril' },
-    { value: '4', label: 'Mai' },
-    { value: '5', label: 'Juin' },
-    { value: '6', label: 'Juillet' },
-    { value: '7', label: 'Août' },
-    { value: '8', label: 'Septembre' },
-    { value: '9', label: 'Octobre' },
-    { value: '10', label: 'Novembre' },
-    { value: '11', label: 'Décembre' },
-  ], []);
+  const months = useMemo(
+    () => [
+      { value: '0', label: 'Janvier' },
+      { value: '1', label: 'Février' },
+      { value: '2', label: 'Mars' },
+      { value: '3', label: 'Avril' },
+      { value: '4', label: 'Mai' },
+      { value: '5', label: 'Juin' },
+      { value: '6', label: 'Juillet' },
+      { value: '7', label: 'Août' },
+      { value: '8', label: 'Septembre' },
+      { value: '9', label: 'Octobre' },
+      { value: '10', label: 'Novembre' },
+      { value: '11', label: 'Décembre' },
+    ],
+    [],
+  );
 
   return {
     selectedCompetition,

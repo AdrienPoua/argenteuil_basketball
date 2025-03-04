@@ -11,12 +11,12 @@ import { z } from 'zod';
 export const useFAQActions = () => {
   const router = useRouter();
 
-  const upgradeFAQ = useCallback(
-    async (faq: Prisma.FAQGetPayload<{}>) => {
+  const updateFAQ = useCallback(
+    async (faq: Prisma.FAQGetPayload<{}>, data: { question: string; answer: string }) => {
       try {
         await fetch(`/api/faq/${faq.id}`, {
           method: 'PUT',
-          body: JSON.stringify({ ...faq, position: faq.position + 1 }),
+          body: JSON.stringify({ ...faq, ...data }),
         });
         router.refresh();
       } catch (error) {
@@ -26,36 +26,7 @@ export const useFAQActions = () => {
     [router],
   );
 
-  const downgradeFAQ = useCallback(
-    async (faq: Prisma.FAQGetPayload<{}>) => {
-      try {
-        await fetch(`/api/faq/${faq.id}`, {
-          method: 'PUT',
-          body: JSON.stringify({ ...faq, position: faq.position - 1 }),
-        });
-        router.refresh();
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    [router],
-  );
-
-  const deleteFAQ = useCallback(
-    async (faq: Prisma.FAQGetPayload<{}>) => {
-      try {
-        await fetch(`/api/faq/${faq.id}`, {
-          method: 'DELETE',
-        });
-        router.refresh();
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    [router],
-  );
-
-  return { upgradeFAQ, downgradeFAQ, deleteFAQ };
+  return { updateFAQ };
 };
 
 export const useCustomForm = () => {
@@ -65,6 +36,19 @@ export const useCustomForm = () => {
       question: '',
       answer: '',
       position: 0,
+    },
+  });
+
+  return form;
+};
+
+export const useEditFAQForm = (faq: Prisma.FAQGetPayload<{}>) => {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      question: faq.question,
+      answer: faq.answer,
+      position: faq.position,
     },
   });
 

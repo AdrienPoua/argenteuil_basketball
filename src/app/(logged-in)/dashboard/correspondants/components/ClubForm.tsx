@@ -19,18 +19,18 @@ type ClubFormProps = {
 export default function ClubForm({ defaultValues, setIsEditing, onSuccess }: Readonly<ClubFormProps>) {
   const form = useClubForm(defaultValues);
   const router = useRouter();
-  
+
   async function onSubmit(data: FormValues) {
     try {
       await handleSubmit(data, defaultValues);
-      
+
       if (setIsEditing) {
         setIsEditing(false);
       }
-      
+
       form.reset();
       router.refresh();
-      
+
       // Appeler onSuccess si fourni
       if (onSuccess) {
         onSuccess();
@@ -42,36 +42,36 @@ export default function ClubForm({ defaultValues, setIsEditing, onSuccess }: Rea
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
+      <form onSubmit={form.handleSubmit(onSubmit)} className='w-full'>
         <Card>
-          <CardContent className="font-secondary text-black" >
+          <CardContent className='font-secondary text-black'>
             <FormField
               control={form.control}
-              name="code"
+              name='code'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Code du club</FormLabel>
                   <FormControl>
-                    <div className="relative">
-                      <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 transform text-gray-400" />
-                      <Input className="pl-10" placeholder="PDL0049001" {...field} />
+                    <div className='relative'>
+                      <Building2 className='absolute left-3 top-1/2 -translate-y-1/2 transform text-gray-400' />
+                      <Input className='pl-10' placeholder='PDL0049001' {...field} />
                     </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            
+
             <FormField
               control={form.control}
-              name="libelle"
+              name='libelle'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Nom du club</FormLabel>
                   <FormControl>
-                    <div className="relative">
-                      <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 transform text-gray-400" />
-                      <Input className="pl-10" placeholder="Nom du club" {...field} />
+                    <div className='relative'>
+                      <Building2 className='absolute left-3 top-1/2 -translate-y-1/2 transform text-gray-400' />
+                      <Input className='pl-10' placeholder='Nom du club' {...field} />
                     </div>
                   </FormControl>
                   <FormMessage />
@@ -81,14 +81,19 @@ export default function ClubForm({ defaultValues, setIsEditing, onSuccess }: Rea
 
             <FormField
               control={form.control}
-              name="email"
+              name='email'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 transform text-gray-400" />
-                      <Input className="pl-10" placeholder="Email du correspondant" {...field} value={field.value || ""} />
+                    <div className='relative'>
+                      <Mail className='absolute left-3 top-1/2 -translate-y-1/2 transform text-gray-400' />
+                      <Input
+                        className='pl-10'
+                        placeholder='Email du correspondant'
+                        {...field}
+                        value={field.value || ''}
+                      />
                     </div>
                   </FormControl>
                   <FormMessage />
@@ -98,14 +103,14 @@ export default function ClubForm({ defaultValues, setIsEditing, onSuccess }: Rea
 
             <FormField
               control={form.control}
-              name="phone"
+              name='phone'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Téléphone</FormLabel>
                   <FormControl>
-                    <div className="relative">
-                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 transform text-gray-400" />
-                      <Input className="pl-10" placeholder="Numéro de téléphone" {...field} value={field.value || ""} />
+                    <div className='relative'>
+                      <Phone className='absolute left-3 top-1/2 -translate-y-1/2 transform text-gray-400' />
+                      <Input className='pl-10' placeholder='Numéro de téléphone' {...field} value={field.value || ''} />
                     </div>
                   </FormControl>
                   <FormMessage />
@@ -113,9 +118,9 @@ export default function ClubForm({ defaultValues, setIsEditing, onSuccess }: Rea
               )}
             />
 
-            <div className="mt-4 flex justify-end space-x-2">
-              <Button type="submit" variant="default">
-                {defaultValues ? "Mettre à jour" : "Créer"}
+            <div className='mt-4 flex justify-end space-x-2'>
+              <Button type='submit' variant='default'>
+                {defaultValues ? 'Mettre à jour' : 'Créer'}
               </Button>
             </div>
           </CardContent>

@@ -6,6 +6,9 @@ class TeamService {
   private readonly createTeamSchema = TeamSchema.omit({ id: true, coach: true }).extend({
     coach: z.string().optional(),
   });
+  private readonly updateTeamSchema = TeamSchema.omit({ coach: true }).extend({
+    coach: z.string().optional(),
+  });
   async getTeams() {
     try {
       return await prisma.team.findMany({
@@ -34,15 +37,15 @@ class TeamService {
     }
   }
 
-  async updateTeam(team: z.infer<typeof TeamSchema>) {
-    const { coach, ...teamData } = team;
+  async updateTeam(team: z.infer<typeof this.updateTeamSchema>) {
+    const { id, coach, ...teamData } = team;
     try {
       return await prisma.team.update({
-        where: { id: team.id },
+        where: { id },
         data: {
           ...teamData,
           coach: {
-            connect: { id: coach?.id },
+            connect: { id: coach },
           },
         },
       });

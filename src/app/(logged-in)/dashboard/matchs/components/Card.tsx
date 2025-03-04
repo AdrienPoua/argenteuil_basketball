@@ -103,7 +103,7 @@ export default function MatchCard({ match }: Readonly<PropsType>) {
       variant: 'success',
     });
   };
-  
+
   const handleMarkAsReceived = async () => {
     setIsMarkingAsReceived(true);
     try {
@@ -359,11 +359,14 @@ export default function MatchCard({ match }: Readonly<PropsType>) {
                     </Badge>
                   )}
                 </div>
-                
+
                 <div className='flex items-center justify-between'>
                   <span className='text-sm font-medium'>Statut de réception</span>
                   {match.isConvocationRecu ? (
-                    <Badge variant='outline' className='border-green-300 bg-green-100 text-xs font-normal text-green-800'>
+                    <Badge
+                      variant='outline'
+                      className='border-green-300 bg-green-100 text-xs font-normal text-green-800'
+                    >
                       <div className='flex items-center'>
                         <Check className='mr-1 h-3 w-3' />
                         Reçue
@@ -394,11 +397,11 @@ export default function MatchCard({ match }: Readonly<PropsType>) {
                       <span>{match.convocationIsAsked ? 'Demande déjà envoyée' : 'Demander la convocation'}</span>
                     </Button>
                   </DialogTrigger>
-                  
+
                   {match.convocationIsAsked && !match.isConvocationRecu && (
-                    <Button 
-                      variant="outline" 
-                      className="w-full border-green-300 bg-green-50 text-green-700 hover:bg-green-100"
+                    <Button
+                      variant='outline'
+                      className='w-full border-green-300 bg-green-50 text-green-700 hover:bg-green-100'
                       onClick={handleMarkAsReceived}
                       disabled={isMarkingAsReceived}
                     >
@@ -433,7 +436,7 @@ export default function MatchCard({ match }: Readonly<PropsType>) {
       </CardContent>
 
       {/* Actions en bas de la carte */}
-      <CardFooter className='mt-auto flex justify-end grow gap-2 border-t bg-muted/5 p-2'>
+      <CardFooter className='mt-auto flex grow justify-end gap-2 border-t bg-muted/5 p-2'>
         <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
           <DialogTrigger asChild>
             <Button size='sm' className='h-8 gap-1 text-xs'>
@@ -468,9 +471,7 @@ export default function MatchCard({ match }: Readonly<PropsType>) {
               </DialogDescription>
             </DialogHeader>
             <DialogFooter className='mt-4 flex gap-2'>
-              <Button onClick={() => setIsDeleteDialogOpen(false)}>
-                Annuler
-              </Button>
+              <Button onClick={() => setIsDeleteDialogOpen(false)}>Annuler</Button>
               <Button variant='destructive' onClick={handleDeleteMatch} disabled={isDeleting}>
                 {isDeleting ? 'Suppression...' : 'Supprimer'}
               </Button>

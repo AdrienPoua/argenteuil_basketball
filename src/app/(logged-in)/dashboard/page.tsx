@@ -9,9 +9,5 @@ export default function Page() {
     fetchToken();
   }, []);
 
-  return (
-    <div>
-      {/* Le titre est maintenant géré par le PageHeader */}
-    </div>
-  );
+  return <div>{/* Le titre est maintenant géré par le PageHeader */}</div>;
 }

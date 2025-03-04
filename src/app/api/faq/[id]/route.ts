@@ -11,7 +11,8 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   try {
     const body = await req.json();
-    const faq = FAQSchema.parse(body);
+    const faq = FAQSchema.omit({ id: true }).parse(body);
+    console.log("🚀 ~ PUT ~ faq:", faq)
     const updatedFaq = await FaqService.updateFaq({ ...faq, id: params.id });
     return NextResponse.json(updatedFaq);
   } catch (error) {
