@@ -167,13 +167,17 @@ export function ClubCard({ data }: Readonly<PropsType>) {
       </CardHeader>
 
       <CardContent className='space-y-4 p-6'>
-        <div className={`flex items-center rounded-md border p-3 transition-all ${hoveredCard ? 'bg-primary/5' : ''}`}>
+        <div
+          className={`flex items-center overflow-hidden rounded-md border p-3 transition-all ${hoveredCard ? 'bg-primary/5' : ''}`}
+        >
           <div className='flex flex-1 items-center gap-3'>
             <Badge className='bg-primary'>
               <Mail className='mr-2 h-4 w-4' />
               Email
             </Badge>
-            <p className='truncate text-sm font-medium'>{data.email}</p>
+            <p className='truncate text-sm font-medium'>
+              {data.email.length > 25 ? data.email.slice(0, 25) + '...' : data.email}
+            </p>
           </div>
           <div className='flex gap-1'>
             <TooltipProvider>

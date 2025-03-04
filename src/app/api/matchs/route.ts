@@ -5,6 +5,8 @@ import MatchService from '@/services/Match';
 import { errorHandler } from '@/lib/utils/handleApiError';
 import { MatchSchema } from '@/lib/validation/Match';
 import { z } from 'zod';
+import prisma from '@/database/prisma';
+import { argenteuilIdOrganisme } from '@/lib/constants/argenteuil-id-organisme';
 
 export async function GET() {
   // Check if the user is authenticated
@@ -54,6 +56,46 @@ export async function PUT(req: NextRequest) {
 
   try {
     const body = await req.json();
+
+    // Check if the data has the new format with matchs and competitions
+    if (body.matchs && body.competitions) {
+      const { matchs, competitions } = body;
+
+      // Get clubs for opponent details
+      const clubs = await prisma.club.findMany();
+
+      // Process matchs similar to how it was done in server action
+      const processedMatchs = matchs.map((match: any) => {
+        const competition = competitions.find((comp: any) => comp.id === match.idPoule);
+        const opponentId =
+          match.idOrganismeEquipe1 === argenteuilIdOrganisme
+            ? match.idOrganismeEquipe2.toString()
+            : match.idOrganismeEquipe1.toString();
+        const opponentClub = clubs.find((club) => club.id === opponentId);
+
+        return {
+          ...match,
+          id: match.id.toString(),
+          competition: competition?.label ?? null,
+          correspondant: opponentClub?.email ?? null,
+          salle: match.salle?.libelle ?? 'Salle inconnue',
+        };
+      });
+
+      const parsedMatchs = z.array(MatchSchema).parse(processedMatchs);
+
+      // Validate and upsert matches
+      const matchsUpserted = await Promise.all(
+        parsedMatchs.map(async (match) => {
+          return await MatchService.upsert(match);
+        }),
+      );
+
+      // Return the result
+      return NextResponse.json({ message: 'Success', data: matchsUpserted }, { status: 200 });
+    }
+
+    // Handle the legacy format (for backward compatibility)
     const matchsArray = Array.isArray(body) ? body : [body];
 
     // Validate entries
@@ -71,8 +113,6 @@ export async function PUT(req: NextRequest) {
 
     // Return 200
     return NextResponse.json({ message: 'Success', data: matchsUpserted }, { status: 200 });
-
-    // Return 200
   } catch (error) {
     return errorHandler(error);
   }

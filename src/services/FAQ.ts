@@ -27,7 +27,7 @@ class FAQService {
   }
 
   async updateFaq(data: z.infer<typeof FAQSchema>) {
-    const { id, ...payload } = data
+    const { id, ...payload } = data;
     try {
       return await prisma.fAQ.update({
         where: { id: data.id },

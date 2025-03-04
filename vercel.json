@@ -4,5 +4,11 @@
       "source": "/api/auth/ffbb/token",
       "headers": [{ "key": "Cache-Control", "value": "no-store" }]
     }
+  ],
+  "crons": [
+    {
+      "path": "/api/cron/ffbb",
+      "schedule": "0 1 * * 1"
+    }
   ]
 }
