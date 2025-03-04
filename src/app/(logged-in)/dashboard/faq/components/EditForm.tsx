@@ -35,11 +35,11 @@ export default function EditFAQForm({ faq, onCancel, onSuccess }: EditFAQFormPro
           position: faq.position,
         }),
       });
-
+      
       if (!response.ok) {
         throw new Error('Failed to update FAQ');
       }
-
+      
       router.refresh();
       toast({
         title: 'FAQ modifiée',
@@ -82,14 +82,18 @@ export default function EditFAQForm({ faq, onCancel, onSuccess }: EditFAQFormPro
             <FormItem>
               <FormLabel>Réponse</FormLabel>
               <FormControl>
-                <Textarea placeholder='Votre réponse ici' className='min-h-[120px] resize-none' {...field} />
+                <Textarea 
+                  placeholder='Votre réponse ici' 
+                  className='resize-none min-h-[120px]' 
+                  {...field} 
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <div className='flex justify-end space-x-2'>
-          <Button type='button' variant='outline' onClick={onCancel}>
+        <div className="flex justify-end space-x-2">
+          <Button type='button' variant="outline" onClick={onCancel}>
             Annuler
           </Button>
           <Button type='submit' disabled={isSubmitting}>
@@ -99,4 +103,4 @@ export default function EditFAQForm({ faq, onCancel, onSuccess }: EditFAQFormPro
       </form>
     </Form>
   );
-}
+} 

@@ -68,7 +68,9 @@ export default function TeamCard({ data, members }: Readonly<PropsType>) {
             <h3 className='mb-3 font-medium'>Championnats</h3>
             <div className='flex flex-wrap gap-2'>
               {data.championnats.map((championnat) => (
-                <Badge key={championnat}>{championnat}</Badge>
+                <Badge key={championnat} >
+                  {championnat}
+                </Badge>
               ))}
             </div>
           </div>

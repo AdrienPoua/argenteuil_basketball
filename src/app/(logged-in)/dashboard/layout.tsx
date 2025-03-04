@@ -20,11 +20,7 @@ export default async function Layout({ children }: Readonly<{ children: React.Re
 
   try {
     if (!cookies().get('ffbb_token')) {
-      const tokenResponse = await fetch(`${baseUrl}/api/ffbb/token`, {
-        next: {
-          revalidate: 3300,
-        },
-      });
+      const tokenResponse = await fetch(`${baseUrl}/api/ffbb/token`);
 
       if (!tokenResponse.ok) {
         console.error('Erreur lors de la récupération du token FFBB');

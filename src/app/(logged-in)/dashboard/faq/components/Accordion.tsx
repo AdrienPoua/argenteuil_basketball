@@ -29,7 +29,7 @@ export default function FAQItem({ faq, totalFaqs = 10 }: Readonly<PropsType>) {
   const router = useRouter();
 
   const handlePositionChange = async (value: string) => {
-    const { id, ...payload } = faq;
+    const { id, ...payload } = faq
     try {
       await fetch(`/api/faq/${id}`, {
         method: 'PUT',
@@ -109,3 +109,4 @@ export default function FAQItem({ faq, totalFaqs = 10 }: Readonly<PropsType>) {
     </>
   );
 }
+

@@ -1,16 +1,16 @@
 'use client';
 import { useState } from 'react';
-import { updateClubs, updateMatchs } from './server.actions';
+import { fetchClubs, fetchMatchs } from './server.actions';
 import { fetchDataFromFbi } from './api.actions';
 
 export const useActions = () => {
   const [isTransfering, setIsTransfering] = useState(false);
 
-  const majClubs = async () => {
+  const updateClubs = async () => {
     setIsTransfering(true);
     try {
       const { organismes } = await fetchDataFromFbi();
-      await updateClubs(organismes);
+      await fetchClubs(organismes);
     } catch (err) {
       console.error('Error transferring clubs:', err);
     } finally {
@@ -18,11 +18,11 @@ export const useActions = () => {
     }
   };
 
-  const majMatchs = async () => {
+  const updateMatch = async () => {
     try {
       setIsTransfering(true);
       const { competitions, matchs } = await fetchDataFromFbi();
-      await updateMatchs(matchs, competitions);
+      await fetchMatchs(matchs, competitions);
     } catch (err) {
       console.error('Error transferring matchs:', err);
     } finally {
@@ -31,8 +31,8 @@ export const useActions = () => {
   };
 
   return {
-    updateClubs: majClubs,
-    updateMatch: majMatchs,
+    updateClubs,
+    updateMatch,
     isTransfering,
   };
 };
