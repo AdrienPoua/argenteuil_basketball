@@ -59,7 +59,7 @@ export async function GET() {
       maxAge: 3300,
     });
 
-    return NextResponse.json({ success: true }, { status: 200 });
+    return NextResponse.json(token, { status: 200 });
   } catch (err) {
     return errorHandler(err);
   }

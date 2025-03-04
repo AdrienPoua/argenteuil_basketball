@@ -1,7 +1,6 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/integrations/nextAuth/auth';
-import { cookies } from 'next/headers';
 import { errorHandler } from '@/lib/utils/handleApiError';
 
 const endpoint =
@@ -13,7 +12,7 @@ export async function GET(req: NextRequest) {
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   try {
     // Check if the token is present
-    const token = cookies().get('ffbb_token')?.value;
+    const token = req.headers.get('Authorization')?.split(' ')[1];
     if (!token) return NextResponse.json({ error: 'Missing Authorization header' }, { status: 401 });
 
     // Consume the API

@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/integrations/nextAuth/auth';
-import { cookies } from 'next/headers';
 import { argenteuilIdOrganisme } from '@/lib/constants/argenteuil-id-organisme';
 import { errorHandler } from '@/lib/utils/handleApiError';
 const endpoint = 'https://ffbbserver3.ffbb.com/ffbbserver3/api/competition/getRencontresParPoule.ws?idPoule=';
@@ -11,7 +10,7 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
   const session = await getServerSession(authOptions);
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   // Check if the token is present
-  const token = cookies().get('ffbb_token')?.value;
+  const token = req.headers.get('Authorization')?.split(' ')[1];
   console.log(endpoint + params.id);
   try {
     // Check if the token is present

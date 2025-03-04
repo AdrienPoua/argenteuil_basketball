@@ -7,8 +7,6 @@ export async function GET() {
     // Récupération du token (similaire à ce qui est fait dans la page)
     const token = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ffbb/token`);
 
-    // Mise à jour des clubs et des matchs
-    
 
     return NextResponse.json({ success: true, message: 'Clubs et matchs mis à jour avec succès' });
   } catch (error) {
