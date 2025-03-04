@@ -11,7 +11,7 @@ export default function Page() {
 
   return (
     <div>
-      <h1>Dashboard</h1>
+      {/* Le titre est maintenant géré par le PageHeader */}
     </div>
   );
 }

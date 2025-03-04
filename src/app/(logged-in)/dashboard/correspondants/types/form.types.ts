@@ -7,4 +7,6 @@ export type FormValues = z.infer<typeof formSchema>;
 export type PropsType = {
   defaultValues: ReturnType<Club['toPlainObject']>;
   setIsEditing: (isEditing: boolean) => void;
+  isModal?: boolean;
+  onSuccess?: () => void;
 };

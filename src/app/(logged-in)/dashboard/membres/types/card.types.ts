@@ -6,8 +6,10 @@ export type PropsType = {
   teams: ReturnType<Team['toPlainObject']>[];
 };
 
-export type BaseCardPropsType = Omit<PropsType, 'teams'> & {
+export type BaseCardPropsType = {
+  data: ReturnType<Member['toPlainObject']>;
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
+  teams: ReturnType<Team['toPlainObject']>[];
 };
 
 export type EditingCardPropsType = PropsType & {

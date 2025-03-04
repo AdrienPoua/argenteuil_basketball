@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 
 // Third party libraries
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Plus, Trash2, Upload } from 'lucide-react';
+import { Plus, PlusIcon, Trash2, Upload } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
@@ -34,8 +34,8 @@ export default function FormModal({ members }: Readonly<Readonly<ModalProps>>) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className='gap-2'>
-          <Plus size={20} />
+        <Button variant='outline' className='flex items-center justify-end gap-2 bg-foreground ml-auto'>
+          <PlusIcon className='h-4 w-4' />
           Ajouter une équipe
         </Button>
       </DialogTrigger>

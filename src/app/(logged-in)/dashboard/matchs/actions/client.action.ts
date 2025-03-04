@@ -14,6 +14,7 @@ export const useMatchForm = (match: PropsType['match']) => {
       date: match.date.toISOString().split('T')[0],
       time: match.date.toLocaleTimeString(),
       salle: match.salle,
+      isConvocationRecu: match.isConvocationRecu || false,
     },
   });
 };
@@ -21,6 +22,7 @@ export const useMatchForm = (match: PropsType['match']) => {
 export const useCardFilter = (matchs: GridPropsType['matchs']) => {
   const [selectedCompetition, setSelectedCompetition] = useState('ALL');
   const [place, setPlace] = useState('all');
+  const [month, setMonth] = useState('all');
 
   const competitions = useMemo(() => {
     return Array.from(new Set(matchs.map((match) => match.championnat ?? 'Unknown'))).filter(
@@ -44,17 +46,46 @@ export const useCardFilter = (matchs: GridPropsType['matchs']) => {
     return filteredByCompetition.filter((match) => match.idOrganismeEquipe1 !== ClubData.id);
   }, [filteredByCompetition]);
 
-  const displayedGames = useMemo(() => {
+  const filteredByPlace = useMemo(() => {
     if (place === 'all') return filteredByCompetition;
     return place === 'home' ? homeGames : awayGames;
   }, [place, filteredByCompetition, homeGames, awayGames]);
 
+  const displayedGames = useMemo(() => {
+    if (month === 'all') return filteredByPlace;
+    // Convertir le mois sélectionné en nombre (0-11)
+    const selectedMonthIndex = parseInt(month, 10);
+    return filteredByPlace.filter((match) => {
+      const matchDate = new Date(match.date);
+      return matchDate.getMonth() === selectedMonthIndex;
+    });
+  }, [month, filteredByPlace]);
+
+  // Liste des mois de l'année
+  const months = useMemo(() => [
+    { value: '0', label: 'Janvier' },
+    { value: '1', label: 'Février' },
+    { value: '2', label: 'Mars' },
+    { value: '3', label: 'Avril' },
+    { value: '4', label: 'Mai' },
+    { value: '5', label: 'Juin' },
+    { value: '6', label: 'Juillet' },
+    { value: '7', label: 'Août' },
+    { value: '8', label: 'Septembre' },
+    { value: '9', label: 'Octobre' },
+    { value: '10', label: 'Novembre' },
+    { value: '11', label: 'Décembre' },
+  ], []);
+
   return {
     selectedCompetition,
     place,
+    month,
     setSelectedCompetition,
     setPlace,
+    setMonth,
     displayedGames,
     competitions,
+    months,
   };
 };

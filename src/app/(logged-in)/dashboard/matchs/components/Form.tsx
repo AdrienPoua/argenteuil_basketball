@@ -3,12 +3,18 @@
 import { PropsType, FormValues } from '../types/form.types';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormDescription } from '@/components/ui/form';
 import { useMatchForm } from '../actions/client.action';
 import { Badge } from '@/components/ui/badge';
 import { CardHeader, CardTitle } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
-export default function MatchForm({ match, setIsEditing }: Readonly<PropsType>) {
+import { Switch } from '@/components/ui/switch';
+
+export type MatchFormProps = PropsType & {
+  onSuccess?: () => void;
+};
+
+export default function MatchForm({ match, setIsEditing, onSuccess }: Readonly<MatchFormProps>) {
   const form = useMatchForm(match);
   const router = useRouter();
   const onSubmit = async (data: FormValues) => {
@@ -16,13 +22,22 @@ export default function MatchForm({ match, setIsEditing }: Readonly<PropsType>) 
     try {
       const response = await fetch(`/api/matchs/${match.id}`, {
         method: 'PUT',
-        body: JSON.stringify({ date, salle: data.salle }),
+        body: JSON.stringify({ 
+          date, 
+          salle: data.salle,
+          isConvocationRecu: data.isConvocationRecu 
+        }),
       });
       if (!response.ok) {
         throw new Error('Failed to update match');
       }
       router.refresh();
       setIsEditing(false);
+      
+      // Appel du callback onSuccess s'il existe
+      if (onSuccess) {
+        onSuccess();
+      }
     } catch (error) {
       console.error(error);
     }
@@ -30,7 +45,7 @@ export default function MatchForm({ match, setIsEditing }: Readonly<PropsType>) 
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
+      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6 font-secondary'>
         <div>
           <Badge variant='match'>{match.championnat}</Badge>
           <CardHeader className='mb-3 flex flex-row items-center justify-between'>
@@ -47,7 +62,7 @@ export default function MatchForm({ match, setIsEditing }: Readonly<PropsType>) 
               <FormItem>
                 <FormLabel>Date du match</FormLabel>
                 <FormControl>
-                  <Input type='date' {...field} />
+                  <Input type='date' {...field} className='bg-foreground' />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -61,7 +76,7 @@ export default function MatchForm({ match, setIsEditing }: Readonly<PropsType>) 
               <FormItem>
                 <FormLabel>Heure du match</FormLabel>
                 <FormControl>
-                  <Input type='time' {...field} placeholder='Sélectionnez une heure' />
+                  <Input type='time' {...field} placeholder='Sélectionnez une heure' className='bg-foreground' />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -76,12 +91,35 @@ export default function MatchForm({ match, setIsEditing }: Readonly<PropsType>) 
             <FormItem>
               <FormLabel>Salle</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input {...field} className='bg-foreground' />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
+
+        {!match.isHome && (
+          <FormField
+            control={form.control}
+            name='isConvocationRecu'
+            render={({ field }) => (
+              <FormItem className='flex flex-row items-center justify-between rounded-lg border p-4'>
+                <div className='space-y-0.5'>
+                  <FormLabel className='text-base'>Convocation reçue</FormLabel>
+                  <FormDescription>
+                    Marquez comme reçue si vous avez reçu la convocation pour ce match
+                  </FormDescription>
+                </div>
+                <FormControl>
+                  <Switch
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+        )}
 
         <div className='flex justify-end space-x-2'>
           <Button type='button' onClick={() => setIsEditing(false)}>

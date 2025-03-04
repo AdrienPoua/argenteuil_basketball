@@ -7,6 +7,8 @@ export type PropsType = {
   teams: ReturnType<Team['toPlainObject']>[];
   defaultValues?: ReturnType<Member['toPlainObject']>;
   setIsEditing?: React.Dispatch<React.SetStateAction<boolean>>;
+  isModal?: boolean;
+  onSuccess?: () => void;
 };
 
 export type FormSchemaType = z.infer<typeof FormSchema>;

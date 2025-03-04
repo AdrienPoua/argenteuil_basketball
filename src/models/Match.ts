@@ -27,6 +27,7 @@ export default class Match {
   private readonly _correspondant?: string;
   private readonly _convocationIsSent: boolean;
   private readonly _convocationIsAsked: boolean;
+  private readonly _isConvocationRecu: boolean;
   constructor(data: ConstructorType) {
     this._id = data.id;
     this._numero = data.numero;
@@ -52,6 +53,7 @@ export default class Match {
     this._correspondant = data.correspondant ?? undefined;
     this._convocationIsSent = data.convocationIsSent ?? false;
     this._convocationIsAsked = data.convocationIsAsked ?? false;
+    this._isConvocationRecu = data.isConvocationRecu ?? false;
   }
 
   get formatedDate() {
@@ -159,6 +161,10 @@ export default class Match {
     return this._convocationIsSent;
   }
 
+  get isConvocationRecu() {
+    return this._isConvocationRecu;
+  }
+
   get joue() {
     return this._joue;
   }
@@ -201,6 +207,7 @@ export default class Match {
       correspondant: this.correspondant,
       convocationIsSent: this.convocationIsSent,
       convocationIsAsked: this.convocationIsAsked,
+      isConvocationRecu: this.isConvocationRecu,
     };
   }
 }

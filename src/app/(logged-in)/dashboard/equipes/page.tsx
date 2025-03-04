@@ -15,10 +15,10 @@ export default async function Page() {
     .then((teams) => teams.map((team) => team.toPlainObject()));
 
   return (
-    <div className='flex flex-wrap gap-10'>
+    <div className='flex flex-col gap-10'>
       <FormModal members={members} />
       {
-        <div className='flex flex-wrap gap-10'>
+        <div className='grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3'>
           {teams.map((team) => (
             <Card key={team.id} data={team} members={members} />
           ))}

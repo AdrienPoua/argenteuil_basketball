@@ -190,6 +190,7 @@ model Match {
   correspondant           String?
   convocationIsSent       Boolean?
   convocationIsAsked      Boolean?
+  isConvocationRecu       Boolean? @default(false)
 }
 
 /**

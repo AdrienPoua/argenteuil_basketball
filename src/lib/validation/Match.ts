@@ -35,4 +35,5 @@ export const MatchSchema = z.object({
   correspondant: z.string().nullable(),
   convocationIsSent: z.boolean().default(false),
   convocationIsAsked: z.boolean().default(false),
+  isConvocationRecu: z.boolean().default(false),
 });

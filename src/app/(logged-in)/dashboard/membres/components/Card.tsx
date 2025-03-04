@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Pencil, Trash, X, Mail, Phone } from 'lucide-react';
+import { Trash, X, Mail, Phone } from 'lucide-react';
 import Form from './Form';
 import { PropsType, BaseCardPropsType, EditingCardPropsType } from '../types/card.types';
 import {
@@ -20,16 +20,18 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { useRouter } from 'next/navigation';
+import { EditMemberModal } from './EditMemberModal';
+
 export default function Index({ data, teams }: Readonly<PropsType>): React.ReactElement {
   const [isEditing, setIsEditing] = useState(false);
   if (isEditing) {
     return <EditingCard data={data} setIsEditing={setIsEditing} teams={teams} />;
   } else {
-    return <BaseCard data={data} setIsEditing={setIsEditing} />;
+    return <BaseCard data={data} setIsEditing={setIsEditing} teams={teams} />;
   }
 }
 
-export function BaseCard({ data, setIsEditing }: Readonly<BaseCardPropsType>) {
+export function BaseCard({ data, setIsEditing, teams }: Readonly<BaseCardPropsType>) {
   const router = useRouter();
   const handleDelete = async () => {
     const res = await fetch(`/api/members/${data.id}`, {
@@ -42,7 +44,7 @@ export function BaseCard({ data, setIsEditing }: Readonly<BaseCardPropsType>) {
   };
 
   return (
-    <Card className='w-full max-w-md font-secondary text-muted-foreground transition-all duration-300 hover:shadow-lg'>
+    <Card className='w-full max-w-md font-secondary text-background transition-all duration-300 hover:shadow-lg'>
       <CardHeader className='relative p-6 pb-0'>
         <div className='flex items-center justify-between'>
           <div className='flex items-center space-x-4'>
@@ -51,7 +53,7 @@ export function BaseCard({ data, setIsEditing }: Readonly<BaseCardPropsType>) {
               <AvatarFallback>{data.name.charAt(0)}</AvatarFallback>
             </Avatar>
             <div>
-              <CardTitle className='text-2xl font-bold text-background'>{data.name}</CardTitle>
+              <CardTitle className='text-2xl font-bold font-secondary'>{data.name}</CardTitle>
               {data.isLeader && (
                 <Badge variant='destructive' className='mt-1'>
                   Leader
@@ -60,14 +62,7 @@ export function BaseCard({ data, setIsEditing }: Readonly<BaseCardPropsType>) {
             </div>
           </div>
           <div className='flex gap-2'>
-            <Button
-              size='icon'
-              onClick={() => setIsEditing(true)}
-              aria-label={`Modifier ${data.name}`}
-              className='bg-primary text-primary-foreground hover:bg-primary/90'
-            >
-              <Pencil className='h-4 w-4' />
-            </Button>
+            <EditMemberModal member={data} teams={teams} />
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button variant='destructive' size='icon'>
@@ -76,8 +71,8 @@ export function BaseCard({ data, setIsEditing }: Readonly<BaseCardPropsType>) {
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
-                  <AlertDialogTitle>Êtes-vous absolument sûr ?</AlertDialogTitle>
-                  <AlertDialogDescription>
+                  <AlertDialogTitle className="font-secondary">Êtes-vous absolument sûr ?</AlertDialogTitle>
+                  <AlertDialogDescription className="font-secondary">
                     Cette action ne peut pas être annulée. Cela supprimera définitivement le membre {data.name} et
                     toutes les données associées.
                   </AlertDialogDescription>
@@ -94,14 +89,14 @@ export function BaseCard({ data, setIsEditing }: Readonly<BaseCardPropsType>) {
       <CardContent className='space-y-4 p-6'>
         <div className='space-y-2'>
           {data.email && (
-            <div className='flex items-center space-x-2 text-sm'>
-              <Mail className='h-4 w-4 text-muted-foreground' />
+            <div className='flex items-center space-x-2 text-sm font-secondary'>
+              <Mail className='h-4 w-4 font-secondary' />
               <span>{data.email}</span>
             </div>
           )}
           {data.phone && (
-            <div className='flex items-center space-x-2 text-sm'>
-              <Phone className='h-4 w-4 text-muted-foreground' />
+            <div className='flex items-center space-x-2 text-sm font-secondary'>
+              <Phone className='h-4 w-4 font-secondary' />
               <span>{data.phone}</span>
             </div>
           )}

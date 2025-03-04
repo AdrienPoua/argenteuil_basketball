@@ -26,7 +26,7 @@ export default function TeamCard({ data, members }: Readonly<PropsType>) {
   };
 
   return (
-    <Card className='w-full max-w-md font-secondary text-muted-foreground transition-all duration-300 hover:shadow-lg'>
+    <Card className='size-full font-secondary text-muted-foreground transition-all duration-300 hover:shadow-lg'>
       <CardHeader className='relative p-0'>
         <div className='relative aspect-video w-full overflow-hidden rounded-t-md'>
           <Image
@@ -34,7 +34,6 @@ export default function TeamCard({ data, members }: Readonly<PropsType>) {
             alt={`Photo de l'équipe ${data.name}`}
             fill
             className='object-cover'
-            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
           />
           <div className='absolute inset-0 bg-gradient-to-t from-black/70 to-transparent' />
           <CardTitle className='absolute bottom-4 left-4 z-10 text-3xl font-bold text-white'>{data.name}</CardTitle>

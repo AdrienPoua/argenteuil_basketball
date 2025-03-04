@@ -16,7 +16,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Upload, Mail, Phone, User } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
-export default function MemberForm({ teams, defaultValues, setIsEditing }: Readonly<PropsType>) {
+export default function MemberForm({ teams, defaultValues, setIsEditing, onSuccess }: Readonly<PropsType>) {
   const [previewImage, setPreviewImage] = useState<string | undefined>(defaultValues?.image);
   const form = useMemberForm(defaultValues);
   const router = useRouter();
@@ -27,6 +27,11 @@ export default function MemberForm({ teams, defaultValues, setIsEditing }: Reado
       setPreviewImage(undefined);
       form.reset();
       router.refresh();
+
+      // Appeler onSuccess si fourni
+      if (onSuccess) {
+        onSuccess();
+      }
     } catch (error) {
       console.error(error);
     }
@@ -34,10 +39,10 @@ export default function MemberForm({ teams, defaultValues, setIsEditing }: Reado
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='mx-auto max-w-2xl space-y-6'>
-        <Card className='text-background'>
+      <form onSubmit={form.handleSubmit(onSubmit)} className={`space-y-6 mx-auto max-w-2xl`}>
+        <Card className='font-secondary text-background'>
           <CardHeader>
-            <CardTitle className='py-4 text-center text-2xl font-bold text-background'>
+            <CardTitle className='py-4 text-center font-secondary text-2xl font-bold'>
               {defaultValues ? 'Modifier le membre' : 'Créer un nouveau membre'}
             </CardTitle>
           </CardHeader>
@@ -52,7 +57,7 @@ export default function MemberForm({ teams, defaultValues, setIsEditing }: Reado
                 name='image'
                 render={({ field }) => (
                   <FormItem className='flex-1'>
-                    <FormLabel htmlFor='member-image'>Photo de profil</FormLabel>
+                    <FormLabel className='font-secondary'>Photo de profil</FormLabel>
                     <FormControl>
                       <div className='flex items-center'>
                         <Input
@@ -71,14 +76,14 @@ export default function MemberForm({ teams, defaultValues, setIsEditing }: Reado
                         />
                         <label
                           htmlFor='member-image'
-                          className='flex cursor-pointer items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50'
+                          className='flex cursor-pointer items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 font-secondary text-sm font-medium shadow-sm hover:bg-gray-50'
                         >
                           <Upload className='mr-2 h-5 w-5' />
                           Choisir une image
                         </label>
                       </div>
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className='font-secondary' />
                   </FormItem>
                 )}
               />
@@ -90,14 +95,14 @@ export default function MemberForm({ teams, defaultValues, setIsEditing }: Reado
                 name='name'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Nom</FormLabel>
+                    <FormLabel className='font-secondary'>Nom</FormLabel>
                     <FormControl>
                       <div className='relative'>
                         <User className='absolute left-3 top-1/2 -translate-y-1/2 transform text-gray-400' />
                         <Input placeholder='Michael Jordan' {...field} className='pl-10' />
                       </div>
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className='font-secondary' />
                   </FormItem>
                 )}
               />
@@ -107,14 +112,14 @@ export default function MemberForm({ teams, defaultValues, setIsEditing }: Reado
                 name='email'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel className='font-secondary'>Email</FormLabel>
                     <FormControl>
                       <div className='relative'>
                         <Mail className='absolute left-3 top-1/2 -translate-y-1/2 transform text-gray-400' />
                         <Input placeholder='john@example.com' {...field} className='pl-10' />
                       </div>
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className='font-secondary' />
                   </FormItem>
                 )}
               />
@@ -124,14 +129,14 @@ export default function MemberForm({ teams, defaultValues, setIsEditing }: Reado
                 name='phone'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Téléphone</FormLabel>
+                    <FormLabel className='font-secondary'>Téléphone</FormLabel>
                     <FormControl>
                       <div className='relative'>
                         <Phone className='absolute left-3 top-1/2 -translate-y-1/2 transform text-gray-400' />
                         <Input placeholder='+33612345678' {...field} className='pl-10' />
                       </div>
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className='font-secondary' />
                   </FormItem>
                 )}
               />
@@ -147,8 +152,10 @@ export default function MemberForm({ teams, defaultValues, setIsEditing }: Reado
                       <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                     </FormControl>
                     <div className='space-y-1 leading-none'>
-                      <FormLabel>Email public</FormLabel>
-                      <FormDescription>L&apos;email sera visible sur le site web</FormDescription>
+                      <FormLabel className='font-secondary'>Email public</FormLabel>
+                      <FormDescription className='font-secondary'>
+                        L&apos;email sera visible sur le site web
+                      </FormDescription>
                     </div>
                   </FormItem>
                 )}
@@ -163,8 +170,10 @@ export default function MemberForm({ teams, defaultValues, setIsEditing }: Reado
                       <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                     </FormControl>
                     <div className='space-y-1 leading-none'>
-                      <FormLabel>Téléphone public</FormLabel>
-                      <FormDescription>Le téléphone sera visible sur le site web</FormDescription>
+                      <FormLabel className='font-secondary'>Téléphone public</FormLabel>
+                      <FormDescription className='font-secondary'>
+                        Le téléphone sera visible sur le site web
+                      </FormDescription>
                     </div>
                   </FormItem>
                 )}
@@ -179,8 +188,8 @@ export default function MemberForm({ teams, defaultValues, setIsEditing }: Reado
                       <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                     </FormControl>
                     <div className='space-y-1 leading-none'>
-                      <FormLabel>Dirigeant</FormLabel>
-                      <FormDescription>Ce membre est un dirigeant</FormDescription>
+                      <FormLabel className='font-secondary'>Dirigeant</FormLabel>
+                      <FormDescription className='font-secondary'>Ce membre est un dirigeant</FormDescription>
                     </div>
                   </FormItem>
                 )}
@@ -192,7 +201,7 @@ export default function MemberForm({ teams, defaultValues, setIsEditing }: Reado
               name='role'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Rôles</FormLabel>
+                  <FormLabel className='font-secondary'>Rôles</FormLabel>
                   <FormControl>
                     <div className='relative'>
                       <MultiSelect
@@ -208,7 +217,7 @@ export default function MemberForm({ teams, defaultValues, setIsEditing }: Reado
                       />
                     </div>
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className='font-secondary' />
                 </FormItem>
               )}
             />
@@ -218,7 +227,7 @@ export default function MemberForm({ teams, defaultValues, setIsEditing }: Reado
               name='teams'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Équipes</FormLabel>
+                  <FormLabel className='font-secondary'>Équipes</FormLabel>
                   <FormControl>
                     <div className='relative'>
                       <MultiSelect
@@ -232,7 +241,7 @@ export default function MemberForm({ teams, defaultValues, setIsEditing }: Reado
                       />
                     </div>
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className='font-secondary' />
                 </FormItem>
               )}
             />

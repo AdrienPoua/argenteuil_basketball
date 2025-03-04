@@ -1,10 +1,11 @@
 'use server';
+
 import Card from './components/Card';
 import MemberService from '@/services/Member';
 import TeamService from '@/services/Team';
 import Member from '@/models/Member';
 import Team from '@/models/Team';
-import Form from './components/Form';
+import { AddMemberModal } from './components/AddMemberModal';
 
 export default async function Page() {
   const members = await MemberService.getMembers()
@@ -15,14 +16,15 @@ export default async function Page() {
     .then((teams) => teams.map((team) => team.toPlainObject()));
   return (
     <>
-      <Form teams={teams} />
-      {
-        <div className='grid grid-cols-1 place-items-center items-center justify-center gap-10 p-10 md:grid-cols-2'>
-          {members.map((member) => (
-            <Card key={member.id} data={member} teams={teams} />
-          ))}
-        </div>
-      }
+      <div className='mb-6 flex justify-end'>
+        <AddMemberModal teams={teams} />
+      </div>
+
+      <div className='grid grid-cols-1 place-items-center items-center justify-center gap-10 p-10 md:grid-cols-3'>
+        {members.map((member) => (
+          <Card key={member.id} data={member} teams={teams} />
+        ))}
+      </div>
     </>
   );
 }

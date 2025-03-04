@@ -4,6 +4,8 @@ import { z } from 'zod';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/integrations/nextAuth/auth';
 import { errorHandler } from '@/lib/utils/handleApiError';
+import { withAuth } from 'next-auth/middleware';
+
 const envSchema = z.object({
   publicKey: z.string(),
   privateKey: z.string(),
@@ -62,3 +64,19 @@ export async function POST(req: Request): Promise<Response> {
     return errorHandler(error);
   }
 }
+
+export default withAuth(
+  function middleware(req) {
+    // Logique supplémentaire si nécessaire
+    return NextResponse.next();
+  },
+  {
+    callbacks: {
+      authorized: ({ token }) => !!token,
+    },
+  }
+);
+
+export const config = {
+  matcher: ['/dashboard/:path*', '/api/:path*', '/convocation/:path*'],
+};

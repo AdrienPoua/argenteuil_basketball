@@ -100,7 +100,7 @@ export default function CreateMatchForm() {
               <FormItem>
                 <FormLabel>Date du match</FormLabel>
                 <FormControl>
-                  <Input type='date' {...field} className='bg-white' />
+                  <Input type='date' {...field} className='bg-foreground' />
                 </FormControl>
                 <FormMessage />
               </FormItem>
