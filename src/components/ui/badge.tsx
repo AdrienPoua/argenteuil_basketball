@@ -17,6 +17,7 @@ const badgeVariants = cva(
         destructive: 'border-transparent bg-destructive text-destructive-foreground shadow hover:bg-destructive/80',
         outline: 'text-foreground',
         staffCard: 'bg-primary font-secondary text-foreground border-none',
+        success: 'bg-green-500 text-white border-none',
         match:
           'w-full justify-center mb-4 text-lg border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80 ',
       },

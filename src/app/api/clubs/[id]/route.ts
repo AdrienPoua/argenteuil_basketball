@@ -1,15 +1,11 @@
 import { NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/integrations/nextAuth/auth';
 import clubService from '@/services/Club';
-import { z } from 'zod';
 import { ClubSchema } from '@/lib/validation/Club';
 import { errorHandler } from '@/lib/utils/handleApiError';
-
+import { validateUser } from '@/lib/api/validateUser';
 // GET /api/clubs/[id]
 export async function GET(request: Request, { params }: { params: { id: string } }) {
-  const session = await getServerSession(authOptions);
-  if (!session) return NextResponse.json({ error: 'Non autorisé' }, { status: 401 });
+  await validateUser();
 
   try {
     const club = await clubService.getClub(params.id);
@@ -24,8 +20,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
 
 // PUT /api/clubs/[id]
 export async function PUT(request: Request, { params }: { params: { id: string } }) {
-  const session = await getServerSession(authOptions);
-  if (!session) return NextResponse.json({ error: 'Non autorisé' }, { status: 401 });
+  await validateUser();
 
   try {
     const body = await request.json();
@@ -39,8 +34,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
 
 // DELETE /api/clubs/[id]
 export async function DELETE(request: Request, { params }: { params: { id: string } }) {
-  const session = await getServerSession(authOptions);
-  if (!session) return NextResponse.json({ error: 'Non autorisé' }, { status: 401 });
+  await validateUser();
 
   try {
     await clubService.deleteClub(params.id);

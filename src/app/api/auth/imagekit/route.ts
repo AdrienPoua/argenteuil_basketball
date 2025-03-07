@@ -1,27 +1,19 @@
 import ImageKit from 'imagekit';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/integrations/nextAuth/auth';
 import { errorHandler } from '@/lib/utils/handleApiError';
-import { withAuth } from 'next-auth/middleware';
+import { validateUser } from '@/lib/api/validateUser';
 
-const envSchema = z.object({
-  publicKey: z.string(),
-  privateKey: z.string(),
-  urlEndpoint: z.string().url(),
-});
+const { publicKey, privateKey, urlEndpoint } = process.env;
 
-const env = envSchema.parse({
-  publicKey: process.env.NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY,
-  privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
-  urlEndpoint: process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT,
-});
+if (!publicKey || !privateKey || !urlEndpoint) {
+  throw new Error('ImageKit environment variables are not set');
+}
 
 const imagekit = new ImageKit({
-  publicKey: env.publicKey,
-  privateKey: env.privateKey,
-  urlEndpoint: env.urlEndpoint,
+  publicKey: publicKey,
+  privateKey: privateKey,
+  urlEndpoint: urlEndpoint,
 });
 
 const fileSchema = z.object({
@@ -30,14 +22,7 @@ const fileSchema = z.object({
 });
 
 export async function POST(req: Request): Promise<Response> {
-  const session = await getServerSession(authOptions);
-
-  if (!session) {
-    return new Response(JSON.stringify({ error: 'Unauthorized' }), {
-      status: 401,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
+  await validateUser();
 
   try {
     // Récupérer le fichier depuis FormData
@@ -60,23 +45,7 @@ export async function POST(req: Request): Promise<Response> {
     });
 
     return NextResponse.json(result);
-  } catch (error: any) {
+  } catch (error) {
     return errorHandler(error);
   }
 }
-
-export default withAuth(
-  function middleware(req) {
-    // Logique supplémentaire si nécessaire
-    return NextResponse.next();
-  },
-  {
-    callbacks: {
-      authorized: ({ token }) => !!token,
-    },
-  },
-);
-
-export const config = {
-  matcher: ['/dashboard/:path*', '/api/:path*', '/convocation/:path*'],
-};

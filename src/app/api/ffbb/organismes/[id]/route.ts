@@ -1,18 +1,15 @@
 import { NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/integrations/nextAuth/auth';
-import { cookies } from 'next/headers';
+import { validateUser } from '@/lib/api/validateUser';
+
 import { Competition } from '../../competitions/route';
 import { errorHandler } from '@/lib/utils/handleApiError';
 const endpoint = 'https://ffbbserver3.ffbb.com/ffbbserver3/api/competition/getCompetition.ws?id=';
 
 export async function GET(req: Request, { params }: { params: { id: string } }) {
   // Check if the user is authenticated
-  const session = await getServerSession(authOptions);
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  await validateUser();
   // Check if the token is present
-  const cookieStore = cookies();
-  const token = cookieStore.get('ffbb_token')?.value;
+  const token = req.headers.get('Authorization')?.split(' ')[1];
 
   try {
     // Check if the token is present

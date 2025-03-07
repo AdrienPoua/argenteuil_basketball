@@ -1,14 +1,12 @@
 import { FAQSchema } from '@/lib/validation/FAQ';
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/integrations/nextAuth/auth';
 import FAQService from '@/services/FAQ';
 import { errorHandler } from '@/lib/utils/handleApiError';
+import { validateUser } from '@/lib/api/validateUser';
 
 export async function GET() {
   // Check if the user is authenticated
-  const session = await getServerSession(authOptions);
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  await validateUser();
 
   try {
     const faqs = await FAQService.getFaqs();
@@ -19,8 +17,7 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-  const session = await getServerSession(authOptions);
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  await validateUser();
 
   try {
     const body = await req.json();

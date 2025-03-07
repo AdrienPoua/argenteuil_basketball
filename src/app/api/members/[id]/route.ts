@@ -1,15 +1,13 @@
 import { NextResponse, NextRequest } from 'next/server';
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/integrations/nextAuth/auth';
 import MemberService from '@/services/Member';
 import { errorHandler } from '@/lib/utils/handleApiError';
 import { Prisma } from '@prisma/client';
 import { MemberSchema } from '@/lib/validation/Member';
+import { validateUser } from '@/lib/api/validateUser';
 
 export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
   // Check if the user is authenticated
-  const session = await getServerSession(authOptions);
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  await validateUser();
 
   try {
     const body = await req.json();
@@ -31,8 +29,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 
 export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
   // Check if the user is authenticated
-  const session = await getServerSession(authOptions);
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  await validateUser();
 
   try {
     const deletedMember = await MemberService.deleteMember(params.id);

@@ -1,22 +1,19 @@
 import { NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/integrations/nextAuth/auth';
-import { cookies } from 'next/headers';
 import { errorHandler } from '@/lib/utils/handleApiError';
+import { validateUser } from '@/lib/api/validateUser';
 const endpoint =
   'https://ffbbserver3.ffbb.com/ffbbserver3/api/competition/getCompetitionParOrganisme.ws?codeOrganisme=IDF0095019';
 
 export async function GET(req: Request) {
-  // Check if the user is authenticated
-  const session = await getServerSession(authOptions);
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  // Check if the token is present
-  const cookieStore = cookies();
-  const token = cookieStore.get('ffbb_token')?.value;
-
   try {
+    // Check if the user is authenticated
+    await validateUser();
+
     // Check if the token is present
-    if (!token) return NextResponse.json({ error: 'Missing Authorization header' }, { status: 401 });
+    const token = req.headers.get('Authorization')?.split(' ')[1];
+    if (!token) {
+      return NextResponse.json({ error: "Token d'authentification FFBB manquant" }, { status: 401 });
+    }
 
     // Consume the API
     const response = await fetch(endpoint, {
@@ -26,7 +23,16 @@ export async function GET(req: Request) {
     });
 
     if (!response.ok) {
-      return NextResponse.json({ error: `Error from FFBB: ${response.statusText}` }, { status: response.status });
+      const errorText = await response.text();
+      console.error(`FFBB API error (${response.status}): ${errorText}`);
+
+      return NextResponse.json(
+        {
+          error: `Erreur API FFBB: ${response.statusText}`,
+          details: errorText,
+        },
+        { status: response.status },
+      );
     }
 
     const data: Competition[] = await response.json();
@@ -34,6 +40,7 @@ export async function GET(req: Request) {
 
     return NextResponse.json(competitions, { status: 200 });
   } catch (error) {
+    console.error('Erreur dans la route competitions:', error);
     return errorHandler(error);
   }
 }
