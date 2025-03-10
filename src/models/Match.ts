@@ -1,6 +1,6 @@
 import { Prisma } from '@prisma/client';
 
-type ConstructorType = Prisma.MatchGetPayload<{}>;
+type ConstructorType = Prisma.MatchGetPayload<{ include: { team: { include: { coach: true } } } }>;
 export default class Match {
   private readonly _id: string;
   private readonly _numero: number;
@@ -28,6 +28,7 @@ export default class Match {
   private readonly _convocationIsSent: boolean;
   private readonly _convocationIsAsked: boolean;
   private readonly _isConvocationRecu: boolean;
+  private readonly _team: Prisma.TeamGetPayload<{ include: { coach: true } }> | null;
   constructor(data: ConstructorType) {
     this._id = data.id;
     this._numero = data.numero;
@@ -54,6 +55,7 @@ export default class Match {
     this._convocationIsSent = data.convocationIsSent ?? false;
     this._convocationIsAsked = data.convocationIsAsked ?? false;
     this._isConvocationRecu = data.isConvocationRecu ?? false;
+    this._team = data.team ?? null;
   }
 
   get formatedDate() {
@@ -75,6 +77,14 @@ export default class Match {
 
   get convocationIsAsked() {
     return this._convocationIsAsked;
+  }
+
+  get team() {
+    return this._team;
+  }
+
+  get coach() {
+    return this._team?.coach;
   }
 
   get numeroJournee() {
@@ -208,6 +218,7 @@ export default class Match {
       convocationIsSent: this.convocationIsSent,
       convocationIsAsked: this.convocationIsAsked,
       isConvocationRecu: this.isConvocationRecu,
+      team: this.team,
     };
   }
 }

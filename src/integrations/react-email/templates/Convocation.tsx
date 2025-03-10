@@ -4,19 +4,13 @@ import config from '@/../tailwind.config';
 import TeamService from '@/services/Team';
 import { Prisma } from '@prisma/client';
 
-export function Convocation({
-  match,
-  teams,
-}: Readonly<{
+type PropsType = {
   match: ReturnType<Match['toPlainObject']>;
-  teams: Prisma.TeamGetPayload<{
-    include: {
-      coach: true;
-    };
-  }>[];
-}>) {
+};
+
+export function Convocation({ match }: Readonly<PropsType>) {
   const adresse = match.salle?.toLowerCase().includes('guimier') ? '2 rue jean de la fontaine' : '120 rue de rochefort';
-  const coach = teams.find((team) => team.championnats.includes(match.championnat))?.coach;
+
   return (
     <Tailwind config={config}>
       <Container cellPadding={10} style={{ padding: '60px' }}>

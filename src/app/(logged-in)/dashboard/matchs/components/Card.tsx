@@ -10,15 +10,16 @@ import {
   Trophy,
   Check,
   X,
-  AlertTriangle, HomeIcon,
-  PlaneIcon
+  AlertTriangle,
+  HomeIcon,
+  PlaneIcon,
 } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { useMatchCard } from '../hooks/useMatchCard';
 import { useMatchHandlers } from '../handlers/matchHandlers';
 import { DeleteDialog } from './delete.dialog';
 import { EditDialog } from './edit.dialog';
-import { ConvocationDialog } from './convocation.dialog';
+import { ConvocationDialog } from './ConvocationDialog';
 import Match from '@/models/Match';
 
 type PropsType = {
@@ -27,7 +28,7 @@ type PropsType = {
 
 export default function MatchCard({ match }: Readonly<PropsType>) {
   return (
-    <Card className='size-full bg-card font-secondary shadow-md transition-all duration-300 hover:shadow-lg overflow-hidden'>
+    <Card className='size-full overflow-hidden bg-card font-secondary shadow-md transition-all duration-300 hover:shadow-lg'>
       {/* En-tête avec le statut du match */}
       <CardHeader
         className={cn(
@@ -175,14 +176,15 @@ const Dialogs = ({ match }: Readonly<PropsType>) => {
     setIsMarkingAsReceived,
   });
   return (
-    <div className='flex flex-col justify-end gap-2 size-full'>
+    <div className='flex size-full flex-col justify-end gap-2'>
       <ConvocationDialog
         isOpen={isDialogOpen}
         onOpenChange={setIsDialogOpen}
         onConfirm={handleSendConvocation}
         isHomeMatch={match.isHome}
         convocationIsSent={match.convocationIsSent}
-        convocationIsAsked={false}
+        convocationIsAsked={match.convocationIsAsked}
+        match={match}
       />
       <EditDialog
         isOpen={isEditModalOpen}

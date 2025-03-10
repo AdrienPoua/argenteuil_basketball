@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server';
 import MemberService from '@/services/Member';
 import { MemberSchema } from '@/lib/validation/Member';
 import { errorHandler } from '@/lib/utils/handleApiError';

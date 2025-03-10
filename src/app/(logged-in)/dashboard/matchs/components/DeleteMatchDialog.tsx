@@ -48,4 +48,4 @@ export function DeleteMatchDialog({ isOpen, onOpenChange, onDelete, isDeleting }
       </DialogContent>
     </Dialog>
   );
-} 
+}

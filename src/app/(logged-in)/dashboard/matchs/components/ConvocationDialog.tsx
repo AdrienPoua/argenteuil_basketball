@@ -12,6 +12,11 @@ import {
 import { Button } from '@/components/ui/button';
 import { Mail } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from "@/components/ui/card";
+import { Convocation } from '@/integrations/react-email/templates/Convocation';
+import { Convocation as AskConvocation } from '@/integrations/react-email/templates/ask-convocation';
+import { Prisma } from '@prisma/client';
+import Match from '@/models/Match';
 
 type ConvocationDialogProps = {
   isOpen: boolean;
@@ -20,6 +25,7 @@ type ConvocationDialogProps = {
   isHomeMatch: boolean;
   convocationIsSent: boolean;
   convocationIsAsked: boolean;
+  match: ReturnType<Match['toPlainObject']>;
 };
 
 export function ConvocationDialog({
@@ -29,43 +35,54 @@ export function ConvocationDialog({
   isHomeMatch,
   convocationIsSent,
   convocationIsAsked,
+  match,
 }: Readonly<ConvocationDialogProps>) {
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>
-          <Button
-            variant='outline'
-            className={
-              convocationIsSent
-                ? 'w-full border-green-300 bg-green-50 text-green-700 hover:bg-green-100 hover:text-green-800'
-                : 'w-full bg-primary/90 hover:bg-primary'
-            }
-          >
-            <Mail className='mr-2 h-4 w-4' />
-            <span>{convocationIsSent ? 'Renvoyer la convocation' : 'Envoyer la convocation'}</span>
-          </Button>
+        <Button
+          variant='outline'
+          className={
+            convocationIsSent
+              ? 'w-full border-green-300 bg-green-50 text-green-700 hover:bg-green-100 hover:text-green-800'
+              : 'w-full bg-primary/90 hover:bg-primary'
+          }
+        >
+          <Mail className='mr-2 h-4 w-4' />
+          <span>{convocationIsSent ? 'Renvoyer la convocation' : 'Envoyer la convocation'}</span>
+        </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="sm:max-w-[600px]">
         <DialogHeader>
-          <DialogTitle>
-            {isHomeMatch ? 'Confirmer le renvoi' : 'Confirmer la demande'}
-          </DialogTitle>
+          <DialogTitle>{isHomeMatch ? 'Aperçu de la convocation' : 'Aperçu de la demande'}</DialogTitle>
           <DialogDescription>
-            {isHomeMatch
-              ? 'Une convocation a déjà été envoyée pour ce match. Voulez-vous en envoyer une nouvelle ?'
-              : 'Voulez-vous demander la convocation pour ce match ?'}
+            Voici un aperçu exact de l&apos;email qui sera envoyé.
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter className='flex gap-2'>
-          <Button variant='outline' onClick={() => onOpenChange(false)}>
+
+        <Card className="mt-4">
+          <CardContent className="pt-6">
+            {isHomeMatch ? (
+              <Convocation match={match} />
+            ) : (
+              <AskConvocation match={match} />
+            )}
+          </CardContent>
+        </Card>
+
+        <DialogFooter className="flex flex-col sm:flex-row gap-2 mt-4">
+          <Button variant="outline" onClick={() => onOpenChange(false)}>
             Annuler
           </Button>
           {!isHomeMatch && convocationIsAsked ? (
-            <Badge variant='outline' className='border-blue-300 bg-blue-100 text-blue-800'>
+            <Badge variant="outline" className="border-blue-300 bg-blue-100 text-blue-800">
               Demande déjà envoyée
             </Badge>
           ) : (
-            <Button onClick={onConfirm}>
+            <Button onClick={() => {
+              onConfirm();
+              onOpenChange(false);
+            }}>
               {isHomeMatch ? "Confirmer l'envoi" : 'Envoyer la demande'}
             </Button>
           )}
@@ -73,4 +90,4 @@ export function ConvocationDialog({
       </DialogContent>
     </Dialog>
   );
-} 
+}

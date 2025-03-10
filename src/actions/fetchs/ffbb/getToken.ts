@@ -1,5 +1,5 @@
-"use server";
-import { validateUser } from "@/lib/api/validateUser";
+'use server';
+import { validateUser } from '@/lib/api/validateUser';
 // Check if the environment variables are set
 const { FFBB_SERVER_USERNAME, FFBB_SERVER_PASSWORD } = process.env;
 if (!FFBB_SERVER_USERNAME || !FFBB_SERVER_PASSWORD) {
@@ -23,7 +23,7 @@ async function getToken() {
     }),
     // Très important: cache avec revalidation en arrière-plan
     next: {
-      revalidate: 3300, // Revalider après 55 minutes (avant expiration)
+      revalidate: 0, // Revalider après 55 minutes (avant expiration)
       tags: ['ffbb-token'], // Tag pour invalidation manuelle si nécessaire
     },
   });
@@ -35,4 +35,4 @@ async function getToken() {
   return await res.text();
 }
 
-export default getToken; 
+export default getToken;

@@ -75,7 +75,6 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-
 // Optional for WebAuthn support
 model Authenticator {
   credentialID         String  @id @map("_id")
@@ -126,6 +125,7 @@ model Team {
   memberId      String?  @db.ObjectId
   isCompetition Boolean
   championnats  String[]
+  matchs        Match[]
 }
 
 /**
@@ -190,7 +190,9 @@ model Match {
   correspondant           String?
   convocationIsSent       Boolean?
   convocationIsAsked      Boolean?
-  isConvocationRecu       Boolean? @default(false)
+  isConvocationRecu       Boolean?
+  teamId                  String?  @db.ObjectId
+  team                    Team?    @relation(fields: [teamId], references: [id])
 }
 
 /**
@@ -219,8 +221,8 @@ model FAQ {
  * ****************************************
  */
 model ConvocationRateLimit {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  matchId   String
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  matchId    String
   lastCalled DateTime @default(now())
 
   @@unique([matchId])

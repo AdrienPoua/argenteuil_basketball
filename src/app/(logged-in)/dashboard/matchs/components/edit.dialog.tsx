@@ -1,12 +1,6 @@
 'use client';
 
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Pencil } from 'lucide-react';
 import Form from './Form';
@@ -22,7 +16,7 @@ export function EditDialog({ isOpen, onOpenChange, match, onSuccess }: Readonly<
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>
-        <Button className='h-8 gap-1 w-full '>
+        <Button className='h-8 w-full gap-1'>
           <Pencil className='h-4 w-4' />
           Modifier
         </Button>
@@ -35,4 +29,4 @@ export function EditDialog({ isOpen, onOpenChange, match, onSuccess }: Readonly<
       </DialogContent>
     </Dialog>
   );
-} 
+}

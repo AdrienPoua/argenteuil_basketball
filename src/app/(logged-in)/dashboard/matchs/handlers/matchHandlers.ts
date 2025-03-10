@@ -110,4 +110,4 @@ export const useMatchHandlers = ({
     handleDeleteMatch,
     handleMarkAsReceived,
   };
-}; 
+};
