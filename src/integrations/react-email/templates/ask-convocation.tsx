@@ -2,20 +2,13 @@ import { Text, Section, Heading, Link, Container, Tailwind, render } from '@reac
 import Match from '@/models/Match';
 import config from '@/../tailwind.config';
 import TeamService from '@/services/Team';
-import { Prisma } from '@prisma/client';
 
 export function Convocation({
   match,
-  teams,
 }: Readonly<{
   match: ReturnType<Match['toPlainObject']>;
-  teams: Prisma.TeamGetPayload<{
-    include: {
-      coach: true;
-    };
-  }>[];
 }>) {
-  const coach = teams.find((team) => team.championnats.includes(match.championnat))?.coach;
+  const coach = match.team?.coach;
   return (
     <Tailwind config={config}>
       <Container cellPadding={10} style={{ padding: '60px' }}>

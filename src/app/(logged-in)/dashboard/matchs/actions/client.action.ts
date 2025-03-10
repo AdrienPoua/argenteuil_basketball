@@ -20,48 +20,20 @@ export const useMatchForm = (match: PropsType['match']) => {
 };
 
 export const useCardFilter = (matchs: GridPropsType['matchs']) => {
+  // --- État des filtres ---
   const [selectedCompetition, setSelectedCompetition] = useState('ALL');
   const [place, setPlace] = useState('all');
   const [month, setMonth] = useState('all');
+  const [showUpcomingOnly, setShowUpcomingOnly] = useState(false);
 
+  // --- Données dérivées ---
+  // Liste des compétitions uniques présentes dans les matchs
   const competitions = useMemo(() => {
-    return Array.from(new Set(matchs.map((match) => match.championnat ?? 'Unknown'))).filter(
-      (competition) => competition !== '',
-    );
+    return Array.from(new Set(matchs.map((match) => match.championnat ?? 'Unknown')))
+      .filter((competition) => competition !== '');
   }, [matchs]);
 
-  const sortedMatches = useMemo(() => {
-    return [...matchs].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-  }, [matchs]);
-
-  const filteredByCompetition = useMemo(() => {
-    return sortedMatches.filter((match) => match.championnat === selectedCompetition || selectedCompetition === 'ALL');
-  }, [sortedMatches, selectedCompetition]);
-
-  const homeGames = useMemo(() => {
-    return filteredByCompetition.filter((match) => match.idOrganismeEquipe1 === ClubData.id);
-  }, [filteredByCompetition]);
-
-  const awayGames = useMemo(() => {
-    return filteredByCompetition.filter((match) => match.idOrganismeEquipe1 !== ClubData.id);
-  }, [filteredByCompetition]);
-
-  const filteredByPlace = useMemo(() => {
-    if (place === 'all') return filteredByCompetition;
-    return place === 'home' ? homeGames : awayGames;
-  }, [place, filteredByCompetition, homeGames, awayGames]);
-
-  const displayedGames = useMemo(() => {
-    if (month === 'all') return filteredByPlace;
-    // Convertir le mois sélectionné en nombre (0-11)
-    const selectedMonthIndex = parseInt(month, 10);
-    return filteredByPlace.filter((match) => {
-      const matchDate = new Date(match.date);
-      return matchDate.getMonth() === selectedMonthIndex;
-    });
-  }, [month, filteredByPlace]);
-
-  // Liste des mois de l'année
+  // Liste des mois pour le filtre
   const months = useMemo(
     () => [
       { value: '0', label: 'Janvier' },
@@ -77,16 +49,69 @@ export const useCardFilter = (matchs: GridPropsType['matchs']) => {
       { value: '10', label: 'Novembre' },
       { value: '11', label: 'Décembre' },
     ],
-    [],
+    []
   );
 
+  // --- Logique de filtrage ---
+  const displayedGames = useMemo(() => {
+    // Étape 1: Tri par date
+    const sortedMatches = [...matchs].sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    );
+    
+    // Étape 2: Application des filtres
+    return sortedMatches.filter(match => {
+      // Filtre par compétition
+      if (selectedCompetition !== 'ALL' && match.championnat !== selectedCompetition) {
+        return false;
+      }
+      
+      // Filtre par lieu (domicile/extérieur)
+      if (place !== 'all') {
+        const isHome = match.idOrganismeEquipe1 === ClubData.id;
+        if ((place === 'home' && !isHome) || (place === 'away' && isHome)) {
+          return false;
+        }
+      }
+      
+      // Filtre par mois
+      if (month !== 'all') {
+        const matchDate = new Date(match.date);
+        const selectedMonthIndex = parseInt(month, 10);
+        if (matchDate.getMonth() !== selectedMonthIndex) {
+          return false;
+        }
+      }
+      
+      // Filtre pour matchs à venir uniquement
+      if (showUpcomingOnly) {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const matchDate = new Date(match.date);
+        if (matchDate < today) {
+          return false;
+        }
+      }
+      
+      // Si tous les filtres sont passés, on garde le match
+      return true;
+    });
+  }, [matchs, selectedCompetition, place, month, showUpcomingOnly]);
+
   return {
+    // États des filtres
     selectedCompetition,
     place,
     month,
+    showUpcomingOnly,
+    
+    // Setters pour les filtres
     setSelectedCompetition,
     setPlace,
     setMonth,
+    setShowUpcomingOnly,
+    
+    // Données filtrées et options de filtres
     displayedGames,
     competitions,
     months,

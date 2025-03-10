@@ -36,7 +36,7 @@ export async function GET(req: Request) {
     }
 
     const data: Competition[] = await response.json();
-    const competitions = data.map((compet) => ({ id: compet.id, label: compet.code }));
+    const competitions = data.map((compet) => ({ id: compet.id, label: compet.nom }));
 
     return NextResponse.json(competitions, { status: 200 });
   } catch (error) {

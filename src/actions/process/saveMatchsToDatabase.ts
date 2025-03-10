@@ -5,7 +5,7 @@ import MatchService from '@/services/Match';
 import { Match } from '@/app/api/ffbb/matchs/[id]/route';
 
 export const saveMatchsToDatabase = async (matchs: Match[]) => {
-  const hydratedMatchs = hydrateMatchs(matchs);
+  const hydratedMatchs = await hydrateMatchs(matchs);
   const parsedMatchs = z.array(MatchSchema).parse(hydratedMatchs);
   await Promise.all(
     parsedMatchs.map(async (match) => {

@@ -53,6 +53,7 @@ export function Dialogs({
         isHomeMatch={match.isHome}
         convocationIsSent={match.convocationIsSent}
         convocationIsAsked={match.convocationIsAsked}
+        match={match}
       />
 
       <EditDialog
@@ -79,6 +80,7 @@ type ConvocationDialogProps = {
   isHomeMatch: boolean;
   convocationIsSent: boolean;
   convocationIsAsked: boolean;
+  match?: ReturnType<Match['toPlainObject']>;
 };
 
 function ConvocationDialog({
@@ -88,6 +90,7 @@ function ConvocationDialog({
   isHomeMatch,
   convocationIsSent,
   convocationIsAsked,
+  match,
 }: Readonly<ConvocationDialogProps>) {
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>

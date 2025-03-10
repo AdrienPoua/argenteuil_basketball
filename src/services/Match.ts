@@ -5,7 +5,16 @@ class MatchService {
   // Récupération de toutes les matchs
   async getMatchs() {
     try {
-      return await prisma.match.findMany();
+      const matchs = await prisma.match.findMany({
+        include: {
+          team: {
+            include: {
+              coach: true,
+            },
+          },
+        },
+      });
+      return matchs;
     } catch (error) {
       console.error('Erreur lors de la récupération des équipes :', error);
       throw error;
@@ -14,8 +23,17 @@ class MatchService {
 
   async createMatch(match: Prisma.MatchCreateInput) {
     try {
+      // Trouver l'équipe qui participe à ce championnat
+      const team = match.competition && (await this.findTeamByCompetition(match.competition));
+
+      // Préparer les données du match avec connect
+      const matchData: Prisma.MatchCreateInput = {
+        ...match,
+        team: team ? { connect: { id: team.id } } : undefined,
+      };
+
       return await prisma.match.create({
-        data: match,
+        data: matchData,
       });
     } catch (error) {
       console.error('Erreur lors de la création du match :', error);
@@ -47,13 +65,19 @@ class MatchService {
 
   async updateMatch(match: Prisma.MatchUpdateInput & { id: string }) {
     const { id, ...rest } = match;
+    const team = typeof match.competition === 'string' && (await this.findTeamByCompetition(match.competition));
+
     return await prisma.match.update({
       where: { id },
-      data: rest,
+      data: {
+        ...rest,
+        team: team ? { connect: { id: team.id } } : undefined,
+      },
     });
   }
 
   async upsert(match: Prisma.MatchCreateInput) {
+
     const updatePayload = {
       joue: match.joue,
       remise: match.remise,
@@ -71,6 +95,7 @@ class MatchService {
         ...match,
         id: match.id.toString(),
       },
+
     });
   }
 
@@ -83,6 +108,22 @@ class MatchService {
       console.error('Erreur lors de la suppression du match :', error);
       throw error;
     }
+  }
+
+  async findTeamByCompetition(competition: string) {
+    const teams = await prisma.team.findMany({
+      where: {
+        isCompetition: true,
+      },
+      include: {
+        coach: true,
+      },
+    });
+
+    // Trouver l'équipe qui participe à ce championnat
+    return teams.find((team) =>
+      team.championnats.some((championnat) => competition.toLowerCase().includes(championnat.toLowerCase())),
+    );
   }
 }
 

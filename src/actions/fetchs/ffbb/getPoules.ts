@@ -14,7 +14,7 @@ const getPoules = async () => {
       headers: {
         Authorization: `Bearer ${token}`,
         Cookie: `${nextAuthCookie.name}=${nextAuthCookie.value}`,
-      }
+      },
     });
     if (!res.ok)
       throw new Error('Failed to fetch poules', { cause: { statusText: res.statusText, status: res.status } });
@@ -25,4 +25,4 @@ const getPoules = async () => {
   }
 };
 
-export default getPoules; 
+export default getPoules;
