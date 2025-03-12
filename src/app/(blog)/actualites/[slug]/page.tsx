@@ -6,7 +6,14 @@ import { PostContent } from './PostContent';
 import { sanityFetch } from '@/integrations/sanity/fetch';
 import { POST_QUERY } from '@/integrations/sanity/queries';
 import { SanityDocument } from 'next-sanity';
-import { cn } from '@/lib/utils/cn';
+import ReadingProgressBar from './ReadingProgressBar';
+import ShareButtons from './ShareButtons';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { ArrowLeft, Calendar, Clock } from 'lucide-react';
+import { formatDistanceToNow } from 'date-fns';
+import { fr } from 'date-fns/locale';
+import ScrollToTopButton from './ScrollToTopButton';
 
 export const metadata = {
   title: 'Actualités | Argenteuil Basketball',
@@ -33,10 +40,35 @@ export default async function BlogPostPage({ params }: Readonly<PageProps>) {
   return (
     <>
       <Header />
-      <main className={cn('flex grow flex-col items-center bg-foreground', 'pt-32')}>
-        <Suspense fallback={<div>Loading...</div>}>
-          <PostContent data={post} />
-        </Suspense>
+      <ReadingProgressBar />
+      <div className='h-36 bg-foreground' />
+      <main className='w-full bg-foreground'>
+        {/* Bannière de navigation avec bouton de retour */}
+        <Button asChild size='sm' className='mx-auto flex w-fit items-center text-sm font-medium'>
+          <Link href='/'>
+            <ArrowLeft className='mr-2 h-4 w-4' />
+            Retour à la page d&apos;accueil
+          </Link>
+        </Button>
+
+        {/* Conteneur principal de l'article */}
+        <article className='container mx-auto px-4 py-10'>
+          {/* Contenu principal */}
+          <div className='prose prose-lg mx-auto'>
+            <Suspense fallback={<div className='py-10 text-center'>Chargement de l&apos;article...</div>}>
+              <PostContent data={post} />
+            </Suspense>
+          </div>
+
+          {/* Section de partage */}
+          <div className='mx-auto mt-16 max-w-3xl border-t border-gray-200 pt-8'>
+            <div className='flex flex-col justify-between gap-4 sm:flex-row sm:items-center'>
+              <h3 className='text-xl font-bold text-gray-900'>Partager cet article</h3>
+              <ShareButtons title={post.title} slug={params.slug} />
+            </div>
+          </div>
+        </article>
+
       </main>
       <Footer />
     </>

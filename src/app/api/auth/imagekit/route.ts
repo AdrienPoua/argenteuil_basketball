@@ -4,8 +4,7 @@ import { z } from 'zod';
 import { errorHandler } from '@/lib/utils/handleApiError';
 import { validateUser } from '@/lib/api/validateUser';
 
-const { NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY, IMAGEKIT_PRIVATE_KEY, NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT } =
-  process.env;
+const { NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY, IMAGEKIT_PRIVATE_KEY, NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT } = process.env;
 
 if (!NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY || !IMAGEKIT_PRIVATE_KEY || !NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT) {
   throw new Error('ImageKit environment variables are not set');
