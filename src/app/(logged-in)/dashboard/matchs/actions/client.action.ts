@@ -29,8 +29,9 @@ export const useCardFilter = (matchs: GridPropsType['matchs']) => {
   // --- Données dérivées ---
   // Liste des compétitions uniques présentes dans les matchs
   const competitions = useMemo(() => {
-    return Array.from(new Set(matchs.map((match) => match.championnat ?? 'Unknown')))
-      .filter((competition) => competition !== '');
+    return Array.from(new Set(matchs.map((match) => match.championnat ?? 'Unknown'))).filter(
+      (competition) => competition !== '',
+    );
   }, [matchs]);
 
   // Liste des mois pour le filtre
@@ -49,23 +50,21 @@ export const useCardFilter = (matchs: GridPropsType['matchs']) => {
       { value: '10', label: 'Novembre' },
       { value: '11', label: 'Décembre' },
     ],
-    []
+    [],
   );
 
   // --- Logique de filtrage ---
   const displayedGames = useMemo(() => {
     // Étape 1: Tri par date
-    const sortedMatches = [...matchs].sort(
-      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-    );
-    
+    const sortedMatches = [...matchs].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
     // Étape 2: Application des filtres
-    return sortedMatches.filter(match => {
+    return sortedMatches.filter((match) => {
       // Filtre par compétition
       if (selectedCompetition !== 'ALL' && match.championnat !== selectedCompetition) {
         return false;
       }
-      
+
       // Filtre par lieu (domicile/extérieur)
       if (place !== 'all') {
         const isHome = match.idOrganismeEquipe1 === ClubData.id;
@@ -73,7 +72,7 @@ export const useCardFilter = (matchs: GridPropsType['matchs']) => {
           return false;
         }
       }
-      
+
       // Filtre par mois
       if (month !== 'all') {
         const matchDate = new Date(match.date);
@@ -82,7 +81,7 @@ export const useCardFilter = (matchs: GridPropsType['matchs']) => {
           return false;
         }
       }
-      
+
       // Filtre pour matchs à venir uniquement
       if (showUpcomingOnly) {
         const today = new Date();
@@ -92,7 +91,7 @@ export const useCardFilter = (matchs: GridPropsType['matchs']) => {
           return false;
         }
       }
-      
+
       // Si tous les filtres sont passés, on garde le match
       return true;
     });
@@ -104,13 +103,13 @@ export const useCardFilter = (matchs: GridPropsType['matchs']) => {
     place,
     month,
     showUpcomingOnly,
-    
+
     // Setters pour les filtres
     setSelectedCompetition,
     setPlace,
     setMonth,
     setShowUpcomingOnly,
-    
+
     // Données filtrées et options de filtres
     displayedGames,
     competitions,

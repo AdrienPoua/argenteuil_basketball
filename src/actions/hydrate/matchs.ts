@@ -3,24 +3,19 @@ import getCompetitions from '@/actions/fetchs/ffbb/getCompetitions';
 import { argenteuilIdOrganisme } from '@/lib/constants/argenteuil-id-organisme';
 import ClubService from '@/services/Club';
 
-const clubs = await ClubService.getClubs();
-const competitions = await getCompetitions();
-console.log("🚀 ~ competitions:", competitions)
-
-
 const getOpponentId = (match: Match) => {
   return match.idOrganismeEquipe1 === argenteuilIdOrganisme
     ? match.idOrganismeEquipe2.toString()
     : match.idOrganismeEquipe1.toString();
 };
 
-
 export const hydrateMatchs = async (matchs: Match[]) => {
+  const clubs = await ClubService.getClubs();
+  const competitions = await getCompetitions();
   return matchs.map((match: Match) => {
     const competition = competitions.find((comp) => comp.id === match.idPoule);
     const opponentId = getOpponentId(match);
     const opponentClub = clubs.find((club) => club.id === opponentId);
-    
 
     return {
       ...match,

@@ -60,6 +60,13 @@ class MatchService {
       orderBy: {
         date: 'asc',
       },
+      include: {
+        team: {
+          include: {
+            coach: true,
+          },
+        },
+      },
     });
   }
 
@@ -77,7 +84,6 @@ class MatchService {
   }
 
   async upsert(match: Prisma.MatchCreateInput) {
-
     const updatePayload = {
       joue: match.joue,
       remise: match.remise,
@@ -95,7 +101,6 @@ class MatchService {
         ...match,
         id: match.id.toString(),
       },
-
     });
   }
 

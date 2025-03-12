@@ -7,7 +7,7 @@ const getCompetitions = async () => {
   try {
     // Récupère le token de FFBB
     const token = await getToken();
-    console.log("🚀 ~ getCompetitions ~ token:", token)
+    console.log('🚀 ~ getCompetitions ~ token:', token);
     // Récupère le cookie de session
     const nextAuthCookie = cookies().get('next-auth.session-token');
     if (!nextAuthCookie) throw new Error('No next-auth.session-token cookie found');

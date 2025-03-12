@@ -6,8 +6,6 @@ import { ConvocationService } from '@/integrations/nodemailer/services/convocati
 import Match from '@/models/Match';
 import { AskConvocationService } from '@/integrations/nodemailer/services/ask-convocation';
 
-
-
 export async function sendConvocation(match: ReturnType<Match['toPlainObject']>) {
   const team = await TeamService.getTeamByChampionnat(match.championnat);
   const convocation = new ConvocationService(match, team?.coach?.email);

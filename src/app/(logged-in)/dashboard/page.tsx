@@ -1,13 +1,39 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import matchService from '@/services/Match';
 
-export default function Page() {
+export default function ReservationPage() {
+  const [emailContent, setEmailContent] = useState('');
+  const [matches, setMatches] = useState([]);
+
   useEffect(() => {
-    const fetchToken = async () => {
-      await fetch('/api/ffbb/token');
+    const fetchMatches = async () => {
+      const fetchedMatches = await matchService.getMatchs();
+      setMatches(fetchedMatches);
+      setEmailContent(fetchedMatches.map(match => `Match: ${match.team.name} vs ${match.opponent}`).join('\n'));
     };
-    fetchToken();
+    fetchMatches();
   }, []);
 
-  return <div />;
+  const sendEmail = async () => {
+    await fetch('/api/send-email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        to: 'argenteuilbasketball@hotmail.fr',
+        subject: 'Match Reservations',
+        text: emailContent,
+      }),
+    });
+  };
+
+  return (
+    <div>
+      <h1>Reservation Page</h1>
+      <textarea value={emailContent} readOnly rows={10} cols={50} />
+      <button onClick={sendEmail}>Send Email</button>
+    </div>
+  );
 }

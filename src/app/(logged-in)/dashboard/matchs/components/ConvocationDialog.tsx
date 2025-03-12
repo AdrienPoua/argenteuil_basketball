@@ -12,7 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Mail } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from '@/components/ui/card';
 import { Convocation } from '@/integrations/react-email/templates/Convocation';
 import { Convocation as AskConvocation } from '@/integrations/react-email/templates/ask-convocation';
 import { Prisma } from '@prisma/client';
@@ -52,37 +52,33 @@ export function ConvocationDialog({
           <span>{convocationIsSent ? 'Renvoyer la convocation' : 'Envoyer la convocation'}</span>
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px]">
+      <DialogContent className='sm:max-w-[600px]'>
         <DialogHeader>
           <DialogTitle>{isHomeMatch ? 'Aperçu de la convocation' : 'Aperçu de la demande'}</DialogTitle>
-          <DialogDescription>
-            Voici un aperçu exact de l&apos;email qui sera envoyé.
-          </DialogDescription>
+          <DialogDescription>Voici un aperçu exact de l&apos;email qui sera envoyé.</DialogDescription>
         </DialogHeader>
 
-        <Card className="mt-4">
-          <CardContent className="pt-6">
-            {isHomeMatch ? (
-              <Convocation match={match} />
-            ) : (
-              <AskConvocation match={match} />
-            )}
+        <Card className='mt-4'>
+          <CardContent className='pt-6'>
+            {isHomeMatch ? <Convocation match={match} /> : <AskConvocation match={match} />}
           </CardContent>
         </Card>
 
-        <DialogFooter className="flex flex-col sm:flex-row gap-2 mt-4">
-          <Button variant="outline" onClick={() => onOpenChange(false)}>
+        <DialogFooter className='mt-4 flex flex-col gap-2 sm:flex-row'>
+          <Button variant='outline' onClick={() => onOpenChange(false)}>
             Annuler
           </Button>
           {!isHomeMatch && convocationIsAsked ? (
-            <Badge variant="outline" className="border-blue-300 bg-blue-100 text-blue-800">
+            <Badge variant='outline' className='border-blue-300 bg-blue-100 text-blue-800'>
               Demande déjà envoyée
             </Badge>
           ) : (
-            <Button onClick={() => {
-              onConfirm();
-              onOpenChange(false);
-            }}>
+            <Button
+              onClick={() => {
+                onConfirm();
+                onOpenChange(false);
+              }}
+            >
               {isHomeMatch ? "Confirmer l'envoi" : 'Envoyer la demande'}
             </Button>
           )}

@@ -12,22 +12,21 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 
 export default function Grid({ matchs }: Readonly<PropsType>) {
-  const { 
-    setSelectedCompetition, 
-    setPlace, 
-    setMonth, 
+  const {
+    setSelectedCompetition,
+    setPlace,
+    setMonth,
     setShowUpcomingOnly,
     showUpcomingOnly,
-    displayedGames, 
-    competitions, 
-    months 
+    displayedGames,
+    competitions,
+    months,
   } = useCardFilter(matchs);
-
 
   return (
     <div className='flex flex-col gap-4 p-4'>
       <div className='flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between'>
-        <div className='flex flex-col gap-2 sm:flex-row sm:gap-3 min-w-fit'>
+        <div className='flex min-w-fit flex-col gap-2 sm:flex-row sm:gap-3'>
           <Select onValueChange={setSelectedCompetition} defaultValue='ALL'>
             <SelectTrigger className='w-full min-w-[200px] bg-foreground font-secondary text-sm shadow-sm transition-colors hover:bg-foreground/90'>
               <SelectValue placeholder='Sélectionner une compétition' />
@@ -77,16 +76,16 @@ export default function Grid({ matchs }: Readonly<PropsType>) {
               ))}
             </SelectContent>
           </Select>
-          <div className='flex items-center space-x-2 mt-1'>
-            <Checkbox 
-              id="upcomingMatches" 
+          <div className='mt-1 flex items-center space-x-2'>
+            <Checkbox
+              id='upcomingMatches'
               checked={showUpcomingOnly}
               onCheckedChange={(checked) => setShowUpcomingOnly(checked === true)}
-              className="h-4 w-4"
+              className='h-4 w-4'
             />
-            <Label 
-              htmlFor="upcomingMatches" 
-              className="text-sm font-medium font-secondary cursor-pointer whitespace-nowrap text-foreground"
+            <Label
+              htmlFor='upcomingMatches'
+              className='cursor-pointer whitespace-nowrap font-secondary text-sm font-medium text-foreground'
             >
               Matchs à venir
             </Label>
