@@ -173,7 +173,9 @@ export function ClubCard({ data }: Readonly<PropsType>) {
               <Mail className='mr-2 h-4 w-4' />
               Email
             </Badge>
-            <p className='truncate text-sm font-medium text-primary'>{data.email.length > 20 ? data.email.slice(0, 20) + '...' : data.email}</p>
+            <p className='truncate text-sm font-medium text-primary'>
+              {data.email.length > 20 ? data.email.slice(0, 20) + '...' : data.email}
+            </p>
           </div>
           <div className='flex gap-1'>
             <TooltipProvider>
@@ -197,12 +199,7 @@ export function ClubCard({ data }: Readonly<PropsType>) {
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button
-                    size='icon'
-                    className='h-7 w-7'
-                    onClick={sendEmail}
-                    disabled={data.email === "Pas d'email"}
-                  >
+                  <Button size='icon' className='h-7 w-7' onClick={sendEmail} disabled={data.email === "Pas d'email"}>
                     <ExternalLink className='h-3.5 w-3.5' />
                   </Button>
                 </TooltipTrigger>
@@ -244,12 +241,7 @@ export function ClubCard({ data }: Readonly<PropsType>) {
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button
-                    size='icon'
-                    className='h-7 w-7'
-                    onClick={callPhone}
-                    disabled={data.phone === 'Pas de numéro'}
-                  >
+                  <Button size='icon' className='h-7 w-7' onClick={callPhone} disabled={data.phone === 'Pas de numéro'}>
                     <ExternalLink className='h-3.5 w-3.5' />
                   </Button>
                 </TooltipTrigger>
