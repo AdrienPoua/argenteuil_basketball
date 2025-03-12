@@ -4,16 +4,16 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Button } from '@/components/ui/button';
 import { Pencil } from 'lucide-react';
 import Form from './Form';
-import { Match } from '../types/card.types';
+import Match from '@/models/Match';
 
-type EditMatchDialogProps = {
+type PropsType = {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
-  match: Match;
+  match: ReturnType<Match['toPlainObject']>;
   onSuccess: () => void;
 };
 
-export function EditMatchDialog({ isOpen, onOpenChange, match, onSuccess }: EditMatchDialogProps) {
+export function EditMatchDialog({ isOpen, onOpenChange, match, onSuccess }: Readonly<PropsType>) {
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>

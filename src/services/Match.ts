@@ -131,7 +131,6 @@ class MatchService {
     );
   }
 
-
   async getUpcomingHomeMatchs() {
     return await prisma.match.findMany({
       where: {

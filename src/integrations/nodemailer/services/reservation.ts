@@ -7,7 +7,7 @@ type PropsType = ReturnType<Match['toPlainObject']>;
 
 export class ReservationService {
   private readonly _matches: PropsType[];
-  
+
   constructor(matches: PropsType[]) {
     this._matches = matches;
   }
@@ -45,4 +45,4 @@ export class ReservationService {
       return false;
     }
   }
-} 
+}

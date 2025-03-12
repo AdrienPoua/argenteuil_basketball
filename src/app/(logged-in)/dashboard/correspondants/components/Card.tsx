@@ -115,8 +115,8 @@ export function ClubCard({ data }: Readonly<PropsType>) {
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
-                  variant='outline'
                   size='icon'
+                  className='border-2 border-foreground'
                   aria-label={`Modifier le club ${data.libelle}`}
                   onClick={() => setEditModalOpen(true)}
                 >
@@ -173,14 +173,13 @@ export function ClubCard({ data }: Readonly<PropsType>) {
               <Mail className='mr-2 h-4 w-4' />
               Email
             </Badge>
-            <p className='truncate text-sm font-medium'>{data.email}</p>
+            <p className='truncate text-sm font-medium text-primary'>{data.email.length > 20 ? data.email.slice(0, 20) + '...' : data.email}</p>
           </div>
           <div className='flex gap-1'>
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
-                    variant='ghost'
                     size='icon'
                     className='h-7 w-7'
                     onClick={() => copyToClipboard(data.email, 'Email')}
@@ -199,7 +198,6 @@ export function ClubCard({ data }: Readonly<PropsType>) {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
-                    variant='ghost'
                     size='icon'
                     className='h-7 w-7'
                     onClick={sendEmail}
@@ -222,14 +220,13 @@ export function ClubCard({ data }: Readonly<PropsType>) {
               <Phone className='mr-2 h-4 w-4' />
               Téléphone
             </Badge>
-            <p className='truncate text-sm font-medium'>{data.phone}</p>
+            <p className='truncate text-sm font-medium text-primary'>{data.phone}</p>
           </div>
           <div className='flex gap-1'>
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
-                    variant='ghost'
                     size='icon'
                     className='h-7 w-7'
                     onClick={() => copyToClipboard(data.phone, 'Téléphone')}
@@ -248,7 +245,6 @@ export function ClubCard({ data }: Readonly<PropsType>) {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
-                    variant='ghost'
                     size='icon'
                     className='h-7 w-7'
                     onClick={callPhone}

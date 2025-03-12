@@ -10,7 +10,7 @@ export async function sendMatchesEmail(matches: PropsType[]) {
   try {
     const reservationService = new ReservationService(matches);
     const result = await reservationService.send();
-    console.log("🚀 ~ sendMatchesEmail ~ result:", result)
+    console.log('🚀 ~ sendMatchesEmail ~ result:', result);
 
     // Revalidate the path to refresh the UI
     revalidatePath('/dashboard/reservations');

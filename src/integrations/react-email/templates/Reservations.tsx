@@ -21,14 +21,14 @@ export default function ReservationTemplate({ matches }: Readonly<PropsType>) {
         </p>
       ) : (
         matches.map((match) => (
-          <div 
-            key={match.id} 
-            style={{ 
-              marginBottom: '25px', 
-              padding: '15px', 
-              backgroundColor: '#f9fafb', 
+          <div
+            key={match.id}
+            style={{
+              marginBottom: '25px',
+              padding: '15px',
+              backgroundColor: '#f9fafb',
               borderRadius: '5px',
-              borderLeft: `4px solid ${match.isHome ? '#34d399' : '#60a5fa'}`
+              borderLeft: `4px solid ${match.isHome ? '#34d399' : '#60a5fa'}`,
             }}
           >
             {/* Date et heure du match */}
@@ -45,9 +45,7 @@ export default function ReservationTemplate({ matches }: Readonly<PropsType>) {
                 <span style={{ fontWeight: 'bold' }}>
                   {match.heure === 'Voir convocation' ? 'Horaire à confirmer' : match.heure}
                 </span>
-                {match.salle && (
-                  <span style={{ marginLeft: '10px' }}>• {match.salle}</span>
-                )}
+                {match.salle && <span style={{ marginLeft: '10px' }}>• {match.salle}</span>}
               </div>
             </div>
 
@@ -56,9 +54,7 @@ export default function ReservationTemplate({ matches }: Readonly<PropsType>) {
             {/* Informations du match */}
             <div style={{ marginTop: '10px' }}>
               {match.championnat && (
-                <div style={{ fontSize: '14px', color: '#6b7280', marginBottom: '5px' }}>
-                  {match.championnat}
-                </div>
+                <div style={{ fontSize: '14px', color: '#6b7280', marginBottom: '5px' }}>{match.championnat}</div>
               )}
               <div style={{ fontSize: '16px', fontWeight: 'bold', color: '#1f2937' }}>
                 {match.nomEquipe1} - {match.nomEquipe2}
@@ -70,15 +66,15 @@ export default function ReservationTemplate({ matches }: Readonly<PropsType>) {
 
       {/* Pied de page */}
       <div style={{ textAlign: 'center', margin: '30px 0 20px' }}>
-        <a 
-          href='https://argenteuilbasketball.com/plannings/matchs' 
-          style={{ 
-            fontWeight: 'bold', 
-            color: '#2563eb', 
+        <a
+          href='https://argenteuilbasketball.com/plannings/matchs'
+          style={{
+            fontWeight: 'bold',
+            color: '#2563eb',
             textDecoration: 'none',
             padding: '8px 16px',
             border: '1px solid #2563eb',
-            borderRadius: '4px'
+            borderRadius: '4px',
           }}
         >
           Voir tous les matchs

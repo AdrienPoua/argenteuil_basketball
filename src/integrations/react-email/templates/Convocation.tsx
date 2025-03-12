@@ -23,7 +23,9 @@ export function Convocation({ match }: Readonly<PropsType>) {
             <Text>🏀 Heure: {match.heure}</Text>
             <Text>🏀 Lieu: {match.salle}</Text>
             <Text>🏀 Adresse : {adresse}, 95100 Argenteuil</Text>
-            <Text>🏀 Entraineur : {match.team?.coach?.name} - {match.team?.coach?.email}</Text>
+            <Text>
+              🏀 Entraineur : {match.team?.coach?.name} - {match.team?.coach?.email}
+            </Text>
           </Section>
           <Section>
             <Text className='text-center'>Pour une demande de dérogation, mettre en copie l&apos;entraineur</Text>
