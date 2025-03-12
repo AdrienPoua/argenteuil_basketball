@@ -1,8 +1,6 @@
 import { Text, Section, Heading, Link, Container, Tailwind, render } from '@react-email/components';
 import Match from '@/models/Match';
 import config from '@/../tailwind.config';
-import TeamService from '@/services/Team';
-import { Prisma } from '@prisma/client';
 
 type PropsType = {
   match: ReturnType<Match['toPlainObject']>;
@@ -25,9 +23,7 @@ export function Convocation({ match }: Readonly<PropsType>) {
             <Text>🏀 Heure: {match.heure}</Text>
             <Text>🏀 Lieu: {match.salle}</Text>
             <Text>🏀 Adresse : {adresse}, 95100 Argenteuil</Text>
-            <Text>
-              🏀 Entraineur : {coach?.name} - {coach?.email}
-            </Text>
+            <Text>🏀 Entraineur : {match.team?.coach?.name} - {match.team?.coach?.email}</Text>
           </Section>
           <Section>
             <Text className='text-center'>Pour une demande de dérogation, mettre en copie l&apos;entraineur</Text>
@@ -49,7 +45,6 @@ export function Convocation({ match }: Readonly<PropsType>) {
 }
 
 export async function getHtml(match: ReturnType<Match['toPlainObject']>) {
-  const teams = await TeamService.getTeams();
-  const html = render(<Convocation match={match} teams={teams} />);
+  const html = render(<Convocation match={match} />);
   return html;
 }

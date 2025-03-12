@@ -130,6 +130,26 @@ class MatchService {
       team.championnats.some((championnat) => competition.toLowerCase().includes(championnat.toLowerCase())),
     );
   }
+
+
+  async getUpcomingHomeMatchs() {
+    return await prisma.match.findMany({
+      where: {
+        date: { gt: new Date() },
+        idOrganismeEquipe1: argenteuilIdOrganisme,
+      },
+      include: {
+        team: {
+          include: {
+            coach: true,
+          },
+        },
+      },
+      orderBy: {
+        date: 'asc',
+      },
+    });
+  }
 }
 
 const matchService = new MatchService();

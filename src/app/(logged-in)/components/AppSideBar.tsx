@@ -23,6 +23,7 @@ import {
   LogOut,
   Camera,
   Home,
+  Calendar,
 } from 'lucide-react';
 import Link from 'next/link';
 export function AppSidebar() {
@@ -103,6 +104,11 @@ const topItems = [
     title: 'Correspondants',
     url: '/dashboard/correspondants',
     icon: UserCog,
+  },
+  {
+    title: 'Réservations',
+    url: '/dashboard/reservations',
+    icon: Calendar,
   },
   {
     title: 'Membres',

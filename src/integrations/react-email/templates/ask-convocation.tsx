@@ -1,14 +1,12 @@
 import { Text, Section, Heading, Link, Container, Tailwind, render } from '@react-email/components';
 import Match from '@/models/Match';
 import config from '@/../tailwind.config';
-import TeamService from '@/services/Team';
 
 export function Convocation({
   match,
 }: Readonly<{
   match: ReturnType<Match['toPlainObject']>;
 }>) {
-  const coach = match.team?.coach;
   return (
     <Tailwind config={config}>
       <Container cellPadding={10} style={{ padding: '60px' }}>
@@ -21,7 +19,7 @@ export function Convocation({
             <Text>🏀 Championnat : {match.championnat}</Text>
             <Text>🏀 Sauf erreur de ma part, je n&apos;ai pas reçu de convocation pour ce match.</Text>
             <Text>
-              🏀 Entraineur : {coach?.name} - {coach?.email}
+              🏀 Entraineur : {match.team?.coach?.name} - {match.team?.coach?.email}
             </Text>
           </Section>
           <Section>
@@ -40,7 +38,6 @@ export function Convocation({
 }
 
 export async function getHtml(match: ReturnType<Match['toPlainObject']>) {
-  const teams = await TeamService.getTeams();
-  const html = render(<Convocation match={match} teams={teams} />);
+  const html = render(<Convocation match={match} />);
   return html;
 }

@@ -23,7 +23,7 @@ async function getToken() {
     }),
     // Très important: cache avec revalidation en arrière-plan
     next: {
-      revalidate: 0, // Revalider après 55 minutes (avant expiration)
+      revalidate: 300, // Revalider après 5 minutes (avant expiration)
       tags: ['ffbb-token'], // Tag pour invalidation manuelle si nécessaire
     },
   });
