@@ -13,7 +13,7 @@ export async function GET() {
   await validateUser();
 
   try {
-    // Obtenir le token (mis en cache)
+    // Obtenir le token (mis en cache 5 minutes)
     const token = await getToken();
 
     if (!token) {

@@ -4,16 +4,17 @@ import { z } from 'zod';
 import { errorHandler } from '@/lib/utils/handleApiError';
 import { validateUser } from '@/lib/api/validateUser';
 
-const { publicKey, privateKey, urlEndpoint } = process.env;
+const { NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY, IMAGEKIT_PRIVATE_KEY, NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT } =
+  process.env;
 
-if (!publicKey || !privateKey || !urlEndpoint) {
+if (!NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY || !IMAGEKIT_PRIVATE_KEY || !NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT) {
   throw new Error('ImageKit environment variables are not set');
 }
 
 const imagekit = new ImageKit({
-  publicKey: publicKey,
-  privateKey: privateKey,
-  urlEndpoint: urlEndpoint,
+  publicKey: NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY,
+  privateKey: IMAGEKIT_PRIVATE_KEY,
+  urlEndpoint: NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT,
 });
 
 const fileSchema = z.object({
