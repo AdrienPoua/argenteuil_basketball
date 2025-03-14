@@ -10,6 +10,7 @@ export const useMatchCard = () => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isMarkingAsReceived, setIsMarkingAsReceived] = useState(false);
+  const [isAskConvocationDialogOpen, setIsAskConvocationDialogOpen] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
 
@@ -36,5 +37,7 @@ export const useMatchCard = () => {
     router,
     toast,
     onFormSubmitSuccess,
+    isAskConvocationDialogOpen,
+    setIsAskConvocationDialogOpen,
   };
 };

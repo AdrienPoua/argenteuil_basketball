@@ -39,5 +39,5 @@ export default function TeamView({ matchs }: Readonly<PropsType>) {
 }
 
 const Item = ({ children }: Readonly<{ children: React.ReactNode }>) => {
-  return <div className='size-full overflow-hidden rounded-lg md:size-64 md:min-h-64 md:min-w-64'>{children}</div>;
+  return <div className='size-full overflow-hidden rounded-lg md:size-72 md:min-h-64 md:min-w-64'>{children}</div>;
 };

@@ -68,7 +68,6 @@ export default async function BlogPostPage({ params }: Readonly<PageProps>) {
             </div>
           </div>
         </article>
-
       </main>
       <Footer />
     </>

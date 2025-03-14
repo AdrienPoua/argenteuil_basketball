@@ -19,7 +19,7 @@ type DeleteDialogProps = {
   isDeleting: boolean;
 };
 
-export function DeleteDialog({ isOpen, onOpenChange, onDelete, isDeleting }: DeleteDialogProps) {
+export function DeleteDialog({ isOpen, onOpenChange, onDelete, isDeleting }: Readonly<DeleteDialogProps>) {
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>
@@ -32,7 +32,7 @@ export function DeleteDialog({ isOpen, onOpenChange, onDelete, isDeleting }: Del
         <DialogHeader>
           <DialogTitle>Confirmer la suppression</DialogTitle>
           <DialogDescription>
-            Êtes-vous sûr de vouloir supprimer ce match ? Cette action est irréversible.
+            Êtes-vous sûr de vouloir supprimer ce match ? <br />
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className='mt-4 flex gap-2'>

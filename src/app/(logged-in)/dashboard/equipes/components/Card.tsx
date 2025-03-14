@@ -22,14 +22,14 @@ export default function TeamCard({ data, members }: Readonly<PropsType>) {
   };
 
   return (
-    <Card className='h-full w-full overflow-hidden font-secondary text-muted-foreground transition-all duration-300 hover:shadow-lg'>
+    <Card className='h-full w-full overflow-hidden font-secondary  transition-all duration-300 hover:shadow-lg text-primary '>
       <CardHeader className='relative p-0'>
         <div className='relative aspect-video w-full overflow-hidden'>
           <Image src={data.image} alt={`Photo de l'équipe ${data.name}`} fill className='object-cover' />
           <div className='absolute inset-0 bg-gradient-to-t from-black/70 to-transparent' />
           <div className='absolute bottom-4 left-4 z-10 flex flex-col space-y-2'>
-            <CardTitle className='text-3xl font-bold text-white'>{data.name}</CardTitle>
-            <Badge className='self-start bg-primary/80 text-white'>{data.level}</Badge>
+            <CardTitle className='text-3xl font-bold text-primary'>{data.name}</CardTitle>
+            <Badge className='self-start bg-primary/80 text-primary'>{data.level}</Badge>
           </div>
         </div>
         <div className='absolute right-2 top-2 z-20 flex gap-2'>

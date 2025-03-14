@@ -92,7 +92,7 @@ function CustomForm({ members, data: team, setOpen }: Readonly<PropsType & { set
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         encType='multipart/form-data'
-        className='mx-auto max-w-4xl rounded-lg bg-background p-6'
+        className='mx-auto max-w-4xl rounded-lg bg-background p-6 text-primary'
       >
         <h2 className='mb-6 text-center text-2xl font-bold'>Modifier l&apos;équipe {team.name}</h2>
 
@@ -104,13 +104,13 @@ function CustomForm({ members, data: team, setOpen }: Readonly<PropsType & { set
                 Informations de l&apos;équipe
               </CardTitle>
             </CardHeader>
-            <CardContent className='space-y-4'>
+            <CardContent className='space-y-4 text-primary'>
               <FormField
                 control={form.control}
                 name='name'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Nom de l&apos;équipe</FormLabel>
+                    <FormLabel >Nom de l&apos;équipe</FormLabel>
                     <FormControl>
                       <Input placeholder='U20' {...field} />
                     </FormControl>
@@ -266,7 +266,7 @@ function CustomForm({ members, data: team, setOpen }: Readonly<PropsType & { set
                   Sessions d&apos;entraînement
                 </CardTitle>
               </CardHeader>
-              <CardContent className='space-y-4'>
+              <CardContent className='space-y-4 text-primary'>
                 {fields.map((field, index) => (
                   <div key={field.id} className='space-y-4 rounded-lg border bg-card p-4 shadow-sm'>
                     <div className='mb-2 flex items-center justify-between border-b pb-2'>
@@ -312,10 +312,10 @@ function CustomForm({ members, data: team, setOpen }: Readonly<PropsType & { set
                         >
                           <FormControl>
                             <SelectTrigger id={`gym-${index}`}>
-                              <SelectValue placeholder='Gymnase' />
+                              <SelectValue placeholder='Gymnase'/>
                             </SelectTrigger>
                           </FormControl>
-                          <SelectContent>
+                          <SelectContent >
                             <SelectItem value='Jean_Guimier'>Jean Guimier</SelectItem>
                             <SelectItem value='Jesse_Owens'>Jesse Owens</SelectItem>
                           </SelectContent>

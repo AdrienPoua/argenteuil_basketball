@@ -18,6 +18,7 @@ export function Convocation({
             <Heading className='my-5 text-center underline underline-offset-4'> {match.nomEquipe1} vs ABB </Heading>
             <Text>🏀 Championnat : {match.championnat}</Text>
             <Text>🏀 Sauf erreur de ma part, je n&apos;ai pas reçu de convocation pour ce match.</Text>
+            <Text>🏀 Je vous remercie de bien vouloir me la faire parvenir.</Text>
             <Text>
               🏀 Entraineur : {match.team?.coach?.name} - {match.team?.coach?.email}
             </Text>

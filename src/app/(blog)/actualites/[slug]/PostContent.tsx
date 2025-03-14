@@ -11,7 +11,6 @@ interface PostContentProps {
 }
 
 export function PostContent({ data }: Readonly<PostContentProps>) {
-
   return (
     <div className='relative flex'>
       <motion.article

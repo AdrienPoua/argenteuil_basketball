@@ -15,6 +15,7 @@ export default function Page() {
       toast({
         title: 'Succès',
         description: 'Les clubs ont été mis à jour avec succès',
+        variant: 'success',
       });
     } catch (error) {
       console.error('Error updating clubs:', error);
@@ -34,6 +35,7 @@ export default function Page() {
       toast({
         title: 'Succès',
         description: 'Les matchs ont été mis à jour avec succès',
+        variant: 'success',
       });
     } catch (error) {
       console.error('Error updating match:', error);
@@ -50,11 +52,11 @@ export default function Page() {
     <div>
       <Button onClick={() => handleUpdateClubs()} className='mx-auto my-10 flex' disabled={isTransfering}>
         {' '}
-        Mettre a jour les clubs
+        Récupérer les clubs adverses depuis FBI
       </Button>
       <Button onClick={() => handleUpdateMatch()} className='mx-auto my-10 flex' disabled={isTransfering}>
         {' '}
-        Mettre a jour les matchs
+        Récupérer les matchs depuis FBI
       </Button>
     </div>
   );

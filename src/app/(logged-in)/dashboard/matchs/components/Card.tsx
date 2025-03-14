@@ -19,7 +19,8 @@ import { useMatchCard } from '../hooks/useMatchCard';
 import { useMatchHandlers } from '../handlers/matchHandlers';
 import { DeleteDialog } from './delete.dialog';
 import { EditDialog } from './edit.dialog';
-import { ConvocationDialog } from './ConvocationDialog';
+import { ConvocationDialog } from './convocation.dialog';
+import { AskConvocationDialog } from './askConvocation.dialog';
 import Match from '@/models/Match';
 
 type PropsType = {
@@ -56,7 +57,7 @@ export default function MatchCard({ match }: Readonly<PropsType>) {
 const Header = ({ match }: Readonly<PropsType>) => {
   return (
     <div className='flex w-full justify-between'>
-      <Badge variant={match.isHome ? 'staffCard' : 'success'}>{match.isHome ? <HomeIcon /> : <PlaneIcon />}</Badge>
+      <Badge variant='staffCard'>{match.isHome ? <HomeIcon /> : <PlaneIcon />}</Badge>
       <Badge variant='outline' className='font-bold'>
         {match.championnat}
       </Badge>
@@ -66,17 +67,11 @@ const Header = ({ match }: Readonly<PropsType>) => {
 };
 
 const MatchVisual = ({ match }: Readonly<PropsType>) => {
-  const isTeam1Argentuil = match.nomEquipe1.includes('ARGENTEUIL');
   return (
     <div className='p-4 pb-0'>
       <div className='mb-4 flex flex-col space-y-3'>
         {/* Équipe 1 */}
-        <div
-          className={cn(
-            'flex items-center justify-between rounded-lg px-5 py-3',
-            isTeam1Argentuil ? 'bg-primary' : 'bg-green-500',
-          )}
-        >
+        <div className={cn('flex items-center justify-between rounded-lg bg-primary px-5 py-3')}>
           <HomeIcon className='mr-2 h-6 w-6 text-foreground' />
           <div className={cn('size-full font-semibold')}>{match.nomEquipe1}</div>
           <div className='text-foreground'>{match.resultatEquipe1 ?? '-'}</div>
@@ -92,12 +87,7 @@ const MatchVisual = ({ match }: Readonly<PropsType>) => {
         </div>
 
         {/* Équipe 2 */}
-        <div
-          className={cn(
-            'flex items-center justify-between rounded-lg px-5 py-3',
-            !isTeam1Argentuil ? 'bg-primary' : 'bg-green-500',
-          )}
-        >
+        <div className={cn('flex items-center justify-between rounded-lg bg-primary px-5 py-3')}>
           <div className={cn('size-full font-semibold')}>{match.nomEquipe2}</div>
           <div className='text-foreground'>{match.resultatEquipe2 ?? '-'}</div>
         </div>
@@ -165,6 +155,8 @@ const Dialogs = ({ match }: Readonly<PropsType>) => {
     router,
     toast,
     onFormSubmitSuccess,
+    isAskConvocationDialogOpen,
+    setIsAskConvocationDialogOpen,
   } = useMatchCard();
 
   const { handleSendConvocation, handleDeleteMatch } = useMatchHandlers({
@@ -177,15 +169,22 @@ const Dialogs = ({ match }: Readonly<PropsType>) => {
   });
   return (
     <div className='flex size-full flex-col justify-end gap-2'>
-      <ConvocationDialog
-        isOpen={isDialogOpen}
-        onOpenChange={setIsDialogOpen}
-        onConfirm={handleSendConvocation}
-        isHomeMatch={match.isHome}
-        convocationIsSent={match.convocationIsSent}
-        convocationIsAsked={match.convocationIsAsked}
-        match={match}
-      />
+      {match.isHome && (
+        <ConvocationDialog
+          isOpen={isDialogOpen}
+          onOpenChange={setIsDialogOpen}
+          onConfirm={handleSendConvocation}
+          match={match}
+        />
+      )}
+      {!match.isHome && (
+        <AskConvocationDialog
+          isOpen={isAskConvocationDialogOpen}
+          onOpenChange={setIsAskConvocationDialogOpen}
+          onConfirm={handleSendConvocation}
+          match={match}
+        />
+      )}
       <EditDialog
         isOpen={isEditModalOpen}
         onOpenChange={setIsEditModalOpen}
@@ -205,11 +204,11 @@ const Dialogs = ({ match }: Readonly<PropsType>) => {
 const StatusTags = ({ match }: Readonly<PropsType>) => {
   return (
     <>
-      {match.isHome ? (
+      {match.isHome && (
         <div className='border-t border-muted/30 bg-muted/5 p-4'>
           <div className='flex flex-col space-y-3'>
             <div className='flex items-center justify-between'>
-              <span className='text-sm font-medium'>Statut de la convocation</span>
+              <span className='text-sm font-medium text-primary'>Statut de la convocation</span>
               <Badge
                 variant='outline'
                 className={cn(
@@ -231,48 +230,6 @@ const StatusTags = ({ match }: Readonly<PropsType>) => {
                   </div>
                 )}
               </Badge>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div className='border-t border-muted/30 bg-muted/5 p-4'>
-          <div className='flex flex-col space-y-3'>
-            <div className='flex items-center justify-between'>
-              <span className='text-sm font-medium'>Statut de la demande</span>
-              {match.convocationIsAsked ? (
-                <Badge variant='outline' className='border-blue-300 bg-blue-100 text-xs font-normal text-blue-800'>
-                  <div className='flex items-center'>
-                    <Check className='mr-1 h-3 w-3' />
-                    Demandée
-                  </div>
-                </Badge>
-              ) : (
-                <Badge variant='outline' className='border-red-300 bg-red-100 text-xs font-normal text-red-800'>
-                  <div className='flex items-center'>
-                    <X className='mr-1 h-3 w-3' />
-                    Non demandée
-                  </div>
-                </Badge>
-              )}
-            </div>
-
-            <div className='flex items-center justify-between'>
-              <span className='text-sm font-medium'>Statut de réception</span>
-              {match.isConvocationRecu ? (
-                <Badge variant='outline' className='border-green-300 bg-green-100 text-xs font-normal text-green-800'>
-                  <div className='flex items-center'>
-                    <Check className='mr-1 h-3 w-3' />
-                    Reçue
-                  </div>
-                </Badge>
-              ) : (
-                <Badge variant='outline' className='border-red-300 bg-red-100 text-xs font-normal text-red-800'>
-                  <div className='flex items-center'>
-                    <X className='mr-1 h-3 w-3' />
-                    Non reçue
-                  </div>
-                </Badge>
-              )}
             </div>
           </div>
         </div>

@@ -38,7 +38,7 @@ export function EditMemberModal({ member, teams }: Readonly<EditMemberModalProps
           <Pencil className='h-4 w-4' />
         </Button>
       </DialogTrigger>
-      <DialogContent className='max-w-3xl'>
+      <DialogContent className='max-w-3xl max-h-[90vh] overflow-y-auto'>
         <Form teams={teams} defaultValues={member} isModal={true} onSuccess={onFormSubmitSuccess} />
       </DialogContent>
     </Dialog>

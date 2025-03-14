@@ -22,16 +22,8 @@ import {
 import { useRouter } from 'next/navigation';
 import { EditMemberModal } from './EditMemberModal';
 
-export default function Index({ data, teams }: Readonly<PropsType>): React.ReactElement {
-  const [isEditing, setIsEditing] = useState(false);
-  if (isEditing) {
-    return <EditingCard data={data} setIsEditing={setIsEditing} teams={teams} />;
-  } else {
-    return <BaseCard data={data} setIsEditing={setIsEditing} teams={teams} />;
-  }
-}
 
-export function BaseCard({ data, setIsEditing, teams }: Readonly<BaseCardPropsType>) {
+export default function CardIndex({ data, teams }: Readonly<BaseCardPropsType>) {
   const router = useRouter();
   const handleDelete = async () => {
     const res = await fetch(`/api/members/${data.id}`, {
@@ -120,17 +112,3 @@ export function BaseCard({ data, setIsEditing, teams }: Readonly<BaseCardPropsTy
   );
 }
 
-const EditingCard = ({ data, setIsEditing, teams }: Readonly<EditingCardPropsType>) => {
-  return (
-    <div className='relative col-span-2'>
-      <Button
-        onClick={() => setIsEditing(false)}
-        variant='destructive'
-        className='absolute right-0 top-0 z-10 size-fit p-2'
-      >
-        <X />
-      </Button>
-      <Form defaultValues={data} teams={teams} setIsEditing={setIsEditing} />
-    </div>
-  );
-};
