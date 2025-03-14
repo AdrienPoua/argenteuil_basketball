@@ -110,7 +110,7 @@ function CustomForm({ members, data: team, setOpen }: Readonly<PropsType & { set
                 name='name'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel >Nom de l&apos;équipe</FormLabel>
+                    <FormLabel>Nom de l&apos;équipe</FormLabel>
                     <FormControl>
                       <Input placeholder='U20' {...field} />
                     </FormControl>
@@ -312,10 +312,10 @@ function CustomForm({ members, data: team, setOpen }: Readonly<PropsType & { set
                         >
                           <FormControl>
                             <SelectTrigger id={`gym-${index}`}>
-                              <SelectValue placeholder='Gymnase'/>
+                              <SelectValue placeholder='Gymnase' />
                             </SelectTrigger>
                           </FormControl>
-                          <SelectContent >
+                          <SelectContent>
                             <SelectItem value='Jean_Guimier'>Jean Guimier</SelectItem>
                             <SelectItem value='Jesse_Owens'>Jesse Owens</SelectItem>
                           </SelectContent>

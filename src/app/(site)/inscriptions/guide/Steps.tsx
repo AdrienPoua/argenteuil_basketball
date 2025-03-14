@@ -1,4 +1,3 @@
-
 interface StepProps {
   title: string;
   content: React.ReactNode;
@@ -8,7 +7,7 @@ function Step({ title, content }: Readonly<StepProps>) {
   return (
     <div className='flex flex-col gap-5'>
       <div className='flex flex-col justify-center space-y-4'>
-        <h2 className='text-3xl font-bold tracking-tighter text-primary whitespace-nowrap sm:text-4xl'>{title}</h2>
+        <h2 className='whitespace-nowrap text-3xl font-bold tracking-tighter text-primary sm:text-4xl'>{title}</h2>
         <div className='text-foreground'>{content}</div>
       </div>
     </div>
@@ -19,7 +18,7 @@ export const StepOne = () => (
   <Step
     title='Le dossier'
     content={
-      <ul className='flex list-disc flex-col gap-2 font-secondary '>
+      <ul className='flex list-disc flex-col gap-2 font-secondary'>
         <li className='font-secondary'>
           Récupérez le dossier d&apos;inscription
           <a
@@ -53,7 +52,7 @@ export const StepTwo = () => (
           Vous recevrez un lien par email quelques jours après le dépot de votre dossier
         </li>
         <li className='font-secondary'>
-          Remplissez le formulaire jusqu&apos;au bout pour être licencié.
+          Remplissez le formulaire jusqu&apos;au bout. Défilez les documents si nécessaire pour passer à la suite.
         </li>
         <li className='font-secondary'>Choisissez l&apos;assurance A, qui est incluse dans le prix de la licence.</li>
         <li className='font-secondary'>Assurez-vous que la photo soit récente, claire et sans couvre-chef.</li>
@@ -70,7 +69,9 @@ export const StepThree = () => (
       <ul className='flex list-disc flex-col gap-2 font-secondary'>
         <li className='font-secondary'>Le club valide votre dossier</li>
         <li className='font-secondary'>Le comité validera votre dossier si il est complet et correct.</li>
-        <li className='font-secondary'>Un email de confirmation vous sera envoyé une fois l&apos;inscription validée.</li>
+        <li className='font-secondary'>
+          Un email de confirmation vous sera envoyé une fois l&apos;inscription validée.
+        </li>
       </ul>
     }
   />

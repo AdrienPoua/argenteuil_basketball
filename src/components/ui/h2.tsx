@@ -11,7 +11,7 @@ export default function H2({ children, className }: Readonly<H2Props>) {
     <div className='my-12 flex w-full justify-center'>
       <h2
         className={cn(
-          'relative w-fit max-w-4xl border-b-2 border-primary px-2 pb-2 cursor-pointer',
+          'relative w-fit max-w-4xl cursor-pointer border-b-2 border-primary px-2 pb-2',
           'text-center text-3xl font-bold text-primary md:text-4xl lg:text-7xl',
           'transition-all duration-300 ease-in-out',
           'after:absolute after:bottom-[-2px] after:left-0 after:block after:content-[""]',

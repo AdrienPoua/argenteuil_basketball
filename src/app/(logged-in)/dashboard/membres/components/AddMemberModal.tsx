@@ -33,7 +33,7 @@ export function AddMemberModal({ teams }: Readonly<AddMemberModalProps>) {
           Ajouter un membre
         </Button>
       </DialogTrigger>
-      <DialogContent className='max-w-3xl max-h-[90vh] overflow-y-auto'>
+      <DialogContent className='max-h-[90vh] max-w-3xl overflow-y-auto'>
         <DialogHeader>
           <DialogTitle className='font-secondary text-xl font-bold'>Ajouter un nouveau membre</DialogTitle>
         </DialogHeader>

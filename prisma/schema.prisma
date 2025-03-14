@@ -227,3 +227,11 @@ model ConvocationRateLimit {
 
   @@unique([matchId])
 }
+
+model Task {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  done      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

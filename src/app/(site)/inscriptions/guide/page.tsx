@@ -3,10 +3,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { StepOne, StepTwo, StepThree } from './Steps';
 import VideoTitle from '@/components/ui/video-title';
 import { Button } from '@/components/ui/button';
-import { ChevronRight, CheckCircle, HelpCircle, ArrowRight } from 'lucide-react';
+import { CheckCircle, ArrowRight } from 'lucide-react';
 import H2 from '@/components/ui/h2';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useState } from 'react';
 
 // Types
@@ -19,14 +18,13 @@ type Step = {
   description: string;
 };
 
-
 // Données
 const steps = [
   {
     component: StepOne,
     label: 'Étape 1',
     value: 'step-1',
-    title: 'Recuperez les documents nécessaires',
+    title: 'Les documents',
     icon: '/icons/document-icon.svg',
     description: 'Découvrez les documents nécessaires et informations essentielles pour votre inscription.',
   },
@@ -34,15 +32,15 @@ const steps = [
     component: StepTwo,
     label: 'Étape 2',
     value: 'step-2',
-    title: 'Formulaires & paiement',
+    title: 'Inscription en ligne',
     icon: '/icons/payment-icon.svg',
-    description: 'Complétez votre dossier et effectuez le paiement de votre cotisation.',
+    description: "Remplissez le formulaire d'inscription en ligne",
   },
   {
     component: StepThree,
     label: 'Étape 3',
     value: 'step-3',
-    title: 'Finalisation & validation',
+    title: 'Validation',
     icon: '/icons/check-icon.svg',
     description: "Finalisez votre inscription et recevez votre confirmation d'adhésion.",
   },
@@ -60,6 +58,10 @@ const faqItems = [
     ],
   },
   {
+    question: "Je n'ai pas reçu d'email pour l'inscription informatique, que faire ?",
+    answer: ['Contactez-nous par email', 'Donnez nous les informations suivantes : nom, prénom, date de naissance'],
+  },
+  {
     question: "Puis-je m'inscrire en cours d'année ?",
     answer: [
       "Oui, les inscriptions restent possibles tout au long de l'année.",
@@ -74,7 +76,6 @@ const faqItems = [
       "Possibilité de paiement en plusieurs fois (jusqu'à 3 échéances).",
     ],
   },
-
 ];
 
 // Composant principal
@@ -84,7 +85,7 @@ export default function InscriptionsGuidePage() {
 
   return (
     <div className='container mx-auto'>
-      <VideoTitle type='h1' video='/videos/inscriptions.mp4' className='z-10 py-20'>
+      <VideoTitle type='h1' video='/videos/inscriptions.mp4'>
         Guide d&apos;inscription
       </VideoTitle>
       <IntroductionSection steps={steps} activeTab={activeTab} setActiveTab={setActiveTab} />
@@ -199,9 +200,7 @@ const IntroductionSection = ({
     <div className='container mx-auto px-4 md:px-6'>
       <div className='mx-auto max-w-3xl text-center'>
         <h2 className='mb-4 text-3xl font-bold md:text-4xl'>Rejoignez notre club en 3 étapes</h2>
-        <p className='mb-8 text-lg'>Suivez ces trois étapes pour compléter votre
-          inscription.
-        </p>
+        <p className='mb-8 text-lg'>Suivez ces trois étapes pour compléter votre inscription.</p>
 
         <ProgressIndicator steps={steps} activeTab={activeTab} setActiveTab={setActiveTab} />
       </div>
@@ -231,10 +230,7 @@ const TabNavigationSidebar = ({ steps }: { steps: Step[] }) => (
 // Composant pour le contenu de l'étape
 const StepContentView = ({ step, setActiveTab }: { step: Step; setActiveTab: (value: string) => void }) => (
   <TabsContent key={step.value} value={step.value} className='mt-0 pt-1'>
-    <div>
-      <h3 className='text-xl font-bold'>{step.title}</h3>
-      <p className='text-sm'>{step.description}</p>
-    </div>
+    <div></div>
     <div className='rounded-xl border p-6'>{step.component()}</div>
   </TabsContent>
 );
@@ -249,9 +245,9 @@ const FAQSection = ({ items }: { items: { question: string; answer: string[] }[]
         {items.map((item, index) => (
           <div
             key={item.question.slice(0, 5) + index}
-            className='rounded-lg p-6 shadow-sm transition-shadow hover:shadow-md'
+            className='cursor-pointer rounded-lg border-2 border-primary p-6 shadow-sm transition-shadow hover:bg-primary/10 hover:shadow-md'
           >
-            <h3 className='mb-3 text-lg font-semibold text-primary bg-primary/10 text-center'>{item.question}</h3>
+            <h3 className='mb-3 bg-primary/10 text-center text-lg font-semibold text-primary'>{item.question}</h3>
             <ul className='list-disc space-y-2 pl-5'>
               {item.answer.map((point, pointIndex) => (
                 <li key={pointIndex + item.question.slice(0, 5)} className='font-secondary'>

@@ -22,7 +22,6 @@ import {
 import { useRouter } from 'next/navigation';
 import { EditMemberModal } from './EditMemberModal';
 
-
 export default function CardIndex({ data, teams }: Readonly<BaseCardPropsType>) {
   const router = useRouter();
   const handleDelete = async () => {
@@ -111,4 +110,3 @@ export default function CardIndex({ data, teams }: Readonly<BaseCardPropsType>) 
     </Card>
   );
 }
-

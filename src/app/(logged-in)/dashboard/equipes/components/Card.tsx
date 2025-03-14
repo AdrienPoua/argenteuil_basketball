@@ -22,7 +22,7 @@ export default function TeamCard({ data, members }: Readonly<PropsType>) {
   };
 
   return (
-    <Card className='h-full w-full overflow-hidden font-secondary  transition-all duration-300 hover:shadow-lg text-primary '>
+    <Card className='h-full w-full overflow-hidden font-secondary text-primary transition-all duration-300 hover:shadow-lg'>
       <CardHeader className='relative p-0'>
         <div className='relative aspect-video w-full overflow-hidden'>
           <Image src={data.image} alt={`Photo de l'équipe ${data.name}`} fill className='object-cover' />
