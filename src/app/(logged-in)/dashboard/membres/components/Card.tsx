@@ -2,12 +2,9 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Trash, X, Mail, Phone } from 'lucide-react';
-import Form from './Form';
-import { PropsType, BaseCardPropsType, EditingCardPropsType } from '../types/card.types';
+import { Trash, Mail, Phone } from 'lucide-react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -21,8 +18,15 @@ import {
 } from '@/components/ui/alert-dialog';
 import { useRouter } from 'next/navigation';
 import { EditMemberModal } from './EditMemberModal';
+import Member from '@/models/Member';
+import Team from '@/models/Team';
 
-export default function CardIndex({ data, teams }: Readonly<BaseCardPropsType>) {
+export type TypeProps = {
+  data: ReturnType<Member['toPlainObject']>;
+  teams: ReturnType<Team['toPlainObject']>[];
+  };
+
+export default function CardIndex({ data, teams }: Readonly<TypeProps>) {
   const router = useRouter();
   const handleDelete = async () => {
     const res = await fetch(`/api/members/${data.id}`, {
