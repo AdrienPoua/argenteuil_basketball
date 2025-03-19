@@ -20,7 +20,7 @@ export default function TeamView({ matchs }: Readonly<PropsType>) {
         if (matchs.length === 0) return null;
         return (
           <div key={matchs[0].championnat} className='space-y-4'>
-            <h3 className='flex items-center rounded-lg bg-primary p-3 text-white w-fit'>{matchs[0].championnat}</h3>
+            <h3 className='flex w-fit items-center rounded-lg bg-primary p-3 text-white'>{matchs[0].championnat}</h3>
             <ScrollArea className='w-full'>
               <div className='flex space-x-4 pb-4'>
                 {matchs.map((match) => (

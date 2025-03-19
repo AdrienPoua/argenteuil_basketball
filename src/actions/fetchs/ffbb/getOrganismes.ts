@@ -1,15 +1,15 @@
 import { Organisme } from '@/app/api/ffbb/organismes/[id]/route';
 import getToken from './getToken';
 import getCompetitions from './getCompetitions';
-import { cookies } from 'next/headers';
+import { getSessionCookie } from '@/actions/process/getSessionCookie';
+
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 if (!baseUrl) throw new Error('NEXT_PUBLIC_BASE_URL is not set');
 
 const getOrganismes = async () => {
   const token = await getToken();
-  // Récupère le cookie de session
-  const nextAuthCookie = cookies().get('next-auth.session-token');
-  if (!nextAuthCookie) throw new Error('No next-auth.session-token cookie found');
+  const nextAuthCookie = getSessionCookie();
+
   const ids = await getCompetitions().then((competitions) => competitions.map((competition) => competition.id));
   const organismes = await Promise.all(
     ids.map(async (id) => {

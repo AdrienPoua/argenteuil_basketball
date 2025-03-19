@@ -1,14 +1,13 @@
 import getToken from './getToken';
-import { cookies } from 'next/headers';
+import { getSessionCookie } from '@/actions/process/getSessionCookie';
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 if (!baseUrl) throw new Error('NEXT_PUBLIC_BASE_URL is not set');
 
 const getPoules = async () => {
   const token = await getToken();
-  // Récupère le cookie de session
-  const nextAuthCookie = cookies().get('next-auth.session-token');
-  if (!nextAuthCookie) throw new Error('No next-auth.session-token cookie found');
+  const nextAuthCookie = getSessionCookie();
+
   try {
     const res = await fetch(`${baseUrl}/api/ffbb/poules`, {
       headers: {

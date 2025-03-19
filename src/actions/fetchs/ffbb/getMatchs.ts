@@ -1,17 +1,14 @@
 import { Match } from '@/app/api/ffbb/matchs/[id]/route';
 import getToken from './getToken';
 import getPoules from './getPoules';
-import { cookies } from 'next/headers';
+import { getSessionCookie } from '@/actions/process/getSessionCookie';
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 if (!baseUrl) throw new Error('NEXT_PUBLIC_BASE_URL is not set');
 
 const putMatchs = async () => {
   try {
-    // Récupère le cookie de session
-    const nextAuthCookie = cookies().get('next-auth.session-token');
-    if (!nextAuthCookie) throw new Error('No next-auth.session-token cookie found');
-
+    const nextAuthCookie = getSessionCookie();
     const poules = await getPoules();
     const token = await getToken();
 
