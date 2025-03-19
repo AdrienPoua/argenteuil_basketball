@@ -5,7 +5,8 @@ import Card, { SkeletonCard } from './Card';
 import { useMatchs } from '../actions/client.actions';
 import { useMatchContext } from '../context';
 import NoMatch from './NoMatch';
-import { ClientOnly } from '@/components/utils/ClientOnly';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Suspense } from 'react';
 type PropsType = { matchs: ReturnType<Match['toPlainObject']>[] };
 
 export default function TeamView({ matchs }: Readonly<PropsType>) {
@@ -19,18 +20,18 @@ export default function TeamView({ matchs }: Readonly<PropsType>) {
         if (matchs.length === 0) return null;
         return (
           <div key={matchs[0].championnat} className='space-y-4'>
-            <div className='flex flex-col gap-4 md:flex-row'>
-              <Item>
-                <h3 className='flex size-full items-center justify-center bg-primary'>{matchs[0].championnat}</h3>
-              </Item>
-              {matchs.map((match) => (
-                <ClientOnly fallback={<SkeletonCard />} key={match.id}>
-                  <Item key={match.id}>
-                    <Card match={match} />
-                  </Item>
-                </ClientOnly>
-              ))}
-            </div>
+            <h3 className='flex items-center rounded-lg bg-primary p-3 text-white w-fit'>{matchs[0].championnat}</h3>
+            <ScrollArea className='w-full'>
+              <div className='flex space-x-4 pb-4'>
+                {matchs.map((match) => (
+                  <Suspense fallback={<SkeletonCard />} key={match.id}>
+                    <Item key={match.id}>
+                      <Card match={match} />
+                    </Item>
+                  </Suspense>
+                ))}
+              </div>
+            </ScrollArea>
           </div>
         );
       })}
@@ -39,5 +40,9 @@ export default function TeamView({ matchs }: Readonly<PropsType>) {
 }
 
 const Item = ({ children }: Readonly<{ children: React.ReactNode }>) => {
-  return <div className='size-full overflow-hidden rounded-lg md:size-72 md:min-h-64 md:min-w-64'>{children}</div>;
+  return (
+    <div className='size-full flex-shrink-0 overflow-hidden rounded-lg md:size-72 md:min-h-64 md:min-w-64'>
+      {children}
+    </div>
+  );
 };

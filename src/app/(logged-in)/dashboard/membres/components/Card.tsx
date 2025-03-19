@@ -24,7 +24,7 @@ import Team from '@/models/Team';
 export type TypeProps = {
   data: ReturnType<Member['toPlainObject']>;
   teams: ReturnType<Team['toPlainObject']>[];
-  };
+};
 
 export default function CardIndex({ data, teams }: Readonly<TypeProps>) {
   const router = useRouter();

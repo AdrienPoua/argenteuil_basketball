@@ -68,11 +68,11 @@ export const StepThree = () => (
     content={
       <ul className='flex list-disc flex-col gap-2 font-secondary'>
         <li className='font-secondary'>Le club valide votre dossier</li>
-        <li className='font-secondary'>Le comité validera votre dossier si il est complet et correct.</li>
+        <li className='font-secondary'>Le comité valide votre dossier si il est complet et correct.</li>
         <li className='font-secondary'>
           Un email de confirmation vous sera envoyé une fois l&apos;inscription validée.
         </li>
       </ul>
     }
   />
-);
+)
