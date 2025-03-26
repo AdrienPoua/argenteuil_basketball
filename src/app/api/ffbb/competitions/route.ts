@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
 import { errorHandler } from '@/lib/utils/handleApiError';
 import { validateUser } from '@/lib/api/validateUser';
-const endpoint =
-  'https://ffbbserver3.ffbb.com/ffbbserver3/api/competition/getCompetitionParOrganisme.ws?codeOrganisme=IDF0095019';
+import { API_ENDPOINTS_FFBB } from '@/lib/constants/api-endpoints-ffbb';
+
+const { COMPETITIONS: endpoint } = API_ENDPOINTS_FFBB;
 
 export async function GET(req: Request) {
   try {

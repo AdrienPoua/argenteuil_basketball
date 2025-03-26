@@ -39,10 +39,9 @@ export async function PUT(req: NextRequest) {
 
   try {
     const body = await req.json();
-    const matchsArray = Array.isArray(body) ? body : [body];
 
     // Validate entries
-    const matchs = z.array(MatchSchema).parse(matchsArray);
+    const matchs = z.array(MatchSchema).parse(body);
 
     // Upsert matches
     const matchsUpserted = await Promise.all(

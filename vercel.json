@@ -1,8 +1,12 @@
 {
-  "headers": [
+  "crons": [
     {
-      "source": "/api/auth/ffbb/token",
-      "headers": [{ "key": "Cache-Control", "value": "no-store" }]
+      "path": "/api/cron/ffbb",
+      "schedule": "*/10 * * * *",
+      "httpMethod": "GET",
+      "headers": {
+        "authorization": "Bearer @CRON_SECRET"
+      }
     }
   ]
 }

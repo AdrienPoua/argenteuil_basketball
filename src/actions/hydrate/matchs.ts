@@ -26,3 +26,35 @@ export const hydrateMatchs = async (matchs: Match[]) => {
     };
   });
 };
+
+export const processMatchsFromFFBB = async (matchs: Match[]) => {
+  const plannedMatchs = matchs.filter((match) => isMatchReallyPlanned(match) && isABBPlaying(match));
+  return plannedMatchs.map((match) => {
+    return addDateToMatch(match);
+  });
+};
+
+
+const isMatchReallyPlanned = (match: Match) => {
+  return match.idOrganismeEquipe1 && match.idOrganismeEquipe2;
+};
+
+const isABBPlaying = (match: Match) => {
+  return match.idOrganismeEquipe1 === argenteuilIdOrganisme || match.idOrganismeEquipe2 === argenteuilIdOrganisme;
+};
+
+const addDateToMatch = (match: Match) => {
+  // get the date object from the date string
+  const date = new Date(match.date);
+  // get the hours and minutes from the horaire string
+  const horaireStr = String(match.horaire).padStart(4, '0');
+  const hours = parseInt(horaireStr.slice(0, 2), 10);
+  const minutes = parseInt(horaireStr.slice(-2), 10);
+  // set the hours and minutes to the date object
+  date.setHours(hours, minutes, 0, 0);
+  // return the match with the date as a Date object
+  return {
+    ...match,
+    date: date,
+  };
+};

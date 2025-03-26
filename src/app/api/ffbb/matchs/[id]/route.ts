@@ -1,8 +1,10 @@
 import { validateUser } from '@/lib/api/validateUser';
 import { NextResponse } from 'next/server';
-import { argenteuilIdOrganisme } from '@/lib/constants/argenteuil-id-organisme';
 import { errorHandler } from '@/lib/utils/handleApiError';
-const endpoint = 'https://ffbbserver3.ffbb.com/ffbbserver3/api/competition/getRencontresParPoule.ws?idPoule=';
+import { processMatchsFromFFBB } from '@/actions/hydrate/matchs';
+import { API_ENDPOINTS_FFBB } from '@/lib/constants/api-endpoints-ffbb';
+
+const { MATCHS: endpoint } = API_ENDPOINTS_FFBB;
 
 export async function GET(req: Request, { params }: { params: { id: string } }) {
   // Check if the user is authenticated
@@ -24,40 +26,17 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
       return NextResponse.json({ error: `Error from FFBB: ${response.statusText}` }, { status: response.status });
     }
 
+
     const data: Match[] = await response.json();
-    const plannedMatchs = data.filter((match) => isMatchReallyPlanned(match) && isABBPlaying(match));
-    const datedMatchs = plannedMatchs.map((match) => {
-      return addDateToMatch(match);
-    });
-    return NextResponse.json(datedMatchs, { status: 200 });
+    const processedMatchs = await processMatchsFromFFBB(data);
+
+    return NextResponse.json(processedMatchs, { status: 200 });
   } catch (error) {
     return errorHandler(error);
   }
 }
 
-const isMatchReallyPlanned = (match: Match) => {
-  return match.idOrganismeEquipe1 && match.idOrganismeEquipe2;
-};
 
-const isABBPlaying = (match: Match) => {
-  return match.idOrganismeEquipe1 === argenteuilIdOrganisme || match.idOrganismeEquipe2 === argenteuilIdOrganisme;
-};
-
-const addDateToMatch = (match: Match) => {
-  // get the date object from the date string
-  const date = new Date(match.date);
-  // get the hours and minutes from the horaire string
-  const horaireStr = String(match.horaire).padStart(4, '0');
-  const hours = parseInt(horaireStr.slice(0, 2), 10);
-  const minutes = parseInt(horaireStr.slice(-2), 10);
-  // set the hours and minutes to the date object
-  date.setHours(hours, minutes, 0, 0);
-  // return the match with the date as a Date object
-  return {
-    ...match,
-    date: date,
-  };
-};
 
 export interface Match {
   id: number;

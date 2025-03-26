@@ -25,13 +25,16 @@ export default function InfoMatchCard({
         {format(new Date(date), 'EEEE d MMMM', { locale: fr })} • {heure}
       </div>
 
-      <div className='grid w-full grid-cols-3 gap-2 sm:gap-4 md:gap-6 px-2 sm:px-4 md:px-8 items-center'>
+      <div className='grid w-full grid-cols-3 items-center gap-2 px-2 sm:gap-4 sm:px-4 md:gap-6 md:px-8'>
         <TeamSquare>{nomEquipe1}</TeamSquare>
         <div className='flex flex-col items-center justify-center gap-2 py-2'>
-          <Badge variant='staffCard' className=' text-center text-xs font-semibold uppercase tracking-wide md:text-lg lg:text-xl'>
+          <Badge
+            variant='staffCard'
+            className='text-center text-xs font-semibold uppercase tracking-wide md:text-lg lg:text-xl'
+          >
             {championnat}
           </Badge>
-          <p className='text-lg sm:text-xl font-bold'>VS</p>
+          <p className='text-lg font-bold sm:text-xl'>VS</p>
         </div>
         <TeamSquare>{nomEquipe2}</TeamSquare>
       </div>
@@ -51,10 +54,10 @@ const TeamSquare = ({ children }: { children: React.ReactNode }) => {
   return (
     <div
       className={cn(
-        'flex min-h-16 sm:min-h-20 md:min-h-24 aspect-square flex-col items-center justify-center p-2 md:p-4',
+        'flex aspect-square min-h-16 flex-col items-center justify-center p-2 sm:min-h-20 md:min-h-24 md:p-4',
         'rounded-lg border-2 border-primary bg-background',
         'transition-all duration-200 group-hover:border-foreground group-hover:bg-primary/5',
-        'text-center font-medium text-xs sm:text-sm md:text-base lg:text-xl',
+        'text-center text-xs font-medium sm:text-sm md:text-base lg:text-xl',
       )}
     >
       {children}

@@ -1,9 +1,9 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { errorHandler } from '@/lib/utils/handleApiError';
 import { validateUser } from '@/lib/api/validateUser';
+import { API_ENDPOINTS_FFBB } from '@/lib/constants/api-endpoints-ffbb';
 
-const endpoint =
-  'https://ffbbserver3.ffbb.com/ffbbserver3/api/competition/getEngagementsParOrganisme.ws?idOrganisme=11851';
+const { POULES: endpoint } = API_ENDPOINTS_FFBB;
 
 export async function GET(req: NextRequest) {
   // Check if the user is authenticated
@@ -33,7 +33,7 @@ export async function GET(req: NextRequest) {
   }
 }
 
-interface Engagement {
+export interface Engagement {
   idEngagement: number;
   idOrganisme: number;
   idOrganismeCtc: number | null;

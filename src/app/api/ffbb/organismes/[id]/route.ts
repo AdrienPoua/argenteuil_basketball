@@ -3,7 +3,9 @@ import { validateUser } from '@/lib/api/validateUser';
 
 import { Competition } from '../../competitions/route';
 import { errorHandler } from '@/lib/utils/handleApiError';
-const endpoint = 'https://ffbbserver3.ffbb.com/ffbbserver3/api/competition/getCompetition.ws?id=';
+import { API_ENDPOINTS_FFBB } from '@/lib/constants/api-endpoints-ffbb';
+
+const { ORGANISMES: endpoint } = API_ENDPOINTS_FFBB;
 
 export async function GET(req: Request, { params }: { params: { id: string } }) {
   // Check if the user is authenticated
