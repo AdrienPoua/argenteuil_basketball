@@ -7,6 +7,7 @@ import { Match } from '@/app/api/ffbb/matchs/[id]/route';
 export const saveMatchsToDatabase = async (matchs: Match[]) => {
   const hydratedMatchs = await hydrateMatchs(matchs);
   const parsedMatchs = z.array(MatchSchema).parse(hydratedMatchs);
+  console.log("🚀 ~ saveMatchsToDatabase ~ parsedMatchs:", parsedMatchs)
   await Promise.all(
     parsedMatchs.map(async (match) => {
       return await MatchService.upsert(match);

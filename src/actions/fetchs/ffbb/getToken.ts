@@ -1,5 +1,6 @@
 'use server';
 import { validateUser } from '@/lib/api/validateUser';
+import { errorHandler } from '@/lib/utils/handleApiError';
 // Check if the environment variables are set
 const { FFBB_SERVER_USERNAME, FFBB_SERVER_PASSWORD } = process.env;
 if (!FFBB_SERVER_USERNAME || !FFBB_SERVER_PASSWORD) {
@@ -10,7 +11,6 @@ const endpoint = 'https://ffbbserver3.ffbb.com/ffbbserver3/api/authentication.ws
 
 // Fonction pour obtenir le token
 async function getToken() {
-  await validateUser();
   const res = await fetch(endpoint, {
     method: 'POST',
     headers: {
@@ -29,7 +29,7 @@ async function getToken() {
   });
 
   if (!res.ok) {
-    throw new Error(`Erreur lors de la récupération du token: ${res.status}`);
+    errorHandler(res.statusText, res.status);
   }
 
   return await res.text();

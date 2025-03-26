@@ -1,5 +1,5 @@
 import { Match } from '@/app/api/ffbb/matchs/[id]/route';
-import getCompetitions from '@/actions/fetchs/ffbb/getCompetitions';
+import { getUnloggedCompetitions } from '@/actions/fetchs/ffbb/getCompetitions';
 import { argenteuilIdOrganisme } from '@/lib/constants/argenteuil-id-organisme';
 import ClubService from '@/services/Club';
 
@@ -11,7 +11,7 @@ const getOpponentId = (match: Match) => {
 
 export const hydrateMatchs = async (matchs: Match[]) => {
   const clubs = await ClubService.getClubs();
-  const competitions = await getCompetitions();
+  const competitions = await getUnloggedCompetitions();
   return matchs.map((match: Match) => {
     const competition = competitions.find((comp) => comp.id === match.idPoule);
     const opponentId = getOpponentId(match);

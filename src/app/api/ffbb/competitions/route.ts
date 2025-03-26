@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { errorHandler } from '@/lib/utils/handleApiError';
 import { validateUser } from '@/lib/api/validateUser';
 import { API_ENDPOINTS_FFBB } from '@/lib/constants/api-endpoints-ffbb';
-
+import { processCompetitions } from '@/actions/process/ProcessCompetitions';
 const { COMPETITIONS: endpoint } = API_ENDPOINTS_FFBB;
 
 export async function GET(req: Request) {
@@ -24,20 +24,11 @@ export async function GET(req: Request) {
     });
 
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error(`FFBB API error (${response.status}): ${errorText}`);
-
-      return NextResponse.json(
-        {
-          error: `Erreur API FFBB: ${response.statusText}`,
-          details: errorText,
-        },
-        { status: response.status },
-      );
+      errorHandler(response.statusText, response.status); 
     }
 
     const data: Competition[] = await response.json();
-    const competitions = data.map((compet) => ({ id: compet.id, label: compet.nom }));
+    const competitions = processCompetitions(data);
 
     return NextResponse.json(competitions, { status: 200 });
   } catch (error) {
@@ -85,7 +76,6 @@ export interface Competition {
     nom: string;
   }[];
 }
-
 export interface ReturnedCompetition {
   id: number;
   label: string;

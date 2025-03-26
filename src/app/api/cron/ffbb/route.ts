@@ -1,9 +1,11 @@
 import { NextResponse } from 'next/server';
+import { errorHandler } from '@/lib/utils/handleApiError';
 import { Engagement } from '@/app/api/ffbb/poules/route';
 import { Match } from '@/app/api/ffbb/matchs/[id]/route';
 import saveMatchsToDatabase from '@/actions/process/saveMatchsToDatabase';
 import { API_ENDPOINTS_FFBB } from '@/lib/constants/api-endpoints-ffbb';
 import { headers } from 'next/headers';
+import { processMatchsFromFFBB } from '@/actions/hydrate/matchs';
 
 const { FFBB_SERVER_USERNAME, FFBB_SERVER_PASSWORD } = process.env;
 if (!FFBB_SERVER_USERNAME || !FFBB_SERVER_PASSWORD) {
@@ -20,11 +22,9 @@ export async function GET() {
     const poulesIds = await getPoules(token);
     const matchs = await getMatchs(token, poulesIds);
     await saveMatchsToDatabase(matchs);
-
-    return NextResponse.json({ success: true, message: 'Clubs et matchs mis à jour avec succès' });
+    return NextResponse.json({ message: 'Clubs et matchs mis à jour avec succès', status: 200 });
   } catch (error) {
-    console.error('Erreur lors de la mise à jour automatique des données FFBB:', error);
-    return NextResponse.json({ success: false, message: 'Erreur lors de la mise à jour des données' }, { status: 500 });
+    return errorHandler('Erreur lors de la mise à jour automatique des données FFBB: ' + error, 500);
   }
 }
 
@@ -32,6 +32,12 @@ const verifyCronJob = () => {
   const headersList = headers();
   const authorization = headersList.get('authorization');
   const CRON_SECRET = process.env.CRON_SECRET;
+
+  if (!CRON_SECRET) {
+    console.error("Variable d'environnement CRON_SECRET non définie");
+    throw new Error('Configuration de sécurité incomplète');
+  }
+
   if (!authorization || authorization !== `Bearer ${CRON_SECRET}`) {
     console.error("Tentative d'accès non autorisée à la route cron");
     throw new Error('Non autorisé, le cron job est utilisable uniquement sur vercel par le serveur');
@@ -44,16 +50,16 @@ const getToken = async () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-      Accept: 'text/plain',
-    },
-    body: JSON.stringify({
-      userName: FFBB_SERVER_USERNAME,
-      password: FFBB_SERVER_PASSWORD,
-    }),
-  });
+        Accept: 'text/plain',
+      },
+      body: JSON.stringify({
+        userName: FFBB_SERVER_USERNAME,
+        password: FFBB_SERVER_PASSWORD,
+      }),
+    });
 
-  if (!res.ok) {
-    throw new Error(`Erreur lors de la récupération du token: ${res.status}`);
+    if (!res.ok) {
+      throw new Error(`Erreur lors de la récupération du token: ${res.status}`);
     }
 
     const token = await res.text();
@@ -64,17 +70,17 @@ const getToken = async () => {
   }
 };
 
-const getPoules = async (token: string) => {    
+const getPoules = async (token: string) => {
   try {
     const response = await fetch(poulesEndpoint, {
       headers: {
         Authorization: `Bearer ${token}`,
-    },
-  });
+      },
+    });
 
-  if (!response.ok) {
-    throw new Error(`Error from FFBB: ${response.statusText}`);
-  }
+    if (!response.ok) {
+      throw new Error(`Error from FFBB: ${response.statusText}`);
+    }
 
     const data: Engagement[] = await response.json();
     const poulesIds = data.map((data) => data.idPoule);
@@ -90,17 +96,18 @@ const getMatchs = async (token: string, poulesIds: number[]) => {
     const matchs = await Promise.all(
       poulesIds.map(async (poule) => {
         const res = await fetch(`${matchsEndpoint}${poule}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (!res.ok) {
-        throw new Error('Failed to fetch matchs', { cause: { statusText: res.statusText, status: res.status } });
-      }
-      const data = (await res.json()) as Match[];
-      return data;
-    }),
-  );
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (!res.ok) {
+          throw new Error('Failed to fetch matchs', { cause: { statusText: res.statusText, status: res.status } });
+        }
+        const data = (await res.json()) as Match[];
+        const processedMatchs = await processMatchsFromFFBB(data);
+        return processedMatchs;
+      }),
+    );
 
     const flatMatchs = matchs.flat();
     return flatMatchs;
