@@ -10,4 +10,4 @@ export type Step = {
 export type FAQItem = {
   question: string;
   answer: string[];
-}; 
+};

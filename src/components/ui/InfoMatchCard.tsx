@@ -25,10 +25,10 @@ export default function InfoMatchCard({
         {format(new Date(date), 'EEEE d MMMM', { locale: fr })} • {heure}
       </div>
 
-      <div className='grid grid-cols-3 px-8'>
+      <div className='grid grid-cols-3 gap-5 px-8'>
         <TeamSquare>{nomEquipe1}</TeamSquare>
         <div className='flex grow flex-col items-center gap-2'>
-          <Badge variant='staffCard' className='text-xl font-semibold uppercase tracking-wide'>
+          <Badge variant='staffCard' className='text-base font-semibold uppercase tracking-wide md:text-xl'>
             {championnat}
           </Badge>
           <p className='text-xl font-bold'>VS</p>

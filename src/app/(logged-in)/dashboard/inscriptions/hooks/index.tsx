@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { ColumnFiltersState, SortingState } from "@tanstack/react-table";
-import { getInscriptions } from "@/actions/fetchs/database/getInscriptions";
-import { toast } from "@/hooks/use-toast";
-import { useQuery } from "react-query";
+import { useState } from 'react';
+import { ColumnFiltersState, SortingState } from '@tanstack/react-table';
+import { getInscriptions } from '@/actions/fetchs/database/getInscriptions';
+import { toast } from '@/hooks/use-toast';
+import { useQuery } from 'react-query';
 
 export const useHooks = () => {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -25,7 +25,16 @@ export const useHooks = () => {
       console.error('Error fetching inscriptions:', error);
     },
   });
-  
 
-  return { sorting, columnFilters, selectedStatus, setSorting, setColumnFilters, setSelectedStatus, inscriptions, isLoading, isError };
+  return {
+    sorting,
+    columnFilters,
+    selectedStatus,
+    setSorting,
+    setColumnFilters,
+    setSelectedStatus,
+    inscriptions,
+    isLoading,
+    isError,
+  };
 };

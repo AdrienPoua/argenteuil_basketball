@@ -28,9 +28,8 @@ export default function InscriptionsGuidePage() {
         {/* Onglet Formulaire d'inscription */}
         <TabsContent value='en-ligne' className='mb-10'>
           <div> En cours de construction </div>
-
-{    /*      <EnLigne /> */
-}        </TabsContent>
+          {/*      <EnLigne /> */}{' '}
+        </TabsContent>
       </Tabs>
       <FAQSection />
     </div>

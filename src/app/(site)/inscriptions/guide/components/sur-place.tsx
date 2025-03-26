@@ -1,5 +1,5 @@
 'use client';
-import {  } from './FAQSection';
+import {} from './FAQSection';
 import { StepContentView } from './StepContentView';
 import { TabNavigationSidebar } from './TabNavigationSidebar';
 import { Tabs } from '@/components/ui/tabs';
@@ -37,7 +37,7 @@ export default function SurPlace() {
   const [activeStep, setActiveStep] = useState('step-1');
   return (
     <>
-      <section className='py-10 bg-primary/5 w-fit rounded-lg px-10 mx-auto'>
+      <section className='mx-auto w-fit rounded-lg bg-primary/5 px-10 py-10'>
         <Tabs value={activeStep} onValueChange={setActiveStep} className='mx-auto w-fit'>
           <div className='flex gap-2'>
             <TabNavigationSidebar steps={steps} />

@@ -13,81 +13,92 @@ export default function BasketMatchCard({ match }: Readonly<PropsType>) {
   const isDefaultMatch = match.heure === '00:00';
   return (
     <Card
-      className={`mx-auto size-full p-3 text-black ${match.isHome ? 'border-l-4 border-l-blue-500' : 'border-l-4 border-l-green-500'} relative overflow-hidden`}
+      className={`h-full w-full p-2 sm:p-3 text-black ${
+        match.isHome ? 'border-l-4 border-l-blue-500' : 'border-l-4 border-l-green-500'
+      } relative overflow-hidden transition-all hover:shadow-md`}
     >
       {match.remise && (
-        <Image
-          src='/images/divers/report.png'
-          alt='Remise'
-          className='left-50 absolute bottom-0 transform object-cover'
-          width={1000}
-          height={1000}
-        />
+        <div className="absolute bottom-0 right-0 w-full flex justify-end">
+          <Image
+            src='/images/divers/report.png'
+            alt='Remise'
+            className='object-contain opacity-70'
+            width={100}
+            height={100}
+          />
+        </div>
       )}
-      <CardHeader className='pb-2'>
-        <Badge className='mb-2 w-full justify-center'>{match.championnat}</Badge>
-        <CardTitle className={`mb-2 flex items-center justify-center`}>
-          {match.isHome ? <HomeIcon className='mr-2' /> : <PlaneIcon className='mr-2' />}
-          <span className='font-semibold'>{match.isHome ? match.nomEquipe2 : match.nomEquipe1}</span>
+      <CardHeader className='p-2 sm:p-3 pb-1'>
+        <Badge variant="outline" className='mb-2 w-full justify-center bg-primary/10 text-primary font-medium text-xs sm:text-sm'>{match.championnat}</Badge>
+        <CardTitle className={`mb-1 sm:mb-2 flex items-center justify-center text-sm sm:text-base gap-1 sm:gap-2`}>
+          {match.isHome ? <HomeIcon className='h-4 w-4 text-blue-500' /> : <PlaneIcon className='h-4 w-4 text-green-500' />}
+          <span className='font-semibold truncate'>{match.isHome ? match.nomEquipe2 : match.nomEquipe1}</span>
         </CardTitle>
-        <div className='text-center text-sm text-muted-foreground'>
+        <div className='text-center text-xs text-muted-foreground'>
           Journée {match.matchNumberJournee} - Match n°{match.matchNumber}
         </div>
       </CardHeader>
-      <CardContent className='pb-2'>
-        <div className='flex flex-col space-y-2'>
-          <div className='flex items-center space-x-2'>
-            <CalendarIcon className='h-4 w-4 text-muted-foreground' />
-            <span className='text-sm'>{isDefaultMatch ? `WE du ${match.formatedDate}` : match.formatedDate}</span>
+      <CardContent className='p-2 sm:p-3 pt-1'>
+        <div className='flex flex-col space-y-1 sm:space-y-2'>
+          <div className='flex items-center gap-1.5 sm:gap-2'>
+            <CalendarIcon className='h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary/70' />
+            <span className='text-xs sm:text-sm'>{isDefaultMatch ? `WE du ${match.formatedDate}` : match.formatedDate}</span>
           </div>
-          <div className='flex items-center space-x-2'>
-            <ClockIcon className='h-4 w-4 text-muted-foreground' />
-            <span className='text-sm'>{isDefaultMatch ? '--:--' : match.heure}</span>
+          <div className='flex items-center gap-1.5 sm:gap-2'>
+            <ClockIcon className='h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary/70' />
+            <span className='text-xs sm:text-sm'>{isDefaultMatch ? '--:--' : match.heure}</span>
           </div>
-          <div className='flex items-center space-x-2'>
-            <MapPinIcon className='h-4 w-4 text-muted-foreground' />
-            <span className='text-sm'>{isDefaultMatch ? '❓' : match.salle}</span>
+          <div className='flex items-center gap-1.5 sm:gap-2'>
+            <MapPinIcon className='h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary/70' />
+            <span className='text-xs sm:text-sm truncate'>{isDefaultMatch ? '❓' : match.salle}</span>
           </div>
-          <div className='mt-2 text-center text-lg font-bold'>
-            <span>{match.resultatEquipe1}</span>
-            {' - '}
-            <span>{match.resultatEquipe2}</span>
+          <div className='mt-1 sm:mt-2 text-center text-base sm:text-lg font-bold bg-slate-50 p-1 sm:p-2 rounded-md'>
+            {match.resultatEquipe1 === null || match.resultatEquipe2 === null ? (
+              <span>-</span>
+            ) : (
+              <>
+                <span>{match.resultatEquipe1}</span>
+                {' - '}
+                <span>{match.resultatEquipe2}</span>
+              </>
+            )}
           </div>
         </div>
       </CardContent>
-      <CardFooter className='flex flex-wrap justify-center gap-2 pt-2'>
-        {match.forfaitEquipe1 && <Badge variant='destructive'>Forfait {match.nomEquipe1}</Badge>}
-        {match.forfaitEquipe2 && <Badge variant='destructive'>Forfait {match.nomEquipe2}</Badge>}
-      </CardFooter>
+      {(match.forfaitEquipe1 || match.forfaitEquipe2) && (
+        <CardFooter className='flex flex-wrap justify-center gap-1 sm:gap-2 p-2 pt-0 sm:p-3 sm:pt-0'>
+          {match.forfaitEquipe1 && <Badge variant='destructive' className="text-xs">Forfait {match.nomEquipe1}</Badge>}
+          {match.forfaitEquipe2 && <Badge variant='destructive' className="text-xs">Forfait {match.nomEquipe2}</Badge>}
+        </CardFooter>
+      )}
     </Card>
   );
 }
 
 export function SkeletonCard() {
   return (
-    <Card className='relative mx-auto size-full overflow-hidden p-3'>
-      <CardHeader className='pb-2'>
-        <Skeleton className='mb-2 h-6 w-full' />
-        <Skeleton className='mx-auto mb-2 h-6 w-3/4' />
-        <Skeleton className='mx-auto h-4 w-1/2' />
+    <Card className='relative h-full w-full p-2 sm:p-3 overflow-hidden'>
+      <CardHeader className='p-2 sm:p-3 pb-1'>
+        <Skeleton className='mb-2 h-5 w-full' />
+        <Skeleton className='mx-auto mb-2 h-5 w-3/4' />
+        <Skeleton className='mx-auto h-3 w-1/2' />
       </CardHeader>
-      <CardContent className='pb-2'>
-        <div className='flex flex-col space-y-2'>
+      <CardContent className='p-2 sm:p-3 pt-1'>
+        <div className='flex flex-col space-y-1 sm:space-y-2'>
           {[1, 2, 3].map((i) => (
-            <div key={i} className='flex items-center space-x-2'>
-              <Skeleton className='h-4 w-4' />
-              <Skeleton className='h-4 w-32' />
+            <div key={i} className='flex items-center gap-1.5 sm:gap-2'>
+              <Skeleton className='h-3.5 w-3.5 sm:h-4 sm:w-4' />
+              <Skeleton className='h-3.5 sm:h-4 w-24 sm:w-32' />
             </div>
           ))}
 
-          <div className='mt-2 text-center'>
-            <Skeleton className='mx-auto h-6 w-24' />
+          <div className='mt-1 sm:mt-2 text-center'>
+            <Skeleton className='mx-auto h-5 sm:h-6 w-16 sm:w-24' />
           </div>
         </div>
       </CardContent>
-
-      <CardFooter className='flex justify-center gap-2 pt-2'>
-        <Skeleton className='h-5 w-24' />
+      <CardFooter className='flex justify-center gap-1 sm:gap-2 p-2 pt-0 sm:p-3 sm:pt-0'>
+        <Skeleton className='h-4 sm:h-5 w-16 sm:w-24' />
       </CardFooter>
     </Card>
   );

@@ -73,4 +73,4 @@ export function ProgressIndicator({ steps, activeTab, setActiveTab }: ProgressIn
       </div>
     </div>
   );
-} 
+}

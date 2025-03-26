@@ -223,4 +223,4 @@ export default function InscriptionForm({ form, mutation }: InscriptionFormProps
       </form>
     </Form>
   );
-};
+}

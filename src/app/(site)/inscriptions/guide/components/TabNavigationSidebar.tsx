@@ -13,7 +13,7 @@ export function TabNavigationSidebar({ steps }: Readonly<PropsType>) {
         <TabsTrigger
           key={step.value}
           value={step.value}
-          className='flex grow size-full h-[100px] items-center justify-start gap-3 rounded-lg border-l-4 border-transparent bg-primary/10 p-4 text-left transition-all data-[state=active]:border-l-4 data-[state=active]:border-primary'
+          className='flex size-full h-[100px] grow items-center justify-start gap-3 rounded-lg border-l-4 border-transparent bg-primary/10 p-4 text-left transition-all data-[state=active]:border-l-4 data-[state=active]:border-primary'
         >
           <div className='flex h-8 w-8 items-center justify-center rounded-full'>{index + 1}</div>
           <div className='flex flex-col items-start'>

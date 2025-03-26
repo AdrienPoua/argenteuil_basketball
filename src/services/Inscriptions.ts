@@ -23,7 +23,7 @@ class InscriptionService {
   // Récupérer toutes les inscriptions avec pagination et filtres optionnels
   async getAll() {
     try {
-     return await prisma.inscription.findMany({
+      return await prisma.inscription.findMany({
         orderBy: {
           createdAt: 'desc',
         },
