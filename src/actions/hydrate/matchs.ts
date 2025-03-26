@@ -34,7 +34,6 @@ export const processMatchsFromFFBB = async (matchs: Match[]) => {
   });
 };
 
-
 const isMatchReallyPlanned = (match: Match) => {
   return match.idOrganismeEquipe1 && match.idOrganismeEquipe2;
 };

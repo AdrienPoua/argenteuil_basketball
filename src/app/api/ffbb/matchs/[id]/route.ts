@@ -26,7 +26,6 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
       return NextResponse.json({ error: `Error from FFBB: ${response.statusText}` }, { status: response.status });
     }
 
-
     const data: Match[] = await response.json();
     const processedMatchs = await processMatchsFromFFBB(data);
 
@@ -35,8 +34,6 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
     return errorHandler(error);
   }
 }
-
-
 
 export interface Match {
   id: number;

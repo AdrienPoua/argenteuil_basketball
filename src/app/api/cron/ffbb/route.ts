@@ -39,10 +39,11 @@ const verifyCronJob = () => {
 };
 
 const getToken = async () => {
-  const res = await fetch(tokenEndpoint, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
+  try {
+    const res = await fetch(tokenEndpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
       Accept: 'text/plain',
     },
     body: JSON.stringify({
@@ -53,16 +54,21 @@ const getToken = async () => {
 
   if (!res.ok) {
     throw new Error(`Erreur lors de la récupération du token: ${res.status}`);
-  }
+    }
 
-  const token = await res.text();
-  return token;
+    const token = await res.text();
+    return token;
+  } catch (error) {
+    console.error('Erreur lors de la récupération du token:', error);
+    throw new Error('Erreur lors de la récupération du token');
+  }
 };
 
-const getPoules = async (token: string) => {
-  const response = await fetch(poulesEndpoint, {
-    headers: {
-      Authorization: `Bearer ${token}`,
+const getPoules = async (token: string) => {    
+  try {
+    const response = await fetch(poulesEndpoint, {
+      headers: {
+        Authorization: `Bearer ${token}`,
     },
   });
 
@@ -70,15 +76,20 @@ const getPoules = async (token: string) => {
     throw new Error(`Error from FFBB: ${response.statusText}`);
   }
 
-  const data: Engagement[] = await response.json();
-  const poulesIds = data.map((data) => data.idPoule);
-  return poulesIds;
+    const data: Engagement[] = await response.json();
+    const poulesIds = data.map((data) => data.idPoule);
+    return poulesIds;
+  } catch (error) {
+    console.error('Erreur lors de la récupération des poules:', error);
+    throw new Error('Erreur lors de la récupération des poules');
+  }
 };
 
 const getMatchs = async (token: string, poulesIds: number[]) => {
-  const matchs = await Promise.all(
-    poulesIds.map(async (poule) => {
-      const res = await fetch(`${matchsEndpoint}${poule}`, {
+  try {
+    const matchs = await Promise.all(
+      poulesIds.map(async (poule) => {
+        const res = await fetch(`${matchsEndpoint}${poule}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -91,6 +102,10 @@ const getMatchs = async (token: string, poulesIds: number[]) => {
     }),
   );
 
-  const flatMatchs = matchs.flat();
-  return flatMatchs;
+    const flatMatchs = matchs.flat();
+    return flatMatchs;
+  } catch (error) {
+    console.error('Erreur lors de la récupération des matchs:', error);
+    throw new Error('Erreur lors de la récupération des matchs');
+  }
 };
