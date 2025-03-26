@@ -9,4 +9,4 @@ export const getSessionCookie = () => {
   if (!nextAuthCookie) throw new Error('No session token cookie found (neither production nor development)');
 
   return nextAuthCookie;
-}; 
+};

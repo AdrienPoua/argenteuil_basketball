@@ -235,3 +235,31 @@ model Task {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+/**
+ * ****************************************
+ * SECTION : INSCRIPTIONS     *
+ * ****************************************
+ */
+model Inscription {
+  id            String            @id @default(auto()) @map("_id") @db.ObjectId
+  nom           String
+  prenom        String
+  email         String
+  dateNaissance DateTime
+  numero        String
+  surclassement Boolean           @default(false)
+  Renouvellement Boolean          @default(false)
+  nouvelleLicence Boolean         @default(false)
+  mutation Boolean                @default(false)
+  RenouvellementSansMutation Boolean @default(false)
+  statut        StatutInscription @default(EN_ATTENTE)
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+}
+
+enum StatutInscription {
+  EN_ATTENTE
+  TRAITEE
+  REJETEE
+}

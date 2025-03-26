@@ -116,6 +116,11 @@ const topItems = [
     icon: GraduationCap,
   },
   {
+    title: 'Inscriptions',
+    url: '/dashboard/inscriptions',
+    icon: GraduationCap,
+  },
+  {
     title: 'Equipes',
     url: '/dashboard/equipes',
     icon: UsersRound,
