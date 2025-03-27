@@ -1,48 +1,42 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { errorHandler } from '@/lib/utils/handleApiError';
 import { Engagement } from '@/app/api/ffbb/poules/route';
 import { Match } from '@/app/api/ffbb/matchs/[id]/route';
 import saveMatchsToDatabase from '@/actions/process/saveMatchsToDatabase';
 import { API_ENDPOINTS_FFBB } from '@/lib/constants/api-endpoints-ffbb';
-import { headers } from 'next/headers';
 import { processMatchsFromFFBB } from '@/actions/hydrate/matchs';
 
-const { FFBB_SERVER_USERNAME, FFBB_SERVER_PASSWORD } = process.env;
-if (!FFBB_SERVER_USERNAME || !FFBB_SERVER_PASSWORD) {
-  throw new Error('FFBB_SERVER_USERNAME, FFBB_SERVER_PASSWORD are not set');
+const { FFBB_SERVER_USERNAME, FFBB_SERVER_PASSWORD, CRON_SECRET } = process.env;
+if (!FFBB_SERVER_USERNAME || !FFBB_SERVER_PASSWORD || !CRON_SECRET) {
+  throw new Error('FFBB_SERVER_USERNAME, FFBB_SERVER_PASSWORD, CRON_SECRET are not set');
 }
 
 const { TOKEN: tokenEndpoint, POULES: poulesEndpoint, MATCHS: matchsEndpoint } = API_ENDPOINTS_FFBB;
 
 // Cette fonction sera exécutée lorsque la route est appelée
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
-    verifyCronJob();
+    // Verify if the cron job is authorized
+    if (req.headers.get('Authorization') !== `Bearer ${process.env.CRON_SECRET}`) {
+      return NextResponse.json({ message: 'Unauthorized', status: 401 });
+    }
+
+    // Get the token
     const token = await getToken();
+
+    // Get the poules ids
     const poulesIds = await getPoules(token);
+
+    // Get the matchs
     const matchs = await getMatchs(token, poulesIds);
+
+    // Save the matchs to the database
     await saveMatchsToDatabase(matchs);
     return NextResponse.json({ message: 'Clubs et matchs mis à jour avec succès', status: 200 });
   } catch (error) {
     return errorHandler('Erreur lors de la mise à jour automatique des données FFBB: ' + error, 500);
   }
 }
-
-const verifyCronJob = () => {
-  const headersList = headers();
-  const authorization = headersList.get('authorization');
-  const CRON_SECRET = process.env.CRON_SECRET;
-
-  if (!CRON_SECRET) {
-    console.error("Variable d'environnement CRON_SECRET non définie");
-    throw new Error('Configuration de sécurité incomplète');
-  }
-
-  if (!authorization || authorization !== `Bearer ${CRON_SECRET}`) {
-    console.error("Tentative d'accès non autorisée à la route cron");
-    throw new Error('Non autorisé, le cron job est utilisable uniquement sur vercel par le serveur');
-  }
-};
 
 const getToken = async () => {
   try {

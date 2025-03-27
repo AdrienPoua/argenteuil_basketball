@@ -36,7 +36,7 @@ export const getUnloggedCompetitions = async () => {
   try {
     // Récupère le token de FFBB
     const token = await getToken();
-    console.log("🚀 ~ getUnloggedCompetitions ~ token:", token)
+    console.log('🚀 ~ getUnloggedCompetitions ~ token:', token);
 
     // Récupère les compétitions
     const response = await fetch(API_ENDPOINTS_FFBB.COMPETITIONS, {
@@ -48,7 +48,7 @@ export const getUnloggedCompetitions = async () => {
     if (!response.ok) {
       errorHandler(response.statusText, response.status);
     }
-    console.log("🚀 ~ getUnloggedCompetitions ~ response:", response)
+    console.log('🚀 ~ getUnloggedCompetitions ~ response:', response);
     const data = (await response.json()) as { id: number; label: string }[];
     return data;
   } catch (error) {

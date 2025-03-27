@@ -24,7 +24,7 @@ export async function GET(req: Request) {
     });
 
     if (!response.ok) {
-      errorHandler(response.statusText, response.status); 
+      errorHandler(response.statusText, response.status);
     }
 
     const data: Competition[] = await response.json();
