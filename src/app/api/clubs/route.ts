@@ -3,7 +3,7 @@ import clubService from '@/services/Club';
 import { ClubSchema } from '@/lib/validation/Club';
 import { errorHandler } from '@/lib/utils/handleApiError';
 import { validateUser } from '@/lib/api/validateUser';
-import saveClubsToDatabase from '@/actions/process/saveClubsToDatabase';
+import saveClubsToDatabase from '@/actions/fetchs/clubs/saveClubsToDatabase';
 
 export async function GET() {
   // Check if the user is authenticated

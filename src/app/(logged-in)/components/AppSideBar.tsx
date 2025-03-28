@@ -91,11 +91,6 @@ const topItems = [
     icon: LayoutDashboard,
   },
   {
-    title: 'FFBB',
-    url: '/dashboard/ffbb',
-    icon: Trophy,
-  },
-  {
     title: 'Matchs',
     url: '/dashboard/matchs',
     icon: Trophy,

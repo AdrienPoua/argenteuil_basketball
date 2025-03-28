@@ -1,19 +1,9 @@
-import { NextResponse, NextRequest } from 'next/server';
-import { errorHandler } from '@/lib/utils/handleApiError';
-import { validateUser } from '@/lib/api/validateUser';
 import { API_ENDPOINTS_FFBB } from '@/lib/constants/api-endpoints-ffbb';
 
 const { POULES: endpoint } = API_ENDPOINTS_FFBB;
 
-export async function GET(req: NextRequest) {
-  // Check if the user is authenticated
-  await validateUser();
+const getPoulesIds = async (token: string) => {
   try {
-    // Check if the token is present
-    const token = req.headers.get('Authorization')?.split(' ')[1];
-    if (!token) return NextResponse.json({ error: 'Missing Authorization header' }, { status: 401 });
-
-    // Consume the API
     const response = await fetch(endpoint, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -21,17 +11,18 @@ export async function GET(req: NextRequest) {
     });
 
     if (!response.ok) {
-      return NextResponse.json({ error: `Error from FFBB: ${response.statusText}` }, { status: response.status });
+      throw new Error(`Error from FFBB: ${response.statusText}`);
     }
 
     const data: Engagement[] = await response.json();
-    const ids = data.map((data) => data.idPoule);
-
-    return NextResponse.json(ids);
+    return data.map((data) => data.idPoule);
   } catch (error) {
-    return errorHandler(error);
+    console.error('Erreur lors de la récupération des poules:', error);
+    throw new Error('Erreur lors de la récupération des poules');
   }
-}
+};
+
+export default getPoulesIds;
 
 export interface Engagement {
   idEngagement: number;
@@ -58,3 +49,4 @@ export interface Engagement {
     libelle: string;
   } | null;
 }
+

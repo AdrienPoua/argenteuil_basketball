@@ -7,28 +7,19 @@ import prisma from '@/database/prisma';
 const { GITHUB_ID, GITHUB_SECRET, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, ADMIN_GITHUB_EMAIL, ADMIN_GOOGLE_EMAIL } =
   process.env;
 
-if (
-  !GITHUB_ID ||
-  !GITHUB_SECRET ||
-  !GOOGLE_CLIENT_ID ||
-  !GOOGLE_CLIENT_SECRET ||
-  !ADMIN_GITHUB_EMAIL ||
-  !ADMIN_GOOGLE_EMAIL
-) {
-  throw new Error('Missing environment variables for nextAuth');
-}
+
 
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   adapter: PrismaAdapter(prisma),
   providers: [
     GithubProvider({
-      clientId: GITHUB_ID,
-      clientSecret: GITHUB_SECRET,
+      clientId: GITHUB_ID as string,
+      clientSecret: GITHUB_SECRET as string,
     }),
     GoogleProvider({
-      clientId: GOOGLE_CLIENT_ID,
-      clientSecret: GOOGLE_CLIENT_SECRET,
+      clientId: GOOGLE_CLIENT_ID as string,
+      clientSecret: GOOGLE_CLIENT_SECRET as string,
     }),
   ],
   callbacks: {

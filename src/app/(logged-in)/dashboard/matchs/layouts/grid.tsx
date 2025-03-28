@@ -7,9 +7,13 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import CreateMatchForm from '../components/CreateMatchForm';
 import { PlusIcon } from '@radix-ui/react-icons';
-import { CalendarIcon } from 'lucide-react';
+import { CalendarIcon, RefreshCw } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
+import saveMatchsToDatabase from '@/actions/fetchs/database/upsertMatchsFromFFBB';
+import { useState } from 'react';
+import { toast } from '@/hooks/use-toast';
+import { connectedUserAction } from '@/lib/actions/connectedUserAction';
 
 export default function Grid({ matchs }: Readonly<PropsType>) {
   const {
@@ -22,6 +26,40 @@ export default function Grid({ matchs }: Readonly<PropsType>) {
     competitions,
     months,
   } = useCardFilter(matchs);
+  
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const handleRefresh = async () => {
+    try {
+      setIsRefreshing(true);
+      const result = await connectedUserAction(saveMatchsToDatabase);
+      
+      if (result.success) {
+        toast({
+          title: 'Les matchs ont été rafraîchis avec succès',
+          description: 'Vous avez maintenant les matchs les plus récents',
+          variant: 'success',
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      } else {
+        toast({
+          title: 'Erreur',
+          description: 'Une erreur est survenue lors du rafraîchissement des matchs',
+          variant: 'destructive',
+        });
+      }
+    } catch (error) {
+      toast({
+        title: 'Erreur',
+        description: 'Une erreur est survenue lors du rafraîchissement des matchs',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
 
   return (
     <div className='flex flex-col gap-4 p-4'>
@@ -92,17 +130,29 @@ export default function Grid({ matchs }: Readonly<PropsType>) {
           </div>
         </div>
 
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button className='w-full bg-primary font-medium shadow-md transition-all hover:scale-[1.02] hover:bg-primary/90 active:scale-[0.98] sm:w-auto'>
-              <PlusIcon className='mr-2 h-4 w-4' />
-              Ajouter un match
-            </Button>
-          </DialogTrigger>
-          <DialogContent className='sm:max-w-[500px]'>
-            <CreateMatchForm />
-          </DialogContent>
-        </Dialog>
+        <div className='flex gap-2'>
+          <Button
+            onClick={handleRefresh}
+            disabled={isRefreshing}
+            className='w-full bg-secondary font-medium shadow-md transition-all hover:scale-[1.02] hover:bg-secondary/90 active:scale-[0.98] sm:w-auto'
+            aria-label="Rafraîchir les matchs"
+          >
+            <RefreshCw className={`mr-2 h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+            Rafraîchir
+          </Button>
+
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button className='w-full bg-primary font-medium shadow-md transition-all hover:scale-[1.02] hover:bg-primary/90 active:scale-[0.98] sm:w-auto'>
+                <PlusIcon className='mr-2 h-4 w-4' />
+                Ajouter un match
+              </Button>
+            </DialogTrigger>
+            <DialogContent className='sm:max-w-[500px]'>
+              <CreateMatchForm />
+            </DialogContent>
+          </Dialog>
+        </div>
       </div>
 
       {displayedGames.length === 0 ? (
