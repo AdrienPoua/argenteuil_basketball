@@ -40,7 +40,7 @@ export default function Index({ data }: Readonly<PropsType>) {
           </div>
         </CardHeader>
         <CardContent className='p-4'>
-          <h3 className='text-center text-2xl font-semibold'>{data.name}</h3>
+          <h3 className='text-center text-2xl font-semibold text-primary'>{data.name}</h3>
           {data.role.map((role, i) => (
             <p className='text-center text-muted-foreground' key={role + i}>
               {role}

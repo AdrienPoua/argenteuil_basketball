@@ -1,6 +1,7 @@
 import { transporter } from '../transporter';
 import Match from '@/models/Match';
 import { getHtml } from '@/integrations/react-email/templates/Convocation';
+import { REPARTITEUR_TABLE_EMAIL } from '@/lib/constants/repartiteur-table';
 
 type MatchType = ReturnType<Match['toPlainObject']>;
 export class ConvocationService {
@@ -31,7 +32,7 @@ export class ConvocationService {
       array.push(this._coachEmail);
     }
     if (this._match.convocationIsSent) {
-      array.push('rcassandra640@gmail.com');
+      array.push(REPARTITEUR_TABLE_EMAIL);
     }
     return array;
   }

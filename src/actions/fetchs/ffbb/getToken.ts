@@ -1,5 +1,4 @@
 'use server';
-import { validateUser } from '@/lib/api/validateUser';
 import { errorHandler } from '@/lib/utils/handleApiError';
 // Check if the environment variables are set
 const { FFBB_SERVER_USERNAME, FFBB_SERVER_PASSWORD } = process.env;

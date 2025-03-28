@@ -1,9 +1,15 @@
 {
   "crons": [
     {
-      "path": "/api/cron/ffbb",
-      "schedule": "*/10 * * * *",
-      "httpMethod": "GET",
+      "path": "/api/cron/ffbb/matchs",
+      "schedule": "0 0 * * *",
+      "headers": {
+        "authorization": "Bearer @CRON_SECRET"
+      }
+    },
+    {
+      "path": "/api/cron/ffbb/clubs",
+      "schedule": "0 0 */2 * *",
       "headers": {
         "authorization": "Bearer @CRON_SECRET"
       }

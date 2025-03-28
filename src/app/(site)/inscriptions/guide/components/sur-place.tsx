@@ -11,7 +11,6 @@ const steps = [
     label: 'Étape 1',
     value: 'step-1',
     title: 'Les documents',
-    icon: '/icons/document-icon.svg',
     description: 'Découvrez les documents nécessaires et informations essentielles pour votre inscription.',
   },
   {
@@ -19,7 +18,6 @@ const steps = [
     label: 'Étape 2',
     value: 'step-2',
     title: 'Inscription en ligne',
-    icon: '/icons/payment-icon.svg',
     description: "Remplissez le formulaire d'inscription en ligne",
   },
   {
@@ -27,7 +25,6 @@ const steps = [
     label: 'Étape 3',
     value: 'step-3',
     title: 'Validation',
-    icon: '/icons/check-icon.svg',
     description: "Finalisez votre inscription et recevez votre confirmation d'adhésion.",
   },
 ];

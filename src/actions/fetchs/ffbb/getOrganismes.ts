@@ -30,7 +30,11 @@ const getOrganismes = async () => {
       }
     }),
   );
-  const uniqueOrganismes = Array.from(new Map(organismes?.flat().map((org) => [org.id, org])).values());
+  return processOrganismes(organismes);
+};
+
+export const processOrganismes = (data: Organisme[][]) => {
+  const uniqueOrganismes = Array.from(new Map(data?.flat().map((org) => [org.id, org])).values());
   return uniqueOrganismes;
 };
 

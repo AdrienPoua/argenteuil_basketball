@@ -29,20 +29,21 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
     }
 
     const data: CompetitionWithClassements[] = await response.json();
-    const organismes = data
-      .map((competition) => competition.classements.map((classemement) => classemement.organisme))
-      .flat();
-    const organismeWithStringId = organismes.map((organisme) => ({ ...organisme, id: organisme.id.toString() }));
-    const filteredOrganisme = organismeWithStringId.filter(
-      (organisme) => organisme.code && organisme.id && organisme.libelle,
-    );
-    return NextResponse.json(filteredOrganisme);
+    const clubs = processClubs(data);
+    return NextResponse.json(clubs);
   } catch (error) {
     return errorHandler(error);
   }
 }
 
-interface CompetitionWithClassements extends Competition {
+export const processClubs = (data: CompetitionWithClassements[]) => {
+  const clubs = data.map((competition) => competition.classements.map((classemement) => classemement.organisme)).flat();
+  const clubsWithStringId = clubs.map((organisme) => ({ ...organisme, id: organisme.id.toString() }));
+  const filteredClubs = clubsWithStringId.filter((organisme) => organisme.code && organisme.id && organisme.libelle);
+  return filteredClubs;
+};
+
+export interface CompetitionWithClassements extends Competition {
   classements: {
     organisme: {
       id: number;

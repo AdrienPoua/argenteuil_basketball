@@ -9,6 +9,7 @@ import { createMatchSchema, CreateMatchFormValues } from '../schemas/create-matc
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { DialogClose } from '@/components/ui/dialog';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function CreateMatchForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -30,13 +31,13 @@ export default function CreateMatchForm() {
     try {
       const date = new Date(`${data.date}T${data.time}`);
 
-      // Generate a UUID-like unique ID (simplified for demonstration)
-      const id = `${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+      // Generate a UUID v4
+      const id = uuidv4();
 
       // Create a simplified match object with required fields
       const matchData = {
         id,
-        numero: Math.floor(Math.random() * 10000), // Random number for demonstration
+        numero: Number(id.slice(0, 5)), // Random number for demonstration
         numeroJournee: 1,
         idPoule: 1,
         idOrganismeEquipe1: 11851, // Club ID as seen in the Match model

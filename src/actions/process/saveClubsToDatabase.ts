@@ -5,6 +5,7 @@ import clubService from '@/services/Club';
 
 const saveClubsToDatabase = async (organismes: Organisme[]) => {
   const clubs = z.array(ClubSchema).parse(organismes);
+  console.log('🚀 ~ saveClubsToDatabase ~ clubs:', clubs);
   await Promise.all(
     clubs.map(async (club) => {
       return await clubService.upsert(club);

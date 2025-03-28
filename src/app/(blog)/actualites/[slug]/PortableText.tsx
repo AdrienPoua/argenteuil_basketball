@@ -24,9 +24,11 @@ const ImageModal = ({
   if (!isOpen) return null;
 
   return (
-    <div
-      className='fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm'
+    <button
+      className='fixed inset-0 z-50 flex w-full items-center justify-center border-0 bg-black/80 p-4 backdrop-blur-sm'
       onClick={onClose}
+      onKeyDown={(e) => e.key === 'Escape' && onClose()}
+      aria-label="Fermer l'image"
     >
       <div className='relative max-h-[90vh] max-w-[90vw] overflow-hidden'>
         <Button
@@ -49,7 +51,7 @@ const ImageModal = ({
           )}
         </div>
       </div>
-    </div>
+    </button>
   );
 };
 
@@ -62,35 +64,39 @@ const ClickableImage = ({ value }: { value: any }) => {
 
   return (
     <>
-      <figure
-        className='group relative my-10 cursor-zoom-in overflow-hidden rounded-lg transition-all duration-300'
+      <button
+        type='button'
+        className='group relative my-10 w-full cursor-zoom-in overflow-hidden rounded-lg border-0 bg-transparent p-0 text-left transition-all duration-300'
         onClick={() => setModalOpen(true)}
         title="Cliquez pour agrandir l'image"
+        aria-label="Agrandir l'image"
       >
-        <div className='relative w-full overflow-hidden'>
-          {/* Utilisation d'une div avec position relative pour contenir l'image sans forcer de ratio */}
-          <div className='relative w-full'>
-            <Image
-              src={imageUrl}
-              alt={value.alt || ''}
-              className='mx-auto h-auto max-h-[800px] w-full object-contain transition-transform duration-500 ease-in-out group-hover:scale-105'
-              height={800}
-              width={1200}
-            />
+        <figure className='m-0'>
+          <div className='relative w-full overflow-hidden'>
+            {/* Utilisation d'une div avec position relative pour contenir l'image sans forcer de ratio */}
+            <div className='relative w-full'>
+              <Image
+                src={imageUrl}
+                alt={value.alt || ''}
+                className='mx-auto h-auto max-h-[800px] w-full object-contain transition-transform duration-500 ease-in-out group-hover:scale-105'
+                height={800}
+                width={1200}
+              />
 
-            {/* Overlay pour l'effet de zoom */}
-            <div className='absolute inset-0 flex items-center justify-center bg-black/0 transition-colors duration-300'>
-              <div className='rounded-full bg-white/80 p-3 opacity-0 shadow-md transition-opacity duration-300 group-hover:opacity-100'>
-                <ZoomIn className='h-6 w-6 text-gray-800' />
+              {/* Overlay pour l'effet de zoom */}
+              <div className='absolute inset-0 flex items-center justify-center bg-black/0 transition-colors duration-300'>
+                <div className='rounded-full bg-white/80 p-3 opacity-0 shadow-md transition-opacity duration-300 group-hover:opacity-100'>
+                  <ZoomIn className='h-6 w-6 text-gray-800' />
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        {hasCaption && (
-          <figcaption className='bg-gray-50 p-3 text-center text-sm italic text-gray-600'>{value.caption}</figcaption>
-        )}
-      </figure>
+          {hasCaption && (
+            <figcaption className='bg-gray-50 p-3 text-center text-sm italic text-gray-600'>{value.caption}</figcaption>
+          )}
+        </figure>
+      </button>
 
       <ImageModal
         isOpen={modalOpen}

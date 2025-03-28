@@ -23,15 +23,6 @@ export function TabNavigationSidebar({ steps }: Readonly<PropsType>) {
             <span className='text-xs font-medium sm:text-sm'>{step.label}</span>
             <span className='hidden text-xs sm:block'>{step.title}</span>
           </div>
-          {step.icon && (
-            <Image
-              src={step.icon}
-              alt={step.title}
-              width={24}
-              height={24}
-              className='ml-auto hidden opacity-70 md:block'
-            />
-          )}
         </TabsTrigger>
       ))}
     </TabsList>
