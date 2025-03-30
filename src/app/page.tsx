@@ -8,9 +8,7 @@ export default function HomePage() {
   return (
     <HeaderAndFooter>
       <DisapearOnScroll className='flex h-screen items-center justify-center'>
-        <VideoTitle video='/videos/basketball.mp4'>
-          Argenteuil Basketball
-        </VideoTitle>
+        <VideoTitle video='/videos/basketball.mp4'>Argenteuil Basketball</VideoTitle>
       </DisapearOnScroll>
       <div className='relative'>
         <H2>Cette semaine</H2>
