@@ -2,14 +2,18 @@ import Match from '@/models/Match';
 import ViewTab from './components/ViewTab';
 import MainSection from '@/components/layouts/MainSection';
 import MatchService from '@/services/Match';
-import VideoTitle from '@/components/ui/video-title';
+import { Matchs } from '@/components/ui/matchs';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Suspense } from 'react';
+import { SkeletonCard } from '@/components/ui/skeleton';
+import H2 from '@/components/ui/h2';
 
 export const metadata = {
-  title: 'Matchs | Argenteuil Basketball',
-  description: "Découvrez le calendrier des matchs du club de basket d'Argenteuil.",
+  title: 'Matchs du week-end | Argenteuil Basketball',
+  description: "Retrouvez ici tous les matchs à venir du club de basket d'Argenteuil.",
   openGraph: {
-    title: 'Matchs - Argenteuil Basketball',
-    description: "Toutes les infos sur le calendrier des matchs du club de basket d'Argenteuil.",
+    title: 'Matchs à venir - Argenteuil Basketball',
+    description: "Retrouvez ici tous les matchs à venir du club de basket d'Argenteuil.",
   },
 };
 
@@ -19,13 +23,9 @@ export default async function MatchsPage() {
     .then((match) => match.map((m) => m.toPlainObject()))
     .then((match) => match.toSorted((a, b) => a.date.getTime() - b.date.getTime()));
   return (
-    <div className='mx-auto'>
-      <MainSection>
-        <VideoTitle type='h1' video='/videos/matchs.mp4'>
-          Calendrier des matchs
-        </VideoTitle>
-        <ViewTab matchs={matchs} />
-      </MainSection>
-    </div>
+    <MainSection>
+      <H2>Matchs à venir</H2>
+      <ViewTab matchs={matchs} />
+    </MainSection>
   );
 }

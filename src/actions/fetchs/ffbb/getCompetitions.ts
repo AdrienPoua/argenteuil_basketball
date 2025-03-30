@@ -4,7 +4,6 @@ import { errorHandler } from '@/lib/utils/handleApiError';
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 if (!baseUrl) throw new Error('NEXT_PUBLIC_BASE_URL is not set');
 
-
 export default async function getCompetitions(token: string) {
   const response = await fetch(API_ENDPOINTS_FFBB.COMPETITIONS, {
     headers: {
@@ -16,7 +15,7 @@ export default async function getCompetitions(token: string) {
   }
   const data: Competition[] = await response.json();
   return data.map((compet) => ({ id: compet.id, label: compet.nom }));
-};
+}
 export interface Competition {
   id: number;
   idCompetitionPere: number | null;

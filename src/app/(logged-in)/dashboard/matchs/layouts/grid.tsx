@@ -26,14 +26,14 @@ export default function Grid({ matchs }: Readonly<PropsType>) {
     competitions,
     months,
   } = useCardFilter(matchs);
-  
+
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   const handleRefresh = async () => {
     try {
       setIsRefreshing(true);
       const result = await connectedUserAction(saveMatchsToDatabase);
-      
+
       if (result.success) {
         toast({
           title: 'Les matchs ont été rafraîchis avec succès',
@@ -135,7 +135,7 @@ export default function Grid({ matchs }: Readonly<PropsType>) {
             onClick={handleRefresh}
             disabled={isRefreshing}
             className='w-full bg-secondary font-medium shadow-md transition-all hover:scale-[1.02] hover:bg-secondary/90 active:scale-[0.98] sm:w-auto'
-            aria-label="Rafraîchir les matchs"
+            aria-label='Rafraîchir les matchs'
           >
             <RefreshCw className={`mr-2 h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
             Rafraîchir

@@ -1,7 +1,7 @@
 import MainSection from '@/components/layouts/MainSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import FAQService from '@/services/FAQ';
-import VideoTitle from '@/components/ui/video-title';
+import H2 from '@/components/ui/h2';
 
 export const metadata = {
   title: 'FAQ | Argenteuil Basketball',
@@ -16,9 +16,7 @@ export default async function Index() {
   const faq = await FAQService.getFaqs();
   return (
     <MainSection>
-      <VideoTitle type='h1' video='/videos/questions.mp4'>
-        Vos questions
-      </VideoTitle>
+      <H2>Vos questions</H2>
       <div className='mx-auto mb-10 flex max-w-[800px] justify-center'></div>
       <div className='mx-auto flex max-w-[800px] flex-col gap-5'>
         {faq.map((item) => (

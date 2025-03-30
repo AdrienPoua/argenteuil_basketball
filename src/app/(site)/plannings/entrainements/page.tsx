@@ -5,13 +5,14 @@ import { WeeklyPlanning } from './components/WeeklyPlanning';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
 import { TeamSchedules } from './components/TeamShedules';
-import VideoTitle from '@/components/ui/video-title';
+import H2 from '@/components/ui/h2';
+
 export const metadata = {
-  title: 'Plannings | Argenteuil Basketball',
-  description: "Découvrez les plannings des entrainements du club de basket d'Argenteuil.",
+  title: 'Horaires des entrainements | Argenteuil Basketball',
+  description: 'Retrouvez ici tous les horaires des entrainements de basketball à Argenteuil.',
   openGraph: {
-    title: 'Plannings - Argenteuil Basketball',
-    description: "Toutes les infos sur les plannings des entrainements du club de basket d'Argenteuil.",
+    title: 'Horaires des entrainements - Argenteuil Basketball',
+    description: 'Retrouvez ici tous les horaires des entrainements de basketball à Argenteuil.',
   },
 };
 
@@ -21,9 +22,7 @@ export default async function SchedulePage() {
     .then((teams) => teams.map((team) => team.toPlainObject()));
   return (
     <MainSection>
-      <VideoTitle type='h1' video='/videos/entrainements.mp4'>
-        Plannings
-      </VideoTitle>
+      <H2>Tous les entrainements</H2>
       <Tabs defaultValue='team' className='w-full'>
         <TabsList className='grid w-full grid-cols-2'>
           <TabsTrigger value='weekly'>Vue hebdo</TabsTrigger>

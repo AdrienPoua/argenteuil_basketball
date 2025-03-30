@@ -2,7 +2,7 @@ import MainSection from '@/components/layouts/MainSection';
 import MemberService from '@/services/Member';
 import Member from '@/models/Member';
 import { AnimatedTestimonials } from '@/components/ui/animated-testimonials';
-import VideoTitle from '@/components/ui/video-title';
+import H2 from '@/components/ui/h2';
 
 export const metadata = {
   title: 'Dirigeants | Argenteuil Basketball',
@@ -17,9 +17,7 @@ export default async function Index() {
   const leaders = await MemberService.getLeaders().then((leader) => leader.map((l) => new Member(l).toPlainObject()));
   return (
     <MainSection>
-      <VideoTitle type='h1' video='/videos/dirigeants.mp4'>
-        Nos dirigeants
-      </VideoTitle>
+      <H2>Nos dirigeants</H2>
       <AnimatedTestimonials testimonials={leaders} />
     </MainSection>
   );

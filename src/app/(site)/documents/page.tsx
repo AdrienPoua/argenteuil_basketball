@@ -2,14 +2,12 @@ import { Button } from '@/components/ui/button';
 import documents from '@/data/documents.json';
 import { CloudUpload } from 'lucide-react';
 import MainSection from '@/components/layouts/MainSection';
-import VideoTitle from '@/components/ui/video-title';
+import H2 from '@/components/ui/h2';
 
 export default function DocumentsPage() {
   return (
     <MainSection>
-      <VideoTitle type='h1' video='/videos/documents.mp4'>
-        Les documents utiles
-      </VideoTitle>
+      <H2>Documents</H2>
       <div className='m-auto flex w-fit flex-col items-center justify-center gap-5'>
         {documents.map((document) => (
           <Button key={document.title} className='size-full'>

@@ -7,8 +7,6 @@ import prisma from '@/database/prisma';
 const { GITHUB_ID, GITHUB_SECRET, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, ADMIN_GITHUB_EMAIL, ADMIN_GOOGLE_EMAIL } =
   process.env;
 
-
-
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   adapter: PrismaAdapter(prisma),

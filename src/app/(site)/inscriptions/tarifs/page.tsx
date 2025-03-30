@@ -2,14 +2,16 @@ import ABB from '@/data/club.json';
 import allCategories from '@/data/categories.json';
 import MainSection from '@/components/layouts/MainSection';
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '@/components/ui/table';
-import VideoTitle from '@/components/ui/video-title';
+import PriceTable from '@/components/ui/price-table';
+import { PriceDoc } from '@/components/ui/price-doc';
+import H2 from '@/components/ui/h2';
 
 export const metadata = {
-  title: 'Tarifs | Argenteuil Basketball',
-  description: "Découvrez les tarifs pour les adhérents du club de basket d'Argenteuil.",
+  title: "Tarifs d'inscription | Argenteuil Basketball",
+  description: "Découvrez les tarifs d'inscription au club de basket d'Argenteuil.",
   openGraph: {
-    title: 'Tarifs - Argenteuil Basketball',
-    description: "Toutes les infos sur les tarifs pour les adhérents du club de basket d'Argenteuil.",
+    title: "Tarifs d'inscription - Argenteuil Basketball",
+    description: "Découvrez les tarifs d'inscription au club de basket d'Argenteuil.",
   },
 };
 
@@ -41,9 +43,7 @@ const TarifRow = ({ categorie }: TarifRowProps) => {
 export default function TarifsPage() {
   return (
     <MainSection>
-      <VideoTitle type='h1' video='/videos/argent.mp4'>
-        Tarifs saison {ABB.saison}
-      </VideoTitle>
+      <H2>Nos tarifs</H2>
       <div className={`transform transition-opacity duration-500 ease-in-out`}>
         <div className='overflow-x-auto rounded-lg bg-white shadow'>
           <Table className='min-w-full table-auto'>

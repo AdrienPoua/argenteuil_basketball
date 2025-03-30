@@ -16,9 +16,13 @@ const getClubs = async (token: string, competitionsIds: number[]) => {
         if (!response.ok) errorHandler(response.statusText, response.status);
 
         const data = (await response.json()) as CompetitionWithClassements[];
-        const clubs = data.map((competition) => competition.classements.map((classemement) => classemement.organisme)).flat();
+        const clubs = data
+          .map((competition) => competition.classements.map((classemement) => classemement.organisme))
+          .flat();
         const clubsWithStringId = clubs.map((organisme) => ({ ...organisme, id: organisme.id.toString() }));
-        const filteredClubs = clubsWithStringId.filter((organisme) => organisme.code && organisme.id && organisme.libelle);
+        const filteredClubs = clubsWithStringId.filter(
+          (organisme) => organisme.code && organisme.id && organisme.libelle,
+        );
         return filteredClubs;
       } catch (error) {
         console.error(`Error fetching organismes: ${id}`, error);
@@ -33,7 +37,7 @@ const getClubs = async (token: string, competitionsIds: number[]) => {
 
 export default getClubs;
 
- interface Competition {
+interface Competition {
   id: number;
   idCompetitionPere: number | null;
   nom: string;

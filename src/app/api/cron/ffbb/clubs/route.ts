@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
     }
 
     await upsertClubsFromFFBB();
-    
+
     return NextResponse.json({ message: 'Clubs sauvegardés avec succès', status: 200 });
   } catch (error) {
     console.error('Erreur dans la route clubs:', error);

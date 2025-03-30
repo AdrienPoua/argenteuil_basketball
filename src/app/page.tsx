@@ -8,7 +8,7 @@ export default function HomePage() {
   return (
     <HeaderAndFooter>
       <DisapearOnScroll className='flex h-screen items-center justify-center'>
-        <VideoTitle type='h1' video='/videos/basketball.mp4'>
+        <VideoTitle video='/videos/basketball.mp4'>
           Argenteuil Basketball
         </VideoTitle>
       </DisapearOnScroll>
