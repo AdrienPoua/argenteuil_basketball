@@ -3,7 +3,6 @@ export type Step = {
   label: string;
   value: string;
   title: string;
-  icon: string;
   description: string;
 };
 

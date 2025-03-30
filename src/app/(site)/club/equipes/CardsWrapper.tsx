@@ -6,7 +6,7 @@ import Card from './Card';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 
 type PropsType = {
-  teams: ReturnType<Team['toPlainObject']>[]; // Liste des équipes
+  teams: ReturnType<Team['toPlainObject']>[];
 };
 
 export default function CardsWrapper({ teams }: Readonly<PropsType>) {

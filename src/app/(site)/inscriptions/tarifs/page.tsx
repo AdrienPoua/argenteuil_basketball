@@ -2,8 +2,6 @@ import ABB from '@/data/club.json';
 import allCategories from '@/data/categories.json';
 import MainSection from '@/components/layouts/MainSection';
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '@/components/ui/table';
-import PriceTable from '@/components/ui/price-table';
-import { PriceDoc } from '@/components/ui/price-doc';
 import H2 from '@/components/ui/h2';
 
 export const metadata = {

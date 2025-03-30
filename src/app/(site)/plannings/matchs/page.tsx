@@ -2,10 +2,6 @@ import Match from '@/models/Match';
 import ViewTab from './components/ViewTab';
 import MainSection from '@/components/layouts/MainSection';
 import MatchService from '@/services/Match';
-import { Matchs } from '@/components/ui/matchs';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Suspense } from 'react';
-import { SkeletonCard } from '@/components/ui/skeleton';
 import H2 from '@/components/ui/h2';
 
 export const metadata = {

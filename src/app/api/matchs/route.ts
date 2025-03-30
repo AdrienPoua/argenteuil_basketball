@@ -25,7 +25,15 @@ export async function POST(req: Request) {
   await validateUser();
   try {
     const { matchs } = await req.json();
-    await saveMatchsToDatabase(matchs);
+    const parsedMatchs = z.array(MatchSchema).parse(matchs);
+
+    // Create matchs
+    await Promise.all(
+      parsedMatchs.map(async (match) => {
+        return await MatchService.createMatch(match);
+      }),
+    );
+
     return NextResponse.json({ status: 200 });
   } catch (error) {
     console.error('Error in process-matchs route:', error);

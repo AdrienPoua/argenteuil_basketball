@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { ColumnFiltersState, SortingState } from '@tanstack/react-table';
-import { getInscriptions } from '@/actions/fetchs/database/getInscriptions';
 import { toast } from '@/hooks/use-toast';
 import { useQuery } from 'react-query';
+import { validateUser } from '@/lib/api/validateUser';
 
 export const useHooks = () => {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -10,6 +10,17 @@ export const useHooks = () => {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   // État pour le filtre de statut
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
+
+  const getInscriptions = async () => {
+    try {
+      await validateUser();
+      const response = await fetch('/api/inscriptions');
+      return response.json();
+    } catch (error) {
+      console.error('Error fetching inscriptions:', error);
+      throw error;
+    }
+  };
 
   const {
     data: inscriptions = [],
