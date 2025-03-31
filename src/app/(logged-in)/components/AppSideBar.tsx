@@ -24,6 +24,7 @@ import {
   Camera,
   Home,
   Calendar,
+  FileText,
 } from 'lucide-react';
 import Link from 'next/link';
 export function AppSidebar() {
@@ -124,6 +125,11 @@ const topItems = [
     title: 'FAQ',
     url: '/dashboard/faq',
     icon: HelpCircle,
+  },
+  {
+    title: 'Documents',
+    url: '/dashboard/documents',
+    icon: FileText,
   },
 ];
 

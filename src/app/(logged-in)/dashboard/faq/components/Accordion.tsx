@@ -69,19 +69,19 @@ export default function FAQItem({ faq, totalFaqs = 10 }: Readonly<PropsType>) {
 
               <div className='ml-4 flex flex-shrink-0 items-center gap-3'>
                 <Select onValueChange={handlePositionChange} defaultValue={faq.position.toString()}>
-                  <SelectTrigger className='w-[130px]'>
+                  <SelectTrigger className='w-[130px] text-foreground'>
                     <SelectValue placeholder='Position' />
                   </SelectTrigger>
                   <SelectContent>
                     {positionOptions.map((position) => (
-                      <SelectItem key={position} value={position.toString()}>
+                      <SelectItem key={position} className='text-foreground' value={position.toString()}>
                         Position {position}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
 
-                <Button variant='outline' size='icon' onClick={() => setIsEditModalOpen(true)}>
+                <Button size='icon' onClick={() => setIsEditModalOpen(true)}>
                   <Edit className='h-4 w-4' />
                 </Button>
 
