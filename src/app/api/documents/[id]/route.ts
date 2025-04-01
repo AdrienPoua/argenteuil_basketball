@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { validateUser } from '@/lib/api/validateUser';
 import DocumentService from '@/services/Document';
-
+import { errorHandler } from '@/lib/utils/handleApiError';
 interface Params {
   params: {
     id: string;
@@ -60,10 +60,7 @@ export async function PUT(req: NextRequest, { params }: Params) {
 
     return NextResponse.json(document, { status: 200 });
   } catch (error) {
-    return NextResponse.json(
-      { error: `Une erreur est survenue: ${error instanceof Error ? error.message : 'Unknown error'}` },
-      { status: error instanceof Error && error.cause?.status ? error.cause.status : 500 },
-    );
+    return errorHandler(error);
   }
 }
 
@@ -78,9 +75,6 @@ export async function DELETE(req: NextRequest, { params }: Params) {
 
     return NextResponse.json({ message: 'Document supprimé avec succès' }, { status: 200 });
   } catch (error) {
-    return NextResponse.json(
-      { error: `Une erreur est survenue: ${error instanceof Error ? error.message : 'Unknown error'}` },
-      { status: error instanceof Error && error.cause?.status ? error.cause.status : 500 },
-    );
+    return errorHandler(error);
   }
 }

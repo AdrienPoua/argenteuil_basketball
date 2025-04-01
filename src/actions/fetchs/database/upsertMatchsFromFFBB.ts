@@ -15,9 +15,6 @@ import { argenteuilIdOrganisme } from '@/lib/constants/argenteuil-id-organisme';
  */
 export default async function saveMatchsToDatabase() {
   try {
-    // Verify if the user is authenticated
-    await validateUser();
-
     // Get the token
     const token = await getToken();
 
@@ -52,6 +49,7 @@ export default async function saveMatchsToDatabase() {
     });
 
     const parsedMatchs = z.array(MatchSchema).parse(hydratedMatchs);
+    console.log('🚀 ~ saveMatchsToDatabase ~ parsedMatchs:', parsedMatchs);
 
     await Promise.all(
       parsedMatchs.map(async (match) => {
@@ -62,9 +60,6 @@ export default async function saveMatchsToDatabase() {
     return { success: true, message: 'Matchs mis à jour avec succès' };
   } catch (error) {
     console.error('Erreur lors de la mise à jour des données FFBB:', error);
-    return {
-      success: false,
-      message: 'Erreur lors de la mise à jour des données FFBB',
-    };
+    throw new Error('Erreur lors de la mise à jour des données FFBB');
   }
 }

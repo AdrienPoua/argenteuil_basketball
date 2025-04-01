@@ -40,21 +40,18 @@ class MatchService {
     return whereConditions;
   }
 
+
+
   // Récupération de toutes les matchs
-  async getMatchs({
-    month,
-    place,
-    competition,
-    showUpcomingOnly,
-  }: {
-    month?: string;
+  async getMatchs(filters?: {
     place?: string;
     competition?: string;
     showUpcomingOnly?: boolean;
+    month?: string;
   }) {
     try {
       // Obtenir les conditions de filtrage de base
-      const whereConditions = this.findConditions({ place, competition, showUpcomingOnly });
+      const whereConditions = filters ? this.findConditions(filters) : {};
 
       // Effectuer la requête principale
       let matchs = await prisma.match.findMany({
@@ -72,10 +69,10 @@ class MatchService {
       });
 
       // Filtrer par mois après la requête si nécessaire
-      if (month && month !== 'all') {
+      if (filters?.month && filters.month !== 'all') {
         matchs = matchs.filter((match) => {
           const matchMonthIndex = new Date(match.date).getMonth();
-          return matchMonthIndex === parseInt(month);
+          return matchMonthIndex === parseInt(filters.month!);
         });
       }
 

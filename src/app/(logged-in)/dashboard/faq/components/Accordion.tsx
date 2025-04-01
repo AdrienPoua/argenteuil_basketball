@@ -74,7 +74,7 @@ export default function FAQItem({ faq, totalFaqs = 10 }: Readonly<PropsType>) {
                   </SelectTrigger>
                   <SelectContent>
                     {positionOptions.map((position) => (
-                      <SelectItem key={position} className='text-foreground' value={position.toString()}>
+                      <SelectItem key={position} className='text-background' value={position.toString()}>
                         Position {position}
                       </SelectItem>
                     ))}

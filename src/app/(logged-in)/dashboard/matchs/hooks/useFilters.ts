@@ -8,7 +8,6 @@ import { getChampionnats } from '@/actions/fetchs/database/getChampionnats';
 export const useFilters = () => {
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams.toString());
-  
 
   // Récupérer tous les paramètres
   const competition = params.get('competition') ?? undefined;

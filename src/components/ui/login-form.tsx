@@ -2,27 +2,59 @@ import { cn } from '@/lib/utils/cn';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Separator } from '@/components/ui/separator';
+import { AlertCircle } from 'lucide-react';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 export function LoginForm({ className, ...props }: { className?: string } & React.HTMLAttributes<HTMLDivElement>) {
-  const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSignIn = async (provider: 'github' | 'google') => {
+  const handleEmailPasswordSignIn = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError('');
+
     try {
-      const result = await signIn(provider, {
-        redirect: false,
+      // Use Next Auth's signIn with credentials
+      const result = await signIn('credentials', {
+        redirect: false, // Ne pas rediriger en cas d'erreur
+        email,
+        password,
+        callbackUrl: '/dashboard',
       });
 
       if (result?.error) {
-        // Si la connexion échoue, redirige vers l'accueil
-        router.push('/');
+        console.log('🚀 ~ handleEmailPasswordSignIn ~ result:', result);
+        setError('Email ou mot de passe incorrect');
       } else if (result?.ok) {
-        // Si la connexion réussit, redirige vers le dashboard
-        router.push('/dashboard');
+        // Redirection manuelle uniquement en cas de succès
+        window.location.href = result.url || '/dashboard';
       }
     } catch (error) {
       console.error('Erreur de connexion:', error);
-      router.push('/');
+      setError('Une erreur est survenue');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSignIn = async (provider: 'github' | 'google') => {
+    try {
+      setIsLoading(true);
+      // Redirection explicite pour les fournisseurs sociaux
+      await signIn(provider, {
+        callbackUrl: '/dashboard',
+      });
+    } catch (error) {
+      console.error('Erreur de connexion:', error);
+      setError('Une erreur est survenue');
+      setIsLoading(false);
     }
   };
 
@@ -34,6 +66,48 @@ export function LoginForm({ className, ...props }: { className?: string } & Reac
         </CardHeader>
         <CardContent>
           <div className='grid gap-6'>
+            {error && (
+              <Alert variant='destructive' className='mb-4'>
+                <AlertCircle className='h-4 w-4' />
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
+
+            <form onSubmit={handleEmailPasswordSignIn} className='space-y-4'>
+              <div className='space-y-2'>
+                <Label htmlFor='email'>Email</Label>
+                <Input
+                  id='email'
+                  type='email'
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder='exemple@email.com'
+                  required
+                />
+              </div>
+              <div className='space-y-2'>
+                <Label htmlFor='password'>Mot de passe</Label>
+                <Input
+                  id='password'
+                  type='password'
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder='••••••••'
+                  required
+                />
+              </div>
+              <Button type='submit' className='w-full' disabled={isLoading}>
+                {isLoading ? 'Connexion en cours...' : 'Se connecter'}
+              </Button>
+            </form>
+
+            <div className='relative my-4'>
+              <Separator />
+              <div className='absolute inset-0 flex items-center justify-center'>
+                <span className='bg-foreground px-2 text-background'>ou</span>
+              </div>
+            </div>
+
             <div className='flex flex-col gap-4'>
               <Button type='button' variant='connexion' className='w-full' onClick={() => handleSignIn('github')}>
                 <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' className='mr-2 h-4 w-4'>

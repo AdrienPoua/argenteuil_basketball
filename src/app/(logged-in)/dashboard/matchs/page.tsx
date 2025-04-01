@@ -44,7 +44,7 @@ export default function Page() {
       showUpcomingOnly: searchParams.get('showUpcomingOnly') === 'true',
     },
   });
-  
+
   const handleSearch = useCallback(() => {
     const data = form.getValues();
     const newParams = new URLSearchParams({ ...data, showUpcomingOnly: data.showUpcomingOnly.toString() });
@@ -62,10 +62,8 @@ export default function Page() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handleSearch]);
 
-
   if (!competitions)
     return (
-
       <div className='flex h-full items-center justify-center'>
         <Loader2 className='h-10 w-10 animate-spin text-primary' />
       </div>
@@ -169,7 +167,7 @@ export default function Page() {
                   name='showUpcomingOnly'
                   render={({ field }) => (
                     <FormItem>
-                      <div className='flex size-full items-center justify-center rounded-md border border-primary/30 bg-primary/30 px-3 gap-3'>
+                      <div className='flex size-full items-center justify-center gap-3 rounded-md border border-primary/30 bg-primary/30 px-3'>
                         <Checkbox
                           id='upcomingMatches'
                           checked={field.value}

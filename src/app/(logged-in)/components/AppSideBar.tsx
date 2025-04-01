@@ -67,14 +67,16 @@ export function AppSidebar() {
                 </SidebarMenuItem>
               ))}
               <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <SidebarMenuButton
-                    className='bg-primary text-primary-foreground hover:bg-primary/90 hover:text-foreground'
-                    onClick={() => signOut()}
-                  >
-                    <LogOut />
-                    <span>Déconnexion</span>
-                  </SidebarMenuButton>
+                <SidebarMenuButton
+                  className='bg-primary text-primary-foreground hover:bg-primary/90 hover:text-foreground'
+                  onClick={() => {
+                    signOut({ redirect: false }).then(() => {
+                      window.location.href = '/';
+                    });
+                  }}
+                >
+                  <LogOut />
+                  <span>Déconnexion</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
@@ -85,7 +87,6 @@ export function AppSidebar() {
     </Sidebar>
   );
 }
-
 
 const topItems = [
   {
