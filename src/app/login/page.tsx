@@ -11,15 +11,16 @@ export default function SignIn() {
   const router = useRouter();
 
   if (status === 'loading') {
-    return <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
-      <Loader className="h-10 w-10 animate-spin" />
-    </div>
+    return (
+      <div className='flex min-h-svh w-full items-center justify-center p-6 md:p-10'>
+        <Loader className='h-10 w-10 animate-spin' />
+      </div>
+    );
   }
 
   if (session) {
     return redirect('/dashboard');
   }
-
 
   return (
     <div className='flex min-h-svh w-full items-center justify-center p-6 md:p-10'>

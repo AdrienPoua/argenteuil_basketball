@@ -40,15 +40,8 @@ class MatchService {
     return whereConditions;
   }
 
-
-
   // Récupération de toutes les matchs
-  async getMatchs(filters?: {
-    place?: string;
-    competition?: string;
-    showUpcomingOnly?: boolean;
-    month?: string;
-  }) {
+  async getMatchs(filters?: { place?: string; competition?: string; showUpcomingOnly?: boolean; month?: string }) {
     try {
       // Obtenir les conditions de filtrage de base
       const whereConditions = filters ? this.findConditions(filters) : {};

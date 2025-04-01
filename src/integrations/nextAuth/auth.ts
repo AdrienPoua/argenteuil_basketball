@@ -75,7 +75,7 @@ export const authOptions: NextAuthOptions = {
     },
 
     async redirect({ url, baseUrl }) {
-      return  `${baseUrl}/dashboard`;
+      return `${baseUrl}/dashboard`;
     },
     async session({ session, token }) {
       // Ajoute les informations du token au session object

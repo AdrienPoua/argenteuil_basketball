@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import CreateMatchForm from './components/CreateMatchForm';
 import { PlusIcon } from '@radix-ui/react-icons';
-import { CalendarIcon, RefreshCw, Loader2, Search } from 'lucide-react';
+import { CalendarIcon, RefreshCw, Loader2, Search, RotateCcw } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import saveMatchsToDatabase from '@/actions/fetchs/database/upsertMatchsFromFFBB';
@@ -49,6 +49,19 @@ export default function Page() {
     const data = form.getValues();
     const newParams = new URLSearchParams({ ...data, showUpcomingOnly: data.showUpcomingOnly.toString() });
     router.push(`${pathname}?${newParams.toString()}`, { scroll: false });
+  }, [form, router, pathname]);
+
+  // Fonction pour réinitialiser tous les filtres
+  const handleReset = useCallback(() => {
+    form.reset({
+      competition: 'all',
+      place: 'all',
+      month: 'all',
+      showUpcomingOnly: false,
+    });
+
+    // Mettre à jour l'URL sans les paramètres de filtrage
+    router.push(pathname, { scroll: false });
   }, [form, router, pathname]);
 
   useEffect(() => {
@@ -186,11 +199,20 @@ export default function Page() {
                 />
                 <Button
                   type='button'
-                  className='h-10 bg-primary font-medium shadow-md transition-all hover:scale-[1.02] hover:bg-primary/90 active:scale-[0.98]'
+                  className='h-10 bg-primary font-medium shadow-md transition-all hover:bg-primary/90'
                   onClick={handleSearch}
                 >
                   <Search className='mr-2 h-4 w-4' />
                   Rechercher
+                </Button>
+
+                <Button
+                  type='button'
+                  className='h-10 font-medium text-foreground shadow-md transition-all'
+                  onClick={handleReset}
+                  title='Réinitialiser les filtres'
+                >
+                  <RotateCcw className='h-4 w-4' />
                 </Button>
               </div>
             </Form>
