@@ -27,6 +27,7 @@ import {
   FileText,
 } from 'lucide-react';
 import Link from 'next/link';
+
 export function AppSidebar() {
   return (
     <Sidebar variant='inset' collapsible='icon'>
@@ -85,6 +86,7 @@ export function AppSidebar() {
   );
 }
 
+
 const topItems = [
   {
     title: 'Dashboard',
@@ -93,7 +95,7 @@ const topItems = [
   },
   {
     title: 'Matchs',
-    url: '/dashboard/matchs',
+    url: `/dashboard/matchs?month=${new Date().getMonth()}`,
     icon: Trophy,
   },
   {

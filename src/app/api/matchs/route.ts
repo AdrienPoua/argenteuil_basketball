@@ -4,7 +4,6 @@ import { errorHandler } from '@/lib/utils/handleApiError';
 import { MatchSchema } from '@/lib/validation/Match';
 import { z } from 'zod';
 import { validateUser } from '@/lib/api/validateUser';
-import saveMatchsToDatabase from '@/actions/fetchs/database/upsertMatchsFromFFBB';
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 if (!baseUrl) throw new Error('NEXT_PUBLIC_BASE_URL is not set');

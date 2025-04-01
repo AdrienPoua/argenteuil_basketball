@@ -23,4 +23,4 @@ export default class Document {
     const { fileContent, ...rest } = this;
     return rest;
   }
-} 
+}

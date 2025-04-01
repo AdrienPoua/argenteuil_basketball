@@ -26,7 +26,6 @@ function formatFileSize(bytes: number): string {
   return (bytes / (1024 * 1024 * 1024)).toFixed(2) + ' GB';
 }
 
-
 type EditDocumentModalProps = {
   document: Document | null;
   isOpen: boolean;
@@ -39,7 +38,7 @@ function EditDocumentModal({ document, isOpen, onClose, onUpdate, isUpdating }: 
   const [editedTitle, setEditedTitle] = useState('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  
+
   // Initialiser les valeurs quand la modale s'ouvre
   useEffect(() => {
     if (document) {
@@ -50,75 +49,70 @@ function EditDocumentModal({ document, isOpen, onClose, onUpdate, isUpdating }: 
       }
     }
   }, [document, isOpen]);
-  
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       setSelectedFile(e.target.files[0]);
     }
   };
-  
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!document) return;
-    
+
     if (!editedTitle) {
       return;
     }
-    
+
     const formData = new FormData();
     formData.append('title', editedTitle);
-    
+
     if (selectedFile) {
       formData.append('file', selectedFile);
     }
-    
+
     onUpdate(document.id, formData);
   };
-  
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[500px]">
+      <DialogContent className='sm:max-w-[500px]'>
         <DialogHeader>
           <DialogTitle>Modifier le document</DialogTitle>
         </DialogHeader>
-        
-        <form onSubmit={handleSubmit} className="space-y-4 py-4">
-          <div className="space-y-2">
-            <Label htmlFor="edit-title">Titre</Label>
+
+        <form onSubmit={handleSubmit} className='space-y-4 py-4'>
+          <div className='space-y-2'>
+            <Label htmlFor='edit-title'>Titre</Label>
             <Input
-              id="edit-title"
+              id='edit-title'
               value={editedTitle}
               onChange={(e) => setEditedTitle(e.target.value)}
-              placeholder="Titre du document"
+              placeholder='Titre du document'
             />
           </div>
-          
-          <div className="space-y-2">
-            <Label htmlFor="edit-file">Fichier (optionnel)</Label>
-            <Input
-              id="edit-file"
-              type="file"
-              ref={fileInputRef}
-              onChange={handleFileChange}
-            />
+
+          <div className='space-y-2'>
+            <Label htmlFor='edit-file'>Fichier (optionnel)</Label>
+            <Input id='edit-file' type='file' ref={fileInputRef} onChange={handleFileChange} />
             {document && (
-              <p className="text-sm text-muted-foreground">
+              <p className='text-sm text-muted-foreground'>
                 Fichier actuel: {document.fileName} ({formatFileSize(document.fileSize)})
               </p>
             )}
             {selectedFile && (
-              <p className="text-sm text-muted-foreground">
+              <p className='text-sm text-muted-foreground'>
                 Nouveau fichier: {selectedFile.name} ({formatFileSize(selectedFile.size)})
               </p>
             )}
           </div>
-          
+
           <DialogFooter>
-            <Button type="button" variant="outline" onClick={onClose}>
+            <Button type='button' variant='outline' onClick={onClose}>
               Annuler
             </Button>
-            <Button type="submit" disabled={isUpdating}>
+            <Button type='submit' disabled={isUpdating}>
               {isUpdating ? 'Mise à jour...' : 'Mettre à jour'}
             </Button>
           </DialogFooter>
@@ -140,7 +134,7 @@ function AddDocumentModal({ isOpen, onClose, onAdd, isAdding }: Readonly<AddDocu
   const [title, setTitle] = useState('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  
+
   // Réinitialiser le formulaire quand la modale s'ouvre/ferme
   useEffect(() => {
     if (isOpen) {
@@ -151,65 +145,60 @@ function AddDocumentModal({ isOpen, onClose, onAdd, isAdding }: Readonly<AddDocu
       }
     }
   }, [isOpen]);
-  
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       setSelectedFile(e.target.files[0]);
     }
   };
-  
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!title || !selectedFile) {
       return;
     }
-    
+
     const formData = new FormData();
     formData.append('title', title);
     formData.append('file', selectedFile);
-    
+
     onAdd(formData);
   };
-  
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[500px]">
+      <DialogContent className='sm:max-w-[500px]'>
         <DialogHeader>
           <DialogTitle>Ajouter un document</DialogTitle>
         </DialogHeader>
-        
-        <form onSubmit={handleSubmit} className="space-y-4 py-4">
-          <div className="space-y-2">
-            <Label htmlFor="add-title">Titre</Label>
+
+        <form onSubmit={handleSubmit} className='space-y-4 py-4'>
+          <div className='space-y-2'>
+            <Label htmlFor='add-title'>Titre</Label>
             <Input
-              id="add-title"
+              id='add-title'
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="Titre du document"
+              placeholder='Titre du document'
             />
           </div>
-          
-          <div className="space-y-2">
-            <Label htmlFor="add-file">Fichier</Label>
-            <Input
-              id="add-file"
-              type="file"
-              ref={fileInputRef}
-              onChange={handleFileChange}
-            />
+
+          <div className='space-y-2'>
+            <Label htmlFor='add-file'>Fichier</Label>
+            <Input id='add-file' type='file' ref={fileInputRef} onChange={handleFileChange} />
             {selectedFile && (
-              <p className="mt-1 text-sm text-muted-foreground">
+              <p className='mt-1 text-sm text-muted-foreground'>
                 {selectedFile.name} ({formatFileSize(selectedFile.size)})
               </p>
             )}
           </div>
-          
+
           <DialogFooter>
-            <Button type="button" variant="outline" onClick={onClose}>
+            <Button type='button' variant='outline' onClick={onClose}>
               Annuler
             </Button>
-            <Button type="submit" disabled={isAdding}>
+            <Button type='submit' disabled={isAdding}>
               {isAdding ? 'Ajout en cours...' : 'Ajouter'}
             </Button>
           </DialogFooter>
@@ -256,7 +245,7 @@ export default function DocumentsAdminPage() {
   async function handleAddDocument(formData: FormData) {
     try {
       setIsAdding(true);
-      
+
       const response = await fetch('/api/documents', {
         method: 'POST',
         body: formData,
@@ -271,7 +260,7 @@ export default function DocumentsAdminPage() {
         description: 'Document ajouté avec succès',
         variant: 'default',
       });
-      
+
       setIsAddModalOpen(false);
       fetchDocuments();
     } catch (error) {
@@ -303,7 +292,7 @@ export default function DocumentsAdminPage() {
         description: 'Document mis à jour avec succès',
         variant: 'default',
       });
-      
+
       setIsEditModalOpen(false);
       fetchDocuments();
     } catch (error) {
@@ -336,7 +325,7 @@ export default function DocumentsAdminPage() {
         description: 'Document supprimé avec succès',
         variant: 'default',
       });
-      
+
       fetchDocuments();
     } catch (error) {
       toast({
@@ -347,7 +336,6 @@ export default function DocumentsAdminPage() {
     }
   }
 
-  
   // Fonction pour ouvrir la modale d'édition
   const openEditModal = (document: Document) => {
     setSelectedDocument(document);
@@ -403,12 +391,12 @@ export default function DocumentsAdminPage() {
                       <TableCell>{formatFileSize(doc.fileSize)}</TableCell>
                       <TableCell className='text-right'>
                         <div className='flex justify-end gap-2'>
-                          <Button size='sm'  asChild>
+                          <Button size='sm' asChild>
                             <a href={`/api/documents/download/${doc.id}`} download>
                               <Download className='h-4 w-4' />
                             </a>
                           </Button>
-                          <Button size='sm'  onClick={() => openEditModal(doc)}>
+                          <Button size='sm' onClick={() => openEditModal(doc)}>
                             <Edit className='h-4 w-4' />
                           </Button>
                           <Button size='sm' variant='destructive' onClick={() => handleDeleteDocument(doc.id)}>
@@ -424,16 +412,16 @@ export default function DocumentsAdminPage() {
           )}
         </CardContent>
       </Card>
-      
+
       {/* Modales */}
-      <AddDocumentModal 
+      <AddDocumentModal
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}
         onAdd={handleAddDocument}
         isAdding={isAdding}
       />
-      
-      <EditDocumentModal 
+
+      <EditDocumentModal
         document={selectedDocument}
         isOpen={isEditModalOpen}
         onClose={() => setIsEditModalOpen(false)}
@@ -443,4 +431,3 @@ export default function DocumentsAdminPage() {
     </div>
   );
 }
-

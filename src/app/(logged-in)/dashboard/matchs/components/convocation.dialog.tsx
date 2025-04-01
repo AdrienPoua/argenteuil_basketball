@@ -27,16 +27,9 @@ export function ConvocationDialog({ isOpen, onOpenChange, onConfirm, match }: Re
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>
-        <Button
-          variant='outline'
-          className={
-            match?.convocationIsSent
-              ? 'w-full border-green-300 bg-green-50 text-green-700 hover:bg-green-100 hover:text-green-800'
-              : 'w-full bg-primary/90 hover:bg-primary'
-          }
-        >
+        <Button className='w-full bg-primary/90 text-foreground hover:bg-primary'>
           <Mail className='mr-2 h-4 w-4' />
-          <span>{match?.convocationIsSent ? 'Renvoyer la convocation' : 'Envoyer la convocation'}</span>
+          <span className='text-sm'>Envoyer la convocation</span>
         </Button>
       </DialogTrigger>
       <DialogContent className='max-h-[80vh] overflow-y-auto sm:max-w-[600px]'>

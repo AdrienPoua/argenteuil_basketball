@@ -2,10 +2,63 @@ import prisma from '@/database/prisma';
 import { Prisma } from '@prisma/client';
 import { argenteuilIdOrganisme } from '@/lib/constants/argenteuil-id-organisme';
 class MatchService {
+  // Fonction privée pour construire les conditions de filtrage
+  private findConditions({
+    place,
+    competition,
+    showUpcomingOnly,
+  }: {
+    place?: string;
+    competition?: string;
+    showUpcomingOnly?: boolean;
+    month?: string;
+  }) {
+    const whereConditions: Prisma.MatchWhereInput = {};
+
+    // Filtre par lieu (domicile/déplacement)
+    if (place === 'home') {
+      whereConditions.idOrganismeEquipe1 = argenteuilIdOrganisme;
+    } else if (place === 'away') {
+      whereConditions.idOrganismeEquipe2 = argenteuilIdOrganisme;
+    }
+
+    // Filtre par compétition
+    if (competition && competition !== 'all') {
+      whereConditions.competition = {
+        contains: competition,
+        mode: 'insensitive',
+      };
+    }
+
+    // Filtre pour les matchs à venir seulement
+    if (showUpcomingOnly) {
+      whereConditions.date = {
+        gt: new Date(),
+      };
+    }
+
+    return whereConditions;
+  }
+
   // Récupération de toutes les matchs
-  async getMatchs() {
+  async getMatchs({
+    month,
+    place,
+    competition,
+    showUpcomingOnly,
+  }: {
+    month?: string;
+    place?: string;
+    competition?: string;
+    showUpcomingOnly?: boolean;
+  }) {
     try {
-      const matchs = await prisma.match.findMany({
+      // Obtenir les conditions de filtrage de base
+      const whereConditions = this.findConditions({ place, competition, showUpcomingOnly });
+
+      // Effectuer la requête principale
+      let matchs = await prisma.match.findMany({
+        where: whereConditions,
         include: {
           team: {
             include: {
@@ -13,10 +66,22 @@ class MatchService {
             },
           },
         },
+        orderBy: {
+          date: 'asc',
+        },
       });
+
+      // Filtrer par mois après la requête si nécessaire
+      if (month && month !== 'all') {
+        matchs = matchs.filter((match) => {
+          const matchMonthIndex = new Date(match.date).getMonth();
+          return matchMonthIndex === parseInt(month);
+        });
+      }
+
       return matchs;
     } catch (error) {
-      console.error('Erreur lors de la récupération des équipes :', error);
+      console.error('Erreur lors de la récupération des matchs :', error);
       throw error;
     }
   }
@@ -129,6 +194,15 @@ class MatchService {
     return teams.find((team) =>
       team.championnats.some((championnat) => competition.toLowerCase().includes(championnat.toLowerCase())),
     );
+  }
+
+  async getChampionnats() {
+    const matches = await prisma.match.findMany({
+      select: {
+        competition: true,
+      },
+    });
+    return [...new Set(matches.map((match) => match.competition ?? 'Inconnu'))];
   }
 
   async getUpcomingHomeMatchs() {

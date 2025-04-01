@@ -60,7 +60,7 @@ export default function Index({ data }: Readonly<PropsType>) {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button  size='icon' onClick={handleEmailClick} disabled={!data.email}>
+                <Button size='icon' onClick={handleEmailClick} disabled={!data.email}>
                   {data.email ? <Mail className='h-5 w-5' /> : <Ban className='h-5 w-5' />}
                 </Button>
               </TooltipTrigger>
@@ -71,11 +71,7 @@ export default function Index({ data }: Readonly<PropsType>) {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button
-                  size={isNumberVisible ? undefined : 'icon'}
-                  onClick={handlePhoneClick}
-                  disabled={!data.phone}
-                >
+                <Button size={isNumberVisible ? undefined : 'icon'} onClick={handlePhoneClick} disabled={!data.phone}>
                   {data.phone &&
                     (isNumberVisible ? (
                       <span className='p-3 text-sm font-medium'>{data.phone}</span>
