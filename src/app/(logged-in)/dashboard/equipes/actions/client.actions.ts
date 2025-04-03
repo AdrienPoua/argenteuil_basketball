@@ -1,10 +1,8 @@
 'use client';
 import { z } from 'zod';
 import { useQuery } from 'react-query';
-import  getCompetitions  from '@/actions/fetchs/ffbb/getCompetitions';
+import getCompetitions from '@/actions/fetchs/ffbb/getCompetitions';
 import getToken from '@/actions/fetchs/ffbb/getFFBBToken';
-
-
 
 export const getImageUrl = async (file: File) => {
   if (!file) return;

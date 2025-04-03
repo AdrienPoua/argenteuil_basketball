@@ -159,7 +159,7 @@ const Dialogs = ({ match }: Readonly<PropsType>) => {
     setIsAskConvocationDialogOpen,
   } = useMatchCard();
 
-  const { handleSendConvocation, handleDeleteMatch } = useMatchHandlers({
+  const { handleSendConvocation, handleDeleteMatch, handleAskConvocation } = useMatchHandlers({
     match,
     setIsDialogOpen,
     toast,
@@ -181,7 +181,7 @@ const Dialogs = ({ match }: Readonly<PropsType>) => {
         <AskConvocationDialog
           isOpen={isAskConvocationDialogOpen}
           onOpenChange={setIsAskConvocationDialogOpen}
-          onConfirm={handleSendConvocation}
+          onConfirm={handleAskConvocation}
           match={match}
         />
       )}

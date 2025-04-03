@@ -23,12 +23,21 @@ export default async function saveMatchsToDatabase() {
 
     // Get the matchs
     const matchs = await getMatchs(token, poulesIds);
-    console.log("🚀 ~ saveMatchsToDatabase ~ matchs:", matchs.filter((match) => match.resultatEquipe2 === 77))
+    console.log(
+      '🚀 ~ saveMatchsToDatabase ~ matchs:',
+      matchs.filter((match) => match.resultatEquipe2 === 77),
+    );
 
     // get the competitions
     const competitions = await getCompetitions(token);
-    console.log("🚀 ~ saveMatchsToDatabase ~ competitions:", competitions.filter((comp) => comp.label === 'PRM'))
-    console.log("🚀 ~ saveMatchsToDatabase ~ matchs:", matchs.filter((match) => match.idPoule === 1))
+    console.log(
+      '🚀 ~ saveMatchsToDatabase ~ competitions:',
+      competitions.filter((comp) => comp.label === 'PRM'),
+    );
+    console.log(
+      '🚀 ~ saveMatchsToDatabase ~ matchs:',
+      matchs.filter((match) => match.idPoule === 1),
+    );
 
     // get the clubs from my own database
     const clubs = await ClubService.getClubs();
@@ -36,7 +45,7 @@ export default async function saveMatchsToDatabase() {
     // Save the matchs to the database
     const hydratedMatchs = matchs.map((match) => {
       const competition = competitions.find((comp) => comp.poules.some((poule) => poule.id === match.idPoule));
-      console.log("🚀 ~ hydratedMatchs ~ competition:", competition)
+      console.log('🚀 ~ hydratedMatchs ~ competition:', competition);
       const opponentId =
         match.idOrganismeEquipe1 === argenteuilIdOrganisme
           ? match.idOrganismeEquipe2.toString()

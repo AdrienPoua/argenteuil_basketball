@@ -24,7 +24,7 @@ type ConvocationDialogProps = {
 };
 
 export function ConvocationDialog({ isOpen, onOpenChange, onConfirm, match }: Readonly<ConvocationDialogProps>) {
-  console.log("🚀 ~ ConvocationDialog ~ match:", match)
+  console.log('🚀 ~ ConvocationDialog ~ match:', match);
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>
