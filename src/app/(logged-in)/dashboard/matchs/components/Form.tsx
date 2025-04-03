@@ -17,10 +17,9 @@ export type MatchFormProps = PropsType & {
 
 export default function MatchForm({ match, setIsEditing, onSuccess }: Readonly<MatchFormProps>) {
   const form = useMatchForm(match);
-  const router = useRouter();
   // Récupérer le client React Query pour pouvoir invalider le cache
   const queryClient = useQueryClient();
-  
+
   const onSubmit = async (data: FormValues) => {
     const date = new Date(`${data.date}T${data.time}`);
     try {
@@ -35,11 +34,11 @@ export default function MatchForm({ match, setIsEditing, onSuccess }: Readonly<M
       if (!response.ok) {
         throw new Error('Failed to update match');
       }
-      
+
       // Invalider toutes les requêtes qui commencent par 'matchs'
       // Cela correspond au format ['matchs', month, competition, place, showUpcomingOnly] dans useFilters.ts
       queryClient.invalidateQueries(['matchs']);
-      
+
       // Fermer le formulaire
       setIsEditing(false);
 

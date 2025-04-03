@@ -50,7 +50,7 @@ export default function MobileNav() {
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetContent side='left' className='w-[300px] p-0 sm:w-[400px]'>
           <ScrollArea className='h-full'>
-            <div className='p-6'>
+            <div className='p-6 '>
               <Logo />
               <Accordion type='single' collapsible className='w-full'>
                 {navigationData.map((item, index) => (
@@ -141,8 +141,8 @@ export default function MobileNav() {
           </ScrollArea>
         </SheetContent>
       </Sheet>
-      <div className='fixed inset-x-0 bottom-0 z-50 lg:hidden'>
-        <nav className='flex h-16 items-center justify-around border-t border-border bg-background'>
+      <div className='fixed inset-x-0 bottom-0 z-50 lg:hidden '>
+        <nav className='flex h-16 items-center justify-around border-t border-border rounded-b-full px-5'>
           <Link href='/' className={cn('flex flex-col items-center', pathname === '/' && 'text-primary')}>
             <Home className='h-6 w-6' />
             <span className='text-xs'>Accueil</span>
