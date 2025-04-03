@@ -10,7 +10,6 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
   try {
     const body = await req.json();
     const faq = FAQSchema.omit({ id: true }).parse(body);
-    console.log('🚀 ~ PUT ~ faq:', faq);
     const updatedFaq = await FaqService.updateFaq({ ...faq, id: params.id });
     return NextResponse.json(updatedFaq);
   } catch (error) {

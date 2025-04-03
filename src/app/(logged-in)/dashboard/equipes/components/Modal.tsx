@@ -48,7 +48,6 @@ export default function FormModal({ members }: Readonly<Readonly<ModalProps>>) {
 
 export function CustomForm({ members, setOpen }: Readonly<ModalProps & { setOpen: (open: boolean) => void }>) {
   const { data: competitions } = useCompetitions();
-  console.log('🚀 ~ CustomForm ~ competitions:', competitions);
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({

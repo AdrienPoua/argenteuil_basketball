@@ -1,6 +1,7 @@
 'use client';
 import { Tabs as TabsComponent, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useState } from 'react';
+import EnLigne from './en-ligne';
 import SurPlace from './sur-place';
 
 export default function Tabs() {
@@ -17,8 +18,7 @@ export default function Tabs() {
       </TabsContent>
       {/* Onglet Formulaire d'inscription */}
       <TabsContent value='en-ligne' className='mb-10'>
-        <div> En cours de construction </div>
-        {/*      <EnLigne /> */}{' '}
+        <EnLigne />
       </TabsContent>
     </TabsComponent>
   );

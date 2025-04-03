@@ -1,3 +1,5 @@
+'use server';
+
 import { API_ENDPOINTS_FFBB } from '@/lib/constants/api-endpoints-ffbb';
 import { errorHandler } from '@/lib/utils/handleApiError';
 
@@ -14,7 +16,7 @@ export default async function getCompetitions(token: string) {
     errorHandler(response.statusText, response.status);
   }
   const data: Competition[] = await response.json();
-  return data.map((compet) => ({ id: compet.id, label: compet.nom }));
+  return data.map((compet) => ({ id: compet.id, label: compet.code, poules: compet.poules }));
 }
 export interface Competition {
   id: number;

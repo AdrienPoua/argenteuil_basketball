@@ -149,9 +149,14 @@ class MatchService {
       correspondant: match.correspondant,
     };
 
+    const team = match.competition ? await this.findTeamByCompetition(match.competition) : undefined;
+
     return await prisma.match.upsert({
       where: { id: match.id.toString() },
-      update: updatePayload,
+      update: {
+        ...updatePayload,
+        team: team ? { connect: { id: team.id } } : undefined,
+      },
       create: {
         ...match,
         id: match.id.toString(),
@@ -172,9 +177,6 @@ class MatchService {
 
   async findTeamByCompetition(competition: string) {
     const teams = await prisma.team.findMany({
-      where: {
-        isCompetition: true,
-      },
       include: {
         coach: true,
       },

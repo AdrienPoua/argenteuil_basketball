@@ -26,6 +26,7 @@ export const useFilters = () => {
       place,
       showUpcomingOnly,
     });
+    console.log('🚀 ~ queryFn1 ~ data:', data);
     return data.map((match) => new Match(match).toPlainObject());
   };
   const queryFn2 = async () => {

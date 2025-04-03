@@ -30,7 +30,6 @@ export function LoginForm({ className, ...props }: { className?: string } & Reac
       });
 
       if (result?.error) {
-        console.log('🚀 ~ handleEmailPasswordSignIn ~ result:', result);
         setError('Email ou mot de passe incorrect');
       } else if (result?.ok) {
         // Redirection manuelle uniquement en cas de succès
