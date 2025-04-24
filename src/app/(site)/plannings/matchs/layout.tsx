@@ -40,7 +40,7 @@ function LayoutContent({ children }: Readonly<{ children: React.ReactNode }>) {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
         className={cn(
-          'fixed bottom-20 left-0 right-0 mx-auto md:bottom-12',
+          'fixed bottom-20 left-0 right-0 mx-auto',
           'flex flex-col items-center justify-center gap-4',
           'w-fit max-w-md rounded-2xl bg-primary/90 shadow-lg backdrop-blur-sm',
           'px-6 py-4 text-primary-foreground',

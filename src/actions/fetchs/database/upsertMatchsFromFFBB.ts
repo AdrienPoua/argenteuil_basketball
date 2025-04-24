@@ -45,7 +45,6 @@ export default async function saveMatchsToDatabase() {
     // Save the matchs to the database
     const hydratedMatchs = matchs.map((match) => {
       const competition = competitions.find((comp) => comp.poules.some((poule) => poule.id === match.idPoule));
-      console.log('🚀 ~ hydratedMatchs ~ competition:', competition);
       const opponentId =
         match.idOrganismeEquipe1 === argenteuilIdOrganisme
           ? match.idOrganismeEquipe2.toString()
