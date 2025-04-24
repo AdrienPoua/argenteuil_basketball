@@ -1,16 +1,19 @@
-'use server';
+'use client';
 
-import MatchService from '@/services/Match';
 import Match from '@/models/Match';
 import Card from '@/components/ui/InfoMatchCard';
-import { revalidatePath } from 'next/cache';
+import { useEffect, useState } from 'react';
+import { getWeeklyHomeMatch } from '@/actions/matchs/getWeeklyHomeMatch';
 
-export default async function WeeklyMatch() {
-  const weeklyMatchs = await MatchService.getWeeklyHomeMatch()
-    .then((match) => match.map((match) => new Match(match)))
-    .then((match) => match.map((m) => m.toPlainObject()));
+export default function WeeklyMatch() {
+  const [weeklyMatchs, setWeeklyMatchs] = useState<ReturnType<Match['toPlainObject']>[]>([]);
 
-  revalidatePath('/');
+  useEffect(() => {
+    getWeeklyHomeMatch()
+      .then((match) => match.map((match) => new Match(match)))
+      .then((match) => match.map((m) => m.toPlainObject()))
+      .then(setWeeklyMatchs);
+  }, []);
 
   return (
     <div className='mb-20 flex min-h-96 flex-col items-center justify-center'>
