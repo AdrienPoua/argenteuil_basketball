@@ -1,4 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
+'use server';
+import { NextResponse } from 'next/server';
 import { errorHandler } from '@/lib/utils/handleApiError';
 import upsertClubsFromFFBB from '@/actions/fetchs/database/upsertClubsFromFFBB';
 
@@ -8,13 +9,8 @@ if (!FFBB_SERVER_USERNAME || !FFBB_SERVER_PASSWORD || !CRON_SECRET || !NEXT_PUBL
 }
 
 // Cette fonction sera exécutée lorsque la route est appelée
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
-    // Verify if the cron job is authorized
-    if (req.headers.get('Authorization') !== `Bearer ${process.env.CRON_SECRET}`) {
-      return NextResponse.json({ message: 'Unauthorized', status: 401 });
-    }
-
     await upsertClubsFromFFBB();
 
     return NextResponse.json({ message: 'Clubs sauvegardés avec succès', status: 200 });

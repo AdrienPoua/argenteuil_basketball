@@ -1,22 +1,75 @@
 'use client';
-import { ReactElement } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { SanityDocument } from 'next-sanity';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import Link from 'next/link';
 import Image from 'next/image';
 import { urlFor } from '@/integrations/sanity/image';
 import { MAX_POSTS_ON_HOME_PAGE } from '@/data/magicNumber';
-import { useSanity } from '@/hooks/useSanity';
 import { Skeleton } from '@/components/ui/skeleton';
 import ScaleFromBottom from '@/components/motion/ScaleFromBottom';
 import { cn } from '@/lib/utils/cn';
+
 interface PropsType {
   post: SanityDocument;
   small?: boolean;
 }
 
 export default function PostsWrapper() {
-  const { leftPostOnHomePage, rightPostOnHomePage, postsOnHomePage } = useSanity();
+  const [leftPostOnHomePage, setLeftPostOnHomePage] = useState<SanityDocument | null>(null);
+  const [rightPostOnHomePage, setRightPostOnHomePage] = useState<SanityDocument | null>(null);
+  const [postsOnHomePage, setPostsOnHomePage] = useState<SanityDocument[] | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchSanityData() {
+      try {
+        const [leftResponse, rightResponse, postsResponse] = await Promise.all([
+          fetch('/api/sanity/left-post'),
+          fetch('/api/sanity/right-post'),
+          fetch('/api/sanity/home-posts'),
+        ]);
+
+        if (!leftResponse.ok || !rightResponse.ok || !postsResponse.ok) {
+          throw new Error('Failed to fetch Sanity data');
+        }
+
+        const leftData = await leftResponse.json();
+        const rightData = await rightResponse.json();
+        const postsData = await postsResponse.json();
+
+        setLeftPostOnHomePage(leftData);
+        setRightPostOnHomePage(rightData);
+        setPostsOnHomePage(postsData);
+      } catch (error) {
+        console.error('Error fetching Sanity data:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchSanityData();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className='container mx-auto mb-20 grid grid-cols-1 gap-6 md:grid-cols-2 md:px-24'>
+        <div className='top-32 aspect-[9/10] w-full md:sticky'>
+          <SkeletonCard />
+        </div>
+        <div>
+          <div className='mb-8 aspect-[9/10]'>
+            <SkeletonCard />
+          </div>
+          <div className='grid grid-cols-1 md:grid-cols-2 md:gap-6'>
+            <SkeletonCard />
+            <SkeletonCard />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className='container mx-auto mb-20 grid grid-cols-1 gap-6 md:grid-cols-2 md:px-24'>
       <div className='top-32 aspect-[9/10] w-full md:sticky'>

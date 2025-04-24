@@ -44,7 +44,7 @@ export default function TeamCard({ data, index }: Readonly<PropsType>): JSX.Elem
             alt={data.name}
             fill
             className='absolute inset-0 object-cover object-center transition-transform duration-300'
-            sizes="(max-width: 768px) 100vw, 350px"
+            sizes='(max-width: 768px) 100vw, 350px'
           />
           <div className='absolute inset-0 bg-gradient-to-b from-transparent to-black/70' />
           <div className='absolute bottom-0 left-0 right-0 z-20 p-4'>
