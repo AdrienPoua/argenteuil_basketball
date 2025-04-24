@@ -1,12 +1,12 @@
 import { cn } from '@/lib/utils/cn';
-import { useId } from 'react';
 
 interface H2Props {
   children: React.ReactNode;
   className?: string;
+  anchor?: string;
 }
 
-export default function H2({ children, className }: Readonly<H2Props>) {
+export default function H2({ children, className, anchor }: Readonly<H2Props>) {
   return (
     <div className='my-12 flex w-full justify-center'>
       <h2
@@ -18,6 +18,7 @@ export default function H2({ children, className }: Readonly<H2Props>) {
           'after:h-[2px] after:w-0 after:bg-secondary after:transition-all after:duration-500 hover:after:w-full',
           className,
         )}
+        id={anchor}
       >
         {children}
       </h2>

@@ -141,7 +141,7 @@ export default function MobileNav() {
           </ScrollArea>
         </SheetContent>
       </Sheet>
-      <div className='fixed inset-x-0 bottom-0 z-50 lg:hidden bg-background rounded-b-full'>
+      <div className='fixed inset-x-0 bottom-0 z-50 rounded-b-full bg-background lg:hidden'>
         <nav className='flex h-16 items-center justify-around rounded-b-full border-t border-border px-5'>
           <Link href='/' className={cn('flex flex-col items-center', pathname === '/' && 'text-primary')}>
             <Home className='h-6 w-6' />

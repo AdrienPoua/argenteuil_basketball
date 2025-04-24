@@ -3,7 +3,7 @@ import Underline from '@/components/UnderlineDecorator';
 
 export default function Footer() {
   return (
-    <footer className='flex justify-center border-t-2 border-primary bg-black pb-7 pt-4 mb-16 lg:mb-0'>
+    <footer className='mb-16 flex justify-center border-t-2 border-primary bg-black pb-7 pt-4 lg:mb-0'>
       <div className='flex justify-center'>
         <Link
           href='https://www.linkedin.com/in/adrien-poua'

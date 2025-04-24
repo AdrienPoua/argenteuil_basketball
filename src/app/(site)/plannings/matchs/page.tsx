@@ -20,7 +20,7 @@ export default async function MatchsPage() {
     .then((match) => match.toSorted((a, b) => a.date.getTime() - b.date.getTime()));
   return (
     <MainSection>
-      <H2>Matchs à venir</H2>
+      <H2>Matchs du mois</H2>
       <ViewTab matchs={matchs} />
     </MainSection>
   );

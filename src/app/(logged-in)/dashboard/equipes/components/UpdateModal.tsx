@@ -62,7 +62,15 @@ function CustomForm({ members, data: team, setOpen }: Readonly<PropsType & { set
 
       const res = await fetch(`/api/teams/${team.id}`, {
         method: 'PUT',
-        body: JSON.stringify({ ...team, ...data, image: imageUrl }),
+        body: JSON.stringify({
+          ...team,
+          ...data,
+          image: imageUrl,
+          sessions: data.sessions.map((session) => ({
+            ...session,
+            gymnase: session.gymnase.replace(' ', '_'),
+          })),
+        }),
       });
 
       if (!res.ok) {
@@ -92,19 +100,19 @@ function CustomForm({ members, data: team, setOpen }: Readonly<PropsType & { set
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         encType='multipart/form-data'
-        className='mx-auto max-w-4xl rounded-lg bg-background p-6 text-primary'
+        className='mx-auto max-w-4xl rounded-lg bg-background p-6'
       >
         <h2 className='mb-6 text-center text-2xl font-bold'>Modifier l&apos;équipe {team.name}</h2>
 
         <div className='grid grid-cols-1 gap-8 md:grid-cols-2'>
           <Card className='border shadow-sm'>
             <CardHeader className='pb-3'>
-              <CardTitle className='flex items-center gap-2 text-xl font-semibold text-primary'>
+              <CardTitle className='flex items-center gap-2 text-xl font-semibold'>
                 <Users className='h-5 w-5' />
                 Informations de l&apos;équipe
               </CardTitle>
             </CardHeader>
-            <CardContent className='space-y-4 text-primary'>
+            <CardContent className='space-y-4'>
               <FormField
                 control={form.control}
                 name='name'
@@ -207,7 +215,7 @@ function CustomForm({ members, data: team, setOpen }: Readonly<PropsType & { set
           <div className='space-y-8'>
             <Card className='border shadow-sm'>
               <CardHeader className='pb-3'>
-                <CardTitle className='flex items-center gap-2 text-xl font-semibold text-primary'>
+                <CardTitle className='flex items-center gap-2 text-xl font-semibold'>
                   <Upload className='h-5 w-5' />
                   Image de l&apos;équipe
                 </CardTitle>
@@ -230,9 +238,7 @@ function CustomForm({ members, data: team, setOpen }: Readonly<PropsType & { set
                               <div className='space-y-1 text-center'>
                                 <Upload className='mx-auto h-12 w-12 text-muted-foreground' />
                                 <div className='text-sm text-muted-foreground'>
-                                  <span className='relative font-medium text-primary hover:underline'>
-                                    Télécharger une image
-                                  </span>
+                                  <span className='relative font-medium hover:underline'>Télécharger une image</span>
                                 </div>
                               </div>
                             </div>
@@ -261,12 +267,12 @@ function CustomForm({ members, data: team, setOpen }: Readonly<PropsType & { set
 
             <Card className='border shadow-sm'>
               <CardHeader className='pb-3'>
-                <CardTitle className='flex items-center gap-2 text-xl font-semibold text-primary'>
+                <CardTitle className='flex items-center gap-2 text-xl font-semibold'>
                   <Calendar className='h-5 w-5' />
                   Sessions d&apos;entraînement
                 </CardTitle>
               </CardHeader>
-              <CardContent className='space-y-4 text-primary'>
+              <CardContent className='space-y-4'>
                 {fields.map((field, index) => (
                   <div key={field.id} className='space-y-4 rounded-lg border bg-card p-4 shadow-sm'>
                     <div className='mb-2 flex items-center justify-between border-b pb-2'>
@@ -279,7 +285,7 @@ function CustomForm({ members, data: team, setOpen }: Readonly<PropsType & { set
                     <div className='grid grid-cols-2 gap-4'>
                       <FormItem>
                         <FormLabel htmlFor={`day-${index}`} className='flex items-center gap-1'>
-                          <Calendar className='h-3.5 w-3.5 text-primary' />
+                          <Calendar className='h-3.5 w-3.5' />
                           Jour
                         </FormLabel>
                         <Select
@@ -303,7 +309,7 @@ function CustomForm({ members, data: team, setOpen }: Readonly<PropsType & { set
 
                       <FormItem>
                         <FormLabel htmlFor={`gym-${index}`} className='flex items-center gap-1'>
-                          <MapPin className='h-3.5 w-3.5 text-primary' />
+                          <MapPin className='h-3.5 w-3.5' />
                           Gymnase
                         </FormLabel>
                         <Select
@@ -316,8 +322,8 @@ function CustomForm({ members, data: team, setOpen }: Readonly<PropsType & { set
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value='Jean_Guimier'>Jean Guimier</SelectItem>
-                            <SelectItem value='Jesse_Owens'>Jesse Owens</SelectItem>
+                            <SelectItem value='Jean Guimier'>Jean Guimier</SelectItem>
+                            <SelectItem value='Jesse Owens'>Jesse Owens</SelectItem>
                           </SelectContent>
                         </Select>
                       </FormItem>
@@ -326,7 +332,7 @@ function CustomForm({ members, data: team, setOpen }: Readonly<PropsType & { set
                     <div className='grid grid-cols-2 gap-4'>
                       <FormItem>
                         <FormLabel htmlFor={`start-${index}`} className='flex items-center gap-1'>
-                          <Clock className='h-3.5 w-3.5 text-primary' />
+                          <Clock className='h-3.5 w-3.5' />
                           Début
                         </FormLabel>
                         <FormControl>
@@ -341,7 +347,7 @@ function CustomForm({ members, data: team, setOpen }: Readonly<PropsType & { set
                       </FormItem>
                       <FormItem>
                         <FormLabel htmlFor={`end-${index}`} className='flex items-center gap-1'>
-                          <Clock className='h-3.5 w-3.5 text-primary' />
+                          <Clock className='h-3.5 w-3.5' />
                           Fin
                         </FormLabel>
                         <FormControl>

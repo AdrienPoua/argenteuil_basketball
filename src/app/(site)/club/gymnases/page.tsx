@@ -17,13 +17,7 @@ export default function Page() {
       <H2>Nos gymnases</H2>
       <div className='flex flex-col gap-16'>
         {gyms.map((gym) => (
-          <Card 
-            key={gym.id} 
-            name={gym.name} 
-            adress={gym.address} 
-            city={gym.city} 
-            coordinates={gym.coordinates}
-          />
+          <Card key={gym.id} name={gym.name} adress={gym.address} city={gym.city} coordinates={gym.coordinates} />
         ))}
       </div>
     </MainSection>
@@ -32,25 +26,25 @@ export default function Page() {
 
 const gyms = [
   {
-    "id": "1",
-    "name": "Jean Guimier",
-    "address": "2 rue jean de la fontaine",
-    "city": "Argenteuil",
-    "zipcode": "95100",
-    "coordinates": {
-      "lat": 48.9517,
-      "lng": 2.2542
-    }
+    id: '1',
+    name: 'Jean Guimier',
+    address: '2 rue jean de la fontaine',
+    city: 'Argenteuil',
+    zipcode: '95100',
+    coordinates: {
+      lat: 48.9517,
+      lng: 2.2542,
+    },
   },
   {
-    "id": "2",
-    "name": "Jesse Owens",
-    "address": "120 rue de rochefort",
-    "city": "Argenteuil",
-    "zipcode": "95100",
-    "coordinates": {
-      "lat": 48.9379,
-      "lng": 2.2394
-    }
-  }
-]
+    id: '2',
+    name: 'Jesse Owens',
+    address: '120 rue de rochefort',
+    city: 'Argenteuil',
+    zipcode: '95100',
+    coordinates: {
+      lat: 48.9379,
+      lng: 2.2394,
+    },
+  },
+];

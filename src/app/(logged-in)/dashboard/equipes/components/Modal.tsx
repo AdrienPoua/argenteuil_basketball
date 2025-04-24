@@ -125,7 +125,7 @@ export function CustomForm({ members, setOpen }: Readonly<ModalProps & { setOpen
                       <div className='flex flex-col items-center space-y-4'>
                         {previewImage && (
                           <div className='relative h-48 w-full overflow-hidden rounded-md'>
-                            <Image src={previewImage} alt='Prévisualisation' layout='fill' objectFit='cover' />
+                            <Image src={previewImage} alt='Prévisualisation' fill className='object-cover' />
                           </div>
                         )}
                         <label className='w-full cursor-pointer'>

@@ -19,7 +19,7 @@ export default async function EquipesPage() {
     .then((teams) => teams.map((team) => team.toPlainObject()));
   return (
     <MainSection>
-      <H2>Nos équipes 2024-2025</H2>
+      <H2>Nos équipes 2025-2026</H2>
       <CardsWrapper teams={teams} />
     </MainSection>
   );

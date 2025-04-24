@@ -20,7 +20,7 @@ export function useMatchContext() {
 export default function MatchProvider({ children }: Readonly<{ children: ReactNode }>) {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentFilter, setCurrentFilter] = useState<FilterType>('tous');
-  const [currentView, setCurrentView] = useState<'équipe' | 'date'>('équipe');
+  const [currentView, setCurrentView] = useState<'équipe' | 'date'>('date');
 
   const value = useMemo(
     () => ({

@@ -67,8 +67,7 @@ function SanityCard({ post, small }: Readonly<PropsType>): ReactElement {
             alt={title}
             width={1000}
             height={1000}
-            objectFit='cover'
-            className='h-full transition-transform duration-300 group-hover:scale-105 group-hover:brightness-110'
+            className='h-full object-cover transition-transform duration-300 group-hover:scale-105 group-hover:brightness-110'
           />
           <div className='absolute inset-0 bg-black bg-opacity-50' />
         </CardContent>
