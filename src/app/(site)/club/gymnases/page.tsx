@@ -15,7 +15,7 @@ export default function Page() {
   return (
     <MainSection>
       <H2>Nos gymnases</H2>
-      <div className='flex flex-col gap-16'>
+      <div className='flex flex-col gap-16 mb-20'>
         {gyms.map((gym) => (
           <Card key={gym.id} name={gym.name} adress={gym.address} city={gym.city} coordinates={gym.coordinates} />
         ))}
@@ -32,8 +32,8 @@ const gyms = [
     city: 'Argenteuil',
     zipcode: '95100',
     coordinates: {
-      lat: 48.9517,
-      lng: 2.2542,
+      lat: 48.947223626785416,
+      lng: 2.2299871270600704,
     },
   },
   {
@@ -43,8 +43,8 @@ const gyms = [
     city: 'Argenteuil',
     zipcode: '95100',
     coordinates: {
-      lat: 48.9379,
-      lng: 2.2394,
+      lat: 48.93982316461645,
+      lng: 2.210973365125581,
     },
   },
 ];

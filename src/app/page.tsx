@@ -8,7 +8,7 @@ import H2 from '@/components/ui/h2';
 import Link from 'next/link';
 import { ArrowDown, Calendar, Users } from 'lucide-react';
 import { motion } from 'framer-motion';
-
+import StickyTestIndependent from '@/components/StickyTestIndependent';
 // Using client-side data fetching for all components
 export default function HomePage() {
   return (
@@ -19,7 +19,6 @@ export default function HomePage() {
           <div className='absolute inset-0 z-10 bg-black/40' />
           <video className='h-full w-full object-cover' autoPlay muted loop playsInline src='/videos/basketball.mp4' />
         </div>
-
         {/* Contenu hero */}
         <div className='relative z-20 flex h-full flex-col items-center justify-center px-4 text-white'>
           <motion.div
@@ -37,14 +36,14 @@ export default function HomePage() {
             <div className='mt-8 flex flex-col justify-center gap-4 sm:flex-row'>
               <Link
                 href='/club/equipes'
-                className='flex items-center justify-center gap-2 rounded-lg bg-orange-600 px-6 py-3 font-bold text-white transition-all hover:bg-orange-700'
+                className='flex items-center justify-center gap-2 rounded-lg bg-orange-600 px-6 py-3 text-white transition-all hover:bg-orange-700'
               >
                 <Users size={20} />
                 Nos équipes
               </Link>
               <Link
                 href='/plannings/matchs'
-                className='flex items-center justify-center gap-2 rounded-lg bg-white px-6 py-3 font-bold text-gray-900 transition-all hover:bg-gray-100'
+                className='flex items-center justify-center gap-2 rounded-lg bg-white px-6 py-3 text-gray-900 transition-all hover:bg-gray-100'
               >
                 <Calendar size={20} />
                 Calendrier des matchs

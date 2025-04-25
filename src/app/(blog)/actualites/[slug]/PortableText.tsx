@@ -44,7 +44,13 @@ const ImageModal = ({
         </Button>
 
         <div className='relative'>
-          <Image src={imageUrl} alt={alt || ''} className='max-h-[80vh] max-w-full object-contain' />
+          <Image
+            src={imageUrl}
+            alt={alt || ''}
+            className='max-h-[80vh] max-w-full object-contain'
+            width={2000}
+            height={1500}
+          />
 
           {caption && (
             <div className='absolute bottom-0 w-full bg-black/60 p-3 text-center text-sm text-white'>{caption}</div>

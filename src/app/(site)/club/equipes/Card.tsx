@@ -25,8 +25,8 @@ export default function TeamCard({ data, index }: Readonly<PropsType>): JSX.Elem
       <motion.div
         className='relative flex h-full w-full flex-col rounded-lg border border-muted bg-card shadow-md transition-all'
         layout
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{ duration: 0.3, delay: index * 0.05 }}
       >
         <Button
