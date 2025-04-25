@@ -15,7 +15,7 @@ export default function Page() {
   return (
     <MainSection>
       <H2>Nos gymnases</H2>
-      <div className='flex flex-col gap-16 mb-20'>
+      <div className='mb-20 flex flex-col gap-16'>
         {gyms.map((gym) => (
           <Card key={gym.id} name={gym.name} adress={gym.address} city={gym.city} coordinates={gym.coordinates} />
         ))}

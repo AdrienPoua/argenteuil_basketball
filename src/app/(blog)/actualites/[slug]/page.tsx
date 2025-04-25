@@ -10,10 +10,7 @@ import ReadingProgressBar from './ReadingProgressBar';
 import ShareButtons from './ShareButtons';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { ArrowLeft, Calendar, Clock } from 'lucide-react';
-import { formatDistanceToNow } from 'date-fns';
-import { fr } from 'date-fns/locale';
-import ScrollToTopButton from './ScrollToTopButton';
+import { ArrowLeft } from 'lucide-react';
 
 export const metadata = {
   title: 'Actualités | Argenteuil Basketball',
