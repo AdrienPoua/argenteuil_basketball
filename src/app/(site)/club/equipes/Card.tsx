@@ -1,7 +1,6 @@
 'use client';
 import Team from '@/models/Team';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Calendar, Trophy, GraduationCap } from 'lucide-react';
 import { useState } from 'react';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
@@ -22,13 +21,7 @@ export default function TeamCard({ data, index }: Readonly<PropsType>): JSX.Elem
 
   return (
     <>
-      <motion.div
-        className='relative flex h-full w-full flex-col rounded-lg border border-muted bg-card shadow-md transition-all'
-        layout
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.3, delay: index * 0.05 }}
-      >
+      <div className='relative flex h-full w-full flex-col rounded-lg border border-muted bg-card shadow-md transition-all'>
         <Button
           variant='invisible'
           className='absolute inset-0 z-10 h-full w-full cursor-pointer overflow-hidden p-0'
@@ -84,25 +77,10 @@ export default function TeamCard({ data, index }: Readonly<PropsType>): JSX.Elem
               </div>
             </div>
           )}
-
-          {/* Indicateur de créneaux */}
-          <div className='flex items-center text-sm text-muted-foreground'>
-            <Calendar size={14} className='mr-1.5' />
-            <span>
-              {data.sessions?.length || 0} {data.sessions?.length !== 1 ? 'créneaux' : 'créneau'}
-            </span>
-          </div>
         </div>
 
         {/* Panneau de détails avec les créneaux d'entraînement */}
-        <AnimatePresence>
-          <motion.div
-            className='border-t border-border p-4'
-            initial={{ opacity: 0, height: 0, overflow: 'hidden' }}
-            animate={{ opacity: 1, height: 'auto', overflow: 'visible' }}
-            exit={{ opacity: 0, height: 0, overflow: 'hidden' }}
-            transition={{ duration: 0.3 }}
-          >
+          <div className='border-t border-border p-4'>
             {data.sessions && data.sessions.length > 0 && (
               <div>
                 <h4 className='mb-2 flex items-center font-secondary text-sm font-semibold uppercase text-primary'>
@@ -124,9 +102,8 @@ export default function TeamCard({ data, index }: Readonly<PropsType>): JSX.Elem
                 </ul>
               </div>
             )}
-          </motion.div>
-        </AnimatePresence>
-      </motion.div>
+          </div>
+      </div>
 
       {/* Bouton de test pour vérifier si le Dialog fonctionne */}
       <div className='hidden'>

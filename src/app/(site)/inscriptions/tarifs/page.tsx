@@ -1,8 +1,8 @@
-import ABB from '@/data/club.json';
 import allCategories from '@/data/categories.json';
 import MainSection from '@/components/layouts/MainSection';
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '@/components/ui/table';
 import H2 from '@/components/ui/h2';
+import categories from '@/models/Categories';
 
 export const metadata = {
   title: "Tarifs d'inscription | Argenteuil Basketball",
@@ -23,10 +23,12 @@ type TarifRowProps = {
 };
 
 const TarifRow = ({ categorie }: TarifRowProps) => {
+  const years = categories.getYears(categorie.division);
+
   return (
     <TableRow className='border-b'>
       <TableCell className='p-4'>
-        <span className='font-medium text-background'>{categorie.year.join(' - ')}</span>
+        <span className='font-medium text-background'>{years.join(' - ')}</span>
       </TableCell>
       <TableCell className='p-4'>
         <span className='font-medium text-background'>{categorie.division}</span>

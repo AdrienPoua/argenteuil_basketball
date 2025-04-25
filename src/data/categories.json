@@ -31,25 +31,25 @@
   },
   {
     "year": ["2008", "2009"],
-    "division": "U17 (garçons)",
+    "division": "U17M",
     "sexe": ["M"],
     "rate": 260
   },
   {
     "year": ["2007", "2008", "2009"],
-    "division": "U18 (filles)",
+    "division": "U18F",
     "sexe": ["F"],
     "rate": 260
   },
   {
     "year": ["2005", "2006"],
-    "division": "U20 (garçons)",
+    "division": "U21M",
     "sexe": ["M"],
     "rate": 280
   },
   {
     "year": ["2004", " avant"],
-    "division": "Seniors (hommes)",
+    "division": "Seniors",
     "sexe": ["M"],
     "rate": 280
   },

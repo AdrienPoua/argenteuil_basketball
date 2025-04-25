@@ -10,24 +10,19 @@ class Categories {
   }
 
   getCategories(cat: string, years: number): string[] {
-      let birthYears = [];
-      let saison = Number(this.getSaison().split('-')[0]);
+    let birthYears = [];
+    let saison = Number(this.getSaison().split('-')[0]);
 
+    if (cat.startsWith('U')) {
+      let ageMax = Number(cat.slice(1)) - 1;
+      let yearMax = saison - ageMax;
 
-    if(cat.startsWith('U')){
-        let ageMax = Number(cat.slice(1)) - 1
-        let yearMax = saison - ageMax
-
-
-        for (let i = 0; i < years ; i++) {
-            birthYears.push(String(yearMax + i));
-          }
+      for (let i = 0; i < years; i++) {
+        birthYears.push(String(yearMax + i));
+      }
     } else {
-        return ['Adulte']
+      return ['Adulte'];
     }
-
-
-
 
     return birthYears;
   }
@@ -35,7 +30,7 @@ class Categories {
   getYears(cat: string): string[] {
     let years = [];
     console.log(cat);
-    
+
     if (cat.includes('U07')) {
       years.push(...this.getCategories('U07', 2));
     }
@@ -63,7 +58,7 @@ class Categories {
     if (cat.toUpperCase().includes('SENIOR') || cat.toUpperCase().includes('LOISIRS')) {
       years.push('Adulte');
     }
-    
+
     return years;
   }
 }
