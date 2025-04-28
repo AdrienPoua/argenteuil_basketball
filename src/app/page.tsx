@@ -1,14 +1,12 @@
 'use client';
 
-import { Suspense } from 'react';
 import HeaderAndFooter from '@/components/layouts/HeaderAndFooter';
 import PostsWrapper from '@/components/SanityBlogPosts';
 import WeeklyMatch from '@/components/WeeklyMatch';
 import H2 from '@/components/ui/h2';
 import Link from 'next/link';
-import { ArrowDown, Calendar, Users } from 'lucide-react';
+import { Calendar, Users } from 'lucide-react';
 import { motion } from 'framer-motion';
-import StickyTestIndependent from '@/components/StickyTestIndependent';
 // Using client-side data fetching for all components
 export default function HomePage() {
   return (
@@ -50,32 +48,18 @@ export default function HomePage() {
               </Link>
             </div>
           </motion.div>
-
-          {/* Indicateur de défilement */}
-          <motion.div
-            className='absolute bottom-8 left-1/2 z-50 -translate-x-1/2'
-            initial={{ y: 15 }}
-            animate={{ y: 0 }}
-            transition={{ delay: 1, duration: 1.5, repeat: Infinity, ease: 'easeInOut', repeatType: 'reverse' }}
-          >
-            <Link href='#this-week' className='z-50 cursor-pointer bg-red-500'>
-              <ArrowDown className='h-20 w-20 text-white' />
-            </Link>
-          </motion.div>
         </div>
 
         {/* Élément de transition */}
         <div className='absolute bottom-0 left-0 z-20 h-24 w-full bg-gradient-to-t from-black to-transparent' />
       </section>
 
-      <div className='relative overflow-hidden bg-black text-white'>
+      <div className='relative '>
         <div className='pt-16'>
-          <H2 anchor='this-week'>Cette semaine</H2>
+          <H2>Cette semaine</H2>
           <WeeklyMatch />
-          <H2 anchor='news'>Actualités</H2>
-          <Suspense fallback={<div className='py-8 text-center'>Chargement des actualités...</div>}>
-            <PostsWrapper />
-          </Suspense>
+          <H2>Actualités</H2>
+          <PostsWrapper />
         </div>
       </div>
     </HeaderAndFooter>

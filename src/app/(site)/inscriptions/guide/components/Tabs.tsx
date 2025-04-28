@@ -18,7 +18,8 @@ export default function Tabs() {
       </TabsContent>
       {/* Onglet Formulaire d'inscription */}
       <TabsContent value='en-ligne' className='mb-10'>
-        <EnLigne />
+        {/* <EnLigne /> */}
+        <div> Disponible bientôt</div>
       </TabsContent>
     </TabsComponent>
   );

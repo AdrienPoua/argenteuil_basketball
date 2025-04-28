@@ -80,29 +80,29 @@ export default function TeamCard({ data, index }: Readonly<PropsType>): JSX.Elem
         </div>
 
         {/* Panneau de détails avec les créneaux d'entraînement */}
-          <div className='border-t border-border p-4'>
-            {data.sessions && data.sessions.length > 0 && (
-              <div>
-                <h4 className='mb-2 flex items-center font-secondary text-sm font-semibold uppercase text-primary'>
-                  <Calendar size={14} className='mr-1.5' />
-                  Créneaux d&apos;entraînement
-                </h4>
-                <ul className='space-y-2'>
-                  {data.sessions.map((session, idx) => (
-                    <li key={idx + 'session'} className='rounded-md bg-primary/50 p-2 text-xs'>
-                      {typeof session === 'string' ? (
-                        session
-                      ) : (
-                        <span className='font-medium text-background'>
-                          {session.day} - {session.start} - {session.end} - {session.gymnase?.replace('_', ' ')}
-                        </span>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
+        <div className='border-t border-border p-4'>
+          {data.sessions && data.sessions.length > 0 && (
+            <div>
+              <h4 className='mb-2 flex items-center font-secondary text-sm font-semibold uppercase text-primary'>
+                <Calendar size={14} className='mr-1.5' />
+                Créneaux d&apos;entraînement
+              </h4>
+              <ul className='space-y-2'>
+                {data.sessions.map((session, idx) => (
+                  <li key={idx + 'session'} className='rounded-md bg-primary/50 p-2 text-xs'>
+                    {typeof session === 'string' ? (
+                      session
+                    ) : (
+                      <span className='font-medium text-background'>
+                        {session.day} - {session.start} - {session.end} - {session.gymnase?.replace('_', ' ')}
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Bouton de test pour vérifier si le Dialog fonctionne */}
