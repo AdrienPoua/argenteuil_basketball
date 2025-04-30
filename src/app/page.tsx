@@ -54,7 +54,7 @@ export default function HomePage() {
         <div className='absolute bottom-0 left-0 z-20 h-24 w-full bg-gradient-to-t from-black to-transparent' />
       </section>
 
-      <div className='relative '>
+      <div className='relative'>
         <div className='pt-16'>
           <H2>Cette semaine</H2>
           <WeeklyMatch />

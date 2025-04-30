@@ -29,7 +29,7 @@ const Card = ({
   const { date, heure, championnat, nomEquipe1, nomEquipe2, isHome, salle } = match;
 
   return (
-    <div className='group cursor-pointer overflow-hidden rounded-lg border border-primary bg-background shadow-md transition-all duration-200 hover:scale-105 hover:border-foreground hover:bg-primary hover:shadow-lg'>
+    <div className='group cursor-pointer overflow-hidden rounded-lg border max-w-screen-lg mx-auto border-primary bg-background shadow-md transition-all duration-200 hover:scale-105 hover:border-foreground hover:bg-primary hover:shadow-lg'>
       <div className='flex items-center justify-between p-4'>
         <div className='flex items-center space-x-4'>
           {isHome ? <Home className='text-blue-500' size={24} /> : <Plane className='text-green-500' size={24} />}
