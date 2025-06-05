@@ -51,13 +51,20 @@ export function StepTwo() {
       <h3 className='text-2xl font-bold'>Inscription en ligne</h3>
       <p className='text-orange-500'>L&apos;inscription informatique est obligatoire pour être licencié FFBB.</p>
       <ol className='list-decimal space-y-4 pl-5'>
-        <li>Utiliser le lien que vous avez reçu par email <strong className='text-orange-500'> (cela peut prendre quelques jours)</strong> pour obtenir votre licence</li>
+        <li>
+          Utiliser le lien que vous avez reçu par email{' '}
+          <strong className='text-orange-500'> (cela peut prendre quelques jours)</strong> pour obtenir votre licence
+        </li>
         <li>
           <strong>Remplissez le formulaire</strong> avec vos informations personnelles
         </li>
-        <li> <span className='text-orange-500'> L&apos;assurance A </span> est incluse dans le prix de l&apos;inscription </li>  
         <li>
-          Choissisez <span className='text-orange-500'> &quot;paiement au club&quot; </span> lorsque cela vous sera demandé 
+          {' '}
+          <span className='text-orange-500'> L&apos;assurance A </span> est incluse dans le prix de l&apos;inscription{' '}
+        </li>
+        <li>
+          Choissisez <span className='text-orange-500'> &quot;paiement au club&quot; </span> lorsque cela vous sera
+          demandé
         </li>
       </ol>
     </div>
@@ -68,7 +75,10 @@ export function StepThree() {
   return (
     <div className='space-y-6'>
       <h3 className='text-2xl font-bold'>Validation</h3>
-      <p>Une fois le formulaire rempli et <strong className='text-orange-500'> après validation du club </strong> vous recevrez un email qui confirme votre inscription</p>
+      <p>
+        Une fois le formulaire rempli et <strong className='text-orange-500'> après validation du club </strong> vous
+        recevrez un email qui confirme votre inscription
+      </p>
       <p>Vous êtes désormais licencié FFBB et vous pouvez venir jouer à l&apos;entrainement !</p>
     </div>
   );

@@ -56,20 +56,22 @@ export function WeeklyPlanning({ teams }: Readonly<WeeklyPlanningProps>) {
                 key={team.id}
                 className={`hover:bg-gray-50/50 ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'} `}
               >
-                <TableCell className='font-medium text-gray-900'>
-                  {team.name} <br /> <span className='text-sm text-primary'>{years.join(', ')}</span>
+                <TableCell className='font-medium text-gray-900 text-lg'>
+                  {team.name} <br /> <span className='text-lg text-primary'>{years.join(', ')}</span>
                 </TableCell>
                 {days.map((day) => (
-                  <TableCell key={day} className='p-2 text-center'>
-                    <div className='flex flex-col items-center justify-center gap-1'>
-                      {team.sessions
-                        .filter((session) => session.day === day)
-                        .map((session, index) => (
-                          <Badge key={index + session.start}>
-                            {session.start}-{session.end} - {session.gymnase}
-                          </Badge>
-                        ))}
-                    </div>
+                  <TableCell key={day} className='p-0 text-center'>
+                    {team.sessions
+                      .filter((session) => session.day === day)
+                      .map((session, index) => (
+                        <Badge
+                          key={index + session.start}
+                          className='size-full text-lg flex flex-col items-center justify-center'
+                        >
+                          {session.start}-{session.end}
+                          <span className='text-lg'>{session.gymnase}</span>
+                        </Badge>
+                      ))}
                   </TableCell>
                 ))}
               </TableRow>
@@ -78,7 +80,7 @@ export function WeeklyPlanning({ teams }: Readonly<WeeklyPlanningProps>) {
         </TableBody>
         <TableFooter className='bg-primary/50'>
           <TableRow>
-            <TableCell colSpan={days.length + 1} className='text-center'>
+            <TableCell colSpan={days.length + 1} className='text-center text-lg'>
               Jean Gumier : 2 rue jean de la fontaine <br />
               Jesse Owens : 120 rue de rochefort
             </TableCell>

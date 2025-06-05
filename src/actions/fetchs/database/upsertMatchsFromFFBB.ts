@@ -10,6 +10,7 @@ import getCompetitions from '../ffbb/getCompetitions';
 import { z } from 'zod';
 import { MatchSchema } from '@/lib/validation/Match';
 import { argenteuilIdOrganisme } from '@/lib/constants/argenteuil-id-organisme';
+import { revalidatePath } from 'next/cache';
 /**
  * Refresh all matches data from FFBB
  */
@@ -23,21 +24,9 @@ export default async function saveMatchsToDatabase() {
 
     // Get the matchs
     const matchs = await getMatchs(token, poulesIds);
-    console.log(
-      '🚀 ~ saveMatchsToDatabase ~ matchs:',
-      matchs.filter((match) => match.resultatEquipe2 === 77),
-    );
 
     // get the competitions
     const competitions = await getCompetitions(token);
-    console.log(
-      '🚀 ~ saveMatchsToDatabase ~ competitions:',
-      competitions.filter((comp) => comp.label === 'PRM'),
-    );
-    console.log(
-      '🚀 ~ saveMatchsToDatabase ~ matchs:',
-      matchs.filter((match) => match.idPoule === 1),
-    );
 
     // get the clubs from my own database
     const clubs = await ClubService.getClubs();
@@ -68,6 +57,8 @@ export default async function saveMatchsToDatabase() {
       }),
     );
 
+    revalidatePath('/dashboard/matchs');
+    revalidatePath('/plannings/matchs');
     return { success: true, message: 'Matchs mis à jour avec succès' };
   } catch (error) {
     console.error('Erreur lors de la mise à jour des données FFBB:', error);

@@ -18,7 +18,7 @@ const steps = [
     label: 'Étape 1',
     value: 'step-1',
     title: 'Rendez-vous sur place',
-    description: "Donnez nous vos documents et payez votre inscription",
+    description: 'Donnez nous vos documents et payez votre inscription',
   },
   {
     component: StepTwo,
@@ -32,7 +32,7 @@ const steps = [
     label: 'Étape 3',
     value: 'step-3',
     title: 'La licence',
-    description: "Confirmation de votre inscription."
+    description: 'Confirmation de votre inscription.',
   },
 ];
 

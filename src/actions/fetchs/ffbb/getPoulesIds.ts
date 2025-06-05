@@ -15,6 +15,7 @@ const getPoulesIds = async (token: string) => {
     }
 
     const data: Engagement[] = await response.json();
+    console.log("🚀 ~ getPoulesIds ~ data:", data)
     return data.map((data) => data.idPoule);
   } catch (error) {
     console.error('Erreur lors de la récupération des poules:', error);

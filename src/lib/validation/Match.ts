@@ -12,7 +12,7 @@ export const MatchSchema = z.object({
   resultatEquipe1: z.number().nullable(),
   resultatEquipe2: z.number().nullable(),
   date: z.preprocess(
-    (val) => (typeof val === 'string' ? new Date(val) : val), // 🔥 Transforme seulement si c'est une string
+    (val) => (typeof val === 'string' ? new Date(val) : val),
     z.date(),
   ),
   salle: z.string(),

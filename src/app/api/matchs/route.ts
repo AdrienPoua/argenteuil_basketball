@@ -23,8 +23,9 @@ export async function GET() {
 export async function POST(req: Request) {
   await validateUser();
   try {
-    const { matchs } = await req.json();
-    const parsedMatchs = z.array(MatchSchema).parse(matchs);
+    const body = await req.json();
+    console.log('🚀 ~ POST ~ matchs:', body);
+    const parsedMatchs = z.array(MatchSchema).parse(body);
 
     // Create matchs
     await Promise.all(
@@ -35,6 +36,11 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ status: 200 });
   } catch (error) {
+    if (error instanceof z.ZodError) {
+      // Formatage de l'erreur pour une structure plus claire
+      const formattedError = error.format();
+      console.log('Erreur formatée:', formattedError);
+    }
     console.error('Error in process-matchs route:', error);
     return errorHandler(error);
   }

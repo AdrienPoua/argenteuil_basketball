@@ -8,19 +8,17 @@ import { getWeeklyHomeMatch } from '@/actions/matchs/getWeeklyHomeMatch';
 export default function WeeklyMatch() {
   const queryFn = async () => {
     const matches = await getWeeklyHomeMatch();
-    return matches
-      .map((match) => new Match(match))
-      .map((m) => m.toPlainObject());
+    return matches.map((match) => new Match(match)).map((m) => m.toPlainObject());
   };
 
-  const { data: weeklyMatchs = [], isLoading, error } = useQuery(
-    'weeklyHomeMatches',
-    queryFn,
-    { 
-      staleTime: 1000 * 60 * 15, // 15 minutes
-      refetchOnWindowFocus: false,
-    }
-  );
+  const {
+    data: weeklyMatchs = [],
+    isLoading,
+    error,
+  } = useQuery('weeklyHomeMatches', queryFn, {
+    staleTime: 1000 * 60 * 15, // 15 minutes
+    refetchOnWindowFocus: false,
+  });
 
   if (isLoading) {
     return (

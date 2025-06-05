@@ -33,11 +33,10 @@ export default function CreateMatchForm() {
 
       // Generate a UUID v4
       const id = uuidv4();
-
       // Create a simplified match object with required fields
       const matchData = {
         id,
-        numero: Number(id.slice(0, 5)), // Random number for demonstration
+        numero : 5,
         numeroJournee: 1,
         idPoule: 1,
         idOrganismeEquipe1: 11851, // Club ID as seen in the Match model
@@ -73,7 +72,7 @@ export default function CreateMatchForm() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(matchData),
+        body: JSON.stringify([matchData]),
       });
 
       if (!response.ok) {
