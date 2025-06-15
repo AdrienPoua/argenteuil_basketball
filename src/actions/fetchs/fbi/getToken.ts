@@ -27,6 +27,7 @@ export const getToken = async () => {
     }
 
     const data = await response.json();
+
   } catch (error) {
     console.error("Erreur lors de l'authentification FBI - getToken - FBI ACTION:", error);
     throw error;

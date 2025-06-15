@@ -16,7 +16,7 @@ export default async function getCompetitions(token: string) {
     errorHandler(response.statusText, response.status);
   }
   const data: Competition[] = await response.json();
-  console.log('🚀 ~ getCompetitions ~ data:', data);
+  console.log("🚀 ~ getCompetitions ~ data:", data)
   return data.map((compet) => ({ id: compet.id, label: compet.code, poules: compet.poules }));
 }
 export interface Competition {

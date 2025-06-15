@@ -56,7 +56,7 @@ export function WeeklyPlanning({ teams }: Readonly<WeeklyPlanningProps>) {
                 key={team.id}
                 className={`hover:bg-gray-50/50 ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'} `}
               >
-                <TableCell className='text-lg font-medium text-gray-900'>
+                <TableCell className='font-medium text-gray-900 text-lg'>
                   {team.name} <br /> <span className='text-lg text-primary'>{years.join(', ')}</span>
                 </TableCell>
                 {days.map((day) => (
@@ -66,7 +66,7 @@ export function WeeklyPlanning({ teams }: Readonly<WeeklyPlanningProps>) {
                       .map((session, index) => (
                         <Badge
                           key={index + session.start}
-                          className='flex size-full flex-col items-center justify-center text-lg'
+                          className='size-full text-lg flex flex-col items-center justify-center'
                         >
                           {session.start}-{session.end}
                           <span className='text-lg'>{session.gymnase}</span>

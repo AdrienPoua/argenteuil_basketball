@@ -11,7 +11,10 @@ export const MatchSchema = z.object({
   nomEquipe2: z.string(),
   resultatEquipe1: z.number().nullable(),
   resultatEquipe2: z.number().nullable(),
-  date: z.preprocess((val) => (typeof val === 'string' ? new Date(val) : val), z.date()),
+  date: z.preprocess(
+    (val) => (typeof val === 'string' ? new Date(val) : val),
+    z.date(),
+  ),
   salle: z.string(),
   penaliteEquipe1: z.boolean(),
   penaliteEquipe2: z.boolean(),
