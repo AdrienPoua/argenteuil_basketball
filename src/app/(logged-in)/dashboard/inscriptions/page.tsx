@@ -63,7 +63,6 @@ export default function InscriptionsPage() {
   const handleConnect = async () => {
     try {
       const response = await login();
-      console.log(FBIAuthService.isAuthenticated())
       console.log(response);
     } catch (error) {
       console.error(error);
@@ -71,8 +70,7 @@ export default function InscriptionsPage() {
   };
 
   const handleTest = async () => {
-    const response = await test();
-    console.log(response);
+    console.log('test');
   };
 
   return (
@@ -172,9 +170,8 @@ export default function InscriptionsPage() {
     //   </div>
     // </div>
     <>
-    <Button onClick={handleConnect}>Connexion FBI</Button>
-    <Button onClick={handleTest}>Envoyer une requete test</Button>
+      <Button onClick={handleConnect}>Connexion FBI</Button>
+      <Button onClick={handleTest}>Envoyer une requete test</Button>
     </>
   );
 }
-  

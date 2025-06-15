@@ -36,7 +36,7 @@ export default function CreateMatchForm() {
       // Create a simplified match object with required fields
       const matchData = {
         id,
-        numero : 5,
+        numero: 5,
         numeroJournee: 1,
         idPoule: 1,
         idOrganismeEquipe1: 11851, // Club ID as seen in the Match model
