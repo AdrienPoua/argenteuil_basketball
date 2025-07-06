@@ -18,7 +18,8 @@ export default function Tabs() {
       </TabsContent>
       {/* Onglet Formulaire d'inscription */}
       <TabsContent value='en-ligne' className='mb-10'>
-        <EnLigne />
+        {/*   <EnLigne /> */}
+        <div className='flex flex-col items-center justify-center'>En cours de développement</div>
       </TabsContent>
     </TabsComponent>
   );

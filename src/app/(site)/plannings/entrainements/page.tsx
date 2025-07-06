@@ -1,7 +1,7 @@
 import MainSection from '@/components/layouts/MainSection';
 import Team from '@/models/Team';
 import TeamService from '@/services/Team';
-import { WeeklyPlanning } from './components/WeeklyPlanning';
+import TrainingSchedule from './components/WeeklyPlanning';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
 import { TeamSchedules } from './components/TeamShedules';
@@ -31,7 +31,7 @@ export default async function SchedulePage() {
         <TabsContent value='weekly'>
           <Card>
             <CardContent>
-              <WeeklyPlanning teams={teams} />
+              <TrainingSchedule teams={teams} />
             </CardContent>
           </Card>
         </TabsContent>

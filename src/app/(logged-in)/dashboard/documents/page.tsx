@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -218,11 +218,7 @@ export default function DocumentsAdminPage() {
   const [isUpdating, setIsUpdating] = useState(false);
   const { toast } = useToast();
 
-  useEffect(() => {
-    fetchDocuments();
-  }, []);
-
-  async function fetchDocuments() {
+  const fetchDocuments = useCallback(async () => {
     try {
       setLoading(true);
       const response = await fetch('/api/documents');
@@ -240,7 +236,11 @@ export default function DocumentsAdminPage() {
     } finally {
       setLoading(false);
     }
-  }
+  }, [toast]);
+
+  useEffect(() => {
+    fetchDocuments();
+  }, [fetchDocuments]);
 
   async function handleAddDocument(formData: FormData) {
     try {
