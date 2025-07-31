@@ -2,7 +2,7 @@
 import { SanityDocument } from 'next-sanity';
 import { PortableText } from '@portabletext/react';
 import { components } from './PortableText';
-import { cn } from '@/lib/utils/cn';
+import { cn } from '@/utils/cn';
 import { Calendar } from 'lucide-react';
 import { motion } from 'motion/react';
 

@@ -1,26 +1,48 @@
-import MainSection from '@/components/layouts/MainSection';
-import TeamService from '@/services/Team';
-import H2 from '@/components/ui/h2';
-import CardsWrapper from './CardsWrapper';
-import Team from '@/models/Team';
+import type { Metadata } from "next"
+import H1 from "@/components/ui/H1"
+import { readTeams } from "@/core/presentation/actions/teams/getAllTeams"
+import club from "@/core/shared/config/club"
+import TeamsPage from "./page.client"
 
-export const metadata = {
-  title: 'Nos équipes | Argenteuil Basketball',
-  description: 'Découvrez nos équipes de basket à Argenteuil, des plus jeunes aux séniors.',
+export const metadata: Metadata = {
+  title: "Nos équipes",
+  description:
+    "Découvrez toutes les équipes de Argenteuil Basketball : équipe senior en PRM, équipes jeunes, école de basket. Du mini-basket aux seniors, nous avons une équipe pour chaque âge !",
+  keywords: [
+    "équipes BC Sartrouville",
+    "équipe senior basketball",
+    "PNM basket",
+    "équipes jeunes basket",
+    "U13 U15 U18 U21",
+    "académie basket",
+    "école de basket",
+    "mini basket",
+    "baby basket",
+    "équipe féminine basket",
+  ],
   openGraph: {
-    title: 'Nos équipes - Argenteuil Basketball',
-    description: 'Découvrez nos équipes de basket à Argenteuil, des plus jeunes aux séniors.',
+    title: `Nos équipes - ${club.name}`,
+    description:
+      "Découvrez toutes les équipes du club de basket d'Argenteuil : équipe senior en PRM, équipes jeunes, académie et école de basket.",
+    url: `https://${club.domain}/club/equipes`,
   },
-};
+  twitter: {
+    card: "summary_large_image",
+    title: `Nos équipes - ${club.name}`,
+    description:
+      "Découvrez toutes les équipes du club de basket d'Argenteuil : équipe senior en PRM, équipes jeunes, académie et école de basket.",
+  },
+  alternates: {
+    canonical: `https://${club.domain}/club/equipes`,
+  },
+}
 
-export default async function EquipesPage() {
-  const teams = await TeamService.getTeams()
-    .then((teams) => teams.map((team) => new Team(team)))
-    .then((teams) => teams.map((team) => team.toPlainObject()));
+export default async function Index() {
+  const teams = await readTeams().then((teams) => teams.map((team) => team.toObject()))
   return (
-    <MainSection>
-      <H2>Nos équipes 2025-2026</H2>
-      <CardsWrapper teams={teams} />
-    </MainSection>
-  );
+    <main>
+      <H1>Nos équipes</H1>
+      <TeamsPage teams={teams} />
+    </main>
+  )
 }

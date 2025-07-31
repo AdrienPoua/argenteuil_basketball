@@ -1,7 +1,7 @@
 'use client';
 import React, { ReactElement } from 'react';
 import { motion } from 'framer-motion';
-import { cn } from '@/lib/utils/cn';
+import { cn } from '@/utils/cn';
 
 type PropsType = {
   children: React.ReactNode;

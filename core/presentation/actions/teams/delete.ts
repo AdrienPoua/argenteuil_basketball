@@ -1,0 +1,16 @@
+"use server"
+import { revalidatePath } from "next/cache"
+import { RepositoryFactory } from "../../../infrastructure/supabase/repositories/factory.repository"
+import { ErrorHandler } from "../../../shared/error/ErrorHandler"
+
+export async function deleteTeam(id: string) {
+  try {
+    const teamRepository = RepositoryFactory.getTeamRepository()
+    await teamRepository.delete(id)
+    revalidatePath("/club/equipes")
+  } catch (error) {
+    const normalizedError = ErrorHandler.normalize(error)
+    ErrorHandler.log(normalizedError)
+    throw normalizedError
+  }
+}

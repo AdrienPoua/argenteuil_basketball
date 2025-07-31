@@ -1,8 +1,9 @@
 'use client';
 
-import HeaderAndFooter from '@/components/layouts/HeaderAndFooter';
+import Header from '@/components/parts/header';
+import Footer from '@/components/parts/footer';
 import PostsWrapper from '@/components/SanityBlogPosts';
-import WeeklyMatch from '@/components/WeeklyMatch';
+import WeeklyMatch from '@/components/parts/hero/match-of-the-week';
 import H2 from '@/components/ui/h2';
 import Link from 'next/link';
 import { Calendar, Users } from 'lucide-react';
@@ -10,7 +11,9 @@ import { motion } from 'framer-motion';
 // Using client-side data fetching for all components
 export default function HomePage() {
   return (
-    <HeaderAndFooter>
+    <div className='flex min-h-screen flex-col'>
+      <Header />
+      <div className='min-h-screen lg:pt-44 bg-black'>
       <section className='relative h-screen w-full overflow-hidden'>
         {/* Vidéo de fond avec overlay */}
         <div className='absolute inset-0 z-0'>
@@ -62,6 +65,8 @@ export default function HomePage() {
           <PostsWrapper />
         </div>
       </div>
-    </HeaderAndFooter>
+      </div>
+      <Footer />
+    </div>
   );
 }

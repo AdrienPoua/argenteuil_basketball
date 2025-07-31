@@ -1,327 +1,359 @@
-import * as React from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { CheckIcon, XCircle, ChevronDown, XIcon, WandSparkles } from 'lucide-react';
-import { cn } from '@/lib/utils/cn';
-import { Separator } from '@/components/ui/separator';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-} from '@/components/ui/command';
+"use client"
 
-/**
- * Variants for the multi-select component to handle different styles.
- * Uses class-variance-authority (cva) to define different styles based on "variant" prop.
- */
-const multiSelectVariants = cva(
-  'm-1 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 text-background',
-  {
-    variants: {
-      variant: {
-        default: 'border-foreground/10 text-background bg-card hover:bg-card/80',
-        secondary: 'border-foreground/10 bg-secondary text-secondary-foreground hover:bg-secondary/80',
-        destructive: 'border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80',
-        inverted: 'inverted',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
-    },
-  },
-);
+import { useVirtualizer } from "@tanstack/react-virtual"
+import { ChevronDown, X } from "lucide-react"
+import { useMemo, useRef, useState } from "react"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
+import { FormControl, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { cn } from "@/core/shared/utils/cn"
 
-/**
- * Props for MultiSelect component
- */
-interface MultiSelectProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof multiSelectVariants> {
-  /**
-   * An array of option objects to be displayed in the multi-select component.
-   * Each option object has a label, value, and an optional icon.
-   */
-  options: {
-    /** The text to display for the option. */
-    label: string;
-    /** The unique value associated with the option. */
-    value: string;
-    /** Optional icon component to display alongside the option. */
-    icon?: React.ComponentType<{ className?: string }>;
-  }[];
-
-  /**
-   * Callback function triggered when the selected values change.
-   * Receives an array of the new selected values.
-   */
-  onValueChange: (value: string[]) => void;
-
-  /** The default selected values when the component mounts. */
-  defaultValue?: string[];
-
-  /**
-   * Placeholder text to be displayed when no values are selected.
-   * Optional, defaults to "Select options".
-   */
-  placeholder?: string;
-
-  /**
-   * Animation duration in seconds for the visual effects (e.g., bouncing badges).
-   * Optional, defaults to 0 (no animation).
-   */
-  animation?: number;
-
-  /**
-   * Maximum number of items to display. Extra selected items will be summarized.
-   * Optional, defaults to 3.
-   */
-  maxCount?: number;
-
-  /**
-   * The modality of the popover. When set to true, interaction with outside elements
-   * will be disabled and only popover content will be visible to screen readers.
-   * Optional, defaults to false.
-   */
-  modalPopover?: boolean;
-
-  /**
-   * If true, renders the multi-select component as a child of another component.
-   * Optional, defaults to false.
-   */
-  asChild?: boolean;
-
-  /**
-   * Additional class names to apply custom styles to the multi-select component.
-   * Optional, can be used to add custom styles.
-   */
-  className?: string;
+type MultiSelectProps<T> = {
+  label: string
+  options: T[]
+  getOptionLabel: (option: T) => string
+  getOptionValue: (option: T) => string
+  selectedValues: string[]
+  onChange: (values: string[]) => void
+  disabled?: boolean
+  placeholder?: string
+  className?: string
+  useVirtualizer?: boolean
+  maxHeight?: string
 }
 
-export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>(
-  (
-    {
-      options,
-      onValueChange,
-      variant,
-      defaultValue = [],
-      placeholder = 'Select options',
-      animation = 0,
-      maxCount = 3,
-      modalPopover = false,
-      asChild = false,
-      className,
-      ...props
-    },
-    ref,
-  ) => {
-    const [selectedValues, setSelectedValues] = React.useState<string[]>(defaultValue);
-    const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
-    const [isAnimating, setIsAnimating] = React.useState(false);
+type BadgesContentProps = {
+  selectedValues: string[]
+  selectedLabels: (string | null)[]
+  placeholder?: string
+  label: string
+  removeSelection: (value: string) => void
+}
 
-    const handleInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-      if (event.key === 'Enter') {
-        setIsPopoverOpen(true);
-      } else if (event.key === 'Backspace' && !event.currentTarget.value) {
-        const newSelectedValues = [...selectedValues];
-        newSelectedValues.pop();
-        setSelectedValues(newSelectedValues);
-        onValueChange(newSelectedValues);
-      }
-    };
+const BadgesContent = ({ selectedValues, selectedLabels, placeholder, label, removeSelection }: BadgesContentProps) => {
+  if (selectedValues.length === 0) {
+    return <span>{placeholder ?? `Sélectionner ${label.toLowerCase()}`}</span>
+  }
 
-    const toggleOption = (option: string) => {
-      const newSelectedValues = selectedValues.includes(option)
-        ? selectedValues.filter((value) => value !== option)
-        : [...selectedValues, option];
-      setSelectedValues(newSelectedValues);
-      onValueChange(newSelectedValues);
-    };
-
-    const handleClear = () => {
-      setSelectedValues([]);
-      onValueChange([]);
-    };
-
-    const handleTogglePopover = () => {
-      setIsPopoverOpen((prev) => !prev);
-    };
-
-    const clearExtraOptions = () => {
-      const newSelectedValues = selectedValues.slice(0, maxCount);
-      setSelectedValues(newSelectedValues);
-      onValueChange(newSelectedValues);
-    };
-
-    const toggleAll = () => {
-      if (selectedValues.length === options.length) {
-        handleClear();
-      } else {
-        const allValues = options.map((option) => option.value);
-        setSelectedValues(allValues);
-        onValueChange(allValues);
-      }
-    };
-
+  if (selectedValues.length <= 3) {
     return (
-      <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen} modal={true}>
-        <PopoverTrigger asChild>
-          <Button
-            ref={ref}
-            {...props}
-            onClick={handleTogglePopover}
-            className={cn(
-              'flex h-auto min-h-10 w-full items-center justify-between rounded-md border bg-inherit p-1 hover:bg-inherit [&_svg]:pointer-events-auto',
-              className,
-            )}
+      <>
+        {selectedLabels.map((labelText, index) => (
+          <Badge
+            key={selectedValues[index]}
+            variant="secondary"
+            className="hover:bg-secondary/80 mr-1 cursor-pointer"
+            onClick={(e) => {
+              e.stopPropagation()
+              removeSelection(selectedValues[index] ?? "")
+            }}
           >
-            {selectedValues.length > 0 ? (
-              <div className='flex w-full items-center justify-between text-background'>
-                <div className='flex flex-wrap items-center'>
-                  {selectedValues.slice(0, maxCount).map((value) => {
-                    const option = options.find((o) => o.value === value);
-                    const IconComponent = option?.icon;
-                    return (
-                      <Badge
-                        key={value}
-                        className={cn(isAnimating ? 'animate-bounce' : '', multiSelectVariants({ variant }))}
-                        style={{ animationDuration: `${animation}s` }}
-                      >
-                        {IconComponent && <IconComponent className='mr-2 h-4 w-4' />}
-                        {option?.label}
-                        <XCircle
-                          className='ml-2 h-4 w-4 cursor-pointer'
-                          onClick={(event) => {
-                            event.stopPropagation();
-                            toggleOption(value);
-                          }}
-                        />
-                      </Badge>
-                    );
-                  })}
-                  {selectedValues.length > maxCount && (
-                    <Badge
-                      className={cn(
-                        'border-foreground/1 bg-transparent text-background hover:bg-transparent',
-                        isAnimating ? 'animate-bounce' : '',
-                        multiSelectVariants({ variant }),
-                      )}
-                      style={{ animationDuration: `${animation}s` }}
-                    >
-                      {`+ ${selectedValues.length - maxCount} more`}
-                      <XCircle
-                        className='ml-2 h-4 w-4 cursor-pointer'
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          clearExtraOptions();
-                        }}
-                      />
-                    </Badge>
-                  )}
-                </div>
-                <div className='flex items-center justify-between'>
-                  <XIcon
-                    className='mx-2 h-4 cursor-pointer text-background'
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      handleClear();
-                    }}
-                  />
-                  <Separator orientation='vertical' className='flex h-full min-h-6' />
-                  <ChevronDown className='mx-2 h-4 cursor-pointer text-background' />
-                </div>
-              </div>
-            ) : (
-              <div className='mx-auto flex w-full items-center justify-between'>
-                <span className='mx-3 text-sm text-background'>{placeholder}</span>
-                <ChevronDown className='mx-2 h-4 cursor-pointer text-background' />
-              </div>
-            )}
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent
-          className='w-auto p-0 text-background'
-          align='start'
-          onEscapeKeyDown={() => setIsPopoverOpen(false)}
-        >
-          <Command>
-            <CommandInput placeholder='Search...' onKeyDown={handleInputKeyDown} />
-            <CommandList>
-              <CommandEmpty>No results found.</CommandEmpty>
-              <CommandGroup>
-                <CommandItem key='all' onSelect={toggleAll} className='cursor-pointer'>
-                  <div
-                    className={cn(
-                      'mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary',
-                      selectedValues.length === options.length
-                        ? 'bg-primary text-background'
-                        : 'opacity-50 [&_svg]:invisible',
-                    )}
-                  >
-                    <CheckIcon className='h-4 w-4' />
-                  </div>
-                </CommandItem>
-                {options.map((option) => {
-                  const isSelected = selectedValues.includes(option.value);
-                  return (
-                    <CommandItem
-                      key={option.value}
-                      onSelect={() => toggleOption(option.value)}
-                      className='cursor-pointer'
-                    >
-                      <div
-                        className={cn(
-                          'mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary',
-                          isSelected ? 'bg-primary text-background' : 'opacity-50 [&_svg]:invisible',
-                        )}
-                      >
-                        <CheckIcon className='h-4 w-4' />
-                      </div>
-                      {option.icon && <option.icon className='mr-2 h-4 w-4 text-background' />}
-                      <span>{option.label}</span>
-                    </CommandItem>
-                  );
-                })}
-              </CommandGroup>
-              <CommandSeparator />
-              <CommandGroup>
-                <div className='flex items-center justify-between'>
-                  {selectedValues.length > 0 && (
-                    <>
-                      <CommandItem onSelect={handleClear} className='flex-1 cursor-pointer justify-center'>
-                        Clear
-                      </CommandItem>
-                      <Separator orientation='vertical' className='flex h-full min-h-6' />
-                    </>
-                  )}
-                  <CommandItem
-                    onSelect={() => setIsPopoverOpen(false)}
-                    className='max-w-full flex-1 cursor-pointer justify-center'
-                  >
-                    Close
-                  </CommandItem>
-                </div>
-              </CommandGroup>
-            </CommandList>
-          </Command>
-        </PopoverContent>
-        {animation > 0 && selectedValues.length > 0 && (
-          <WandSparkles
-            className={cn(
-              'my-2 h-3 w-3 cursor-pointer bg-background text-background',
-              isAnimating ? '' : 'text-background',
-            )}
-            onClick={() => setIsAnimating(!isAnimating)}
-          />
-        )}
-      </Popover>
-    );
-  },
-);
+            {labelText}
+            <X className="ml-1 h-3 w-3" />
+          </Badge>
+        ))}
+      </>
+    )
+  }
 
-MultiSelect.displayName = 'MultiSelect';
+  return (
+    <Badge variant="secondary" className="mr-1">
+      {selectedValues.length} sélectionné(s)
+    </Badge>
+  )
+}
+
+const OptionItem = <T,>({
+  option,
+  isSelected,
+  onToggle,
+  getOptionLabel,
+}: {
+  option: T
+  isSelected: boolean
+  onToggle: () => void
+  getOptionLabel: (option: T) => string
+}) => {
+  const label = getOptionLabel(option)
+
+  return (
+    <button
+      className={cn(
+        "hover:bg-accent flex w-full cursor-pointer px-3 py-2 transition-colors",
+        isSelected && "bg-accent"
+      )}
+      onClick={onToggle}
+    >
+      <Checkbox checked={isSelected} className="pointer-events-none mr-2" />
+      <span className="truncate text-sm">{label}</span>
+    </button>
+  )
+}
+
+const VirtualizedOptions = <T,>({
+  options,
+  selectedValues,
+  onToggle,
+  getOptionLabel,
+  getOptionValue,
+  scrollRef,
+  maxHeight,
+}: {
+  options: T[]
+  selectedValues: string[]
+  onToggle: (value: string) => void
+  getOptionLabel: (option: T) => string
+  getOptionValue: (option: T) => string
+  scrollRef: React.RefObject<HTMLDivElement | null>
+  maxHeight: string
+}) => {
+  const virtualizer = useVirtualizer({
+    count: options.length,
+    getScrollElement: () => scrollRef.current,
+    estimateSize: () => 40,
+    overscan: 5,
+    scrollPaddingStart: 0,
+    scrollPaddingEnd: 0,
+  })
+
+  return (
+    <div
+      ref={scrollRef as React.RefObject<HTMLDivElement>}
+      className="overflow-y-auto overscroll-contain"
+      style={{
+        height: maxHeight,
+        scrollbarWidth: "thin",
+      }}
+      onWheel={(e) => {
+        // Gestion manuelle du scroll avec la molette
+        e.preventDefault()
+        e.stopPropagation()
+
+        if (scrollRef.current) {
+          const scrollAmount = e.deltaY
+          const currentScrollTop = scrollRef.current.scrollTop
+          const maxScrollTop = scrollRef.current.scrollHeight - scrollRef.current.clientHeight
+
+          // Calculer la nouvelle position de scroll
+          const newScrollTop = Math.max(0, Math.min(maxScrollTop, currentScrollTop + scrollAmount))
+
+          // Appliquer le scroll
+          scrollRef.current.scrollTop = newScrollTop
+        }
+      }}
+    >
+      <div
+        style={{
+          height: `${virtualizer.getTotalSize()}px`,
+          position: "relative",
+          width: "100%",
+        }}
+      >
+        {virtualizer.getVirtualItems().map((virtualRow) => {
+          const option = options[virtualRow.index]
+          if (!option) return null
+
+          const value = getOptionValue(option)
+          const isSelected = selectedValues.includes(value)
+
+          return (
+            <div
+              key={virtualRow.key}
+              data-index={virtualRow.index}
+              ref={virtualizer.measureElement}
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "40px",
+                transform: `translateY(${virtualRow.start}px)`,
+              }}
+            >
+              <OptionItem
+                option={option}
+                isSelected={isSelected}
+                onToggle={() => onToggle(value)}
+                getOptionLabel={getOptionLabel}
+              />
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+const RegularOptions = <T,>({
+  options,
+  selectedValues,
+  onToggle,
+  getOptionLabel,
+  getOptionValue,
+}: {
+  options: T[]
+  selectedValues: string[]
+  onToggle: (value: string) => void
+  getOptionLabel: (option: T) => string
+  getOptionValue: (option: T) => string
+}) => {
+  return (
+    <>
+      {options.map((option) => {
+        const value = getOptionValue(option)
+        const isSelected = selectedValues.includes(value)
+
+        return (
+          <OptionItem
+            key={value}
+            option={option}
+            isSelected={isSelected}
+            onToggle={() => onToggle(value)}
+            getOptionLabel={getOptionLabel}
+          />
+        )
+      })}
+    </>
+  )
+}
+
+export function MultiSelect<T>({
+  label,
+  options,
+  getOptionLabel,
+  getOptionValue,
+  selectedValues,
+  onChange,
+  disabled = false,
+  placeholder,
+  className,
+  useVirtualizer = false,
+  maxHeight = "300px",
+}: Readonly<MultiSelectProps<T>>) {
+  const [isOpen, setIsOpen] = useState(false)
+  const scrollRef = useRef<HTMLDivElement>(null)
+
+  const { toggleSelection, removeSelection, selectedLabels } = useMemo(() => {
+    const toggle = (value: string) => {
+      if (selectedValues.includes(value)) {
+        onChange(selectedValues.filter((v) => v !== value))
+      } else {
+        onChange([...selectedValues, value])
+      }
+    }
+
+    const remove = (value: string) => {
+      onChange(selectedValues.filter((v) => v !== value))
+    }
+
+    const labels = selectedValues
+      .map((value) => {
+        const option = options.find((opt) => getOptionValue(opt) === value)
+        return option ? getOptionLabel(option) : null
+      })
+      .filter(Boolean)
+
+    return {
+      toggleSelection: toggle,
+      removeSelection: remove,
+      selectedLabels: labels,
+    }
+  }, [selectedValues, onChange, options, getOptionLabel, getOptionValue])
+
+  const shouldUseVirtualizer = useVirtualizer && options.length > 50
+
+  return (
+    <FormItem className={className}>
+      <FormLabel>{label}</FormLabel>
+      <FormControl>
+        <Popover open={isOpen} onOpenChange={setIsOpen}>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              aria-expanded={isOpen}
+              disabled={disabled}
+              className={cn(
+                "h-fit min-h-[40px] w-full justify-between text-left",
+                selectedValues.length === 0 && "text-muted-foreground"
+              )}
+            >
+              <div className="flex flex-1 flex-wrap items-center gap-1">
+                <BadgesContent
+                  selectedValues={selectedValues}
+                  selectedLabels={selectedLabels}
+                  placeholder={placeholder}
+                  label={label}
+                  removeSelection={removeSelection}
+                />
+              </div>
+              <ChevronDown className="h-4 w-4 shrink-0 opacity-50" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent
+            className="w-full p-0"
+            align="start"
+            style={{ width: "var(--radix-popover-trigger-width)" }}
+            onWheel={(e) => {
+              // Permet au scroll de fonctionner à l'intérieur du popover
+              e.stopPropagation()
+            }}
+          >
+            <div className="border-b p-2">
+              <div className="text-muted-foreground text-sm">
+                {selectedValues.length} sur {options.length} sélectionné(s)
+              </div>
+            </div>
+
+            {shouldUseVirtualizer ? (
+              <VirtualizedOptions
+                options={options}
+                selectedValues={selectedValues}
+                onToggle={toggleSelection}
+                getOptionLabel={getOptionLabel}
+                getOptionValue={getOptionValue}
+                scrollRef={scrollRef}
+                maxHeight={maxHeight}
+              />
+            ) : (
+              <div className="overflow-y-auto" style={{ maxHeight }}>
+                <RegularOptions
+                  options={options}
+                  selectedValues={selectedValues}
+                  onToggle={toggleSelection}
+                  getOptionLabel={getOptionLabel}
+                  getOptionValue={getOptionValue}
+                />
+              </div>
+            )}
+
+            {selectedValues.length > 0 && (
+              <div className="border-t p-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    onChange([])
+                  }}
+                  className="w-full"
+                >
+                  Tout désélectionner
+                </Button>
+              </div>
+            )}
+          </PopoverContent>
+        </Popover>
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )
+}
+
+// Export des anciennes versions pour la compatibilité (deprecated)
+export const MultiSelectWithVirtualizer = <T,>(props: MultiSelectProps<T>) => (
+  <MultiSelect {...props} useVirtualizer={true} />
+)
+
+export const Multiselect = MultiSelect

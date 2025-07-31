@@ -1,27 +1,50 @@
-import Match from '@/models/Match';
-import ViewTab from './components/ViewTab';
-import MainSection from '@/components/layouts/MainSection';
-import MatchService from '@/services/Match';
-import H2 from '@/components/ui/h2';
+import type { Metadata } from "next"
+import { toPersistence } from "@/core/infrastructure/supabase/mappers/match.mapper"
+import { readMatchs } from "@/core//presentation/actions/matchs/read"
+import club from "@/core/shared/config/club"
+import ClientSide from "./page.client"
 
-export const metadata = {
-  title: 'Matchs du week-end | Argenteuil Basketball',
-  description: "Retrouvez ici tous les matchs à venir du club de basket d'Argenteuil.",
+export const metadata: Metadata = {
+  title: "Planning des matchs",
+  description:
+    "Consultez le calendrier des matchs du BC Sartrouville : dates, horaires, adversaires et résultats. Suivez toutes les rencontres de nos équipes en temps réel.",
+  keywords: [
+    "planning matchs BC Sartrouville",
+    "calendrier basket",
+    "matchs basketball",
+    "résultats basket",
+    "rencontres sportives",
+    "fixture basket",
+    "score match",
+    "championnat basket",
+  ],
   openGraph: {
-    title: 'Matchs à venir - Argenteuil Basketball',
-    description: "Retrouvez ici tous les matchs à venir du club de basket d'Argenteuil.",
+    title: `Planning des matchs - ${club.name}`,
+    description: "Consultez le calendrier des matchs du BC Sartrouville : dates, horaires, adversaires et résultats.",
+    url: `https://${club.domain}/plannings/matchs`,
+    images: [
+      {
+        url: `https://${club.domain}${club.logo}`,
+        width: 1200,
+        height: 630,
+        alt: "Planning matchs BC Sartrouville",
+      },
+    ],
   },
-};
+  twitter: {
+    card: "summary_large_image",
+    title: `Planning des matchs - ${club.name}`,
+    description: "Consultez le calendrier des matchs du BC Sartrouville : dates, horaires, adversaires et résultats.",
+    images: [`https://${club.domain}${club.logo}`],
+  },
+  alternates: {
+    canonical: `https://${club.domain}/plannings/matchs`,
+  },
+}
 
 export default async function MatchsPage() {
-  const matchs = await MatchService.getMatchs()
-    .then((match) => match.map((match) => new Match(match)))
-    .then((match) => match.map((m) => m.toPlainObject()))
-    .then((match) => match.toSorted((a, b) => a.date.getTime() - b.date.getTime()));
-  return (
-    <MainSection>
-      <H2>Matchs du mois</H2>
-      <ViewTab matchs={matchs} />
-    </MainSection>
-  );
+  const matchs = await readMatchs().then((matchs) => {
+    return matchs.map((match) => toPersistence(match))
+  })
+  return <ClientSide matchs={matchs} />
 }

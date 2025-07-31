@@ -1,10 +1,10 @@
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
-import Header from '@/components/Header';
+import Header from '@/components/parts/header';
 import Footer from '@/components/Footer';
 import { PostContent } from './PostContent';
-import { sanityFetch } from '@/integrations/sanity/fetch';
-import { POST_QUERY } from '@/integrations/sanity/queries';
+import { sanityFetch } from '../../../../../core/infrastructure/sanity/fetch';
+import { POST_QUERY } from '../../../../../core/infrastructure/sanity/queries';
 import { SanityDocument } from 'next-sanity';
 import ReadingProgressBar from './ReadingProgressBar';
 import ShareButtons from './ShareButtons';
@@ -57,13 +57,6 @@ export default async function BlogPostPage({ params }: Readonly<PageProps>) {
             </Suspense>
           </div>
 
-          {/* Section de partage */}
-          <div className='mx-auto mt-16 max-w-3xl border-t border-gray-200 pt-8'>
-            <div className='flex flex-col justify-between gap-4 sm:flex-row sm:items-center'>
-              <h3 className='text-xl font-bold text-gray-900'>Partager cet article</h3>
-              <ShareButtons title={post.title} slug={params.slug} />
-            </div>
-          </div>
         </article>
       </main>
       <Footer />

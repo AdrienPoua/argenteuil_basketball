@@ -4,11 +4,10 @@ import { SanityDocument } from 'next-sanity';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import Link from 'next/link';
 import Image from 'next/image';
-import { urlFor } from '@/integrations/sanity/image';
-import { MAX_POSTS_ON_HOME_PAGE } from '@/data/magicNumber';
+import { urlFor } from '../../core/infrastructure/sanity/image';
 import { Skeleton } from '@/components/ui/skeleton';
 import ScaleFromBottom from '@/components/motion/ScaleFromBottom';
-import { cn } from '@/lib/utils/cn';
+import { cn } from '@/utils/cn';
 
 interface PropsType {
   post: SanityDocument;
@@ -16,6 +15,7 @@ interface PropsType {
 }
 
 export default function PostsWrapper() {
+  const MAX_POSTS_ON_HOME_PAGE = 3;
   const [leftPostOnHomePage, setLeftPostOnHomePage] = useState<SanityDocument | null>(null);
   const [rightPostOnHomePage, setRightPostOnHomePage] = useState<SanityDocument | null>(null);
   const [postsOnHomePage, setPostsOnHomePage] = useState<SanityDocument[] | null>(null);

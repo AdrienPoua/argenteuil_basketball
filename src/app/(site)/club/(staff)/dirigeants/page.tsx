@@ -1,8 +1,8 @@
 import MainSection from '@/components/layouts/MainSection';
-import MemberService from '@/services/Member';
-import Member from '@/models/Member';
+import { readMembers } from '@/core/presentation/actions/members/read';
 import { AnimatedTestimonials } from '@/components/ui/animated-testimonials';
 import H2 from '@/components/ui/h2';
+import { toPersistence } from '@/mappers/member.mapper';
 
 export const metadata = {
   title: 'Dirigeants | Argenteuil Basketball',
@@ -14,11 +14,11 @@ export const metadata = {
 };
 
 export default async function Index() {
-  const leaders = await MemberService.getLeaders().then((leader) => leader.map((l) => new Member(l).toPlainObject()));
+  const members = await readMembers().then((members) => members.map((member) => toPersistence(member)));
   return (
     <MainSection>
       <H2>Nos dirigeants</H2>
-      <AnimatedTestimonials testimonials={leaders} />
+      <AnimatedTestimonials data={members} />
     </MainSection>
   );
 }

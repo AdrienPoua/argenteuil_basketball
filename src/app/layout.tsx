@@ -1,7 +1,7 @@
 import './globals.css';
 import Script from 'next/script';
 
-import ClientLayout from './ClientLayout';
+import ClientLayout from './client.layout';
 import { Viewport } from 'next';
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

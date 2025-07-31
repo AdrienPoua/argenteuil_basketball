@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ChevronRight, Home } from 'lucide-react';
 import Link from 'next/link';
-import { cn } from '@/lib/utils/cn';
+import { cn } from '@/utils/cn';
 
 interface BreadcrumbProps extends React.HTMLAttributes<HTMLDivElement> {
   segments: {

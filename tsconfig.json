@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
@@ -20,11 +24,41 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
-      "@nextauth/*": ["./src/api/auth/[...nextauth]/routes.ts"]
+      "@/*": [
+        "./src/*"
+      ],
+      "@/core/*": [
+        "./core/*"
+      ],
+      "@/utils/*": [
+        "./core/shared/utils/*"
+      ],
+      "@/actions/*": [
+        "./core/presentation/actions/*"
+      ],
+      "@/hooks/*": [
+        "./core/presentation/hooks/*"
+      ],
+      "@/mappers/*": [
+        "./core/infrastructure/supabase/mappers/*"
+      ],
+      "@/components/*": [
+        "./src/components/*"
+      ],
+      "@/sanity/*": [
+        "./core/infrastructure/sanity/*"
+      ]
     },
     "isolatedModules": true
   },
-  "include": ["next-env.d.ts", "src", ".next/types/**/*.ts", "tailwind.config.ts", "middleware.js"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.mjs",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

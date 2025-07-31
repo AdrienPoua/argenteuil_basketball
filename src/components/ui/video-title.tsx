@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactElement } from 'react';
-import { cn } from '@/lib/utils/cn';
+import { cn } from '@/utils/cn';
 import { AppearFromLeft } from '@/components/motion/AppearFromLeft';
 
 type PropsType = {

@@ -1,1 +1,0 @@
-export const MINIMUM_BIRTH_DATE_FOR_INSCRIPTION = new Date('2020-01-01');

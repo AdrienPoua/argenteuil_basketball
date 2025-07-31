@@ -2,7 +2,6 @@
 
 import { Button } from '@/components/ui/button';
 import { Facebook, Twitter, Linkedin, Mail, Link as LinkIcon } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
 
 interface ShareButtonsProps {
   title: string;
@@ -10,7 +9,6 @@ interface ShareButtonsProps {
 }
 
 export default function ShareButtons({ title, slug }: Readonly<ShareButtonsProps>) {
-  const { toast } = useToast();
   const url = `https://argenteuilbasketball.com/actualites/${slug}`;
 
   const shareData = {
@@ -20,24 +18,6 @@ export default function ShareButtons({ title, slug }: Readonly<ShareButtonsProps
     email: `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(`Découvrez cet article: ${url}`)}`,
   };
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(url).then(
-      () => {
-        toast({
-          title: 'Lien copié!',
-          description: "Le lien de l'article a été copié dans votre presse-papiers.",
-        });
-      },
-      (err) => {
-        console.error('Impossible de copier le texte: ', err);
-        toast({
-          title: 'Erreur',
-          description: 'Impossible de copier le lien.',
-          variant: 'destructive',
-        });
-      },
-    );
-  };
 
   return (
     <div className='flex flex-wrap items-center justify-end gap-3'>
@@ -65,7 +45,7 @@ export default function ShareButtons({ title, slug }: Readonly<ShareButtonsProps
         </Button>
       </a>
 
-      <Button size='sm' className='rounded-full p-2' onClick={copyToClipboard} aria-label='Copier le lien'>
+      <Button size='sm' className='rounded-full p-2'  aria-label='Copier le lien'>
         <LinkIcon className='h-5 w-5' />
       </Button>
     </div>

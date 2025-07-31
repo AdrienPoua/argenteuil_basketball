@@ -1,8 +1,8 @@
 import { PortableTextComponents } from '@portabletext/react';
-import { urlFor } from '@/integrations/sanity/image';
+import { urlFor } from '../../../../../core/infrastructure/sanity/image';
 import Image from 'next/image';
 import Link from 'next/link';
-import { cn } from '@/lib/utils/cn';
+import { cn } from '@/utils/cn';
 import { Button } from '@/components/ui/button';
 import { FileText, AlertTriangle, CheckCircle, Info, ExternalLink, X, ZoomIn } from 'lucide-react';
 import { useState } from 'react';
