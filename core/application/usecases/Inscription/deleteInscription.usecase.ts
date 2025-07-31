@@ -1,5 +1,5 @@
-import { InscriptionRepository } from "@/core/domain/repositories/inscription.repository"
-import { ErrorHandler } from "@/core/shared/error/ErrorHandler"
+import { InscriptionRepository } from '@/core/domain/repositories/inscription.repository'
+import { ErrorHandler } from '@/core/shared/error/ErrorHandler'
 
 export class DeleteInscriptionUseCase {
   constructor(private readonly repository: InscriptionRepository) {}
@@ -13,4 +13,4 @@ export class DeleteInscriptionUseCase {
       throw normalizedError
     }
   }
-} 
+}

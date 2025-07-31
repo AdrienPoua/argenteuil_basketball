@@ -1,6 +1,10 @@
-export type StatutInscription = "EN_ATTENTE" | "TRAITEE" | "REJETEE"
-export type TypeInscription = "RENOUVELLEMENT" | "MUTATION" | "NOUVELLE_LICENCE" | "RENOUVELLEMENT_SANS_MUTATION"
-export type Gender = "Masculin" | "Féminin"
+export type StatutInscription = 'EN_ATTENTE' | 'TRAITEE' | 'REJETEE'
+export type TypeInscription =
+  | 'RENOUVELLEMENT'
+  | 'MUTATION'
+  | 'NOUVELLE_LICENCE'
+  | 'RENOUVELLEMENT_SANS_MUTATION'
+export type Gender = 'Masculin' | 'Féminin'
 
 interface Inscription {
   id: string
@@ -12,6 +16,7 @@ interface Inscription {
   gender: Gender
   surclassement: boolean
   typeInscription: TypeInscription
+  passSport: string
   status: StatutInscription
   created_at: Date
 }
@@ -26,6 +31,7 @@ export class InscriptionEntity implements Inscription {
   private readonly _gender: Gender
   private readonly _surclassement: boolean
   private readonly _typeInscription: TypeInscription
+  private readonly _passSport: string
   private readonly _status: StatutInscription
   private readonly _created_at: Date
 
@@ -39,6 +45,7 @@ export class InscriptionEntity implements Inscription {
     this._gender = data.gender
     this._surclassement = data.surclassement
     this._typeInscription = data.typeInscription
+    this._passSport = data.passSport
     this._status = data.status
     this._created_at = data.created_at
   }
@@ -79,6 +86,10 @@ export class InscriptionEntity implements Inscription {
     return this._typeInscription
   }
 
+  get passSport(): string {
+    return this._passSport
+  }
+
   get status(): StatutInscription {
     return this._status
   }
@@ -98,6 +109,7 @@ export class InscriptionEntity implements Inscription {
       gender: this._gender,
       surclassement: this._surclassement,
       typeInscription: this._typeInscription,
+      passSport: this._passSport,
       status: this._status,
       created_at: this._created_at,
     }

@@ -1,18 +1,25 @@
-"use client"
+'use client'
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useMutation } from "@tanstack/react-query"
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { toast } from "sonner"
-import { z } from "zod"
-import { Button } from "@/components/ui/button"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { create } from "@/core//presentation/actions/documents/create"
-import { uploadFile } from "@/core/shared/utils/upload"
-import { Loading } from "@/components/ui/loading"
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
+import { z } from 'zod'
+import { Button } from '@/components/ui/button'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import { create } from '@/core//presentation/actions/documents/create'
+import { uploadFile } from '@/core/shared/utils/upload'
+import { Loading } from '@/components/ui/loading'
 
 type PropsType = {
   actions: {
@@ -23,13 +30,13 @@ type PropsType = {
 const MAX_FILE_SIZE = 4.9 * 1024 * 1024 // 4.9MB
 
 const DocumentFormSchema = z.object({
-  title: z.string().min(5, "Le titre doit contenir au moins 5 caractères"),
-  description: z.string().min(10, "La description doit contenir au moins 10 caractères"),
+  title: z.string().min(5, 'Le titre doit contenir au moins 5 caractères'),
+  description: z.string().min(10, 'La description doit contenir au moins 10 caractères'),
   file: z
-    .instanceof(File, { message: "Le fichier est requis" })
+    .instanceof(File, { message: 'Le fichier est requis' })
     .refine(
       (file) => file.size <= MAX_FILE_SIZE,
-      `La taille du fichier doit être inférieure à ${MAX_FILE_SIZE / 1024 / 1024}MB`
+      `La taille du fichier doit être inférieure à ${MAX_FILE_SIZE / 1024 / 1024}MB`,
     ),
 })
 
@@ -44,11 +51,13 @@ export function DocumentFormCreate({ actions }: Readonly<PropsType>) {
 
   const mutation = useMutation({
     mutationFn: async (data: DocumentFormValues) => {
-      const fileUrl = await uploadFile(data.file, "documents")
+      const fileUrl = await uploadFile(data.file, 'documents')
       const size = data.file.size
 
+      // Créer le payload sans l'objet File pour la Server Action
       const payload = {
-        ...data,
+        title: data.title,
+        description: data.description,
         size,
         url: fileUrl,
       }
@@ -58,11 +67,11 @@ export function DocumentFormCreate({ actions }: Readonly<PropsType>) {
     onSuccess: () => {
       form.reset()
       actions.success()
-      toast.success("Document enregistré avec succès.")
+      toast.success('Document enregistré avec succès.')
     },
     onError: (error: Error) => {
       console.error("Erreur lors de l'enregistrement:", error)
-      form.setError("root", {
+      form.setError('root', {
         message: "Une erreur est survenue lors de l'enregistrement. Veuillez réessayer.",
       })
       toast.error("Une erreur est survenue lors de l'enregistrement. Veuillez réessayer.")
@@ -138,7 +147,9 @@ export function DocumentFormCreate({ actions }: Readonly<PropsType>) {
           />
         }
 
-        {mutation.isError && <div className="text-destructive text-sm">{mutation.error.message}</div>}
+        {mutation.isError && (
+          <div className="text-sm text-destructive">{mutation.error.message}</div>
+        )}
 
         <div className="flex justify-end gap-2 pt-4">
           <Button
@@ -152,7 +163,7 @@ export function DocumentFormCreate({ actions }: Readonly<PropsType>) {
             Annuler
           </Button>
           <Button type="submit" disabled={mutation.isPending}>
-            {loading ? `Upload en cours ` : "Envoyer"}
+            {loading ? `Upload en cours ` : 'Envoyer'}
           </Button>
         </div>
       </form>

@@ -1,4 +1,4 @@
-import { UserEntity } from "../entities/user.entity"
+import { UserEntity } from '../entities/user.entity'
 
 export interface UserRepository {
   signIn(email: string, password: string): Promise<UserEntity | null>

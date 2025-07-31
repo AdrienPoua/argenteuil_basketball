@@ -1,6 +1,6 @@
-import { TaskEntity } from "../../../domain/entities/task.entity"
-import { TaskRepository } from "../../../domain/repositories/task.repository"
-import { ErrorHandler } from "../../../shared/error/ErrorHandler"
+import { TaskEntity } from '../../../domain/entities/task.entity'
+import { TaskRepository } from '../../../domain/repositories/task.repository'
+import { ErrorHandler } from '../../../shared/error/ErrorHandler'
 
 export class GetAllTasksUseCase {
   constructor(private readonly taskRepository: TaskRepository) {}

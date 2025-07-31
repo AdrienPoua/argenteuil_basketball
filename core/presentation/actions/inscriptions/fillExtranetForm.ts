@@ -1,7 +1,7 @@
-"use server"
+'use server'
 
-import fillNouvelleLicence from "@/core/infrastructure/puppeteer/extranet/nouvelle.licence"
-import { ErrorHandler } from "@/core/shared/error/ErrorHandler"
+import fillNouvelleLicence from '@/core/infrastructure/puppeteer/extranet/nouvelle.licence'
+import { ErrorHandler } from '@/core/shared/error/ErrorHandler'
 
 // Interface for the serializable data needed by the Puppeteer script
 interface ExtranetFormData {
@@ -13,7 +13,9 @@ interface ExtranetFormData {
   surclassement: boolean
 }
 
-export async function fillExtranetFormAction(formData: ExtranetFormData): Promise<{ success: boolean; error?: string }> {
+export async function fillExtranetFormAction(
+  formData: ExtranetFormData,
+): Promise<{ success: boolean; error?: string }> {
   try {
     // Convert the plain object to the format expected by the Puppeteer script
     const payload = {
@@ -22,17 +24,17 @@ export async function fillExtranetFormAction(formData: ExtranetFormData): Promis
       email: formData.email,
       dateOfBirth: new Date(formData.dateOfBirth),
       gender: formData.gender,
-      surclassement: formData.surclassement
+      surclassement: formData.surclassement,
     }
-    
+
     await fillNouvelleLicence(payload)
     return { success: true }
   } catch (error) {
     const normalizedError = ErrorHandler.normalize(error)
     ErrorHandler.log(normalizedError)
-    return { 
-      success: false, 
-      error: ErrorHandler.userMessage(error) || "Erreur lors du remplissage du formulaire Extranet"
+    return {
+      success: false,
+      error: ErrorHandler.userMessage(error) || 'Erreur lors du remplissage du formulaire Extranet',
     }
   }
-} 
+}

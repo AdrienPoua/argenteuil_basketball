@@ -1,5 +1,5 @@
-import { MatchRepository } from "../../../domain/repositories/match.repository"
-import { ErrorHandler } from "../../../shared/error/ErrorHandler"
+import { MatchRepository } from '../../../domain/repositories/match.repository'
+import { ErrorHandler } from '../../../shared/error/ErrorHandler'
 
 export class DeleteMatchUseCase {
   constructor(private readonly matchRepository: MatchRepository) {}

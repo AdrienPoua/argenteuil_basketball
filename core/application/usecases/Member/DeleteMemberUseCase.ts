@@ -1,5 +1,5 @@
-import { MemberRepository } from "../../../domain/repositories/member.repository"
-import { ErrorHandler } from "../../../shared/error/ErrorHandler"
+import { MemberRepository } from '../../../domain/repositories/member.repository'
+import { ErrorHandler } from '../../../shared/error/ErrorHandler'
 
 export class DeleteMemberUseCase {
   constructor(private readonly memberRepository: MemberRepository) {}

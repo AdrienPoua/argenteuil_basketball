@@ -1,11 +1,11 @@
-import { z } from "zod"
-import { MatchEntity } from "../../../domain/entities/match.entity"
-import { TeamEntity } from "../../../domain/entities/team.entity"
-import { MatchRepository } from "../../../domain/repositories/match.repository"
-import { TeamRepository } from "../../../domain/repositories/team.repository"
-import { ErrorHandler } from "../../../shared/error/ErrorHandler"
-import { CreateMatchDTO } from "../../dtos/match.dto"
-import { BaseUseCase } from "../BaseUseCase"
+import { z } from 'zod'
+import { MatchEntity } from '../../../domain/entities/match.entity'
+import { TeamEntity } from '../../../domain/entities/team.entity'
+import { MatchRepository } from '../../../domain/repositories/match.repository'
+import { TeamRepository } from '../../../domain/repositories/team.repository'
+import { ErrorHandler } from '../../../shared/error/ErrorHandler'
+import { CreateMatchDTO } from '../../dtos/match.dto'
+import { BaseUseCase } from '../BaseUseCase'
 
 const MatchSchema = z.object({
   id: z.number(),
@@ -54,7 +54,7 @@ const MatchArraySchema = z.array(MatchSchema)
 export class UpsertManyMatchsFromExtranetUseCase implements BaseUseCase<unknown, MatchEntity[]> {
   constructor(
     private readonly matchRepository: MatchRepository,
-    private readonly teamRepository: TeamRepository
+    private readonly teamRepository: TeamRepository,
   ) {}
 
   async execute(input: unknown): Promise<MatchEntity[]> {
@@ -62,7 +62,12 @@ export class UpsertManyMatchsFromExtranetUseCase implements BaseUseCase<unknown,
       const matchs = MatchArraySchema.parse(input)
       const teams = await this.teamRepository.findAll()
       const filteredMatchs = matchs.filter(
-        (m) => !!m.idEngagementEquipe1 && !!m.idEngagementEquipe2 && !!m.salle && !!m.nomEquipe1 && !!m.nomEquipe2
+        (m) =>
+          !!m.idEngagementEquipe1 &&
+          !!m.idEngagementEquipe2 &&
+          !!m.salle &&
+          !!m.nomEquipe1 &&
+          !!m.nomEquipe2,
       )
 
       const dtos = filteredMatchs.map((m) => this.DTO(m))
@@ -82,8 +87,8 @@ export class UpsertManyMatchsFromExtranetUseCase implements BaseUseCase<unknown,
       numero_journee: match.numeroJournee,
       id_organisme_equipe_1: match.idOrganismeEquipe1,
       id_organisme_equipe_2: match.idOrganismeEquipe2,
-      nom_equipe_1: match.nomEquipe1 ?? "",
-      nom_equipe_2: match.nomEquipe2 ?? "",
+      nom_equipe_1: match.nomEquipe1 ?? '',
+      nom_equipe_2: match.nomEquipe2 ?? '',
       id_poule: match.idPoule,
       id_engagement_equipe_1: match.idEngagementEquipe1,
       id_engagement_equipe_2: match.idEngagementEquipe2,
@@ -117,7 +122,10 @@ export class UpsertManyMatchsFromExtranetUseCase implements BaseUseCase<unknown,
     }
   }
 
-  async enhancedWithTeamId(matchs: CreateMatchDTO[], teams: TeamEntity[]): Promise<CreateMatchDTO[]> {
+  async enhancedWithTeamId(
+    matchs: CreateMatchDTO[],
+    teams: TeamEntity[],
+  ): Promise<CreateMatchDTO[]> {
     // Map pouleId => teamId pour accès rapide
     const pouleToTeamMap = new Map<number, string>()
 
@@ -131,7 +139,7 @@ export class UpsertManyMatchsFromExtranetUseCase implements BaseUseCase<unknown,
     // Transformer les matchs
     return matchs.map((match) => ({
       ...match,
-      team_id: match.id_poule ? pouleToTeamMap.get(match.id_poule) ?? null : null,
+      team_id: match.id_poule ? (pouleToTeamMap.get(match.id_poule) ?? null) : null,
     }))
   }
 }

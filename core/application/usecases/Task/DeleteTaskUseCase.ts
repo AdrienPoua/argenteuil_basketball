@@ -1,5 +1,5 @@
-import { TaskRepository } from "../../../domain/repositories/task.repository"
-import { ErrorHandler } from "../../../shared/error/ErrorHandler"
+import { TaskRepository } from '../../../domain/repositories/task.repository'
+import { ErrorHandler } from '../../../shared/error/ErrorHandler'
 
 export class DeleteTaskUseCase {
   constructor(private readonly taskRepository: TaskRepository) {}

@@ -1,8 +1,8 @@
-import { z } from "zod"
-import { DocumentEntity } from "../../../domain/entities/document.entity"
-import { DocumentRepository } from "../../../domain/repositories/document.repository"
-import { ErrorHandler } from "../../../shared/error/ErrorHandler"
-import { BaseUseCase } from "../BaseUseCase"
+import { z } from 'zod'
+import { DocumentEntity } from '../../../domain/entities/document.entity'
+import { DocumentRepository } from '../../../domain/repositories/document.repository'
+import { ErrorHandler } from '../../../shared/error/ErrorHandler'
+import { BaseUseCase } from '../BaseUseCase'
 
 const UpsertDocumentUseCaseInputSchema = z.object({
   id: z.string().optional(),
@@ -15,7 +15,9 @@ const UpsertDocumentUseCaseInputSchema = z.object({
 
 type UpsertDocumentUseCaseInput = z.infer<typeof UpsertDocumentUseCaseInputSchema>
 
-export class UpsertDocumentUseCase implements BaseUseCase<UpsertDocumentUseCaseInput, DocumentEntity> {
+export class UpsertDocumentUseCase
+  implements BaseUseCase<UpsertDocumentUseCaseInput, DocumentEntity>
+{
   constructor(private readonly documentRepository: DocumentRepository) {}
 
   async execute(input: unknown): Promise<DocumentEntity> {

@@ -1,10 +1,10 @@
-"use server"
+'use server'
 
-import { revalidatePath } from "next/cache"
-import { CreateTeamUseCase } from "../../../application/usecases/Team/CreateTeamUseCase"
-import { RepositoryFactory } from "../../../infrastructure/supabase/repositories/factory.repository"
-import { ErrorHandler } from "../../../shared/error/ErrorHandler"
-import { uploadFile } from "../../../shared/utils/upload"
+import { revalidatePath } from 'next/cache'
+import { CreateTeamUseCase } from '../../../application/usecases/Team/CreateTeamUseCase'
+import { RepositoryFactory } from '../../../infrastructure/supabase/repositories/factory.repository'
+import { ErrorHandler } from '../../../shared/error/ErrorHandler'
+import { uploadFile } from '../../../shared/utils/upload'
 
 export async function createTeam(data: {
   name: string
@@ -29,7 +29,7 @@ export async function createTeam(data: {
 
     // Si un nouveau fichier est fourni, l'uploader
     if (data.file) {
-      imageUrl = await uploadFile(data.file, "teams", "logos")
+      imageUrl = await uploadFile(data.file, 'teams', 'logos')
     }
 
     const teamData = {
@@ -37,11 +37,11 @@ export async function createTeam(data: {
       image: imageUrl,
     }
 
-    const teamRepository = RepositoryFactory.getTeamRepository("browser")
+    const teamRepository = RepositoryFactory.getTeamRepository('browser')
     const createUseCase = new CreateTeamUseCase(teamRepository)
     const entity = await createUseCase.execute(teamData)
 
-    revalidatePath("/")
+    revalidatePath('/')
     return entity.toObject()
   } catch (error) {
     const normalizedError = ErrorHandler.normalize(error)

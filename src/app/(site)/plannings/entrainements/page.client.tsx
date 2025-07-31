@@ -1,8 +1,8 @@
-"use client"
+'use client'
 
-import { Calendar, Clock } from "lucide-react"
-import { useState } from "react"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Calendar, Clock } from 'lucide-react'
+import { useState } from 'react'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import {
   allSessionsType,
   daysType,
@@ -12,9 +12,9 @@ import {
   sessionsByDayType,
   TeamType,
   timeSlotsType,
-} from "./page"
-import CardsView from "./page.card"
-import TimelineView from "./page.timeline"
+} from './page'
+import CardsView from './page.card'
+import TimelineView from './page.timeline'
 
 type PropsType = {
   teams: TeamType[]
@@ -36,7 +36,7 @@ export default function Component({
   gymnaseMap,
   timeSlots,
 }: Readonly<PropsType>) {
-  const [activeTab, setActiveTab] = useState("cards")
+  const [activeTab, setActiveTab] = useState('cards')
 
   return (
     <div className="w-full space-y-6">

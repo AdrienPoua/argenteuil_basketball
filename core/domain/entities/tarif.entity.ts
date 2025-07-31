@@ -9,17 +9,17 @@ export interface Tarif {
 }
 
 export enum TarifCategory {
-  U07 = "U07",
-  U09 = "U09",
-  U11 = "U11",
-  U13 = "U13",
-  U15 = "U15",
-  U18 = "U18",
-  U21 = "U21",
-  SENIORS = "Seniors",
-  LOISIR = "Loisir",
-  "Licence Pret (T)" = "Licence Pret (T)",
-  "Licence non joueur" = "Licence non joueur",
+  U07 = 'U07',
+  U09 = 'U09',
+  U11 = 'U11',
+  U13 = 'U13',
+  U15 = 'U15',
+  U18 = 'U18',
+  U21 = 'U21',
+  SENIORS = 'Seniors',
+  LOISIR = 'Loisir',
+  'Licence Pret (T)' = 'Licence Pret (T)',
+  'Licence non joueur' = 'Licence non joueur',
 }
 
 export class TarifEntity implements Tarif {

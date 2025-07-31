@@ -1,6 +1,6 @@
-import { MemberEntity } from "../../../domain/entities/member.entity"
-import { MemberRepository } from "../../../domain/repositories/member.repository"
-import { ErrorHandler } from "../../../shared/error/ErrorHandler"
+import { MemberEntity } from '../../../domain/entities/member.entity'
+import { MemberRepository } from '../../../domain/repositories/member.repository'
+import { ErrorHandler } from '../../../shared/error/ErrorHandler'
 
 export class FindMembersUseCase {
   constructor(private readonly memberRepository: MemberRepository) {}

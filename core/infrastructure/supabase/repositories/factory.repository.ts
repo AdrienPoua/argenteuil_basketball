@@ -1,30 +1,29 @@
-import { SupabaseDocumentRepository } from "./document.repository"
-import { SupabaseFaqRepository } from "./faq.repository"
-import { SupabaseGymnaseRepository } from "./gymnase.repository"
-import { SupabaseInscriptionRepository } from "./inscription.repository"
-import { SupabaseMatchRepository } from "./match.repository"
-import { SupabaseMemberRepository } from "./member.repository"
-import { SupabaseSessionRepository } from "./session.repository"
-import { SupabaseTarifRepository } from "./tarif.repository"
-import { SupabaseTaskRepository } from "./task.repository"
-import { SupabaseTeamRepository } from "./team.repository"
-import { SupabaseUserRepository } from "./user.repository"
-import { DocumentRepository } from "../../../domain/repositories/document.repository"
-import { FaqRepository } from "../../../domain/repositories/faq.repository"
-import { GymnaseRepository } from "../../../domain/repositories/gymnase.repository"
-import { InscriptionRepository } from "../../../domain/repositories/inscription.repository"
-import { MatchRepository } from "../../../domain/repositories/match.repository"
-import { MemberRepository } from "../../../domain/repositories/member.repository"
-import { SessionRepository } from "../../../domain/repositories/session.repository"
-import { TarifRepository } from "../../../domain/repositories/tarif.repository"
-import { TaskRepository } from "../../../domain/repositories/task.repository"
-import { TeamRepository } from "../../../domain/repositories/team.repository"
-import { UserRepository } from "../../../domain/repositories/user.repository"
-import { createClient as createBrowserClient } from "../clients/client"
-import { createClient as createServerClient } from "../clients/server"
+import { SupabaseDocumentRepository } from './document.repository'
+import { SupabaseFaqRepository } from './faq.repository'
+import { SupabaseGymnaseRepository } from './gymnase.repository'
+import { SupabaseInscriptionRepository } from './inscription.repository'
+import { SupabaseMatchRepository } from './match.repository'
+import { SupabaseMemberRepository } from './member.repository'
+import { SupabaseSessionRepository } from './session.repository'
+import { SupabaseTarifRepository } from './tarif.repository'
+import { SupabaseTaskRepository } from './task.repository'
+import { SupabaseTeamRepository } from './team.repository'
+import { SupabaseUserRepository } from './user.repository'
+import { DocumentRepository } from '../../../domain/repositories/document.repository'
+import { FaqRepository } from '../../../domain/repositories/faq.repository'
+import { GymnaseRepository } from '../../../domain/repositories/gymnase.repository'
+import { InscriptionRepository } from '../../../domain/repositories/inscription.repository'
+import { MatchRepository } from '../../../domain/repositories/match.repository'
+import { MemberRepository } from '../../../domain/repositories/member.repository'
+import { SessionRepository } from '../../../domain/repositories/session.repository'
+import { TarifRepository } from '../../../domain/repositories/tarif.repository'
+import { TaskRepository } from '../../../domain/repositories/task.repository'
+import { TeamRepository } from '../../../domain/repositories/team.repository'
+import { UserRepository } from '../../../domain/repositories/user.repository'
+import { createClient as createBrowserClient } from '../clients/client'
+import { createClient as createServerClient } from '../clients/server'
 
-
-type ClientType = "browser" | "server" | "auto"
+type ClientType = 'browser' | 'server' | 'auto'
 
 export class RepositoryFactory {
   private static documentRepositoryBrowser: DocumentRepository
@@ -52,23 +51,23 @@ export class RepositoryFactory {
   private static readonly serverClient = createServerClient
 
   private static isServer() {
-    return typeof window === "undefined"
+    return typeof window === 'undefined'
   }
 
   private static getClient(clientType: ClientType) {
     switch (clientType) {
-      case "browser":
+      case 'browser':
         return this.browserClient()
-      case "server":
+      case 'server':
         return this.serverClient()
-      case "auto":
+      case 'auto':
       default:
         return this.isServer() ? this.serverClient() : this.browserClient()
     }
   }
 
-  static getInscriptionRepository(clientType: ClientType = "auto"): InscriptionRepository {
-    if (clientType === "browser" || (clientType === "auto" && !this.isServer())) {
+  static getInscriptionRepository(clientType: ClientType = 'auto'): InscriptionRepository {
+    if (clientType === 'browser' || (clientType === 'auto' && !this.isServer())) {
       if (!this.inscriptionRepositoryBrowser) {
         this.inscriptionRepositoryBrowser = new SupabaseInscriptionRepository(this.browserClient())
       }
@@ -81,8 +80,8 @@ export class RepositoryFactory {
     }
   }
 
-  static getDocumentRepository(clientType: ClientType = "auto"): DocumentRepository {
-    if (clientType === "browser" || (clientType === "auto" && !this.isServer())) {
+  static getDocumentRepository(clientType: ClientType = 'auto'): DocumentRepository {
+    if (clientType === 'browser' || (clientType === 'auto' && !this.isServer())) {
       if (!this.documentRepositoryBrowser) {
         this.documentRepositoryBrowser = new SupabaseDocumentRepository(this.browserClient())
       }
@@ -95,8 +94,8 @@ export class RepositoryFactory {
     }
   }
 
-  static getTaskRepository(clientType: ClientType = "auto"): TaskRepository {
-    if (clientType === "browser" || (clientType === "auto" && !this.isServer())) {
+  static getTaskRepository(clientType: ClientType = 'auto'): TaskRepository {
+    if (clientType === 'browser' || (clientType === 'auto' && !this.isServer())) {
       if (!this.taskRepositoryBrowser) {
         this.taskRepositoryBrowser = new SupabaseTaskRepository(this.browserClient())
       }
@@ -109,8 +108,8 @@ export class RepositoryFactory {
     }
   }
 
-  static getGymnaseRepository(clientType: ClientType = "auto"): GymnaseRepository {
-    if (clientType === "browser" || (clientType === "auto" && !this.isServer())) {
+  static getGymnaseRepository(clientType: ClientType = 'auto'): GymnaseRepository {
+    if (clientType === 'browser' || (clientType === 'auto' && !this.isServer())) {
       if (!this.gymnaseRepositoryBrowser) {
         this.gymnaseRepositoryBrowser = new SupabaseGymnaseRepository(this.browserClient())
       }
@@ -123,8 +122,8 @@ export class RepositoryFactory {
     }
   }
 
-  static getMatchRepository(clientType: ClientType = "auto"): MatchRepository {
-    if (clientType === "browser" || (clientType === "auto" && !this.isServer())) {
+  static getMatchRepository(clientType: ClientType = 'auto'): MatchRepository {
+    if (clientType === 'browser' || (clientType === 'auto' && !this.isServer())) {
       if (!this.matchRepositoryBrowser) {
         this.matchRepositoryBrowser = new SupabaseMatchRepository(this.browserClient())
       }
@@ -137,8 +136,8 @@ export class RepositoryFactory {
     }
   }
 
-  static getMemberRepository(clientType: ClientType = "auto"): MemberRepository {
-    if (clientType === "browser" || (clientType === "auto" && !this.isServer())) {
+  static getMemberRepository(clientType: ClientType = 'auto'): MemberRepository {
+    if (clientType === 'browser' || (clientType === 'auto' && !this.isServer())) {
       if (!this.memberRepositoryBrowser) {
         this.memberRepositoryBrowser = new SupabaseMemberRepository(this.browserClient())
       }
@@ -151,12 +150,12 @@ export class RepositoryFactory {
     }
   }
 
-  static getTeamRepository(clientType: ClientType = "auto"): TeamRepository {
-    if (clientType === "browser" || (clientType === "auto" && !this.isServer())) {
+  static getTeamRepository(clientType: ClientType = 'auto'): TeamRepository {
+    if (clientType === 'browser' || (clientType === 'auto' && !this.isServer())) {
       if (!this.teamRepositoryBrowser) {
         this.teamRepositoryBrowser = new SupabaseTeamRepository(
           this.browserClient(),
-          this.getSessionRepository(clientType)
+          this.getSessionRepository(clientType),
         )
       }
       return this.teamRepositoryBrowser
@@ -164,15 +163,15 @@ export class RepositoryFactory {
       if (!this.teamRepositoryServer) {
         this.teamRepositoryServer = new SupabaseTeamRepository(
           this.serverClient(),
-          this.getSessionRepository(clientType)
+          this.getSessionRepository(clientType),
         )
       }
       return this.teamRepositoryServer
     }
   }
 
-  static getSessionRepository(clientType: ClientType = "auto"): SessionRepository {
-    if (clientType === "browser" || (clientType === "auto" && !this.isServer())) {
+  static getSessionRepository(clientType: ClientType = 'auto'): SessionRepository {
+    if (clientType === 'browser' || (clientType === 'auto' && !this.isServer())) {
       if (!this.sessionRepositoryBrowser) {
         this.sessionRepositoryBrowser = new SupabaseSessionRepository(this.browserClient())
       }
@@ -192,8 +191,8 @@ export class RepositoryFactory {
     return this.userRepository
   }
 
-  static getFaqRepository(clientType: ClientType = "auto"): FaqRepository {
-    if (clientType === "browser" || (clientType === "auto" && !this.isServer())) {
+  static getFaqRepository(clientType: ClientType = 'auto'): FaqRepository {
+    if (clientType === 'browser' || (clientType === 'auto' && !this.isServer())) {
       if (!this.faqRepositoryBrowser) {
         this.faqRepositoryBrowser = new SupabaseFaqRepository(this.browserClient())
       }
@@ -206,8 +205,8 @@ export class RepositoryFactory {
     }
   }
 
-  static getTarifRepository(clientType: ClientType = "auto"): TarifRepository {
-    if (clientType === "browser" || (clientType === "auto" && !this.isServer())) {
+  static getTarifRepository(clientType: ClientType = 'auto'): TarifRepository {
+    if (clientType === 'browser' || (clientType === 'auto' && !this.isServer())) {
       if (!this.tarifRepositoryBrowser) {
         this.tarifRepositoryBrowser = new SupabaseTarifRepository(this.browserClient())
       }

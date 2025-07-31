@@ -1,5 +1,5 @@
-import { MatchGateway } from "../../../domain/gateways/matchs"
-import { ErrorHandler } from "../../../shared/error/ErrorHandler"
+import { MatchGateway } from '../../../domain/gateways/matchs'
+import { ErrorHandler } from '../../../shared/error/ErrorHandler'
 
 export class GetMatchFromExtranetUseCase {
   constructor(private readonly extranetClient: MatchGateway) {}

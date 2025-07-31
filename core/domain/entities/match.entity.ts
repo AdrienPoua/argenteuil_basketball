@@ -1,5 +1,5 @@
-import club from "@/core/shared/config/club"
-import { TeamEntity } from "./team.entity"
+import club from '@/core/shared/config/club'
+import { TeamEntity } from './team.entity'
 export interface Match {
   id: string
   numero: number | null
@@ -264,7 +264,7 @@ export class MatchEntity implements Match {
   }
 
   getScore(): string {
-    if (!this._joue) return "-"
+    if (!this._joue) return '-'
     return `${this._resultatEquipe1 ?? 0} - ${this._resultatEquipe2 ?? 0}`
   }
 

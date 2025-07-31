@@ -1,9 +1,9 @@
-const path = require('path');
+const path = require('path')
 
 module.exports = {
   webpack: (config, { isServer }) => {
-    config.resolve.alias['@'] = path.resolve(__dirname, 'src');
-    return config;
+    config.resolve.alias['@'] = path.resolve(__dirname, 'src')
+    return config
   },
   productionBrowserSourceMaps: true,
   images: {
@@ -21,10 +21,13 @@ module.exports = {
         hostname: 'ik.imagekit.io',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'cirjjeglxdhdciszkkjp.supabase.co',
+      },
     ],
   },
   experimental: {
     taint: true,
   },
-};
-
+}

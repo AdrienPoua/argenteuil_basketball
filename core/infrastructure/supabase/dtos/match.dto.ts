@@ -1,4 +1,4 @@
-import { TeamDTO } from "./team.dto"
+import { TeamDTO } from './team.dto'
 
 export interface MatchDTO {
   //required
@@ -46,5 +46,5 @@ export interface MatchDTO {
   chronometreur: string | null
 }
 
-export type CreateMatchDTO = Omit<MatchDTO, "created_at" | "team"> & { team_id: string }
+export type CreateMatchDTO = Omit<MatchDTO, 'created_at' | 'team'> & { team_id: string }
 export type UpdateMatchDTO = Partial<MatchDTO> & { id: string }

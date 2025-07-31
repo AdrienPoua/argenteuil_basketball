@@ -1,5 +1,5 @@
-import { GymnaseEntity } from "../../../domain/entities/gymnase.entity"
-import { GymnaseDTO } from "../dtos/gymnase.dto"
+import { GymnaseEntity } from '../../../domain/entities/gymnase.entity'
+import { GymnaseDTO } from '../dtos/gymnase.dto'
 
 export function toDomain(data: GymnaseDTO): GymnaseEntity {
   return new GymnaseEntity(data)

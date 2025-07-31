@@ -1,5 +1,5 @@
-import { DocumentEntity } from "../../../domain/entities/document.entity"
-import { DocumentDTO } from "../dtos/document.dto"
+import { DocumentEntity } from '../../../domain/entities/document.entity'
+import { DocumentDTO } from '../dtos/document.dto'
 
 export function toDomain(data: DocumentDTO): DocumentEntity {
   return new DocumentEntity(data)

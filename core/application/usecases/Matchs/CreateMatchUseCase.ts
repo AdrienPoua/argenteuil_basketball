@@ -1,12 +1,12 @@
-import { v4 as uuidv4 } from "uuid"
-import { z } from "zod"
-import { MatchEntity } from "../../../domain/entities/match.entity"
-import { MatchRepository } from "../../../domain/repositories/match.repository"
-import { TeamRepository } from "../../../domain/repositories/team.repository"
-import club from "../../../shared/config/club"
-import { ErrorHandler } from "../../../shared/error/ErrorHandler"
-import { CreateMatchDTO } from "../../dtos/match.dto"
-import { BaseUseCase } from "../BaseUseCase"
+import { v4 as uuidv4 } from 'uuid'
+import { z } from 'zod'
+import { MatchEntity } from '../../../domain/entities/match.entity'
+import { MatchRepository } from '../../../domain/repositories/match.repository'
+import { TeamRepository } from '../../../domain/repositories/team.repository'
+import club from '../../../shared/config/club'
+import { ErrorHandler } from '../../../shared/error/ErrorHandler'
+import { CreateMatchDTO } from '../../dtos/match.dto'
+import { BaseUseCase } from '../BaseUseCase'
 
 const MatchSchema = z.object({
   teamId: z.string(),
@@ -24,7 +24,7 @@ type Match = z.infer<typeof MatchSchema>
 export class CreateMatchUseCase implements BaseUseCase<Match, MatchEntity> {
   constructor(
     private readonly matchRepository: MatchRepository,
-    private readonly teamRepository: TeamRepository
+    private readonly teamRepository: TeamRepository,
   ) {}
 
   async execute(input: unknown): Promise<MatchEntity> {
@@ -32,7 +32,7 @@ export class CreateMatchUseCase implements BaseUseCase<Match, MatchEntity> {
       const match = MatchSchema.parse(input)
       const team = await this.teamRepository.findById(match.teamId)
       if (!team) {
-        throw new Error("Team not found")
+        throw new Error('Team not found')
       }
       const dto = this.DTO({ ...match, nomEquipe1: team.name })
       return await this.matchRepository.createWithTeam(dto)

@@ -1,5 +1,5 @@
-import { SessionEntity } from "../../../domain/entities/session.entity"
-import { SessionDTO } from "../dtos/session.dto"
+import { SessionEntity } from '../../../domain/entities/session.entity'
+import { SessionDTO } from '../dtos/session.dto'
 
 export function toDomain(data: SessionDTO): SessionEntity {
   return new SessionEntity(data)

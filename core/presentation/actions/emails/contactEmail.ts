@@ -1,7 +1,7 @@
-"use server"
-import { SendContactEmailUseCase } from "../../../application/usecases/Email/sendContactEmailUseCase"
-import { ResendEmailRepository } from "../../../infrastructure/resend/repositories/ContactRepository"
-import { ErrorHandler } from "../../../shared/error/ErrorHandler"
+'use server'
+import { SendContactEmailUseCase } from '../../../application/usecases/Email/sendContactEmailUseCase'
+import { ResendEmailRepository } from '../../../infrastructure/resend/repositories/ContactRepository'
+import { ErrorHandler } from '../../../shared/error/ErrorHandler'
 
 export const sendContactEmail = async (data: unknown) => {
   try {

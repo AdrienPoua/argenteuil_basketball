@@ -1,10 +1,10 @@
-import { z } from "zod"
-import { EmailEntity } from "../../../domain/entities/email.entity"
-import { EmailRepository } from "../../../domain/repositories/email.repository"
-import { ContactEmail } from "../../../infrastructure/resend/templates/contact"
-import club from "../../../shared/config/club"
-import { ErrorHandler } from "../../../shared/error/ErrorHandler"
-import { BaseUseCase } from "../BaseUseCase"
+import { z } from 'zod'
+import { EmailEntity } from '../../../domain/entities/email.entity'
+import { EmailRepository } from '../../../domain/repositories/email.repository'
+import { ContactEmail } from '../../../infrastructure/resend/templates/contact'
+import club from '../../../shared/config/club'
+import { ErrorHandler } from '../../../shared/error/ErrorHandler'
+import { BaseUseCase } from '../BaseUseCase'
 
 const SendContactEmailUseCaseSchema = z.object({
   name: z.string(),
@@ -22,8 +22,8 @@ export class SendContactEmailUseCase implements BaseUseCase<SendContactEmailUseC
       const email = new EmailEntity({
         from: club.emails.noreply,
         to: club.emails.contact,
-        bcc: "adrien.poua@gmail.com",
-        subject: "Nouveau message de contact",
+        bcc: 'adrien.poua@gmail.com',
+        subject: 'Nouveau message de contact',
         template: <ContactEmail name={data.name} email={data.email} message={data.message} />,
       })
       const result = await this.emailRepository.sendEmail(email)

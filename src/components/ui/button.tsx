@@ -1,28 +1,28 @@
-import * as React from 'react';
-import { Slot } from '@radix-ui/react-slot';
-import { cva, type VariantProps } from 'class-variance-authority';
+import * as React from 'react'
+import { Slot } from '@radix-ui/react-slot'
+import { cva, type VariantProps } from 'class-variance-authority'
 
-import { cn } from '@/utils/cn';
+import { cn } from '@/utils/cn'
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:bg-muted disabled:text-muted-foreground',
   {
     variants: {
       variant: {
         default: 'bg-primary text-foreground shadow hover:bg-primary/90',
         destructive: 'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90',
-        outline: 'border border-input bg-background shadow-sm hover:bg-accent hover:text-primary ',
+        outline: 'border border-input bg-background shadow-sm hover:bg-accent hover:text-primary',
         secondary: 'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
-        ghost: 'hover:bg-accent hover:text-accent-foreground ',
-        ghostSecondary: 'text-black bg-white shadow-sm hover:bg-accent border-none shadow-none',
+        ghost: 'hover:bg-accent hover:text-accent-foreground',
+        ghostSecondary: 'border-none bg-white text-black shadow-none shadow-sm hover:bg-accent',
         link: 'text-primary underline-offset-4 hover:underline',
-        nav: 'text-black hover:text-primary transition duration-300 ease-in-out',
+        nav: 'text-black transition duration-300 ease-in-out hover:text-primary',
         activeNav: 'text-primary',
-        matchNav: 'bg-background hover:bg-foreground  transition duration-300 ease-in-out',
-        connexion: 'bg-background text-white font-secondary',
+        matchNav: 'bg-background transition duration-300 ease-in-out hover:bg-foreground',
+        connexion: 'bg-background font-secondary text-white',
         check: 'bg-green-500',
-        blackAndWhite: 'bg-foreground text-background font-secondary hover:bg-foreground/80',
-        invisible: 'bg-transparent hover:bg-transparent ',
+        blackAndWhite: 'bg-foreground font-secondary text-background hover:bg-foreground/80',
+        invisible: 'bg-transparent hover:bg-transparent',
       },
       size: {
         default: 'h-9 px-4 py-2',
@@ -36,20 +36,22 @@ const buttonVariants = cva(
       size: 'default',
     },
   },
-);
+)
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  asChild?: boolean;
+  asChild?: boolean
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : 'button';
-    return <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />;
+    const Comp = asChild ? Slot : 'button'
+    return (
+      <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />
+    )
   },
-);
-Button.displayName = 'Button';
+)
+Button.displayName = 'Button'
 
-export { Button, buttonVariants };
+export { Button, buttonVariants }

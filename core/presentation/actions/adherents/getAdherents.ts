@@ -1,6 +1,6 @@
-"use server"
-import { ExtranetClient } from "@/core/infrastructure/extranet/client"
-import { ErrorHandler } from "@/core/shared/error/ErrorHandler"
+'use server'
+import { ExtranetClient } from '@/core/infrastructure/extranet/client'
+import { ErrorHandler } from '@/core/shared/error/ErrorHandler'
 
 export async function getAdherents() {
   try {

@@ -1,6 +1,6 @@
-import { FaqEntity } from "../../../domain/entities/faq.entity"
-import { FaqRepository } from "../../../domain/repositories/faq.repository"
-import { ErrorHandler } from "../../../shared/error/ErrorHandler"
+import { FaqEntity } from '../../../domain/entities/faq.entity'
+import { FaqRepository } from '../../../domain/repositories/faq.repository'
+import { ErrorHandler } from '../../../shared/error/ErrorHandler'
 
 export class GetAllFaqsUseCase {
   constructor(private readonly faqRepository: FaqRepository) {}

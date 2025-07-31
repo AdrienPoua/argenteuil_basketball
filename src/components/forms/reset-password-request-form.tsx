@@ -1,19 +1,26 @@
-"use client"
+'use client'
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { CheckCircle2 } from "lucide-react"
-import Link from "next/link"
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { Button } from "@/components/ui/button"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { createClient } from "@/core/infrastructure/supabase/clients/client"
-import club from "@/core/shared/config/club"
+import { zodResolver } from '@hookform/resolvers/zod'
+import { CheckCircle2 } from 'lucide-react'
+import Link from 'next/link'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { Button } from '@/components/ui/button'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { createClient } from '@/core/infrastructure/supabase/clients/client'
+import club from '@/core/shared/config/club'
 const formSchema = z.object({
-  email: z.string().email("Adresse email invalide"),
+  email: z.string().email('Adresse email invalide'),
 })
 
 export function ResetPasswordRequestForm() {
@@ -24,7 +31,7 @@ export function ResetPasswordRequestForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
+      email: '',
     },
   })
 
@@ -39,9 +46,9 @@ export function ResetPasswordRequestForm() {
 
       setIsSubmitted(true)
     } catch (error) {
-      console.error("Erreur lors de la demande:", error)
-      form.setError("root", {
-        message: "Une erreur est survenue. Veuillez réessayer.",
+      console.error('Erreur lors de la demande:', error)
+      form.setError('root', {
+        message: 'Une erreur est survenue. Veuillez réessayer.',
       })
     } finally {
       setIsLoading(false)
@@ -50,15 +57,15 @@ export function ResetPasswordRequestForm() {
 
   if (isSubmitted) {
     return (
-      <Alert className="bg-primary/10 border-primary">
-        <CheckCircle2 className="text-primary h-4 w-4" />
+      <Alert className="border-primary bg-primary/10">
+        <CheckCircle2 className="h-4 w-4 text-primary" />
         <AlertTitle>Email envoyé</AlertTitle>
         <AlertDescription className="mt-2">
-          Si un compte existe avec cette adresse email, vous recevrez un email avec les instructions pour réinitialiser
-          votre mot de passe.
+          Si un compte existe avec cette adresse email, vous recevrez un email avec les instructions
+          pour réinitialiser votre mot de passe.
         </AlertDescription>
         <div className="mt-4">
-          <Link href="/login" className="text-primary whitespace-nowrap hover:underline">
+          <Link href="/login" className="whitespace-nowrap text-primary hover:underline">
             Retour à la page de connexion
           </Link>
         </div>
@@ -84,13 +91,13 @@ export function ResetPasswordRequestForm() {
         />
 
         {form.formState.errors.root && (
-          <div className="bg-destructive/15 text-destructive rounded-md p-3 text-sm">
+          <div className="rounded-md bg-destructive/15 p-3 text-sm text-destructive">
             {form.formState.errors.root.message}
           </div>
         )}
 
         <Button type="submit" className="w-full" disabled={isLoading}>
-          {isLoading ? "Envoi en cours..." : "Envoyer le lien de réinitialisation"}
+          {isLoading ? 'Envoi en cours...' : 'Envoyer le lien de réinitialisation'}
         </Button>
       </form>
     </Form>

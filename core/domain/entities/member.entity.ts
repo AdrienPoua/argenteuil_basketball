@@ -64,16 +64,17 @@ export class MemberEntity implements Member {
 }
 
 export enum MemberRole {
-  President = "Président",
-  VicePresident = "Vice-Président",
-  Treasurer = "Trésorière",
-  Secretary = "Secrétaire",
-  Correspondant = "Correspondant",
-  Coach = "Coach",
-  Member = "Membre",
-  Arbitre = "Arbitre",
-  OTM = "OTM",
-  Other = "Autre",
+  President = 'Président',
+  VicePresident = 'Vice-Président',
+  Treasurer = 'Trésorier',
+  Secretary = 'Secrétaire',
+  Correspondant = 'Correspondant',
+  WebMaster = 'WebMaster',
+  Coach = 'Coach',
+  Member = 'Membre',
+  Arbitre = 'Arbitre',
+  OTM = 'OTM',
+  Other = 'Autre',
 }
 
 export interface ContactPrivacy {

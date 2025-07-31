@@ -1,4 +1,8 @@
-import { Gender, StatutInscription, TypeInscription } from "@/core/domain/entities/inscription.entity"
+import {
+  Gender,
+  StatutInscription,
+  TypeInscription,
+} from '@/core/domain/entities/inscription.entity'
 
 export interface InscriptionDTO {
   id: string
@@ -10,12 +14,13 @@ export interface InscriptionDTO {
   gender: Gender
   surclassement: boolean
   type_inscription: TypeInscription
+  passSport: string
   status: StatutInscription
   created_at: string
 }
 
-export interface CreateInscriptionDTO extends Omit<InscriptionDTO, "id" | "created_at"> {
-  status: "EN_ATTENTE"
+export interface CreateInscriptionDTO extends Omit<InscriptionDTO, 'id' | 'created_at'> {
+  status: 'EN_ATTENTE'
 }
 
 export interface UpdateInscriptionDTO extends Partial<InscriptionDTO> {

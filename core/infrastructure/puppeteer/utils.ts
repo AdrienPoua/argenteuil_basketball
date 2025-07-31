@@ -1,29 +1,29 @@
-import puppeteer, { Browser, HTTPResponse, Page } from "puppeteer"
-import { ErrorHandler } from "@/core/shared/error/ErrorHandler"
+import puppeteer, { Browser, HTTPResponse, Page } from 'puppeteer'
+import { ErrorHandler } from '@/core/shared/error/ErrorHandler'
 
 let browser: Browser | null = null
 let page: Page | null = null
 
 export async function initializeBrowser(): Promise<{ browser: Browser; page: Page }> {
-  console.log("🚀 Initialisation du navigateur...")
+  console.log('🚀 Initialisation du navigateur...')
   browser = await puppeteer.launch({
     headless: false,
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
     defaultViewport: { width: 1280, height: 720 },
   })
 
   page = await browser.newPage()
   await page.setDefaultTimeout(30000)
-  console.log("✅ Navigateur initialisé")
+  console.log('✅ Navigateur initialisé')
   return { browser, page }
 }
 
 export async function goToLoginPage(page: Page): Promise<void> {
   try {
-    if (!page) throw new Error("Browser not initialized")
-    const url = "https://extranet.ffbb.com/fbi/connexion.fbi"
+    if (!page) throw new Error('Browser not initialized')
+    const url = 'https://extranet.ffbb.com/fbi/connexion.fbi'
     await page.goto(url, {
-      waitUntil: "networkidle2",
+      waitUntil: 'networkidle2',
     })
   } catch (error) {
     const normalizedError = ErrorHandler.normalize(error)
@@ -35,26 +35,26 @@ export async function goToLoginPage(page: Page): Promise<void> {
 export async function login(page: Page): Promise<void> {
   try {
     // Le champ email, mot de passe et le boutton de connexion
-    const emailField = await page.$("#materialLoginFormEmail")
-    const passwordField = await page.$("#materialLoginFormPassword")
+    const emailField = await page.$('#materialLoginFormEmail')
+    const passwordField = await page.$('#materialLoginFormPassword')
     const loginButton = await page.$("button[type='submit']")
 
     if (!emailField || !passwordField || !loginButton) {
-      throw new Error("Champs email, mot de passe ou bouton de connexion non trouvés")
+      throw new Error('Champs email, mot de passe ou bouton de connexion non trouvés')
     }
 
     const email = process.env.EXTRANET_USERNAME
     const password = process.env.EXTRANET_PASSWORD
 
     if (!email || !password) {
-      throw new Error("Email ou mot de passe non trouvés")
+      throw new Error('Email ou mot de passe non trouvés')
     }
 
     await emailField.type(email)
     await passwordField.type(password)
     await loginButton.click()
 
-    await page.waitForNavigation({ waitUntil: "networkidle2" })
+    await page.waitForNavigation({ waitUntil: 'networkidle2' })
   } catch (error) {
     const normalizedError = ErrorHandler.normalize(error)
     ErrorHandler.log(normalizedError)
@@ -63,12 +63,12 @@ export async function login(page: Page): Promise<void> {
 }
 
 export async function navigateToForm(page: Page): Promise<HTTPResponse | null> {
-  const url = "https://extranet.ffbb.com/fbi/afficherPreinscription.fbi?id=0"
-  if (!page) throw new Error("Browser not initialized")
+  const url = 'https://extranet.ffbb.com/fbi/afficherPreinscription.fbi?id=0'
+  if (!page) throw new Error('Browser not initialized')
 
   console.log(`📍 Navigation vers: ${url}`)
   const response = await page.goto(url, {
-    waitUntil: "networkidle2",
+    waitUntil: 'networkidle2',
   })
   return response
 }
@@ -76,7 +76,7 @@ export async function navigateToForm(page: Page): Promise<HTTPResponse | null> {
 export async function closeBrowser(browser: Browser): Promise<void> {
   if (browser) {
     await browser.close()
-    console.log("🔒 Navigateur fermé")
+    console.log('🔒 Navigateur fermé')
   }
 }
 export async function waitForElement(page: Page, selector: string): Promise<void> {
@@ -89,7 +89,7 @@ export async function fillField(
   page: Page,
   selector: string,
   value: string | undefined,
-  fieldName: string
+  fieldName: string,
 ): Promise<void> {
   if (!value) return
 
@@ -98,7 +98,7 @@ export async function fillField(
     await page.focus(selector)
     await page.evaluate((sel) => {
       const element = document.querySelector(sel) as HTMLInputElement
-      if (element) element.value = ""
+      if (element) element.value = ''
     }, selector)
     await page.type(selector, value)
     console.log(`  ✓ ${fieldName}: ${value}`)
@@ -110,31 +110,28 @@ export async function fillField(
 export async function fillSelect(page: Page, selectId: string, optionText: string, timeout = 5000) {
   try {
     // 1. Attendre que le bouton soit disponible
-    const buttonSelector = `button[data-id="${selectId}"]`;
-    await page.waitForSelector(buttonSelector, { timeout });
-    
+    const buttonSelector = `button[data-id="${selectId}"]`
+    await page.waitForSelector(buttonSelector, { timeout })
+
     // 2. Ouvrir le dropdown
-    await page.click(buttonSelector);
-    
+    await page.click(buttonSelector)
+
     // 3. Attendre que le menu soit ouvert
-    await page.waitForSelector('.dropdown-menu.show', { timeout: 2000 });
-    
+    await page.waitForSelector('.dropdown-menu.show', { timeout: 2000 })
+
     // 4. Cliquer sur l'option
-    console.log(`🚀 ~ fillSelect ~ optionText:`, optionText)
     await page.evaluate((text) => {
-      const spans = document.querySelectorAll('.dropdown-menu.show span.text');
+      const spans = document.querySelectorAll('.dropdown-menu.show span.text')
       for (const span of spans) {
         if (span.textContent?.trim() === text) {
-          span.parentElement?.click();
-          return;
+          span.parentElement?.click()
+          return
         }
       }
-      throw new Error(`Option "${text}" non trouvée`);
-    }, optionText);
+      throw new Error(`Option "${text}" non trouvée`)
+    }, optionText)
 
-    
-    console.log(`✅ Select "${selectId}" rempli avec "${optionText}"`);
-    
+    console.log(`✅ Select "${selectId}" rempli avec "${optionText}"`)
   } catch (error) {
     const normalizedError = ErrorHandler.normalize(error)
     ErrorHandler.log(normalizedError)
@@ -155,7 +152,7 @@ export async function selectOption(
   page: Page,
   selector: string,
   value: string | undefined,
-  fieldName: string
+  fieldName: string,
 ): Promise<void> {
   if (!value) return
 

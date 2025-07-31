@@ -1,17 +1,24 @@
-"use client"
+'use client'
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useMutation } from "@tanstack/react-query"
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { toast } from "sonner"
-import { z } from "zod"
-import { Button } from "@/components/ui/button"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { DocumentEntity } from "@/core/domain/entities/document.entity"
-import { update } from "@/core//presentation/actions/documents/update"
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
+import { z } from 'zod'
+import { Button } from '@/components/ui/button'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import { DocumentEntity } from '@/core/domain/entities/document.entity'
+import { update } from '@/core//presentation/actions/documents/update'
 
 type PropsType = {
   actions: {
@@ -22,8 +29,8 @@ type PropsType = {
 }
 
 const DocumentFormSchema = z.object({
-  title: z.string().min(5, "Le titre doit contenir au moins 5 caractères"),
-  description: z.string().min(10, "La description doit contenir au moins 10 caractères"),
+  title: z.string().min(5, 'Le titre doit contenir au moins 5 caractères'),
+  description: z.string().min(10, 'La description doit contenir au moins 10 caractères'),
   created_at: z.string(),
 })
 
@@ -53,11 +60,11 @@ export function DocumentFormUpdate({ actions, currentDocument }: Readonly<PropsT
     onSuccess: () => {
       form.reset()
       actions.success()
-      toast.success("Document enregistré avec succès.")
+      toast.success('Document enregistré avec succès.')
     },
     onError: (error: Error) => {
       console.error("Erreur lors de l'enregistrement:", error)
-      form.setError("root", {
+      form.setError('root', {
         message: "Une erreur est survenue lors de l'enregistrement. Veuillez réessayer.",
       })
       toast.error("Une erreur est survenue lors de l'enregistrement. Veuillez réessayer.")
@@ -102,7 +109,9 @@ export function DocumentFormUpdate({ actions, currentDocument }: Readonly<PropsT
           )}
         />
 
-        {mutation.isError && <div className="text-destructive text-sm">{mutation.error.message}</div>}
+        {mutation.isError && (
+          <div className="text-sm text-destructive">{mutation.error.message}</div>
+        )}
 
         <div className="flex justify-end gap-2 pt-4">
           <Button
@@ -116,7 +125,7 @@ export function DocumentFormUpdate({ actions, currentDocument }: Readonly<PropsT
             Annuler
           </Button>
           <Button type="submit" disabled={mutation.isPending}>
-            {loading ? `Upload en cours ` : "Mettre à jour"}
+            {loading ? `Upload en cours ` : 'Mettre à jour'}
           </Button>
         </div>
       </form>

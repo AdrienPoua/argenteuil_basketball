@@ -1,8 +1,8 @@
-import { z } from "zod"
-import { Category, Gender, Level, TeamEntity } from "../../../domain/entities/team.entity"
-import { TeamRepository } from "../../../domain/repositories/team.repository"
-import { ErrorHandler } from "../../../shared/error/ErrorHandler"
-import { BaseUseCase } from "../BaseUseCase"
+import { z } from 'zod'
+import { Category, Gender, Level, TeamEntity } from '../../../domain/entities/team.entity'
+import { TeamRepository } from '../../../domain/repositories/team.repository'
+import { ErrorHandler } from '../../../shared/error/ErrorHandler'
+import { BaseUseCase } from '../BaseUseCase'
 export const SessionSchema = z.object({
   start: z.string(),
   end: z.string(),
@@ -14,21 +14,25 @@ export const CreateTeamUseCaseSchema = z.object({
   name: z.string(),
   category: z.array(
     z.nativeEnum(Category, {
-      required_error: "La catégorie est requise",
-    })
+      required_error: 'La catégorie est requise',
+    }),
   ),
   gender: z.nativeEnum(Gender, {
-    required_error: "Le genre est requis",
+    required_error: 'Le genre est requis',
   }),
   level: z.nativeEnum(Level, {
-    required_error: "Le niveau est requis",
+    required_error: 'Le niveau est requis',
   }),
   coachsIds: z.array(z.string()),
   image: z.string().optional(),
   assistantsCoachIds: z.array(z.string()),
   sessions: z.array(SessionSchema),
   competitions: z.array(
-    z.object({ id: z.number(), label: z.string(), poules: z.array(z.object({ id: z.number(), nom: z.string() })) })
+    z.object({
+      id: z.number(),
+      label: z.string(),
+      poules: z.array(z.object({ id: z.number(), nom: z.string() })),
+    }),
   ),
 })
 

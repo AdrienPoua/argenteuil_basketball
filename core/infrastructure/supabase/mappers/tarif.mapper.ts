@@ -1,5 +1,5 @@
-import { TarifCategory, TarifEntity } from "../../../domain/entities/tarif.entity"
-import { TarifDTO } from "../dtos/tarif.dto"
+import { TarifCategory, TarifEntity } from '../../../domain/entities/tarif.entity'
+import { TarifDTO } from '../dtos/tarif.dto'
 
 export function toDomain(data: TarifDTO): TarifEntity {
   return new TarifEntity({

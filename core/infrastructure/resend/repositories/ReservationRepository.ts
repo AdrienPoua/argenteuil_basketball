@@ -1,7 +1,7 @@
-import { Resend } from "resend"
-import { EmailEntity } from "../../../domain/entities/email.entity"
-import { EmailRepository } from "../../../domain/repositories/email.repository"
-import resend from "../index"
+import { Resend } from 'resend'
+import { EmailEntity } from '../../../domain/entities/email.entity'
+import { EmailRepository } from '../../../domain/repositories/email.repository'
+import resend from '../index'
 
 export class ResendEmailRepository implements EmailRepository {
   private readonly provider: Resend = resend

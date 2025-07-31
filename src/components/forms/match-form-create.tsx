@@ -1,18 +1,31 @@
-"use client"
+'use client'
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useMutation } from "@tanstack/react-query"
-import { useForm } from "react-hook-form"
-import { toast } from "sonner"
-import { z } from "zod"
-import { Button } from "@/components/ui/button"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Separator } from "@/components/ui/separator"
-import { TeamEntity } from "@/core/domain/entities/team.entity"
-import { createMatch } from "@/core//presentation/actions/matchs/create"
-import { Loading } from "@/components/ui/loading"
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
+import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
+import { z } from 'zod'
+import { Button } from '@/components/ui/button'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { Separator } from '@/components/ui/separator'
+import { TeamEntity } from '@/core/domain/entities/team.entity'
+import { createMatch } from '@/core//presentation/actions/matchs/create'
+import { Loading } from '@/components/ui/loading'
 type PropsType = {
   actions: {
     success: () => void
@@ -24,13 +37,13 @@ export default function CreateMatchForm({ actions, teams }: PropsType) {
   const createMatchSchema = z.object({
     teamId: z.string(),
     nomEquipe2: z.string().min(2, "Le nom de l'équipe doit contenir au moins 2 caractères"),
-    date: z.string().min(1, "La date est obligatoire"),
+    date: z.string().min(1, 'La date est obligatoire'),
     horaire: z.coerce
       .number()
       .int()
       .min(0, "L'horaire est obligatoire")
       .max(2359, "Le format de l'horaire est incorrect, ex: 1030 pour 10h30, 1530 pour 15h30"),
-    salle: z.string().min(1, "La salle est obligatoire"),
+    salle: z.string().min(1, 'La salle est obligatoire'),
     arbitre1: z.string().optional(),
     arbitre2: z.string().optional(),
     marqueur: z.string().optional(),
@@ -50,7 +63,7 @@ export default function CreateMatchForm({ actions, teams }: PropsType) {
     onSuccess: () => {
       form.reset()
       actions.success()
-      toast.success("Match créé avec succès.")
+      toast.success('Match créé avec succès.')
     },
     onError: (error: Error) => {
       console.error("Erreur lors de l'enregistrement:", error)
@@ -167,7 +180,7 @@ export default function CreateMatchForm({ actions, teams }: PropsType) {
               <FormItem>
                 <FormLabel>Arbitre 1</FormLabel>
                 <FormControl>
-                  <Input {...field} value={field.value ?? ""} disabled={mutation.isPending} />
+                  <Input {...field} value={field.value ?? ''} disabled={mutation.isPending} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -181,7 +194,7 @@ export default function CreateMatchForm({ actions, teams }: PropsType) {
               <FormItem>
                 <FormLabel>Arbitre 2</FormLabel>
                 <FormControl>
-                  <Input {...field} value={field.value ?? ""} disabled={mutation.isPending} />
+                  <Input {...field} value={field.value ?? ''} disabled={mutation.isPending} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -197,7 +210,7 @@ export default function CreateMatchForm({ actions, teams }: PropsType) {
               <FormItem>
                 <FormLabel>Marqueur</FormLabel>
                 <FormControl>
-                  <Input {...field} value={field.value ?? ""} disabled={mutation.isPending} />
+                  <Input {...field} value={field.value ?? ''} disabled={mutation.isPending} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -211,7 +224,7 @@ export default function CreateMatchForm({ actions, teams }: PropsType) {
               <FormItem>
                 <FormLabel>Chronométreur</FormLabel>
                 <FormControl>
-                  <Input {...field} value={field.value ?? ""} disabled={mutation.isPending} />
+                  <Input {...field} value={field.value ?? ''} disabled={mutation.isPending} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -219,14 +232,16 @@ export default function CreateMatchForm({ actions, teams }: PropsType) {
           />
         </div>
 
-        {mutation.isError && <div className="text-destructive text-sm">{mutation.error?.message}</div>}
+        {mutation.isError && (
+          <div className="text-sm text-destructive">{mutation.error?.message}</div>
+        )}
 
         <div className="flex justify-end gap-2 pt-4">
           <Button type="button" variant="outline" disabled={mutation.isPending}>
             Annuler
           </Button>
           <Button type="submit" disabled={mutation.isPending || !form.formState.isValid}>
-            {mutation.isPending ? <Loading /> : "Créer"}
+            {mutation.isPending ? <Loading /> : 'Créer'}
           </Button>
         </div>
       </form>

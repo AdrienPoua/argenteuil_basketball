@@ -1,4 +1,8 @@
-import { Gender, StatutInscription, TypeInscription } from "../../domain/entities/inscription.entity"
+import {
+  Gender,
+  StatutInscription,
+  TypeInscription,
+} from '../../domain/entities/inscription.entity'
 
 export interface InscriptionDTO {
   id: string

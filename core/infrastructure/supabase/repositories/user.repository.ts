@@ -1,7 +1,7 @@
-import { AuthError } from "@supabase/supabase-js"
-import { UserEntity } from "../../../domain/entities/user.entity"
-import { UserRepository } from "../../../domain/repositories/user.repository"
-import { createClient } from "../clients/client"
+import { AuthError } from '@supabase/supabase-js'
+import { UserEntity } from '../../../domain/entities/user.entity'
+import { UserRepository } from '../../../domain/repositories/user.repository'
+import { createClient } from '../clients/client'
 
 export class SupabaseUserRepository implements UserRepository {
   private readonly supabaseClient = createClient()
@@ -19,7 +19,7 @@ export class SupabaseUserRepository implements UserRepository {
       return new UserEntity({
         id: data.user.id,
         email: data.user.email,
-        role: data.user.user_metadata?.role ?? "user",
+        role: data.user.user_metadata?.role ?? 'user',
       })
     } catch (error) {
       throw this.handleError(error as AuthError)
@@ -46,7 +46,7 @@ export class SupabaseUserRepository implements UserRepository {
       return new UserEntity({
         id: user.id,
         email: user.email as string,
-        role: user.user_metadata?.role ?? "user",
+        role: user.user_metadata?.role ?? 'user',
       })
     } catch (error) {
       throw this.handleError(error as AuthError)
@@ -55,28 +55,34 @@ export class SupabaseUserRepository implements UserRepository {
 
   private handleError(error: AuthError): Error {
     // Log the original error for debugging
-    console.error("Supabase auth error:", error)
+    console.error('Supabase auth error:', error)
 
     // Map specific error codes to user-friendly messages
     switch (error.message) {
-      case "Invalid login credentials":
-        return new Error("Identifiants invalides. Veuillez vérifier votre email et mot de passe.")
+      case 'Invalid login credentials':
+        return new Error('Identifiants invalides. Veuillez vérifier votre email et mot de passe.')
 
-      case "Email not confirmed":
-        return new Error("Votre email n'a pas été confirmé. Veuillez vérifier votre boîte de réception.")
+      case 'Email not confirmed':
+        return new Error(
+          "Votre email n'a pas été confirmé. Veuillez vérifier votre boîte de réception.",
+        )
 
-      case "User not found":
-        return new Error("Aucun utilisateur trouvé avec ces identifiants.")
+      case 'User not found':
+        return new Error('Aucun utilisateur trouvé avec ces identifiants.')
 
-      case "Password recovery requires an email":
-        return new Error("Veuillez fournir une adresse email pour réinitialiser votre mot de passe.")
+      case 'Password recovery requires an email':
+        return new Error(
+          'Veuillez fournir une adresse email pour réinitialiser votre mot de passe.',
+        )
 
-      case "Rate limit exceeded":
-        return new Error("Trop de tentatives. Veuillez réessayer plus tard.")
+      case 'Rate limit exceeded':
+        return new Error('Trop de tentatives. Veuillez réessayer plus tard.')
 
       default:
         // Return a generic error message for unknown errors
-        return new Error(`Erreur d'authentification: ${error.message ?? "Une erreur inconnue s'est produite"}`)
+        return new Error(
+          `Erreur d'authentification: ${error.message ?? "Une erreur inconnue s'est produite"}`,
+        )
     }
   }
 }

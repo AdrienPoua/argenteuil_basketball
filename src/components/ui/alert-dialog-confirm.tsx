@@ -8,8 +8,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { Button } from "./button"
+} from '@/components/ui/alert-dialog'
+import { Button } from './button'
+import { useEffect } from 'react'
 
 type ConfirmDialogProps = {
   title?: string
@@ -22,14 +23,23 @@ type ConfirmDialogProps = {
 }
 
 export function AlertDialogConfirm({
-  title = "Êtes-vous sûr ?",
-  confirmLabel = "Confirmer",
-  cancelLabel = "Annuler",
+  title = 'Êtes-vous sûr ?',
+  confirmLabel = 'Confirmer',
+  cancelLabel = 'Annuler',
   onConfirm,
   description,
   className,
   disabled,
 }: Readonly<ConfirmDialogProps>) {
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Enter') {
+        onConfirm()
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [disabled, onConfirm])
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -43,10 +53,8 @@ export function AlertDialogConfirm({
           {description && <AlertDialogDescription>{description}</AlertDialogDescription>}
         </AlertDialogHeader>
         <AlertDialogFooter>
+          <AlertDialogAction onClick={onConfirm}>{confirmLabel}</AlertDialogAction>
           <AlertDialogCancel>{cancelLabel}</AlertDialogCancel>
-          <AlertDialogAction tabIndex={0} autoFocus onClick={onConfirm}>
-            {confirmLabel}
-          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

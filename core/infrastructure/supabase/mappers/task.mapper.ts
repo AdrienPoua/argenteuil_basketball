@@ -1,5 +1,5 @@
-import { TaskEntity } from "../../../domain/entities/task.entity"
-import { TaskDTO } from "../dtos/task.dto"
+import { TaskEntity } from '../../../domain/entities/task.entity'
+import { TaskDTO } from '../dtos/task.dto'
 
 export function toDomain(data: TaskDTO): TaskEntity {
   return new TaskEntity(data)

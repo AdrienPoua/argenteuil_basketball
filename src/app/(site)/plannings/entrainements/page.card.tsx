@@ -1,11 +1,18 @@
-"use client"
+'use client'
 
-import { Calendar, Clock, MapPin, Users } from "lucide-react"
-import PatternCardRound from "@/components/decorative/pattern-card-round"
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { cn } from "@/core/shared/utils/cn"
-import { daysType, gymnaseMapType, GymnaseType, sessionsByDayType, SessionWithTeamInfo, TeamType } from "./page"
+import { Calendar, Clock, MapPin, Users } from 'lucide-react'
+import PatternCardRound from '@/components/decorative/pattern-card-round'
+import { Badge } from '@/components/ui/badge'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { cn } from '@/core/shared/utils/cn'
+import {
+  daysType,
+  gymnaseMapType,
+  GymnaseType,
+  sessionsByDayType,
+  SessionWithTeamInfo,
+  TeamType,
+} from './page'
 
 type PropsType = {
   teams: TeamType[]
@@ -20,7 +27,7 @@ export default function CardsView({ sessionsByDay, days, gymnaseMap }: Readonly<
     <div className="w-full space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle className="text-primary flex items-center gap-2">
+          <CardTitle className="flex items-center gap-2 text-primary">
             <Calendar className="h-5 w-5" />
             Planning des Entraînements - Vue par jour
           </CardTitle>
@@ -45,7 +52,7 @@ export default function CardsView({ sessionsByDay, days, gymnaseMap }: Readonly<
                     <Card
                       key={session.id}
                       className={cn(
-                        "relative overflow-hidden border-l-4 transition-transform duration-200 hover:scale-105 hover:shadow-md"
+                        'relative overflow-hidden border-l-4 transition-transform duration-200 hover:scale-105 hover:shadow-md',
                       )}
                     >
                       <PatternCardRound topRight />
@@ -53,7 +60,7 @@ export default function CardsView({ sessionsByDay, days, gymnaseMap }: Readonly<
                         <div className="space-y-3">
                           {/* En-tête avec catégorie et genre */}
                           <div className="flex items-center gap-3">
-                            <Badge>{session.category.join(" & ")}</Badge>
+                            <Badge>{session.category.join(' & ')}</Badge>
                             <Badge variant="secondary">{session.level}</Badge>
                           </div>
 
@@ -61,7 +68,7 @@ export default function CardsView({ sessionsByDay, days, gymnaseMap }: Readonly<
                           <div className="text-lg font-semibold">{session.team}</div>
 
                           {/* Horaires */}
-                          <div className="text-muted-foreground flex items-center gap-2">
+                          <div className="flex items-center gap-2 text-muted-foreground">
                             <Clock className="h-4 w-4" />
                             <span>
                               {session.start} - {session.end}
@@ -69,9 +76,11 @@ export default function CardsView({ sessionsByDay, days, gymnaseMap }: Readonly<
                           </div>
 
                           {/* Gymnase */}
-                          <div className="text-muted-foreground flex items-center gap-2">
+                          <div className="flex items-center gap-2 text-muted-foreground">
                             <MapPin className="h-4 w-4" />
-                            <span className="text-sm">{gymnaseMap[session.gymnase_id] ?? "Gymnase inconnu"}</span>
+                            <span className="text-sm">
+                              {gymnaseMap[session.gymnase_id] ?? 'Gymnase inconnu'}
+                            </span>
                           </div>
                         </div>
                       </CardContent>
@@ -79,7 +88,7 @@ export default function CardsView({ sessionsByDay, days, gymnaseMap }: Readonly<
                   ))}
                 </div>
               ) : (
-                <div className="text-muted-foreground py-8 text-center">
+                <div className="py-8 text-center text-muted-foreground">
                   <Users className="mx-auto mb-2 h-12 w-12 opacity-50" />
                   <p>Aucun entraînement programmé</p>
                 </div>

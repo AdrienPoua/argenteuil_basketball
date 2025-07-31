@@ -1,6 +1,6 @@
-import { UserRepository } from "../../../domain/repositories/user.repository"
-import { ErrorHandler } from "../../../shared/error/ErrorHandler"
-import { BaseUseCase } from "../BaseUseCase"
+import { UserRepository } from '../../../domain/repositories/user.repository'
+import { ErrorHandler } from '../../../shared/error/ErrorHandler'
+import { BaseUseCase } from '../BaseUseCase'
 
 export class LogoutUseCase implements BaseUseCase<void, void> {
   constructor(private readonly userRepository: UserRepository) {}

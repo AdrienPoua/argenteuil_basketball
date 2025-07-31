@@ -1,7 +1,8 @@
-import { CreateMatchDTO } from "@/core/application/dtos/match.dto.js"
-import { BaseRepository } from "./base.repository.js"
-import { TeamDTO } from "../dtos/team.dto.js"
-import { MatchEntity } from "../entities/match.entity.js"
+import { CreateMatchDTO } from '@/core/application/dtos/match.dto'
+import { BaseRepository } from './base.repository'
+import { TeamDTO } from '../dtos/team.dto'
+import { MatchEntity } from '../entities/match.entity'
+
 export interface MatchDTO {
   //required
   id: string

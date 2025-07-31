@@ -1,8 +1,8 @@
-import { z } from "zod"
-import { FaqEntity } from "../../../domain/entities/faq.entity"
-import { FaqRepository } from "../../../domain/repositories/faq.repository"
-import { ErrorHandler } from "../../../shared/error/ErrorHandler"
-import { BaseUseCase } from "../BaseUseCase"
+import { z } from 'zod'
+import { FaqEntity } from '../../../domain/entities/faq.entity'
+import { FaqRepository } from '../../../domain/repositories/faq.repository'
+import { ErrorHandler } from '../../../shared/error/ErrorHandler'
+import { BaseUseCase } from '../BaseUseCase'
 
 const UpdateFaqUseCaseInputSchema = z.object({
   id: z.string(),

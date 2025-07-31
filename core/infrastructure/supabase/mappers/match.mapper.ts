@@ -1,6 +1,6 @@
-import { toDomain as toDomainTeam, toPersistence as toPersistenceTeam } from "./team.mapper"
-import { MatchEntity } from "../../../domain/entities/match.entity"
-import { MatchDTO } from "../dtos/match.dto"
+import { toDomain as toDomainTeam, toPersistence as toPersistenceTeam } from './team.mapper'
+import { MatchEntity } from '../../../domain/entities/match.entity'
+import { MatchDTO } from '../dtos/match.dto'
 
 export function toDomain(data: MatchDTO): MatchEntity {
   return new MatchEntity({

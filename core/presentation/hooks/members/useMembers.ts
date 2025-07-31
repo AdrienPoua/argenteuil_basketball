@@ -1,7 +1,7 @@
-import { useQuery } from "@tanstack/react-query"
-import { toast } from "sonner"
-import { GetAllMembersUseCase } from "@/core/application/usecases/Member/GetAllMembersUseCase"
-import { RepositoryFactory } from "@/core/infrastructure/supabase/repositories/factory.repository"
+import { useQuery } from '@tanstack/react-query'
+import { toast } from 'sonner'
+import { GetAllMembersUseCase } from '@/core/application/usecases/Member/GetAllMembersUseCase'
+import { RepositoryFactory } from '@/core/infrastructure/supabase/repositories/factory.repository'
 
 export function useMembers() {
   const {
@@ -9,7 +9,7 @@ export function useMembers() {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["members"],
+    queryKey: ['members'],
     queryFn: async () => {
       const memberRepository = RepositoryFactory.getMemberRepository()
       const getAllUseCase = new GetAllMembersUseCase(memberRepository)

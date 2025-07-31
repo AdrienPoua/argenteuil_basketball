@@ -1,4 +1,4 @@
-import { TeamDTO } from "./team.dto"
+import { TeamDTO } from './team.dto'
 
 export interface MatchDTO {
   // REQUIRED

@@ -1,6 +1,6 @@
-import { InscriptionEntity } from "../../../domain/entities/inscription.entity"
-import { ErrorHandler } from "../../../shared/error/ErrorHandler"
-import { InscriptionDTO } from "../dtos/inscription.dto"
+import { InscriptionEntity } from '../../../domain/entities/inscription.entity'
+import { ErrorHandler } from '../../../shared/error/ErrorHandler'
+import { InscriptionDTO } from '../dtos/inscription.dto'
 
 export function toDomain(data: InscriptionDTO): InscriptionEntity {
   const { created_at, ...rest } = data
@@ -17,6 +17,7 @@ export function toDomain(data: InscriptionDTO): InscriptionEntity {
     phoneNumber: rest.phone_number,
     typeInscription: rest.type_inscription,
     status: rest.status,
+    passSport: rest.passSport,
   })
 }
 
@@ -33,6 +34,7 @@ export function toPersistence(entity: InscriptionEntity): InscriptionDTO {
     type_inscription: entity.typeInscription,
     status: entity.status,
     created_at: entity.created_at.toISOString(),
+    passSport: entity.passSport,
   }
 }
 

@@ -1,5 +1,5 @@
-import { FaqRepository } from "../../../domain/repositories/faq.repository"
-import { ErrorHandler } from "../../../shared/error/ErrorHandler"
+import { FaqRepository } from '../../../domain/repositories/faq.repository'
+import { ErrorHandler } from '../../../shared/error/ErrorHandler'
 
 export class DeleteFaqUseCase {
   constructor(private readonly faqRepository: FaqRepository) {}

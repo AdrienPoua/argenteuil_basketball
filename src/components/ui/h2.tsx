@@ -1,14 +1,14 @@
-import { cn } from '@/utils/cn';
+import { cn } from '@/utils/cn'
 
 interface H2Props {
-  children: React.ReactNode;
-  className?: string;
-  anchor?: string;
+  children: React.ReactNode
+  className?: string
+  anchor?: string
 }
 
 export default function H2({ children, className, anchor }: Readonly<H2Props>) {
   return (
-    <div className='my-12 flex w-full justify-center'>
+    <div className="my-12 flex w-full justify-center">
       <h2
         className={cn(
           'relative w-fit max-w-4xl cursor-pointer border-b-2 border-primary px-2 pb-2',
@@ -23,5 +23,5 @@ export default function H2({ children, className, anchor }: Readonly<H2Props>) {
         {children}
       </h2>
     </div>
-  );
+  )
 }

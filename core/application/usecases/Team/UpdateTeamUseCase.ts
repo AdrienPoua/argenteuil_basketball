@@ -1,8 +1,8 @@
-import { z } from "zod"
-import { Category, Gender, Level, TeamEntity } from "../../../domain/entities/team.entity"
-import { TeamRepository } from "../../../domain/repositories/team.repository"
-import { ErrorHandler } from "../../../shared/error/ErrorHandler"
-import { BaseUseCase } from "../BaseUseCase"
+import { z } from 'zod'
+import { Category, Gender, Level, TeamEntity } from '../../../domain/entities/team.entity'
+import { TeamRepository } from '../../../domain/repositories/team.repository'
+import { ErrorHandler } from '../../../shared/error/ErrorHandler'
+import { BaseUseCase } from '../BaseUseCase'
 
 export const SessionSchema = z.object({
   start: z.string(),
@@ -22,7 +22,11 @@ export const UpdateTeamUseCaseSchema = z.object({
   assistantsCoachIds: z.array(z.string()),
   sessions: z.array(SessionSchema),
   competitions: z.array(
-    z.object({ id: z.number(), label: z.string(), poules: z.array(z.object({ id: z.number(), nom: z.string() })) })
+    z.object({
+      id: z.number(),
+      label: z.string(),
+      poules: z.array(z.object({ id: z.number(), nom: z.string() })),
+    }),
   ),
 })
 

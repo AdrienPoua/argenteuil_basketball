@@ -1,9 +1,9 @@
-import { z } from "zod"
-import { MatchEntity } from "../../../domain/entities/match.entity"
-import { MatchRepository } from "../../../domain/repositories/match.repository"
-import { UpdateMatchDTO } from "../../../infrastructure/supabase/dtos/match.dto"
-import { ErrorHandler } from "../../../shared/error/ErrorHandler"
-import { BaseUseCase } from "../BaseUseCase"
+import { z } from 'zod'
+import { MatchEntity } from '../../../domain/entities/match.entity'
+import { MatchRepository } from '../../../domain/repositories/match.repository'
+import { UpdateMatchDTO } from '../../../infrastructure/supabase/dtos/match.dto'
+import { ErrorHandler } from '../../../shared/error/ErrorHandler'
+import { BaseUseCase } from '../BaseUseCase'
 
 const MatchSchema = z
   .object({

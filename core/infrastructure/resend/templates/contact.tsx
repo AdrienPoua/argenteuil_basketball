@@ -1,5 +1,5 @@
 // emails/ContactEmail.tsx
-import club from "../../../shared/config/club"
+import club from '../../../shared/config/club'
 type ContactEmailProps = {
   name: string
   email: string
@@ -7,11 +7,11 @@ type ContactEmailProps = {
   timestamp?: Date
 }
 
-export const ContactEmail = ({ 
-  name, 
-  email, 
-  message, 
-  timestamp = new Date() 
+export const ContactEmail = ({
+  name,
+  email,
+  message,
+  timestamp = new Date(),
 }: ContactEmailProps) => {
   const styles = {
     container: {
@@ -131,9 +131,7 @@ export const ContactEmail = ({
     <div style={styles.container}>
       {/* Header */}
       <div style={styles.header}>
-        <h1 style={styles.headerTitle}>
-          📧 Nouveau message de contact
-        </h1>
+        <h1 style={styles.headerTitle}>📧 Nouveau message de contact</h1>
         <p style={styles.headerSubtitle}>
           {club.name} • {formatDate(timestamp)}
         </p>
@@ -151,29 +149,23 @@ export const ContactEmail = ({
           </p>
           <div style={styles.contactInfo}>
             <span>📧</span>
-            <a 
-              href={`mailto:${email}`} 
-              style={{ color: '#2563eb', textDecoration: 'none' }}
-            >
+            <a href={`mailto:${email}`} style={{ color: '#2563eb', textDecoration: 'none' }}>
               {email}
             </a>
           </div>
         </div>
 
-
         {/* Message */}
         <div style={styles.section}>
           <span style={styles.label}>💬 Message</span>
-          <div style={styles.messageBox}>
-            {message}
-          </div>
+          <div style={styles.messageBox}>{message}</div>
         </div>
 
         <hr style={styles.divider} />
 
         {/* Quick Actions */}
         <div style={{ textAlign: 'center', marginTop: '24px' }}>
-          <a 
+          <a
             href={`mailto:${email}?subject=Re: ${'Réponse à votre message sur ' + club.domain}`}
             style={{
               display: 'inline-block',
@@ -197,9 +189,7 @@ export const ContactEmail = ({
         <p style={styles.metaText}>
           📍 Ce message a été envoyé via le formulaire de contact de <strong>{club.domain}</strong>
         </p>
-        <p style={styles.metaText}>
-          🕒 Reçu le {formatDate(timestamp)}
-        </p>
+        <p style={styles.metaText}>🕒 Reçu le {formatDate(timestamp)}</p>
       </div>
     </div>
   )

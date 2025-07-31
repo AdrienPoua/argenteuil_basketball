@@ -1,25 +1,32 @@
-"use client"
+'use client'
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { AlertCircle } from "lucide-react"
-import { useRouter } from "next/navigation"
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { Button } from "@/components/ui/button"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { createClient } from "@/core/infrastructure/supabase/clients/client"
+import { zodResolver } from '@hookform/resolvers/zod'
+import { AlertCircle } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { Button } from '@/components/ui/button'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { createClient } from '@/core/infrastructure/supabase/clients/client'
 
 const formSchema = z
   .object({
-    password: z.string().min(8, "Le mot de passe doit contenir au moins 8 caractères"),
+    password: z.string().min(8, 'Le mot de passe doit contenir au moins 8 caractères'),
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Les mots de passe ne correspondent pas",
-    path: ["confirmPassword"],
+    message: 'Les mots de passe ne correspondent pas',
+    path: ['confirmPassword'],
   })
 
 export function ResetPasswordUpdateForm() {
@@ -31,8 +38,8 @@ export function ResetPasswordUpdateForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      password: "",
-      confirmPassword: "",
+      password: '',
+      confirmPassword: '',
     },
   })
 
@@ -44,10 +51,10 @@ export function ResetPasswordUpdateForm() {
       })
 
       if (error) throw error
-      router.push("/login?resetSuccess=true")
+      router.push('/login?resetSuccess=true')
     } catch (error) {
-      console.error("Erreur lors de la réinitialisation:", error)
-      setResetError("Une erreur est survenue. Veuillez réessayer.")
+      console.error('Erreur lors de la réinitialisation:', error)
+      setResetError('Une erreur est survenue. Veuillez réessayer.')
     } finally {
       setIsLoading(false)
     }
@@ -100,7 +107,7 @@ export function ResetPasswordUpdateForm() {
         />
 
         <Button type="submit" className="w-full" disabled={isLoading}>
-          {isLoading ? "Mise à jour..." : "Mettre à jour le mot de passe"}
+          {isLoading ? 'Mise à jour...' : 'Mettre à jour le mot de passe'}
         </Button>
       </form>
     </Form>

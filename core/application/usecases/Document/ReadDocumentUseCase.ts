@@ -1,6 +1,6 @@
-import { DocumentEntity } from "../../../domain/entities/document.entity"
-import { DocumentRepository } from "../../../domain/repositories/document.repository"
-import { ErrorHandler } from "../../../shared/error/ErrorHandler"
+import { DocumentEntity } from '../../../domain/entities/document.entity'
+import { DocumentRepository } from '../../../domain/repositories/document.repository'
+import { ErrorHandler } from '../../../shared/error/ErrorHandler'
 
 export class GetAllDocumentsUseCase {
   constructor(private readonly documentRepository: DocumentRepository) {}

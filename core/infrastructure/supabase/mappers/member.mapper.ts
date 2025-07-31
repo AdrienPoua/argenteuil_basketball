@@ -1,5 +1,5 @@
-import { MemberEntity, MemberRole } from "../../../domain/entities/member.entity"
-import { MemberDTO } from "../dtos/member.dto"
+import { MemberEntity, MemberRole } from '../../../domain/entities/member.entity'
+import { MemberDTO } from '../dtos/member.dto'
 
 export const isMemberRole = (role: string): role is MemberRole => {
   return Object.values(MemberRole).includes(role as MemberRole)

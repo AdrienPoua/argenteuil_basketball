@@ -1,6 +1,6 @@
-import { useQuery } from "@tanstack/react-query"
-import { toast } from "sonner"
-import { getAllTarifs } from "@/core/presentation/actions/tarifs/read"
+import { useQuery } from '@tanstack/react-query'
+import { toast } from 'sonner'
+import { getAllTarifs } from '@/core/presentation/actions/tarifs/read'
 
 export function useTarifs() {
   const {
@@ -8,7 +8,7 @@ export function useTarifs() {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["tarifs"],
+    queryKey: ['tarifs'],
     queryFn: async () => {
       return await getAllTarifs()
     },

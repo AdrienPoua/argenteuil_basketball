@@ -1,19 +1,22 @@
-import { SupabaseClient } from "@supabase/supabase-js"
-import { SupabaseBaseRepository } from "./base.repository"
-import { MatchEntity } from "../../../domain/entities/match.entity"
-import { MatchRepository } from "../../../domain/repositories/match.repository"
-import club from "../../../shared/config/club"
-import { CreateMatchDTO, MatchDTO } from "../dtos/match.dto"
-import { toDomain } from "../mappers/match.mapper"
+import { SupabaseClient } from '@supabase/supabase-js'
+import { SupabaseBaseRepository } from './base.repository'
+import { MatchEntity } from '../../../domain/entities/match.entity'
+import { MatchRepository } from '../../../domain/repositories/match.repository'
+import club from '../../../shared/config/club'
+import { CreateMatchDTO, MatchDTO } from '../dtos/match.dto'
+import { toDomain } from '../mappers/match.mapper'
 
-export class SupabaseMatchRepository extends SupabaseBaseRepository<MatchEntity, MatchDTO> implements MatchRepository {
+export class SupabaseMatchRepository
+  extends SupabaseBaseRepository<MatchEntity, MatchDTO>
+  implements MatchRepository
+{
   constructor(client: SupabaseClient | Promise<SupabaseClient>) {
-    super("matchs", client, toDomain)
+    super('matchs', client, toDomain)
   }
 
   async createWithTeam(dto: CreateMatchDTO): Promise<MatchEntity> {
     const client = await this.client
-    const { data, error } = await client.from("matchs").insert(dto).select().single()
+    const { data, error } = await client.from('matchs').insert(dto).select().single()
     if (error) throw error
     return toDomain(data)
   }
@@ -21,12 +24,12 @@ export class SupabaseMatchRepository extends SupabaseBaseRepository<MatchEntity,
   async findAllWithTeam(orderBy: string, orderDirection: string): Promise<MatchEntity[]> {
     const client = await this.client
     const { data, error } = await client
-      .from("matchs")
-      .select("*, team:team_id(*)")
+      .from('matchs')
+      .select('*, team:team_id(*)')
       .order(orderBy, {
-        ascending: orderDirection === "asc",
+        ascending: orderDirection === 'asc',
       })
-      .order("horaire", { ascending: true })
+      .order('horaire', { ascending: true })
     if (error) throw error
     return data.map(toDomain)
   }
@@ -43,15 +46,15 @@ export class SupabaseMatchRepository extends SupabaseBaseRepository<MatchEntity,
     endOfWeek.setDate(startOfWeek.getDate() + 6)
     endOfWeek.setHours(23, 59, 59, 999)
 
-    const startDate = startOfWeek.toISOString().split("T")[0]
-    const endDate = endOfWeek.toISOString().split("T")[0]
+    const startDate = startOfWeek.toISOString().split('T')[0]
+    const endDate = endOfWeek.toISOString().split('T')[0]
 
     const { data, error } = await client
-      .from("matchs")
-      .select("*, team:team_id(*)")
-      .filter("date", "gte", startDate)
-      .filter("date", "lte", endDate)
-      .filter("id_organisme_equipe_1", "eq", club.clubId)
+      .from('matchs')
+      .select('*, team:team_id(*)')
+      .filter('date', 'gte', startDate)
+      .filter('date', 'lte', endDate)
+      .filter('id_organisme_equipe_1', 'eq', club.clubId)
 
     if (error) throw error
     return data.map(toDomain)
@@ -61,15 +64,15 @@ export class SupabaseMatchRepository extends SupabaseBaseRepository<MatchEntity,
     const client = await this.client
     const today = new Date()
 
-    console.log("today", today.toISOString())
+    console.log('today', today.toISOString())
 
     const { data, error } = await client
-      .from("matchs")
-      .select("*, team:team_id(*)")
-      .filter("date", "gte", today.toISOString())
-      .order("date", { ascending: true })
+      .from('matchs')
+      .select('*, team:team_id(*)')
+      .filter('date', 'gte', today.toISOString())
+      .order('date', { ascending: true })
 
-    console.log("data", data)
+    console.log('data', data)
     if (error) throw error
     return data.map(toDomain)
   }

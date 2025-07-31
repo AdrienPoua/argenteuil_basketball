@@ -1,5 +1,5 @@
 // Importez le type Config depuis tailwindcss
-import type { Config } from 'tailwindcss';
+import type { Config } from 'tailwindcss'
 
 // Définissez votre configuration Tailwind
 const config: Config = {
@@ -116,7 +116,7 @@ const config: Config = {
     },
   },
   plugins: [require('tailwindcss-animate')],
-};
+}
 
 // Exportez la configuration
-export default config;
+export default config

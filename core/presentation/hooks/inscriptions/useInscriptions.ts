@@ -1,7 +1,7 @@
-import { useQuery } from "@tanstack/react-query"
-import { toast } from "sonner"
-import { getAllInscriptions } from "@/core/presentation/actions/inscriptions/getAllInscriptions"
-import { ErrorHandler } from "@/core/shared/error/ErrorHandler"
+import { useQuery } from '@tanstack/react-query'
+import { toast } from 'sonner'
+import { getAllInscriptions } from '@/core/presentation/actions/inscriptions/getAllInscriptions'
+import { ErrorHandler } from '@/core/shared/error/ErrorHandler'
 
 export const useInscriptions = () => {
   try {
@@ -10,7 +10,7 @@ export const useInscriptions = () => {
       isLoading,
       refetch,
     } = useQuery({
-      queryKey: ["inscriptions"],
+      queryKey: ['inscriptions'],
       queryFn: getAllInscriptions,
       enabled: true,
       throwOnError: (error: Error) => {

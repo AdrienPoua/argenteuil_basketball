@@ -1,5 +1,5 @@
-import { PostgrestError, SupabaseClient } from "@supabase/supabase-js"
-import { BaseRepository } from "../../../domain/repositories/base.repository"
+import { PostgrestError, SupabaseClient } from '@supabase/supabase-js'
+import { BaseRepository } from '../../../domain/repositories/base.repository'
 /**
  * Implémentation abstraite de BaseRepository utilisant Supabase comme stockage de données
  *
@@ -15,20 +15,20 @@ export abstract class SupabaseBaseRepository<Entity, DTO> implements BaseReposit
   constructor(
     protected readonly tableName: string,
     protected readonly client: SupabaseClient | Promise<SupabaseClient>,
-    protected readonly toDomain: (data: DTO) => Entity
+    protected readonly toDomain: (data: DTO) => Entity,
   ) {}
 
   protected async getClient(): Promise<SupabaseClient> {
     return this.client instanceof Promise ? await this.client : this.client
   }
 
-  async findAll(sortBy?: string, order: "asc" | "desc" = "asc"): Promise<Entity[]> {
+  async findAll(sortBy?: string, order: 'asc' | 'desc' = 'asc'): Promise<Entity[]> {
     try {
       const client = await this.getClient()
-      let query = client.from(this.tableName).select("*")
+      let query = client.from(this.tableName).select('*')
 
       if (sortBy) {
-        query = query.order(sortBy, { ascending: order === "asc" })
+        query = query.order(sortBy, { ascending: order === 'asc' })
       }
 
       const { data, error } = await query
@@ -46,7 +46,7 @@ export abstract class SupabaseBaseRepository<Entity, DTO> implements BaseReposit
   async findById(id: string): Promise<Entity | null> {
     try {
       const client = await this.getClient()
-      const { data, error } = await client.from(this.tableName).select("*").eq("id", id).single()
+      const { data, error } = await client.from(this.tableName).select('*').eq('id', id).single()
 
       if (error) {
         throw this.handleError(error)
@@ -57,14 +57,18 @@ export abstract class SupabaseBaseRepository<Entity, DTO> implements BaseReposit
     }
   }
 
-  async create(input: Omit<DTO, "id" | "created_at">): Promise<Entity> {
+  async create(input: Omit<DTO, 'id' | 'created_at'>): Promise<Entity> {
     try {
       const client = await this.getClient()
-      const { data: result, error } = await client.from(this.tableName).insert(input).select().single()
+      const { data: result, error } = await client
+        .from(this.tableName)
+        .insert(input)
+        .select()
+        .single()
       if (error) throw error
 
       if (!result || result.length === 0) {
-        throw new Error("Aucun résultat retourné après insertion")
+        throw new Error('Aucun résultat retourné après insertion')
       }
 
       return this.toDomain(result)
@@ -76,7 +80,12 @@ export abstract class SupabaseBaseRepository<Entity, DTO> implements BaseReposit
   async update(input: Partial<DTO> & { id: string }): Promise<Entity> {
     try {
       const client = await this.getClient()
-      const { data, error } = await client.from(this.tableName).update(input).eq("id", input.id).select().single()
+      const { data, error } = await client
+        .from(this.tableName)
+        .update(input)
+        .eq('id', input.id)
+        .select()
+        .single()
       if (error) throw this.handleError(error)
       return this.toDomain(data)
     } catch (error) {
@@ -101,13 +110,13 @@ export abstract class SupabaseBaseRepository<Entity, DTO> implements BaseReposit
       await client
         .from(this.tableName)
         .delete()
-        .in("id", Array.isArray(id) ? id : [id])
+        .in('id', Array.isArray(id) ? id : [id])
     } catch (error) {
       throw this.handleError(error as PostgrestError)
     }
   }
 
-  async createMany(inputs: Omit<DTO, "id" | "created_at">[]): Promise<Entity[]> {
+  async createMany(inputs: Omit<DTO, 'id' | 'created_at'>[]): Promise<Entity[]> {
     try {
       const client = await this.getClient()
       const { data, error } = await client.from(this.tableName).insert(inputs).select()
@@ -143,20 +152,20 @@ export abstract class SupabaseBaseRepository<Entity, DTO> implements BaseReposit
   protected handleError(error: PostgrestError): Error {
     console.error(`Erreur de base de données (${this.tableName}):`, error)
     switch (error.code) {
-      case "23505": // Violation de contrainte d'unicité
-        return new Error("Une entrée avec ces informations existe déjà")
-      case "23503": // Violation de clé étrangère
+      case '23505': // Violation de contrainte d'unicité
+        return new Error('Une entrée avec ces informations existe déjà')
+      case '23503': // Violation de clé étrangère
         return new Error("Référence à une entité qui n'existe pas")
-      case "23502": // Violation de contrainte NOT NULL
-        return new Error("Données incomplètes")
-      case "PGRST116":
-        return new Error("Aucun résultat")
-      case "PGRST301":
+      case '23502': // Violation de contrainte NOT NULL
+        return new Error('Données incomplètes')
+      case 'PGRST116':
+        return new Error('Aucun résultat')
+      case 'PGRST301':
         return new Error("Vous n'avez pas les droits pour effectuer cette action")
-      case "PGRST399":
-        return new Error("Vous avez dépassé le nombre de requêtes autorisées")
-      case "42501":
-        return new Error("vous ne pouvez pas effectuer cette action, pour cause de droit RLS")
+      case 'PGRST399':
+        return new Error('Vous avez dépassé le nombre de requêtes autorisées')
+      case '42501':
+        return new Error('vous ne pouvez pas effectuer cette action, pour cause de droit RLS')
       default:
         return new Error(`Erreur de base de données: ${error.message}`)
     }

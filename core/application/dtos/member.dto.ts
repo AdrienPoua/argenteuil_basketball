@@ -11,4 +11,4 @@ export interface MemberDTO {
     showPhone: boolean
   }
   created_at: string
-} 
+}

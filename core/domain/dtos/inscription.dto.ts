@@ -1,4 +1,4 @@
-import { Gender, StatutInscription, TypeInscription } from "../entities/inscription.entity"
+import { Gender, StatutInscription, TypeInscription } from '../entities/inscription.entity'
 
 export interface InscriptionDTO {
   id: string
@@ -10,6 +10,7 @@ export interface InscriptionDTO {
   gender: Gender
   surclassement: boolean
   type_inscription: TypeInscription
+  passSport: string
   status: StatutInscription
   created_at: string
 }

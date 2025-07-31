@@ -44,5 +44,5 @@ export interface MatchDTO {
   is_amical: boolean
 }
 
-export type CreateMatchDTO = Omit<MatchDTO, "created_at" | "team"> & { team_id: string | null }
+export type CreateMatchDTO = Omit<MatchDTO, 'created_at' | 'team'> & { team_id: string | null }
 export type UpdateMatchDTO = Partial<MatchDTO> & { id: string }

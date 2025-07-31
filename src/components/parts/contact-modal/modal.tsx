@@ -1,44 +1,60 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import {
-  Dialog,
-  DialogContent, DialogTrigger
-} from "@/components/ui/dialog"
-import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { cn } from "@/core/shared/utils/cn"
-import { ContactTab } from "./contact-tab"
-import { InscriptionTab } from "./inscription-tab"
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
+import { navigationMenuTriggerStyle } from '@/components/ui/navigation-menu'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { cn } from '@/core/shared/utils/cn'
+import { ContactTab } from './contact-tab'
+import { InscriptionTab } from './inscription-tab'
 
 type PropsType = {
   label: string
-  variant?: "ghost" | "link" | "default" | "destructive" | "outline" | "secondary" | "nav" | "ghostSecondary" | "activeNav" | "matchNav" | "connexion" | "check" | "blackAndWhite" | "invisible" | null
+  variant?:
+    | 'ghost'
+    | 'link'
+    | 'default'
+    | 'destructive'
+    | 'outline'
+    | 'secondary'
+    | 'nav'
+    | 'ghostSecondary'
+    | 'activeNav'
+    | 'matchNav'
+    | 'connexion'
+    | 'check'
+    | 'blackAndWhite'
+    | 'invisible'
+    | null
   className?: string
+  defaultTab?: 'contact' | 'preinscription'
 }
 
-export default function ContactModal({ label, variant = "ghost", className }: Readonly<PropsType>) {
+export default function ContactModal({
+  label,
+  variant = 'default',
+  defaultTab = 'contact',
+  className,
+}: Readonly<PropsType>) {
   const [open, setOpen] = useState(false)
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant={variant} className={cn(navigationMenuTriggerStyle(), className)}>
-          {label}
-        </Button>
+        <Button variant={variant}>{label}</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md md:max-w-screen-sm max-h-[80dvh] overflow-y-auto">
-        <Tabs defaultValue="contact" className="w-full">
-       {/*  <TabsList className="flex justify-center gap-4 w-full">
+      <DialogContent className="max-h-[80dvh] overflow-y-auto sm:max-w-md md:max-w-screen-sm">
+        <Tabs defaultValue={defaultTab} className="w-full">
+          <TabsList className="flex w-full justify-center gap-4">
             <TabsTrigger value="contact">Contact</TabsTrigger>
             <TabsTrigger value="preinscription">Pré-inscription</TabsTrigger>
-          </TabsList> */}
+          </TabsList>
           <TabsContent value="contact">
             <ContactTab setOpen={setOpen} />
           </TabsContent>
-          {/* <TabsContent value="preinscription">
+          <TabsContent value="preinscription">
             <InscriptionTab setOpen={setOpen} />
-          </TabsContent> */}
+          </TabsContent>
         </Tabs>
       </DialogContent>
     </Dialog>

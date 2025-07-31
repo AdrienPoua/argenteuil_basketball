@@ -1,21 +1,18 @@
-import { Calendar, Euro } from "lucide-react"
-import Pattern from "@/components/decorative/pattern-card-round"
-import { Tarif } from "@/core/domain/entities/tarif.entity"
-import { getBirthyearsByCategories } from "@/core/shared/utils/getBirthyearsByCategories"
+import { Calendar, Euro } from 'lucide-react'
+import Pattern from '@/components/decorative/pattern-card-round'
+import { Tarif } from '@/core/domain/entities/tarif.entity'
+import { getBirthyearsByCategories } from '@/core/shared/utils/getBirthyearsByCategories'
 
 type PropsType = {
   tarif: Tarif
   index: number
 }
 
-export const TarifCard = ({
-  tarif,
-  index,
-}: Readonly<PropsType>) => {
+export const TarifCard = ({ tarif, index }: Readonly<PropsType>) => {
   const birthyears = getBirthyearsByCategories([tarif])
   return (
     <div
-      className={`group animate-fade-in-up relative transform overflow-hidden rounded-xl border border-orange-200 bg-gradient-to-br from-white to-orange-50 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl`}
+      className={`animate-fade-in-up group relative transform overflow-hidden rounded-xl border border-secondary bg-gradient-to-br from-white to-orange-50 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl`}
       style={{ animationDelay: `${index * 100}ms` }}
     >
       {/* Decorative background pattern */}
@@ -30,7 +27,14 @@ export const TarifCard = ({
               viewBox="0 0 40 40"
               className="text-orange-500 transition-transform duration-300 group-hover:rotate-12"
             >
-              <circle cx="20" cy="20" r="18" fill="currentColor" stroke="#8B4513" strokeWidth="0.5" />
+              <circle
+                cx="20"
+                cy="20"
+                r="18"
+                fill="currentColor"
+                stroke="#8B4513"
+                strokeWidth="0.5"
+              />
               <path
                 d="M2 20 L38 20 M20 2 L20 38 M8 8 L32 32 M32 8 L8 32"
                 stroke="#8B4513"
@@ -39,7 +43,7 @@ export const TarifCard = ({
               />
             </svg>
           </div>
-          <h3 className="text-lg font-bold text-gray-800 transition-colors duration-300 group-hover:text-orange-600 sm:text-xl">
+          <h3 className="text-lg font-bold text-gray-800 transition-colors duration-300 group-hover:text-secondary sm:text-xl">
             {tarif.category}
           </h3>
         </div>
@@ -51,7 +55,7 @@ export const TarifCard = ({
                 <Calendar />
               </div>
               <span className="text-xs font-medium text-gray-600 sm:text-sm">
-                Né(e) en {birthyears.join(" - ")} {birthyears.length === 1 && "et plus"}
+                Né(e) en {birthyears.join(' - ')} {birthyears.length === 1 && 'et plus'}
               </span>
             </div>
           )}
@@ -64,7 +68,7 @@ export const TarifCard = ({
             </div>
             <span className="text-xs text-gray-600 sm:text-sm">Cotisation annuelle</span>
           </div>
-          <div className="text-2xl font-bold text-orange-600 transition-transform duration-300 group-hover:scale-110 sm:text-3xl">
+          <div className="font-secondary text-2xl font-bold text-secondary transition-transform duration-300 group-hover:scale-110 sm:text-3xl">
             {tarif.price}€
           </div>
         </div>
@@ -76,12 +80,12 @@ export const TarifCard = ({
             </div>
             <span className="text-xs text-gray-600 sm:text-sm">Frais de mutation</span>
           </div>
-          <div className="text-2xl font-bold text-orange-600 transition-transform duration-300 group-hover:scale-110 sm:text-3xl">
+          <div className="font-secondary text-2xl font-bold text-secondary transition-transform duration-300 group-hover:scale-110 sm:text-3xl">
             {tarif.mutation_price}€
           </div>
         </div>
         {/* Hover effect indicator */}
-        <div className="absolute bottom-0 left-0 h-1 w-full origin-left scale-x-0 transform bg-gradient-to-r from-orange-400 to-orange-600 transition-transform duration-300 group-hover:scale-x-100"></div>
+        <div className="absolute bottom-0 left-0 h-1 w-full origin-left scale-x-0 transform bg-gradient-to-r from-orange-400 to-secondary transition-transform duration-300 group-hover:scale-x-100"></div>
       </div>
     </div>
   )

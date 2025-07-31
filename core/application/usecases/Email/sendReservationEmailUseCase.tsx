@@ -1,10 +1,10 @@
-import { EmailEntity } from "../../../domain/entities/email.entity"
-import { MatchEntity } from "../../../domain/entities/match.entity"
-import { EmailRepository } from "../../../domain/repositories/email.repository"
-import ReservationEmail from "../../../infrastructure/resend/templates/reservation"
-import club from "../../../shared/config/club"
-import { ErrorHandler } from "../../../shared/error/ErrorHandler"
-import { BaseUseCase } from "../BaseUseCase"
+import { EmailEntity } from '../../../domain/entities/email.entity'
+import { MatchEntity } from '../../../domain/entities/match.entity'
+import { EmailRepository } from '../../../domain/repositories/email.repository'
+import ReservationEmail from '../../../infrastructure/resend/templates/reservation'
+import club from '../../../shared/config/club'
+import { ErrorHandler } from '../../../shared/error/ErrorHandler'
+import { BaseUseCase } from '../BaseUseCase'
 
 export class SendReservationEmailUseCase implements BaseUseCase<MatchEntity[], void> {
   constructor(private readonly emailRepository: EmailRepository) {}
@@ -14,8 +14,8 @@ export class SendReservationEmailUseCase implements BaseUseCase<MatchEntity[], v
       const email = new EmailEntity({
         from: club.emails.noreply,
         to: club.contact.email,
-        bcc: "adrien.poua@gmail.com",
-        subject: "Récapitulatif des matchs à venir",
+        bcc: 'adrien.poua@gmail.com',
+        subject: 'Récapitulatif des matchs à venir',
         template: <ReservationEmail matchs={matchs} />,
       })
       const result = await this.emailRepository.sendEmail(email)

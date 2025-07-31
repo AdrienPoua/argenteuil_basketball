@@ -1,6 +1,6 @@
-import { GymnaseEntity } from "../../../domain/entities/gymnase.entity"
-import { GymnaseRepository } from "../../../domain/repositories/gymnase.repository"
-import { ErrorHandler } from "../../../shared/error/ErrorHandler"
+import { GymnaseEntity } from '../../../domain/entities/gymnase.entity'
+import { GymnaseRepository } from '../../../domain/repositories/gymnase.repository'
+import { ErrorHandler } from '../../../shared/error/ErrorHandler'
 
 export class GetAllGymnasesUseCase {
   constructor(private readonly gymnaseRepository: GymnaseRepository) {}

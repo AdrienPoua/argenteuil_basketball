@@ -1,10 +1,10 @@
-"use server"
+'use server'
 
-import { revalidatePath } from "next/cache"
-import { UpsertMemberUseCase } from "@/core/application/usecases/Member/UpsertMemberUseCase"
-import { createClient } from "@/core/infrastructure/supabase/clients/server"
-import { SupabaseMemberRepository } from "@/core/infrastructure/supabase/repositories/member.repository"
-import { ErrorHandler } from "@/core/shared/error/ErrorHandler"
+import { revalidatePath } from 'next/cache'
+import { UpsertMemberUseCase } from '@/core/application/usecases/Member/UpsertMemberUseCase'
+import { createClient } from '@/core/infrastructure/supabase/clients/server'
+import { SupabaseMemberRepository } from '@/core/infrastructure/supabase/repositories/member.repository'
+import { ErrorHandler } from '@/core/shared/error/ErrorHandler'
 
 export async function upsert(data: {
   id?: string
@@ -25,9 +25,9 @@ export async function upsert(data: {
     const upsertUseCase = new UpsertMemberUseCase(repository)
     const entity = await upsertUseCase.execute(data)
 
-    revalidatePath("/")
-    revalidatePath("/club/dirigeants")
-    revalidatePath("/club/entraineurs")
+    revalidatePath('/')
+    revalidatePath('/club/dirigeants')
+    revalidatePath('/club/entraineurs')
 
     return entity.toObject()
   } catch (error) {

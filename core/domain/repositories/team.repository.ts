@@ -1,11 +1,11 @@
-import { TeamEntity } from "@/core/domain/entities/team.entity"
-import { BaseRepository } from "./base.repository.js"
+import { TeamEntity } from '@/core/domain/entities/team.entity'
+import { BaseRepository } from './base.repository'
 import {
   CreateTeamWithRelationsDTO,
   TeamDTO,
   UpdateTeamWithRelationsDTO,
   UpsertTeamWithRelationsDTO,
-} from "../dtos/team.dto.js"
+} from '../dtos/team.dto'
 
 export type TeamRepository = BaseRepository<TeamEntity, TeamDTO> & {
   createWithRelations(input: CreateTeamWithRelationsDTO): Promise<TeamEntity>

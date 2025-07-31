@@ -1,13 +1,13 @@
-"use client"
+'use client'
 
-import { v4 as uuidv4 } from "uuid"
-import { createClient } from "@/core/infrastructure/supabase/clients/client"
+import { v4 as uuidv4 } from 'uuid'
+import { createClient } from '@/core/infrastructure/supabase/clients/client'
 
 export async function uploadFile(file: File, bucket: string, folder?: string): Promise<string> {
   const supabase = createClient()
 
   // Générer un nom unique pour le fichier
-  const fileExt = file.name.split(".").pop()
+  const fileExt = file.name.split('.').pop()
   const fileName = `${uuidv4()}.${fileExt}`
   const filePath = folder ? `${folder}/${fileName}` : fileName
 

@@ -1,25 +1,31 @@
-import { PostgrestError, SupabaseClient } from "@supabase/supabase-js"
-import { SupabaseBaseRepository } from "./base.repository"
-import { TeamEntity } from "../../../domain/entities/team.entity"
-import { SessionRepository } from "../../../domain/repositories/session.repository"
-import { TeamRepository } from "../../../domain/repositories/team.repository"
+import { PostgrestError, SupabaseClient } from '@supabase/supabase-js'
+import { SupabaseBaseRepository } from './base.repository'
+import { TeamEntity } from '../../../domain/entities/team.entity'
+import { SessionRepository } from '../../../domain/repositories/session.repository'
+import { TeamRepository } from '../../../domain/repositories/team.repository'
 import {
   CreateTeamWithRelationsDTO,
   TeamDTO,
   UpdateTeamWithRelationsDTO,
   UpsertTeamWithRelationsDTO,
-} from "../dtos/team.dto"
-import { createSessionsTeam } from "../helpers/sessions_teams"
-import { createTeam, updateTeam, upsertTeam } from "../helpers/teams"
-import { createTeamsAssistants, deleteTeamsAssistants } from "../helpers/teams_assistants"
-import { createTeamsCoachs, deleteTeamsCoachs } from "../helpers/teams_coachs"
-import { toDomain } from "../mappers/team.mapper"
+} from '../dtos/team.dto'
+import { createSessionsTeam } from '../helpers/sessions_teams'
+import { createTeam, updateTeam, upsertTeam } from '../helpers/teams'
+import { createTeamsAssistants, deleteTeamsAssistants } from '../helpers/teams_assistants'
+import { createTeamsCoachs, deleteTeamsCoachs } from '../helpers/teams_coachs'
+import { toDomain } from '../mappers/team.mapper'
 
-export class SupabaseTeamRepository extends SupabaseBaseRepository<TeamEntity, TeamDTO> implements TeamRepository {
+export class SupabaseTeamRepository
+  extends SupabaseBaseRepository<TeamEntity, TeamDTO>
+  implements TeamRepository
+{
   private readonly supabaseSessionRepository: SessionRepository
 
-  constructor(client: SupabaseClient | Promise<SupabaseClient>, sessionRepository: SessionRepository) {
-    super("teams", client, toDomain)
+  constructor(
+    client: SupabaseClient | Promise<SupabaseClient>,
+    sessionRepository: SessionRepository,
+  ) {
+    super('teams', client, toDomain)
     this.supabaseSessionRepository = sessionRepository
   }
 
@@ -64,7 +70,9 @@ export class SupabaseTeamRepository extends SupabaseBaseRepository<TeamEntity, T
 
       await deleteTeamsCoachs(client, existingTeam.id)
       await deleteTeamsAssistants(client, existingTeam.id)
-      await this.supabaseSessionRepository.delete(existingTeam.sessions.map((session) => session.id))
+      await this.supabaseSessionRepository.delete(
+        existingTeam.sessions.map((session) => session.id),
+      )
 
       if (sessions && sessions.length > 0) {
         const createdSessions = await this.supabaseSessionRepository.createMany(sessions)
@@ -97,7 +105,9 @@ export class SupabaseTeamRepository extends SupabaseBaseRepository<TeamEntity, T
         const existingTeam = await this.findByIdWithRelations(input.id)
         await deleteTeamsCoachs(client, existingTeam.id)
         await deleteTeamsAssistants(client, existingTeam.id)
-        await this.supabaseSessionRepository.delete(existingTeam.sessions.map((session) => session.id))
+        await this.supabaseSessionRepository.delete(
+          existingTeam.sessions.map((session) => session.id),
+        )
       }
 
       if (sessions && sessions.length > 0) {
@@ -126,8 +136,10 @@ export class SupabaseTeamRepository extends SupabaseBaseRepository<TeamEntity, T
       if (!existingTeam) {
         throw new Error(`L'équipe avec l'ID ${id} n'existe pas`)
       }
-      await client.from(this.tableName).delete().eq("id", id)
-      await this.supabaseSessionRepository.delete(existingTeam.sessions.map((session) => session.id))
+      await client.from(this.tableName).delete().eq('id', id)
+      await this.supabaseSessionRepository.delete(
+        existingTeam.sessions.map((session) => session.id),
+      )
     } catch (error) {
       throw this.handleError(error as PostgrestError)
     }
@@ -150,9 +162,9 @@ export class SupabaseTeamRepository extends SupabaseBaseRepository<TeamEntity, T
         sessions:sessions_teams!team_id(
           sessions:session_id(*)
         )
-      `
+      `,
         )
-        .eq("id", id)
+        .eq('id', id)
         .single()
 
       if (error) throw error
@@ -182,7 +194,7 @@ export class SupabaseTeamRepository extends SupabaseBaseRepository<TeamEntity, T
         sessions:sessions_teams!team_id(
           sessions:session_id(*)
         )
-      `
+      `,
         )
         .overrideTypes<TeamDTO[]>()
 

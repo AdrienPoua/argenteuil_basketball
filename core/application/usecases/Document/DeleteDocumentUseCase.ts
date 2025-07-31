@@ -1,5 +1,5 @@
-import { DocumentRepository } from "../../../domain/repositories/document.repository"
-import { ErrorHandler } from "../../../shared/error/ErrorHandler"
+import { DocumentRepository } from '../../../domain/repositories/document.repository'
+import { ErrorHandler } from '../../../shared/error/ErrorHandler'
 
 export class DeleteDocumentUseCase {
   constructor(private readonly documentRepository: DocumentRepository) {}

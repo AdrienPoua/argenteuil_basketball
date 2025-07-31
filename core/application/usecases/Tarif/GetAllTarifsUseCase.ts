@@ -1,6 +1,6 @@
-import { TarifEntity } from "../../../domain/entities/tarif.entity"
-import { TarifRepository } from "../../../domain/repositories/tarif.repository"
-import { ErrorHandler } from "../../../shared/error/ErrorHandler"
+import { TarifEntity } from '../../../domain/entities/tarif.entity'
+import { TarifRepository } from '../../../domain/repositories/tarif.repository'
+import { ErrorHandler } from '../../../shared/error/ErrorHandler'
 
 export class GetAllTarifsUseCase {
   constructor(private readonly tarifRepository: TarifRepository) {}

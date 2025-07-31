@@ -1,6 +1,6 @@
-import { TeamEntity } from "../../../domain/entities/team.entity"
-import { TeamRepository } from "../../../domain/repositories/team.repository"
-import { ErrorHandler } from "../../../shared/error/ErrorHandler"
+import { TeamEntity } from '../../../domain/entities/team.entity'
+import { TeamRepository } from '../../../domain/repositories/team.repository'
+import { ErrorHandler } from '../../../shared/error/ErrorHandler'
 
 export class GetAllTeamsUseCase {
   constructor(private readonly teamRepository: TeamRepository) {}

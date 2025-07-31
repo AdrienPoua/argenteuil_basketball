@@ -1,5 +1,5 @@
-import { Page } from "puppeteer"
-import { ErrorHandler } from "@/core/shared/error/ErrorHandler"
+import { Page } from 'puppeteer'
+import { ErrorHandler } from '@/core/shared/error/ErrorHandler'
 import {
   checkBox,
   closeBrowser,
@@ -8,8 +8,9 @@ import {
   goToLoginPage,
   initializeBrowser,
   login,
-  navigateToForm, waitForElement
-} from "../utils"
+  navigateToForm,
+  waitForElement,
+} from '../utils'
 
 // Interface for the inscription data needed by this script
 interface InscriptionData {
@@ -26,7 +27,7 @@ interface InscriptionData {
 export default async function fillNouvelleLicence(inscription: InscriptionData): Promise<void> {
   try {
     // 1. Initialisation
-    const {  page } = await initializeBrowser()
+    const { page } = await initializeBrowser()
 
     // 1.1. Login
     await goToLoginPage(page)
@@ -40,7 +41,7 @@ export default async function fillNouvelleLicence(inscription: InscriptionData):
     // 5. Fermeture
     //await closeBrowser(browser)
 
-    console.log("🎉 Script terminé avec succès !")
+    console.log('🎉 Script terminé avec succès !')
   } catch (error) {
     const normalizedError = ErrorHandler.normalize(error)
     ErrorHandler.log(normalizedError)
@@ -53,7 +54,7 @@ export default async function fillNouvelleLicence(inscription: InscriptionData):
 // === SCRIPT PRINCIPAL ===
 
 async function fillFormData(inscription: InscriptionData, page: Page): Promise<void> {
-  if (!page) throw new Error("Page not initialized")
+  if (!page) throw new Error('Page not initialized')
   if (
     !inscription.lastName ||
     !inscription.firstName ||
@@ -61,40 +62,40 @@ async function fillFormData(inscription: InscriptionData, page: Page): Promise<v
     !inscription.gender ||
     !inscription.dateOfBirth
   ) {
-    throw new Error("Données invalides")
+    throw new Error('Données invalides')
   }
 
   // Attendre que le formulaire soit chargé
-  await waitForElement(page, "#formPreinscription")
+  await waitForElement(page, '#formPreinscription')
 
   //  Voici les champs du formulaire
 
   // Remplir les champs obligatoires
-  const dateFormatted = inscription.dateOfBirth.toLocaleDateString("fr-FR")
-  await fillField(page, "#nom", inscription.lastName, "Nom")
-  await fillField(page, "#prenom", inscription.firstName, "Prénom")
-  await fillField(page, "#mail", inscription.email, "Email")
-  await fillField(page, "#dateNaissanceTd", dateFormatted, "Date de naissance")
-  await fillSelect(page, "sexe", inscription.gender) 
+  const dateFormatted = inscription.dateOfBirth.toLocaleDateString('fr-FR')
+  await fillField(page, '#nom', inscription.lastName, 'Nom')
+  await fillField(page, '#prenom', inscription.firstName, 'Prénom')
+  await fillField(page, '#mail', inscription.email, 'Email')
+  await fillField(page, '#dateNaissanceTd', dateFormatted, 'Date de naissance')
+  await fillSelect(page, 'sexe', inscription.gender)
 
   // Surclassement si nécessaire
   if (inscription.surclassement) {
-    await checkBox(page, "#surclassementCheck", "Surclassement")
+    await checkBox(page, '#surclassementCheck', 'Surclassement')
   }
 
-  console.log("✅ Formulaire rempli")
+  console.log('✅ Formulaire rempli')
 }
 
 async function submitForm(page: Page): Promise<void> {
-  if (!page) throw new Error("Page not initialized")
+  if (!page) throw new Error('Page not initialized')
 
-  console.log("🚀 Soumission du formulaire...")
+  console.log('🚀 Soumission du formulaire...')
 
   // Cliquer sur le bouton "Enregistrer"
-  await waitForElement(page, ".boutonEnregistrer")
-  await page.click(".boutonEnregistrer")
+  await waitForElement(page, '.boutonEnregistrer')
+  await page.click('.boutonEnregistrer')
 
-  console.log("✅ Formulaire soumis avec succès")
+  console.log('✅ Formulaire soumis avec succès')
 }
 
 // === EXPORTS INDIVIDUELS POUR USAGE AVANCÉ ===

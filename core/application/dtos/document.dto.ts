@@ -5,4 +5,4 @@ export interface DocumentDTO {
   url: string
   size: number
   created_at: string
-} 
+}

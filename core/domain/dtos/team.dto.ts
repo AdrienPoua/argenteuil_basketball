@@ -1,5 +1,5 @@
-import { MemberDTO } from "./member.dto"
-import { SessionDTO } from "./session.dto"
+import { MemberDTO } from './member.dto'
+import { SessionDTO } from './session.dto'
 
 export interface TeamDTO {
   id: string
@@ -11,7 +11,7 @@ export interface TeamDTO {
   competitions: { id: number; label: string; poules: { id: number; nom: string }[] }[]
   coachs?: { member: MemberDTO }[]
   assistantsCoach?: { member: MemberDTO }[]
-  sessions?: { sessions: Omit<SessionDTO, "id" | "created_at"> }[]
+  sessions?: { sessions: Omit<SessionDTO, 'id' | 'created_at'> }[]
   image?: string
 }
 
@@ -23,7 +23,7 @@ export type CreateTeamWithRelationsDTO = {
   competitions: { id: number; label: string; poules: { id: number; nom: string }[] }[]
   coachsIds: string[]
   assistantsCoachIds: string[]
-  sessions: Omit<SessionDTO, "id" | "created_at">[]
+  sessions: Omit<SessionDTO, 'id' | 'created_at'>[]
   image?: string | null
 }
 

@@ -1,7 +1,7 @@
-import { UserEntity } from "../../../domain/entities/user.entity"
-import { UserRepository } from "../../../domain/repositories/user.repository"
-import { ErrorHandler } from "../../../shared/error/ErrorHandler"
-import { BaseUseCase } from "../BaseUseCase"
+import { UserEntity } from '../../../domain/entities/user.entity'
+import { UserRepository } from '../../../domain/repositories/user.repository'
+import { ErrorHandler } from '../../../shared/error/ErrorHandler'
+import { BaseUseCase } from '../BaseUseCase'
 
 export class GetCurrentUserUseCase implements BaseUseCase<void, UserEntity | null> {
   constructor(private readonly userRepository: UserRepository) {}

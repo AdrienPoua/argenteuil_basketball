@@ -8,5 +8,5 @@ export interface TarifDTO {
   created_at: string
 }
 
-export type CreateTarifDTO = Omit<TarifDTO, "id" | "created_at">
+export type CreateTarifDTO = Omit<TarifDTO, 'id' | 'created_at'>
 export type UpdateTarifDTO = Partial<TarifDTO>

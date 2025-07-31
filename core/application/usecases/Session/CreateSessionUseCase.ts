@@ -1,8 +1,8 @@
-import { z } from "zod"
-import { SessionEntity } from "../../../domain/entities/session.entity"
-import { SessionRepository } from "../../../domain/repositories/session.repository"
-import { ErrorHandler } from "../../../shared/error/ErrorHandler"
-import { BaseUseCase } from "../BaseUseCase"
+import { z } from 'zod'
+import { SessionEntity } from '../../../domain/entities/session.entity'
+import { SessionRepository } from '../../../domain/repositories/session.repository'
+import { ErrorHandler } from '../../../shared/error/ErrorHandler'
+import { BaseUseCase } from '../BaseUseCase'
 
 const CreateSessionUseCaseSchema = z
   .object({
@@ -18,7 +18,9 @@ const CreateSessionUseCaseSchema = z
 
 const CreateSessionUseCaseSchemaArray = z.array(CreateSessionUseCaseSchema)
 type CreateSessionUseCaseInput = z.infer<typeof CreateSessionUseCaseSchemaArray>
-export class CreateSessionUseCase implements BaseUseCase<CreateSessionUseCaseInput, SessionEntity[]> {
+export class CreateSessionUseCase
+  implements BaseUseCase<CreateSessionUseCaseInput, SessionEntity[]>
+{
   constructor(private readonly sessionRepository: SessionRepository) {}
   async execute(input: unknown): Promise<SessionEntity[]> {
     try {

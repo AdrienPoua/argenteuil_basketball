@@ -1,6 +1,6 @@
-import { DocumentEntity } from "@/core/domain/entities/document.entity"
-import { DocumentFormCreate } from "./document-form-create"
-import { DocumentFormUpdate } from "./document-form-update"
+import { DocumentEntity } from '@/core/domain/entities/document.entity'
+import { DocumentFormCreate } from './document-form-create'
+import { DocumentFormUpdate } from './document-form-update'
 
 type PropsType = {
   currentDocument: DocumentEntity | null

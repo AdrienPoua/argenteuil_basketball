@@ -1,18 +1,22 @@
-import './globals.css';
-import Script from 'next/script';
+import '@/styles/globals.css'
+import Script from 'next/script'
 
-import ClientLayout from './client.layout';
-import { Viewport } from 'next';
+import ClientLayout from './client.layout'
+import { Viewport } from 'next'
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang='fr'>
+    <html lang="fr">
       <body>
         <ClientLayout>{children}</ClientLayout>
-        <Script type='application/ld+json' id='jsonld' dangerouslySetInnerHTML={{ __html: JSON.stringify(JSONLD) }} />
+        <Script
+          type="application/ld+json"
+          id="jsonld"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(JSONLD) }}
+        />
       </body>
     </html>
-  );
+  )
 }
 
 export const metadata = {
@@ -52,13 +56,13 @@ export const metadata = {
   alternates: {
     canonical: 'https://argenteuilbasketball.com',
   },
-};
+}
 
 export const viewport: Viewport = {
   themeColor: '#1759E3',
   width: 'device-width',
   initialScale: 1,
-};
+}
 
 const JSONLD = {
   '@context': 'https://schema.org',
@@ -66,7 +70,8 @@ const JSONLD = {
   name: 'Argenteuil Basketball',
   url: 'https://argenteuilbasketball.com',
   logo: 'https://argenteuilbasketball.com/images/logo.png',
-  description: "Club officiel de basketball d'Argenteuil. Suivez les équipes, les résultats et les événements du club.",
+  description:
+    "Club officiel de basketball d'Argenteuil. Suivez les équipes, les résultats et les événements du club.",
   sport: 'Basketball',
   memberOf: {
     '@type': 'SportsOrganization',
@@ -85,4 +90,4 @@ const JSONLD = {
     },
   },
   sameAs: ['https://www.facebook.com/ABB95100/'],
-};
+}

@@ -1,7 +1,7 @@
-import { z } from "zod"
-import { InscriptionRepository } from "@/core/domain/repositories/inscription.repository"
-import { UpdateInscriptionDTO } from "@/core/infrastructure/supabase/dtos/inscription.dto"
-import { ErrorHandler } from "@/core/shared/error/ErrorHandler"
+import { z } from 'zod'
+import { InscriptionRepository } from '@/core/domain/repositories/inscription.repository'
+import { UpdateInscriptionDTO } from '@/core/infrastructure/supabase/dtos/inscription.dto'
+import { ErrorHandler } from '@/core/shared/error/ErrorHandler'
 
 const inscriptionSchema = z.object({
   id: z.string(),
@@ -10,10 +10,12 @@ const inscriptionSchema = z.object({
   email: z.string().email().optional(),
   phone_number: z.string().min(8).optional(),
   date_of_birth: z.string().optional(),
-  gender: z.enum(["Masculin", "Féminin"]).optional(),
+  gender: z.enum(['Masculin', 'Féminin']).optional(),
   surclassement: z.boolean().optional(),
-  status: z.enum(["EN_ATTENTE", "TRAITEE", "REJETEE"]).optional(),
-  type_inscription: z.enum(["RENOUVELLEMENT", "MUTATION", "NOUVELLE_LICENCE", "RENOUVELLEMENT_SANS_MUTATION"]).optional(),
+  status: z.enum(['EN_ATTENTE', 'TRAITEE', 'REJETEE']).optional(),
+  type_inscription: z
+    .enum(['RENOUVELLEMENT', 'MUTATION', 'NOUVELLE_LICENCE', 'RENOUVELLEMENT_SANS_MUTATION'])
+    .optional(),
 })
 
 export class UpdateInscriptionUseCase {

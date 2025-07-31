@@ -5,4 +5,4 @@ export interface GymnaseDTO {
   city: string
   zipCode: number
   created_at: string
-} 
+}

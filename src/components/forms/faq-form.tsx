@@ -1,20 +1,28 @@
-"use client"
+'use client'
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useMutation } from "@tanstack/react-query"
-import { useForm } from "react-hook-form"
-import { toast } from "sonner"
-import { z } from "zod"
-import { Button } from "@/components/ui/button"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { FaqEntity } from "@/core/domain/entities/faq.entity"
-import { upsert } from "@/core//presentation/actions/faq/upsert"
-import { Loading } from "@/components/ui/loading"
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
+import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
+import { z } from 'zod'
+import { Button } from '@/components/ui/button'
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import { FaqEntity } from '@/core/domain/entities/faq.entity'
+import { upsert } from '@/core//presentation/actions/faq/upsert'
+import { Loading } from '@/components/ui/loading'
 
 const faqFormSchema = z.object({
-  question: z.string().min(5, "La question doit contenir au moins 5 caractères"),
+  question: z.string().min(5, 'La question doit contenir au moins 5 caractères'),
   answer: z.string(),
   order: z.number().int().min(0, "L'ordre doit être un nombre positif"),
 })
@@ -32,8 +40,8 @@ export function FaqForm({ actions, currentFaq }: Readonly<PropsType>) {
   const form = useForm<FaqFormValues>({
     resolver: zodResolver(faqFormSchema),
     defaultValues: {
-      question: currentFaq?.question ?? "",
-      answer: currentFaq?.answer ?? "",
+      question: currentFaq?.question ?? '',
+      answer: currentFaq?.answer ?? '',
       order: currentFaq?.order ?? 0,
     },
   })
@@ -45,7 +53,7 @@ export function FaqForm({ actions, currentFaq }: Readonly<PropsType>) {
     onSuccess: () => {
       form.reset()
       actions.success()
-      toast.success("Question enregistrée avec succès.")
+      toast.success('Question enregistrée avec succès.')
     },
     onError: (error: Error) => {
       console.error("Erreur lors de l'enregistrement:", error)
@@ -105,16 +113,20 @@ export function FaqForm({ actions, currentFaq }: Readonly<PropsType>) {
                 />
               </FormControl>
               <FormMessage />
-              <FormDescription>Les FAQs seront affichées par ordre croissant (0 en premier)</FormDescription>
+              <FormDescription>
+                Les FAQs seront affichées par ordre croissant (0 en premier)
+              </FormDescription>
             </FormItem>
           )}
         />
 
-        {mutation.isError && <div className="text-destructive text-sm">{mutation.error?.message}</div>}
+        {mutation.isError && (
+          <div className="text-sm text-destructive">{mutation.error?.message}</div>
+        )}
 
         <div className="flex justify-end gap-2 pt-4">
           <Button type="submit" disabled={mutation.isPending}>
-            {mutation.isPending ? <Loading /> : "Ajouter"}
+            {mutation.isPending ? <Loading /> : 'Ajouter'}
           </Button>
         </div>
       </form>

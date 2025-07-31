@@ -4,4 +4,4 @@ export interface FaqDTO {
   answer: string
   order: number
   created_at: string
-} 
+}

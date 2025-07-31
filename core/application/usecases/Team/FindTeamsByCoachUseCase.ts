@@ -1,6 +1,6 @@
-import { TeamEntity } from "../../../domain/entities/team.entity"
-import { TeamRepository } from "../../../domain/repositories/team.repository"
-import { ErrorHandler } from "../../../shared/error/ErrorHandler"
+import { TeamEntity } from '../../../domain/entities/team.entity'
+import { TeamRepository } from '../../../domain/repositories/team.repository'
+import { ErrorHandler } from '../../../shared/error/ErrorHandler'
 
 export class FindTeamsByCoachUseCase {
   constructor(private readonly teamRepository: TeamRepository) {}
@@ -12,7 +12,7 @@ export class FindTeamsByCoachUseCase {
         .filter(
           (team) =>
             team.coachs.some((coach) => coach.id === coachId) ||
-            team.assistantsCoach.some((coach) => coach.id === coachId)
+            team.assistantsCoach.some((coach) => coach.id === coachId),
         )
         .sort((a, b) => a.name.localeCompare(b.name))
     } catch (error) {

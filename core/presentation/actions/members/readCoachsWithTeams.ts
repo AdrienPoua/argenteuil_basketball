@@ -1,15 +1,15 @@
-"use server"
+'use server'
 
-import { FindMemberByRoleUseCase } from "@/core/application/usecases/Member/FindMemberByRoleUseCase"
-import { FindTeamsByCoachUseCase } from "@/core/application/usecases/Team/FindTeamsByCoachUseCase"
-import { MemberRole } from "@/core/domain/entities/member.entity"
-import { RepositoryFactory } from "@/core/infrastructure/supabase/repositories/factory.repository"
-import { ErrorHandler } from "@/core/shared/error/ErrorHandler"
+import { FindMemberByRoleUseCase } from '@/core/application/usecases/Member/FindMemberByRoleUseCase'
+import { FindTeamsByCoachUseCase } from '@/core/application/usecases/Team/FindTeamsByCoachUseCase'
+import { MemberRole } from '@/core/domain/entities/member.entity'
+import { RepositoryFactory } from '@/core/infrastructure/supabase/repositories/factory.repository'
+import { ErrorHandler } from '@/core/shared/error/ErrorHandler'
 
 export async function readCoachsWithTeams() {
   try {
-    const memberRepository = RepositoryFactory.getMemberRepository("browser")
-    const teamRepository = RepositoryFactory.getTeamRepository("browser")
+    const memberRepository = RepositoryFactory.getMemberRepository('browser')
+    const teamRepository = RepositoryFactory.getTeamRepository('browser')
 
     const getAllCoachsUseCase = new FindMemberByRoleUseCase(memberRepository)
     const findTeamsByCoachUseCase = new FindTeamsByCoachUseCase(teamRepository)
@@ -24,7 +24,7 @@ export async function readCoachsWithTeams() {
           ...coach.toObject(),
           teams: teams.map((team) => team.toObject()),
         }
-      })
+      }),
     )
 
     return coachsWithTeams

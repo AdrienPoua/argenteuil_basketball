@@ -1,5 +1,5 @@
-import { FaqEntity } from "../../../domain/entities/faq.entity"
-import { FaqDTO } from "../dtos/faq.dto"
+import { FaqEntity } from '../../../domain/entities/faq.entity'
+import { FaqDTO } from '../dtos/faq.dto'
 
 export function toDomain(data: FaqDTO): FaqEntity {
   return new FaqEntity(data)

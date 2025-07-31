@@ -1,7 +1,7 @@
-"use server"
+'use server'
 
-import { ExtranetClient } from "@/core/infrastructure/extranet/client"
-import { ErrorHandler } from "@/core/shared/error/ErrorHandler"
+import { ExtranetClient } from '@/core/infrastructure/extranet/client'
+import { ErrorHandler } from '@/core/shared/error/ErrorHandler'
 
 export const getCompetitions = async () => {
   try {

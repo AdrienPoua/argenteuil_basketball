@@ -1,5 +1,5 @@
-import { MemberEntity } from "./member.entity"
-import { SessionEntity } from "./session.entity"
+import { MemberEntity } from './member.entity'
+import { SessionEntity } from './session.entity'
 
 export class TeamEntity implements Team {
   private readonly _id: string
@@ -9,7 +9,11 @@ export class TeamEntity implements Team {
   private readonly _level: Level
   private readonly _image?: string
   private readonly _created_at: string
-  private readonly _competitions: { id: number; label: string; poules: { id: number; nom: string }[] }[]
+  private readonly _competitions: {
+    id: number
+    label: string
+    poules: { id: number; nom: string }[]
+  }[]
   private readonly _coachs: MemberEntity[] = []
   private readonly _assistantsCoachs: MemberEntity[] = []
   private readonly _sessions: SessionEntity[] = []
@@ -83,33 +87,27 @@ export class TeamEntity implements Team {
 }
 
 export enum Category {
-  U07 = "U07",
-  U09 = "U09",
-  U11 = "U11",
-  U13 = "U13",
-  U15 = "U15",
-  U18 = "U18",
-  U21 = "U21",
-  Seniors = "Seniors",
-  Loisir = "Loisir",
+  U07 = 'U07',
+  U09 = 'U09',
+  U11 = 'U11',
+  U13 = 'U13',
+  U15 = 'U15',
+  U18 = 'U18',
+  U21 = 'U21',
+  Seniors = 'Seniors',
+  Loisir = 'Loisir',
 }
 
 export enum Gender {
-  Masculin = "Masculin",
-  Feminin = "Féminin",
-  Mixte = "Mixte",
+  Masculin = 'Masculin',
+  Feminin = 'Féminin',
+  Mixte = 'Mixte',
 }
 
 export enum Level {
-  Loisir = "Loisir",
-  Ecole = "Ecole de basket",
-  Académie = "Académie",
-  Départemental = "Départemental",
-  PréRegional = "Pré-Régional",
-  Régional1 = "Régional 1",
-  Régional2 = "Régional 2",
-  Régional3 = "Régional 3",
-  National3 = "National 3",
+  Loisir = 'Loisir',
+  Ecole = 'Ecole de basket',
+  Départemental = 'Départemental',
 }
 
 export interface Team {

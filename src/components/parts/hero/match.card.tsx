@@ -1,19 +1,19 @@
-'use client';
+'use client'
 
-import { cn } from '@/utils/cn';
-import { Badge } from '@/components/ui/badge';
-import { formatDate } from '@/utils/formatDate';
-import { toDomain, toPersistence } from '@/mappers/match.mapper';
+import { cn } from '@/utils/cn'
+import { Badge } from '@/components/ui/badge'
+import { formatDate } from '@/utils/formatDate'
+import { toDomain, toPersistence } from '@/mappers/match.mapper'
+import { MatchEntity } from '@/core/domain/entities/match.entity'
+import { MatchDTO } from '@/core/infrastructure/supabase/dtos/match.dto'
 
 type PropsType = {
-  match: ReturnType<typeof toPersistence>;
-};
+  match: MatchDTO
+}
 
-export default function MatchCard({
-  match : data,
-}: Readonly<PropsType>) {
-  const match = toDomain(data);
-  const { date, horaire, nomEquipe1, nomEquipe2, salle } = match;
+export default function MatchCard({ match: data }: Readonly<PropsType>) {
+  const match = toDomain(data)
+  const { date, horaire, nomEquipe1, nomEquipe2, salle } = match
 
   return (
     <div
@@ -24,33 +24,33 @@ export default function MatchCard({
         'group cursor-pointer',
       )}
     >
-      <div className='w-full rounded-md bg-foreground p-3 text-center text-lg font-medium text-background'>
+      <div className="w-full rounded-md bg-foreground p-3 text-center text-lg font-medium text-background">
         {formatDate(date)} • {horaire}
       </div>
 
-      <div className='grid w-full grid-cols-3 items-center gap-2 px-2 sm:gap-4 sm:px-4 md:gap-6 md:px-8'>
+      <div className="grid w-full grid-cols-3 items-center gap-2 px-2 sm:gap-4 sm:px-4 md:gap-6 md:px-8">
         <TeamSquare>{nomEquipe1}</TeamSquare>
-        <div className='flex flex-col items-center justify-center gap-2 py-2'>
+        <div className="flex flex-col items-center justify-center gap-2 py-2">
           <Badge
-            variant='staffCard'
-            className='text-center text-xs font-semibold uppercase tracking-wide md:text-lg lg:text-xl'
+            variant="staffCard"
+            className="text-center text-xs font-semibold uppercase tracking-wide md:text-lg lg:text-xl"
           >
             {match.team?.name}
           </Badge>
-          <p className='text-lg font-bold sm:text-xl'>VS</p>
+          <p className="text-lg font-bold sm:text-xl">VS</p>
         </div>
         <TeamSquare>{nomEquipe2}</TeamSquare>
       </div>
 
       {salle && (
-        <div className='mt-2 text-center'>
-          <p className='text-sm font-medium text-muted-foreground transition-colors group-hover:text-foreground'>
+        <div className="mt-2 text-center">
+          <p className="text-sm font-medium text-muted-foreground transition-colors group-hover:text-foreground">
             📍 {salle}
           </p>
         </div>
       )}
     </div>
-  );
+  )
 }
 
 const TeamSquare = ({ children }: { children: React.ReactNode }) => {
@@ -65,5 +65,5 @@ const TeamSquare = ({ children }: { children: React.ReactNode }) => {
     >
       {children}
     </div>
-  );
-};
+  )
+}

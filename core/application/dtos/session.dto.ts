@@ -5,4 +5,4 @@ export interface SessionDTO {
   end: string
   gymnase_id: string
   created_at: string
-} 
+}

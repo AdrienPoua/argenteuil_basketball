@@ -1,8 +1,8 @@
-"use server"
-import { SendReservationEmailUseCase } from "@/core/application/usecases/Email/sendReservationEmailUseCase"
-import { MatchEntity } from "@/core/domain/entities/match.entity"
-import { ResendEmailRepository } from "@/core/infrastructure/resend/repositories/ReservationRepository"
-import { ErrorHandler } from "@/core/shared/error/ErrorHandler"
+'use server'
+import { SendReservationEmailUseCase } from '@/core/application/usecases/Email/sendReservationEmailUseCase'
+import { MatchEntity } from '@/core/domain/entities/match.entity'
+import { ResendEmailRepository } from '@/core/infrastructure/resend/repositories/ReservationRepository'
+import { ErrorHandler } from '@/core/shared/error/ErrorHandler'
 
 export const sendReservationEmail = async (matchs: MatchEntity[]) => {
   try {

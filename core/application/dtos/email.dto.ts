@@ -4,4 +4,4 @@ export interface EmailDTO {
   from: string
   cc?: string | string[]
   bcc?: string | string[]
-} 
+}
