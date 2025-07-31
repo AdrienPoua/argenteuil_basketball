@@ -1,9 +1,9 @@
-import { z } from "zod"
-import { MatchEntity } from "../../../domain/entities/match.entity"
-import { MatchRepository } from "../../../domain/repositories/match.repository"
-import { UpdateMatchDTO } from "../../../infrastructure/supabase/dtos/match.dto"
-import { ErrorHandler } from "../../../shared/error/ErrorHandler"
-import { BaseUseCase } from "../BaseUseCase"
+import { z } from 'zod';
+import { MatchEntity } from '../../../domain/entities/match.entity';
+import { MatchRepository } from '../../../domain/repositories/match.repository';
+import { UpdateMatchDTO } from '../../../infrastructure/supabase/dtos/match.dto';
+import { ErrorHandler } from '../../../shared/error/ErrorHandler';
+import { BaseUseCase } from '../BaseUseCase';
 
 const MatchSchema = z
   .object({
@@ -21,22 +21,22 @@ const MatchSchema = z
     marqueur: z.string().optional(),
     chronometreur: z.string().optional(),
   })
-  .strip()
+  .strip();
 
-type Match = z.infer<typeof MatchSchema>
+type Match = z.infer<typeof MatchSchema>;
 
 export class UpdateMatchUseCase implements BaseUseCase<Match, MatchEntity> {
   constructor(private readonly matchRepository: MatchRepository) {}
 
   async execute(input: unknown): Promise<MatchEntity> {
     try {
-      const match = MatchSchema.parse(input)
-      const persistence = this.DTO(match)
-      return await this.matchRepository.update(persistence)
+      const match = MatchSchema.parse(input);
+      const persistence = this.DTO(match);
+      return await this.matchRepository.update(persistence);
     } catch (error) {
-      const appError = ErrorHandler.normalize(error)
-      ErrorHandler.log(appError)
-      throw appError
+      const appError = ErrorHandler.normalize(error);
+      ErrorHandler.log(appError);
+      throw appError;
     }
   }
 
@@ -55,6 +55,6 @@ export class UpdateMatchUseCase implements BaseUseCase<Match, MatchEntity> {
       arbitre_2: match.arbitre2,
       marqueur: match.marqueur,
       chronometreur: match.chronometreur,
-    }
+    };
   }
 }

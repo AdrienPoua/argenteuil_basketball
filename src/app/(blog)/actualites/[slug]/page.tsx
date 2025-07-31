@@ -56,7 +56,6 @@ export default async function BlogPostPage({ params }: Readonly<PageProps>) {
               <PostContent data={post} />
             </Suspense>
           </div>
-
         </article>
       </main>
       <Footer />

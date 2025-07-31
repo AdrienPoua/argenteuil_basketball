@@ -1,6 +1,6 @@
 import MainSection from '@/components/layouts/MainSection';
 import Card from './page.card';
-import { readCoachsWithTeams } from "@/core/presentation/actions/members/readCoachsWithTeams"
+import { readCoachsWithTeams } from '@/core/presentation/actions/members/readCoachsWithTeams';
 import { toPersistence } from '@/mappers/member.mapper';
 import H2 from '@/components/ui/h2';
 import { readMembers } from '@/core/presentation/actions/members/readMembers';
@@ -15,7 +15,7 @@ export const metadata = {
 };
 
 export default async function Index() {
-  const coachs = await readCoachsWithTeams()
+  const coachs = await readCoachsWithTeams();
   return (
     <MainSection>
       <H2>Nos entraineurs</H2>

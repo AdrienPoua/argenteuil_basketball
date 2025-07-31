@@ -1,8 +1,8 @@
-import { z } from "zod"
-import { FaqEntity } from "../../../domain/entities/faq.entity"
-import { FaqRepository } from "../../../domain/repositories/faq.repository"
-import { ErrorHandler } from "../../../shared/error/ErrorHandler"
-import { BaseUseCase } from "../BaseUseCase"
+import { z } from 'zod';
+import { FaqEntity } from '../../../domain/entities/faq.entity';
+import { FaqRepository } from '../../../domain/repositories/faq.repository';
+import { ErrorHandler } from '../../../shared/error/ErrorHandler';
+import { BaseUseCase } from '../BaseUseCase';
 
 const UpdateFaqUseCaseInputSchema = z.object({
   id: z.string(),
@@ -10,20 +10,20 @@ const UpdateFaqUseCaseInputSchema = z.object({
   answer: z.string(),
   order: z.number(),
   created_at: z.string(),
-})
+});
 
-type UpdateFaqUseCaseInput = z.infer<typeof UpdateFaqUseCaseInputSchema>
+type UpdateFaqUseCaseInput = z.infer<typeof UpdateFaqUseCaseInputSchema>;
 export class UpdateFaqUseCase implements BaseUseCase<UpdateFaqUseCaseInput, FaqEntity> {
   constructor(private readonly faqRepository: FaqRepository) {}
 
   async execute(input: unknown): Promise<FaqEntity> {
     try {
-      const data = UpdateFaqUseCaseInputSchema.parse(input)
-      return this.faqRepository.update(data)
+      const data = UpdateFaqUseCaseInputSchema.parse(input);
+      return this.faqRepository.update(data);
     } catch (error) {
-      const appError = ErrorHandler.normalize(error)
-      ErrorHandler.log(appError)
-      throw appError
+      const appError = ErrorHandler.normalize(error);
+      ErrorHandler.log(appError);
+      throw appError;
     }
   }
 }

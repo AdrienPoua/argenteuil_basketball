@@ -11,13 +11,9 @@ import { MemberRole } from '@/core/domain/entities/member.entity';
 type PropsType = {
   data: ReturnType<typeof toPersistence>[];
   autoplay?: boolean;
-}
+};
 
-
-export const AnimatedTestimonials = ({
-  data,
-  autoplay = false,
-}: Readonly<PropsType>) => {
+export const AnimatedTestimonials = ({ data, autoplay = false }: Readonly<PropsType>) => {
   const members = data.map((member) => toDomain(member));
   const [active, setActive] = useState(0);
 
@@ -207,11 +203,11 @@ const description: Record<MemberRole, string> = {
   [MemberRole.Coach]:
     "Passionné de basket, je forme et développe les talents de nos joueurs. Mon objectif : faire progresser chaque joueur et créer une vraie cohésion d'équipe.",
   [MemberRole.Member]:
-    "Membre actif du club, je participe à la vie associative et contribue au bon fonctionnement des activités et événements.",
+    'Membre actif du club, je participe à la vie associative et contribue au bon fonctionnement des activités et événements.',
   [MemberRole.Arbitre]:
     "Arbitre officiel, je veille au respect des règles et à l'équité lors des matchs. Mon rôle est de garantir un jeu fair-play pour tous.",
   [MemberRole.OTM]:
-    "Officiel de Table de Marque, je gère le score, les fautes et toutes les statistiques pendant les matchs. Précision et concentration sont mes maîtres mots.",
+    'Officiel de Table de Marque, je gère le score, les fautes et toutes les statistiques pendant les matchs. Précision et concentration sont mes maîtres mots.',
   [MemberRole.Other]:
-    "Membre de l'équipe dirigeante, je contribue à ma façon au développement et au rayonnement du club dans toutes ses activités."
+    "Membre de l'équipe dirigeante, je contribue à ma façon au développement et au rayonnement du club dans toutes ses activités.",
 };

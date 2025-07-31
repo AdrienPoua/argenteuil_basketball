@@ -1,8 +1,8 @@
-import { DocumentEntity } from "../../../domain/entities/document.entity"
-import { DocumentDTO } from "../dtos/document.dto"
+import { DocumentEntity } from '../../../domain/entities/document.entity';
+import { DocumentDTO } from '../dtos/document.dto';
 
 export function toDomain(data: DocumentDTO): DocumentEntity {
-  return new DocumentEntity(data)
+  return new DocumentEntity(data);
 }
 
 export function toPersistence(entity: DocumentEntity): DocumentDTO {
@@ -13,5 +13,5 @@ export function toPersistence(entity: DocumentEntity): DocumentDTO {
     url: entity.url,
     size: entity.size,
     created_at: entity.created_at,
-  }
+  };
 }

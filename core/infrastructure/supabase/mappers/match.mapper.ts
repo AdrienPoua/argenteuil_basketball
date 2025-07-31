@@ -1,6 +1,6 @@
-import { toDomain as toDomainTeam, toPersistence as toPersistenceTeam } from "./team.mapper"
-import { MatchEntity } from "../../../domain/entities/match.entity"
-import { MatchDTO } from "../dtos/match.dto"
+import { toDomain as toDomainTeam, toPersistence as toPersistenceTeam } from './team.mapper';
+import { MatchEntity } from '../../../domain/entities/match.entity';
+import { MatchDTO } from '../dtos/match.dto';
 
 export function toDomain(data: MatchDTO): MatchEntity {
   return new MatchEntity({
@@ -42,7 +42,7 @@ export function toDomain(data: MatchDTO): MatchEntity {
     codeMatch: data.code_match,
     created_at: data.created_at,
     modification: data.modification,
-  })
+  });
 }
 
 export function toPersistence(entity: MatchEntity): MatchDTO {
@@ -85,5 +85,5 @@ export function toPersistence(entity: MatchEntity): MatchDTO {
     defaut_equipe_1: entity.defautEquipe1,
     defaut_equipe_2: entity.defautEquipe2,
     etat: entity.etat,
-  }
+  };
 }

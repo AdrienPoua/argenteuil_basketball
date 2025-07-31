@@ -9,31 +9,29 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { Badge } from '@/components/ui/badge';
 import ScaleFromBottom from '@/components/motion/ScaleFromBottom';
 
-
-
 interface PropsType {
   data: {
-    id: string
-    first_name: string
-    last_name: string
-    email: string
-    phone: string
-    role: string[]
-    image?: string
+    id: string;
+    first_name: string;
+    last_name: string;
+    email: string;
+    phone: string;
+    role: string[];
+    image?: string;
     contact_privacy: {
-      showEmail: boolean
-      showPhone: boolean
-    }
-    created_at: string
+      showEmail: boolean;
+      showPhone: boolean;
+    };
+    created_at: string;
     teams: {
-      id: string
-      name: string
-      category: string[]
-      gender: string
-      level: string
-      image?: string
-    }[]
-  }
+      id: string;
+      name: string;
+      category: string[];
+      gender: string;
+      level: string;
+      image?: string;
+    }[];
+  };
 }
 
 export default function Index({ data }: Readonly<PropsType>) {
@@ -58,7 +56,12 @@ export default function Index({ data }: Readonly<PropsType>) {
       <Card className='overflow-hidden rounded-lg bg-transparent shadow-lg'>
         <CardHeader className='p-0'>
           <div className='relative aspect-square overflow-hidden'>
-            <Image src={data.image || '/images/default/coach.avif'} alt={data.first_name} fill className='object-cover object-top' />
+            <Image
+              src={data.image || '/images/default/coach.avif'}
+              alt={data.first_name}
+              fill
+              className='object-cover object-top'
+            />
           </div>
         </CardHeader>
         <CardContent className='p-4'>

@@ -1,9 +1,9 @@
-"use client"
+'use client';
 
-import { useQuery } from "@tanstack/react-query"
-import { toast } from "sonner"
-import { GetAllTeamsUseCase } from "@/core/application/usecases/Team/GetAllTeamsUseCase"
-import { RepositoryFactory } from "@/core/infrastructure/supabase/repositories/factory.repository"
+import { useQuery } from '@tanstack/react-query';
+import { toast } from 'sonner';
+import { GetAllTeamsUseCase } from '@/core/application/usecases/Team/GetAllTeamsUseCase';
+import { RepositoryFactory } from '@/core/infrastructure/supabase/repositories/factory.repository';
 
 export function useTeams() {
   const {
@@ -11,17 +11,17 @@ export function useTeams() {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["teams"],
+    queryKey: ['teams'],
     queryFn: async () => {
-      const teamRepository = RepositoryFactory.getTeamRepository()
-      const getAllUseCase = new GetAllTeamsUseCase(teamRepository)
-      return await getAllUseCase.execute()
+      const teamRepository = RepositoryFactory.getTeamRepository();
+      const getAllUseCase = new GetAllTeamsUseCase(teamRepository);
+      return await getAllUseCase.execute();
     },
     enabled: true,
     throwOnError: (error: Error) => {
-      toast.error(error.message)
-      return true
+      toast.error(error.message);
+      return true;
     },
-  })
-  return { teams, isLoading, refetch }
+  });
+  return { teams, isLoading, refetch };
 }

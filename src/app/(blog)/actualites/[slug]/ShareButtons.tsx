@@ -18,7 +18,6 @@ export default function ShareButtons({ title, slug }: Readonly<ShareButtonsProps
     email: `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(`Découvrez cet article: ${url}`)}`,
   };
 
-
   return (
     <div className='flex flex-wrap items-center justify-end gap-3'>
       <a href={shareData.facebook} target='_blank' rel='noopener noreferrer' aria-label='Partager sur Facebook'>
@@ -45,7 +44,7 @@ export default function ShareButtons({ title, slug }: Readonly<ShareButtonsProps
         </Button>
       </a>
 
-      <Button size='sm' className='rounded-full p-2'  aria-label='Copier le lien'>
+      <Button size='sm' className='rounded-full p-2' aria-label='Copier le lien'>
         <LinkIcon className='h-5 w-5' />
       </Button>
     </div>

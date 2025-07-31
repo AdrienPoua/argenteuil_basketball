@@ -8,23 +8,23 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { Button } from "./button"
+} from '@/components/ui/alert-dialog';
+import { Button } from './button';
 
 type ConfirmDialogProps = {
-  title?: string
-  description?: string
-  confirmLabel?: string
-  cancelLabel?: string
-  onConfirm: () => void
-  className?: string
-  disabled?: boolean
-}
+  title?: string;
+  description?: string;
+  confirmLabel?: string;
+  cancelLabel?: string;
+  onConfirm: () => void;
+  className?: string;
+  disabled?: boolean;
+};
 
 export function AlertDialogConfirm({
-  title = "Êtes-vous sûr ?",
-  confirmLabel = "Confirmer",
-  cancelLabel = "Annuler",
+  title = 'Êtes-vous sûr ?',
+  confirmLabel = 'Confirmer',
+  cancelLabel = 'Annuler',
   onConfirm,
   description,
   className,
@@ -33,7 +33,7 @@ export function AlertDialogConfirm({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive" size="sm" className={className} disabled={disabled}>
+        <Button variant='destructive' size='sm' className={className} disabled={disabled}>
           Supprimer
         </Button>
       </AlertDialogTrigger>
@@ -50,5 +50,5 @@ export function AlertDialogConfirm({
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
-  )
+  );
 }

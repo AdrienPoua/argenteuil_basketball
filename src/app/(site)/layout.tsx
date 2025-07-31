@@ -5,9 +5,8 @@ export default function Index({ children }: Readonly<{ children: React.ReactNode
   return (
     <div className='flex min-h-screen flex-col'>
       <Header />
-      <div className='min-h-screen lg:pt-44 bg-black'>{children}</div>
+      <div className='min-h-screen bg-black lg:pt-44'>{children}</div>
       <Footer />
     </div>
-
   );
 }

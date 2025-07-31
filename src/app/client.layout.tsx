@@ -1,7 +1,7 @@
 'use client';
 
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { Toaster } from "@/components/ui/sonner"
+import { Toaster } from '@/components/ui/sonner';
 import { GoogleAnalytics } from '@next/third-parties/google';
 
 const queryClient = new QueryClient();

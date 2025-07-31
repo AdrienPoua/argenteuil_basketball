@@ -72,7 +72,7 @@ export default function PostsWrapper() {
 
   return (
     <div className='container mx-auto mb-20 grid grid-cols-1 gap-6 md:grid-cols-2 md:px-24'>
-      <div className='top-32 aspect-[9/10] w-full md:sticky '>
+      <div className='top-32 aspect-[9/10] w-full md:sticky'>
         {leftPostOnHomePage ? <SanityCard post={leftPostOnHomePage} /> : <SkeletonCard />}
       </div>
       <div>

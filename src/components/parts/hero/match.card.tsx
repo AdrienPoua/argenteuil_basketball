@@ -9,9 +9,7 @@ type PropsType = {
   match: ReturnType<typeof toPersistence>;
 };
 
-export default function MatchCard({
-  match : data,
-}: Readonly<PropsType>) {
+export default function MatchCard({ match: data }: Readonly<PropsType>) {
   const match = toDomain(data);
   const { date, horaire, nomEquipe1, nomEquipe2, salle } = match;
 

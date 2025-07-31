@@ -1,10 +1,6 @@
 {
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
@@ -24,41 +20,18 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@/core/*": [
-        "./core/*"
-      ],
-      "@/utils/*": [
-        "./core/shared/utils/*"
-      ],
-      "@/actions/*": [
-        "./core/presentation/actions/*"
-      ],
-      "@/hooks/*": [
-        "./core/presentation/hooks/*"
-      ],
-      "@/mappers/*": [
-        "./core/infrastructure/supabase/mappers/*"
-      ],
-      "@/components/*": [
-        "./src/components/*"
-      ],
-      "@/sanity/*": [
-        "./core/infrastructure/sanity/*"
-      ]
+      "@/*": ["./src/*"],
+      "@/core/*": ["./core/*"],
+      "@/utils/*": ["./core/shared/utils/*"],
+      "@/actions/*": ["./core/presentation/actions/*"],
+      "@/hooks/*": ["./core/presentation/hooks/*"],
+      "@/mappers/*": ["./core/infrastructure/supabase/mappers/*"],
+      "@/components/*": ["./src/components/*"],
+      "@/sanity/*": ["./core/infrastructure/sanity/*"],
+      "@/styles/*": ["./styles/*"]
     },
     "isolatedModules": true
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.mjs",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.mjs", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }

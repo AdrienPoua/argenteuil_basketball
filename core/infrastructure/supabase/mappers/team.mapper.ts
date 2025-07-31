@@ -1,37 +1,37 @@
-import { toPersistence as toMemberPersistence } from "./member.mapper"
-import { toPersistence as toSessionPersistence } from "./session.mapper"
-import { MemberEntity, MemberRole } from "../../../domain/entities/member.entity"
-import { SessionEntity } from "../../../domain/entities/session.entity"
-import { Team, TeamEntity } from "../../../domain/entities/team.entity"
-import { TeamDTO } from "../dtos/team.dto"
+import { toPersistence as toMemberPersistence } from './member.mapper';
+import { toPersistence as toSessionPersistence } from './session.mapper';
+import { MemberEntity, MemberRole } from '../../../domain/entities/member.entity';
+import { SessionEntity } from '../../../domain/entities/session.entity';
+import { Team, TeamEntity } from '../../../domain/entities/team.entity';
+import { TeamDTO } from '../dtos/team.dto';
 
 const isMemberRole = (role: string[]): role is MemberRole[] => {
-  return role.every((r) => Object.values(MemberRole).includes(r as MemberRole))
-}
+  return role.every((r) => Object.values(MemberRole).includes(r as MemberRole));
+};
 
 export function toDomain(data: TeamDTO): TeamEntity {
   const coachEntities = data.coachs?.map(({ member }) => {
-    const role = isMemberRole(member.role) ? member.role : [MemberRole.Other]
+    const role = isMemberRole(member.role) ? member.role : [MemberRole.Other];
     return new MemberEntity({
       ...member,
       role,
-    })
-  })
+    });
+  });
   const assistantCoachEntities = data.assistantsCoach?.map(({ member }) => {
-    const role = isMemberRole(member.role) ? member.role : [MemberRole.Other]
+    const role = isMemberRole(member.role) ? member.role : [MemberRole.Other];
     return new MemberEntity({
       ...member,
       role,
-    })
-  })
-  const sessionEntities = data.sessions?.map(({ sessions }) => new SessionEntity(sessions))
+    });
+  });
+  const sessionEntities = data.sessions?.map(({ sessions }) => new SessionEntity(sessions));
   const payload = {
     ...data,
     coachs: coachEntities,
     assistantsCoach: assistantCoachEntities,
     sessions: sessionEntities,
-  } as Team
-  return new TeamEntity(payload)
+  } as Team;
+  return new TeamEntity(payload);
 }
 
 export function toPersistence(data: TeamEntity): TeamDTO {
@@ -47,5 +47,5 @@ export function toPersistence(data: TeamEntity): TeamDTO {
     coachs: data.coachs.map((coach) => ({ member: toMemberPersistence(coach) })),
     assistantsCoach: data.assistantsCoach.map((assistant) => ({ member: toMemberPersistence(assistant) })),
     sessions: data.sessions.map((session) => ({ sessions: toSessionPersistence(session) })),
-  }
+  };
 }

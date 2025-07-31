@@ -1,8 +1,8 @@
-import { FaqEntity } from "../../../domain/entities/faq.entity"
-import { FaqDTO } from "../dtos/faq.dto"
+import { FaqEntity } from '../../../domain/entities/faq.entity';
+import { FaqDTO } from '../dtos/faq.dto';
 
 export function toDomain(data: FaqDTO): FaqEntity {
-  return new FaqEntity(data)
+  return new FaqEntity(data);
 }
 
 export function toPersistence(entity: FaqEntity): FaqDTO {
@@ -12,5 +12,5 @@ export function toPersistence(entity: FaqEntity): FaqDTO {
     answer: entity.answer,
     order: entity.order,
     created_at: entity.created_at,
-  }
+  };
 }

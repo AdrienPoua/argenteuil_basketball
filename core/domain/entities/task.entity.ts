@@ -1,37 +1,37 @@
 export interface Task {
-  id: string
-  title: string
-  done: boolean
-  created_at: string
+  id: string;
+  title: string;
+  done: boolean;
+  created_at: string;
 }
 
 export class TaskEntity implements Task {
-  private readonly _id: string
-  private readonly _title: string
-  private readonly _done: boolean
-  private readonly _created_at: string
+  private readonly _id: string;
+  private readonly _title: string;
+  private readonly _done: boolean;
+  private readonly _created_at: string;
 
   constructor(data: Task) {
-    this._id = data.id
-    this._title = data.title
-    this._done = data.done
-    this._created_at = data.created_at
+    this._id = data.id;
+    this._title = data.title;
+    this._done = data.done;
+    this._created_at = data.created_at;
   }
 
   get id(): string {
-    return this._id
+    return this._id;
   }
 
   get title(): string {
-    return this._title
+    return this._title;
   }
 
   get done(): boolean {
-    return this._done
+    return this._done;
   }
 
   get created_at(): string {
-    return this._created_at
+    return this._created_at;
   }
 
   toObject(): Task {
@@ -40,6 +40,6 @@ export class TaskEntity implements Task {
       title: this._title,
       done: this._done,
       created_at: this._created_at,
-    }
+    };
   }
 }

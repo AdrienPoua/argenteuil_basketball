@@ -1,18 +1,13 @@
 // emails/ContactEmail.tsx
-import club from "../../../shared/config/club"
+import club from '../../../shared/config/club';
 type ContactEmailProps = {
-  name: string
-  email: string
-  message: string
-  timestamp?: Date
-}
+  name: string;
+  email: string;
+  message: string;
+  timestamp?: Date;
+};
 
-export const ContactEmail = ({ 
-  name, 
-  email, 
-  message, 
-  timestamp = new Date() 
-}: ContactEmailProps) => {
+export const ContactEmail = ({ name, email, message, timestamp = new Date() }: ContactEmailProps) => {
   const styles = {
     container: {
       maxWidth: '600px',
@@ -115,7 +110,7 @@ export const ContactEmail = ({
       fontSize: '14px',
       color: '#096533',
     },
-  }
+  };
 
   const formatDate = (date: Date) => {
     return new Intl.DateTimeFormat('fr-FR', {
@@ -124,16 +119,14 @@ export const ContactEmail = ({
       year: 'numeric',
       hour: '2-digit',
       minute: '2-digit',
-    }).format(date)
-  }
+    }).format(date);
+  };
 
   return (
     <div style={styles.container}>
       {/* Header */}
       <div style={styles.header}>
-        <h1 style={styles.headerTitle}>
-          📧 Nouveau message de contact
-        </h1>
+        <h1 style={styles.headerTitle}>📧 Nouveau message de contact</h1>
         <p style={styles.headerSubtitle}>
           {club.name} • {formatDate(timestamp)}
         </p>
@@ -151,29 +144,23 @@ export const ContactEmail = ({
           </p>
           <div style={styles.contactInfo}>
             <span>📧</span>
-            <a 
-              href={`mailto:${email}`} 
-              style={{ color: '#2563eb', textDecoration: 'none' }}
-            >
+            <a href={`mailto:${email}`} style={{ color: '#2563eb', textDecoration: 'none' }}>
               {email}
             </a>
           </div>
         </div>
 
-
         {/* Message */}
         <div style={styles.section}>
           <span style={styles.label}>💬 Message</span>
-          <div style={styles.messageBox}>
-            {message}
-          </div>
+          <div style={styles.messageBox}>{message}</div>
         </div>
 
         <hr style={styles.divider} />
 
         {/* Quick Actions */}
         <div style={{ textAlign: 'center', marginTop: '24px' }}>
-          <a 
+          <a
             href={`mailto:${email}?subject=Re: ${'Réponse à votre message sur ' + club.domain}`}
             style={{
               display: 'inline-block',
@@ -197,10 +184,8 @@ export const ContactEmail = ({
         <p style={styles.metaText}>
           📍 Ce message a été envoyé via le formulaire de contact de <strong>{club.domain}</strong>
         </p>
-        <p style={styles.metaText}>
-          🕒 Reçu le {formatDate(timestamp)}
-        </p>
+        <p style={styles.metaText}>🕒 Reçu le {formatDate(timestamp)}</p>
       </div>
     </div>
-  )
-}
+  );
+};

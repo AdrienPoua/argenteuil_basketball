@@ -1,6 +1,6 @@
 import Card from '@/components/parts/hero/match.card';
 import { getWeeklyHomeMatchs } from '@/core//presentation/actions/matchs/getWeeklyHomeMatchs';
-import { toPersistence } from "@/mappers/match.mapper"
+import { toPersistence } from '@/mappers/match.mapper';
 
 export default async function WeeklyMatch() {
   const matchs = await getWeeklyHomeMatchs().then((matchs) => matchs.map((match) => toPersistence(match)));

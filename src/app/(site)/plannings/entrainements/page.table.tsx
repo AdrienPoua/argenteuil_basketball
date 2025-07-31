@@ -1,30 +1,32 @@
-"use client"
+'use client';
 
-import { Clock, MapPin, Users } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { allSessionsType, gymnaseMapType, GymnaseType, sessionsByDayAndTimeType, TeamType } from "./page"
+import { Clock, MapPin, Users } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { allSessionsType, gymnaseMapType, GymnaseType, sessionsByDayAndTimeType, TeamType } from './page';
 
 type PropsType = {
-  teams: TeamType[]
-  gymnases: GymnaseType[]
-  sessionsByDayAndTime: sessionsByDayAndTimeType
-  allSessions: allSessionsType
-  gymnaseMap: gymnaseMapType
-}
+  teams: TeamType[];
+  gymnases: GymnaseType[];
+  sessionsByDayAndTime: sessionsByDayAndTimeType;
+  allSessions: allSessionsType;
+  gymnaseMap: gymnaseMapType;
+};
 
 export default function SessionsTableView({ allSessions, gymnaseMap }: Readonly<PropsType>) {
   // Créer un map des gymnases pour un accès facile
 
   return (
-    <Card className="w-full">
+    <Card className='w-full'>
       <CardHeader>
-        <CardTitle className="text-primary flex items-center gap-2">
-          <Users className="h-5 w-5" />
+        <CardTitle className='flex items-center gap-2 text-primary'>
+          <Users className='h-5 w-5' />
           Planning des Entraînements - Vue Tableau
         </CardTitle>
-        <CardDescription>Toutes les sessions d&apos;entraînement du club organisées par jour et horaire</CardDescription>
+        <CardDescription>
+          Toutes les sessions d&apos;entraînement du club organisées par jour et horaire
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <Table>
@@ -41,24 +43,24 @@ export default function SessionsTableView({ allSessions, gymnaseMap }: Readonly<
           <TableBody>
             {allSessions.map((session) => (
               <TableRow key={session.id}>
-                <TableCell className="font-medium">{session.day}</TableCell>
+                <TableCell className='font-medium'>{session.day}</TableCell>
                 <TableCell>
-                  <div className="flex items-center gap-1">
-                    <Clock className="text-muted-foreground h-4 w-4" />
+                  <div className='flex items-center gap-1'>
+                    <Clock className='h-4 w-4 text-muted-foreground' />
                     {session.start} - {session.end}
                   </div>
                 </TableCell>
-                <TableCell className="font-medium">{session.team}</TableCell>
+                <TableCell className='font-medium'>{session.team}</TableCell>
                 <TableCell>
-                  <Badge className={`text-white`}>{session.category.join(", ")}</Badge>
+                  <Badge className={`text-white`}>{session.category.join(', ')}</Badge>
                 </TableCell>
                 <TableCell>
-                  <Badge variant="outline">{session.level}</Badge>
+                  <Badge variant='outline'>{session.level}</Badge>
                 </TableCell>
                 <TableCell>
-                  <div className="flex items-center gap-1">
-                    <MapPin className="text-muted-foreground h-4 w-4" />
-                    {gymnaseMap[session.gymnase_id] ?? "Gymnase inconnu"}
+                  <div className='flex items-center gap-1'>
+                    <MapPin className='h-4 w-4 text-muted-foreground' />
+                    {gymnaseMap[session.gymnase_id] ?? 'Gymnase inconnu'}
                   </div>
                 </TableCell>
               </TableRow>
@@ -67,5 +69,5 @@ export default function SessionsTableView({ allSessions, gymnaseMap }: Readonly<
         </Table>
       </CardContent>
     </Card>
-  )
+  );
 }

@@ -1,6 +1,6 @@
-import { useQuery } from "@tanstack/react-query"
-import { toast } from "sonner"
-import { getAllTarifs } from "@/core/presentation/actions/tarifs/read"
+import { useQuery } from '@tanstack/react-query';
+import { toast } from 'sonner';
+import { getAllTarifs } from '@/core/presentation/actions/tarifs/read';
 
 export function useTarifs() {
   const {
@@ -8,15 +8,15 @@ export function useTarifs() {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["tarifs"],
+    queryKey: ['tarifs'],
     queryFn: async () => {
-      return await getAllTarifs()
+      return await getAllTarifs();
     },
     enabled: true,
     throwOnError: (error: Error) => {
-      toast.error(error.message)
-      return true
+      toast.error(error.message);
+      return true;
     },
-  })
-  return { tarifs, isLoading, refetch }
+  });
+  return { tarifs, isLoading, refetch };
 }
