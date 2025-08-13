@@ -44,13 +44,9 @@ export default function CoachCard({ coach }: Readonly<CoachCardProps>) {
     toast.success('Numéro de téléphone copié dans le presse-papiers')
   }
   return (
-    <div className="group relative h-full w-full overflow-hidden rounded-2xl border border-border/50 bg-gradient-to-br from-background via-background to-muted/30 p-8 shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/10">
-      {/* Animated background gradient overlay */}
+    <div className="group relative h-full w-full overflow-hidden rounded-2xl border border-border/50 bg-gradient-to-br from-background via-background to-muted/10 p-8 shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/10">
       <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-primary/5 to-accent/10 opacity-0 transition-all duration-500 group-hover:opacity-100" />
-
-      {/* Subtle animated border glow */}
       <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 opacity-0 blur-sm transition-all duration-500 group-hover:opacity-50" />
-
       {/* Badge Coach */}
       <Badge className={cn('absolute right-6 top-6 z-10 text-xs font-medium shadow-sm')}>
         Entraîneur
@@ -102,7 +98,7 @@ export default function CoachCard({ coach }: Readonly<CoachCardProps>) {
             {/* Teams details */}
             <div className="space-y-2">
               {coach.teams.slice(0, 3).map((team) => (
-                <div key={team.id} className="rounded-lg bg-muted/20 p-3 text-sm">
+                <div key={team.id} className="rounded-lg bg-primary/10 p-3 text-sm">
                   <div className="flex items-center justify-between">
                     <span className="font-medium">{team.name}</span>
                     <div className="flex gap-1">
@@ -132,7 +128,7 @@ export default function CoachCard({ coach }: Readonly<CoachCardProps>) {
 
           <div className="space-y-3">
             {coach.contact_privacy.showEmail && coach.email && (
-              <div className="group/item flex cursor-default items-center justify-center space-x-3 rounded-lg bg-muted/30 p-3 text-sm transition-all duration-300 hover:scale-105 hover:bg-muted/50">
+              <div className="group/item flex cursor-default items-center justify-center space-x-3 rounded-lg bg-primary/10 p-3 text-sm transition-all duration-300 hover:scale-105 hover:bg-muted/50">
                 <Mail className="h-4 w-4" />
                 <button className="font-secondary" onClick={onEmailClick}>
                   {coach.email}
@@ -141,7 +137,7 @@ export default function CoachCard({ coach }: Readonly<CoachCardProps>) {
             )}
 
             {coach.contact_privacy.showPhone && coach.phone && (
-              <div className="group/item flex items-center justify-center space-x-3 rounded-lg bg-muted/30 p-3 text-sm transition-all duration-300 hover:scale-105 hover:bg-muted/50">
+              <div className="group/item flex items-center justify-center space-x-3 rounded-lg bg-primary/10 p-3 text-sm transition-all duration-300 hover:scale-105 hover:bg-muted/50">
                 <Phone className="h-4 w-4" />
                 <button className="font-secondary" onClick={onPhoneClick}>
                   {coach.phone}

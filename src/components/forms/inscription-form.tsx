@@ -89,7 +89,7 @@ export function InscriptionForm({ setOpen }: PropsType) {
               <FormItem className="col-span-1">
                 <FormLabel>Nom *</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="Jordan" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -102,7 +102,7 @@ export function InscriptionForm({ setOpen }: PropsType) {
               <FormItem className="col-span-1">
                 <FormLabel>Prénom *</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="Michael" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -112,12 +112,12 @@ export function InscriptionForm({ setOpen }: PropsType) {
         <div className="col-span-2 flex gap-2">
           <FormField
             control={form.control}
-            name="email"
+            name="phoneNumber"
             render={({ field }) => (
               <FormItem className="flex-1">
-                <FormLabel>Email *</FormLabel>
+                <FormLabel>Téléphone *</FormLabel>
                 <FormControl>
-                  <Input type="email" {...field} />
+                  <Input type="tel" {...field} placeholder="0612345678" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -127,7 +127,7 @@ export function InscriptionForm({ setOpen }: PropsType) {
             control={form.control}
             name="dateOfBirth"
             render={({ field }) => (
-              <FormItem className="flex-1">
+              <FormItem>
                 <FormLabel>Date de naissance *</FormLabel>
                 <FormControl>
                   <Input type="date" {...field} />
@@ -137,6 +137,19 @@ export function InscriptionForm({ setOpen }: PropsType) {
             )}
           />
         </div>
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem className="flex-1">
+              <FormLabel>Email *</FormLabel>
+              <FormControl>
+                <Input type="email" placeholder="argenteuil@gmail.com" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="gender"
@@ -196,19 +209,7 @@ export function InscriptionForm({ setOpen }: PropsType) {
           {' '}
           OPTIONNEL{' '}
         </p>
-        <FormField
-          control={form.control}
-          name="phoneNumber"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Téléphone</FormLabel>
-              <FormControl>
-                <Input type="tel" {...field} placeholder="En cas de soucis sur votre inscription" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+
         <FormField
           control={form.control}
           name="passSport"

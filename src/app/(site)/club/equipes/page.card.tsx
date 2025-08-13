@@ -131,10 +131,10 @@ const CustomDialog = ({
           </button>
           <div className="relative aspect-video w-full">
             <Image
-              src={team.image || '/images/default/coach.avif'}
+              src={team.image || '/images/default/equipes.avif'}
               alt={team.name}
-              width={1000}
-              height={1000}
+              width={1500}
+              height={1500}
               className="object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />

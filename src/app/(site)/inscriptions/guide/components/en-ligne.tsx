@@ -16,24 +16,23 @@ export default function EnLigne() {
         {/* Étape 1 */}
         <div className="flex gap-4 rounded-lg border p-4">
           <div className="flex-shrink-0">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm text-primary-foreground">
               1
             </div>
           </div>
           <div className="flex-1">
             <h3 className="mb-2 flex items-center gap-2 text-lg text-primary">
-              <CheckCircle className="h-5 w-5 text-secondary" />
+              <CheckCircle className="h-5 w-5 text-primary" />
               Remplir le formulaire de pré-inscription
             </h3>
             <div className="my-5 flex justify-center">
               <ContactModal label="Appuyez ici" defaultTab="preinscription" />
             </div>
-            <div className="rounded-md border p-3">
-              <p className="font-secondary text-sm text-secondary">
-                💡 <strong>Astuce :</strong> Vérifiez bien votre adresse email, c&apos;est là que
-                vous recevrez la suite des instructions !
-              </p>
-            </div>
+            <Info
+              title="Astuce"
+              icon="💡"
+              description="Vérifiez bien votre adresse email, c'est là que vous recevrez la suite des instructions !"
+            />
           </div>
         </div>
 
@@ -46,18 +45,18 @@ export default function EnLigne() {
           </div>
           <div className="flex-1">
             <h3 className="mb-2 flex items-center gap-2 text-lg text-primary">
-              <Mail className="h-5 w-5 text-blue-500" />
+              <Mail className="h-5 w-5 text-primary" />
               Remplir le formulaire de la fédération
             </h3>
             <p className="mb-3 font-secondary text-foreground">
               Sous <strong>48h</strong>, vous recevrez par email un formulaire d&apos;inscription de
               la fédération (IDF0095019@ffbb.com)
             </p>
-            <div className="rounded-md border p-3">
-              <p className="font-secondary text-sm text-secondary">
-                ⏰ Délai : Pensez à vérifier vos spams si vous ne recevez rien après 48h !
-              </p>
-            </div>
+            <Info
+              title="Délai"
+              icon="⏰"
+              description="Pensez à vérifier vos spams si vous ne recevez rien après 48h !"
+            />
           </div>
         </div>
 
@@ -70,7 +69,7 @@ export default function EnLigne() {
           </div>
           <div className="flex-1">
             <h3 className="mb-2 flex items-center gap-2 text-lg text-primary">
-              <CreditCard className="h-5 w-5 text-green-500" />
+              <CreditCard className="h-5 w-5 text-primary" />
               Payer en ligne via HelloAsso
             </h3>
             <p className="mb-3 font-secondary text-foreground">
@@ -79,27 +78,38 @@ export default function EnLigne() {
             </p>
 
             <div className="space-y-3">
-              <div className="rounded-md border border-red-200 bg-red-50 p-3">
-                <div className="flex items-start gap-2">
-                  <AlertTriangle className="mt-0.5 h-4 w-4 flex-shrink-0 text-red-500" />
-                  <p className="font-secondary text-sm text-red-500">
-                    <strong>Important :</strong> Pensez à bien{' '}
-                    <strong>décocher le &quot;don&quot;</strong> qui est coché par défaut sur
-                    HelloAsso !
-                  </p>
-                </div>
-              </div>
-
-              <div className="rounded-md border border-green-200 bg-green-50 p-3">
-                <p className="font-secondary text-sm text-green-500">
-                  💳 <strong>Facilité de paiement :</strong> Possibilité de payer en{' '}
-                  <strong>3 fois sans frais</strong> directement sur HelloAsso.
-                </p>
-              </div>
+              <Info
+                title="Important"
+                icon="⚠️"
+                description='Pensez à bien décocher le "don" qui est coché par défaut sur HelloAsso !'
+              />
+              <Info
+                title="Facilité de paiement"
+                icon="💳"
+                description="Possibilité de payer en 3 fois sans frais directement sur HelloAsso."
+              />
             </div>
           </div>
         </div>
       </div>
+    </div>
+  )
+}
+
+const Info = ({
+  title,
+  icon,
+  description,
+}: {
+  title: string
+  icon: string
+  description: string
+}) => {
+  return (
+    <div className="mx-auto rounded-md border p-3">
+      <p className="font-secondary text-sm text-secondary">
+        {icon} <strong>{title} :</strong> {description}
+      </p>
     </div>
   )
 }

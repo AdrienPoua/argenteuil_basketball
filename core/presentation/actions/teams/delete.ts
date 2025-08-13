@@ -8,6 +8,7 @@ export async function deleteTeam(id: string) {
     const teamRepository = RepositoryFactory.getTeamRepository()
     await teamRepository.delete(id)
     revalidatePath('/club/equipes')
+    revalidatePath('/plannings/entrainements')
   } catch (error) {
     const normalizedError = ErrorHandler.normalize(error)
     ErrorHandler.log(normalizedError)

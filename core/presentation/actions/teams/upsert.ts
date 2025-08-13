@@ -15,6 +15,7 @@ export async function upsert(data: unknown) {
     const upsertUseCase = new UpsertTeamUseCase(repository)
     const entity = await upsertUseCase.execute(data)
     revalidatePath('/club/equipes')
+    revalidatePath('/plannings/entrainements')
     return entity.toObject()
   } catch (error) {
     const normalizedError = ErrorHandler.normalize(error)

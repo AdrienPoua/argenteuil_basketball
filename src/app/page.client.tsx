@@ -46,7 +46,7 @@ const Hero = () => {
         <h1 className="mb-4 text-5xl font-bold tracking-tight md:text-7xl">
           Argenteuil Basketball
         </h1>
-        <p className="mx-auto mb-8 max-w-3xl text-xl opacity-90 md:text-2xl text-center">
+        <p className="mx-auto mb-8 max-w-3xl text-center text-xl opacity-90 md:text-2xl">
           Rejoignez le club de basket emblématique de la ville d&apos;Argenteuil. Formation,
           compétition et passion !
         </p>

@@ -39,10 +39,15 @@ export const metadata: Metadata = {
 }
 
 export default async function Index() {
-  const teams = await readTeams().then((teams) => teams.map((team) => team.toObject()))
-  const gymnases = await readGymnases().then((gymnases) =>
-    gymnases.map((gymnase) => gymnase.toObject()),
-  )
+  const teams = await readTeams()
+    .then((teams) => teams.map((team) => team.toObject()))
+    .then((teams) => teams.sort((a, b) => (a.image ? -1 : 1)))
+
+  console.log('🚀 ~ Index ~ teams:', teams)
+
+  const gymnases = await readGymnases()
+    .then((gymnases) => gymnases.map((gymnase) => gymnase.toObject()))
+    .then((gymnases) => gymnases.sort((a, b) => a.name.localeCompare(b.name)))
   return (
     <main>
       <H1>Nos équipes</H1>

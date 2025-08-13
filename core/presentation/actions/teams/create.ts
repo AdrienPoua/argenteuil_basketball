@@ -42,6 +42,8 @@ export async function createTeam(data: {
     const entity = await createUseCase.execute(teamData)
 
     revalidatePath('/')
+    revalidatePath('/club/equipes')
+    revalidatePath('/plannings/entrainements')
     return entity.toObject()
   } catch (error) {
     const normalizedError = ErrorHandler.normalize(error)
