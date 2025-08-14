@@ -27,14 +27,14 @@ export default function VueHoraire({ teams }: Readonly<PropsType>) {
       </CardHeader>
       <CardContent className="p-2 sm:p-6">
         {/* Vue mobile : liste verticale */}
-        <div className="block sm:hidden space-y-4">
+        <div className="block space-y-4 sm:hidden">
           {horaires.map((time) => (
             <MobileTimeSlot key={time} time={time} teams={teams} />
           ))}
         </div>
-        
+
         {/* Vue desktop : grille */}
-        <div className="hidden sm:block overflow-x-auto">
+        <div className="hidden overflow-x-auto sm:block">
           <RowHeader />
           {horaires.map((time) => (
             <div key={time}>
@@ -91,7 +91,7 @@ const MobileTimeSlot = ({ time, teams }: { time: string; teams: TeamType[] }) =>
           (session) => session.day.toLowerCase() === day.toLowerCase() && session.start === time,
         ),
       )
-      .map((team) => ({ team, day }))
+      .map((team) => ({ team, day })),
   )
 
   if (sessionsForTime.length === 0) return null
@@ -125,21 +125,25 @@ const MobileSession = ({ team, day, time }: { team: TeamType; day: string; time:
 
   const dayNames = {
     lundi: 'Lundi',
-    mardi: 'Mardi', 
+    mardi: 'Mardi',
     mercredi: 'Mercredi',
     jeudi: 'Jeudi',
     vendredi: 'Vendredi',
-    samedi: 'Samedi'
+    samedi: 'Samedi',
   }
 
   return (
     <div className="rounded border-l-4 border-secondary bg-primary/5 p-3 text-sm">
-      <div className="flex items-center justify-between mb-1">
+      <div className="mb-1 flex items-center justify-between">
         <span className="font-medium text-primary">{team.name}</span>
-        <span className="text-xs text-muted-foreground">{dayNames[day as keyof typeof dayNames]}</span>
+        <span className="text-xs text-muted-foreground">
+          {dayNames[day as keyof typeof dayNames]}
+        </span>
       </div>
-      <div className="text-xs text-muted-foreground space-y-1">
-        <div>{session?.start}-{session?.end}</div>
+      <div className="space-y-1 text-xs text-muted-foreground">
+        <div>
+          {session?.start}-{session?.end}
+        </div>
         <div className="italic">{gymnase.get(session.gymnase_id) ?? ''}</div>
       </div>
     </div>

@@ -31,8 +31,8 @@ export default function VueJour({ teams }: Readonly<PropsType>) {
     <div className="w-full space-y-6">
       <Card>
         <CardHeader className="p-4 sm:p-6">
-          <CardTitle className="flex items-center gap-2 text-primary text-base sm:text-lg">
-            <Calendar className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
+          <CardTitle className="flex items-center gap-2 text-base text-primary sm:text-lg">
+            <Calendar className="h-4 w-4 flex-shrink-0 sm:h-5 sm:w-5" />
             <span className="hidden sm:inline">Planning des Entraînements - Vue par jour</span>
             <span className="sm:hidden">Entraînements par jour</span>
           </CardTitle>
@@ -43,7 +43,7 @@ export default function VueJour({ teams }: Readonly<PropsType>) {
       {days.map((day) => {
         return (
           <Card key={day}>
-            <CardHeader className="pb-3 p-4 sm:p-6">
+            <CardHeader className="p-4 pb-3 sm:p-6">
               <CardTitle className="flex items-center justify-between text-base sm:text-lg">
                 <span>{day}</span>
                 <Badge variant="outline" className="text-xs sm:text-sm">
@@ -54,7 +54,7 @@ export default function VueJour({ teams }: Readonly<PropsType>) {
             </CardHeader>
             <CardContent className="p-3 sm:p-6">
               {(map.get(day)?.length ?? 0 > 0) ? (
-                <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
                   {map.get(day)?.map((team) => (
                     <Card
                       key={team.id}
@@ -68,15 +68,19 @@ export default function VueJour({ teams }: Readonly<PropsType>) {
                           {/* En-tête avec catégorie et genre */}
                           <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                             <Badge className="text-xs">{team.category.join(' & ')}</Badge>
-                            <Badge variant="secondary" className="text-xs">{team.level}</Badge>
+                            <Badge variant="secondary" className="text-xs">
+                              {team.level}
+                            </Badge>
                           </div>
 
                           {/* Nom de l'équipe */}
-                          <div className="text-base sm:text-lg font-semibold leading-tight">{team.name}</div>
+                          <div className="text-base font-semibold leading-tight sm:text-lg">
+                            {team.name}
+                          </div>
 
                           {/* Horaires */}
                           <div className="flex items-center gap-2 text-muted-foreground">
-                            <Clock className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+                            <Clock className="h-3 w-3 flex-shrink-0 sm:h-4 sm:w-4" />
                             <span className="text-xs sm:text-sm">
                               {team.sessions[0]?.start ?? ''} - {team.sessions[0]?.end ?? ''}
                             </span>
@@ -84,7 +88,7 @@ export default function VueJour({ teams }: Readonly<PropsType>) {
 
                           {/* Gymnase */}
                           <div className="flex items-center gap-2 text-muted-foreground">
-                            <MapPin className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+                            <MapPin className="h-3 w-3 flex-shrink-0 sm:h-4 sm:w-4" />
                             <span className="text-xs sm:text-sm">
                               {gymnase.get(team.sessions[0]?.gymnase_id ?? '') ?? ''}
                             </span>

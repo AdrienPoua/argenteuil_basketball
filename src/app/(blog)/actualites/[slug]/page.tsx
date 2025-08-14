@@ -35,32 +35,30 @@ export default async function BlogPostPage({ params }: Readonly<PageProps>) {
   const post = await getPost(params.slug)
 
   return (
-    <>
+    <div className="flex min-h-screen flex-col">
       <Header />
       <ReadingProgressBar />
       <div className="h-36 bg-foreground" />
-      <main className="w-full bg-foreground">
+      <main className="w-full flex-1 bg-foreground">
         {/* Bannière de navigation avec bouton de retour */}
-        <Button asChild size="sm" className="mx-auto flex w-fit items-center text-sm font-medium">
+        <Button className="h-20 w-20 fixed top-10 left-20 rounded-full p-5 transition-all duration-300 hover:-translate-x-2">
           <Link href="/">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Retour à la page d&apos;accueil
+            <ArrowLeft className="h-10 w-10" />
           </Link>
         </Button>
 
         {/* Conteneur principal de l'article */}
-        <article className="container mx-auto px-4 py-10">
-          {/* Contenu principal */}
+        <article className="container mx-auto max-w-7xl px-4 py-10">
           <div className="prose prose-lg mx-auto">
             <Suspense
               fallback={<div className="py-10 text-center">Chargement de l&apos;article...</div>}
             >
-              <PostContent data={post} />
+              {post && <PostContent data={post} />}
             </Suspense>
           </div>
         </article>
       </main>
       <Footer />
-    </>
+    </div>
   )
 }
