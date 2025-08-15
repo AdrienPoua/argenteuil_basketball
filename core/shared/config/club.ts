@@ -1,6 +1,6 @@
 const clubConfig = {
   id: 'IDF0078050',
-  clubId: 11641,
+  clubId: 11851,
   name: 'Argenteuil Basketball',
   domain: 'https://argenteuilbasketball.com/',
   logo: '/images/logo.png',

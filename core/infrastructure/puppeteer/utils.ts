@@ -107,6 +107,15 @@ export async function fillField(
   }
 }
 
+export async function clickOnSearchBtn(page: Page): Promise<void> {
+  await waitForElement(page, '.search-button-modal')
+  const searchBtn = await page.$('.search-button-modal')
+  if (!searchBtn) throw new Error('Bouton de recherche non trouvé')
+  await searchBtn.click()
+}
+
+
+
 export async function fillSelect(page: Page, selectId: string, optionText: string, timeout = 5000) {
   try {
     // 1. Attendre que le bouton soit disponible

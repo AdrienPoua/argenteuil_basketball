@@ -11,23 +11,21 @@ export async function middleware(request: NextRequest) {
 
   const supabase = await createClient()
 
+  const pathname = request.nextUrl.pathname
+
   const {
     data: { user },
   } = await supabase.auth.getUser()
 
-  if (
-    !user &&
-    request.nextUrl.pathname.startsWith('/admin') &&
-    !request.nextUrl.pathname.startsWith('/admin/login')
-  ) {
+  if (!user && pathname.startsWith('/admin')) {
     return NextResponse.redirect(new URL('/', request.url))
   }
 
-  if (user && request.nextUrl.pathname === '/login') {
+  if (user && pathname === '/login') {
     return NextResponse.redirect(new URL('/admin/dashboard', request.url))
   }
 
-  if (!user && request.nextUrl.pathname === '/reset-password/update') {
+  if (!user && pathname === '/reset-password/update') {
     return NextResponse.redirect(new URL('/', request.url))
   }
 

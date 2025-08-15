@@ -232,7 +232,7 @@ export class ExtranetClient implements MatchGateway {
     }
     const adherents = (await res.json()) as Adherent[]
     this.adherents = adherents
-    return adherents
+    return adherents.filter((adherent) => adherent.dateQualification !== null)
   }
 
   static getClient(): ExtranetClient {

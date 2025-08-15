@@ -41,7 +41,7 @@ export default async function BlogPostPage({ params }: Readonly<PageProps>) {
       <div className="h-36 bg-foreground" />
       <main className="w-full flex-1 bg-foreground">
         {/* Bannière de navigation avec bouton de retour */}
-        <Button className="h-20 w-20 fixed top-10 left-20 rounded-full p-5 transition-all duration-300 hover:-translate-x-2">
+        <Button className="fixed left-20 top-10 h-20 w-20 rounded-full p-5 transition-all duration-300 hover:-translate-x-2">
           <Link href="/">
             <ArrowLeft className="h-10 w-10" />
           </Link>

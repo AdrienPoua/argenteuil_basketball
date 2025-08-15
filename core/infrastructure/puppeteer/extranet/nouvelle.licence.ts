@@ -86,18 +86,7 @@ async function fillFormData(inscription: InscriptionData, page: Page): Promise<v
   console.log('✅ Formulaire rempli')
 }
 
-async function submitForm(page: Page): Promise<void> {
-  if (!page) throw new Error('Page not initialized')
-
-  console.log('🚀 Soumission du formulaire...')
-
-  // Cliquer sur le bouton "Enregistrer"
-  await waitForElement(page, '.boutonEnregistrer')
-  await page.click('.boutonEnregistrer')
-
-  console.log('✅ Formulaire soumis avec succès')
-}
 
 // === EXPORTS INDIVIDUELS POUR USAGE AVANCÉ ===
 
-export { initializeBrowser, navigateToForm, fillFormData, submitForm, closeBrowser }
+export { initializeBrowser, navigateToForm, fillFormData, closeBrowser }

@@ -1,6 +1,8 @@
 'use server'
 
+import { TypeInscription } from '@/core/domain/entities/inscription.entity'
 import fillNouvelleLicence from '@/core/infrastructure/puppeteer/extranet/nouvelle.licence'
+import fillRenouvellement from '@/core/infrastructure/puppeteer/extranet/renouvellement.licence'
 import { ErrorHandler } from '@/core/shared/error/ErrorHandler'
 
 // Interface for the serializable data needed by the Puppeteer script
@@ -11,6 +13,7 @@ interface ExtranetFormData {
   dateOfBirth: string // Pass as ISO string for serialization
   gender: string
   surclassement: boolean
+  typeInscription: TypeInscription
 }
 
 export async function fillExtranetFormAction(
@@ -25,9 +28,15 @@ export async function fillExtranetFormAction(
       dateOfBirth: new Date(formData.dateOfBirth),
       gender: formData.gender,
       surclassement: formData.surclassement,
+      typeInscription: formData.typeInscription,
+    }
+    
+    if(formData.typeInscription === 'NOUVELLE_LICENCE'){
+      await fillNouvelleLicence(payload)
+    } else {
+      await fillRenouvellement(payload)
     }
 
-    await fillNouvelleLicence(payload)
     return { success: true }
   } catch (error) {
     const normalizedError = ErrorHandler.normalize(error)

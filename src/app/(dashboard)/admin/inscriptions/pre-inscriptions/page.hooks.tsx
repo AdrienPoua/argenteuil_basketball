@@ -118,40 +118,6 @@ export function usePreInscriptionsPage({ inscriptions }: { inscriptions: Inscrip
   return { statusFilter, setStatusFilter, filteredData, table }
 }
 
-// Hook for pagination logic
-export function usePagination(
-  table: Table<InscriptionEntity>,
-  statusFilter: StatutInscription | 'all',
-) {
-  const [currentPage, setCurrentPage] = useState(1)
-
-  // Reset to first page when filter changes
-  useEffect(() => {
-    setCurrentPage(1)
-  }, [statusFilter])
-
-  // Calculate paginated data
-  const rows = table.getRowModel().rows
-  const paginationData = useMemo(() => {
-    const total = Math.ceil(rows.length / ITEMS_PER_PAGE)
-    const start = (currentPage - 1) * ITEMS_PER_PAGE
-    const end = start + ITEMS_PER_PAGE
-    const paginated = rows.slice(start, end)
-
-    return {
-      paginatedData: paginated,
-      totalPages: total,
-      startIndex: start,
-      endIndex: Math.min(end, rows.length),
-      currentPage,
-      setCurrentPage,
-    }
-  }, [rows, currentPage])
-
-  return paginationData
-}
-
-// Hook for modal state management
 export function useInscriptionModal() {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [currentInscription, setCurrentInscription] = useState<InscriptionEntity | null>(null)
@@ -208,34 +174,10 @@ export type StatusFilterProps = {
 
 export type InscriptionsTableProps = {
   table: Table<InscriptionEntity>
-  paginatedData: Row<InscriptionEntity>[]
   actions: {
     edit: (inscription: InscriptionEntity) => void
     delete: (id: string) => void
     extranet: (inscription: InscriptionEntity) => void
   }
-  totalPages: number
-  currentPage: number
-  setCurrentPage: (page: number) => void
-  startIndex: number
-  endIndex: number
   loadingExtranet: string | null
-}
-
-export type PaginationProps = {
-  totalPages: number
-  currentPage: number
-  setCurrentPage: (page: number) => void
-  startIndex: number
-  endIndex: number
-  table: Table<InscriptionEntity>
-}
-
-export type ModificationDialogProps = {
-  isDialogOpen: boolean
-  actions: {
-    openChange: (open: boolean) => void
-    success: () => void
-  }
-  currentInscription: InscriptionEntity
 }
