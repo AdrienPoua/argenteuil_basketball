@@ -86,7 +86,6 @@ async function fillFormData(inscription: InscriptionData, page: Page): Promise<v
   console.log('✅ Formulaire rempli')
 }
 
-
 // === EXPORTS INDIVIDUELS POUR USAGE AVANCÉ ===
 
 export { initializeBrowser, navigateToForm, fillFormData, closeBrowser }

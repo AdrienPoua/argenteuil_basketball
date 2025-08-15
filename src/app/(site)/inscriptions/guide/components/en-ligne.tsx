@@ -6,8 +6,10 @@ export default function EnLigne() {
   return (
     <div className="mx-auto max-w-3xl space-y-6 rounded-lg bg-primary/5 p-5 text-secondary">
       <div className="mb-10 text-center">
-        <h2 className="text-2xl text-primary">Guide d&apos;inscription - Paiement en ligne</h2>
-        <p className="font-secondary">
+        <h2 className="text-2xl text-primary">
+          Guide d&apos;inscription <br /> Paiement en ligne
+        </h2>
+        <p className="mt-3 font-secondary">
           Suivez ces étapes simples pour vous inscrire et payer en ligne
         </p>
       </div>
@@ -15,15 +17,10 @@ export default function EnLigne() {
       <div className="flex flex-col gap-8">
         {/* Étape 1 */}
         <div className="flex gap-4 rounded-lg border p-4">
-          <div className="flex-shrink-0">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm text-primary-foreground">
-              1
-            </div>
-          </div>
           <div className="flex-1">
             <h3 className="mb-2 flex items-center gap-2 text-lg text-primary">
-              <CheckCircle className="h-5 w-5 text-primary" />
-              Remplir le formulaire de pré-inscription
+              <Number number="1" />
+              Remplir le premier formulaire
             </h3>
             <div className="my-5 flex justify-center">
               <ContactModal label="Appuyez ici" defaultTab="preinscription" />
@@ -38,17 +35,12 @@ export default function EnLigne() {
 
         {/* Étape 2 */}
         <div className="flex gap-4 rounded-lg border p-4">
-          <div className="flex-shrink-0">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground">
-              2
-            </div>
-          </div>
           <div className="flex-1">
             <h3 className="mb-2 flex items-center gap-2 text-lg text-primary">
-              <Mail className="h-5 w-5 text-primary" />
-              Remplir le formulaire de la fédération
+              <Number number="2" />
+              Remplir le deuxième formulaire
             </h3>
-            <p className="mb-3 font-secondary text-foreground">
+            <p className="mb-5 font-secondary text-foreground">
               Sous <strong>48h</strong>, vous recevrez par email un formulaire d&apos;inscription de
               la fédération (IDF0095019@ffbb.com)
             </p>
@@ -62,17 +54,12 @@ export default function EnLigne() {
 
         {/* Étape 3 */}
         <div className="flex gap-4 rounded-lg border p-4">
-          <div className="flex-shrink-0">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground">
-              3
-            </div>
-          </div>
           <div className="flex-1">
             <h3 className="mb-2 flex items-center gap-2 text-lg text-primary">
-              <CreditCard className="h-5 w-5 text-primary" />
+              <Number number="3" />
               Payer en ligne via HelloAsso
             </h3>
-            <p className="mb-3 font-secondary text-foreground">
+            <p className="mb-5 font-secondary text-foreground">
               Une fois le formulaire rempli, choissiez &quot;paiement en ligne&quot; et suivez les
               instructions.
             </p>
@@ -92,6 +79,14 @@ export default function EnLigne() {
           </div>
         </div>
       </div>
+    </div>
+  )
+}
+
+const Number = ({ number }: { number: string }) => {
+  return (
+    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm text-primary-foreground">
+      {number}
     </div>
   )
 }

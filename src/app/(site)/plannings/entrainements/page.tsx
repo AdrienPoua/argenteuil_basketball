@@ -51,7 +51,7 @@ export default async function page() {
   return (
     <div>
       <H1>Plannings</H1>
-      <div className="container mx-auto">
+      <div className="container mx-auto px-5">
         <Tabs teams={teams} />
       </div>
     </div>

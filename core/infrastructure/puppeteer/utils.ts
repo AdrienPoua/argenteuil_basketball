@@ -114,8 +114,6 @@ export async function clickOnSearchBtn(page: Page): Promise<void> {
   await searchBtn.click()
 }
 
-
-
 export async function fillSelect(page: Page, selectId: string, optionText: string, timeout = 5000) {
   try {
     // 1. Attendre que le bouton soit disponible

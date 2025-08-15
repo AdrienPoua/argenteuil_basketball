@@ -23,12 +23,14 @@ const buttonVariants = cva(
         check: 'bg-green-500',
         blackAndWhite: 'bg-foreground font-secondary text-background hover:bg-foreground/80',
         invisible: 'bg-transparent hover:bg-transparent',
+        mobileBar: 'bg-transparent text-xs hover:bg-transparent',
       },
       size: {
         default: 'h-9 px-4 py-2',
         sm: 'h-8 rounded-md px-3 text-xs',
         lg: 'h-10 rounded-md px-8',
         icon: 'h-9 w-9 rounded-full',
+        mobileBar: '',
       },
     },
     defaultVariants: {

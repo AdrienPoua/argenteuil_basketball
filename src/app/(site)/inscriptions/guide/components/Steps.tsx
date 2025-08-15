@@ -1,13 +1,13 @@
 export function Preambule() {
   return (
     <div className="space-y-6">
+      <h3 className="text-2xl font-bold text-primary md:hidden">Introduction</h3>
       <ul className="list-disc space-y-2 pl-5">
-        <li>Les inscriptions commenceront le 15 septembre {new Date().getFullYear()}</li>
-        <li>Les entrainements commenceront le 15 septembre {new Date().getFullYear()}</li>
-        <li>Nous sommes présent au forum des associations qui a lieu chaque année à Jean Vilar</li>
-        <li>Moyen de paiement (chèque ou espèces) - Paiement en plusieurs fois possible</li>
-        <li>Une séance d&apos;essai est recommandée pour les nouveaux adhérents</li>
-        <li className="text-red-500"> Pas de certificat médical necessaire pour les mineurs</li>
+        <li>Les inscriptions commencent le 8 septembre {new Date().getFullYear()}</li>
+        <li>Nous sommes présent au forum des associations</li>
+        <li>
+          Une <span className="text-secondary">séance d&apos;essai</span> est recommandée
+        </li>
       </ul>
     </div>
   )
@@ -16,31 +16,39 @@ export function Preambule() {
 export function StepOne() {
   return (
     <div className="space-y-6">
+      <h3 className="text-2xl font-bold text-primary md:hidden">Rendez vous sur place</h3>
       <p>
-        Pour votre inscription, vous avez besoin de:
+        <strong className="text-secondary">Documents nécessaires :</strong>
         <ul className="mb-5 list-disc pl-5">
-          <li>Demande de licence (Récupérable sur place) </li>
-          <li> Moyen de paiement (chèque ou espèces) - Paiement en plusieurs fois possible</li>
-          <li className="text-red-500"> Ne pas donner le certificat médical ! </li>
+          <li>
+            <strong>Demande de licence</strong> (Récupérable sur place)
+          </li>
+          <li>
+            <strong>Moyen de paiement</strong> (chèque ou espèces)
+          </li>
         </ul>
-        <p>Rendez vous au gymnase Jean Guimier, 2 rue jean de la fontaine 95100 Argenteuil</p>
+        <strong className="text-secondary">Le rendez-vous :</strong>
         <ul className="list-disc pl-5">
           <li>
-            <strong>Du lundi au vendredi</strong> : 17h30 - 20h00
+            <strong>Du lundi au vendredi</strong> : 17h30 - 19h30
           </li>
           <li>
-            <strong>Samedi</strong> : 10h00 - 12h00
+            <strong>Samedi</strong> : 10h00 - 11h30
           </li>
           <li>
-            Mr.DIME (Bass) est responsable des inscriptions, il vous attendra à l&apos;accueil ou
-            dans le gymnase.
+            <strong>Samedi</strong> : 13h00 - 15h30
           </li>
-          <p className="text-orange-500">
-            {' '}
-            Une fois les documents remis, vous recevrez un email avec un lien pour{' '}
-            <strong>finaliser votre inscription</strong>{' '}
-          </p>
+          <li>
+            Au gymnase <strong>Jean Guimier</strong>
+          </li>
+          <li>
+            Avec <strong className="italic">Bass</strong>
+          </li>
         </ul>
+        <p className="mt-5 text-secondary">
+          Une fois les documents remis, vous recevrez un email avec un lien pour{' '}
+          <strong className="text-secondary">finaliser votre inscription</strong>
+        </p>
       </p>
     </div>
   )
@@ -49,26 +57,19 @@ export function StepOne() {
 export function StepTwo() {
   return (
     <div className="space-y-6">
-      <h3 className="text-2xl font-bold">Inscription en ligne</h3>
-      <p className="text-orange-500">
+      <h3 className="text-2xl font-bold">Inscription informatique</h3>
+      <p className="text-secondary">
         L&apos;inscription informatique est obligatoire pour être licencié FFBB.
       </p>
       <ol className="list-decimal space-y-4 pl-5">
-        <li>
-          Utiliser le lien que vous avez reçu par email{' '}
-          <strong className="text-orange-500"> (cela peut prendre quelques jours)</strong> pour
-          obtenir votre licence
-        </li>
-        <li>
-          <strong>Remplissez le formulaire</strong> avec vos informations personnelles
-        </li>
+        <li>Remplissez le formulaire que vous avez reçu par email</li>
         <li>
           {' '}
-          <span className="text-orange-500"> L&apos;assurance A </span> est incluse dans le prix de
+          <span className="text-secondary"> L&apos;assurance A </span> est incluse dans le prix de
           l&apos;inscription{' '}
         </li>
         <li>
-          Choissisez <span className="text-orange-500"> &quot;paiement au club&quot; </span> lorsque
+          Choissisez <span className="text-secondary"> &quot;paiement au club&quot; </span> lorsque
           cela vous sera demandé
         </li>
       </ol>
@@ -85,7 +86,7 @@ export function StepThree() {
         <strong className="text-orange-500"> après validation du club </strong> vous recevrez un
         email qui confirme votre inscription
       </p>
-      <p>Vous êtes désormais licencié FFBB et vous pouvez venir jouer à l&apos;entrainement !</p>
+      <p>Vous êtes désormais licencié FFBB et vous pouvez venir jouer vous entrainer !</p>
     </div>
   )
 }

@@ -30,8 +30,8 @@ export async function fillExtranetFormAction(
       surclassement: formData.surclassement,
       typeInscription: formData.typeInscription,
     }
-    
-    if(formData.typeInscription === 'NOUVELLE_LICENCE'){
+
+    if (formData.typeInscription === 'NOUVELLE_LICENCE') {
       await fillNouvelleLicence(payload)
     } else {
       await fillRenouvellement(payload)

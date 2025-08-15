@@ -77,7 +77,7 @@ export default function HomePage({ matchs: matchsObjects }: Readonly<PropsType>)
       <H1>Planning des Matchs</H1>
 
       {/* Navigation mensuelle */}
-      <Card className="relative shadow-lg">
+      <Card className="relative overflow-hidden p-0 shadow-lg">
         <CardHeader className="px-16 text-center sm:px-20 lg:px-24">
           <h2 className="mb-2 text-xl font-semibold text-primary sm:text-2xl lg:text-4xl">
             Planning de {MONTHS[currentMonth]?.toUpperCase()}
@@ -86,14 +86,14 @@ export default function HomePage({ matchs: matchsObjects }: Readonly<PropsType>)
 
         <Button
           onClick={previousMonth}
-          className="custom-gradient absolute bottom-0 left-0 top-0 h-full w-12 rounded-r-lg sm:w-16 lg:w-24"
+          className="primary absolute bottom-0 left-0 top-0 h-full w-16 rounded-r-lg lg:w-24"
         >
           <ChevronLeft className="h-4 w-4 sm:h-6 sm:w-6 lg:size-full" />
         </Button>
 
         <Button
           onClick={nextMonth}
-          className="custom-gradient absolute bottom-0 right-0 top-0 h-full w-12 rounded-l-lg sm:w-16 lg:w-24"
+          className="primary absolute bottom-0 right-0 top-0 h-full w-16 rounded-l-lg lg:w-24"
         >
           <ChevronRight className="h-4 w-4 sm:h-6 sm:w-6 lg:size-full" />
         </Button>

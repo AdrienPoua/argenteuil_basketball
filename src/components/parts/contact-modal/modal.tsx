@@ -26,6 +26,7 @@ type PropsType = {
     | 'check'
     | 'blackAndWhite'
     | 'invisible'
+    | 'mobileBar'
     | null
   className?: string
   defaultTab?: 'contact' | 'preinscription'
@@ -41,9 +42,15 @@ export default function ContactModal({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant={variant}>{label}</Button>
+        <Button
+          variant={variant}
+          className={className}
+          size={variant === 'mobileBar' ? 'mobileBar' : 'default'}
+        >
+          {label}
+        </Button>
       </DialogTrigger>
-      <DialogContent className="max-h-[80dvh] overflow-y-auto sm:max-w-md md:max-w-screen-sm">
+      <DialogContent className="container max-h-[80dvh] max-w-[90%] overflow-y-auto md:max-w-screen-sm">
         <Tabs defaultValue={defaultTab} className="w-full">
           <TabsList className="flex w-full justify-center gap-4">
             <TabsTrigger value="contact">Contact</TabsTrigger>

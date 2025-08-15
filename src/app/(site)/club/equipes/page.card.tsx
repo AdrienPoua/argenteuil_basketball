@@ -23,9 +23,9 @@ export function TeamCard({ team, main = false, gymnases }: TeamCardProps) {
 
   return (
     <>
-      <div
+      <button
         className={cn(
-          'flex h-full cursor-pointer flex-col rounded-2xl',
+          'flex h-full w-full cursor-pointer flex-col rounded-2xl',
           'group relative overflow-hidden',
           'bg-white shadow-lg',
           'transition-all duration-300 hover:-translate-y-1 hover:shadow-xl',
@@ -104,7 +104,7 @@ export function TeamCard({ team, main = false, gymnases }: TeamCardProps) {
             </div>
           </div>
         </div>
-      </div>
+      </button>
       <CustomDialog team={team} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
     </>
   )

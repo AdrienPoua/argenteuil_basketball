@@ -56,7 +56,7 @@ export default function MobileNav() {
           <ScrollArea className="h-full">
             <div className="p-6">
               <Logo />
-              <Accordion type="single" collapsible className="w-full">
+              <Accordion type="single" defaultValue="item-0" collapsible className="w-full">
                 {navigationData.map((item, index) => (
                   <AccordionItem value={`item-${index}`} key={item.label} className="p-0">
                     <AccordionTrigger className="bg-background">
@@ -133,54 +133,51 @@ export default function MobileNav() {
         </SheetContent>
       </Sheet>
       <div className="fixed inset-x-0 bottom-0 z-50 bg-background lg:hidden">
-        <nav className="flex h-16 items-center justify-around border-t border-border px-5">
+        <nav className="relative grid h-24 grid-cols-4 items-center justify-around border-t border-border px-5">
           <Link
             href="/"
-            className={cn('flex flex-col items-center', pathname === '/' && 'text-primary')}
+            className={cn(
+              'grid-span-1 flex h-full flex-col items-center justify-center',
+              pathname === '/' && 'text-primary',
+            )}
           >
-            <Home className="h-6 w-6" />
+            🏠
             <span className="text-xs">Accueil</span>
           </Link>
           <Link
             href="/inscriptions/guide"
             className={cn(
-              'flex flex-col items-center',
-              pathname.startsWith('/club') && 'text-primary',
+              'grid-span-1 flex h-full flex-col items-center justify-center',
+              pathname.startsWith('/inscriptions') && 'text-primary',
             )}
           >
-            <Users className="h-6 w-6" />
+            📄
             <span className="text-xs">inscriptions</span>
           </Link>
+          <Link
+            href="/plannings/matchs"
+            className={cn(
+              'grid-span-1 flex h-full flex-col items-center justify-center',
+              pathname.startsWith('/plannings/matchs') && 'text-primary',
+            )}
+          >
+            🏀
+            <span className="text-xs">Matchs</span>
+          </Link>
+          <div className="grid-span-1 flex h-full flex-col items-center justify-center">
+            💻
+            <ContactModal label="Contact" variant="mobileBar" />
+          </div>
           <SheetTrigger asChild>
             <Button
               variant="outline"
               size="icon"
-              className="h-12 w-12 rounded-full"
+              className="absolute right-1/2 top-0 h-12 w-12 -translate-y-1/2 translate-x-1/2"
               onClick={() => setOpen(true)}
             >
               <Menu className="h-6 w-6" />
             </Button>
           </SheetTrigger>
-          <Link
-            href="/plannings/matchs"
-            className={cn(
-              'flex flex-col items-center',
-              pathname.startsWith('/plannings/matchs') && 'text-primary',
-            )}
-          >
-            <Calendar className="h-6 w-6" />
-            <span className="text-xs">Matchs</span>
-          </Link>
-          <Link
-            href="/plannings/entrainements"
-            className={cn(
-              'flex flex-col items-center',
-              pathname.startsWith('/plannings/entrainements') && 'text-primary',
-            )}
-          >
-            <Dumbbell className="h-6 w-6" />
-            <span className="text-xs">Entrainements</span>
-          </Link>
         </nav>
       </div>
     </Dialog>

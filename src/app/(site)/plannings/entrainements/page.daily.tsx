@@ -53,7 +53,7 @@ export default function VueJour({ teams }: Readonly<PropsType>) {
               </CardTitle>
             </CardHeader>
             <CardContent className="p-3 sm:p-6">
-              {(map.get(day)?.length ?? 0 > 0) ? (
+              {(map.get(day)?.length ?? 0) ? (
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
                   {map.get(day)?.map((team) => (
                     <Card

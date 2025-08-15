@@ -66,9 +66,7 @@ export function InscriptionForm({ setOpen }: PropsType) {
     try {
       await createInscription(values)
       setOpen(false)
-      toast.success(
-        'Vous recevrez un email avec le lien de pré-inscription sous réserve de validation',
-      )
+      toast.success('Vous recevrez un email sous 48h pour continuer votre inscription')
       form.reset()
     } catch (error) {
       const normalizedError = ErrorHandler.normalize(error)
@@ -80,13 +78,13 @@ export function InscriptionForm({ setOpen }: PropsType) {
   }
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <div className="grid grid-cols-2 gap-2">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 font-secondary">
+        <div className="flex flex-col gap-2">
           <FormField
             control={form.control}
             name="lastName"
             render={({ field }) => (
-              <FormItem className="col-span-1">
+              <FormItem>
                 <FormLabel>Nom *</FormLabel>
                 <FormControl>
                   <Input placeholder="Jordan" {...field} />
@@ -99,7 +97,7 @@ export function InscriptionForm({ setOpen }: PropsType) {
             control={form.control}
             name="firstName"
             render={({ field }) => (
-              <FormItem className="col-span-1">
+              <FormItem>
                 <FormLabel>Prénom *</FormLabel>
                 <FormControl>
                   <Input placeholder="Michael" {...field} />
@@ -109,12 +107,12 @@ export function InscriptionForm({ setOpen }: PropsType) {
             )}
           />
         </div>
-        <div className="col-span-2 flex gap-2">
+        <div className="flex flex-col gap-2">
           <FormField
             control={form.control}
             name="phoneNumber"
             render={({ field }) => (
-              <FormItem className="flex-1">
+              <FormItem>
                 <FormLabel>Téléphone *</FormLabel>
                 <FormControl>
                   <Input type="tel" {...field} placeholder="0612345678" />
@@ -141,10 +139,10 @@ export function InscriptionForm({ setOpen }: PropsType) {
           control={form.control}
           name="email"
           render={({ field }) => (
-            <FormItem className="flex-1">
+            <FormItem>
               <FormLabel>Email *</FormLabel>
               <FormControl>
-                <Input type="email" placeholder="argenteuil@gmail.com" {...field} />
+                <Input type="email" placeholder="michael.jordan@gmail.com" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -162,7 +160,7 @@ export function InscriptionForm({ setOpen }: PropsType) {
                     <SelectValue placeholder="Choisir un genre" />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent>
+                <SelectContent className="font-secondary">
                   <SelectItem value="Masculin">Masculin</SelectItem>
                   <SelectItem value="Féminin">Féminin</SelectItem>
                 </SelectContent>
@@ -183,7 +181,7 @@ export function InscriptionForm({ setOpen }: PropsType) {
                     <SelectValue placeholder="Choisir un type" />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent>
+                <SelectContent className="font-secondary">
                   <SelectItem value={'RENOUVELLEMENT'}>
                     Renouvellement : J&apos;étais au club la saison dernière{' '}
                   </SelectItem>
@@ -204,17 +202,11 @@ export function InscriptionForm({ setOpen }: PropsType) {
             </FormItem>
           )}
         />
-
-        <p className="rounded-md border border-primary p-2 text-center font-bold text-primary">
-          {' '}
-          OPTIONNEL{' '}
-        </p>
-
         <FormField
           control={form.control}
           name="passSport"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="hidden">
               <FormLabel>Code Pass&apos;Sport</FormLabel>
               <FormControl>
                 <Input type="text" {...field} placeholder="Pour les ados entre 14 et 17 ans" />

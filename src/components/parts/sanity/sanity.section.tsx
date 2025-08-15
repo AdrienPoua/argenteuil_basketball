@@ -21,7 +21,7 @@ export default function PostsWrapper() {
         <div className="mb-8 aspect-[9/10]">
           <AnimatedCard post={secondary} />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 md:gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {posts.slice(0, MAX_POSTS_ON_HOME_PAGE).map((post: SanityDocument) => (
             <AnimatedCard key={post._id} post={post} small />
           ))}

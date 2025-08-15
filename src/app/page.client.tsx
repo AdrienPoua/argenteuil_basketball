@@ -13,7 +13,7 @@ export default function HomePage() {
       <div className="min-h-screen bg-black">
         <Hero />
         <div className="relative">
-          <div className="pt-16">
+          <div className="container mx-auto px-5 pt-16">
             <H2>Cette semaine</H2>
             <WeeklyMatch />
             <H2>Actualités</H2>
@@ -43,12 +43,11 @@ const Hero = () => {
       </div>
       {/* Contenu hero */}
       <div className="relative z-20 flex h-full flex-col items-center justify-center px-4 text-white">
-        <h1 className="mb-4 text-5xl font-bold tracking-tight md:text-7xl">
+        <h1 className="mb-4 text-center text-5xl font-bold tracking-tight md:text-7xl">
           Argenteuil Basketball
         </h1>
         <p className="mx-auto mb-8 max-w-3xl text-center text-xl opacity-90 md:text-2xl">
-          Rejoignez le club de basket emblématique de la ville d&apos;Argenteuil. Formation,
-          compétition et passion !
+          Club de basket emblématique de la ville d&apos;Argenteuil.
         </p>
 
         <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
