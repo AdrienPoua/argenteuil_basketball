@@ -1,5 +1,3 @@
-import React from 'react'
-import { CheckCircle, Mail, CreditCard, AlertTriangle } from 'lucide-react'
 import ContactModal from '@/components/parts/contact-modal/modal'
 
 export default function EnLigne() {
@@ -19,7 +17,7 @@ export default function EnLigne() {
         <div className="flex gap-4 rounded-lg border p-4">
           <div className="flex-1">
             <h3 className="mb-2 flex items-center gap-2 text-lg text-primary">
-              <Number number="1" />
+              <NumberIndex number="1" />
               Remplir le premier formulaire
             </h3>
             <div className="my-5 flex justify-center">
@@ -37,7 +35,7 @@ export default function EnLigne() {
         <div className="flex gap-4 rounded-lg border p-4">
           <div className="flex-1">
             <h3 className="mb-2 flex items-center gap-2 text-lg text-primary">
-              <Number number="2" />
+              <NumberIndex number="2" />
               Remplir le deuxième formulaire
             </h3>
             <p className="mb-5 font-secondary text-foreground">
@@ -56,7 +54,7 @@ export default function EnLigne() {
         <div className="flex gap-4 rounded-lg border p-4">
           <div className="flex-1">
             <h3 className="mb-2 flex items-center gap-2 text-lg text-primary">
-              <Number number="3" />
+              <NumberIndex number="3" />
               Payer en ligne via HelloAsso
             </h3>
             <p className="mb-5 font-secondary text-foreground">
@@ -83,7 +81,7 @@ export default function EnLigne() {
   )
 }
 
-const Number = ({ number }: { number: string }) => {
+const NumberIndex = ({ number }: Readonly<{ number: string }>) => {
   return (
     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm text-primary-foreground">
       {number}

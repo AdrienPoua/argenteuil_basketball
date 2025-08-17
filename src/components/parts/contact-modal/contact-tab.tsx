@@ -4,14 +4,14 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { toast } from 'sonner'
 import ContactForm from '@/components/forms/contact-form'
-import { DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { DialogFooter } from '@/components/ui/dialog'
 import club from '@/core/shared/config/club'
 
 type PropsType = {
   setOpen: (open: boolean) => void
 }
 
-export function ContactTab({ setOpen }: PropsType) {
+export function ContactTab({ setOpen }: Readonly<PropsType>) {
   const [error, setError] = useState<boolean>(false)
   const [success, setSuccess] = useState<boolean>(false)
   const onSuccess = () => {

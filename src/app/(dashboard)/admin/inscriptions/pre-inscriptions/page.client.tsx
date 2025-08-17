@@ -1,9 +1,6 @@
 'use client'
-import { Cell, flexRender, Header, HeaderGroup } from '@tanstack/react-table'
 import { useMemo, useState } from 'react'
 import { toast } from 'sonner'
-import { AlertDialogConfirm } from '@/components/ui/alert-dialog-confirm'
-import { Button } from '@/components/ui/button'
 import { ModificationDialog } from './page.dialog.update'
 import {
   Select,
@@ -19,7 +16,6 @@ import { fillExtranetFormAction } from '@/core/presentation/actions/inscriptions
 import { ErrorHandler } from '@/core/shared/error/ErrorHandler'
 import {
   getStatusLabel,
-  InscriptionsTableProps,
   StatusFilterProps,
   useInscriptionActions,
   useInscriptionModal,
@@ -31,7 +27,7 @@ type PropsType = {
   inscriptions: InscriptionDTO[]
 }
 
-export default function PreInscriptionsPage({ inscriptions: data }: PropsType) {
+export default function PreInscriptionsPage({ inscriptions: data }: Readonly<PropsType>) {
   const inscriptions = useMemo(() => data.map((inscription) => toDomain(inscription)), [data])
   const { statusFilter, setStatusFilter, filteredData, table } = usePreInscriptionsPage({
     inscriptions,
@@ -105,7 +101,7 @@ export default function PreInscriptionsPage({ inscriptions: data }: PropsType) {
   )
 }
 
-function StatusFilter({ statusFilter, setStatusFilter }: StatusFilterProps) {
+function StatusFilter({ statusFilter, setStatusFilter }: Readonly<StatusFilterProps>) {
   return (
     <div className="flex items-center gap-2">
       <span className="mr-2 text-sm font-medium">Filtrer par statut :</span>

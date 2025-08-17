@@ -18,7 +18,7 @@ type TeamCardProps = {
   gymnases: Gymnase[]
 }
 
-export function TeamCard({ team, main = false, gymnases }: TeamCardProps) {
+export function TeamCard({ team, main = false, gymnases }: Readonly<TeamCardProps>) {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   return (

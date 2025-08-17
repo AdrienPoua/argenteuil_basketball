@@ -33,7 +33,7 @@ type PropsType = {
   teams: TeamEntity[]
 }
 
-export default function CreateMatchForm({ actions, teams }: PropsType) {
+export default function CreateMatchForm({ actions, teams }: Readonly<PropsType>) {
   const createMatchSchema = z.object({
     teamId: z.string(),
     nomEquipe2: z.string().min(2, "Le nom de l'équipe doit contenir au moins 2 caractères"),

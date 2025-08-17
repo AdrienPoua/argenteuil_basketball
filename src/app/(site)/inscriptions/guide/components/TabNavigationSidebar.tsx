@@ -1,7 +1,6 @@
 'use client'
 import { TabsList, TabsTrigger } from '@/components/ui/tabs'
 import type { Step } from '../types'
-import Image from 'next/image'
 
 type PropsType = {
   steps: Step[]

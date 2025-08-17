@@ -1,7 +1,6 @@
 import { z } from 'zod'
 import { TarifCategory, TarifEntity } from '../../../domain/entities/tarif.entity'
 import { TarifRepository } from '../../../domain/repositories/tarif.repository'
-import { CreateTarifDTO } from '../../../infrastructure/supabase/dtos/tarif.dto'
 import { ErrorHandler } from '../../../shared/error/ErrorHandler'
 import { BaseUseCase } from '../BaseUseCase'
 

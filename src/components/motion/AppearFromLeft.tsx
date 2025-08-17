@@ -5,10 +5,10 @@ import { motion, AnimatePresence, Easing } from 'framer-motion'
 export const AppearFromLeft = ({
   children,
   className,
-}: {
+}: Readonly<{
   children: React.ReactNode
   className?: string
-}) => {
+}>) => {
   const initial = { opacity: 0, x: -300 }
   const animate = { opacity: 1, x: 0 }
   const transition = { duration: 0.5, ease: 'easeOut' as Easing }

@@ -1,18 +1,6 @@
 import { Page } from 'puppeteer'
 import { ErrorHandler } from '@/core/shared/error/ErrorHandler'
-import {
-  checkBox,
-  closeBrowser,
-  fillField,
-  fillSelect,
-  goToLoginPage,
-  initializeBrowser,
-  login,
-  navigateToForm,
-  waitForElement,
-  clickOnSearchBtn,
-} from '../utils'
-import { CheckboxIndicator } from '@radix-ui/react-checkbox'
+import { goToLoginPage, initializeBrowser, login, navigateToForm, clickOnSearchBtn } from '../utils'
 
 // Interface for the inscription data needed by this script
 interface InscriptionData {
@@ -37,11 +25,6 @@ export default async function fillNouvelleLicence(inscription: InscriptionData):
     await navigateToForm(page)
     await clickOnSearchBtn(page)
     await fillSearchField(page, inscription.lastName, inscription.firstName)
-    // 4. Soumission
-    // await submitForm(page)
-
-    // 5. Fermeture
-    //await closeBrowser(browser)
 
     console.log('🎉 Script terminé avec succès !')
   } catch (error) {

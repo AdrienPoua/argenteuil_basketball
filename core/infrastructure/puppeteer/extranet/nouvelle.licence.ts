@@ -2,7 +2,6 @@ import { Page } from 'puppeteer'
 import { ErrorHandler } from '@/core/shared/error/ErrorHandler'
 import {
   checkBox,
-  closeBrowser,
   fillField,
   fillSelect,
   goToLoginPage,
@@ -85,7 +84,3 @@ async function fillFormData(inscription: InscriptionData, page: Page): Promise<v
 
   console.log('✅ Formulaire rempli')
 }
-
-// === EXPORTS INDIVIDUELS POUR USAGE AVANCÉ ===
-
-export { initializeBrowser, navigateToForm, fillFormData, closeBrowser }

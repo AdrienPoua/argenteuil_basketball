@@ -2,7 +2,6 @@ import { SanityDocument } from 'next-sanity'
 import { getHomePost } from '@/core/presentation/actions/sanity/getHomePost'
 import { use } from 'react'
 import { AnimatedCard } from './sanity.card.animated'
-import { SanityCard } from './sanity.card'
 
 export default function PostsWrapper() {
   const MAX_POSTS_ON_HOME_PAGE = 4

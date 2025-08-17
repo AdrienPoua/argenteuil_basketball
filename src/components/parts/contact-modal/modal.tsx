@@ -3,9 +3,7 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
-import { navigationMenuTriggerStyle } from '@/components/ui/navigation-menu'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { cn } from '@/core/shared/utils/cn'
 import { ContactTab } from './contact-tab'
 import { InscriptionTab } from './inscription-tab'
 

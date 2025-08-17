@@ -141,7 +141,7 @@ export default function Footer() {
   )
 }
 
-function SocialButton({ href, icon }: { href: string; icon: React.ReactNode }) {
+function SocialButton({ href, icon }: Readonly<{ href: string; icon: React.ReactNode }>) {
   return (
     <Link
       href={href}
@@ -166,7 +166,11 @@ function FooterLink({ href, children }: Readonly<{ href: string; children: React
   )
 }
 
-function ContactInfo({ icon, href, text }: { icon: React.ReactNode; href: string; text: string }) {
+function ContactInfo({
+  icon,
+  href,
+  text,
+}: Readonly<{ icon: React.ReactNode; href: string; text: string }>) {
   return (
     <Link
       href={href}

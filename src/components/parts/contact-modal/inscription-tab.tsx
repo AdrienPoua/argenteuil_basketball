@@ -1,4 +1,3 @@
-import { Info } from 'lucide-react'
 import { InscriptionForm } from '@/components/forms/inscription-form'
 import { DialogDescription, DialogHeader } from '@/components/ui/dialog'
 
@@ -6,7 +5,7 @@ type PropsType = {
   setOpen: (open: boolean) => void
 }
 
-export function InscriptionTab({ setOpen }: PropsType) {
+export function InscriptionTab({ setOpen }: Readonly<PropsType>) {
   return (
     <div>
       <DialogHeader className="mb-3">

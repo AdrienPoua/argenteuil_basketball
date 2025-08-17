@@ -38,7 +38,7 @@ type PropsType = {
   }
 }
 
-export function InscriptionFormUpdate({ currentInscription, actions }: PropsType) {
+export function InscriptionFormUpdate({ currentInscription, actions }: Readonly<PropsType>) {
   const formSchema = z.object({
     last_name: z.string().min(2, 'Le nom est requis'),
     first_name: z.string().min(2, 'Le prénom est requis'),

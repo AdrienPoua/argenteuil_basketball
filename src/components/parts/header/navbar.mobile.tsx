@@ -1,35 +1,31 @@
 'use client'
 
-import { useState } from 'react'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import { Button } from '@/components/ui/button'
-import { ScrollArea } from '@/components/ui/scroll-area'
+import Logo from '@/components/Logo'
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
+import { Button } from '@/components/ui/button'
+import { Dialog } from '@/components/ui/dialog'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import { cn } from '@/utils/cn'
 import {
-  Home,
-  Menu,
-  UserCog,
-  UserCheck,
-  Users,
   Building,
   CircleHelp,
-  Calendar,
   DollarSign,
-  FileText,
   Dumbbell,
-  Mail,
-  Phone,
+  FileText,
+  Menu,
+  UserCheck,
+  UserCog,
+  Users,
 } from 'lucide-react'
-import { cn } from '@/utils/cn'
-import Logo from '@/components/Logo'
-import { Dialog, DialogTrigger, DialogContent } from '@/components/ui/dialog'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { useState } from 'react'
 import ContactModal from '../contact-modal/modal'
 
 const navigationData = [
@@ -141,8 +137,7 @@ export default function MobileNav() {
               pathname === '/' && 'text-primary',
             )}
           >
-            🏠
-            <span className="text-xs">Accueil</span>
+            🏠 <span className="text-xs">Accueil</span>
           </Link>
           <Link
             href="/inscriptions/guide"
@@ -151,8 +146,7 @@ export default function MobileNav() {
               pathname.startsWith('/inscriptions') && 'text-primary',
             )}
           >
-            📄
-            <span className="text-xs">inscriptions</span>
+            📄 <span className="text-xs">inscriptions</span>
           </Link>
           <Link
             href="/plannings/matchs"
@@ -161,12 +155,10 @@ export default function MobileNav() {
               pathname.startsWith('/plannings/matchs') && 'text-primary',
             )}
           >
-            🏀
-            <span className="text-xs">Matchs</span>
+            🏀 <span className="text-xs">Matchs</span>
           </Link>
           <div className="grid-span-1 flex h-full flex-col items-center justify-center">
-            💻
-            <ContactModal label="Contact" variant="mobileBar" />
+            💻 <ContactModal label="Contact" variant="mobileBar" />
           </div>
           <SheetTrigger asChild>
             <Button

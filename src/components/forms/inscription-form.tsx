@@ -29,7 +29,7 @@ type PropsType = {
   setOpen: (open: boolean) => void
 }
 
-export function InscriptionForm({ setOpen }: PropsType) {
+export function InscriptionForm({ setOpen }: Readonly<PropsType>) {
   const formSchema = z.object({
     lastName: z.string().min(2, 'Le nom est requis'),
     firstName: z.string().min(2, 'Le prénom est requis'),

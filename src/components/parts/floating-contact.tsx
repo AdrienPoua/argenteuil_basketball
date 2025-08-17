@@ -100,7 +100,7 @@ export default function ProfessionalFloatingMenu() {
                 {(activeMenu === 'contact' ? getContactItems(isMobile) : quickLinks).map(
                   (item, index) => (
                     <motion.a
-                      key={index}
+                      key={item.label}
                       href={item.href}
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}

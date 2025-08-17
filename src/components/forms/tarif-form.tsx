@@ -25,7 +25,6 @@ import {
 
 import { TarifCategory, TarifEntity } from '@/core/domain/entities/tarif.entity'
 import { upsertTarif } from '@/core/presentation/actions/tarifs/upsert'
-import { Loading } from '../ui/loading'
 
 const tarifFormSchema = z.object({
   price: z.number().min(0, 'Le prix doit être positif'),
@@ -76,6 +75,8 @@ export function TarifForm({ actions, currentTarif }: Readonly<PropsType>) {
   const onSubmit = async (data: TarifFormValues) => {
     mutation.mutate(data)
   }
+
+  const label = currentTarif ? 'Modifier' : 'Créer'
 
   return (
     <Form {...form}>
@@ -203,7 +204,7 @@ export function TarifForm({ actions, currentTarif }: Readonly<PropsType>) {
 
         <div className="flex justify-end gap-2 pt-4">
           <Button type="submit" disabled={mutation.isPending || !form.formState.isValid}>
-            {mutation.isPending ? <Loading /> : currentTarif ? 'Modifier' : 'Créer'}
+            {label}
           </Button>
         </div>
       </form>

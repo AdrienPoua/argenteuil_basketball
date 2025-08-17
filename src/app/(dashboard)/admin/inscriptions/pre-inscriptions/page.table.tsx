@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { InscriptionEntity } from '@/core/domain/entities/inscription.entity'
 import { InscriptionsTableProps } from './page.hooks'
 
-export function Table(props: InscriptionsTableProps) {
+export function Table(props: Readonly<InscriptionsTableProps>) {
   const { table, actions, loadingExtranet } = props
 
   return (

@@ -3,7 +3,7 @@ import H1 from '@/components/ui/H1'
 import { Tarif } from '@/core/domain/entities/tarif.entity'
 import { TarifCard } from './page.card'
 
-export default function TarifsClient({ tarifs }: { tarifs: Tarif[] }) {
+export default function TarifsClient({ tarifs }: Readonly<{ tarifs: Tarif[] }>) {
   return (
     <div className="relative px-4 sm:px-6 lg:px-8">
       {/* Hero section with animated background */}

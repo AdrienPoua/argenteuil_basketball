@@ -149,7 +149,7 @@ const BadgesContent = ({
   placeholder,
   label,
   removeSelection,
-}: BadgesContentProps) => {
+}: Readonly<BadgesContentProps>) => {
   if (selectedValues.length === 0) {
     return <span>{placeholder ?? `Sélectionner ${label.toLowerCase()}`}</span>
   }
@@ -187,12 +187,12 @@ const OptionItem = <T,>({
   isSelected,
   onToggle,
   getOptionLabel,
-}: {
+}: Readonly<{
   option: T
   isSelected: boolean
   onToggle: () => void
   getOptionLabel: (option: T) => string
-}) => {
+}>) => {
   const label = getOptionLabel(option)
 
   return (
@@ -216,14 +216,14 @@ const OptionsList = <T,>({
   getOptionLabel,
   getOptionValue,
   maxHeight,
-}: {
+}: Readonly<{
   options: T[]
   selectedValues: string[]
   onToggle: (value: string) => void
   getOptionLabel: (option: T) => string
   getOptionValue: (option: T) => string
   maxHeight: string
-}) => {
+}>) => {
   return (
     <div className="overflow-y-auto" style={{ maxHeight }}>
       {options.map((option) => {

@@ -3,8 +3,7 @@
 import { cn } from '@/utils/cn'
 import { Badge } from '@/components/ui/badge'
 import { formatDate } from '@/utils/formatDate'
-import { toDomain, toPersistence } from '@/mappers/match.mapper'
-import { MatchEntity } from '@/core/domain/entities/match.entity'
+import { toDomain } from '@/mappers/match.mapper'
 import { MatchDTO } from '@/core/infrastructure/supabase/dtos/match.dto'
 
 type PropsType = {
@@ -53,7 +52,7 @@ export default function MatchCard({ match: data }: Readonly<PropsType>) {
   )
 }
 
-const TeamSquare = ({ children }: { children: React.ReactNode }) => {
+const TeamSquare = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <div
       className={cn(

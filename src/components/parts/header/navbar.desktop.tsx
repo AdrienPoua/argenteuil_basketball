@@ -190,13 +190,13 @@ const ListItem = ({
   children,
   href,
   icon,
-}: {
+}: Readonly<{
   className?: string
   title: string
   children: React.ReactNode
   href: string
   icon: React.ReactNode
-}) => {
+}>) => {
   return (
     <li>
       <NavigationMenuLink asChild>

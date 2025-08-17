@@ -41,14 +41,14 @@ interface AdherentsTableProps {
   adherents: Adherent[]
 }
 
-export function AdherentsTable({ adherents }: AdherentsTableProps) {
+export function AdherentsTable({ adherents }: Readonly<AdherentsTableProps>) {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
 
   // Extract unique categories
   const categories = useMemo(() => {
     const uniqueCategories = Array.from(new Set(adherents.map((adherent) => adherent.categorie)))
-    const sortedCategories = uniqueCategories.sort((a, b) =>
+    const sortedCategories = uniqueCategories.toSorted((a, b) =>
       a.localeCompare(b, 'fr-FR', {
         sensitivity: 'base',
         numeric: true,

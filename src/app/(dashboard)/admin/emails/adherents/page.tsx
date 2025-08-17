@@ -1,6 +1,5 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { Loading } from '@/components/ui/loading'
 import { Adherent } from '@/core/infrastructure/extranet/client'
 import { getAdherents } from '@/core/presentation/actions/adherents/getAdherents'
 import { AdherentsTable } from './page.table'

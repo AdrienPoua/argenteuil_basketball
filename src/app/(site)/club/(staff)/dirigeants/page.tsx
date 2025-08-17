@@ -1,5 +1,4 @@
 import MainSection from '@/components/layouts/MainSection'
-import { readMembers } from '@/core/presentation/actions/members/read'
 import { AnimatedTestimonials } from '@/components/ui/animated-testimonials'
 import H1 from '@/components/ui/H1'
 import { toPersistence } from '@/mappers/member.mapper'
