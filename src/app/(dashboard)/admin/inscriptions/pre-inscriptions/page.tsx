@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import { toPersistence } from '@/core/infrastructure/supabase/mappers/inscription.mapper'
 import { getAllInscriptions } from '@/core/presentation/actions/inscriptions/getAllInscriptions'
 import Page from './page.client'

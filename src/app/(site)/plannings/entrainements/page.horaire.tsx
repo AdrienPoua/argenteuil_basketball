@@ -1,12 +1,26 @@
 'use client'
 
 import { Clock } from 'lucide-react'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
 import { TeamType } from './page'
+import { Badge } from '@/components/ui/badge'
 
 type PropsType = {
   teams: TeamType[]
 }
+
+const gymnases = new Map<string, string>([
+  ['1', 'Jean Guimier'],
+  ['2', 'Jesse Owens'],
+  ['3', 'Henri Wallon'],
+])
 
 export default function VueHoraire({ teams }: Readonly<PropsType>) {
   const uniquesHoraires = new Set<string>()
@@ -43,6 +57,20 @@ export default function VueHoraire({ teams }: Readonly<PropsType>) {
           ))}
         </div>
       </CardContent>
+      <CardFooter className="flex flex-col gap-2 bg-primary/10 p-4">
+        <div>
+          <span className="font-bold">Jean Guimier</span> : 2 rue jean de la fontaine, 95100
+          Argenteuil, <span className="italic">01.39.82.23.13</span>
+        </div>
+        <div>
+          <span className="font-bold">Jesse Owens</span> : 120 rue de rochefort, 95100 Argenteuil,
+          <span className="italic"> 01.39.80.78.20</span>
+        </div>
+        <div>
+          <span className="font-bold">Henri Wallon</span> : 20 bd de la résistance, 95100
+          Argenteuil, <span className="italic">01.39.80.78.20</span>
+        </div>
+      </CardFooter>
     </Card>
   )
 }
@@ -73,7 +101,7 @@ const Rows = ({ time, teams }: { time: string; teams: TeamType[] }) => {
         return (
           <div key={day}>
             {teamWithSession.map((team) => (
-              <Session key={team.id} team={team} day={day} time={time} />
+              <SessionCard key={team.id} team={team} day={day} time={time} />
             ))}
           </div>
         )
@@ -118,11 +146,6 @@ const MobileSession = ({ team, day, time }: { team: TeamType; day: string; time:
 
   if (!session) return null
 
-  const gymnase = new Map<string, string>([
-    ['1', 'Jean Guimier'],
-    ['2', 'Jesse Owens'],
-  ])
-
   const dayNames = {
     lundi: 'Lundi',
     mardi: 'Mardi',
@@ -144,35 +167,30 @@ const MobileSession = ({ team, day, time }: { team: TeamType; day: string; time:
         <div>
           {session?.start}-{session?.end}
         </div>
-        <div className="italic">{gymnase.get(session.gymnase_id) ?? ''}</div>
+        <div className="italic">{gymnases.get(session.gymnase_id) ?? ''}</div>
       </div>
     </div>
   )
 }
 
-const Session = ({ team, day, time }: { team: TeamType; day: string; time: string }) => {
+const SessionCard = ({ team, day, time }: { team: TeamType; day: string; time: string }) => {
   const session = team.sessions.find((session) => {
     return session.day.toLowerCase() === day.toLowerCase() && session.start === time
   })
 
   if (!session) return null
 
-  const gymnase = new Map<string, string>([
-    ['1', 'Jean Guimier'],
-    ['2', 'Jesse Owens'],
-  ])
-
   return (
     <div
       key={team.id}
       className={`mb-1 rounded border-l-4 border-secondary bg-primary/10 p-2 text-xs text-primary transition-transform duration-200 hover:scale-105`}
     >
-      <div className=" ">
-        {team.name} -{' '}
-        <span className="italic underline"> {gymnase.get(session.gymnase_id) ?? ''}</span>
-      </div>
-      <div className="text-xs opacity-75">
+      <div className="flex flex-col gap-1 justify-between items-center">
+        <Badge className="text-xs px-3 w-full justify-center py-0.5">{team.name}</Badge>
+      <div className="text-xs underline underline-offset-2 text-center  font-bold">
         {session?.start}-{session?.end}
+      </div>
+        <div className=""> {gymnases.get(session.gymnase_id) ?? ''}</div>
       </div>
     </div>
   )

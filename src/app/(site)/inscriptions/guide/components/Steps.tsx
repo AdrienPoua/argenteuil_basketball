@@ -3,7 +3,7 @@ export function Preambule() {
     <div className="space-y-6">
       <h3 className="text-2xl font-bold text-primary md:hidden">Introduction</h3>
       <ul className="list-disc space-y-2 pl-5">
-        <li>Les inscriptions commencent le 8 septembre {new Date().getFullYear()}</li>
+        <li>Les inscriptions commencent le 25 août {new Date().getFullYear()}</li>
         <li>Nous sommes présent au forum des associations</li>
         <li>
           Une <span className="text-secondary">séance d&apos;essai</span> est recommandée

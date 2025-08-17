@@ -52,7 +52,7 @@ export function Table(props: Readonly<InscriptionsTableProps>) {
               })}
               <td className="px-4 py-4">
                 <div className="flex flex-nowrap justify-end gap-2">
-                  {process.env.VERCEL_ENV !== 'production' && (
+                  {process.env.NODE_ENV !== 'production' && (
                     <Button
                       size="sm"
                       variant="outline"
@@ -63,8 +63,13 @@ export function Table(props: Readonly<InscriptionsTableProps>) {
                       {loadingExtranet === row.original.id ? '⏳' : '🌐'} Extranet
                     </Button>
                   )}
-                  <Button size="sm" variant="outline" onClick={() => actions.done(row.original.id)}>
-                    Traité
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="bg-green-500 hover:bg-green-400 hover:text-white"
+                    onClick={() => actions.done(row.original.id)}
+                  >
+                    Done
                   </Button>
                   <Button size="sm" variant="outline" onClick={() => actions.edit(row.original)}>
                     Modifier

@@ -167,7 +167,7 @@ function TeamTable({
     <div className="rounded-md border">
       <Table>
         <TableHeader>
-          <TableRow>
+          <TableRow className="text-primary">
             <TableHead>Nom</TableHead>
             <TableHead>Catégorie</TableHead>
             <TableHead>Niveau</TableHead>

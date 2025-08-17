@@ -206,7 +206,7 @@ export function InscriptionForm({ setOpen }: Readonly<PropsType>) {
           control={form.control}
           name="passSport"
           render={({ field }) => (
-            <FormItem className="hidden">
+            <FormItem>
               <FormLabel>Code Pass&apos;Sport</FormLabel>
               <FormControl>
                 <Input type="text" {...field} placeholder="Pour les ados entre 14 et 17 ans" />

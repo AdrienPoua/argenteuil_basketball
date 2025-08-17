@@ -4,9 +4,11 @@ import { TypeInscription } from '@/core/domain/entities/inscription.entity'
 import fillNouvelleLicence from '@/core/infrastructure/puppeteer/extranet/nouvelle.licence'
 import fillRenouvellement from '@/core/infrastructure/puppeteer/extranet/renouvellement.licence'
 import { ErrorHandler } from '@/core/shared/error/ErrorHandler'
+import { updateInscription } from './updateInscription'
 
 // Interface for the serializable data needed by the Puppeteer script
 interface ExtranetFormData {
+  id: string
   firstName: string
   lastName: string
   email: string
@@ -14,6 +16,7 @@ interface ExtranetFormData {
   gender: string
   surclassement: boolean
   typeInscription: TypeInscription
+  passSport: string
 }
 
 export async function fillExtranetFormAction(
@@ -22,6 +25,7 @@ export async function fillExtranetFormAction(
   try {
     // Convert the plain object to the format expected by the Puppeteer script
     const payload = {
+      id: formData.id,
       firstName: formData.firstName,
       lastName: formData.lastName,
       email: formData.email,
@@ -29,10 +33,16 @@ export async function fillExtranetFormAction(
       gender: formData.gender,
       surclassement: formData.surclassement,
       typeInscription: formData.typeInscription,
+      passSport: formData.passSport,
     }
 
     if (formData.typeInscription === 'NOUVELLE_LICENCE') {
-      await fillNouvelleLicence(payload)
+      const success = await fillNouvelleLicence(payload)
+      if (success) {
+        await updateInscription(formData.id, {
+          status: 'TRAITEE',
+        })
+      }
     } else {
       await fillRenouvellement(payload)
     }

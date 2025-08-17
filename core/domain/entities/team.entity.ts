@@ -109,6 +109,8 @@ export enum Level {
   Loisir = 'Loisir',
   Ecole = 'Ecole de basket',
   Départemental = 'Départemental',
+  Départemental1 = 'Pré-régional',
+  Départemental3 = 'Départemental 3',
 }
 
 export interface Team {

@@ -53,6 +53,7 @@ export default function PreInscriptionsPage({ inscriptions: data }: Readonly<Pro
         gender: inscription.gender,
         surclassement: inscription.surclassement,
         typeInscription: inscription.typeInscription,
+        passSport: inscription.passSport,
       }
 
       const result = await fillExtranetFormAction(payload)

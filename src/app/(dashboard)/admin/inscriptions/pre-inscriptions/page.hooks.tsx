@@ -80,6 +80,11 @@ export function usePreInscriptionsPage({ inscriptions }: { inscriptions: Inscrip
         cell: (info) => getTypeLabel(info.row.original.typeInscription),
       },
       {
+        accessorKey: 'passSport',
+        header: () => <span>Pass Sport</span>,
+        cell: (info) => info.row.original.passSport,
+      },
+      {
         accessorKey: 'status',
         header: () => <span>Statut</span>,
         cell: (info) => getStatusLabel(info.row.original.status),

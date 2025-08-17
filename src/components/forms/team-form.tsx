@@ -111,7 +111,7 @@ export function TeamForm({
       category: currentTeam?.category ?? [],
       gender: (currentTeam?.gender as Gender) ?? Gender.Masculin,
       coachsIds: currentTeam?.coachs.map((coach) => coach.id) ?? [],
-      level: currentTeam?.level ?? Level.Départemental,
+      level: currentTeam?.level ?? Level.Départemental1,
       competitions: currentTeam?.competitions ?? [],
       assistantsCoachIds: currentTeam?.assistantsCoach.map((coach) => coach.id) ?? [],
       imageUrl: currentTeam?.image ?? '',

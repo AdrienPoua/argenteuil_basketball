@@ -17,6 +17,7 @@ export default function VueJour({ teams }: Readonly<PropsType>) {
   const gymnase = new Map<string, string>([
     ['1', 'Jean Guimier'],
     ['2', 'Jesse Owens'],
+    ['3', 'Henri Wallon'],
   ])
   days.forEach((day) => {
     map.set(
@@ -44,12 +45,8 @@ export default function VueJour({ teams }: Readonly<PropsType>) {
         return (
           <Card key={day}>
             <CardHeader className="p-4 pb-3 sm:p-6">
-              <CardTitle className="flex items-center justify-between text-base sm:text-lg">
-                <span>{day}</span>
-                <Badge variant="outline" className="text-xs sm:text-sm">
-                  {map.get(day)?.length} <span className="hidden sm:inline">entrainement(s)</span>
-                  <span className="sm:hidden">entr.</span>
-                </Badge>
+              <CardTitle className="flex items-center justify-center rounded-lg bg-primary py-3 text-lg font-bold uppercase text-foreground">
+                {day}
               </CardTitle>
             </CardHeader>
             <CardContent className="p-3 sm:p-6">
@@ -66,12 +63,11 @@ export default function VueJour({ teams }: Readonly<PropsType>) {
                       <CardContent className="p-3 sm:p-4">
                         <div className="space-y-2 sm:space-y-3">
                           {/* En-tête avec catégorie et genre */}
-                          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-                            <Badge className="text-xs">{team.category.join(' & ')}</Badge>
-                            <Badge variant="secondary" className="text-xs">
-                              {team.level}
+                          {team.category.map((category) => (
+                            <Badge key={category} className="me-3 text-xs">
+                              {category}
                             </Badge>
-                          </div>
+                          ))}
 
                           {/* Nom de l'équipe */}
                           <div className="text-base font-semibold leading-tight sm:text-lg">
