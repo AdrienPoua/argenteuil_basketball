@@ -52,14 +52,19 @@ export function Table(props: Readonly<InscriptionsTableProps>) {
               })}
               <td className="px-4 py-4">
                 <div className="flex flex-nowrap justify-end gap-2">
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => actions.extranet(row.original)}
-                    disabled={loadingExtranet === row.original.id}
-                    className="border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-100"
-                  >
-                    {loadingExtranet === row.original.id ? '⏳' : '🌐'} Extranet
+                  {process.env.VERCEL_ENV !== 'production' && (
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => actions.extranet(row.original)}
+                      disabled={loadingExtranet === row.original.id}
+                      className="border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-100"
+                    >
+                      {loadingExtranet === row.original.id ? '⏳' : '🌐'} Extranet
+                    </Button>
+                  )}
+                  <Button size="sm" variant="outline" onClick={() => actions.done(row.original.id)}>
+                    Traité
                   </Button>
                   <Button size="sm" variant="outline" onClick={() => actions.edit(row.original)}>
                     Modifier

@@ -22,6 +22,7 @@ import {
   usePreInscriptionsPage,
 } from './page.hooks'
 import { Table } from './page.table'
+import { updateInscription } from '@/core/presentation/actions/inscriptions/updateInscription'
 
 type PropsType = {
   inscriptions: InscriptionDTO[]
@@ -44,6 +45,7 @@ export default function PreInscriptionsPage({ inscriptions: data }: Readonly<Pro
       toast.info('Lancement du script Extranet...')
 
       const payload = {
+        id: inscription.id,
         firstName: inscription.firstName,
         lastName: inscription.lastName,
         email: inscription.email,
@@ -69,12 +71,25 @@ export default function PreInscriptionsPage({ inscriptions: data }: Readonly<Pro
     }
   }
 
+  const handleDoneAction = async (id: string) => {
+    try {
+      await updateInscription(id, {
+        status: 'TRAITEE',
+      })
+    } catch (error) {
+      const normalizedError = ErrorHandler.normalize(error)
+      ErrorHandler.log(normalizedError)
+      toast.error(ErrorHandler.userMessage(error))
+    }
+  }
+
   const actions = {
     edit: modalActions.edit,
     success: modalActions.success,
     delete: deleteAction,
     openChange: modalActions.openChange,
     extranet: handleExtranetAction,
+    done: handleDoneAction,
   }
   return (
     <div className="mx-auto max-w-5xl rounded-lg pt-10 shadow">

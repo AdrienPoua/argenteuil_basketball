@@ -29,5 +29,6 @@ module.exports = {
   },
   experimental: {
     taint: true,
+    serverComponentsExternalPackages: ['@sparticuz/chromium', 'puppeteer'],
   },
 }

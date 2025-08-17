@@ -17,6 +17,7 @@ export enum TarifCategory {
   U18 = 'U18',
   U21 = 'U21',
   SENIORS = 'Seniors',
+  VETERANS = 'Vétérans',
   LOISIR = 'Loisir',
   'Licence Pret (T)' = 'Licence Pret (T)',
   'Licence non joueur' = 'Licence non joueur',

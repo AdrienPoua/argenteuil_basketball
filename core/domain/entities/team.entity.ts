@@ -95,6 +95,7 @@ export enum Category {
   U18 = 'U18',
   U21 = 'U21',
   Seniors = 'Seniors',
+  Veterans = 'Vétérans',
   Loisir = 'Loisir',
 }
 

@@ -177,6 +177,7 @@ export type InscriptionsTableProps = {
     edit: (inscription: InscriptionEntity) => void
     delete: (id: string) => void
     extranet: (inscription: InscriptionEntity) => void
+    done: (id: string) => void
   }
   loadingExtranet: string | null
 }
