@@ -185,11 +185,11 @@ const SessionCard = ({ team, day, time }: { team: TeamType; day: string; time: s
       key={team.id}
       className={`mb-1 rounded border-l-4 border-secondary bg-primary/10 p-2 text-xs text-primary transition-transform duration-200 hover:scale-105`}
     >
-      <div className="flex flex-col gap-1 justify-between items-center">
-        <Badge className="text-xs px-3 w-full justify-center py-0.5">{team.name}</Badge>
-      <div className="text-xs underline underline-offset-2 text-center  font-bold">
-        {session?.start}-{session?.end}
-      </div>
+      <div className="flex flex-col items-center justify-between gap-1">
+        <Badge className="w-full justify-center px-3 py-0.5 text-xs">{team.name}</Badge>
+        <div className="text-center text-xs font-bold underline underline-offset-2">
+          {session?.start}-{session?.end}
+        </div>
         <div className=""> {gymnases.get(session.gymnase_id) ?? ''}</div>
       </div>
     </div>
