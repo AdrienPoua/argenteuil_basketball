@@ -14,35 +14,35 @@ type Team = ReturnType<TeamEntity['toObject']>
 
 type TeamCardProps = {
   team: Team
-  main?: boolean
   gymnases: Gymnase[]
 }
 
-export function TeamCard({ team, main = false, gymnases }: Readonly<TeamCardProps>) {
+export function TeamCard({ team, gymnases }: Readonly<TeamCardProps>) {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   return (
-    <>
+    <div className="relative size-full">
       <button
         className={cn(
-          'flex h-full w-full cursor-pointer flex-col rounded-2xl',
-          'group relative overflow-hidden',
+          'flex size-full min-w-full cursor-pointer flex-col rounded-2xl',
+          'group overflow-hidden',
           'bg-white shadow-lg',
           'transition-all duration-300 hover:-translate-y-1 hover:shadow-xl',
         )}
         onClick={() => setIsModalOpen(true)}
       >
-        <div className={cn('relative h-80 overflow-hidden', main && 'h-full')}>
+        <div className={cn('relative h-[20rem] min-h-[20rem] w-full overflow-hidden')}>
           <Image
             src={team.image || '/images/default/coach.avif'}
             alt={team.name}
-            fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            width={1000}
+            height={1000}
+            className="size-full min-h-full min-w-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/30" />
-          <div className="absolute bottom-4 left-4 right-4">
-            <h3 className="mb-2 line-clamp-2 text-xl font-bold text-white">{team.name}</h3>
-          </div>
+          <h3 className="absolute bottom-4 left-4 right-4 mb-2 line-clamp-2 text-xl font-bold text-white">
+            {team.name}
+          </h3>
         </div>
 
         {/* Content - using flex-1 to push footer to bottom */}
@@ -62,7 +62,7 @@ export function TeamCard({ team, main = false, gymnases }: Readonly<TeamCardProp
               <Clock className="h-4 w-4" />
               <span className="font-medium text-background">Entraînements</span>
             </div>
-            <div className={cn('space-y-1', main && 'flex gap-5')}>
+            <div className={cn('space-y-1')}>
               {team.sessions.map((session) => (
                 <div
                   key={session.id}
@@ -106,7 +106,7 @@ export function TeamCard({ team, main = false, gymnases }: Readonly<TeamCardProp
         </div>
       </button>
       <CustomDialog team={team} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
-    </>
+    </div>
   )
 }
 
@@ -121,21 +121,15 @@ const CustomDialog = ({
 }) => {
   return (
     <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-      <DialogContent className="w-full overflow-hidden rounded-xl border-none p-0">
+      <DialogContent className="overflow-hidden rounded-xl border-none p-0">
         <div className="relative">
-          <button
-            onClick={() => setIsModalOpen(false)}
-            className="absolute right-4 top-4 z-10 rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-black/70"
-          >
-            <X className="h-4 w-4" />
-          </button>
-          <div className="relative aspect-video w-full">
+          <div className="relative">
             <Image
               src={team.image || '/images/default/equipes.avif'}
               alt={team.name}
               width={1500}
               height={1500}
-              className="object-cover"
+              className="object-contain"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
           </div>

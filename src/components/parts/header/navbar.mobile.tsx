@@ -146,7 +146,7 @@ export default function MobileNav() {
               pathname.startsWith('/inscriptions') && 'text-primary',
             )}
           >
-            📄 <span className="text-xs">inscriptions</span>
+            ✒️ <span className="text-xs">inscriptions</span>
           </Link>
           <Link
             href="/plannings/matchs"

@@ -45,7 +45,7 @@ export default function VueJour({ teams }: Readonly<PropsType>) {
         return (
           <Card key={day}>
             <CardHeader className="p-4 pb-3 sm:p-6">
-              <CardTitle className="flex items-center justify-center rounded-lg bg-primary py-3 text-lg font-bold uppercase text-foreground">
+              <CardTitle className="flex items-center justify-center rounded-lg bg-primary py-3 font-bold uppercase text-foreground md:text-lg">
                 {day}
               </CardTitle>
             </CardHeader>

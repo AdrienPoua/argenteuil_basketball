@@ -63,10 +63,10 @@ export const TarifCard = ({ tarif, index }: Readonly<PropsType>) => {
         {/* Price */}
         <div className="mb-2 flex items-center justify-between sm:mb-3">
           <div className="flex items-center">
-            <div className="mr-2 h-4 w-4 text-gray-500 sm:h-5 sm:w-5">
-              <Euro />
+            <div className="flex items-center justify-center gap-2 text-gray-600">
+              <Euro className="h-4 w-4 md:h-5 md:w-5" />
+              <p className="text-xs md:text-base">Cotisation annuelle</p>
             </div>
-            <span className="text-xs text-gray-600 sm:text-sm">Cotisation annuelle</span>
           </div>
           <div className="font-secondary text-2xl font-bold text-secondary transition-transform duration-300 group-hover:scale-110 sm:text-3xl">
             {tarif.price}€
@@ -75,10 +75,12 @@ export const TarifCard = ({ tarif, index }: Readonly<PropsType>) => {
 
         <div className="flex items-center justify-between">
           <div className="flex items-center">
-            <div className="mr-2 h-4 w-4 text-gray-500 sm:h-5 sm:w-5">
-              <Euro />
+            <div className="flex items-center">
+              <div className="flex items-center justify-center gap-2 text-gray-600">
+                <Euro className="h-4 w-4 md:h-5 md:w-5" />
+                <p className="text-xs md:text-base">Frais de mutation</p>
+              </div>
             </div>
-            <span className="text-xs text-gray-600 sm:text-sm">Frais de mutation</span>
           </div>
           <div className="font-secondary text-2xl font-bold text-secondary transition-transform duration-300 group-hover:scale-110 sm:text-3xl">
             {tarif.mutation_price}€

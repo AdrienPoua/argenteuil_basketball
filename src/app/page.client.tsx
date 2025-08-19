@@ -59,11 +59,11 @@ const Hero = () => {
             Nos équipes
           </Link>
           <Link
-            href="/plannings/matchs"
+            href="/inscriptions/guide"
             className="flex items-center justify-center gap-2 rounded-lg bg-white px-6 py-3 text-gray-900 transition-all hover:bg-gray-100"
           >
             <Calendar size={20} />
-            Calendrier des matchs
+            Inscriptions
           </Link>
         </div>
       </div>

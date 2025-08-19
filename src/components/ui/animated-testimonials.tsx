@@ -163,12 +163,12 @@ export const AnimatedTestimonials = ({ data, autoplay = false }: Readonly<PropsT
               )}
             </div>
             {members[active].role.map((role) => (
-              <p key={role} className="text-base text-foreground sm:text-lg md:text-xl">
+              <p key={role} className="text-xs text-foreground md:text-xl">
                 {description[role as keyof typeof description]}
               </p>
             ))}
           </motion.div>
-          <div className="flex gap-4 pt-6 sm:pt-8 md:pt-10 lg:pt-0">
+          <div className="flex gap-4 pt-2 md:pt-10 lg:pt-0">
             <motion.button
               onClick={handlePrev}
               className="group/button flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 dark:bg-neutral-800"

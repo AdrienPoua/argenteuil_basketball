@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/core/shared/utils/cn'
 import { toast } from 'sonner'
+import { useState } from 'react'
 
 interface Team {
   id: string
@@ -35,6 +36,8 @@ interface CoachCardProps {
 }
 
 export default function CoachCard({ coach }: Readonly<CoachCardProps>) {
+  const [imageError, setImageError] = useState(false)
+
   const onEmailClick = () => {
     navigator.clipboard.writeText(coach.email)
     toast.success('Email copié dans le presse-papiers')
@@ -44,44 +47,45 @@ export default function CoachCard({ coach }: Readonly<CoachCardProps>) {
     toast.success('Numéro de téléphone copié dans le presse-papiers')
   }
   return (
-    <div className="group relative h-full w-full overflow-hidden rounded-2xl border border-border/50 bg-gradient-to-br from-background via-background to-muted/10 p-8 shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/10">
+    <div className="group relative h-full w-full overflow-hidden rounded-2xl border border-border/50 bg-gradient-to-br from-background via-background to-muted/10 p-4 shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/10 sm:p-6 lg:p-8">
       <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-primary/5 to-accent/10 opacity-0 transition-all duration-500 group-hover:opacity-100" />
       <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 opacity-0 blur-sm transition-all duration-500 group-hover:opacity-50" />
-      {/* Badge Coach */}
-      <Badge className={cn('absolute right-6 top-6 z-10 text-xs font-medium shadow-sm')}>
-        Entraîneur
-      </Badge>
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center space-y-6">
+      <div className="relative z-10 flex flex-col items-center space-y-4 sm:space-y-5 lg:space-y-6">
         {/* Large Avatar with enhanced effects */}
         <div className="relative">
           <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary/30 to-accent/30 opacity-0 blur-lg transition-all duration-500 group-hover:scale-110 group-hover:opacity-70" />
 
-          <Avatar className="relative h-32 w-32 border-4 border-primary/20 shadow-xl transition-all duration-500 group-hover:scale-110 group-hover:border-primary/50 group-hover:shadow-2xl">
+          <Avatar className="sm:border-3 relative h-20 w-20 border-2 border-primary/20 shadow-xl transition-all duration-500 group-hover:scale-110 group-hover:border-primary/50 group-hover:shadow-2xl sm:h-24 sm:w-24 lg:h-32 lg:w-32 lg:border-4">
             <AvatarImage
-              src={coach.image ?? '/placeholder.svg'}
+              src={
+                imageError
+                  ? '/images/default/avatar.png'
+                  : (coach.image ?? '/images/default/avatar.png')
+              }
               className="object-cover transition-all duration-500 group-hover:scale-105"
+              onError={() => setImageError(true)}
             />
-            <AvatarFallback className="bg-gradient-to-br from-primary/30 to-accent/30 text-2xl font-bold text-primary">
+            <AvatarFallback className="bg-gradient-to-br from-primary/30 to-accent/30 text-lg font-bold text-primary sm:text-xl lg:text-2xl">
               {coach.first_name?.charAt(0) ?? coach.last_name?.charAt(0) ?? 'E'}
             </AvatarFallback>
           </Avatar>
 
           {/* Enhanced online indicator */}
-          <div className="absolute -bottom-2 -right-2 h-6 w-6 rounded-full border-4 border-background bg-green-500 opacity-0 shadow-lg transition-all duration-500 group-hover:scale-110 group-hover:opacity-100">
-            <div className="absolute inset-1 animate-pulse rounded-full bg-green-400" />
+          <div className="sm:border-3 absolute -bottom-1 -right-1 h-4 w-4 rounded-full border-2 border-background bg-green-500 opacity-0 shadow-lg transition-all duration-500 group-hover:scale-110 group-hover:opacity-100 sm:-bottom-2 sm:-right-2 sm:h-5 sm:w-5 lg:h-6 lg:w-6 lg:border-4">
+            <div className="absolute inset-0.5 animate-pulse rounded-full bg-green-400 sm:inset-1" />
           </div>
         </div>
 
         {/* Name with enhanced typography */}
-        <div className="space-y-2 text-center">
-          <h3 className="text-2xl font-bold text-foreground transition-all duration-300 group-hover:scale-105 group-hover:text-primary">
+        <div className="space-y-1 text-center sm:space-y-2">
+          <h3 className="text-lg font-bold text-foreground transition-all duration-300 group-hover:scale-105 group-hover:text-primary sm:text-xl lg:text-2xl">
             {coach.first_name}
           </h3>
 
           {coach.last_name && (
-            <p className="text-base font-medium text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
+            <p className="text-sm font-medium text-muted-foreground transition-colors duration-300 group-hover:text-foreground sm:text-base">
               {coach.last_name}
             </p>
           )}
@@ -89,26 +93,26 @@ export default function CoachCard({ coach }: Readonly<CoachCardProps>) {
 
         {/* Teams Section */}
         {coach.teams && coach.teams.length > 0 && (
-          <div className="w-full space-y-3">
-            <div className="flex items-center justify-center gap-2 text-sm font-medium text-primary">
-              <Users className="h-4 w-4" />
+          <div className="w-full space-y-2 sm:space-y-3">
+            <div className="flex items-center justify-center gap-2 text-xs font-medium text-primary sm:text-sm">
+              <Users className="h-3 w-3 sm:h-4 sm:w-4" />
               <span>Équipes entraînées</span>
             </div>
 
             {/* Teams details */}
-            <div className="space-y-2">
+            <div className="space-y-1.5 sm:space-y-2">
               {coach.teams.slice(0, 3).map((team) => (
-                <div key={team.id} className="rounded-lg bg-primary/10 p-3 text-sm">
-                  <div className="flex items-center justify-between">
-                    <span className="font-medium">{team.name}</span>
-                    <div className="flex gap-1">
-                      <Badge variant="secondary" className="font-secondary text-xs">
-                        {team.category.join(' & ')}
-                      </Badge>
-                      <Badge variant="outline" className="font-secondary text-xs">
-                        {team.level}
-                      </Badge>
-                    </div>
+                <div
+                  key={team.id}
+                  className="rounded-lg bg-primary/10 p-2 text-xs sm:p-3 sm:text-sm"
+                >
+                  <div className="flex items-center justify-center gap-2">
+                    <Badge variant="secondary" className="font-secondary text-xs">
+                      {team.category.join(' & ')}
+                    </Badge>
+                    <Badge variant="outline" className="font-secondary text-xs">
+                      {team.level}
+                    </Badge>
                   </div>
                 </div>
               ))}
@@ -123,22 +127,22 @@ export default function CoachCard({ coach }: Readonly<CoachCardProps>) {
         )}
 
         {/* Enhanced contact info */}
-        <div className="w-full space-y-4">
+        <div className="w-full space-y-3 sm:space-y-4">
           <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent" />
 
-          <div className="space-y-3">
+          <div className="space-y-2 sm:space-y-3">
             {coach.contact_privacy.showEmail && coach.email && (
-              <div className="group/item flex cursor-default items-center justify-center space-x-3 rounded-lg bg-primary/10 p-3 text-sm transition-all duration-300 hover:scale-105 hover:bg-muted/50">
-                <Mail className="h-4 w-4" />
-                <button className="font-secondary" onClick={onEmailClick}>
+              <div className="group/item flex cursor-pointer items-center justify-center space-x-2 rounded-lg bg-primary/10 p-2 text-xs transition-all duration-300 hover:scale-105 hover:bg-muted/50 sm:space-x-3 sm:p-3 sm:text-sm">
+                <Mail className="h-3 w-3 flex-shrink-0 sm:h-4 sm:w-4" />
+                <button className="min-w-0 truncate font-secondary" onClick={onEmailClick}>
                   {coach.email}
                 </button>
               </div>
             )}
 
             {coach.contact_privacy.showPhone && coach.phone && (
-              <div className="group/item flex items-center justify-center space-x-3 rounded-lg bg-primary/10 p-3 text-sm transition-all duration-300 hover:scale-105 hover:bg-muted/50">
-                <Phone className="h-4 w-4" />
+              <div className="group/item flex cursor-pointer items-center justify-center space-x-2 rounded-lg bg-primary/10 p-2 text-xs transition-all duration-300 hover:scale-105 hover:bg-muted/50 sm:space-x-3 sm:p-3 sm:text-sm">
+                <Phone className="h-3 w-3 flex-shrink-0 sm:h-4 sm:w-4" />
                 <button className="font-secondary" onClick={onPhoneClick}>
                   {coach.phone}
                 </button>

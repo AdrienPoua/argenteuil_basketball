@@ -182,20 +182,9 @@ export function InscriptionForm({ setOpen }: Readonly<PropsType>) {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent className="font-secondary">
-                  <SelectItem value={'RENOUVELLEMENT'}>
-                    Renouvellement : J&apos;étais au club la saison dernière{' '}
-                  </SelectItem>
-                  <SelectItem value={'MUTATION'}>
-                    {' '}
-                    Mutation : J&apos;étais dans un autre club la saison dernière{' '}
-                  </SelectItem>
-                  <SelectItem value={'NOUVELLE_LICENCE'}>
-                    Nouvelle licence : Je n&apos;ai jamais eu de licence en club
-                  </SelectItem>
-                  <SelectItem value={'RENOUVELLEMENT_SANS_MUTATION'}>
-                    Renouvellement sans mutation : J&apos;ai déjà eu une licence, mais pas
-                    l&apos;année dernière
-                  </SelectItem>
+                  <SelectItem value={'NOUVELLE_LICENCE'}>Nouvelle licence</SelectItem>
+                  <SelectItem value={'RENOUVELLEMENT'}>Renouvellement</SelectItem>
+                  <SelectItem value={'MUTATION'}>Mutation</SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />
@@ -229,7 +218,7 @@ export function InscriptionForm({ setOpen }: Readonly<PropsType>) {
           )}
         />
         <Button type="submit" className="w-full">
-          Envoyer la pré-inscription
+          Envoyer
         </Button>
       </form>
     </Form>

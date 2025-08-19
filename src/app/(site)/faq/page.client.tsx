@@ -46,7 +46,7 @@ export default function FaqComponents({ faq }: Readonly<PropsType>) {
               <div key={item.id} className="group relative">
                 <Accordion type="single" collapsible className="w-full">
                   <AccordionItem value={item.id} className="border-none">
-                    <AccordionTrigger className="group/trigger bg-gradient-to-r from-primary via-primary/80 to-primary px-6 py-4 font-secondary hover:no-underline">
+                    <AccordionTrigger className="group/trigger rounded-t-lg bg-gradient-to-r from-primary via-primary/80 to-primary px-6 py-4 font-secondary hover:no-underline">
                       <div className="flex items-center gap-4 text-left">
                         {/* Question Number */}
                         <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-primary to-primary/80 text-sm font-bold text-white">
@@ -62,7 +62,7 @@ export default function FaqComponents({ faq }: Readonly<PropsType>) {
                       </div>
                     </AccordionTrigger>
 
-                    <AccordionContent className="bg-foreground px-6 pb-6">
+                    <AccordionContent className="rounded-b-lg bg-foreground px-6 pb-6">
                       <p className="pt-2 font-secondary leading-relaxed text-background">
                         {item.answer}
                       </p>

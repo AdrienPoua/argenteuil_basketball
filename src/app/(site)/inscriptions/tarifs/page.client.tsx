@@ -10,12 +10,8 @@ export default function TarifsClient({ tarifs }: Readonly<{ tarifs: Tarif[] }>) 
       <H1 className="mb-3 text-center sm:mb-4">Nos tarifs</H1>
       <div className="mb-6 rounded-xl bg-foreground p-8">
         <div className="relative z-10 space-y-2 font-secondary text-sm text-background sm:space-y-3 sm:text-lg">
-          <p className="">💡 L&apos; assurance A est incluse dans le tarif de la licence.</p>
-          <p className="">💡 Nous n&apos;avons pas de frais de mutation.</p>
-          <p className="">
-            💡 En plus du montant de la licence, les adultes qui travaillent peuvent prendre
-            l&apos;option B à 6,27€ ou B+C à 6.63€
-          </p>
+          <p>💡 L&apos; assurance A est incluse</p>
+          <p>💡 Nous n&apos;avons pas de frais de mutation.</p>
         </div>
       </div>
 
