@@ -13,7 +13,7 @@ export class SupabaseDocumentRepository
     super('documents', client, toDomain)
   }
 
-  async delete(id: string): Promise<void> {
+  public async delete(id: string): Promise<void> {
     const client = await this.getClient()
     const document = await this.findById(id)
     if (!document) {

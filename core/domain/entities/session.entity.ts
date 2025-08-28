@@ -48,7 +48,7 @@ export class SessionEntity implements Session {
     return this._created_at
   }
 
-  toObject(): Session {
+  public toObject(): Session {
     return {
       id: this.id,
       day: this.day,

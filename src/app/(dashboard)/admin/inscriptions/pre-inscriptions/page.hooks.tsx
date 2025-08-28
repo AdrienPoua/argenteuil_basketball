@@ -75,6 +75,11 @@ export function usePreInscriptionsPage({ inscriptions }: { inscriptions: Inscrip
             : '',
       },
       {
+        accessorKey: 'email',
+        header: () => <span>Email</span>,
+        cell: (info) => info.getValue(),
+      },
+      {
         accessorKey: 'typeInscription',
         header: () => <span>Type</span>,
         cell: (info) => getTypeLabel(info.row.original.typeInscription),
@@ -107,6 +112,12 @@ export function usePreInscriptionsPage({ inscriptions }: { inscriptions: Inscrip
     return inscriptionsEntities.filter((i) => String(i.status) === statusFilter)
   }, [inscriptionsEntities, statusFilter])
 
+  const filteredEmails = useMemo(() => {
+    return filteredData
+      .map((inscription) => inscription.email)
+      .filter((email) => email && email.trim() !== '')
+  }, [filteredData])
+
   const table = useReactTable({
     data: filteredData,
     columns,
@@ -119,7 +130,7 @@ export function usePreInscriptionsPage({ inscriptions }: { inscriptions: Inscrip
     manualSorting: false,
   })
 
-  return { statusFilter, setStatusFilter, filteredData, table }
+  return { statusFilter, setStatusFilter, filteredData, table, filteredEmails }
 }
 
 export function useInscriptionModal() {

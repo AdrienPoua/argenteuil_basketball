@@ -13,7 +13,7 @@ export class SupabaseMemberRepository
     super('members', client, toDomain)
   }
 
-  async findByRole(role: MemberRole): Promise<MemberEntity[]> {
+  public async findByRole(role: MemberRole): Promise<MemberEntity[]> {
     const client = await this.getClient()
     const { data, error } = await client
       .from(this.tableName)
@@ -23,7 +23,7 @@ export class SupabaseMemberRepository
     return data.map((item) => toDomain(item))
   }
 
-  async findDirigeants(): Promise<MemberEntity[]> {
+  public async findDirigeants(): Promise<MemberEntity[]> {
     const client = await this.getClient()
     const dirigeants = [
       MemberRole.President,
@@ -41,7 +41,7 @@ export class SupabaseMemberRepository
     return data.map((item) => toDomain(item))
   }
 
-  async findMembers(): Promise<MemberEntity[]> {
+  public async findMembers(): Promise<MemberEntity[]> {
     const client = await this.getClient()
     const { data, error } = await client
       .from(this.tableName)

@@ -98,7 +98,7 @@ export class InscriptionEntity implements Inscription {
     return this._created_at
   }
 
-  toObject(): Inscription {
+  public toObject(): Inscription {
     return {
       id: this._id,
       lastName: this._lastName,

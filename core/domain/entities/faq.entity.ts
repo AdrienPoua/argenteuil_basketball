@@ -41,7 +41,7 @@ export class FaqEntity implements Faq {
     return this._created_at
   }
 
-  toObject(): Faq {
+  public toObject(): Faq {
     return {
       id: this._id,
       question: this._question,

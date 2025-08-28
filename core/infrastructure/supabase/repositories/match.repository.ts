@@ -14,14 +14,14 @@ export class SupabaseMatchRepository
     super('matchs', client, toDomain)
   }
 
-  async createWithTeam(dto: CreateMatchDTO): Promise<MatchEntity> {
+  public async createWithTeam(dto: CreateMatchDTO): Promise<MatchEntity> {
     const client = await this.client
     const { data, error } = await client.from('matchs').insert(dto).select().single()
     if (error) throw error
     return toDomain(data)
   }
 
-  async findAllWithTeam(orderBy: string, orderDirection: string): Promise<MatchEntity[]> {
+  public async findAllWithTeam(orderBy: string, orderDirection: string): Promise<MatchEntity[]> {
     const client = await this.client
     const { data, error } = await client
       .from('matchs')
@@ -34,7 +34,7 @@ export class SupabaseMatchRepository
     return data.map(toDomain)
   }
 
-  async getWeeklyHomeMatch(): Promise<MatchEntity[]> {
+  public async getWeeklyHomeMatch(): Promise<MatchEntity[]> {
     const client = await this.client
     const today = new Date()
     const startOfWeek = new Date(today)
@@ -60,7 +60,7 @@ export class SupabaseMatchRepository
     return data.map(toDomain)
   }
 
-  async getUpcomingMatchs(): Promise<MatchEntity[]> {
+  public async getUpcomingMatchs(): Promise<MatchEntity[]> {
     const client = await this.client
     const today = new Date()
 

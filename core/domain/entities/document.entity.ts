@@ -49,7 +49,7 @@ export class DocumentEntity implements Document {
     return this._created_at
   }
   // Méthodes utiles conservées
-  getFormattedSize(): string {
+  public getFormattedSize(): string {
     if (this._size < 1024) {
       return `${this._size} octets`
     } else if (this._size < 1024 * 1024) {
@@ -59,7 +59,7 @@ export class DocumentEntity implements Document {
     }
   }
 
-  toObject(): Document {
+  public toObject(): Document {
     return {
       id: this._id,
       title: this._title,

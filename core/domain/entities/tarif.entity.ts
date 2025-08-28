@@ -70,7 +70,7 @@ export class TarifEntity implements Tarif {
     return this._created_at
   }
 
-  toObject(): Tarif {
+  public toObject(): Tarif {
     return {
       id: this._id,
       price: this._price,

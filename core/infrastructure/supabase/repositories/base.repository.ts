@@ -22,7 +22,7 @@ export abstract class SupabaseBaseRepository<Entity, DTO> implements BaseReposit
     return this.client instanceof Promise ? await this.client : this.client
   }
 
-  async findAll(sortBy?: string, order: 'asc' | 'desc' = 'asc'): Promise<Entity[]> {
+  public async findAll(sortBy?: string, order: 'asc' | 'desc' = 'asc'): Promise<Entity[]> {
     try {
       const client = await this.getClient()
       let query = client.from(this.tableName).select('*')
@@ -43,7 +43,7 @@ export abstract class SupabaseBaseRepository<Entity, DTO> implements BaseReposit
     }
   }
 
-  async findById(id: string): Promise<Entity | null> {
+  public async findById(id: string): Promise<Entity | null> {
     try {
       const client = await this.getClient()
       const { data, error } = await client.from(this.tableName).select('*').eq('id', id).single()
@@ -57,7 +57,7 @@ export abstract class SupabaseBaseRepository<Entity, DTO> implements BaseReposit
     }
   }
 
-  async create(input: Omit<DTO, 'id' | 'created_at'>): Promise<Entity> {
+  public async create(input: Omit<DTO, 'id' | 'created_at'>): Promise<Entity> {
     try {
       const client = await this.getClient()
       const { data: result, error } = await client
@@ -77,7 +77,7 @@ export abstract class SupabaseBaseRepository<Entity, DTO> implements BaseReposit
     }
   }
 
-  async update(input: Partial<DTO> & { id: string }): Promise<Entity> {
+  public async update(input: Partial<DTO> & { id: string }): Promise<Entity> {
     try {
       const client = await this.getClient()
       const { data, error } = await client
@@ -93,7 +93,7 @@ export abstract class SupabaseBaseRepository<Entity, DTO> implements BaseReposit
     }
   }
 
-  async upsert(input: Partial<DTO>): Promise<Entity> {
+  public async upsert(input: Partial<DTO>): Promise<Entity> {
     try {
       const client = await this.getClient()
       const { data, error } = await client.from(this.tableName).upsert(input).select().single()
@@ -104,7 +104,7 @@ export abstract class SupabaseBaseRepository<Entity, DTO> implements BaseReposit
     }
   }
 
-  async delete(id: string | string[]): Promise<void> {
+  public async delete(id: string | string[]): Promise<void> {
     try {
       const client = await this.getClient()
       await client
@@ -116,7 +116,7 @@ export abstract class SupabaseBaseRepository<Entity, DTO> implements BaseReposit
     }
   }
 
-  async createMany(inputs: Omit<DTO, 'id' | 'created_at'>[]): Promise<Entity[]> {
+  public async createMany(inputs: Omit<DTO, 'id' | 'created_at'>[]): Promise<Entity[]> {
     try {
       const client = await this.getClient()
       const { data, error } = await client.from(this.tableName).insert(inputs).select()
@@ -127,7 +127,7 @@ export abstract class SupabaseBaseRepository<Entity, DTO> implements BaseReposit
     }
   }
 
-  async updateMany(inputs: DTO[]): Promise<Entity[]> {
+  public async updateMany(inputs: DTO[]): Promise<Entity[]> {
     try {
       const client = await this.getClient()
       const { data, error } = await client.from(this.tableName).update(inputs).select()
@@ -138,7 +138,7 @@ export abstract class SupabaseBaseRepository<Entity, DTO> implements BaseReposit
     }
   }
 
-  async upsertMany(inputs: Partial<DTO>[]): Promise<Entity[]> {
+  public async upsertMany(inputs: Partial<DTO>[]): Promise<Entity[]> {
     try {
       const client = await this.getClient()
       const { data, error } = await client.from(this.tableName).upsert(inputs).select()

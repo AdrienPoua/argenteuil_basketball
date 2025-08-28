@@ -259,23 +259,6 @@ export class MatchEntity implements Match {
     return this._modification
   }
 
-  isHomeTeam(): boolean {
-    return this._idOrganismeEquipe1 === club.clubId
-  }
-
-  getScore(): string {
-    if (!this._joue) return '-'
-    return `${this._resultatEquipe1 ?? 0} - ${this._resultatEquipe2 ?? 0}`
-  }
-
-  getTeamName(): string {
-    return this.isHomeTeam() ? this._nomEquipe1 : this._nomEquipe2
-  }
-
-  getOpponentName(): string {
-    return this.isHomeTeam() ? this._nomEquipe2 : this._nomEquipe1
-  }
-
   get arbitre1(): string | null {
     return this._arbitre1
   }
@@ -304,7 +287,26 @@ export class MatchEntity implements Match {
     return this._team
   }
 
-  toObject() {
+  public getTeamName(): string {
+    return this.isHomeTeam() ? this._nomEquipe1 : this._nomEquipe2
+  }
+
+  public getOpponentName(): string {
+    return this.isHomeTeam() ? this._nomEquipe2 : this._nomEquipe1
+  }
+
+  public isHomeTeam(): boolean {
+    return this._idOrganismeEquipe1 === club.clubId
+  }
+
+  public getScore(): string {
+    if (!this._joue) return '-'
+    return `${this._resultatEquipe1 ?? 0} - ${this._resultatEquipe2 ?? 0}`
+  }
+
+
+
+  public toObject() {
     return {
       id: this._id,
       numero: this._numero,

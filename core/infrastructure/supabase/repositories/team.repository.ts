@@ -29,7 +29,7 @@ export class SupabaseTeamRepository
     this.supabaseSessionRepository = sessionRepository
   }
 
-  async createWithRelations(input: CreateTeamWithRelationsDTO): Promise<TeamEntity> {
+  public async createWithRelations(input: CreateTeamWithRelationsDTO): Promise<TeamEntity> {
     try {
       const client = await this.getClient()
       const { coachsIds, assistantsCoachIds, sessions, ...teamData } = input
@@ -56,7 +56,7 @@ export class SupabaseTeamRepository
     }
   }
 
-  async updateWithRelations(id: string, input: UpdateTeamWithRelationsDTO): Promise<TeamEntity> {
+  public async updateWithRelations(id: string, input: UpdateTeamWithRelationsDTO): Promise<TeamEntity> {
     try {
       const client = await this.getClient()
       const { coachsIds, assistantsCoachIds, sessions, ...teamData } = input
@@ -94,7 +94,7 @@ export class SupabaseTeamRepository
     }
   }
 
-  async upsertWithRelations(input: UpsertTeamWithRelationsDTO): Promise<TeamEntity> {
+  public async upsertWithRelations(input: UpsertTeamWithRelationsDTO): Promise<TeamEntity> {
     try {
       const client = await this.getClient()
       const { coachsIds, assistantsCoachIds, sessions, ...teamData } = input
@@ -129,7 +129,7 @@ export class SupabaseTeamRepository
     }
   }
 
-  async delete(id: string): Promise<void> {
+  public async delete(id: string): Promise<void> {
     try {
       const client = await this.getClient()
       const existingTeam = await this.findByIdWithRelations(id)
@@ -145,7 +145,7 @@ export class SupabaseTeamRepository
     }
   }
 
-  async findByIdWithRelations(id: string): Promise<TeamEntity> {
+  public async findByIdWithRelations(id: string): Promise<TeamEntity> {
     try {
       const client = await this.getClient()
       const { data, error } = await client
@@ -175,7 +175,7 @@ export class SupabaseTeamRepository
     }
   }
 
-  async findAllWithRelations(): Promise<TeamEntity[]> {
+  public async findAllWithRelations(): Promise<TeamEntity[]> {
     try {
       const client = await this.getClient()
 

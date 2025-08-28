@@ -34,7 +34,7 @@ export class TaskEntity implements Task {
     return this._created_at
   }
 
-  toObject(): Task {
+  public toObject(): Task {
     return {
       id: this._id,
       title: this._title,

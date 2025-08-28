@@ -6,7 +6,7 @@ import { createClient } from '../clients/client'
 export class SupabaseUserRepository implements UserRepository {
   private readonly supabaseClient = createClient()
 
-  async signIn(email: string, password: string): Promise<UserEntity | null> {
+  public async signIn(email: string, password: string): Promise<UserEntity | null> {
     try {
       const { data, error } = await this.supabaseClient.auth.signInWithPassword({
         email,
@@ -26,7 +26,7 @@ export class SupabaseUserRepository implements UserRepository {
     }
   }
 
-  async signOut(): Promise<void> {
+  public async signOut(): Promise<void> {
     try {
       const { error } = await this.supabaseClient.auth.signOut()
       if (error) throw error
@@ -35,7 +35,7 @@ export class SupabaseUserRepository implements UserRepository {
     }
   }
 
-  async getCurrentUser(): Promise<UserEntity | null> {
+  public async getCurrentUser(): Promise<UserEntity | null> {
     try {
       const { data, error } = await this.supabaseClient.auth.getSession()
       if (error) throw error

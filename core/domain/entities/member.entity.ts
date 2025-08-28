@@ -48,7 +48,7 @@ export class MemberEntity implements Member {
     return this._created_at
   }
 
-  toObject() {
+  public toObject() {
     return {
       id: this.id,
       first_name: this.first_name,

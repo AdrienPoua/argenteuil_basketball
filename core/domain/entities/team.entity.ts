@@ -69,7 +69,7 @@ export class TeamEntity implements Team {
     return [...this._competitions]
   }
 
-  toObject() {
+  public toObject() {
     return {
       id: this.id,
       name: this.name,

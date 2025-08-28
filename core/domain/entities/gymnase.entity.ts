@@ -48,7 +48,7 @@ export class GymnaseEntity implements Gymnase {
     return this._zipCode
   }
 
-  toObject(): Gymnase {
+  public toObject(): Gymnase {
     return {
       id: this._id,
       name: this._name,
