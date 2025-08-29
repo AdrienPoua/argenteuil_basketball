@@ -33,9 +33,10 @@ type PropsType = {
 
 export default function PreInscriptionsPage({ inscriptions: data }: Readonly<PropsType>) {
   const inscriptions = useMemo(() => data.map((inscription) => toDomain(inscription)), [data])
-  const { statusFilter, setStatusFilter, filteredData, table, filteredEmails } = usePreInscriptionsPage({
-    inscriptions,
-  })
+  const { statusFilter, setStatusFilter, filteredData, table, filteredEmails } =
+    usePreInscriptionsPage({
+      inscriptions,
+    })
   const { isDialogOpen, currentInscription, modalActions } = useInscriptionModal()
   const { deleteAction } = useInscriptionActions()
 
@@ -112,25 +113,25 @@ export default function PreInscriptionsPage({ inscriptions: data }: Readonly<Pro
   }
   return (
     <div className="rounded-lg pt-10 shadow">
-      <div className="flex flex-col gap-4 border-b  border-gray-200 px-6 py-4 md:flex-row md:items-center md:justify-between">
+      <div className="flex flex-col gap-4 border-b border-gray-200 px-6 py-4 md:flex-row md:items-center md:justify-between">
         <h2 className="text-lg font-semibold">Pré-inscriptions</h2>
         <CardHeader>
-        <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
-          <CardTitle className="flex items-center gap-2">
-            <Mail className="h-5 w-5" />
-            Adhérents ({filteredData.length})
-          </CardTitle>
+          <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+            <CardTitle className="flex items-center gap-2">
+              <Mail className="h-5 w-5" />
+              Adhérents ({filteredData.length})
+            </CardTitle>
 
-          <Button
-            onClick={handleCopyEmails}
-            className="flex items-center gap-2"
-            disabled={filteredEmails.length === 0}
-          >
-            <Copy className="h-4 w-4" />
-            Copier les emails ({filteredEmails.length})
-          </Button>
-        </div>
-      </CardHeader>
+            <Button
+              onClick={handleCopyEmails}
+              className="flex items-center gap-2"
+              disabled={filteredEmails.length === 0}
+            >
+              <Copy className="h-4 w-4" />
+              Copier les emails ({filteredEmails.length})
+            </Button>
+          </div>
+        </CardHeader>
         <StatusFilter statusFilter={statusFilter} setStatusFilter={setStatusFilter} />
       </div>
       <div>

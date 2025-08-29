@@ -304,8 +304,6 @@ export class MatchEntity implements Match {
     return `${this._resultatEquipe1 ?? 0} - ${this._resultatEquipe2 ?? 0}`
   }
 
-
-
   public toObject() {
     return {
       id: this._id,

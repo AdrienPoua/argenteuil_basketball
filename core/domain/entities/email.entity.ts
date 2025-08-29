@@ -16,7 +16,7 @@ export class EmailEntity implements Email {
   private readonly _cc?: string | string[]
   private readonly _bcc?: string | string[]
   private readonly _template: ReactNode
-  
+
   constructor(data: Email) {
     this._to = data.to
     this._subject = data.subject

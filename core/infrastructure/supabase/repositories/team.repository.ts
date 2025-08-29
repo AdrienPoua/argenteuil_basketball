@@ -56,7 +56,10 @@ export class SupabaseTeamRepository
     }
   }
 
-  public async updateWithRelations(id: string, input: UpdateTeamWithRelationsDTO): Promise<TeamEntity> {
+  public async updateWithRelations(
+    id: string,
+    input: UpdateTeamWithRelationsDTO,
+  ): Promise<TeamEntity> {
     try {
       const client = await this.getClient()
       const { coachsIds, assistantsCoachIds, sessions, ...teamData } = input
