@@ -192,30 +192,31 @@ const MatchRow = ({ match }: { match: MatchEntity }) => {
         </TableCell>
 
         <TableCell className="py-4">
-          <Badge className="mb-1 w-fit text-sm" variant="default">
-            {match.team?.name ?? '?'}
+          <Badge className="mb-1 w-fit text-sm">{match.team?.name || '?'}</Badge>
+        </TableCell>
+
+        <TableCell className="py-4">
+          <Badge className="w-fit text-sm" variant="secondary">
+            {match.getOpponentName()}
           </Badge>
-        </TableCell>
-
-        <TableCell className="py-4">
-          <div className="flex flex-col">
-            <Badge className="mb-1 w-fit text-sm" variant="secondary">
-              {match.getOpponentName()}
-            </Badge>
-            {match.isAmical && (
-              <div className="flex items-center gap-1">
-                <Badge className="mb-1 w-fit">{match.getTeamName()}</Badge>
-              </div>
-            )}
-          </div>
-        </TableCell>
-
-        <TableCell className="py-4">
-          {match.isHomeTeam() ? (
-            <Badge variant={match.isHomeTeam() ? 'default' : 'secondary'}>Domicile </Badge>
-          ) : (
-            <Badge variant="secondary">Extérieur</Badge>
+          {match.isAmical && (
+            <div className="flex items-center gap-1">
+              <Badge className="mb-1">{match.getTeamName()}</Badge>
+            </div>
           )}
+        </TableCell>
+
+        <TableCell>
+          {match.isHomeTeam() ? (
+            <Badge className="w-fit text-sm">Domicile </Badge>
+          ) : (
+            <Badge variant="secondary" className="w-fit text-sm">
+              Extérieur
+            </Badge>
+          )}
+        </TableCell>
+
+        <TableCell>
           <div className="mt-1 flex items-center text-sm text-muted-foreground">
             <MapPin className="mr-1 h-3 w-3" />
             {match.salle}
@@ -243,47 +244,36 @@ const MatchRow = ({ match }: { match: MatchEntity }) => {
 
       {/* Mobile view */}
       <TableRow className="lg:hidden">
-        <TableCell colSpan={5} className="p-0">
+        <TableCell>
           <div className="space-y-3 p-4">
             {/* Date et heure */}
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-center text-lg">
               <div className="flex items-center gap-2">
                 <Clock className="h-4 w-4 text-primary" />
                 <span className="font-semibold">{formatShortDate(match.date)}</span>
                 <span className="text-muted-foreground">à {formatTime(match.horaire)}</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <Trophy className="h-4 w-4 text-primary" />
-                <span className="text-sm font-bold">
-                  {match.resultatEquipe1} - {match.resultatEquipe2}
-                </span>
               </div>
             </div>
 
             {/* Équipes */}
             <div className="space-y-2">
               <div className="flex flex-wrap gap-2">
-                {match.team && (
-                  <Badge variant="default" className="text-xl">
-                    {match.team.name}
-                  </Badge>
+                <Badge  className="flex w-full justify-center text-sm">
+                  {match.team?.name ?? '?'}
+                </Badge>
+                {match.isAmical && (
+                  <Badge className="text-center text-xs">{match.getTeamName()}</Badge>
                 )}
-                {match.isAmical && <Badge className="text-xs">{match.getTeamName()}</Badge>}
               </div>
-              <Badge variant="secondary">{match.getOpponentName()}</Badge>
-            </div>
-
-            {/* Lieu */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-primary" />
-                <span className="text-sm">{match.salle}</span>
-              </div>
-              {match.isHomeTeam() ? (
-                <Badge>Domicile</Badge>
-              ) : (
-                <Badge variant="secondary">Extérieur</Badge>
-              )}
+              <Badge variant="secondary" className="flex w-full justify-center text-sm">
+                {match.getOpponentName()}
+              </Badge>
+              <Badge className="flex w-full justify-center text-sm">
+                {match.isHomeTeam() ? 'Domicile' : 'Extérieur'}
+              </Badge>
+              <Badge className="flex w-full justify-center bg-primary/50 text-sm">
+                {match.salle}
+              </Badge>
             </div>
 
             {/* Officiels */}
@@ -314,20 +304,20 @@ const WeekSection = ({ weekStart, matchs }: { weekStart: string; matchs: MatchEn
   endDate.setDate(startDate.getDate() + 6)
 
   const formatWeekRange = () => {
-    const start = startDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })
-    const end = endDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })
+    const start = startDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })
+    const end = endDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })
     return `: ${start} - ${end}`
   }
 
   return (
-    <Card className="mb-4 border-primary/20 shadow-md sm:mb-6">
-      <CardHeader className="custom-gradient py-2 text-background sm:py-3">
+    <Card className="border-primary/20 mb-4 shadow-md sm:mb-6 overflow-hidden">
+      <CardHeader className="custom-gradient text-background py-2 sm:py-3">
         <CardTitle className="flex items-center text-sm font-semibold sm:text-base lg:text-lg">
           <Users className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
           <span className="hidden sm:inline">Semaine du </span>
           <span className="sm:hidden">Sem. </span>
           {formatWeekRange()}
-          <Badge variant="secondary" className="ml-auto bg-background/20 text-xs text-background">
+          <Badge variant="secondary" className="bg-background/20 text-background ml-auto text-xs">
             {matchs.length} match{matchs.length > 1 ? 's' : ''}
           </Badge>
         </CardTitle>
@@ -341,9 +331,9 @@ const WeekSection = ({ weekStart, matchs }: { weekStart: string; matchs: MatchEn
                 <TableHead className="font-semibold">Date & Heure</TableHead>
                 <TableHead className="font-semibold">Catégorie</TableHead>
                 <TableHead className="font-semibold">Adversaire</TableHead>
-                <TableHead className="font-semibold">Lieu & Salle</TableHead>
+                <TableHead className="font-semibold">Lieu</TableHead>
+                <TableHead className="font-semibold">Salle</TableHead>
                 <TableHead className="text-center font-semibold">Score</TableHead>
-                <TableHead className="font-semibold">Officiels</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
