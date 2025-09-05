@@ -22,7 +22,6 @@ export class SendContactEmailUseCase implements BaseUseCase<SendContactEmailUseC
       const email = new EmailEntity({
         from: club.emails.noreply,
         to: club.emails.contact,
-        bcc: 'adrien.poua@gmail.com',
         subject: 'Nouveau message de contact',
         template: <ContactEmail name={data.name} email={data.email} message={data.message} />,
       })

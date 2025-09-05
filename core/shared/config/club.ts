@@ -1,5 +1,5 @@
 const clubConfig = {
-  codeOrganisme: 'IDF0078050',
+  codeOrganisme: 'IDF0095019',
   clubId: 11851,
   name: 'Argenteuil Basketball',
   domain: 'https://argenteuilbasketball.com/',

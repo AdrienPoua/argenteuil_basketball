@@ -14,7 +14,6 @@ export class SendReservationEmailUseCase implements BaseUseCase<MatchEntity[], v
       const email = new EmailEntity({
         from: club.emails.noreply,
         to: club.contact.email,
-        bcc: 'adrien.poua@gmail.com',
         subject: 'Récapitulatif des matchs à venir',
         template: <ReservationEmail matchs={matchs} />,
       })
